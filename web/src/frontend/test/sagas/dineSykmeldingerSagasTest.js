@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { get } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
-import { hentDineSykmeldinger } from '../../js/sagas/dineSykmeldingerSagas';
+import { hentSykmeldingerHvisIkkeHentet } from '../../js/sagas/dineSykmeldingerSagas';
 import * as actiontyper from '../../js/actions/actiontyper';
 
 describe('dineSykmeldingerSagas', () => {
@@ -9,7 +9,7 @@ describe('dineSykmeldingerSagas', () => {
         REST_ROOT: 'http://tjenester.nav.no/syforest',
     };
 
-    const generator = hentDineSykmeldinger();
+    const generator = hentSykmeldingerHvisIkkeHentet();
 
     it('Skal dispatche HENTER_DINE_SYKMELDINGER', () => {
         const nextPut = put({ type: actiontyper.HENTER_DINE_SYKMELDINGER });

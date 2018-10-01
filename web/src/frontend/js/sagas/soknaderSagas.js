@@ -1,5 +1,4 @@
-import { call, fork, put, select } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from 'digisyfo-npm';
 import { browserHistory } from 'react-router';
 import { initialize } from 'redux-form';
@@ -148,44 +147,46 @@ export function* opprettUtkastTilKorrigering(action) {
 }
 
 function* watchHentSoknader() {
-    yield* takeEvery(HENT_SOKNADER_FORESPURT, hentSoknader);
+    yield takeEvery(HENT_SOKNADER_FORESPURT, hentSoknader);
 }
 
 function* watchSendSoknad() {
-    yield* takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
+    yield takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
 }
 
 function* watchSykmeldingSendt() {
-    yield* takeEvery(SYKMELDING_BEKREFTET, hentSoknader);
+    yield takeEvery(SYKMELDING_BEKREFTET, hentSoknader);
 }
 
 function* watchAvbrytSoknad() {
-    yield* takeEvery(AVBRYT_SOKNAD_FORESPURT, avbrytSoknad);
+    yield takeEvery(AVBRYT_SOKNAD_FORESPURT, avbrytSoknad);
 }
 
 function* watchGjenapneSoknad() {
-    yield* takeEvery(GJENAPNE_SOKNAD_FORESPURT, gjenapneSoknad);
+    yield takeEvery(GJENAPNE_SOKNAD_FORESPURT, gjenapneSoknad);
 }
 
 function* watchOpprettSoknadUtland() {
-    yield* takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
+    yield takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
 }
 
 function* watchEndringSoknad() {
-    yield* takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
+    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
 }
 
 function* watchOpprettUtkastTilKorrigering() {
-    yield* takeEvery(OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT, opprettUtkastTilKorrigering);
+    yield takeEvery(OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT, opprettUtkastTilKorrigering);
 }
 
 export default function* soknaderSagas() {
-    yield fork(watchHentSoknader);
-    yield fork(watchSendSoknad);
-    yield fork(watchSykmeldingSendt);
-    yield fork(watchAvbrytSoknad);
-    yield fork(watchOpprettSoknadUtland);
-    yield fork(watchEndringSoknad);
-    yield fork(watchGjenapneSoknad);
-    yield fork(watchOpprettUtkastTilKorrigering);
+    yield all([
+        fork(watchHentSoknader),
+        fork(watchSendSoknad),
+        fork(watchSykmeldingSendt),
+        fork(watchAvbrytSoknad),
+        fork(watchOpprettSoknadUtland),
+        fork(watchEndringSoknad),
+        fork(watchGjenapneSoknad),
+        fork(watchOpprettUtkastTilKorrigering),
+    ]);
 }

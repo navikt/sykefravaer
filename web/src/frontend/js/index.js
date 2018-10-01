@@ -67,6 +67,7 @@ import './logging';
 import { hentUnleashToggles } from './actions/unleashToggles_actions';
 import metrikker from './reducers/metrikker';
 import { hentSoknader } from './actions/soknader_actions';
+import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 
 const rootReducer = combineReducers({
     arbeidsforhold,
@@ -132,6 +133,7 @@ store.dispatch(hentVedlikehold());
 store.dispatch(forlengInnloggetSesjon());
 store.dispatch(hentUnleashToggles());
 store.dispatch(hentSoknader());
+store.dispatch(hentDineSykmeldinger());
 // </OBS>
 
 setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()); });

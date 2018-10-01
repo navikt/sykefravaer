@@ -24,7 +24,6 @@ export class Container extends Component {
             skalHenteMote,
             skalHenteSykepengesoknader,
             skalHenteLedere,
-            skalHenteDineSykmeldinger,
             skalHenteSykeforloep,
             skalHenteOppfolgingsdialoger,
             skalHenteSoknader,
@@ -39,9 +38,7 @@ export class Container extends Component {
             actions.hentSykepengesoknader();
         }
 
-        if (skalHenteDineSykmeldinger) {
-            actions.hentDineSykmeldinger();
-        }
+        actions.hentDineSykmeldinger();
 
         if (skalHenteLedere) {
             actions.hentLedere();

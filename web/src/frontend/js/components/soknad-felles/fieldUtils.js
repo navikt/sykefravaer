@@ -13,8 +13,8 @@ export const genererParseForEnkeltverdi = (sporsmalsid) => {
     };
 };
 
-export const genererParseForCheckbox = (id) => {
-    const parse = genererParseForEnkeltverdi(id);
+export const genererParseForCheckbox = (sporsmalsId) => {
+    const parse = genererParseForEnkeltverdi(sporsmalsId);
     return (value) => {
         const checkedVerdi = value ? CHECKED : UNCHECKED;
         return parse(checkedVerdi);

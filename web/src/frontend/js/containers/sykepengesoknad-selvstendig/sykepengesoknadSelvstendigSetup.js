@@ -6,6 +6,7 @@ import { sendSoknad } from '../../actions/soknader_actions';
 import { getSykepengesoknadSelvstendigSkjemanavn } from '../../enums/skjemanavn';
 import { erForsteSoknad } from '../../selectors/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
+import fraBackendsoknadTilInitiellSoknad from '../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
 
 export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
@@ -37,11 +38,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
-
     return {
-        initialValues: {
-            id: soknad.id,
-        },
+        initialValues: fraBackendsoknadTilInitiellSoknad(soknad),
         erForsteSoknad: erForsteSoknad(state),
         ...mapStateToProps(state, ownProps),
     };

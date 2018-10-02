@@ -8,7 +8,7 @@ import * as actions from '../actions/soknader_actions';
 import {
     AVBRYT_SYKEPENGESOKNAD_FORESPURT,
     HENT_SOKNADER_FORESPURT,
-    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
     SOKNAD_ENDRET,
     SYKMELDING_BEKREFTET,
@@ -53,6 +53,7 @@ export function* sendSoknad(action) {
             yield put(actions.senderSoknad(action.soknadId));
             yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
             yield put(actions.soknadSendt(action.soknad));
+            yield put(actions.hentSoknader());
             gaTilKvittering(action.soknad.id);
         } else {
             log('Ukjent søknadstype - kan ikke sende.');
@@ -116,6 +117,19 @@ export function* opprettSoknadUtland() {
     }
 }
 
+export function* opprettUtkastTilKorrigering(action) {
+    yield put(actions.oppretterKorrigering());
+    try {
+        const data = yield call(post, `${hentApiUrl()}/soknader/${action.sykepengesoknadsId}/korriger`);
+        yield put(actions.korrigeringOpprettet(data));
+        browserHistory.push(`/sykefravaer/soknader/${data.id}`);
+    } catch (e) {
+        log(e);
+        logger.error(`Kunne ikke opprette utkast til korrigering. URL: ${window.location.href} - ${e.message}`);
+        yield put(actions.opprettUtkastTilKorrigeringFeilet());
+    }
+}
+
 function* watchHentSoknader() {
     yield* takeEvery(HENT_SOKNADER_FORESPURT, hentSoknader);
 }
@@ -140,6 +154,10 @@ function* watchEndringSoknad() {
     yield* takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
 }
 
+function* watchOpprettUtkastTilKorrigering() {
+    yield* takeEvery(OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT, opprettUtkastTilKorrigering);
+}
+
 export default function* soknaderSagas() {
     yield fork(watchHentSoknader);
     yield fork(watchSendSoknad);
@@ -147,4 +165,5 @@ export default function* soknaderSagas() {
     yield fork(watchAvbrytSykepengeoknad);
     yield fork(watchOpprettSoknadUtland);
     yield fork(watchEndringSoknad);
+    yield fork(watchOpprettUtkastTilKorrigering);
 }

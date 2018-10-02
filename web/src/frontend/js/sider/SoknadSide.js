@@ -18,7 +18,7 @@ import OppsummeringSelvstendigContainer from '../containers/sykepengesoknad-selv
 import KvitteringSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
-import { NY, SENDT, TIL_SENDING } from '../enums/soknadstatuser';
+import { KORRIGERT, NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../propTypes/index';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
@@ -106,18 +106,20 @@ SykepengeskjemaForSelvstendige.propTypes = {
 export const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
     const { soknad, sti } = props;
     switch (soknad.status) {
-        case NY: {
+        case NY:
+        case UTKAST_TIL_KORRIGERING: {
             return <SykepengeskjemaForSelvstendige {...props} />;
         }
         case TIL_SENDING:
-        case SENDT: {
+        case SENDT:
+        case KORRIGERT: {
             if (beregnSteg(sti) === KVITTERING) {
                 return <KvitteringSelvstendigContainer {...props} />;
             }
             return <SendtSoknadSelvstendig {...props} />;
         }
         default: {
-            return <Feilmelding />;
+            return <Feilmelding melding="feil status" />;
         }
     }
 };

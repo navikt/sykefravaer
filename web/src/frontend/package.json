@@ -25,7 +25,7 @@
     "nais-build": "npm-run-all clean deploy images filmtekster",
     "start": "node ./server.js",
     "startdev": "node ./server.js local",
-    "startmock": "node restmock/app.js",
+    "startmock": "node ./localserver",
     "scripts:watch": "webpack-dev-server --inline --port 9090",
     "dev": "npm-run-all clean images filmtekster scripts:watch"
   },
@@ -39,7 +39,7 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "babel-loader": "7.1.4",
+    "babel-loader": "7.1.5",
     "babel-polyfill": "6.26.0",
     "classnames": "2.2.5",
     "digisyfo-npm": "12.1.1",
@@ -140,6 +140,7 @@
     "mini-css-extract-plugin": "0.4.2",
     "mkdirp": "0.5.1",
     "mocha": "4.0.0",
+    "moment": "2.22.2",
     "mustache": "2.2.1",
     "ncp": "2.0.0",
     "npm-run-all": "4.1.1",

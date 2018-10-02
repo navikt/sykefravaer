@@ -1,13 +1,15 @@
 import React from 'react';
 import {
-    getLedetekst,
-    Utvidbar,
-    sykmelding as sykmeldingPt,
-    tilLesbarDatoMedArstall,
     getHtmlLedetekst,
+    getLedetekst,
+    sykepengesoknadstatuser,
+    sykmelding as sykmeldingPt,
     SykmeldingNokkelOpplysning,
+    tilLesbarDatoMedArstall,
+    Utvidbar,
 } from 'digisyfo-npm';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SykmeldingUtdragForSelvstendige from './SykmeldingUtdragForSelvstendige';
 import Oppsummeringsvisning from '../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';
@@ -15,8 +17,12 @@ import Soknadtopp from './Soknadtopp';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 import { finnSykmelding } from '../../containers/sykepengesoknad-selvstendig/sykepengesoknadSelvstendigSetup';
 import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
+import EndreSoknadContainer from '../../containers/sykepengesoknad-selvstendig/EndreSoknadContainer';
+import { toggleKorrigerSelvstendigSoknad } from '../../selectors/unleashTogglesSelectors';
+import RelaterteSoknaderContainer from '../../containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
+import { SENDT } from '../../enums/soknadstatuser';
 
-const SendtSoknadSelvstendigStatuspanel = ({ soknad }) => {
+export const SendtSoknadSelvstendigStatuspanel = ({ soknad, kanViseKorrigering }) => {
     return (<Statuspanel>
         <Statusopplysninger>
             <StatusNokkelopplysning tittel={getLedetekst('statuspanel.status')}>
@@ -29,19 +35,25 @@ const SendtSoknadSelvstendigStatuspanel = ({ soknad }) => {
                 <p dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.sykepengeinfo.til-nav')} />
             </SykmeldingNokkelOpplysning>
         </Statusopplysninger>
+        {kanViseKorrigering && soknad.status === sykepengesoknadstatuser.SENDT &&
+        <EndreSoknadContainer soknad={soknad} />}
     </Statuspanel>);
 };
 
 SendtSoknadSelvstendigStatuspanel.propTypes = {
     soknad: soknadPt,
+    kanViseKorrigering: PropTypes.bool,
 };
 
-const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
+const SendtSoknadSelvstendig = ({ sykmelding, soknad, kanViseKorrigering }) => {
     return (<div>
         <Soknadtopp soknad={soknad} />
-        <SendtSoknadSelvstendigStatuspanel soknad={soknad} />
-        { sykmelding && <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} /> }
-        <Utvidbar tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} className="blokk js-soknad-oppsummering" erApen>
+        <SendtSoknadSelvstendigStatuspanel soknad={soknad} kanViseKorrigering={kanViseKorrigering} />
+        {sykmelding && <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} />}
+        <Utvidbar
+            tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')}
+            className="blokk js-soknad-oppsummering"
+            erApen>
             <Oppsummeringsvisning
                 soknad={{
                     ...soknad,
@@ -50,7 +62,7 @@ const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
                     }),
                 }} />
         </Utvidbar>
-        <div className="panel">
+        <div className="panel js-vaer-klar-over-at">
             <Oppsummeringsvisning
                 soknad={{
                     ...soknad,
@@ -59,6 +71,7 @@ const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
                     }),
                 }} />
         </div>
+        {soknad.status === SENDT && <RelaterteSoknaderContainer soknad={soknad} />}
 
     </div>);
 };
@@ -66,11 +79,13 @@ const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
 SendtSoknadSelvstendig.propTypes = {
     sykmelding: sykmeldingPt,
     soknad: soknadPt,
+    kanViseKorrigering: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
         sykmelding: finnSykmelding(state, ownProps),
+        kanViseKorrigering: toggleKorrigerSelvstendigSoknad(state),
     };
 };
 

@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import soknader from '../../js/reducers/soknader';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
-import { SENDT } from '../../js/enums/soknadstatuser';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
 
@@ -66,15 +65,6 @@ describe('soknader', () => {
         const action = actions.soknadSendt(data);
         const state = soknader(deepFreeze(initState2), action);
         expect(state.sender).to.equal(false);
-        const soknad = state.data.find((s) => {
-            return s.id === soknadrespons[0].id;
-        });
-        const sendtSoknad = {
-            ...data,
-            innsendtDato: new Date('2018-03-15'),
-            status: SENDT,
-        };
-        expect(soknad).to.deep.equal(sendtSoknad);
     });
 
     it('Håndterer sendSoknadFeilet', () => {
@@ -175,5 +165,28 @@ describe('soknader', () => {
         ];
 
         expect(state.data).to.deep.equal(forventetResultat);
+    });
+
+    it('Korrigering av soknad oppretter utkast i state korrekt', () => {
+        const initState = getStateMedDataHentet();
+        const soknad1 = getSoknad({ sykmeldingId: '1', status: 'SENDT', id: 'soknadsId1' });
+        initState.data = [
+            soknad1,
+        ];
+
+        let state = soknader(deepFreeze(initState), actions.oppretterKorrigering());
+        state = soknader(state, actions.korrigeringOpprettet(
+            Object.assign({}, soknad1, {
+                id: 'korrigeringsId1',
+                status: 'UTKAST_TIL_KORRIGERING',
+                opprettetDato: '2018-10-19',
+                innsendtDato: null,
+                korrigerer: 'soknadsId1',
+            }),
+        ));
+
+        expect(state.data.length).to.equal(2);
+        expect(state.data[0].status).to.equal('SENDT');
+        expect(state.data[1].status).to.equal('UTKAST_TIL_KORRIGERING');
     });
 });

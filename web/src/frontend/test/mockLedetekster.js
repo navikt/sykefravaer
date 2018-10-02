@@ -258,6 +258,7 @@ const ledetekster = {
     'sykepengesoknad.aktiviteter.ugradert.spoersmal-3': 'I perioden %PERIODE% var du 100 % sykmeldt fra %ARBEIDSGIVER%. Jobbet du noe i denne perioden?',
     'sykepengesoknad.egenmeldingsdager.janei.sporsmal-3': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger og/eller var du sykmeldt i perioden %PERIODE%?',
     'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2': 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden %PERIODE%?',
+    'relaterte-soknader.sendt': 'Sendt',
 };
 /* eslint-disable max-len */
 

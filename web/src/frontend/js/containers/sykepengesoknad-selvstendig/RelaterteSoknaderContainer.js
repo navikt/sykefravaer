@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { getTidligsteSendtDato, sorterEtterSendtDato } from '../../utils/sykepengesoknadUtils';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { soknad as sykepengesoknadPt } from '../../propTypes';
 
-const RelaterteSoknader = ({ relaterteSoknader }) => {
+export const RelaterteSoknader = ({ relaterteSoknader }) => {
     if (relaterteSoknader.length === 0) {
         return null;
     }
@@ -15,11 +14,13 @@ const RelaterteSoknader = ({ relaterteSoknader }) => {
         <ul className="tidligereVersjoner__liste">
             {
                 relaterteSoknader
-                    .sort(sorterEtterSendtDato)
+                    .sort((s1, s2) => {
+                        return s1.innsendtDato < s2.innsendtDato;
+                    })
                     .map((s, index) => {
                         return (<li key={index}>
                             <Link
-                                to={`/sykefravaer/soknader/${s.id}`}>{getLedetekst('relaterte-soknader.sendt')} {tilLesbarDatoMedArstall(getTidligsteSendtDato(s))}</Link>
+                                to={`/sykefravaer/soknader/${s.id}`}>{getLedetekst('relaterte-soknader.sendt')} {tilLesbarDatoMedArstall(s.innsendtDato)}</Link>
                         </li>);
                     })
             }
@@ -33,8 +34,9 @@ RelaterteSoknader.propTypes = {
 
 export const mapStateToProps = (state, ownProps) => {
     const relaterteSoknader = [];
-    const sykepengesoknadId = ownProps.sykepengesoknadId;
-    const sykepengesoknader = state.sykepengesoknader.data;
+    const sykepengesoknadId = ownProps.soknad.id;
+    const sykepengesoknader = state.soknader.data;
+
     let sykepengesoknad = sykepengesoknader.filter((s) => {
         return s.id === sykepengesoknadId;
     })[0];
@@ -54,5 +56,9 @@ export const mapStateToProps = (state, ownProps) => {
 };
 
 const RelaterteSoknaderContainer = connect(mapStateToProps)(RelaterteSoknader);
+
+RelaterteSoknaderContainer.propTypes = {
+    soknad: sykepengesoknadPt,
+};
 
 export default RelaterteSoknaderContainer;

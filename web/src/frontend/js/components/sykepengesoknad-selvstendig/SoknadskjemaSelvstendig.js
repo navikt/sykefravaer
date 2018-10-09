@@ -7,7 +7,7 @@ import SykmeldingUtdragForSelvstendige from './SykmeldingUtdragForSelvstendige';
 import Soknadtopp from './Soknadtopp';
 import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
-import KorrigerVarsel from '../sykepengesoknad-arbeidstaker/FoerDuBegynner/KorrigerVarsel';
+import KorrigerVarsel from '../sykepengesoknad-felles/KorrigerVarsel';
 
 const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmelding, intro = null }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);

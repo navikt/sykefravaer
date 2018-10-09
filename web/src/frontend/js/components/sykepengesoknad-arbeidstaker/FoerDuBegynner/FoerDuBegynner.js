@@ -13,7 +13,7 @@ import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidsta
 import SykmeldingUtdragContainer from '../../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 import DetFinnesEldreSoknader from './DetFinnesEldreSoknader';
-import KorrigerVarsel from './KorrigerVarsel';
+import KorrigerVarsel from '../../sykepengesoknad-felles/KorrigerVarsel';
 import ForsteSoknadIntro from './ForsteSoknadIntro';
 import SoknadIntro from './SoknadIntro';
 import TidligSoknad from './TidligSoknad';

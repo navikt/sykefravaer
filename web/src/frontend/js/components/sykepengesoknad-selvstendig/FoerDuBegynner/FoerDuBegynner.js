@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import history from '../../../history';
 import SoknadskjemaSelvstendig from '../SoknadskjemaSelvstendig';
+import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
@@ -43,9 +44,10 @@ export class FoerDuBegynnerSkjema extends Component {
                 <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
                 <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} />
             </div>
-            <div className="knapperad">
+            <div className="knapperad blokk">
                 <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
             </div>
+            <AvbrytSoknadContainer sykepengesoknad={soknad} />
         </form>);
     }
 }

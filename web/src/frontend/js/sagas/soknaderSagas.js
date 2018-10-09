@@ -71,7 +71,9 @@ export function* avbrytSoknad(action) {
             yield put(actions.avbryterSoknad());
             yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
             yield put(actions.soknadAvbrutt(action.soknad));
-            browserHistory.push(getContextRoot());
+            if (action.soknad.soknadstype === OPPHOLD_UTLAND) {
+                browserHistory.push(getContextRoot());
+            }
         } catch (e) {
             log(e);
             yield put(actions.avbrytSoknadFeilet());

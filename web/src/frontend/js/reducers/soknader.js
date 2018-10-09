@@ -6,7 +6,6 @@ import {
     HENTER_SOKNADER,
     OPPDATER_SOKNAD_FEILET,
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
-    OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
     OPPRETTER_UTKAST_TIL_KORRIGERING,
     SEND_SOKNAD_FEILET,
@@ -19,7 +18,7 @@ import {
     UTKAST_TIL_KORRIGERING_OPPRETTET,
 } from '../actions/actiontyper';
 import { DATO, PERIODER, PROSENT, TIMER } from '../enums/svartyper';
-import { SENDT } from '../enums/soknadstatuser';
+import { SENDT, AVBRUTT } from '../enums/soknadstatuser';
 
 const initiellState = {
     data: [],
@@ -145,7 +144,6 @@ export default (state = initiellState, action = {}) => {
                 opprettFeilet: true,
             };
         }
-
         case AVBRYTER_SYKEPENGESOKNAD: {
             return {
                 ...state,
@@ -153,13 +151,23 @@ export default (state = initiellState, action = {}) => {
                 avbrytSoknadFeilet: false,
             };
         }
-
         case SYKEPENGESOKNAD_AVBRUTT: {
+            const data = action.soknad.soknadstype === OPPHOLD_UTLAND
+                ? [...state.data.filter((s) => {
+                    return s.id !== action.soknad.id;
+                })]
+                : state.data.map((s) => {
+                    return s.id === action.soknad.id
+                        ? {
+                            ...s,
+                            status: AVBRUTT,
+                            avbruttDato: new Date(),
+                        }
+                        : s;
+                });
             return {
                 ...state,
-                data: [...state.data.filter((s) => {
-                    return s.id !== action.soknad.id;
-                })],
+                data,
                 avbryter: false,
                 avbrytSoknadFeilet: false,
             };

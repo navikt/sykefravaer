@@ -18,12 +18,13 @@ import OppsummeringSelvstendigContainer from '../containers/sykepengesoknad-selv
 import KvitteringSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
-import { NY, SENDT, TIL_SENDING } from '../enums/soknadstatuser';
+import { NY, SENDT, TIL_SENDING, AVBRUTT } from '../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../propTypes/index';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import SykepengesoknadUtlandSkjemaContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger, SykepengerUtlandSoknadTrigger } from '../components/HotjarTrigger';
+import AvbruttSoknadSelvstendig from '../components/sykepengesoknad-selvstendig/AvbruttSoknadSelvstendig';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -115,6 +116,9 @@ export const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
                 return <KvitteringSelvstendigContainer {...props} />;
             }
             return <SendtSoknadSelvstendig {...props} />;
+        }
+        case AVBRUTT: {
+            return <AvbruttSoknadSelvstendig {...props} />;
         }
         default: {
             return <Feilmelding />;

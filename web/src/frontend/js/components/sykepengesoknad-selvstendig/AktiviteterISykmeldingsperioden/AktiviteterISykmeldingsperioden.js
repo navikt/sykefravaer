@@ -9,6 +9,7 @@ import { KnapperadTilbake } from '../../skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSykepengesoknadSelvstendigSkjemanavn } from '../../../enums/skjemanavn';
 import { ANDRE_INNTEKTSKILDER, UTDANNING, UTLAND } from '../../../enums/tagtyper';
+import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
 
 export const hentSporsmalForAktiviteterISykmeldingsperioden = (soknad) => {
     return soknad.sporsmal.filter((s) => {
@@ -32,6 +33,7 @@ const AktiviteterISykmeldingsperiodenSkjema = (props) => {
             })
         }
         <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`} />
+        <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };
 

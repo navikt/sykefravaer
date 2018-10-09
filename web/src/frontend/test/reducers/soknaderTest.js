@@ -4,9 +4,10 @@ import sinon from 'sinon';
 import soknader from '../../js/reducers/soknader';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
-import { SENDT } from '../../js/enums/soknadstatuser';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
+import { AVBRUTT, SENDT } from '../../js/enums/soknadstatuser';
+import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
 
 describe('soknader', () => {
     let getStateMedDataHentet;
@@ -92,8 +93,27 @@ describe('soknader', () => {
         expect(state.avbrytSoknadFeilet).to.equal(false);
     });
 
-    it('Håndterer soknadAvbrutt', () => {
+    it('Håndterer soknadAvbrutt når søknaden som avbrytes er en selvstendig_frilanser-søknad', () => {
         const initState = getStateMedDataHentet();
+
+        const avbryterAction = actions.avbryterSoknad();
+        let nyState = soknader(deepFreeze(initState), avbryterAction);
+
+        const avbruttAction = actions.soknadAvbrutt(nyState.data[0]);
+        nyState = soknader(deepFreeze(nyState), avbruttAction);
+
+        expect(nyState.data).to.deep.equal([{
+            ...nyState.data[0],
+            status: AVBRUTT,
+            avbruttDato: new Date(),
+        }]);
+        expect(nyState.avbryter).to.equal(false);
+        expect(nyState.avbrytSoknadFeilet).to.equal(false);
+    });
+
+    it('Håndterer soknadAvbrutt når søknaden som avbrytes er en utenlandsopphold-søknad', () => {
+        const initState = getStateMedDataHentet();
+        initState.data[0].soknadstype = OPPHOLD_UTLAND;
 
         const avbryterAction = actions.avbryterSoknad();
         let nyState = soknader(deepFreeze(initState), avbryterAction);

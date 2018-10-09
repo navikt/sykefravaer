@@ -12,6 +12,7 @@ import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummerings
 import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../../enums/tagtyper';
 import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 import OppsummeringUndertekst from '../../soknad-felles-oppsummering/OppsummeringUndertekst';
+import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
     const _soknad = {
@@ -53,12 +54,13 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
             <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
         </div>
         <Feilstripe vis={sendingFeilet} />
-        <Knapperad variant="knapperad--forrigeNeste">
+        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
             <Link
                 to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
             <Hovedknapp className="js-send" spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
         </Knapperad>
+        <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };
 

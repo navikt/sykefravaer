@@ -14,7 +14,8 @@ import {
     SYKEPENGESOKNADUTLAND_OPPRETTET,
 } from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
-import { SENDT } from '../enums/soknadstatuser';
+import { AVBRUTT, SENDT } from '../enums/soknadstatuser';
+import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
 
 const initiellState = {
     data: [],
@@ -148,7 +149,6 @@ export default (state = initiellState, action = {}) => {
                 opprettFeilet: true,
             };
         }
-
         case AVBRYTER_SYKEPENGESOKNAD: {
             return {
                 ...state,
@@ -156,11 +156,23 @@ export default (state = initiellState, action = {}) => {
                 avbrytSoknadFeilet: false,
             };
         }
-
         case SYKEPENGESOKNAD_AVBRUTT: {
+            const data = action.soknad.soknadstype === OPPHOLD_UTLAND
+                ? [...state.data.filter((s) => {
+                    return s.id !== action.soknad.id;
+                })]
+                : state.data.map((s) => {
+                    return s.id === action.soknad.id
+                        ? {
+                            ...s,
+                            status: AVBRUTT,
+                            avbruttDato: new Date(),
+                        }
+                        : s;
+                });
             return {
                 ...state,
-                data: [...state.data.filter((s) => { return s.id !== action.soknad.id; })],
+                data,
                 avbryter: false,
                 avbrytSoknadFeilet: false,
             };

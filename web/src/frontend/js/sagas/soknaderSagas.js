@@ -71,7 +71,7 @@ export function* avbrytSoknad(action) {
         || action.soknad.soknadstype === OPPHOLD_UTLAND) {
         try {
             yield put(actions.avbryterSoknad());
-            yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
+            yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/avbryt`);
             yield put(actions.soknadAvbrutt(action.soknad));
             if (action.soknad.soknadstype === OPPHOLD_UTLAND) {
                 browserHistory.push(getContextRoot());
@@ -87,7 +87,7 @@ export function* gjenapneSoknad(action) {
     if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) {
         try {
             yield put(actions.gjenapnerSoknad(action.soknad));
-            yield call(post, `${hentApiUrl()}/gjenapneSoknad`, action.soknad);
+            yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/gjenapne`);
             yield put(actions.soknadGjenapnet(action.soknad));
         } catch (e) {
             log(e);

@@ -5,11 +5,12 @@ const path = require('path');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
 const getDecorator = require('./decorator');
-const moment = require('moment')
+const moment = require('moment');
+
 const server = express();
 
 const env = 'local';
-const settings = env === 'local' ? {isProd: false} : require('./settings.json');
+const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');
@@ -42,7 +43,6 @@ const renderApp = (decoratorFragments) => {
 };
 
 const startServer = (html) => {
-
     server.use(
         '/sykefravaer/resources',
         express.static(path.resolve(__dirname, 'dist/resources')),
@@ -80,10 +80,10 @@ const startServer = (html) => {
     const nyUtlandsoppholdsoknad = require('./test/mock/soknader').nySoknadUtland;
 
     const mockData = {
-        ledetekster: ledetekster,
-        sykmeldinger: sykmeldinger,
-        soknader: soknader,
-        arbeidstakersoknader: arbeidstakersoknader,
+        ledetekster,
+        sykmeldinger,
+        soknader,
+        arbeidstakersoknader,
     };
 
     server.get('/syfotekster/api/tekster', (req, res) => {
@@ -149,9 +149,9 @@ const startServer = (html) => {
     });
 
     server.post('/syfoapi/syfosoknad/api/sendSoknad', (req, res) => {
-        const {id, sporsmal} = req.body;
+        const { id, sporsmal } = req.body;
 
-        const soknadTilInnsending = mockData.soknader.filter(soknad => soknad.id === id)[0];
+        const soknadTilInnsending = mockData.soknader.filter((soknad) => { return soknad.id === id; })[0];
 
         mockData.soknader = mockData.soknader.map((soknad) => {
             if (soknad.id === id) {
@@ -162,7 +162,7 @@ const startServer = (html) => {
 
             if (soknad.id === soknadTilInnsending.korrigerer) {
                 soknad.korrigertAv = soknadTilInnsending.id;
-                soknad.status = 'KORRIGERT'
+                soknad.status = 'KORRIGERT';
             }
 
             return soknad;
@@ -173,8 +173,8 @@ const startServer = (html) => {
 
     server.post('/syfoapi/syfosoknad/api/soknader/:id/korriger', (req, res) => {
         const { id } = req.params;
-        const soknadSomKorrigeres = mockData.soknader.filter(soknad => soknad.id === id)[0];
-        var utkast = mockData.soknader.filter(soknad => soknad.korrigerer === id)[0];
+        const soknadSomKorrigeres = mockData.soknader.filter((soknad) => { return soknad.id === id; })[0];
+        let utkast = mockData.soknader.filter((soknad) => { return soknad.korrigerer === id; })[0];
 
         if (!utkast) {
             utkast = Object.assign({}, soknadSomKorrigeres, {
@@ -182,7 +182,7 @@ const startServer = (html) => {
                 status: 'UTKAST_TIL_KORRIGERING',
                 opprettetDato: moment().format('YYYY-MM-DD'),
                 innsendtDato: null,
-                korrigerer: soknadSomKorrigeres.id
+                korrigerer: soknadSomKorrigeres.id,
             });
             mockData.soknader.push(utkast);
         }
@@ -191,7 +191,7 @@ const startServer = (html) => {
     });
 
     server.post('/syfounleash/', (req, res) => {
-        const toggles = req.body.reduce((acc, toggle) => Object.assign({}, acc, { [toggle]: true }), {});
+        const toggles = req.body.reduce((acc, toggle) => { return Object.assign({}, acc, { [toggle]: true }); }, {});
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(toggles));
     });
@@ -200,15 +200,15 @@ const startServer = (html) => {
     });
 
     server.get('/syforest/soknader/:uuid/berik', (req, res) => {
-        res.send(JSON.stringify({"forrigeSykeforloepTom": null, "oppfoelgingsdato": "2018-09-19"}));
+        res.send(JSON.stringify({ forrigeSykeforloepTom: null, oppfoelgingsdato: '2018-09-19' }));
     });
 
     server.post('/syforest/soknader/:uuid/actions/beregn-arbeidsgiverperiode', (req, res) => {
         res.send(JSON.stringify({
-            'erUtenforArbeidsgiverperiode': false,
-            'antallDagerISykefravaer': 9,
-            'forrigeSykeforloepTom': null,
-            'startdato': '2018-09-19',
+            erUtenforArbeidsgiverperiode: false,
+            antallDagerISykefravaer: 9,
+            forrigeSykeforloepTom: null,
+            startdato: '2018-09-19',
         }));
     });
     server.get('/syforest/soknader', (req, res) => {
@@ -223,6 +223,16 @@ const startServer = (html) => {
     server.get('/syforest/sykeforloep', (req, res) => {
         res.send(JSON.stringify([]));
     });
+    server.get('/syforest/sykeforloep/metadata', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+            erSykmeldt: false,
+            sykmeldtFraDato: null,
+            arbeidsSituasjonIAktiveSykmeldinger: null,
+            erTiltakSykmeldteInngangAktiv: false,
+            erArbeidsrettetOppfolgingSykmeldtInngangAktiv: false,
+        }));
+    });
     server.post('/syforest/logging', (req, res) => {
         console.log(req.body);
         res.send(JSON.stringify({}));
@@ -234,7 +244,7 @@ const startServer = (html) => {
         res.send(JSON.stringify({}));
     });
 
-// END - MOCKS
+    // END - MOCKS
     server.listen(8080, () => {
         console.log('App listening on port: 8080');
     });
@@ -254,7 +264,7 @@ getDecorator()
     });
 
 const uuid = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
         const r = Math.random() * 16 | 0; v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });

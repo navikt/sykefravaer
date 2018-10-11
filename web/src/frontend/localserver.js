@@ -133,6 +133,21 @@ const startServer = (html) => {
         res.send(JSON.stringify({}));
     });
 
+    server.post('/syfoapi/syfosoknad/api/gjenapneSoknad', (req, res) => {
+        const soknad = req.body;
+        mockData.soknader = mockData.soknader.map((s) => {
+            return s.id === soknad.id
+                ? {
+                    ...s,
+                    avbruttDato: null,
+                    status: 'NY',
+                }
+                : s;
+        });
+
+        res.send(JSON.stringify({}));
+    });
+
     server.post('/syfoapi/syfosoknad/api/sendSoknad', (req, res) => {
         const {id, sporsmal} = req.body;
 

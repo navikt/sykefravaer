@@ -214,7 +214,7 @@ describe('sykepengersoknadSagas', () => {
     });
 
     describe('Gjenåpning av avbrutt søknad', () => {
-        const generator = gjenapneSoknad(actions.gjenapneSoknad('45668'));
+        const generator = gjenapneSoknad(actions.gjenapneSoknad({ id: '45668' }));
 
         it('Skal dispatche gjenapnerSoknad()', () => {
             const action = actions.gjenapnerSoknad();

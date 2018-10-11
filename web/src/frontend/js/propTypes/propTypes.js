@@ -55,10 +55,7 @@ export const fields = PropTypes.shape({
 
 export const fieldPropTypes = { meta, input };
 
-export const childEllerChildren = PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element),
-]);
+export const childEllerChildren = PropTypes.node;
 
 export const opprettOppfolgingArbeidsgiverPt = PropTypes.shape({
     virksomhetsnummer: PropTypes.string,

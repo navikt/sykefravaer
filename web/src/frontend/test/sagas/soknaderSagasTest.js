@@ -91,7 +91,7 @@ describe('soknaderSagas', () => {
         const action = actions.avbrytSoknad(soknadData);
         const generator = avbrytSoknad(action);
 
-        it('Skal dispatche AVBRYTER_SOKNAD', () => {
+        it('Skal dispatche AVBRYTER_SYKEPENGESOKNAD', () => {
             const nextPut = put(actions.avbryterSoknad());
             expect(generator.next(true).value).to.deep.equal(nextPut);
         });
@@ -101,7 +101,7 @@ describe('soknaderSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('Skal deretter dispatche SYKEPENGESOKNAD_AVBRUTT', () => {
+        it('Skal deretter dispatche SOKNAD_AVBRUTT', () => {
             const nextPut = put(actions.soknadAvbrutt(action.soknad));
             expect(generator.next().value).to.deep.equal(nextPut);
         });

@@ -1,7 +1,8 @@
 import React from 'react';
-import { getLedetekst, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
+import { getLedetekst, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
+import { soknad as soknadPt } from '../../propTypes';
 
 const GjenapneSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet, tekst = getLedetekst('sykepengesoknad.gjenapne.knapp'), vis }) => {
     return vis ? (<div>
@@ -14,7 +15,7 @@ const GjenapneSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFe
                     mini
                     onClick={(e) => {
                         e.preventDefault();
-                        gjenapneSoknad(sykepengesoknad.id);
+                        gjenapneSoknad(sykepengesoknad);
                     }}
                     className="js-gjenapne">
                     {tekst}</Knapp>
@@ -30,7 +31,7 @@ GjenapneSoknad.propTypes = {
     gjenapneSoknad: PropTypes.func,
     gjenapner: PropTypes.bool,
     gjenapneFeilet: PropTypes.bool,
-    sykepengesoknad: sykepengesoknadPt,
+    sykepengesoknad: PropTypes.oneOfType([soknadPt, sykepengesoknadPt]),
     tekst: PropTypes.string,
     vis: PropTypes.bool,
 };

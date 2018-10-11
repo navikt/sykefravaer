@@ -5,6 +5,7 @@ import { soknad as soknadPt } from '../../propTypes';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 import Soknadtopp from './Soknadtopp';
 import SykmeldingUtdragForSelvstendige from './SykmeldingUtdragForSelvstendige';
+import GjenapneSoknad from './GjenapneSoknad';
 
 const AvbruttSoknadSelvstendigStatuspanel = ({ soknad }) => {
     return (<Statuspanel>
@@ -18,6 +19,7 @@ const AvbruttSoknadSelvstendigStatuspanel = ({ soknad }) => {
                 </p>
             </StatusNokkelopplysning>
         </Statusopplysninger>
+        <GjenapneSoknad sykepengesoknad={soknad} />
     </Statuspanel>);
 };
 

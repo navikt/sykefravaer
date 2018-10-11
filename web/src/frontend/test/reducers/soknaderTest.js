@@ -6,7 +6,7 @@ import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
-import { AVBRUTT, SENDT } from '../../js/enums/soknadstatuser';
+import { AVBRUTT, NY, SENDT, FREMTIDIG } from '../../js/enums/soknadstatuser';
 import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
 
 describe('soknader', () => {
@@ -143,7 +143,7 @@ describe('soknader', () => {
 
     it('Fjerner NYE søknader ved bekreftSykmeldingAngret()', () => {
         const initState = getStateMedDataHentet();
-        initState.data[0].status = 'NY';
+        initState.data[0].status = NY;
         const action = bekreftSykmeldingAngret('14e78e84-50a5-45bb-9919-191c54f99691');
         const state = soknader(deepFreeze(initState), action);
         expect(state.data).to.deep.equal([]);
@@ -151,7 +151,7 @@ describe('soknader', () => {
 
     it('Fjerner ikke SENDTE søknader ved bekreftSykmeldingAngret()', () => {
         const initState = getStateMedDataHentet();
-        initState.data[0].status = 'SENDT';
+        initState.data[0].status = SENDT;
         const action = bekreftSykmeldingAngret('14e78e84-50a5-45bb-9919-191c54f99691');
         const state = soknader(deepFreeze(initState), action);
         expect(state.data).to.deep.equal(initState.data);
@@ -160,32 +160,55 @@ describe('soknader', () => {
     it('Fjerner bare søknader som tilhører den aktuelle sykmeldingen', () => {
         const initState = getStateMedDataHentet();
         initState.data = [
-            getSoknad({ sykmeldingId: '1', status: 'NY' }),
-            getSoknad({ sykmeldingId: '2', status: 'NY' }),
-            getSoknad({ sykmeldingId: '2', status: 'NY' }),
+            getSoknad({ sykmeldingId: '1', status: NY }),
+            getSoknad({ sykmeldingId: '2', status: NY }),
+            getSoknad({ sykmeldingId: '2', status: NY }),
         ];
         const action = bekreftSykmeldingAngret('2');
         const state = soknader(deepFreeze(initState), action);
-        expect(state.data).to.deep.equal([getSoknad({ sykmeldingId: '1', status: 'NY' })]);
+        expect(state.data).to.deep.equal([getSoknad({ sykmeldingId: '1', status: NY })]);
     });
 
     it('Fjerner bare søknader som som er NY eller FREMTIDIG for aktuelle sykmeldingen', () => {
         const initState = getStateMedDataHentet();
         initState.data = [
-            getSoknad({ sykmeldingId: '1', status: 'NY' }),
-            getSoknad({ sykmeldingId: '2', status: 'NY' }),
-            getSoknad({ sykmeldingId: '2', status: 'FREMTIDIG' }),
-            getSoknad({ sykmeldingId: '2', status: 'SENDT' }),
+            getSoknad({ sykmeldingId: '1', status: NY }),
+            getSoknad({ sykmeldingId: '2', status: NY }),
+            getSoknad({ sykmeldingId: '2', status: FREMTIDIG }),
+            getSoknad({ sykmeldingId: '2', status: SENDT }),
         ];
         const action = bekreftSykmeldingAngret('2');
         const state = soknader(deepFreeze(initState), action);
 
         const forventetResultat = [
-            getSoknad({ sykmeldingId: '1', status: 'NY' }),
-            getSoknad({ sykmeldingId: '2', status: 'SENDT' }),
+            getSoknad({ sykmeldingId: '1', status: NY }),
+            getSoknad({ sykmeldingId: '2', status: SENDT }),
         ];
 
         expect(state.data).to.deep.equal(forventetResultat);
+    });
+
+    it('Håndterer gjenåpner', () => {
+        const initState = getStateMedDataHentet();
+        initState.data = [
+            getSoknad({ sykmeldingId: '1', status: AVBRUTT }),
+        ];
+        const action = actions.gjenapnerSoknad();
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.gjenapner).to.equal(true);
+    });
+
+    it('Håndterer soknadGjenapnet', () => {
+        const initState = getStateMedDataHentet();
+        const soknad = getSoknad({ sykmeldingId: '1', status: AVBRUTT, avbruttDato: new Date() });
+        initState.data = [
+            soknad,
+        ];
+        const action = actions.soknadGjenapnet(soknad);
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.gjenapner).to.equal(false);
+        expect(state.data[0].status).to.equal(NY);
+        expect(state.data[0].avbruttDato).to.equal(null);
     });
 
     it('Korrigering av soknad oppretter utkast i state korrekt', () => {

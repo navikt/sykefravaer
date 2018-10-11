@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import { render } from 'react-dom';
 import React from 'react';
 import { reducer as formReducer } from 'redux-form';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import {
@@ -120,9 +120,10 @@ const rootReducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer,
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(sagaMiddleware),
-);
+));
 
 sagaMiddleware.run(rootSaga);
 
@@ -134,8 +135,12 @@ store.dispatch(hentUnleashToggles());
 store.dispatch(hentSoknader());
 // </OBS>
 
-setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()); });
-setPerformOnOppDialogHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()); });
+setPerformOnHttpCalls(() => {
+    store.dispatch(forlengInnloggetSesjon());
+});
+setPerformOnOppDialogHttpCalls(() => {
+    store.dispatch(forlengInnloggetSesjon());
+});
 
 setInterval(() => {
     store.dispatch(sjekkInnloggingssesjon());

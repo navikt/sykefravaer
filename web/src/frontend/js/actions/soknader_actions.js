@@ -11,13 +11,17 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
     SYKEPENGESOKNADUTLAND_OPPRETTET,
-    SYKEPENGESOKNAD_AVBRUTT,
-    AVBRYTER_SYKEPENGESOKNAD,
-    AVBRYT_SYKEPENGESOKNAD_FORESPURT,
-    AVBRYT_SYKEPENGESOKNAD_FEILET,
+    SOKNAD_AVBRUTT,
+    AVBRYTER_SOKNAD,
+    AVBRYT_SOKNAD_FORESPURT,
+    AVBRYT_SOKNAD_FEILET,
     SOKNAD_ENDRET,
     SOKNAD_OPPDATERT,
     OPPDATER_SOKNAD_FEILET,
+    GJENAPNE_SOKNAD_FORESPURT,
+    GJENAPNER_SOKNAD,
+    SOKNAD_GJENAPNET,
+    GJENAPNE_SOKNAD_FEILET,
     OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     UTKAST_TIL_KORRIGERING_OPPRETTET,
     OPPRETTER_UTKAST_TIL_KORRIGERING,
@@ -102,27 +106,27 @@ export const soknadUtlandOpprettet = (soknad) => {
 
 export function avbrytSoknad(soknad) {
     return {
-        type: AVBRYT_SYKEPENGESOKNAD_FORESPURT,
+        type: AVBRYT_SOKNAD_FORESPURT,
         soknad,
     };
 }
 
 export function avbryterSoknad() {
     return {
-        type: AVBRYTER_SYKEPENGESOKNAD,
+        type: AVBRYTER_SOKNAD,
     };
 }
 
 export function soknadAvbrutt(soknad) {
     return {
-        type: SYKEPENGESOKNAD_AVBRUTT,
+        type: SOKNAD_AVBRUTT,
         soknad,
     };
 }
 
 export function avbrytSoknadFeilet() {
     return {
-        type: AVBRYT_SYKEPENGESOKNAD_FEILET,
+        type: AVBRYT_SOKNAD_FEILET,
     };
 }
 
@@ -174,3 +178,30 @@ export function opprettUtkastTilKorrigeringFeilet() {
         type: OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     };
 }
+
+export const gjenapneSoknad = (soknad) => {
+    return {
+        type: GJENAPNE_SOKNAD_FORESPURT,
+        soknad,
+    };
+};
+
+export const gjenapnerSoknad = (soknad) => {
+    return {
+        type: GJENAPNER_SOKNAD,
+        soknad,
+    };
+};
+
+export const soknadGjenapnet = (soknad) => {
+    return {
+        type: SOKNAD_GJENAPNET,
+        soknad,
+    };
+};
+
+export const gjenapneSoknadFeilet = () => {
+    return {
+        type: GJENAPNE_SOKNAD_FEILET,
+    };
+};

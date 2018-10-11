@@ -137,53 +137,53 @@ export function hentBerikelseFeilet() {
 
 export function avbrytSoknad(sykepengesoknad) {
     return {
-        type: actiontyper.AVBRYT_SOKNAD_FORESPURT,
+        type: actiontyper.AVBRYT_SYKEPENGESOKNAD_FORESPURT,
         sykepengesoknad,
     };
 }
 
 export function avbryterSoknad() {
     return {
-        type: actiontyper.AVBRYTER_SOKNAD,
+        type: actiontyper.AVBRYTER_SYKEPENGESOKNAD,
     };
 }
 
 export function soknadAvbrutt(sykepengesoknadsId) {
     return {
-        type: actiontyper.SOKNAD_AVBRUTT,
+        type: actiontyper.SYKEPENGESOKNAD_AVBRUTT,
         sykepengesoknadsId,
     };
 }
 
 export function avbrytSoknadFeilet() {
     return {
-        type: actiontyper.AVBRYT_SOKNAD_FEILET,
+        type: actiontyper.AVBRYT_SYKEPENGESOKNAD_FEILET,
     };
 }
 
-export function gjenapneSoknad(sykepengesoknadsId) {
+export function gjenapneSoknad(sykepengesoknad) {
     return {
-        sykepengesoknadsId,
-        type: actiontyper.GJENAPNE_SOKNAD_FORESPURT,
+        sykepengesoknad,
+        type: actiontyper.GJENAPNE_SYKEPENGESOKNAD_FORESPURT,
     };
 }
 
 export function gjenapnerSoknad() {
     return {
-        type: actiontyper.GJENAPNER_SOKNAD,
+        type: actiontyper.GJENAPNER_SYKEPENGESOKNAD,
     };
 }
 
 export function soknadGjenapnet(sykepengesoknadsId) {
     return {
         sykepengesoknadsId,
-        type: actiontyper.SOKNAD_GJENAPNET,
+        type: actiontyper.SYKEPENGESOKNAD_GJENAPNET,
     };
 }
 
 export function gjenapneSoknadFeilet() {
     return {
-        type: actiontyper.GJENAPNE_SOKNAD_FEILET,
+        type: actiontyper.GJENAPNE_SYKEPENGESOKNAD_FEILET,
     };
 }
 

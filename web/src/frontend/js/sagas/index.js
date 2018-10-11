@@ -42,6 +42,7 @@ import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
+import sykeforloepMetadataSagas from './sykeforloepMetadataSagas';
 import soknaderSagas from './soknaderSagas';
 import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
@@ -85,6 +86,7 @@ export default function* rootSaga() {
         kontaktinfoSagas(),
         forrigeNaermesteLederSagas(),
         naermesteLederSagas(),
+        sykeforloepMetadataSagas(),
         sykeforlopsPerioderSagas(),
         sykeforloepSagas(),
         sykmeldingMetaSagas(),

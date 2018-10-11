@@ -67,6 +67,7 @@ import './logging';
 import { hentUnleashToggles } from './actions/unleashToggles_actions';
 import metrikker from './reducers/metrikker';
 import { hentSoknader } from './actions/soknader_actions';
+import sykeforloepMetadata from './reducers/sykeforloepMetadata';
 
 const rootReducer = combineReducers({
     arbeidsforhold,
@@ -112,6 +113,7 @@ const rootReducer = combineReducers({
     form: formReducer,
     formMeta: reduxFormMeta,
     sykeforloep,
+    sykeforloepMetadata,
     sykmeldingMeta,
     soknader,
     unleashToggles,

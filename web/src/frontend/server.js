@@ -9,7 +9,7 @@ const prometheus = require('prom-client');
 
 // Prometheus metrics
 const collectDefaultMetrics = prometheus.collectDefaultMetrics;
-collectDefaultMetrics({ timeout: 5000 });
+collectDefaultMetrics({timeout: 5000});
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
     name: 'http_request_duration_ms',
@@ -21,7 +21,7 @@ const httpRequestDurationMicroseconds = new prometheus.Histogram({
 const server = express();
 
 const env = process.argv[2];
-const settings = env === 'local' ? { isProd: false } : require('./settings.json');
+const settings = env === 'local' ? {isProd: false} : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');
@@ -54,6 +54,7 @@ const renderApp = (decoratorFragments) => {
 };
 
 const startServer = (html) => {
+
     server.use(
         '/sykefravaer/resources',
         express.static(path.resolve(__dirname, 'dist/resources')),

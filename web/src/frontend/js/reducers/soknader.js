@@ -1,10 +1,14 @@
 import {
     AVBRYT_SYKEPENGESOKNAD_FEILET,
-    AVBRYTER_SYKEPENGESOKNAD, BEKREFT_SYKMELDING_ANGRET,
+    AVBRYTER_SYKEPENGESOKNAD,
+    BEKREFT_SYKMELDING_ANGRET,
     HENT_SOKNADER_FEILET,
-    HENTER_SOKNADER, OPPDATER_SOKNAD_FEILET,
+    HENTER_SOKNADER,
+    OPPDATER_SOKNAD_FEILET,
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
+    OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
+    OPPRETTER_UTKAST_TIL_KORRIGERING,
     SEND_SOKNAD_FEILET,
     SENDER_SOKNAD,
     SOKNAD_OPPDATERT,
@@ -12,8 +16,9 @@ import {
     SOKNADER_HENTET,
     SYKEPENGESOKNAD_AVBRUTT,
     SYKEPENGESOKNADUTLAND_OPPRETTET,
+    UTKAST_TIL_KORRIGERING_OPPRETTET,
 } from '../actions/actiontyper';
-import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
+import { DATO, PERIODER, PROSENT, TIMER } from '../enums/svartyper';
 import { SENDT } from '../enums/soknadstatuser';
 
 const initiellState = {
@@ -66,6 +71,7 @@ export const parseSoknad = (soknad) => {
         fom: new Date(soknad.fom),
         tom: new Date(soknad.tom),
         opprettetDato: new Date(soknad.opprettetDato),
+        innsendtDato: soknad.innsendtDato ? new Date(soknad.innsendtDato) : undefined,
         sporsmal: [...soknad.sporsmal].map(parseSporsmal),
     };
 };
@@ -106,15 +112,6 @@ export default (state = initiellState, action = {}) => {
         case SOKNAD_SENDT: {
             return {
                 ...state,
-                data: state.data.map((s) => {
-                    return s.id === action.soknad.id
-                        ? {
-                            ...action.soknad,
-                            status: SENDT,
-                            innsendtDato: new Date(),
-                        }
-                        : { ...s };
-                }),
                 sender: false,
                 sendingFeilet: false,
             };
@@ -160,7 +157,9 @@ export default (state = initiellState, action = {}) => {
         case SYKEPENGESOKNAD_AVBRUTT: {
             return {
                 ...state,
-                data: [...state.data.filter((s) => { return s.id !== action.soknad.id; })],
+                data: [...state.data.filter((s) => {
+                    return s.id !== action.soknad.id;
+                })],
                 avbryter: false,
                 avbrytSoknadFeilet: false,
             };
@@ -197,6 +196,31 @@ export default (state = initiellState, action = {}) => {
                         ? s.status === SENDT
                         : true;
                 }),
+            };
+        }
+        case OPPRETTER_UTKAST_TIL_KORRIGERING: {
+            return {
+                ...state,
+                endrer: true,
+            };
+        }
+        case OPPRETT_UTKAST_TIL_KORRIGERING_FEILET: {
+            return {
+                ...state,
+                endrer: false,
+                endringFeilet: true,
+            };
+        }
+        case UTKAST_TIL_KORRIGERING_OPPRETTET: {
+            const harUtkast = state.data.map((soknad) => {
+                return soknad.id;
+            }).includes(action.utkast.id);
+
+            return {
+                ...state,
+                data: harUtkast ? state.data : [...state.data, parseSoknad(action.utkast)],
+                endrer: false,
+                endringFeilet: false,
             };
         }
         default: {

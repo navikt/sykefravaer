@@ -1,49 +1,52 @@
-import { CHECKBOX_PANEL, FRITEKST, JA_NEI, PERIODER } from '../../enums/svartyper';
+import { toDatePrettyPrint } from 'digisyfo-npm';
+import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER } from '../../enums/svartyper';
 import { genererParseForEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
+import { ANSVARSERKLARING, BEKREFT_OPPLYSNINGER } from '../../enums/tagtyper';
 
 const tilInitielleSvarverder = ({ svar, svartype, id }) => {
     const parse = genererParseForEnkeltverdi(id);
-
     switch (svartype) {
+        case DATO:
+            return parse(toDatePrettyPrint(new Date(svar[0].verdi)));
         case PERIODER: {
-            return svar.length === 0
-                ? [{}]
-                : svar.map((s) => {
-                    const periode = JSON.parse(s.verdi);
-                    return {
-                        fom: periode.fom,
-                        tom: periode.tom,
-                    };
-                });
+            return svar.map((s) => {
+                const periode = JSON.parse(s.verdi);
+                return {
+                    fom: periode.fom.split('.').length === 3 ? periode.fom : toDatePrettyPrint(periode.fom),
+                    tom: periode.tom.split('.').length === 3 ? periode.tom : toDatePrettyPrint(periode.tom),
+                };
+            });
         }
+        case CHECKBOX:
+            return parse(svar.map((_svar) => { return (_svar.verdi ? 'CHECKED' : 'UNCHECKED'); })[0]);
         case JA_NEI:
         case CHECKBOX_PANEL:
-        case FRITEKST: {
-            return svar.length > 0
-                ? parse(svar[0].verdi)
-                : svar;
-        }
+        case TIMER:
+        case PROSENT:
+        case FRITEKST:
+            return parse(svar[0].verdi);
         default: {
             return null;
         }
     }
 };
 
-const tilInitieltSvar = (sporsmal, verdier) => {
-    let returVerdier = { ...verdier };
-    sporsmal.undersporsmal.forEach((spm) => {
-        returVerdier = tilInitieltSvar(spm, returVerdier);
-    });
-    return {
-        ...returVerdier,
-        [sporsmal.tag]: tilInitielleSvarverder(sporsmal),
-    };
-};
-
 export default (soknad) => {
-    let verdier = {};
-    soknad.sporsmal.forEach((spm) => {
-        verdier = tilInitieltSvar(spm, verdier);
-    });
-    return verdier;
+    const flatten = (sporsmal, accumulator = []) => {
+        accumulator.push(sporsmal);
+        sporsmal.undersporsmal.forEach((undersporsmal) => { return flatten(undersporsmal, accumulator); });
+        return accumulator;
+    };
+
+    const alleSporsmal = soknad.sporsmal
+        .map((sporsmal) => { return flatten(sporsmal); })
+        .flatten();
+
+    return alleSporsmal
+        .filter((spm) => { return spm.tag !== ANSVARSERKLARING && spm.tag !== BEKREFT_OPPLYSNINGER; })
+        .filter((spm) => { return spm.svar.length > 0; })
+        .reduce((acc, sporsmal) => {
+            acc[sporsmal.tag] = tilInitielleSvarverder(sporsmal);
+            return acc;
+        }, {});
 };

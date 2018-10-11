@@ -3,7 +3,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import setup from './sykepengesoknadSelvstendigSetup';
 import Kvittering from '../../components/sykepengesoknad-selvstendig/Kvittering/Kvittering';
-import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
+import { KORRIGERT, NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import Feilmelding from '../../components/Feilmelding';
 import { soknad as soknadPt } from '../../propTypes';
 import Sidetopp from '../../components/Sidetopp';
@@ -14,7 +14,8 @@ const validate = () => {
 
 const SykepengesoknadSelvstendigKvitteringContainer = ({ soknad }) => {
     switch (soknad.status) {
-        case NY: {
+        case NY:
+        case UTKAST_TIL_KORRIGERING: {
             return (<div>
                 <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
                 <Feilmelding tittel={getLedetekst('soknad.kvittering.ugyldig.ny.tittel')}>
@@ -26,12 +27,13 @@ const SykepengesoknadSelvstendigKvitteringContainer = ({ soknad }) => {
                 </Feilmelding>
             </div>);
         }
+        case KORRIGERT:
         case SENDT:
         case TIL_SENDING: {
             return <Kvittering />;
         }
         default: {
-            return <Feilmelding />;
+            return <Feilmelding melding="feil status" />;
         }
     }
 };

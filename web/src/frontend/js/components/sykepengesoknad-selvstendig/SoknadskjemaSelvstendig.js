@@ -6,6 +6,8 @@ import { childEllerChildren, soknad as soknadPt } from '../../propTypes';
 import SykmeldingUtdragForSelvstendige from './SykmeldingUtdragForSelvstendige';
 import Soknadtopp from './Soknadtopp';
 import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
+import { UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
+import KorrigerVarsel from '../sykepengesoknad-felles/KorrigerVarsel';
 
 const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmelding, intro = null }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
@@ -15,6 +17,7 @@ const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmeld
             soknad={soknad}
             sykmelding={sykmelding} />
         <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
+        { soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
         {intro}
         { sykmelding && <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen={aktivtSteg === '1'} erOppdelt={_erOppdelt} /> }
         { tittel && <h2 className="soknad__stegtittel">{tittel}</h2> }

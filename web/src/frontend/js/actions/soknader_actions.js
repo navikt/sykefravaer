@@ -13,7 +13,15 @@ import {
     SYKEPENGESOKNADUTLAND_OPPRETTET,
     SYKEPENGESOKNAD_AVBRUTT,
     AVBRYTER_SYKEPENGESOKNAD,
-    AVBRYT_SYKEPENGESOKNAD_FORESPURT, AVBRYT_SYKEPENGESOKNAD_FEILET, SOKNAD_ENDRET, SOKNAD_OPPDATERT, OPPDATER_SOKNAD_FEILET,
+    AVBRYT_SYKEPENGESOKNAD_FORESPURT,
+    AVBRYT_SYKEPENGESOKNAD_FEILET,
+    SOKNAD_ENDRET,
+    SOKNAD_OPPDATERT,
+    OPPDATER_SOKNAD_FEILET,
+    OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
+    UTKAST_TIL_KORRIGERING_OPPRETTET,
+    OPPRETTER_UTKAST_TIL_KORRIGERING,
+    OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
 } from './actiontyper';
 
 export const soknaderHentet = (soknader) => {
@@ -140,3 +148,29 @@ export const oppdaterSoknadFeilet = (soknad) => {
         soknad,
     };
 };
+
+export function opprettUtkastTilKorrigeringForespurt(sykepengesoknadsId) {
+    return {
+        sykepengesoknadsId,
+        type: OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
+    };
+}
+
+export function oppretterKorrigering() {
+    return {
+        type: OPPRETTER_UTKAST_TIL_KORRIGERING,
+    };
+}
+
+export function korrigeringOpprettet(utkastTilKorrigering) {
+    return {
+        utkast: utkastTilKorrigering,
+        type: UTKAST_TIL_KORRIGERING_OPPRETTET,
+    };
+}
+
+export function opprettUtkastTilKorrigeringFeilet() {
+    return {
+        type: OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
+    };
+}

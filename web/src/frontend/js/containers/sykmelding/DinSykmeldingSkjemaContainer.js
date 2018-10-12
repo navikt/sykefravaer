@@ -23,7 +23,7 @@ export class Skjemalaster extends Component {
         this.hentData();
     }
 
-    componentWillReceiveProps() {
+    componentDidUpdate() {
         this.hentData();
     }
 

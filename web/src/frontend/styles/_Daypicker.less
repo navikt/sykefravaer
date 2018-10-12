@@ -7,16 +7,16 @@
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     position: relative;
     padding: 0;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .DayPicker-Month {
@@ -24,9 +24,9 @@
     border-collapse: collapse;
     border-spacing: 0;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     margin: 0;
 }
 
@@ -137,7 +137,7 @@
     }
 
     &:last-child {
-      color: @navRod;
+        color: @navRod;
     }
 
     @media (min-width: 350px) {
@@ -178,23 +178,23 @@
 }
 
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: @navDypBla;
-  color: @white;
+    background-color: @navDypBla;
+    color: @white;
 }
 
 .periodekalender .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: @navDypBlaLys;
-  color: @navMorkGra;
+    background-color: @navDypBlaLys;
+    color: @navMorkGra;
 
-  &.DayPicker-Day--start {
-      background-color: @navDypBla;
-      color: @white;
-  }
+    &.DayPicker-Day--start {
+        background-color: @navDypBla;
+        color: @white;
+    }
 
-  &.DayPicker-Day--end {
-      background-color: @navDypBla;
-      color: @white;
-  }
+    &.DayPicker-Day--end {
+        background-color: @navDypBla;
+        color: @white;
+    }
 }
 
 .periodekalender .DayPicker-Day:focus {
@@ -211,11 +211,12 @@
 }
 
 .datovelger {
-   position: relative;
+    position: relative;
 }
 
 .datovelger__inner {
     display: inline-block;
+    width: 100%;
 }
 
 .datovelger__inputContainer {
@@ -223,14 +224,10 @@
 }
 
 .datovelger__toggleDayPicker {
-    display: none;
-}
-
-.datovelger__toggleDayPicker {
     display: block;
     text-indent: -9999px;
     width: 2em;
-    height: 2.25rem;
+    height: ~'calc(2.5rem - 1px)';
     border: 0;
     border-bottom-right-radius: .25rem;
     border-top-right-radius: .25rem;
@@ -245,11 +242,22 @@
     background-size: 16px 16px;
 
     &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px @orangeFocus;
+        outline: none;
+        box-shadow: 0 0 0 3px @orangeFocus;
     }
 
     &:hover, &:focus {
-      background-image: data-uri("../img/png/kalender--hover.png");
+        background-image: data-uri("../img/png/kalender--hover.png");
     }
-  }
+}
+
+.periodevelger__tom .datovelger__toggleDayPicker {
+    left: auto;
+    right: 2px;
+}
+
+@media (min-width: @fontSizeBreakPoint) {
+    .datovelger__toggleDayPicker {
+        height: 2.25rem;
+    }
+}

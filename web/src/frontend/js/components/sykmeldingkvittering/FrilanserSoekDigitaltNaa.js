@@ -29,7 +29,7 @@ export default () => {
                 <p className="kvitteringsteg__handling">
                     <Link
                         to={sokUrl}
-                        className="js-sok knapp">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</Link>
+                        className="js-sok knapp knapp--mini">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</Link>
                 </p>
                 <HtmlAvsnitt
                     nokkel="sykmelding.kvittering.sok-na.papir.tekst" />

@@ -17,7 +17,7 @@ import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
 import { PERIODEUTLAND } from '../../../enums/tagtyper';
 import fraBackendsoknadTilInitiellSoknad from '../../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
 import Feilstripe from '../../Feilstripe';
-import AvbrytSoknadContainer from '../../sykepengesoknad-utland/AvbrytSoknadContainer';
+import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
 
 export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, harFerie, avbrytSoknadFeilet, sendingFeilet }) => {
     const sporsmallisteSkjema = () => {

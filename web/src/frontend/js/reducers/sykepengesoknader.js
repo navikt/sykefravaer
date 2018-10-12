@@ -188,20 +188,20 @@ export default function sykepengesoknader(state = initiellState, action = {}) {
                 henterBerikelseFeilet: true,
             };
         }
-        case actiontyper.AVBRYTER_SOKNAD: {
+        case actiontyper.AVBRYTER_SYKEPENGESOKNAD: {
             return {
                 ...state,
                 avbryter: true,
             };
         }
-        case actiontyper.AVBRYT_SOKNAD_FEILET: {
+        case actiontyper.AVBRYT_SYKEPENGESOKNAD_FEILET: {
             return {
                 ...state,
                 avbryter: false,
                 avbrytFeilet: true,
             };
         }
-        case actiontyper.SOKNAD_AVBRUTT: {
+        case actiontyper.SYKEPENGESOKNAD_AVBRUTT: {
             const soknad = finnSoknad({ sykepengesoknader: state }, action.sykepengesoknadsId);
             let status = AVBRUTT;
             if (soknad.status === UTKAST_TIL_KORRIGERING) {
@@ -218,20 +218,20 @@ export default function sykepengesoknader(state = initiellState, action = {}) {
                 avbrytFeilet: false,
             };
         }
-        case actiontyper.GJENAPNER_SOKNAD: {
+        case actiontyper.GJENAPNER_SYKEPENGESOKNAD: {
             return {
                 ...state,
                 gjenapner: true,
             };
         }
-        case actiontyper.GJENAPNE_SOKNAD_FEILET: {
+        case actiontyper.GJENAPNE_SYKEPENGESOKNAD_FEILET: {
             return {
                 ...state,
                 gjenapner: false,
                 gjenapneFeilet: true,
             };
         }
-        case actiontyper.SOKNAD_GJENAPNET: {
+        case actiontyper.SYKEPENGESOKNAD_GJENAPNET: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                 status: NY,
                 avbruttDato: null,

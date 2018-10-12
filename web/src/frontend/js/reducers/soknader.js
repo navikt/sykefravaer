@@ -1,25 +1,29 @@
 import {
-    AVBRYT_SYKEPENGESOKNAD_FEILET,
-    AVBRYTER_SYKEPENGESOKNAD,
     BEKREFT_SYKMELDING_ANGRET,
+    AVBRYT_SOKNAD_FEILET,
+    AVBRYTER_SOKNAD,
     HENT_SOKNADER_FEILET,
     HENTER_SOKNADER,
     OPPDATER_SOKNAD_FEILET,
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
-    OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
     OPPRETTER_UTKAST_TIL_KORRIGERING,
+    UTKAST_TIL_KORRIGERING_OPPRETTET,
+    OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     SEND_SOKNAD_FEILET,
     SENDER_SOKNAD,
     SOKNAD_OPPDATERT,
     SOKNAD_SENDT,
     SOKNADER_HENTET,
-    SYKEPENGESOKNAD_AVBRUTT,
     SYKEPENGESOKNADUTLAND_OPPRETTET,
-    UTKAST_TIL_KORRIGERING_OPPRETTET,
+    SOKNAD_AVBRUTT,
+    GJENAPNER_SOKNAD,
+    GJENAPNE_SOKNAD_FEILET,
+    SOKNAD_GJENAPNET,
 } from '../actions/actiontyper';
 import { DATO, PERIODER, PROSENT, TIMER } from '../enums/svartyper';
-import { SENDT } from '../enums/soknadstatuser';
+import { SENDT, NY, AVBRUTT } from '../enums/soknadstatuser';
+import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
 
 const initiellState = {
     data: [],
@@ -145,26 +149,35 @@ export default (state = initiellState, action = {}) => {
                 opprettFeilet: true,
             };
         }
-
-        case AVBRYTER_SYKEPENGESOKNAD: {
+        case AVBRYTER_SOKNAD: {
             return {
                 ...state,
                 avbryter: true,
                 avbrytSoknadFeilet: false,
             };
         }
-
-        case SYKEPENGESOKNAD_AVBRUTT: {
+        case SOKNAD_AVBRUTT: {
+            const data = action.soknad.soknadstype === OPPHOLD_UTLAND
+                ? [...state.data.filter((s) => {
+                    return s.id !== action.soknad.id;
+                })]
+                : state.data.map((s) => {
+                    return s.id === action.soknad.id
+                        ? {
+                            ...s,
+                            status: AVBRUTT,
+                            avbruttDato: new Date(),
+                        }
+                        : s;
+                });
             return {
                 ...state,
-                data: [...state.data.filter((s) => {
-                    return s.id !== action.soknad.id;
-                })],
+                data,
                 avbryter: false,
                 avbrytSoknadFeilet: false,
             };
         }
-        case AVBRYT_SYKEPENGESOKNAD_FEILET: {
+        case AVBRYT_SOKNAD_FEILET: {
             return {
                 ...state,
                 avbryter: false,
@@ -195,6 +208,37 @@ export default (state = initiellState, action = {}) => {
                     return s.sykmeldingId === action.sykmeldingId
                         ? s.status === SENDT
                         : true;
+                }),
+            };
+        }
+        case GJENAPNER_SOKNAD: {
+            return {
+                ...state,
+                gjenapner: true,
+                gjenapneFeilet: false,
+            };
+        }
+        case GJENAPNE_SOKNAD_FEILET: {
+            return {
+                ...state,
+                gjenapner: false,
+                gjenapneFeilet: true,
+            };
+        }
+        case SOKNAD_GJENAPNET: {
+            return {
+                ...state,
+                gjenapneFeilet: false,
+                gjenapner: false,
+                data: state.data.map((s) => {
+                    if (s.id === action.soknad.id) {
+                        return {
+                            ...s,
+                            status: NY,
+                            avbruttDato: null,
+                        };
+                    }
+                    return s;
                 }),
             };
         }

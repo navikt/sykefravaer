@@ -6,9 +6,11 @@ import { initialize } from 'redux-form';
 import { get, hentApiUrl, post } from '../gateway-api';
 import * as actions from '../actions/soknader_actions';
 import {
-    AVBRYT_SYKEPENGESOKNAD_FORESPURT,
+    AVBRYT_SOKNAD_FORESPURT,
+    GJENAPNE_SOKNAD_FORESPURT,
     HENT_SOKNADER_FORESPURT,
-    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
+    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
     SOKNAD_ENDRET,
     SYKMELDING_BEKREFTET,
@@ -69,12 +71,27 @@ export function* avbrytSoknad(action) {
         || action.soknad.soknadstype === OPPHOLD_UTLAND) {
         try {
             yield put(actions.avbryterSoknad());
-            yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
+            yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/avbryt`);
             yield put(actions.soknadAvbrutt(action.soknad));
-            browserHistory.push(getContextRoot());
+            if (action.soknad.soknadstype === OPPHOLD_UTLAND) {
+                browserHistory.push(getContextRoot());
+            }
         } catch (e) {
             log(e);
             yield put(actions.avbrytSoknadFeilet());
+        }
+    }
+}
+
+export function* gjenapneSoknad(action) {
+    if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) {
+        try {
+            yield put(actions.gjenapnerSoknad(action.soknad));
+            yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/gjenapne`);
+            yield put(actions.soknadGjenapnet(action.soknad));
+        } catch (e) {
+            log(e);
+            yield put(actions.gjenapneSoknadFeilet());
         }
     }
 }
@@ -142,8 +159,12 @@ function* watchSykmeldingSendt() {
     yield* takeEvery(SYKMELDING_BEKREFTET, hentSoknader);
 }
 
-function* watchAvbrytSykepengeoknad() {
-    yield* takeEvery(AVBRYT_SYKEPENGESOKNAD_FORESPURT, avbrytSoknad);
+function* watchAvbrytSoknad() {
+    yield* takeEvery(AVBRYT_SOKNAD_FORESPURT, avbrytSoknad);
+}
+
+function* watchGjenapneSoknad() {
+    yield* takeEvery(GJENAPNE_SOKNAD_FORESPURT, gjenapneSoknad);
 }
 
 function* watchOpprettSoknadUtland() {
@@ -162,8 +183,9 @@ export default function* soknaderSagas() {
     yield fork(watchHentSoknader);
     yield fork(watchSendSoknad);
     yield fork(watchSykmeldingSendt);
-    yield fork(watchAvbrytSykepengeoknad);
+    yield fork(watchAvbrytSoknad);
     yield fork(watchOpprettSoknadUtland);
     yield fork(watchEndringSoknad);
+    yield fork(watchGjenapneSoknad);
     yield fork(watchOpprettUtkastTilKorrigering);
 }

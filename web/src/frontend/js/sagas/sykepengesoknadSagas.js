@@ -104,8 +104,8 @@ export function* avbrytSoknad(action) {
 export function* gjenapneSoknad(action) {
     yield put(actions.gjenapnerSoknad());
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/gjenapne`);
-        yield put(actions.soknadGjenapnet(action.sykepengesoknadsId));
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/gjenapne`);
+        yield put(actions.soknadGjenapnet(action.sykepengesoknad.id));
     } catch (e) {
         log(e);
         logger.error(`Kunne ikke gjenåpne søknad. URL: ${window.location.href} - ${e.message}`);
@@ -142,11 +142,11 @@ function* watchEndreSykepengesoknad() {
 }
 
 function* watchAvbrytSoknad() {
-    yield* takeEvery(actiontyper.AVBRYT_SOKNAD_FORESPURT, avbrytSoknad);
+    yield* takeEvery(actiontyper.AVBRYT_SYKEPENGESOKNAD_FORESPURT, avbrytSoknad);
 }
 
 function* watchGjenapneSoknad() {
-    yield* takeEvery(actiontyper.GJENAPNE_SOKNAD_FORESPURT, gjenapneSoknad);
+    yield* takeEvery(actiontyper.GJENAPNE_SYKEPENGESOKNAD_FORESPURT, gjenapneSoknad);
 }
 
 export default function* sykepengesoknadSagas() {

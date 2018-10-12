@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { avbrytSoknad } from '../../actions/soknader_actions';
-import AvbrytSoknad from '../sykepengesoknad-felles/AvbrytSoknad';
-import { soknad as soknadPt } from '../../propTypes';
+import AvbrytSoknad from '../../components/sykepengesoknad-felles/AvbrytSoknad';
+import { soknad as soknadPt } from '../../propTypes/index';
 
 const mapStateToProps = (state) => {
     return {

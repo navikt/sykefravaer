@@ -87,21 +87,21 @@ describe('soknaderSagas', () => {
     });
 
     describe('Avbryting av søknad', () => {
-        const soknadData = { test: 'data', soknadstype: OPPHOLD_UTLAND };
+        const soknadData = { id: 1, test: 'data', soknadstype: OPPHOLD_UTLAND };
         const action = actions.avbrytSoknad(soknadData);
         const generator = avbrytSoknad(action);
 
-        it('Skal dispatche AVBRYTER_SOKNAD', () => {
+        it('Skal dispatche AVBRYTER_SYKEPENGESOKNAD', () => {
             const nextPut = put(actions.avbryterSoknad());
             expect(generator.next(true).value).to.deep.equal(nextPut);
         });
 
         it('Skal avbryte søknad', () => {
-            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/avbrytSoknad', soknadData);
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/soknader/1/avbryt');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('Skal deretter dispatche SYKEPENGESOKNAD_AVBRUTT', () => {
+        it('Skal deretter dispatche SOKNAD_AVBRUTT', () => {
             const nextPut = put(actions.soknadAvbrutt(action.soknad));
             expect(generator.next().value).to.deep.equal(nextPut);
         });

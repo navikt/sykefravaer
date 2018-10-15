@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autofill, touch, formValueSelector } from 'redux-form';
-import { toDatePrettyPrint, fraInputdatoTilJSDato, scrollTo, tilLesbarDatoUtenArstall } from 'digisyfo-npm';
+import { toDatePrettyPrint, fraInputdatoTilJSDato, scrollTo, tilLesbarDatoUtenAarstall } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from './datovelgerLocale';
@@ -18,9 +18,9 @@ const Style = () => {
 
 const Datoer = ({ fom, tom }) => {
     const tekst = fom && tom
-        ? `Fra <strong>${tilLesbarDatoUtenArstall(fom)}</strong> til <strong>${tilLesbarDatoUtenArstall(tom)}</strong>`
+        ? `Fra <strong>${tilLesbarDatoUtenAarstall(fom)}</strong> til <strong>${tilLesbarDatoUtenAarstall(tom)}</strong>`
         : fom
-            ? `Fra <strong>${tilLesbarDatoUtenArstall(fom)}</strong>`
+            ? `Fra <strong>${tilLesbarDatoUtenAarstall(fom)}</strong>`
             : '&nbsp;';
     return <p className="periodekalender__datoer" aria-live="polite" dangerouslySetInnerHTML={{ __html: tekst }} />;
 };

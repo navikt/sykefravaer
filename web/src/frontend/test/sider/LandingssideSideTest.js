@@ -17,6 +17,7 @@ describe('LandingssideSide', () => {
     let hentLedere;
     let hentDineSykmeldinger;
     let hentSykeforloep;
+    let hentSykeforloepMetadata;
     let hentOppfolgingsdialoger;
 
     let state;
@@ -28,6 +29,7 @@ describe('LandingssideSide', () => {
         hentLedere = sinon.spy();
         hentDineSykmeldinger = sinon.spy();
         hentSykeforloep = sinon.spy();
+        hentSykeforloepMetadata = sinon.spy();
         hentOppfolgingsdialoger = sinon.spy();
         hentSoknader = sinon.spy();
 
@@ -37,6 +39,7 @@ describe('LandingssideSide', () => {
             hentLedere,
             hentDineSykmeldinger,
             hentSykeforloep,
+            hentSykeforloepMetadata,
             hentOppfolgingsdialoger,
             hentSoknader,
         };
@@ -51,6 +54,7 @@ describe('LandingssideSide', () => {
             mote: {},
             ledere: {},
             sykeforloep: {},
+            sykeforloepMetadata: {},
             oppfolgingsdialoger: {
                 data: [],
             },
@@ -68,7 +72,6 @@ describe('LandingssideSide', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentMote.calledOnce).to.equal(true);
-                expect(props.henter).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 
@@ -103,7 +106,6 @@ describe('LandingssideSide', () => {
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentSykepengesoknader.calledOnce).to.equal(true);
                 expect(props.henter).to.equal(false);
-                expect(props.henter).to.equal(false);
             });
 
             it('Skal ikke hente sykepengesøknader dersom sykepengesøknader er hentet', () => {
@@ -136,7 +138,6 @@ describe('LandingssideSide', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentSoknader.calledOnce).to.equal(true);
-                expect(props.henter).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 
@@ -171,7 +172,6 @@ describe('LandingssideSide', () => {
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentLedere.calledOnce).to.equal(true);
                 expect(props.henter).to.equal(false);
-                expect(props.henter).to.equal(false);
             });
 
             it('Skal ikke hente ledere dersom ledere er hentet', () => {
@@ -205,7 +205,6 @@ describe('LandingssideSide', () => {
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentDineSykmeldinger.calledOnce).to.equal(true);
                 expect(props.henter).to.equal(false);
-                expect(props.henter).to.equal(false);
             });
 
             it('Skal sette henter til false dersom sykmeldinger er hentet', () => {
@@ -232,7 +231,6 @@ describe('LandingssideSide', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentSykeforloep.calledOnce).to.equal(true);
-                expect(props.henter).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 
@@ -261,12 +259,38 @@ describe('LandingssideSide', () => {
             });
         });
 
+        describe('Sykeforløpmetadata', () => {
+            it('Skal hente sykeforloepMetadata dersom sykeforloepMetadata ikke er hentet', () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<Container {...props} actions={actions} />);
+                expect(hentSykeforloepMetadata.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+            });
+
+            it('Skal ikke hente sykeforloepMetadata dersom sykeforloepMetadata er hentet', () => {
+                state.sykeforloepMetadata.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter).to.equal(false);
+            });
+
+            it('Skal ikke hente sykeforloepMetadata dersom sykeforloepMetadata hentes nå', () => {
+                state.sykeforloepMetadata.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter).to.equal(true);
+            });
+
+            it('Skal ikke hente sykeforloepMetadata dersom henting av sykeforløp har feilet', () => {
+                state.sykeforloepMetadata.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter).to.equal(false);
+            });
+        });
+
         describe('Oppfølgingsdialoger', () => {
             it('Skal hente oppfolgingsdialoger dersom oppfolgingsdialoger ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentOppfolgingsdialoger.calledOnce).to.equal(true);
-                expect(props.henter).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 

@@ -452,5 +452,35 @@ describe('mapSkjemasoknadToBackendsoknad', () => {
                 arbeidstimerNormalUke: 12.5,
             });
         });
+
+        it('kutter aktivitet og beregner riktig arbeidsgrad ved gjenopptattdato', () => {
+            const aktiviteter = [
+                {
+                    periode: {
+                        fom: new Date('2018-10-01'),
+                        tom: new Date('2018-10-10'),
+                    },
+                    grad: 100,
+                    avvik: {
+                        enhet: 'timer',
+                        timer: '5',
+                        arbeidstimerNormalUke: '40',
+                    },
+                    jobbetMerEnnPlanlagt: true,
+                },
+            ];
+
+            const _soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(Object.assign({}, soknad, {
+                aktiviteter,
+                harGjenopptattArbeidFulltUt: true,
+                gjenopptattArbeidFulltUtDato: '09.10.2018',
+            })));
+
+            expect(_soknad.aktiviteter[0].avvik).to.deep.equal({
+                beregnetArbeidsgrad: 10,
+                arbeidstimerNormalUke: 40,
+                timer: 5,
+            });
+        });
     });
 });

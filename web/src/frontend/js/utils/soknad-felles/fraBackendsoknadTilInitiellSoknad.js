@@ -11,10 +11,12 @@ const tilInitielleSvarverder = ({ svar, svartype, id }) => {
         case PERIODER: {
             return svar.map((s) => {
                 const periode = JSON.parse(s.verdi);
-                return {
-                    fom: periode.fom.split('.').length === 3 ? periode.fom : toDatePrettyPrint(periode.fom),
-                    tom: periode.tom.split('.').length === 3 ? periode.tom : toDatePrettyPrint(periode.tom),
-                };
+                return periode && periode.fom && periode.tom
+                    ? {
+                        fom: periode.fom.split('.').length === 3 ? periode.fom : toDatePrettyPrint(periode.fom),
+                        tom: periode.tom.split('.').length === 3 ? periode.tom : toDatePrettyPrint(periode.tom),
+                    }
+                    : {};
             });
         }
         case CHECKBOX:

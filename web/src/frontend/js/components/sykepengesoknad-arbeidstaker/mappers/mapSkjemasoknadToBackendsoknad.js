@@ -1,6 +1,7 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
 import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
+import { filtrerAktuelleAktiviteter } from '../../../utils/sykepengesoknadUtils';
 
 const parsePerioder = (perioder) => {
     return perioder.map((periode) => {
@@ -56,8 +57,10 @@ const tilInt = (streng) => {
     return parseFloat(streng.replace(',', '.'));
 };
 
-const getAktiviteter = (aktiviteter, ferieOgPermisjonPerioder) => {
-    return aktiviteter.map((aktivitet) => {
+const getAktiviteter = (aktiviteter, ferieOgPermisjonPerioder, gjenopptattDato) => {
+    const _aktiviteter = filtrerAktuelleAktiviteter(aktiviteter, gjenopptattDato);
+
+    return _aktiviteter.map((aktivitet) => {
         const _a = {
             periode: aktivitet.periode,
             grad: aktivitet.grad,
@@ -112,6 +115,7 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
     const permisjonperioder = parsePerioder(permisjon);
     const ferieperioder = parsePerioder(ferie);
     const ferieOgPermisjonPerioder = [...ferieperioder, ...permisjonperioder];
+    const gjenopptattArbeidFulltUtDato = soknad.harGjenopptattArbeidFulltUt ? fraInputdatoTilJSDato(soknad.gjenopptattArbeidFulltUtDato) : null;
 
     const backendSoknad = {
         ...soknad,
@@ -119,9 +123,9 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
         ferie: ferieperioder,
         utenlandsopphold,
         andreInntektskilder: parseInntektskilder(soknad.andreInntektskilder),
-        gjenopptattArbeidFulltUtDato: soknad.harGjenopptattArbeidFulltUt ? fraInputdatoTilJSDato(soknad.gjenopptattArbeidFulltUtDato) : null,
+        gjenopptattArbeidFulltUtDato,
         egenmeldingsperioder: soknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer ? parsePerioder(soknad.egenmeldingsperioder) : [],
-        aktiviteter: getAktiviteter(soknad.aktiviteter, ferieOgPermisjonPerioder),
+        aktiviteter: getAktiviteter(soknad.aktiviteter, ferieOgPermisjonPerioder, gjenopptattArbeidFulltUtDato),
         utdanning: getUtdanning(soknad.utdanning),
     };
 

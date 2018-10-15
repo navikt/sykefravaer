@@ -166,16 +166,11 @@ export class Container extends Component {
     componentDidMount() {
         this.props.actions.hentSykepengesoknader();
         this.props.actions.hentSoknader();
-
-        if (this.props.skalHenteSykmeldinger) {
-            this.props.actions.hentDineSykmeldinger();
-        }
+        this.props.actions.hentDineSykmeldinger();
     }
 
     componentDidUpdate() {
-        if (this.props.skalHenteSykmeldinger) {
-            this.props.actions.hentDineSykmeldinger();
-        }
+        this.props.actions.hentDineSykmeldinger();
     }
 
     render() {
@@ -252,7 +247,6 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         soknadId,
-        skalHenteSykmeldinger,
         erSelvstendigNaeringsdrivendeSoknad,
         erSoknadOmUtenlandsopphold,
         erArbeidstakersoknad,

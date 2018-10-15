@@ -55,7 +55,6 @@ import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import {
-    henterEllerHarHentetSykmeldinger,
     henterEllerHarHentetToggles,
 } from '../utils/reducerUtils';
 import {
@@ -65,7 +64,7 @@ import {
 
 export class Container extends Component {
     componentWillMount() {
-        const { toggles, tilgang, oppfolgingsdialogerReducer, dineSykmeldinger } = this.props;
+        const { toggles, tilgang, oppfolgingsdialogerReducer } = this.props;
         if (!henterEllerHarHentetToggles(toggles)) {
             this.props.hentToggles();
         }
@@ -75,9 +74,7 @@ export class Container extends Component {
         if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialogerReducer)) {
             this.props.hentOppfolgingsdialoger();
         }
-        if (!henterEllerHarHentetSykmeldinger(dineSykmeldinger)) {
-            this.props.hentDineSykmeldinger();
-        }
+        this.props.hentDineSykmeldinger();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -216,35 +213,37 @@ export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
     let oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
     oppfolgingsdialog = oppfolgingsdialog && populerDialogFraState(oppfolgingsdialog, state);
-    const erOppfolgingsdialogTilgjengelig = oppfolgingsdialog && (erOppfolgingsdialogTidligere(oppfolgingsdialog)
+    const erOppfolgingsdialogTilgjengelig = oppfolgingsdialog
+        && (erOppfolgingsdialogTidligere(oppfolgingsdialog)
         || erOppfolgingsdialogKnyttetTilGyldigSykmelding(oppfolgingsdialog, state.dineSykmeldinger.data));
+
     return {
         henter: state.oppfolgingsdialoger.henter
-        || state.ledetekster.henter
-        || state.dineSykmeldinger.henter
-        || state.tilgang.henter,
+            || state.ledetekster.henter
+            || state.dineSykmeldinger.henter
+            || state.tilgang.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet
-        || state.ledetekster.hentingFeilet
-        || state.dineSykmeldinger.hentingFeilet
-        || state.tilgang.hentingFeilet,
+            || state.ledetekster.hentingFeilet
+            || state.dineSykmeldinger.hentingFeilet
+            || state.tilgang.hentingFeilet,
         hentet: state.oppfolgingsdialoger.hentet
-        || state.ledetekster.hentet
-        || state.dineSykmeldinger.hentet
-        || state.tilgang.hentet
-        || state.oppfolgingsdialoger.avviser
-        || state.oppfolgingsdialoger.godkjent
-        || state.avbrytdialogReducer.sendt
-        || state.nullstill.sendt,
+            || state.ledetekster.hentet
+            || state.dineSykmeldinger.hentet
+            || state.tilgang.hentet
+            || state.oppfolgingsdialoger.avviser
+            || state.oppfolgingsdialoger.godkjent
+            || state.avbrytdialogReducer.sendt
+            || state.nullstill.sendt,
         sender: state.oppfolgingsdialoger.avviser
-        || state.oppfolgingsdialoger.godkjenner
-        || state.avbrytdialogReducer.sender
-        || state.nullstill.sender
-        || state.samtykke.sender,
+            || state.oppfolgingsdialoger.godkjenner
+            || state.avbrytdialogReducer.sender
+            || state.nullstill.sender
+            || state.samtykke.sender,
         sendingFeilet: state.oppfolgingsdialoger.avvisFeilet
-        || state.oppfolgingsdialoger.godkjenningFeilet
-        || state.avbrytdialogReducer.sendingFeilet
-        || state.nullstill.sendingFeilet
-        || state.samtykke.sendingFeilet,
+            || state.oppfolgingsdialoger.godkjenningFeilet
+            || state.avbrytdialogReducer.sendingFeilet
+            || state.nullstill.sendingFeilet
+            || state.samtykke.sendingFeilet,
         ledetekster: state.ledetekster.data,
         arbeidsforhold: state.arbeidsforhold,
         arbeidsoppgaver: state.arbeidsoppgaver,

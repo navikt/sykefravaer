@@ -11,7 +11,7 @@ import DineSykmeldinger from '../../js/components/sykmeldinger/DineSykmeldinger'
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-let sykmeldinger;
+let dineSykmeldinger;
 
 describe('DineSykmeldingerContainer', () => {
     let dispatch;
@@ -73,7 +73,7 @@ describe('DineSykmeldingerContainer', () => {
             arbeidsfoerEtterPerioden: true,
         }];
 
-        sykmeldinger = {
+        dineSykmeldinger = {
             data: sykmeldingerArray,
             hentet: true,
         };
@@ -82,7 +82,7 @@ describe('DineSykmeldingerContainer', () => {
     describe('mapStateToProps', () => {
         it('skal returnere dineSykmeldinger', () => {
             const res = mapStateToProps({
-                dineSykmeldinger: sykmeldinger,
+                dineSykmeldinger,
                 ledetekster: {
                     data: [],
                 },
@@ -91,24 +91,8 @@ describe('DineSykmeldingerContainer', () => {
                     innstillinger: {},
                 },
             });
-            expect(res.sykmeldinger).to.deep.equal(sykmeldinger.data);
-            expect(res.sykmeldingerHentet).to.equal(true);
-        });
-
-        it('Skal returnere sykmeldingerHentet', () => {
-            const res = mapStateToProps({
-                dineSykmeldinger: Object.assign({}, sykmeldinger, {
-                    hentet: false,
-                }),
-                ledetekster: {
-                    data: [],
-                },
-                brukerinfo: {
-                    bruker: {},
-                    innstillinger: {},
-                },
-            });
-            expect(res.sykmeldingerHentet).to.equal(false);
+            expect(res.sykmeldinger).to.deep.equal(dineSykmeldinger.data);
+            expect(res.henter).to.equal(false);
         });
     });
 
@@ -120,14 +104,9 @@ describe('DineSykmeldingerContainer', () => {
             hentDineSykmeldinger = sinon.spy();
         });
 
-        it('Skal hente sykmeldinger hvis sykmeldinger ikke er hentet', () => {
+        it('Skal hente sykmeldinger', () => {
             shallow(<Container hentDineSykmeldinger={hentDineSykmeldinger} sykmeldinger={[]} sykmeldingerHentet={false} dispatch={dispatch} />);
             expect(hentDineSykmeldinger.calledOnce).to.equal(true);
-        });
-
-        it('Skal ikke hente sykmeldinger hvis sykmeldinger er hentet', () => {
-            shallow(<Container hentDineSykmeldinger={hentDineSykmeldinger} sykmeldinger={[]} sykmeldingerHentet dispatch={dispatch} />);
-            expect(hentDineSykmeldinger.calledOnce).to.equal(false);
         });
 
         it('Skal vise spinner dersom data hentes', () => {

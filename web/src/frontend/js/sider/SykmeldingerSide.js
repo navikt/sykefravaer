@@ -11,14 +11,12 @@ import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 
 export class Container extends Component {
     componentWillMount() {
-        if (!this.props.sykmeldingerHentet) {
-            this.props.hentDineSykmeldinger();
-        }
+        this.props.hentDineSykmeldinger();
     }
 
     render() {
-        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering, sykmeldingerHentet } = this.props;
-        return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter || !sykmeldingerHentet}>
+        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering } = this.props;
+        return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
             {
                 (() => {
                     if (henter) {
@@ -43,7 +41,6 @@ Container.propTypes = {
     sortering: PropTypes.shape({
         tidligere: PropTypes.string,
     }),
-    sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
 };
 
@@ -51,8 +48,7 @@ export function mapStateToProps(state) {
     return {
         sykmeldinger: state.dineSykmeldinger.data,
         sortering: state.dineSykmeldinger.sortering,
-        sykmeldingerHentet: state.dineSykmeldinger.hentet,
-        henter: state.ledetekster.henter || state.dineSykmeldinger.henter,
+        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || !state.dineSykmeldinger.hentet,
         hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

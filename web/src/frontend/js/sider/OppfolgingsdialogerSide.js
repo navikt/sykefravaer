@@ -36,7 +36,6 @@ import {
 } from '../propTypes/index';
 import {
     henterEllerHarHentetLedere,
-    henterEllerHarHentetSykmeldinger,
     henterEllerHarHentetToggles,
     lederHarBlittAvkreftet,
 } from '../utils/reducerUtils';
@@ -48,7 +47,6 @@ export class Container extends Component {
     componentWillMount() {
         const {
             tilgang,
-            dinesykmeldinger,
             naermesteLedere,
             oppfolgingsdialogerReducer,
             toggles,
@@ -56,9 +54,7 @@ export class Container extends Component {
         if (!henterEllerHarHentetTilgang(tilgang)) {
             this.props.sjekkTilgang();
         }
-        if (!henterEllerHarHentetSykmeldinger(dinesykmeldinger)) {
-            this.props.hentDineSykmeldinger();
-        }
+        this.props.hentDineSykmeldinger();
         if (!henterEllerHarHentetLedere(naermesteLedere)) {
             this.props.hentLedere();
         }
@@ -168,27 +164,27 @@ export const mapStateToProps = (state) => {
         });
     return {
         henter: state.ledetekster.henter
-        || state.oppfolgingsdialoger.henter
-        || state.tilgang.henter
-        || state.dineSykmeldinger.henter
-        || state.ledere.henter,
+            || state.oppfolgingsdialoger.henter
+            || state.tilgang.henter
+            || state.dineSykmeldinger.henter
+            || state.ledere.henter,
         hentingFeilet: state.ledetekster.hentingFeilet
-        || state.oppfolgingsdialoger.hentingFeilet
-        || state.tilgang.hentingFeilet
-        || state.dineSykmeldinger.hentingFeilet
-        || state.ledere.hentingFeilet,
+            || state.oppfolgingsdialoger.hentingFeilet
+            || state.tilgang.hentingFeilet
+            || state.dineSykmeldinger.hentingFeilet
+            || state.ledere.hentingFeilet,
         hentet: state.tilgang.hentet
-        || state.dineSykmeldinger.hentet
-        || state.ledere.hentet
-        || state.oppfolgingsdialoger.hentet
-        || state.ledere.avkreftet
-        || state.oppfolgingsdialoger.opprettet,
+            || state.dineSykmeldinger.hentet
+            || state.ledere.hentet
+            || state.oppfolgingsdialoger.hentet
+            || state.ledere.avkreftet
+            || state.oppfolgingsdialoger.opprettet,
         sender: state.oppfolgingsdialoger.oppretter
-        || state.kopierDialogReducer.sender
-        || state.ledere.avkrefter,
+            || state.kopierDialogReducer.sender
+            || state.ledere.avkrefter,
         sendingFeilet: state.oppfolgingsdialoger.hentingFeilet
-        || state.kopierDialogReducer.sendingFeilet
-        || state.ledere.avkreftFeilet,
+            || state.kopierDialogReducer.sendingFeilet
+            || state.ledere.avkreftFeilet,
         avkrefterLederReducer: state.ledere,
         dinesykmeldinger: state.dineSykmeldinger,
         naermesteleder: state.naermesteleder,

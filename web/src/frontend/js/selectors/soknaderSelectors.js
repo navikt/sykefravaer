@@ -11,7 +11,9 @@ export const erForsteSoknad = (state) => {
 };
 
 export const skalHenteSoknader = (state) => {
-    return !state.soknader.hentet && !state.soknader.henter;
+    return !state.soknader.hentet
+        && !state.soknader.henter
+        && !state.soknader.hentingFeilet;
 };
 
 export const sykmeldingHarBehandletSoknad = (state, sykmeldingId) => {

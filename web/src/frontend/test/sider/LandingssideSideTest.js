@@ -106,27 +106,21 @@ describe('LandingssideSide', () => {
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente sykepengesøknader dersom sykepengesøknader er hentet', () => {
+            it('Skal sette henter dersom sykepengesøknader er hentet', () => {
                 state.sykepengesoknader.hentet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykepengesoknader.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente sykepengesøknader dersom sykepengesøknader hentes nå', () => {
+            it('Skal sette henter sykepengesøknader hentes nå', () => {
                 state.sykepengesoknader.henter = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykepengesoknader.called).to.equal(false);
                 expect(props.henter).to.equal(true);
             });
 
-            it('Skal ikke hente sykepengesøknader dersom henting av sykepengesøknader har feilet', () => {
+            it('Skal sette henter dersom henting av sykepengesøknader har feilet', () => {
                 state.sykepengesoknader.hentingFeilet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykepengesoknader.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
         });
@@ -140,27 +134,21 @@ describe('LandingssideSide', () => {
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente søknader dersom søknader er hentet', () => {
+            it('Skal sette henter til false dersom søknader er hentet', () => {
                 state.soknader.hentet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSoknader.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente søknader dersom søknader hentes nå', () => {
+            it('Skal sette henter til true dersom søknader hentes nå', () => {
                 state.soknader.henter = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSoknader.called).to.equal(false);
                 expect(props.henter).to.equal(true);
             });
 
-            it('Skal ikke hente søknader dersom henting av søknader har feilet', () => {
+            it('Skal sette henter til false dersom henting av søknader har feilet', () => {
                 state.soknader.hentingFeilet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSoknader.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
         });

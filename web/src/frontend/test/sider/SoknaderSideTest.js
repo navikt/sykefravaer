@@ -70,6 +70,7 @@ describe('SoknaderSide', () => {
 
         it('Skal vise Alertstripe om henting av sykepengesøknader feiler', () => {
             state.sykepengesoknader.hentingFeilet = true;
+            state.soknader.hentet = true;
             const props = mapStateToProps(state);
             const component = shallow(<Container {...props} actions={actions} />);
             expect(component.find(Soknader)).to.have.length(1);
@@ -79,6 +80,7 @@ describe('SoknaderSide', () => {
 
         it('Skal vise Alertstripe om henting av søknader feiler', () => {
             state.soknader.hentingFeilet = true;
+            state.sykepengesoknader.hentet = true;
             const props = mapStateToProps(state);
             const component = shallow(<Container {...props} actions={actions} />);
             expect(component.find(Soknader)).to.have.length(1);
@@ -125,44 +127,16 @@ describe('SoknaderSide', () => {
             expect(component.find(AppSpinner)).to.have.length(0);
         });
 
-        it('Skal hente sykepengesøknader hvis sykepengesøknader ikke er hentet', () => {
+        it('Skal hente sykepengesøknader', () => {
             const props = mapStateToProps(state);
             shallow(<Container {...props} actions={actions} />);
             expect(hentSykepengesoknader.called).to.equal(true);
         });
 
-        it('Skal ikke hente sykepengesøknader hvis sykepengesøknader er hentet', () => {
-            state.sykepengesoknader.hentet = true;
-            const props = mapStateToProps(state);
-            shallow(<Container {...props} actions={actions} />);
-            expect(hentSykepengesoknader.called).to.equal(false);
-        });
-
-        it('Skal ikke hente sykepengesøknader hvis sykepengesøknader hentes', () => {
-            state.sykepengesoknader.henter = true;
-            const props = mapStateToProps(state);
-            shallow(<Container {...props} actions={actions} />);
-            expect(hentSykepengesoknader.called).to.equal(false);
-        });
-
-        it('Skal hente sykepengesøknader hvis sykepengesøknader ikke er hentet', () => {
+        it('Skal hente søknader', () => {
             const props = mapStateToProps(state);
             shallow(<Container {...props} actions={actions} />);
             expect(hentSoknader.called).to.equal(true);
-        });
-
-        it('Skal ikke hente sykepengesøknader hvis sykepengesøknader er hentet', () => {
-            state.soknader.hentet = true;
-            const props = mapStateToProps(state);
-            shallow(<Container {...props} actions={actions} />);
-            expect(hentSoknader.called).to.equal(false);
-        });
-
-        it('Skal ikke hente sykepengesøknader hvis sykepengesøknader hentes', () => {
-            state.soknader.henter = true;
-            const props = mapStateToProps(state);
-            shallow(<Container {...props} actions={actions} />);
-            expect(hentSoknader.called).to.equal(false);
         });
     });
 });

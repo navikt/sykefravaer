@@ -18,7 +18,7 @@ import { soknadrespons, soknadUtland1 } from '../../test/mockSoknader';
 import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '../toggles';
 import logger from '../logging';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
-import { hentSoknad } from '../selectors/soknaderSelectors';
+import { hentSoknad, skalHenteSoknader } from '../selectors/soknaderSelectors';
 import { populerSoknadMedSvarUtenKonvertertePerioder } from '../utils/soknad-felles/populerSoknadMedSvar';
 import populerSkjemaverdier from '../utils/soknad-felles/populerSkjemaverdier';
 import fraBackendsoknadTilInitiellSoknad from '../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
@@ -30,7 +30,7 @@ const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
 };
 
-export function* hentSoknader() {
+export function* oppdaterSoknader() {
     yield put(actions.henterSoknader());
     try {
         const data = yield call(get, `${hentApiUrl()}/soknader`);
@@ -44,6 +44,13 @@ export function* hentSoknader() {
         } else {
             yield put(actions.hentSoknaderFeilet());
         }
+    }
+}
+
+export function* hentSoknaderHvisIkkeHentet() {
+    const skalHente = yield select(skalHenteSoknader);
+    if (skalHente) {
+        yield oppdaterSoknader();
     }
 }
 
@@ -147,15 +154,15 @@ export function* opprettUtkastTilKorrigering(action) {
 }
 
 function* watchHentSoknader() {
-    yield takeEvery(HENT_SOKNADER_FORESPURT, hentSoknader);
+    yield takeEvery(HENT_SOKNADER_FORESPURT, hentSoknaderHvisIkkeHentet);
+}
+
+function* watchSykmeldingSendt() {
+    yield takeEvery(SYKMELDING_BEKREFTET, oppdaterSoknader);
 }
 
 function* watchSendSoknad() {
     yield takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
-}
-
-function* watchSykmeldingSendt() {
-    yield takeEvery(SYKMELDING_BEKREFTET, hentSoknader);
 }
 
 function* watchAvbrytSoknad() {

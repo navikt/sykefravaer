@@ -89,18 +89,12 @@ describe('SykepengesoknadContainerTest', () => {
             expect(hentSoknader.called).to.equal(true);
         });
 
-        it('Skal hente sykepengesøknader hvis sykepengesøknader ikke er hentet (1)', () => {
+        it('Skal hente sykepengesøknader', () => {
             state.soknader = {
                 ...state.soknader,
                 hentet: false,
                 henter: false,
             };
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSykepengesoknader.called).to.equal(true);
-        });
-
-        it('Skal hente sykepengesøknader hvis sykepengesøknader er hentet', () => {
-            state.sykepengesoknader.hentet = true;
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSykepengesoknader.called).to.equal(true);
         });

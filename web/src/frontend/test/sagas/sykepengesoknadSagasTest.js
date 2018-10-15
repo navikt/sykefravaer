@@ -4,7 +4,7 @@ import { call, put, select } from 'redux-saga/effects';
 import sinon from 'sinon';
 import {
     hentBerikelse,
-    hentSykepengesoknader,
+    oppdaterSykepengesoknader,
     sendSykepengesoknad,
     sendSykepengesoknadTilArbeidsgiver,
     sendSykepengesoknadTilNAV,
@@ -31,7 +31,7 @@ describe('sykepengersoknadSagas', () => {
     });
 
     describe('henting', () => {
-        const generator = hentSykepengesoknader({
+        const generator = oppdaterSykepengesoknader({
             type: actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT,
         });
 
@@ -244,8 +244,8 @@ describe('sykepengersoknadSagas', () => {
                 expect(generator.next().value).to.deep.equal(select(finnSoknad, '123'));
             });
 
-            it('Skal dernest dispatche hentSykepengesoknader', () => {
-                const nextCall = call(hentSykepengesoknader);
+            it('Skal dernest dispatche oppdaterSykepengesoknader', () => {
+                const nextCall = call(oppdaterSykepengesoknader);
                 expect(generator.next({}).value).to.deep.equal(nextCall);
             });
 

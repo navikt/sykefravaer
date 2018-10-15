@@ -234,6 +234,12 @@ const startServer = (html) => {
         res.send(JSON.stringify({}));
     });
 
+    server.get('/http://localhost:8080/syforest/informasjon/arbeidsgivere?sykmeldingId=:uuid', (req, res) => {
+        res.send(JSON.stringify({}));
+    });
+
+
+
 // END - MOCKS
     server.listen(8080, () => {
         console.log('App listening on port: 8080');

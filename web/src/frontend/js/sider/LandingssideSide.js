@@ -14,7 +14,7 @@ import { brodsmule as brodsmulePt } from '../propTypes/index';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
-import { hentSykeforloep } from '../actions/sykeforloep_actions';
+import { hentSykeforloep, hentSykeforloepMetadata } from '../actions/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../utils/sykmeldingUtils';
 import { hentSoknader } from '../actions/soknader_actions';
 
@@ -25,6 +25,7 @@ export class Container extends Component {
             skalHenteSykepengesoknader,
             skalHenteLedere,
             skalHenteSykeforloep,
+            skalHenteSykeforloepMetadata,
             skalHenteOppfolgingsdialoger,
             skalHenteSoknader,
             actions,
@@ -46,6 +47,10 @@ export class Container extends Component {
 
         if (skalHenteSykeforloep) {
             actions.hentSykeforloep();
+        }
+
+        if (skalHenteSykeforloepMetadata) {
+            actions.hentSykeforloepMetadata();
         }
 
         if (skalHenteOppfolgingsdialoger) {
@@ -105,6 +110,7 @@ Container.propTypes = {
     skalHenteLedere: PropTypes.bool,
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSykeforloep: PropTypes.bool,
+    skalHenteSykeforloepMetadata: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
     actions: PropTypes.shape({
@@ -113,6 +119,7 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
         hentSykeforloep: PropTypes.func,
+        hentSykeforloepMetadata: PropTypes.func,
         hentOppfolgingsdialoger: PropTypes.func,
         hentSoknader: PropTypes.func,
     }),
@@ -129,13 +136,24 @@ export function mapStateToProps(state) {
         return r.henter === true;
     };
 
-    const reducere = ['mote', 'sykepengesoknader', 'ledere', 'dineSykmeldinger', 'sykeforloep', 'oppfolgingsdialoger', 'ledetekster', 'soknader'];
+    const reducere = [
+        'mote',
+        'sykepengesoknader',
+        'ledere',
+        'dineSykmeldinger',
+        'sykeforloep',
+        'sykeforloepMetadata',
+        'oppfolgingsdialoger',
+        'ledetekster',
+        'soknader',
+    ];
 
     return {
         skalHenteMote: skalHente('mote'),
         skalHenteSykepengesoknader: skalHente('sykepengesoknader'),
         skalHenteLedere: skalHente('ledere'),
         skalHenteSykeforloep: skalHente('sykeforloep'),
+        skalHenteSykeforloepMetadata: skalHente('sykeforloepMetadata'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
         skalHenteSoknader: skalHente('soknader'),
         skalHenteNoe: reducere.reduce((acc, val) => {
@@ -167,6 +185,7 @@ const mapDispatchToProps = (dispatch) => {
         hentDineSykmeldinger,
         hentOppfolgingsdialoger,
         hentSykeforloep,
+        hentSykeforloepMetadata,
         hentSoknader,
     }, dispatch);
     return { actions };

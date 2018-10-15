@@ -10,15 +10,13 @@ import Feilmelding from '../components/Feilmelding';
 import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../propTypes/index';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../actions/soknader_actions';
+import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
+import { skalHenteSoknader } from '../selectors/soknaderSelectors';
 
 export class Container extends Component {
     componentWillMount() {
-        if (this.props.skalHenteSykepengesoknader) {
-            this.props.actions.hentSykepengesoknader();
-        }
-        if (this.props.skalHenteSoknader) {
-            this.props.actions.hentSoknader();
-        }
+        this.props.actions.hentSykepengesoknader();
+        this.props.actions.hentSoknader();
     }
 
     render() {
@@ -27,13 +25,11 @@ export class Container extends Component {
             henter,
             hentingFeilet,
             sykepengesoknader,
-            skalHenteSykepengesoknader,
-            skalHenteSoknader,
             soknader,
             visFeil } = this.props;
 
         return (
-            <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler} laster={henter || skalHenteSoknader || skalHenteSykepengesoknader}>
+            <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
                 {
                     (() => {
                         if (henter) {
@@ -60,8 +56,6 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
     }),
-    skalHenteSykepengesoknader: PropTypes.bool,
-    skalHenteSoknader: PropTypes.bool,
     visFeil: PropTypes.bool,
 };
 
@@ -74,15 +68,17 @@ export function mapDispatchToProps(dispatch) {
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
     const soknader = state.soknader.data;
-    const skalHenteSoknader = !state.soknader.hentet && !state.soknader.henter;
 
     return {
         sykepengesoknader,
         soknader,
-        skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
-        skalHenteSoknader,
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || (state.sykepengesoknader.hentingFeilet && state.soknader.hentingFeilet),
+        henter: state.ledetekster.henter
+            || state.sykepengesoknader.henter
+            || state.soknader.henter
+            || skalHenteSoknader(state)
+            || skalHenteSykepengesoknader(state),
+        hentingFeilet: state.ledetekster.hentingFeilet
+            || (state.sykepengesoknader.hentingFeilet && state.soknader.hentingFeilet),
         visFeil: [state.soknader.hentingFeilet, state.sykepengesoknader.hentingFeilet].some((s) => {
             return s;
         }),

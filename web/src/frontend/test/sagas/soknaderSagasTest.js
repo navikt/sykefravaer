@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { call, put } from 'redux-saga/effects';
 import {
     avbrytSoknad,
-    hentSoknader,
+    oppdaterSoknader,
     opprettSoknadUtland,
     opprettUtkastTilKorrigering,
     sendSoknad,
@@ -22,7 +22,7 @@ describe('soknaderSagas', () => {
 
     describe('Henting av søknader når det er togglet på', () => {
         const action = actions.hentSoknader();
-        const generator = hentSoknader(action);
+        const generator = oppdaterSoknader(action);
 
         it('Skal dispatche HENTER_SOKNADER', () => {
             const nextPut = put(actions.henterSoknader());

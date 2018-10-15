@@ -22,11 +22,9 @@ export class Container extends Component {
     componentWillMount() {
         const {
             skalHenteMote,
-            skalHenteSykepengesoknader,
             skalHenteLedere,
             skalHenteSykeforloep,
             skalHenteOppfolgingsdialoger,
-            skalHenteSoknader,
             actions,
         } = this.props;
 
@@ -34,10 +32,7 @@ export class Container extends Component {
             actions.hentMote();
         }
 
-        if (skalHenteSykepengesoknader) {
-            actions.hentSykepengesoknader();
-        }
-
+        actions.hentSykepengesoknader();
         actions.hentDineSykmeldinger();
 
         if (skalHenteLedere) {
@@ -52,9 +47,7 @@ export class Container extends Component {
             actions.hentOppfolgingsdialoger();
         }
 
-        if (skalHenteSoknader) {
-            actions.hentSoknader();
-        }
+        actions.hentSoknader();
     }
 
     render() {
@@ -103,10 +96,8 @@ Container.propTypes = {
     skalViseOppfolgingsdialog: PropTypes.bool,
     skalHenteMote: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
-    skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSykeforloep: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
-    skalHenteSoknader: PropTypes.bool,
     actions: PropTypes.shape({
         hentMote: PropTypes.func,
         hentLedere: PropTypes.func,
@@ -133,11 +124,9 @@ export function mapStateToProps(state) {
 
     return {
         skalHenteMote: skalHente('mote'),
-        skalHenteSykepengesoknader: skalHente('sykepengesoknader'),
         skalHenteLedere: skalHente('ledere'),
         skalHenteSykeforloep: skalHente('sykeforloep'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
-        skalHenteSoknader: skalHente('soknader'),
         skalHenteNoe: reducere.reduce((acc, val) => {
             return acc || skalHente(val);
         }, false),

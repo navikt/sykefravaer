@@ -6,12 +6,13 @@ import * as actiontyper from '../actions/actiontyper';
 import history from '../history';
 import { finnSoknad } from '../reducers/sykepengesoknader';
 import logger from '../logging';
+import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
 
 const gaTilKvittering = (sykepengesoknadsId) => {
     browserHistory.push(`/sykefravaer/soknader/${sykepengesoknadsId}/kvittering`);
 };
 
-export function* hentSykepengesoknader() {
+export function* oppdaterSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
     try {
         const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/soknader`);
@@ -20,6 +21,13 @@ export function* hentSykepengesoknader() {
         log(e);
         logger.error(`Kunne ikke hente sykepengesoknader. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.hentSykepengesoknaderFeilet());
+    }
+}
+
+export function* hentSykepengesoknaderHvisIkkeHentet() {
+    const skalHente = yield select(skalHenteSykepengesoknader);
+    if (skalHente) {
+        yield oppdaterSykepengesoknader();
     }
 }
 
@@ -73,7 +81,7 @@ export function* startEndring(action) {
 export function* hentBerikelse(action) {
     const soknad = yield select(finnSoknad, action.sykepengesoknadsId);
     if (!soknad.id) {
-        yield call(hentSykepengesoknader);
+        yield call(oppdaterSykepengesoknader);
     }
 
     yield put(actions.henterBerikelse());
@@ -117,7 +125,7 @@ function* watchHentBerikelse() {
 }
 
 function* watchHentSykepengesoknader() {
-    yield takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknader);
+    yield takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknaderHvisIkkeHentet);
 }
 
 function* watchSendSykepengesoknad() {
@@ -133,7 +141,7 @@ function* watchSendSykepengesoknadTilArbeidsgiver() {
 }
 
 function* watchSykmeldingSendt() {
-    yield takeEvery(actiontyper.SYKMELDING_SENDT, hentSykepengesoknader);
+    yield takeEvery(actiontyper.SYKMELDING_SENDT, oppdaterSykepengesoknader);
 }
 
 function* watchEndreSykepengesoknad() {

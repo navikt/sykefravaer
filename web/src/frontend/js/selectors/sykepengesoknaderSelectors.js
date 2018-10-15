@@ -9,6 +9,7 @@ export const erForsteSykepengesoknad = (state) => {
 };
 
 export const skalHenteSykepengesoknader = (state) => {
-    return !state.sykepengesoknader.hentet
-        && !state.sykepengesoknader.henter;
+    return !state.sykepengesoknader.henter
+        && !state.sykepengesoknader.hentet
+        && !state.sykepengesoknader.hentingFeilet;
 };

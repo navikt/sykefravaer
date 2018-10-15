@@ -106,25 +106,11 @@ describe('DinSykmeldingContainer', () => {
 
     describe('Henting av data', () => {
         describe('Dine sykmeldinger', () => {
-            it('Skal hente dine sykmeldinger dersom de ikke er hentet', () => {
+            it('Skal hente dine sykmeldinger', () => {
                 state.dineSykmeldinger.hentet = false;
                 const props = mapStateToProps(state, ownProps);
                 shallow(<Container {...props} {...actions} />);
                 expect(hentDineSykmeldinger.called).to.equal(true);
-            });
-
-            it('Skal ikke hente dine sykmeldinger dersom de hentes', () => {
-                state.dineSykmeldinger.henter = true;
-                const props = mapStateToProps(state, ownProps);
-                shallow(<Container {...props} {...actions} />);
-                expect(hentDineSykmeldinger.called).to.equal(false);
-            });
-
-            it('Skal ikke hente dine sykmeldinger dersom de er hentet', () => {
-                state.dineSykmeldinger.hentet = true;
-                const props = mapStateToProps(state, ownProps);
-                shallow(<Container {...props} {...actions} />);
-                expect(hentDineSykmeldinger.called).to.equal(false);
             });
         });
     });

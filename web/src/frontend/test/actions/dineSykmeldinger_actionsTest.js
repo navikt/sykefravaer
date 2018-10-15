@@ -35,7 +35,7 @@ describe('dineSykmeldinger_actions', () => {
         });
     });
 
-    it('Skal ha en hentDineSykmeldinger()-funksjon som returnerer riktig action', () => {
+    it('Skal ha en oppdaterDineSykmeldinger()-funksjon som returnerer riktig action', () => {
         expect(actions.hentDineSykmeldinger()).to.deep.equal({
             type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
         });

@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { post, log } from 'digisyfo-npm';
 import { svarActions, actiontyper } from 'moter-npm';
 
@@ -19,7 +18,7 @@ export function* sendSvar(action) {
 }
 
 function* watchSendSvar() {
-    yield* takeEvery(actiontyper.SEND_SVAR_FORESPURT, sendSvar);
+    yield takeEvery(actiontyper.SEND_SVAR_FORESPURT, sendSvar);
 }
 
 export default function* svarSagas() {

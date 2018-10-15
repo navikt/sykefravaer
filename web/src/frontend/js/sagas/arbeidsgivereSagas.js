@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { get, log } from 'digisyfo-npm';
 import * as actions from '../actions/dineArbeidsgivere_actions';
 import * as actiontyper from '../actions/actiontyper';
@@ -17,7 +16,7 @@ export function* hentDineArbeidsgivere(action) {
 }
 
 function* watchHentArbeidsgivere() {
-    yield* takeEvery(actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT, hentDineArbeidsgivere);
+    yield takeEvery(actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT, hentDineArbeidsgivere);
 }
 
 export default function* arbeidsgivereSagas() {

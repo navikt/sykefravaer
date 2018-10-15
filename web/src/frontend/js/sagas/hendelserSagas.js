@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
 import { get, log } from 'digisyfo-npm';
 import * as actions from '../actions/hendelser_actions';
 import * as actiontyper from '../actions/actiontyper';
@@ -24,8 +23,8 @@ function* watchAktivitetskravBekreftet() {
 }
 
 export default function* hendelserSagas() {
-    yield [
+    yield all([
         fork(watchHentHendelser),
         fork(watchAktivitetskravBekreftet),
-    ];
+    ]);
 }

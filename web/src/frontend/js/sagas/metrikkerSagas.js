@@ -1,5 +1,4 @@
-import { fork, select } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { fork, select, takeEvery } from 'redux-saga/effects';
 import { log } from 'digisyfo-npm';
 import { SOKNAD_SENDT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
 import { hentMetrikk } from '../selectors/metrikkerSelectors';
@@ -25,7 +24,7 @@ export function* lagreMetrikk(action) {
 }
 
 function* watch() {
-    yield* takeEvery([
+    yield takeEvery([
         SYKMELDING_SENDT,
         SYKMELDING_BEKREFTET,
         SYKEPENGESOKNAD_SENDT,

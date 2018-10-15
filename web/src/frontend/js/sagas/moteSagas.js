@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { get, log } from 'digisyfo-npm';
 import { moteActions, actiontyper } from 'moter-npm';
 
@@ -19,7 +18,7 @@ export function* hentMote() {
 }
 
 function* watchHentMote() {
-    yield* takeEvery(actiontyper.HENT_MOTE_FORESPURT, hentMote);
+    yield takeEvery(actiontyper.HENT_MOTE_FORESPURT, hentMote);
 }
 
 export default function* svarSagas() {

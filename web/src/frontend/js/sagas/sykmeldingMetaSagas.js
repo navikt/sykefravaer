@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { post, log } from 'digisyfo-npm';
 import * as actions from '../actions/sykmeldingMeta_actions';
 import { HENT_VENTETID_FORESPURT } from '../actions/actiontyper';
@@ -18,7 +17,7 @@ export function* hentVentetid(action) {
 }
 
 function* watchHentVentetid() {
-    yield* takeEvery(HENT_VENTETID_FORESPURT, hentVentetid);
+    yield takeEvery(HENT_VENTETID_FORESPURT, hentVentetid);
 }
 
 export default function* hentVentetidSagas() {

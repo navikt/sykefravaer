@@ -17,10 +17,7 @@ const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatus
 
 export class Container extends Component {
     componentWillMount() {
-        const { skalHenteDineSykmeldinger } = this.props;
-        if (skalHenteDineSykmeldinger) {
-            this.props.hentDineSykmeldinger();
-        }
+        this.props.hentDineSykmeldinger();
     }
 
     render() {
@@ -93,7 +90,6 @@ Container.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     hentDineSykmeldinger: PropTypes.func,
-    skalHenteDineSykmeldinger: PropTypes.bool,
 };
 
 const getEldsteNyeSykmelding = (sykmeldinger) => {
@@ -143,7 +139,6 @@ export function mapStateToProps(state, ownProps) {
     const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
 
     const eldsteNyeSykmelding = getEldsteNyeSykmelding(state.dineSykmeldinger.data, sykmeldingId);
-    const skalHenteDineSykmeldinger = !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
     const hentet = state.dineSykmeldinger.hentet === true;
 
     return {
@@ -155,7 +150,6 @@ export function mapStateToProps(state, ownProps) {
             || state.arbeidsgiversSykmeldinger.hentingFeilet
             || state.ledetekster.hentingFeilet,
         dinSykmelding,
-        skalHenteDineSykmeldinger,
         visEldreSykmeldingVarsel: visEldreSykmeldingVarsel(state.dineSykmeldinger.data, sykmeldingId),
         eldsteSykmeldingId: eldsteNyeSykmelding ? eldsteNyeSykmelding.id : '',
         brodsmuler: [{

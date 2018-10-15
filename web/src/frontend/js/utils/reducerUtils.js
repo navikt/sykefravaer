@@ -1,7 +1,3 @@
-export const henterEllerHarHentetSykmeldinger = (dineSykmeldinger) => {
-    return dineSykmeldinger.henter || dineSykmeldinger.hentet;
-};
-
 export const henterEllerHarHentetLedere = (ledere) => {
     return ledere.henter || ledere.hentet;
 };

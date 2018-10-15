@@ -200,7 +200,7 @@ describe('LandingssideSide', () => {
         });
 
         describe('Dine sykmeldinger', () => {
-            it('Skal hente dineSykmeldinger dersom dineSykmeldinger ikke er hentet', () => {
+            it('Skal hente dineSykmeldinger', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentDineSykmeldinger.calledOnce).to.equal(true);
@@ -208,27 +208,21 @@ describe('LandingssideSide', () => {
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente dineSykmeldinger dersom dineSykmeldinger er hentet', () => {
+            it('Skal sette henter til false dersom sykmeldinger er hentet', () => {
                 state.dineSykmeldinger.hentet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentDineSykmeldinger.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente dineSykmeldinger dersom dineSykmeldinger hentes nå', () => {
+            it('Skal sette henter til true dersom dineSykmeldinger hentes nå', () => {
                 state.dineSykmeldinger.henter = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentDineSykmeldinger.called).to.equal(false);
                 expect(props.henter).to.equal(true);
             });
 
-            it('Skal ikke hente dineSykmeldinger dersom dineSykmeldinger har feilet', () => {
+            it('Skal sette henter til false dersom dineSykmeldinger har feilet', () => {
                 state.dineSykmeldinger.hentingFeilet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentDineSykmeldinger.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
         });

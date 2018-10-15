@@ -27,7 +27,6 @@ export class Container extends Component {
             skalHenteSykeforloep,
             skalHenteOppfolgingsdialoger,
             skalHenteSoknader,
-            skalHenteDineSykmeldinger,
             actions,
         } = this.props;
 
@@ -39,9 +38,7 @@ export class Container extends Component {
             actions.hentSykepengesoknader();
         }
 
-        if (skalHenteDineSykmeldinger) {
-            actions.hentDineSykmeldinger();
-        }
+        actions.hentDineSykmeldinger();
 
         if (skalHenteLedere) {
             actions.hentLedere();
@@ -107,7 +104,6 @@ Container.propTypes = {
     skalHenteMote: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
     skalHenteSykepengesoknader: PropTypes.bool,
-    skalHenteDineSykmeldinger: PropTypes.bool,
     skalHenteSykeforloep: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
@@ -139,7 +135,6 @@ export function mapStateToProps(state) {
         skalHenteMote: skalHente('mote'),
         skalHenteSykepengesoknader: skalHente('sykepengesoknader'),
         skalHenteLedere: skalHente('ledere'),
-        skalHenteDineSykmeldinger: skalHente('dineSykmeldinger'),
         skalHenteSykeforloep: skalHente('sykeforloep'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
         skalHenteSoknader: skalHente('soknader'),

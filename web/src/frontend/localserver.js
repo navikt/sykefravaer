@@ -10,7 +10,7 @@ const mockForOpplaeringsmiljo = require('./mockEndepunkter').mockForOpplaeringsm
 
 const server = express();
 const env = 'local';
-const settings = env === 'local' ? {isProd: false} : require('./settings.json');
+const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');

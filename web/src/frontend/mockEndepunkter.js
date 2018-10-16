@@ -203,6 +203,17 @@ function mockForOpplaeringsmiljo(server) {
         res.send(JSON.stringify([]));
     });
 
+    server.get('/syforest/sykeforloep/metadata', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+            erSykmeldt: false,
+            sykmeldtFraDato: null,
+            arbeidsSituasjonIAktiveSykmeldinger: null,
+            erTiltakSykmeldteInngangAktiv: false,
+            erArbeidsrettetOppfolgingSykmeldtInngangAktiv: false,
+        }));
+    });
+
     server.post('/syforest/logging', (req, res) => {
         console.log(req.body);
         res.send(JSON.stringify({}));

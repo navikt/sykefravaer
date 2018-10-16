@@ -168,15 +168,15 @@
 
         var script = document.createElement("script");
 
-    {{#isProd}}
+        {{#isProd}}
         script.src = "/sykefravaer/resources/bundle-prod.{{timestamp}}.js";
-    {{/isProd}}
-    {{^isProd}}
-        script.src = "http://localhost:9090/assets/bundle.js";
-    {{/isProd}}
-        script.onerror = visFeilmelding;
-        document.body.appendChild(script);
-    })();
+        {{/isProd}}
+            {{^isProd}}
+            script.src = "http://localhost:9090/assets/bundle.js";
+            {{/isProd}}
+                script.onerror = visFeilmelding;
+                document.body.appendChild(script);
+            })();
 </script>
 </body>
 </html>

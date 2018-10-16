@@ -15,7 +15,7 @@ const Tekstfelt = (props) => {
     const { meta, input, id, label } = props;
     const feil = getFeilFraMeta(meta);
     return (<Input
-        bredde="M"
+        bredde="L"
         feil={feil}
         label={label}
         autoComplete="off"

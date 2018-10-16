@@ -39,7 +39,7 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "babel-loader": "7.1.5",
+    "babel-loader": "^7.1.5",
     "babel-polyfill": "6.26.0",
     "classnames": "2.2.5",
     "digisyfo-npm": "13.0.0",

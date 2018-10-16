@@ -1,0 +1,15 @@
+[{
+  "navn":"TESTBEDRIFT",
+  "orgnummer":"111222333",
+  "naermesteLeder":{
+    "aktoerId":"000111222333",
+    "navn":"Fanny Storm",
+    "epost":"TEST@nav.no",
+    "mobil":"123456748",
+    "orgnummer":"111222333",
+    "organisasjonsnavn":null,
+    "aktivTom":null,
+    "arbeidsgiverForskuttererLoenn":true
+  },
+  "stilling":"LÆRER (GRUNNSKOLE)"
+}]

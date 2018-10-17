@@ -195,7 +195,7 @@ function mockForOpplaeringsmiljo(server) {
         res.send(JSON.stringify([]));
     });
 
-    server.get('/oppfoelgingsdialogrest/api/sykmeldt/oppfoelgingsdialoger', (req, res) => {
+    server.get('/restoppfoelgingsdialog/api/sykmeldt/oppfoelgingsdialoger', (req, res) => {
         res.send(JSON.stringify([]));
     });
 

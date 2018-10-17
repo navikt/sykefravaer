@@ -59,11 +59,6 @@ describe('soknaderSagas', () => {
             const nextPut = put(actions.soknadSendt(soknadData));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
-
-        it('Skal deretter dispatche HENT_SOKNADER', () => {
-            const nextPut = put(actions.hentSoknader());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
     });
 
     describe('Oppretting av søknad utland', () => {

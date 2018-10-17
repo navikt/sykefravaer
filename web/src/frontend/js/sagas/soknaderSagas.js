@@ -11,7 +11,7 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SOKNAD_ENDRET,
+    SOKNAD_ENDRET, SOKNAD_SENDT,
     SYKMELDING_BEKREFTET,
 } from '../actions/actiontyper';
 import { soknadrespons, soknadUtland1 } from '../../test/mockSoknader';
@@ -61,7 +61,6 @@ export function* sendSoknad(action) {
             yield put(actions.senderSoknad(action.soknadId));
             yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
             yield put(actions.soknadSendt(action.soknad));
-            yield put(actions.hentSoknader());
             gaTilKvittering(action.soknad.id);
         } else {
             log('Ukjent søknadstype - kan ikke sende.');
@@ -157,8 +156,11 @@ function* watchHentSoknader() {
     yield takeEvery(HENT_SOKNADER_FORESPURT, hentSoknaderHvisIkkeHentet);
 }
 
-function* watchSykmeldingSendt() {
-    yield takeEvery(SYKMELDING_BEKREFTET, oppdaterSoknader);
+function* watchOppdaterSoknader() {
+    yield takeEvery([
+        SYKMELDING_BEKREFTET,
+        SOKNAD_SENDT,
+    ], oppdaterSoknader);
 }
 
 function* watchSendSoknad() {
@@ -189,7 +191,7 @@ export default function* soknaderSagas() {
     yield all([
         fork(watchHentSoknader),
         fork(watchSendSoknad),
-        fork(watchSykmeldingSendt),
+        fork(watchOppdaterSoknader),
         fork(watchAvbrytSoknad),
         fork(watchOpprettSoknadUtland),
         fork(watchEndringSoknad),

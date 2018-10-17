@@ -97,12 +97,13 @@ export const hentApiUrl = () => {
     && window.location.href
         ? window.location.href
         : '';
+
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://syfoapi.nav.no/syfosoknad/api';
-    } else if (url.indexOf('localhost') > -1) {
+    } else if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
-        return 'http://localhost:8080/syfoapi/syfosoknad/api';
+        return `${window.location.origin}/syfoapi/syfosoknad/api`;
     }
     // Preprod
     return 'https://syfoapi-q.nav.no/syfosoknad/api';

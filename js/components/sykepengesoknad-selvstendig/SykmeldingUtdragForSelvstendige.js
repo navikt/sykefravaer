@@ -11,6 +11,7 @@ import {
 } from 'digisyfo-npm';
 import getContextRoot from '../../utils/getContextRoot';
 import { SykmeldingopplysningForsikring, SykmeldingopplysningFravaersperioder } from '../sykmeldingstatuspanel/SykmeldingStatuspanelOpplysning';
+import EndreArbeidssituasjonFraBekreftetSoknad from './EndreArbeidssituasjonFraBekreftetSoknad';
 
 const SykmeldingUtdragForSelvstendige = ({ erApen, sykmelding, erOppdelt }) => {
     return (<Utvidbar
@@ -35,7 +36,10 @@ const SykmeldingUtdragForSelvstendige = ({ erApen, sykmelding, erOppdelt }) => {
             </SykmeldingNokkelOpplysning>
             <SykmeldingNokkelOpplysning
                 tittel={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}>
-                <p className="js-arbeidssituasjon">{getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${sykmelding.valgtArbeidssituasjon.toLowerCase()}`)}</p>
+                <div>
+                    <p className="js-arbeidssituasjon blokk--s">{getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${sykmelding.valgtArbeidssituasjon.toLowerCase()}`)}</p>
+                    <EndreArbeidssituasjonFraBekreftetSoknad sykmelding={sykmelding} />
+                </div>
             </SykmeldingNokkelOpplysning>
             <SykmeldingopplysningFravaersperioder sykmelding={sykmelding} />
             <SykmeldingopplysningForsikring sykmelding={sykmelding} />

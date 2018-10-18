@@ -2,20 +2,37 @@ const path = require('path');
 const fs = require('fs');
 
 const uuid = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        const r = Math.random() * 16 | 0; v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = Math.random() * 16 | 0;
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 };
 
 const mockData = {};
-const DINE_SYKMELDINGER = 'dineSykmeldinger';
 const ARBEIDSGIVERS_SYKMELDINGER = 'arbeidsgiversSykmeldinger';
-const ARBEIDSTAKERSOKNADER = 'arbeidstakersoknader';
 const NY_SOKNAD_UTLAND = 'nySoknadUtland';
-const SOKNADER = 'soknader';
-const LEDETEKSTER = 'tekster';
 const ARBEIDSGIVERE = 'arbeidsgivere';
+const METADATA = 'metadata';
+const NAERMESTELEDERE = 'naermesteledere';
+const OPPFOELGINGSDIALOGER = 'oppfoelgingsdialoger';
+const UTLANDSOKNADER = 'soknadUtland';
+const SYFOUNLEASH = 'syfounleash';
+const SYKEFORLOEAP = 'sykeforloep';
+const SYKEPENGESOKNADER = 'sykepengesoknader';
+const SYKMELDINGER = 'sykmeldinger';
+const TEKSTER = 'tekster';
+const VARSLER = 'varsler';
+const VEDLIKEHOLD = 'vedlikehold';
+const TILGANG = 'tilgang';
+const TOGGLES = 'toggles';
+const ARBEIDSFORHOLD = 'arbeidsforhold';
+const KONTAKTINFO = 'kontaktinfo';
+const NAERMESTELEDER = 'naermesteleder';
+const PERIODER = 'perioder';
+const PERSON = 'person';
+const PERSONVIRKSOMHETSNUMMER = 'personVirksomhetsnummer';
+const VIRKSOMHET = 'virksomhet';
 
 const lastFilTilMinne = (filnavn) => {
     fs.readFile(path.join(__dirname, `/test/mock/${filnavn}.json`), (err, data) => {
@@ -24,13 +41,29 @@ const lastFilTilMinne = (filnavn) => {
     });
 };
 
-lastFilTilMinne(DINE_SYKMELDINGER);
 lastFilTilMinne(ARBEIDSGIVERS_SYKMELDINGER);
-lastFilTilMinne(ARBEIDSTAKERSOKNADER);
 lastFilTilMinne(NY_SOKNAD_UTLAND);
-lastFilTilMinne(SOKNADER);
-lastFilTilMinne(LEDETEKSTER);
 lastFilTilMinne(ARBEIDSGIVERE);
+lastFilTilMinne(METADATA);
+lastFilTilMinne(NAERMESTELEDERE);
+lastFilTilMinne(OPPFOELGINGSDIALOGER);
+lastFilTilMinne(UTLANDSOKNADER);
+lastFilTilMinne(SYFOUNLEASH);
+lastFilTilMinne(SYKEFORLOEAP);
+lastFilTilMinne(SYKEPENGESOKNADER);
+lastFilTilMinne(SYKMELDINGER);
+lastFilTilMinne(TEKSTER);
+lastFilTilMinne(VARSLER);
+lastFilTilMinne(VEDLIKEHOLD);
+lastFilTilMinne(TILGANG);
+lastFilTilMinne(TOGGLES);
+lastFilTilMinne(ARBEIDSFORHOLD);
+lastFilTilMinne(KONTAKTINFO);
+lastFilTilMinne(NAERMESTELEDER);
+lastFilTilMinne(PERIODER);
+lastFilTilMinne(PERSON);
+lastFilTilMinne(PERSONVIRKSOMHETSNUMMER);
+lastFilTilMinne(VIRKSOMHET);
 
 function mockEndepunkterSomEndrerState(server) {
     server.post('/syfoapi/syfosoknad/api/opprettSoknadUtland', (req, res) => {
@@ -93,7 +126,8 @@ function mockEndepunkterSomEndrerState(server) {
             if (soknad.id === id) {
                 _soknad.status = 'SENDT';
                 _soknad.sporsmal = sporsmal;
-                _soknad.innsendtDato = new Date().toJSON().substr(0, 10);
+                _soknad.innsendtDato = new Date().toJSON()
+                    .substr(0, 10);
             }
 
             if (soknad.id === soknadTilInnsending.korrigerer) {
@@ -120,7 +154,8 @@ function mockEndepunkterSomEndrerState(server) {
             utkast = Object.assign({}, soknadSomKorrigeres, {
                 id: uuid(),
                 status: 'UTKAST_TIL_KORRIGERING',
-                opprettetDato: new Date().toJSON().substr(0, 10),
+                opprettetDato: new Date().toJSON()
+                    .substr(0, 10),
                 innsendtDato: null,
                 korrigerer: soknadSomKorrigeres.id,
             });
@@ -134,12 +169,12 @@ function mockEndepunkterSomEndrerState(server) {
 function mockForOpplaeringsmiljo(server) {
     server.get('/syfotekster/api/tekster', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[LEDETEKSTER]));
+        res.send(JSON.stringify(mockData[TEKSTER]));
     });
 
     server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[SOKNADER]));
+        res.send(JSON.stringify(mockData[UTLANDSOKNADER]));
     });
 
     server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
@@ -150,11 +185,8 @@ function mockForOpplaeringsmiljo(server) {
     });
 
     server.post('/syfounleash/', (req, res) => {
-        const toggles = req.body.reduce((acc, toggle) => {
-            return Object.assign({}, acc, { [toggle]: true });
-        }, {});
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(toggles));
+        res.send(JSON.stringify(mockData[SYFOUNLEASH]));
     });
 
     server.get('/syforest/sykmeldinger?type=arbeidsgiver', (req, res) => {
@@ -162,7 +194,8 @@ function mockForOpplaeringsmiljo(server) {
     });
 
     server.get('/syforest/sykmeldinger', (req, res) => {
-        res.send(JSON.stringify(mockData[DINE_SYKMELDINGER]));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[SYKMELDINGER]));
     });
 
     server.post('/syforest/sykmeldinger/:id/actions/erUtenforVentetid', (req, res) => {
@@ -188,30 +221,79 @@ function mockForOpplaeringsmiljo(server) {
     });
 
     server.get('/syforest/soknader', (req, res) => {
-        res.send(JSON.stringify(mockData[ARBEIDSTAKERSOKNADER]));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[SYKEPENGESOKNADER]));
     });
 
     server.get('/syforest/naermesteledere', (req, res) => {
-        res.send(JSON.stringify([]));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[NAERMESTELEDERE]));
     });
 
     server.get('/restoppfoelgingsdialog/api/sykmeldt/oppfoelgingsdialoger', (req, res) => {
-        res.send(JSON.stringify([]));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[OPPFOELGINGSDIALOGER]));
+    });
+
+    server.get('/restoppfoelgingsdialog/api/tilgang', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[TILGANG]));
+    });
+
+    server.get('/restoppfoelgingsdialog/api/virksomhet/:virksomhetsnummer', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[VIRKSOMHET]));
+    });
+
+    server.get('/restoppfoelgingsdialog/api/naermesteleder/:fnr/forrige', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({}));
+    });
+
+    server.post('/restoppfoelgingsdialog/api/oppfoelgingsdialoger/actions/:id/sett', (req, res) => {
+        res.send();
+    });
+
+
+    server.get('/restoppfoelgingsdialog/api/arbeidsforhold', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[ARBEIDSFORHOLD]));
+    });
+
+
+    server.get('/restoppfoelgingsdialog/api/person/:fnr', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[PERSON]));
+    });
+
+    server.get('/restoppfoelgingsdialog/api/kontaktinfo/:fnr', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[KONTAKTINFO]));
+    });
+
+    server.get('/restoppfoelgingsdialog/api/naermesteleder/:fnr', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[NAERMESTELEDER]));
+    });
+
+    server.get('/restoppfoelgingsdialog/api/person/:fnr?virksomhetsnummer=:vnr', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[PERSONVIRKSOMHETSNUMMER]));
+    });
+
+    server.get('/syforest/sykeforloep/siste/perioder', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[PERIODER]));
     });
 
     server.get('/syforest/sykeforloep', (req, res) => {
-        res.send(JSON.stringify([]));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[SYKEFORLOEAP]));
     });
 
     server.get('/syforest/sykeforloep/metadata', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({
-            erSykmeldt: false,
-            sykmeldtFraDato: null,
-            arbeidsSituasjonIAktiveSykmeldinger: null,
-            erTiltakSykmeldteInngangAktiv: false,
-            erArbeidsrettetOppfolgingSykmeldtInngangAktiv: false,
-        }));
+        res.send(JSON.stringify(mockData[METADATA]));
     });
 
     server.post('/syforest/logging', (req, res) => {
@@ -224,11 +306,13 @@ function mockForOpplaeringsmiljo(server) {
     });
 
     server.get('/syforest/informasjon/arbeidsgivere', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[ARBEIDSGIVERE]));
     });
 
     server.get('/syforest/informasjon/vedlikehold', (req, res) => {
-        res.send(JSON.stringify({}));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[VEDLIKEHOLD]));
     });
 
     server.get('/syforest/informasjon/bruker', (req, res) => {
@@ -236,7 +320,12 @@ function mockForOpplaeringsmiljo(server) {
             strengtFortroligAdresse: false,
         }));
     });
-};
+
+    server.get('/syforest/informasjon/toggles', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[TOGGLES]));
+    });
+}
 
 module.exports = {
     mockForOpplaeringsmiljo,

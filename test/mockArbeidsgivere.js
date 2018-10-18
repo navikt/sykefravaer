@@ -1,7 +1,7 @@
 export const getArbeidsgivere = [
     {
         virksomhetsnummer: '123456789',
-        navn: 'Lommen Barnehave',
+        navn: 'Pontypandy Fire Service',
         harNaermesteLeder: false,
     },
     {

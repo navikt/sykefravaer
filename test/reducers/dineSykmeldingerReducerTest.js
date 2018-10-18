@@ -21,8 +21,8 @@ export function getSykmelding(soknad = {}) {
         sendtdato: '2017-07-24T10:19:15',
         pasient: {
             fnr: '12345678910',
-            fornavn: 'Frida',
-            etternavn: 'Frost',
+            fornavn: 'Helen',
+            etternavn: 'Flood',
         },
         arbeidsgiver: 'LOMMEN BARNEHAVE',
         diagnose: {
@@ -97,7 +97,7 @@ export function getSykmelding(soknad = {}) {
         },
         bekreftelse: {
             utstedelsesdato: '2017-07-24',
-            sykmelder: 'Frida Frost',
+            sykmelder: 'Helen Flood',
             sykmelderTlf: '99988777',
         },
     }, soknad);
@@ -117,8 +117,8 @@ export function getParsetSykmelding(soknad = {}) {
         sendtdato: new Date('2017-07-24T10:19:15'),
         pasient: {
             fnr: '12345678910',
-            fornavn: 'Frida',
-            etternavn: 'Frost',
+            fornavn: 'Helen',
+            etternavn: 'Flood',
         },
         arbeidsgiver: 'LOMMEN BARNEHAVE',
         diagnose: {
@@ -193,7 +193,7 @@ export function getParsetSykmelding(soknad = {}) {
         },
         bekreftelse: {
             utstedelsesdato: new Date('2017-07-24'),
-            sykmelder: 'Frida Frost',
+            sykmelder: 'Helen Flood',
             sykmelderTlf: '99988777',
         },
     }, soknad);

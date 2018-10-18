@@ -1,10 +1,10 @@
 import chai from 'chai';
 import React from 'react';
-import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster, arbeidssituasjoner } from 'digisyfo-npm';
 import getSykmelding from '../../mockSykmeldinger';
 import SykmeldingUtdragForSelvstendige from '../../../js/components/sykepengesoknad-selvstendig/SykmeldingUtdragForSelvstendige';
+import mountWithStore from '../../mountWithStore';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -33,10 +33,11 @@ describe('SykmeldingUtdragForSelvstendige', () => {
                 harForsikring: true,
             },
         });
+
     });
 
     it('Skal vise informasjon om fraværsperioder dersom dette spørsmålet er besvart', () => {
-        const component = mount(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
+        const component = mountWithStore(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Egenmelding og/eller sykmelding på papir');
         expect(component.text()).to.contain('21. – 24. mars 2018');
     });
@@ -44,7 +45,7 @@ describe('SykmeldingUtdragForSelvstendige', () => {
     it('Skal ikke vise informasjon om fraværsperioder dersom dette spørsmålet ikke er besvart', () => {
         sykmelding.sporsmal.harAnnetFravaer = null;
         sykmelding.sporsmal.fravaersperioder = [];
-        const component = mount(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
+        const component = mountWithStore(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
         expect(component.text()).not.to.contain('Egenmelding og/eller sykmelding på papir');
         expect(component.text()).not.to.contain('21. – 24. mars 2018');
     });
@@ -52,13 +53,13 @@ describe('SykmeldingUtdragForSelvstendige', () => {
     it('Skal vise informasjon om fraværsperioder dersom dette spørsmålet er besvart med NEI', () => {
         sykmelding.sporsmal.harAnnetFravaer = false;
         sykmelding.sporsmal.fravaersperioder = [];
-        const component = mount(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
+        const component = mountWithStore(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Egenmelding og/eller sykmelding på papir');
         expect(component.text()).to.contain('Har ikke hatt egenmelding og/eller sykmelding på papir');
     });
 
     it('Skal vise informasjon om forsikring dersom dette spørsmålet er stilt', () => {
-        const component = mount(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
+        const component = mountWithStore(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Forsikring');
         expect(component.text()).to.contain('Ja – 75 % sykepenger fra dag 1');
     });
@@ -66,14 +67,14 @@ describe('SykmeldingUtdragForSelvstendige', () => {
     it('Skal vise informasjon om forsikring dersom dette spørsmålet er stilt og besvart med nei', () => {
         sykmelding.sporsmal.dekningsgrad = null;
         sykmelding.sporsmal.harDekningsgrad = false;
-        const component = mount(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
+        const component = mountWithStore(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Forsikring');
         expect(component.text()).to.contain('Har ikke forsikring som gjelder de første 16 dagene av sykefraværet');
     });
 
     it('Skal ikke vise informasjon om forsikring dersom dette spørsmålet ikke er stilt', () => {
         sykmelding.sporsmal.harForsikring = null;
-        const component = mount(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
+        const component = mountWithStore(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
         expect(component.text()).not.to.contain('Forsikring');
         expect(component.text()).not.to.contain('Ja – 75 % sykepenger fra dag 1');
     });
@@ -86,7 +87,7 @@ describe('SykmeldingUtdragForSelvstendige', () => {
             fravaersperioder: [],
             harAnnetFravaer: false,
         };
-        const component = mount(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
+        const component = mountWithStore(<SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Forsikring');
         expect(component.text()).to.contain('Har ikke forsikring som gjelder de første 16 dagene av sykefraværet');
         expect(component.text()).to.contain('Egenmelding og/eller sykmelding på papir');

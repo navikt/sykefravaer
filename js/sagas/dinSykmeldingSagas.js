@@ -9,6 +9,10 @@ const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
 };
 
+const gaTilSykmelding = (sykmeldingId) => {
+    browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/`);
+};
+
 const erFrilanserEllerSelvstendig = (verdier) => {
     return verdier.arbeidssituasjon === arbeidssituasjoner.FRILANSER
         || verdier.arbeidssituasjon === arbeidssituasjoner.NAERINGSDRIVENDE;
@@ -87,6 +91,9 @@ export function* angreBekreftSykmelding(action) {
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
         yield put(actions.bekreftSykmeldingAngret(action.sykmeldingId));
+        if (window.location.href.indexOf('sykmeldinger') === -1) {
+            gaTilSykmelding(action.sykmeldingId);
+        }
     } catch (e) {
         log(e);
         yield put(actions.angreBekreftSykmeldingFeilet());

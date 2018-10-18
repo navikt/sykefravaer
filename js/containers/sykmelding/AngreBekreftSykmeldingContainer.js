@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
 import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import { angreBekreftSykmelding as angreBekreftSykmeldingAction } from '../../actions/dinSykmelding_actions';
-import { sykmeldingHarBehandletSoknad } from '../../selectors/soknaderSelectors';
-import { toggleSykmeldingEndreArbeidssituasjon } from '../../selectors/unleashTogglesSelectors';
+import { kanEndreSykmeldingArbeidssituasjon } from '../../selectors/dineSykmeldingerSelectors';
 
 export const Container = ({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis, angrerBekreftSykmelding }) => {
     return vis ? (
@@ -41,11 +40,7 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state, ownProps) => {
-    const FIRE_MANEDER_SIDEN = new Date();
-    FIRE_MANEDER_SIDEN.setMonth(FIRE_MANEDER_SIDEN.getMonth() - 4);
-    const vis = ownProps.sykmelding.sendtdato > FIRE_MANEDER_SIDEN
-        && !sykmeldingHarBehandletSoknad(state, ownProps.sykmelding.id)
-        && toggleSykmeldingEndreArbeidssituasjon(state);
+    const vis = kanEndreSykmeldingArbeidssituasjon(state, ownProps.sykmelding);
     return {
         vis,
         angreBekreftSykmeldingFeilet: state.dineSykmeldinger.angreBekreftSykmeldingFeilet,
@@ -53,4 +48,10 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps, { angreBekreftSykmelding: angreBekreftSykmeldingAction })(Container);
+export const connectAngreArbeidssituasjon = (Component) => {
+    return connect(mapStateToProps, {
+        angreBekreftSykmelding: angreBekreftSykmeldingAction,
+    })(Component);
+};
+
+export default connectAngreArbeidssituasjon(Container);

@@ -1,376 +1,376 @@
 [
-    {
-        "id": "419303be-d3d0-4d3f-a8b8-6c740a36ab3a",
-        "startLegemeldtFravaer": "2018-10-06",
-        "skalViseSkravertFelt": true,
-        "identdato": "2018-10-02",
-        "status": "SENDT",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": "TESTBEDRIFT",
-        "valgtArbeidssituasjon": null,
-        "mottakendeArbeidsgiver": {
-            "navn": "TESTBEDRIFT",
-            "virksomhetsnummer": "111222333",
-            "juridiskOrgnummer": "000111222"
-        },
-        "orgnummer": "111222333",
-        "sendtdato": "2018-10-15T14:32:26",
-        "sporsmal": {
-            "arbeidssituasjon": "ARBEIDSTAKER",
-            "dekningsgrad": null,
-            "harForsikring": null,
-            "fravaersperioder": [],
-            "harAnnetFravaer": null
-        },
-        "pasient": {
-            "fnr": "11223300123",
-            "fornavn": "Frida",
-            "mellomnavn": "Perma",
-            "etternavn": "Frost"
-        },
-        "arbeidsgiver": "LOMMEN BARNEHAVE",
-        "stillingsprosent": 100,
-        "diagnose": {
-            "hoveddiagnose": {
-                "diagnose": "TENDINITT INA",
-                "diagnosekode": "L87",
-                "diagnosesystem": "ICPC-2"
-            },
-            "bidiagnoser": [
-                {
-                    "diagnose": "GANGLION SENE",
-                    "diagnosekode": "L87",
-                    "diagnosesystem": "ICPC-2"
-                }
-            ],
-            "fravaersgrunnLovfestet": null,
-            "fravaerBeskrivelse": "Medising årsak i kategorien annet",
-            "svangerskap": true,
-            "yrkesskade": true,
-            "yrkesskadeDato": "2018-10-02"
-        },
-        "mulighetForArbeid": {
-            "perioder": [
-                {
-                    "fom": "2018-10-02",
-                    "tom": "2018-10-20",
-                    "grad": null,
-                    "behandlingsdager": 4,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }
-            ],
-            "aktivitetIkkeMulig433": null,
-            "aktivitetIkkeMulig434": null,
-            "aarsakAktivitetIkkeMulig433": null,
-            "aarsakAktivitetIkkeMulig434": null
-        },
-        "friskmelding": {
-            "arbeidsfoerEtterPerioden": true,
-            "hensynPaaArbeidsplassen": "Må ta det pent",
-            "antarReturSammeArbeidsgiver": true,
-            "antattDatoReturSammeArbeidsgiver": "2018-10-02",
-            "antarReturAnnenArbeidsgiver": true,
-            "tilbakemeldingReturArbeid": "2018-10-02",
-            "utenArbeidsgiverAntarTilbakeIArbeid": false,
-            "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
-            "utenArbeidsgiverTilbakemelding": null
-        },
-        "utdypendeOpplysninger": {
-            "sykehistorie": "Langvarig korsryggsmerter. Ømhet og smerte",
-            "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
-            "resultatAvBehandling": "Nei",
-            "henvisningUtredningBehandling": "Henvist til fysio",
-            "grupper": [
-                {
-                    "id": "6.2",
-                    "sporsmal": [
-                        {
-                            "id": "6.2.1",
-                            "svar": "Langvarig korsryggsmerter. Ømhet og smerte"
-                        },
-                        {
-                            "id": "6.2.2",
-                            "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
-                        },
-                        {
-                            "id": "6.2.3",
-                            "svar": "Nei"
-                        },
-                        {
-                            "id": "6.2.4",
-                            "svar": "Henvist til fysio"
-                        }
-                    ]
-                }
-            ]
-        },
-        "arbeidsevne": {
-            "tilretteleggingArbeidsplass": "Fortsett som sist.",
-            "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
-            "tiltakAndre": null
-        },
-        "meldingTilNav": {
-            "navBoerTaTakISaken": false,
-            "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-            "dokumenterbarPasientkontakt": null,
-            "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-            "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Frida Perma Frost",
-            "sykmelderTlf": "99998888"
-        }
+  {
+    "id": "419303be-d3d0-4d3f-a8b8-6c740a36ab3a",
+    "startLegemeldtFravaer": "2018-10-06",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-10-02",
+    "status": "SENDT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": "TESTBEDRIFT",
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": {
+      "navn": "TESTBEDRIFT",
+      "virksomhetsnummer": "111222333",
+      "juridiskOrgnummer": "000111222"
     },
-    {
-        "id": "7eaff4ae-ce5a-497e-afe8-a49b228a9670",
-        "startLegemeldtFravaer": "2018-10-06",
-        "skalViseSkravertFelt": true,
-        "identdato": "2018-09-27",
-        "status": "NY",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": null,
-        "valgtArbeidssituasjon": null,
-        "mottakendeArbeidsgiver": null,
-        "orgnummer": null,
-        "sendtdato": null,
-        "sporsmal": null,
-        "pasient": {
-            "fnr": "11223300123",
-            "fornavn": "Frida",
-            "mellomnavn": "Perma",
-            "etternavn": "Frost"
-        },
-        "arbeidsgiver": "LOMMEN BARNEHAVE",
-        "stillingsprosent": 100,
-        "diagnose": {
-            "hoveddiagnose": {
-                "diagnose": "TENDINITT INA",
-                "diagnosekode": "L87",
-                "diagnosesystem": "ICPC-2"
-            },
-            "bidiagnoser": [
-                {
-                    "diagnose": "GANGLION SENE",
-                    "diagnosekode": "L87",
-                    "diagnosesystem": "ICPC-2"
-                }
-            ],
-            "fravaersgrunnLovfestet": null,
-            "fravaerBeskrivelse": "Medising årsak i kategorien annet",
-            "svangerskap": true,
-            "yrkesskade": true,
-            "yrkesskadeDato": "2018-10-06"
-        },
-        "mulighetForArbeid": {
-            "perioder": [
-                {
-                    "fom": "2018-10-06",
-                    "tom": "2018-10-14",
-                    "grad": 40,
-                    "behandlingsdager": null,
-                    "reisetilskudd": false,
-                    "avventende": null
-                },
-                {
-                    "fom": "2018-09-27",
-                    "tom": "2018-10-05",
-                    "grad": 100,
-                    "behandlingsdager": null,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }
-            ],
-            "aktivitetIkkeMulig433": [
-                "Annet"
-            ],
-            "aktivitetIkkeMulig434": [
-                "Annet"
-            ],
-            "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
-            "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
-        },
-        "friskmelding": {
-            "arbeidsfoerEtterPerioden": true,
-            "hensynPaaArbeidsplassen": "Må ta det pent",
-            "antarReturSammeArbeidsgiver": true,
-            "antattDatoReturSammeArbeidsgiver": "2018-10-06",
-            "antarReturAnnenArbeidsgiver": true,
-            "tilbakemeldingReturArbeid": "2018-10-06",
-            "utenArbeidsgiverAntarTilbakeIArbeid": false,
-            "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
-            "utenArbeidsgiverTilbakemelding": null
-        },
-        "utdypendeOpplysninger": {
-            "sykehistorie": "Langvarig korsryggsmerter. Ømhet og smerte",
-            "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
-            "resultatAvBehandling": "Nei",
-            "henvisningUtredningBehandling": "Henvist til fysio",
-            "grupper": [
-                {
-                    "id": "6.2",
-                    "sporsmal": [
-                        {
-                            "id": "6.2.1",
-                            "svar": "Langvarig korsryggsmerter. Ømhet og smerte"
-                        },
-                        {
-                            "id": "6.2.2",
-                            "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
-                        },
-                        {
-                            "id": "6.2.3",
-                            "svar": "Nei"
-                        },
-                        {
-                            "id": "6.2.4",
-                            "svar": "Henvist til fysio"
-                        }
-                    ]
-                }
-            ]
-        },
-        "arbeidsevne": {
-            "tilretteleggingArbeidsplass": "Fortsett som sist.",
-            "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
-            "tiltakAndre": null
-        },
-        "meldingTilNav": {
-            "navBoerTaTakISaken": false,
-            "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-            "dokumenterbarPasientkontakt": null,
-            "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-            "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Frida Perma Frost",
-            "sykmelderTlf": "99998888"
-        }
+    "orgnummer": "111222333",
+    "sendtdato": "2018-10-15T14:32:26",
+    "sporsmal": {
+      "arbeidssituasjon": "ARBEIDSTAKER",
+      "dekningsgrad": null,
+      "harForsikring": null,
+      "fravaersperioder": [],
+      "harAnnetFravaer": null
     },
-    {
-        "id": "da8f5b71-e039-48d8-83e3-bb56a476d6c2",
-        "startLegemeldtFravaer": "2018-10-06",
-        "skalViseSkravertFelt": true,
-        "identdato": "2018-06-06",
-        "status": "NY",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": null,
-        "valgtArbeidssituasjon": null,
-        "mottakendeArbeidsgiver": null,
-        "orgnummer": null,
-        "sendtdato": null,
-        "sporsmal": null,
-        "pasient": {
-            "fnr": "11223300123",
-            "fornavn": "Frida",
-            "mellomnavn": "Perma",
-            "etternavn": "Frost"
-        },
-        "arbeidsgiver": "LOMMEN BARNEHAVE",
-        "stillingsprosent": 100,
-        "diagnose": {
-            "hoveddiagnose": {
-                "diagnose": "TENDINITT INA",
-                "diagnosekode": "L87",
-                "diagnosesystem": "ICPC-2"
-            },
-            "bidiagnoser": [
-                {
-                    "diagnose": "GANGLION SENE",
-                    "diagnosekode": "L87",
-                    "diagnosesystem": "ICPC-2"
-                }
-            ],
-            "fravaersgrunnLovfestet": null,
-            "fravaerBeskrivelse": "Medising årsak i kategorien annet",
-            "svangerskap": true,
-            "yrkesskade": true,
-            "yrkesskadeDato": "2018-06-06"
-        },
-        "mulighetForArbeid": {
-            "perioder": [
-                {
-                    "fom": "2018-06-06",
-                    "tom": "2018-06-16",
-                    "grad": 100,
-                    "behandlingsdager": null,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }
-            ],
-            "aktivitetIkkeMulig433": [
-                "Annet"
-            ],
-            "aktivitetIkkeMulig434": [
-                "Annet"
-            ],
-            "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
-            "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
-        },
-        "friskmelding": {
-            "arbeidsfoerEtterPerioden": true,
-            "hensynPaaArbeidsplassen": "Må ta det pent",
-            "antarReturSammeArbeidsgiver": true,
-            "antattDatoReturSammeArbeidsgiver": "2018-06-06",
-            "antarReturAnnenArbeidsgiver": true,
-            "tilbakemeldingReturArbeid": "2018-06-06",
-            "utenArbeidsgiverAntarTilbakeIArbeid": false,
-            "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
-            "utenArbeidsgiverTilbakemelding": null
-        },
-        "utdypendeOpplysninger": {
-            "sykehistorie": "Langvarig korsryggsmerter. Ømhet og smerte",
-            "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
-            "resultatAvBehandling": "Nei",
-            "henvisningUtredningBehandling": "Henvist til fysio",
-            "grupper": [
-                {
-                    "id": "6.2",
-                    "sporsmal": [
-                        {
-                            "id": "6.2.1",
-                            "svar": "Langvarig korsryggsmerter. Ømhet og smerte"
-                        },
-                        {
-                            "id": "6.2.2",
-                            "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
-                        },
-                        {
-                            "id": "6.2.3",
-                            "svar": "Nei"
-                        },
-                        {
-                            "id": "6.2.4",
-                            "svar": "Henvist til fysio"
-                        }
-                    ]
-                }
-            ]
-        },
-        "arbeidsevne": {
-            "tilretteleggingArbeidsplass": "Fortsett som sist.",
-            "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
-            "tiltakAndre": null
-        },
-        "meldingTilNav": {
-            "navBoerTaTakISaken": false,
-            "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-            "dokumenterbarPasientkontakt": null,
-            "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-            "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Frida Perma Frost",
-            "sykmelderTlf": "99998888"
+    "pasient": {
+      "fnr": "11223300123",
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavn": "Frost"
+    },
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": {
+        "diagnose": "TENDINITT INA",
+        "diagnosekode": "L87",
+        "diagnosesystem": "ICPC-2"
+      },
+      "bidiagnoser": [
+        {
+          "diagnose": "GANGLION SENE",
+          "diagnosekode": "L87",
+          "diagnosesystem": "ICPC-2"
         }
+      ],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": "Medising årsak i kategorien annet",
+      "svangerskap": true,
+      "yrkesskade": true,
+      "yrkesskadeDato": "2018-10-02"
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-02",
+          "tom": "2018-10-20",
+          "grad": null,
+          "behandlingsdager": 4,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": null,
+      "aktivitetIkkeMulig434": null,
+      "aarsakAktivitetIkkeMulig433": null,
+      "aarsakAktivitetIkkeMulig434": null
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-02",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-02",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": "Langvarig korsryggsmerter. Ømhet og smerte",
+      "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
+      "resultatAvBehandling": "Nei",
+      "henvisningUtredningBehandling": "Henvist til fysio",
+      "grupper": [
+        {
+          "id": "6.2",
+          "sporsmal": [
+            {
+              "id": "6.2.1",
+              "svar": "Langvarig korsryggsmerter. Ømhet og smerte"
+            },
+            {
+              "id": "6.2.2",
+              "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
+            },
+            {
+              "id": "6.2.3",
+              "svar": "Nei"
+            },
+            {
+              "id": "6.2.4",
+              "svar": "Henvist til fysio"
+            }
+          ]
+        }
+      ]
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-06",
+      "sykmelder": "Frida Perma Frost",
+      "sykmelderTlf": "99998888"
     }
+  },
+  {
+    "id": "7eaff4ae-ce5a-497e-afe8-a49b228a9670",
+    "startLegemeldtFravaer": "2018-10-06",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-09-27",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "11223300123",
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavn": "Frost"
+    },
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": {
+        "diagnose": "TENDINITT INA",
+        "diagnosekode": "L87",
+        "diagnosesystem": "ICPC-2"
+      },
+      "bidiagnoser": [
+        {
+          "diagnose": "GANGLION SENE",
+          "diagnosekode": "L87",
+          "diagnosesystem": "ICPC-2"
+        }
+      ],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": "Medising årsak i kategorien annet",
+      "svangerskap": true,
+      "yrkesskade": true,
+      "yrkesskadeDato": "2018-10-06"
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-06",
+          "tom": "2018-10-14",
+          "grad": 40,
+          "behandlingsdager": null,
+          "reisetilskudd": false,
+          "avventende": null
+        },
+        {
+          "fom": "2018-09-27",
+          "tom": "2018-10-05",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": [
+        "Annet"
+      ],
+      "aktivitetIkkeMulig434": [
+        "Annet"
+      ],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-06",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-06",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": "Langvarig korsryggsmerter. Ømhet og smerte",
+      "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
+      "resultatAvBehandling": "Nei",
+      "henvisningUtredningBehandling": "Henvist til fysio",
+      "grupper": [
+        {
+          "id": "6.2",
+          "sporsmal": [
+            {
+              "id": "6.2.1",
+              "svar": "Langvarig korsryggsmerter. Ømhet og smerte"
+            },
+            {
+              "id": "6.2.2",
+              "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
+            },
+            {
+              "id": "6.2.3",
+              "svar": "Nei"
+            },
+            {
+              "id": "6.2.4",
+              "svar": "Henvist til fysio"
+            }
+          ]
+        }
+      ]
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-06",
+      "sykmelder": "Frida Perma Frost",
+      "sykmelderTlf": "99998888"
+    }
+  },
+  {
+    "id": "da8f5b71-e039-48d8-83e3-bb56a476d6c2",
+    "startLegemeldtFravaer": "2018-10-06",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-06-06",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "11223300123",
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavn": "Frost"
+    },
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": {
+        "diagnose": "TENDINITT INA",
+        "diagnosekode": "L87",
+        "diagnosesystem": "ICPC-2"
+      },
+      "bidiagnoser": [
+        {
+          "diagnose": "GANGLION SENE",
+          "diagnosekode": "L87",
+          "diagnosesystem": "ICPC-2"
+        }
+      ],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": "Medising årsak i kategorien annet",
+      "svangerskap": true,
+      "yrkesskade": true,
+      "yrkesskadeDato": "2018-06-06"
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-06-06",
+          "tom": "2018-06-16",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": [
+        "Annet"
+      ],
+      "aktivitetIkkeMulig434": [
+        "Annet"
+      ],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-06-06",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-06-06",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": "Langvarig korsryggsmerter. Ømhet og smerte",
+      "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
+      "resultatAvBehandling": "Nei",
+      "henvisningUtredningBehandling": "Henvist til fysio",
+      "grupper": [
+        {
+          "id": "6.2",
+          "sporsmal": [
+            {
+              "id": "6.2.1",
+              "svar": "Langvarig korsryggsmerter. Ømhet og smerte"
+            },
+            {
+              "id": "6.2.2",
+              "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
+            },
+            {
+              "id": "6.2.3",
+              "svar": "Nei"
+            },
+            {
+              "id": "6.2.4",
+              "svar": "Henvist til fysio"
+            }
+          ]
+        }
+      ]
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-06",
+      "sykmelder": "Frida Perma Frost",
+      "sykmelderTlf": "99998888"
+    }
+  }
 ]

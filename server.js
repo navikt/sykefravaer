@@ -87,7 +87,16 @@ const startServer = (html) => {
         res.sendStatus(200);
     });
 
-    const port = env === 'local' ? 8282 : process.env.PORT || 8080;
+    if (env === 'opplaering') {
+        require('./mockEndepunkter').mockForOpplaeringsmiljo(server);
+    }
+
+    if (env === 'local') {
+        require('./mockEndepunkter').mockEndepunkterSomEndrerState(server);
+        require('./mockEndepunkter').mockForOpplaeringsmiljo(server);
+    }
+
+    const port = process.env.PORT || 8080;
     server.listen(port, () => {
         console.log(`App listening on port: ${port}`);
     });

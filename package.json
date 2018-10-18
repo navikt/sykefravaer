@@ -21,11 +21,11 @@
     "images-local": "cp -R img dist/resources",
     "images": "npm-run-all images-nav-frontend images-local",
     "filmtekster": "cp -R filmtekster ./dist/resources/",
-    "build": "npm-run-all clean deploy images filmtekster",
     "nais-build": "npm-run-all clean deploy images filmtekster",
     "start": "node ./server.js",
+    "start-opplaering": "node ./server.js opplaering",
+    "start-local": "node ./server.js local",
     "startdev": "node ./server.js local",
-    "startmock": "node ./localserver",
     "scripts:watch": "webpack-dev-server --inline --port 9090",
     "dev": "npm-run-all clean images filmtekster scripts:watch"
   },

@@ -27,7 +27,7 @@ Tekstinput.propTypes = {
     sporsmalstekst: PropTypes.string,
     name: PropTypes.string,
     id: PropTypes.string,
-    max: PropTypes.number,
+    max: PropTypes.string,
 };
 
 export default Tekstinput;

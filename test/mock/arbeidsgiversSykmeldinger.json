@@ -18,9 +18,9 @@
         "sporsmal": null,
         "pasient": {
             "fnr": "12121200123",
-            "fornavn": "Frida",
+            "fornavn": "Helen",
             "mellomnavn": "Perma",
-            "etternavn": "Frost"
+            "etternavn": "Flood"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -83,7 +83,7 @@
         },
         "bekreftelse": {
             "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Frida Perma Frost",
+            "sykmelder": "Helen Flood",
             "sykmelderTlf": "99998888"
         }
     },
@@ -102,9 +102,9 @@
         "sporsmal": null,
         "pasient": {
             "fnr": "12121200123",
-            "fornavn": "Frida",
+            "fornavn": "Helen",
             "mellomnavn": "Perma",
-            "etternavn": "Frost"
+            "etternavn": "Flood"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -177,7 +177,7 @@
         },
         "bekreftelse": {
             "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Frida Perma Frost",
+            "sykmelder": "Helen Flood",
             "sykmelderTlf": "99998888"
         }
     },
@@ -196,9 +196,9 @@
         "sporsmal": null,
         "pasient": {
             "fnr": "12121200123",
-            "fornavn": "Frida",
+            "fornavn": "Helen",
             "mellomnavn": "Perma",
-            "etternavn": "Frost"
+            "etternavn": "Flood"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -263,7 +263,7 @@
         },
         "bekreftelse": {
             "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Frida Perma Frost",
+            "sykmelder": "Helen Flood",
             "sykmelderTlf": "99998888"
         }
     }

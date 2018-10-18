@@ -61,8 +61,8 @@ export const getSykmeldinger = [
         sendtdato: null,
         pasient: {
             fnr: '12345678910',
-            fornavn: 'Frida',
-            etternavn: 'Frost',
+            fornavn: 'Helen',
+            etternavn: 'Flood',
         },
         arbeidsgiver: 'Lommen Barnehave',
         diagnose: {
@@ -145,7 +145,7 @@ export const getSykmeldinger = [
         },
         bekreftelse: {
             utstedelsesdato: new Date('2017-02-10'),
-            sykmelder: 'Frida Frost',
+            sykmelder: 'Helen Flood',
             sykmelderTlf: '99988777',
         },
     },
@@ -162,8 +162,8 @@ export const getSykmeldinger = [
         sendtdato: null,
         pasient: {
             fnr: '12345678910',
-            fornavn: 'Frida',
-            etternavn: 'Frost',
+            fornavn: 'Helen',
+            etternavn: 'Flood',
         },
         arbeidsgiver: 'Skogen Barnehave',
         diagnose: {
@@ -246,7 +246,7 @@ export const getSykmeldinger = [
         },
         bekreftelse: {
             utstedelsesdato: new Date('2017-04-10'),
-            sykmelder: 'Frida Frost',
+            sykmelder: 'Helen Flood',
             sykmelderTlf: '99988777',
         },
     },

@@ -1,15 +1,17 @@
-[{
-  "navn":"TESTBEDRIFT",
-  "orgnummer":"111222333",
-  "naermesteLeder":{
-    "aktoerId":"000111222333",
-    "navn":"Fanny Storm",
-    "epost":"TEST@nav.no",
-    "mobil":"123456748",
-    "orgnummer":"111222333",
-    "organisasjonsnavn":null,
-    "aktivTom":null,
-    "arbeidsgiverForskuttererLoenn":true
-  },
-  "stilling":"LÆRER (GRUNNSKOLE)"
-}]
+[
+  {
+    "navn": "PONTYPANDY FIRE SERVICE",
+    "orgnummer": "110110110",
+    "naermesteLeder": {
+      "aktoerId": "1904050217012",
+      "navn": "Station Officer Steele",
+      "epost": "steele@pontypandyfire.gov.uk",
+      "mobil": "110",
+      "orgnummer": "110110110",
+      "organisasjonsnavn": null,
+      "aktivTom": null,
+      "arbeidsgiverForskuttererLoenn": true
+    },
+    "stilling": "BRANNMANN"
+  }
+]

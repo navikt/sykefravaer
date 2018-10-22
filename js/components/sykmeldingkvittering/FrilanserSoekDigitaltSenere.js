@@ -1,7 +1,7 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
-import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
+import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremse } from './Soknadsdatoliste';
 import { soknad as soknadPt } from '../../propTypes';
 import { FrilanserSelvstendigKvitteringstegEn } from './FrilanserSoekDigitaltNaa';
@@ -9,7 +9,7 @@ import { FrilanserSelvstendigKvitteringstegEn } from './FrilanserSoekDigitaltNaa
 const FrilanserSoekDigitaltSenere = ({ soknader }) => {
     return (<div className="js-kvittering js-kvittering--frilanser-sok-senere">
         <div className="panel blokk">
-            <div className="stegvisKvittering">
+            <StegvisKvittering>
                 <FrilanserSelvstendigKvitteringstegEn />
                 <Kvitteringsteg
                     nummer="2"
@@ -20,7 +20,7 @@ const FrilanserSoekDigitaltSenere = ({ soknader }) => {
                             '%DATOER%': soknadsdatoremse(soknader),
                         }} />
                 </Kvitteringsteg>
-            </div>
+            </StegvisKvittering>
         </div>
     </div>);
 };

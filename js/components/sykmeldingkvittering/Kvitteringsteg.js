@@ -3,6 +3,16 @@ import { getLedetekst, keyValue } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+export const StegvisKvittering = ({ children }) => {
+    return (<div className="stegvisKvittering">
+        {children}
+    </div>);
+};
+
+StegvisKvittering.propTypes = {
+    children: PropTypes.node,
+};
+
 const Kvitteringsteg = ({ nummer, aktiv, ok, tittel, children }) => {
     const classNames = cn('kvitteringsteg__nummer', {
         'kvitteringsteg__nummer--aktiv': aktiv,

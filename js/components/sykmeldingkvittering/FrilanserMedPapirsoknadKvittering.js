@@ -1,14 +1,14 @@
 import React from 'react';
 import { getLedetekst, Bjorn } from 'digisyfo-npm';
 import getContextRoot from '../../utils/getContextRoot';
-import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
+import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from './Kvitteringsteg';
 import { FrilanserSelvstendigKvitteringHotjarTrigger } from '../HotjarTrigger';
 
 const FrilanserMedPapirsoknadKvittering = () => {
     return (<FrilanserSelvstendigKvitteringHotjarTrigger>
         <div className="js-kvittering js-kvittering--sok-papir">
             <div className="panel blokk">
-                <div className="stegvisKvittering">
+                <StegvisKvittering>
                     <Kvitteringsteg
                         nummer="1"
                         ok
@@ -19,7 +19,7 @@ const FrilanserMedPapirsoknadKvittering = () => {
                         <HtmlAvsnitt
                             nokkel="bekreft-sykmelding.skal-opprettes-soknad.steg-2.tekst" />
                     </Kvitteringsteg>
-                </div>
+                </StegvisKvittering>
             </div>
             <Bjorn
                 className="blokk"

@@ -2,13 +2,13 @@ import React from 'react';
 import { sykepengesoknad as sykepengesoknadPt, getLedetekst, Video, filmer, Bjorn } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import getContextRoot from '../../utils/getContextRoot';
-import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
+import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremse } from './Soknadsdatoliste';
 
 const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
     return (<div className="js-kvittering js-kvittering--sok-senere">
         <div className="panel blokk">
-            <div className="stegvisKvittering">
+            <StegvisKvittering>
                 <Kvitteringsteg
                     nummer="1"
                     ok
@@ -26,7 +26,7 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
                             '%DATOER%': soknadsdatoremse(sykepengesoknader),
                         }} />
                 </Kvitteringsteg>
-            </div>
+            </StegvisKvittering>
         </div>
         <Bjorn
             className="blokk"

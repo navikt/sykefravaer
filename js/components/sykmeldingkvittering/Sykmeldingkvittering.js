@@ -11,6 +11,8 @@ import FrilanserUtenSoknadKvittering from './FrilanserUtenSoknadKvittering';
 import FrilanserSoekDigitaltNaa from './FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from './FrilanserSoekDigitaltSenere';
 import FrilanserSoekDigitaltFeil from './FrilanserSoekDigitaltFeil';
+import SendtSykmeldingMedPapirSoknadKvittering from './SendtSykmeldingMedPapirSoknadKvittering';
+import AnnetArbeidsledigKvittering from './AnnetArbeidsledigKvittering';
 import Feilmelding from '../Feilmelding';
 import { soknad as soknadPt } from '../../propTypes';
 
@@ -27,6 +29,7 @@ export const kvitteringtyper = {
     BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER: 'BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER',
     STRENGT_FORTROLIG_ADRESSE: 'STRENGT_FORTROLIG_ADRESSE',
     BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER: 'BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER',
+    BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: 'BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG',
 };
 
 const AvbruttKvittering = () => {
@@ -34,12 +37,6 @@ const AvbruttKvittering = () => {
         status={sykmeldingstatuser.AVBRUTT}
         tittel={getLedetekst('avbryt-sykmelding.kvittering.tittel')}
         brodtekst={getHtmlLedetekst('avbryt-sykmelding.kvittering.undertekst')} />);
-};
-
-const SendtIngenSoknadKvittering = () => {
-    return (<StandardSykmeldingkvittering
-        tittel={getLedetekst('send-til-arbeidsgiver.kvittering.tittel')}
-        brodtekst={getHtmlLedetekst('send-til-arbeidsgiver.kvittering.undertekst')} />);
 };
 
 const ArbeidstakerBekreftetSykmeldingKvittering = () => {
@@ -83,7 +80,7 @@ const SykmeldingKvittering = (props) => {
                         return <AvbruttKvittering />;
                     }
                     case kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD: {
-                        return <SendtIngenSoknadKvittering />;
+                        return <SendtSykmeldingMedPapirSoknadKvittering />;
                     }
                     case kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER: {
                         return <ArbeidstakerBekreftetSykmeldingKvittering />;
@@ -102,6 +99,9 @@ const SykmeldingKvittering = (props) => {
                     }
                     case kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER: {
                         return <FrilanserSoekDigitaltFeil />;
+                    }
+                    case kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: {
+                        return <AnnetArbeidsledigKvittering />;
                     }
                     default: {
                         return <Feilmelding />;

@@ -8,15 +8,17 @@ import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import { setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser } from 'digisyfo-npm';
 import SykmeldingKvitteringContainer, { mapStateToProps } from '../../js/sider/SykmeldingkvitteringSide';
-import Standardkvittering from '../../js/components/sykmeldingkvittering/StandardSykmeldingkvittering';
+import StandardSykmeldingKvittering from '../../js/components/sykmeldingkvittering/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../js/components/sykmeldingkvittering/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from '../../js/components/sykmeldingkvittering/FrilanserUtenSoknadKvittering';
+import SendtSykmeldingMedPapirSoknadKvittering from '../../js/components/sykmeldingkvittering/SendtSykmeldingMedPapirSoknadKvittering';
 
 import getSykmelding from '../mockSykmeldinger';
 import { getParsetSoknad } from '../mockSykepengesoknader';
 import FrilanserSoekDigitaltNaa from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
+import AnnetArbeidsledigKvittering from '../../js/components/sykmeldingkvittering/AnnetArbeidsledigKvittering';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -232,7 +234,17 @@ describe('SykmeldingkvitteringSide', () => {
             'bekreft-sykmelding.kvittering.sok-na.steg-2.tittel': 'Nå skal du svare på noen spørsmål',
             'bekreft-sykmelding.kvittering.sok-na.steg-2.tekst': '<p>Svarene bruker vi til å beregne sykepengene dine.</p>',
             'bekreft-sykmelding.kvittering.sok-senere.steg-2.tittel': 'Om noen dager får du noen spørsmål',
-            'bekreft-sykmelding.kvittering.sok-senere.steg-2.tekst': '<p>Svarene bruker vi til å beregne sykepengene dine.</p><p>Du får melding fra oss om dette %DATOER%.</p><p>Fikk du sykmeldingen på papir hos legen?<br />Legg den bort. Det du gjør på nett erstatter papiret.</p><p>Skal du reise ut av Norge? <br /><a target="_blank" href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold">Se regler om sykepenger og opphold utenfor Norge.</a></p>',
+            'bekreft-sykmelding.kvittering.sok-senere.steg-2.tekst': '<p>Svarene bruker vi til å beregne sykepengene dine.</p><p>Du får melding fra oss om dette %DATOER%.</p><p>Fikk du sykmeldingen på papir hos legen?<br>Legg den bort. Det du gjør på nett erstatter papiret.</p><p>Skal du reise ut av Norge? <br><a target="_blank" href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold">Se regler om sykepenger og opphold utenfor Norge.</a></p>',
+            'send-til-arbeidsgiver.kvittering.steg-1.tittel': 'Nå har du gjort første del',
+            'send-til-arbeidsgiver.kvittering.steg-1.undertekst': '<p>Du har sendt beskjed om sykefraværet til arbeidsgiveren din.</p>',
+            'send-til-arbeidsgiver.kvittering.steg-2.tittel': 'Du må gjøre resten på papir',
+            'send-til-arbeidsgiver.kvittering.steg-2.undertekst': '<p>Når sykefraværet er over, fyller du ut del D av papirsykmeldingen du fikk hos legen. Hvis du ikke har fått papiret, må du be legen om å få det.</p><p>Spør arbeidsgiveren din om du skal sende del D direkte til dem eller til NAV.</p> <p><a href="https://www.nav.no/no/Bedrift/Innhold+til+Bedrift-forside/Nyttig+a+vite/Adresser+til+NAV+Arbeid+og+ytelser+for+krav+om+sykepenger--418649" target="_blank">Finn riktig adresse til NAV.</a></p><p>Minn gjerne arbeidsgiveren din på å sende inntektsopplysninger så tidlig som mulig. Da går saksbehandlingen fortere.</p><p>Skal du reise ut av Norge? <br><a href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold" target="_blank">Se regler om sykepenger og opphold utenfor Norge</a></p>',
+            'send-til-arbeidsgiver.kvittering.bjorn': '<p>Du lurer kanskje på hvorfor du må søke som sykepenger på papir?<br>Vi jobber med å digitalisere sykepengesøknaden for alle type sykmeldinger, men akkurat denne er vi ikke helt ferdige med.</p>',
+            'bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.tittel': 'Nå har du gjort første del',
+            'bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.undertekst': '<p>Du har bekreftet at du vil ta i bruk sykmeldingen.</p>',
+            'bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.tittel': 'Du må gjøre resten på papir',
+            'bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.undertekst': '<p>Når sykefraværet er over, fyller du ut del D av papirsykmeldingen du fikk hos legen. Hvis du ikke har fått papiret, må du be legen om å få det.</p><p>Skal du reise ut av Norge? <br><a href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold" target="_blank">Se regler om sykepenger og opphold utenfor Norge</a></p>',
+            'bekreft-sykmelding.annet-arbeidsledig.kvittering.bjorn': '<p>Du lurer kanskje på hvorfor du må søke som sykepenger på papir?<br>Vi jobber med å digitalisere sykepengesøknaden for alle, men vi er ikke helt ferdige ennå.</p>',
         };
         /* eslint-enable max-len */
         setLedetekster(ledetekster);
@@ -252,16 +264,29 @@ describe('SykmeldingkvitteringSide', () => {
 
     const skalViseStandardSendtKvittering = (_state, _ownProps) => {
         const component = getComponent(_state, _ownProps);
-        expect(component.text()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.tittel']);
-        expect(component.html()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.undertekst']);
-        expect(component.find(Standardkvittering)).to.have.length(1);
+        expect(component.text()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-1.tittel']);
+        expect(component.html()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-1.undertekst']);
+        expect(component.text()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-2.tittel']);
+        expect(component.html()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-2.undertekst']);
+        expect(component.html()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.bjorn']);
+        expect(component.find(SendtSykmeldingMedPapirSoknadKvittering)).to.have.length(1);
     };
 
     const skalViseStandardBekreftetKvittering = (_state, _ownProps) => {
         const component = getComponent(_state, _ownProps);
         expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.kvittering.tittel']);
         expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.kvittering.undertekst']);
-        expect(component.find(Standardkvittering)).to.have.length(1);
+        expect(component.find(StandardSykmeldingKvittering)).to.have.length(1);
+    };
+
+    const skalViseAnnetArbeidsledigKvittering = (_state, _ownProps) => {
+        const component = getComponent(_state, _ownProps);
+        expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.tittel']);
+        expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.undertekst']);
+        expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.tittel']);
+        expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.undertekst']);
+        expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.bjorn']);
+        expect(component.find(AnnetArbeidsledigKvittering)).to.have.length(1);
     };
 
     describe('SENDT sykmelding', () => {
@@ -763,7 +788,7 @@ describe('SykmeldingkvitteringSide', () => {
     });
 
     describe('BEKREFTET sykmelding for annet', () => {
-        it('Skal vise standard sendt-kvittering', () => {
+        it('Skal vise annet/arbeidsledig-kvittering', () => {
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -772,12 +797,12 @@ describe('SykmeldingkvitteringSide', () => {
             });
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
-            skalViseStandardBekreftetKvittering(state, ownProps);
+            skalViseAnnetArbeidsledigKvittering(state, ownProps);
         });
     });
 
     describe('BEKREFTET sykmelding for arbeidsledig', () => {
-        it('Skal vise standard sendt-kvittering', () => {
+        it('Skal vise annet/arbeidsledig-kvittering', () => {
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -786,7 +811,7 @@ describe('SykmeldingkvitteringSide', () => {
             });
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
-            skalViseStandardBekreftetKvittering(state, ownProps);
+            skalViseAnnetArbeidsledigKvittering(state, ownProps);
         });
     });
 

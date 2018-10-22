@@ -1,12 +1,12 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
+import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from './Kvitteringsteg';
 
 export default () => {
     const sokUrl = `${window.APP_SETTINGS.APP_ROOT}/soknader`;
     return (<div className="panel blokk js-kvittering js-kvittering--sok-naa">
-        <div className="stegvisKvittering">
+        <StegvisKvittering>
             <Kvitteringsteg
                 nummer="1"
                 ok
@@ -28,6 +28,6 @@ export default () => {
                 <HtmlAvsnitt
                     nokkel="sykmelding.kvittering.sok-na.papir.tekst" />
             </Kvitteringsteg>
-        </div>
+        </StegvisKvittering>
     </div>);
 };

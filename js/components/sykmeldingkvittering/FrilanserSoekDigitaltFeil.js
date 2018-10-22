@@ -1,11 +1,11 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
-import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
+import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from './Kvitteringsteg';
 import { FrilanserSelvstendigKvitteringstegEn } from './FrilanserSoekDigitaltNaa';
 
 export default () => {
     return (<div className="panel blokk js-kvittering js-kvittering--sok-naa-frilanser">
-        <div className="stegvisKvittering">
+        <StegvisKvittering>
             <FrilanserSelvstendigKvitteringstegEn />
             <Kvitteringsteg
                 nummer="2"
@@ -15,6 +15,6 @@ export default () => {
                     tag="div"
                     nokkel="bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst" />
             </Kvitteringsteg>
-        </div>
+        </StegvisKvittering>
     </div>);
 };

@@ -17,9 +17,22 @@ $ npm config set @types:registry "http://a34apvl062.devillo.no:8082/repository/n
 $ npm config set @babel:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"
 ```
 
-* I `web/src/frontend`: Kjør `npm install`, dernest `npm run dev`. I et annet vindu, kjør `npm run devstart`.
+* For å kjøre koden lokalt: 
+    - `$ npm install`
+    - `$ npm run dev`
+    - I et annet vindu `$ npm run devstart`
+    - Eventuelt kan komandoene kjøres fra `package.json` i intellij.
 * Kjør tester med `npm test`
 * Lint JS-kode med `npm run lint`
+
+## Deploy mock app til Heroku
+Installer heroku, på mac kan du bruke brew: `$ brew install heroku`.
+
+For å kunne deploye til Heroku må du først logge inn: 
+* `$ heroku login`
+* `$ heroku container:login`
+
+Deploy til heroku ved å kjøre deployscript: `$ sh deploy-heroku.sh`.
 
 ## Logge på i T-miljø
 Se denne siden for [testdata](http://confluence.adeo.no/display/Digisyfo/Testdata+Barken) (intern lenke).

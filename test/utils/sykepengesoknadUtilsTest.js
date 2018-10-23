@@ -2,6 +2,7 @@ import chai from 'chai';
 import deepFreeze from 'deep-freeze';
 import * as utils from '../../js/utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../js/utils/sykmeldingUtils';
+import { parseSoknad } from '../../js/reducers/soknader';
 
 const expect = chai.expect;
 
@@ -11,6 +12,8 @@ describe('sykepengesoknadUtils', () => {
     let soknad3;
     let soknad4;
     let soknad5;
+    let sendtSoknadUtland;
+    let ikkeSendtSoknadUtland;
     let data;
 
     beforeEach(() => {
@@ -63,6 +66,51 @@ describe('sykepengesoknadUtils', () => {
             fom: new Date('2017-05-01'),
             tom: new Date('2017-06-10'),
         };
+
+        sendtSoknadUtland = parseSoknad({
+            status: 'SENDT',
+            soknadstype: 'OPPHOLD_UTLAND',
+            sporsmal: [
+                {
+                    id: '24869',
+                    tag: 'PERIODEUTLAND',
+                    sporsmalstekst: 'Når skal du være utenfor Norge?',
+                    undertekst: null,
+                    svartype: 'PERIODER',
+                    min: '2018-07-22',
+                    max: '2019-04-22',
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [
+                        {
+                            verdi: '{"fom":"2015-08-01","tom":"2017-10-10"}',
+                        },
+                    ],
+                    undersporsmal: [],
+                },
+            ],
+        });
+
+        ikkeSendtSoknadUtland = parseSoknad({
+            status: 'NY',
+            soknadstype: 'OPPHOLD_UTLAND',
+            opprettetDato: '2017-10-09',
+            sporsmal: [
+                {
+                    id: '24869',
+                    tag: 'PERIODEUTLAND',
+                    sporsmalstekst: 'Når skal du være utenfor Norge?',
+                    undertekst: null,
+                    svartype: 'PERIODER',
+                    min: '2018-07-22',
+                    max: '2019-04-22',
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [],
+                    undersporsmal: [],
+                },
+            ],
+        });
     });
 
 
@@ -74,6 +122,24 @@ describe('sykepengesoknadUtils', () => {
         it('Skal sortere etter periodene med perioden lengst frem i tid først', () => {
             const res = data.sort(utils.sorterEtterPerioder);
             expect(res).to.deep.equal([soknad3, soknad1, soknad2, soknad4]);
+        });
+
+        it('Skal sortere etter periodene med perioden lengst frem i tid først', () => {
+            data = [soknad2, soknad4, soknad1, soknad3];
+            const res = data.sort(utils.sorterEtterPerioder);
+            expect(res).to.deep.equal([soknad3, soknad1, soknad2, soknad4]);
+        });
+
+        it('Skal sortere SENDT utenlandssøknad etter perioden', () => {
+            data = [soknad1, soknad2, soknad3, soknad4, sendtSoknadUtland];
+            const res = data.sort(utils.sorterEtterPerioder);
+            expect(res).to.deep.equal([soknad3, sendtSoknadUtland, soknad1, soknad2, soknad4]);
+        });
+
+        it('Skal sortere ikke sendt utenlandssøknad etter opprettetDato', () => {
+            data = [soknad1, soknad2, soknad3, soknad4, sendtSoknadUtland, ikkeSendtSoknadUtland];
+            const res = data.sort(utils.sorterEtterPerioder);
+            expect(res).to.deep.equal([soknad3, sendtSoknadUtland, ikkeSendtSoknadUtland, soknad1, soknad2, soknad4]);
         });
     });
 

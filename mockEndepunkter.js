@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const request = require('request');
 
 const uuid = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -15,8 +16,9 @@ const NY_SOKNAD_UTLAND = 'nySoknadUtland';
 const ARBEIDSGIVERE = 'arbeidsgivere';
 const METADATA = 'metadata';
 const NAERMESTELEDERE = 'naermesteledere';
+const FORRIGE_LEDER = 'forrigeLeder';
 const OPPFOELGINGSDIALOGER = 'oppfoelgingsdialoger';
-const UTLANDSOKNADER = 'soknadUtland';
+const SOKNADER = 'soknader';
 const SYFOUNLEASH = 'syfounleash';
 const SYKEFORLOEAP = 'sykeforloep';
 const SYKEPENGESOKNADER = 'sykepengesoknader';
@@ -47,7 +49,7 @@ lastFilTilMinne(ARBEIDSGIVERE);
 lastFilTilMinne(METADATA);
 lastFilTilMinne(NAERMESTELEDERE);
 lastFilTilMinne(OPPFOELGINGSDIALOGER);
-lastFilTilMinne(UTLANDSOKNADER);
+lastFilTilMinne(SOKNADER);
 lastFilTilMinne(SYFOUNLEASH);
 lastFilTilMinne(SYKEFORLOEAP);
 lastFilTilMinne(SYKEPENGESOKNADER);
@@ -64,6 +66,32 @@ lastFilTilMinne(PERIODER);
 lastFilTilMinne(PERSON);
 lastFilTilMinne(PERSONVIRKSOMHETSNUMMER);
 lastFilTilMinne(VIRKSOMHET);
+lastFilTilMinne(FORRIGE_LEDER);
+
+let teksterFraProd;
+
+function hentTeksterFraProd() {
+    const TEKSTER_URL = 'https://syfoapi.nav.no/syfotekster/api/tekster';
+    request(TEKSTER_URL, function (error, response, body) {
+        if (error) {
+            console.log('Kunne ikke hente tekster fra prod', error);
+        } else {
+            teksterFraProd = JSON.parse(body);
+            console.log('Tekster hentet fra prod');
+        }
+    });
+}
+
+function mockTekster(server) {
+    const HVERT_FEMTE_MINUTT = 1000 * 60 * 5;
+    hentTeksterFraProd();
+    setInterval(hentTeksterFraProd, HVERT_FEMTE_MINUTT);
+
+    server.get('/syfotekster/api/tekster', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(teksterFraProd || mockData[TEKSTER]));
+    });
+}
 
 function mockEndepunkterSomEndrerState(server) {
     server.post('/syfoapi/syfosoknad/api/opprettSoknadUtland', (req, res) => {
@@ -167,14 +195,11 @@ function mockEndepunkterSomEndrerState(server) {
 }
 
 function mockForOpplaeringsmiljo(server) {
-    server.get('/syfotekster/api/tekster', (req, res) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[TEKSTER]));
-    });
+    mockTekster(server);
 
     server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[UTLANDSOKNADER]));
+        res.send(JSON.stringify(mockData[SOKNADER]));
     });
 
     server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
@@ -247,7 +272,7 @@ function mockForOpplaeringsmiljo(server) {
 
     server.get('/restoppfoelgingsdialog/api/naermesteleder/:fnr/forrige', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({}));
+        res.send(JSON.stringify(mockData[FORRIGE_LEDER]));
     });
 
     server.post('/restoppfoelgingsdialog/api/oppfoelgingsdialoger/actions/:id/sett', (req, res) => {
@@ -324,6 +349,14 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/syforest/informasjon/toggles', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[TOGGLES]));
+    });
+
+    server.get('/esso/logout', (req, res) => {
+        res.send('<p>Du har blitt sendt til utlogging.</p><p><a href="/sykefravaer">Gå til Ditt sykefravær</a></p>');
+    });
+
+    server.get('/dittnav', (req, res) => {
+        res.send('<p>Ditt Nav er ikke tilgjengelig - dette er en testside som kun viser Ditt sykefravær.</p><p><a href="/sykefravaer">Gå til Ditt sykefravær</a></p>');
     });
 }
 

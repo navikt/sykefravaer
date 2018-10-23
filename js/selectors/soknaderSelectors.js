@@ -1,4 +1,4 @@
-import { SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
+import { SELVSTENDIGE_OG_FRILANSERE, OPPHOLD_UTLAND } from '../enums/soknadtyper';
 import { FREMTIDIG, NY, SENDT } from '../enums/soknadstatuser';
 
 export const erForsteSoknad = (state) => {
@@ -25,5 +25,12 @@ export const sykmeldingHarBehandletSoknad = (state, sykmeldingId) => {
 export const hentSoknad = (state, soknad) => {
     return state.soknader.data.find((s) => {
         return s.id === soknad.id;
+    });
+};
+
+export const hentSoknaderSelector = (state) => {
+    return state.soknader.data.filter((soknad) => {
+        return soknad.soknadstype === OPPHOLD_UTLAND
+            || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
     });
 };

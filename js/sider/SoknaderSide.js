@@ -11,7 +11,7 @@ import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad 
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../actions/soknader_actions';
 import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
-import { skalHenteSoknader } from '../selectors/soknaderSelectors';
+import { skalHenteSoknader, hentSoknaderSelector } from '../selectors/soknaderSelectors';
 
 export class Container extends Component {
     componentWillMount() {
@@ -67,7 +67,7 @@ export function mapDispatchToProps(dispatch) {
 
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
-    const soknader = state.soknader.data;
+    const soknader = hentSoknaderSelector(state);
 
     return {
         sykepengesoknader,

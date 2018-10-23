@@ -70,26 +70,22 @@ lastFilTilMinne(FORRIGE_LEDER);
 
 let teksterFraProd;
 
-function hentTeksterFraProd(loggSuksess) {
+function hentTeksterFraProd() {
     const TEKSTER_URL = 'https://syfoapi.nav.no/syfotekster/api/tekster';
     request(TEKSTER_URL, function (error, response, body) {
         if (error) {
             console.log('Kunne ikke hente tekster fra prod', error);
         } else {
             teksterFraProd = JSON.parse(body);
-            if (loggSuksess) {
-                console.log('Tekster hentet fra prod');
-            }
+            console.log('Tekster hentet fra prod');
         }
     });
 }
 
 function mockTekster(server) {
     const HVERT_FEMTE_MINUTT = 1000 * 60 * 5;
-    hentTeksterFraProd(true);
-    setInterval(() => {
-        hentTeksterFraProd();
-    }, HVERT_FEMTE_MINUTT);
+    hentTeksterFraProd();
+    setInterval(hentTeksterFraProd, HVERT_FEMTE_MINUTT);
 
     server.get('/syfotekster/api/tekster', (req, res) => {
         res.setHeader('Content-Type', 'application/json');

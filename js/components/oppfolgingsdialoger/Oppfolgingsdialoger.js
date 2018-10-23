@@ -42,6 +42,7 @@ import OppfolgingsdialogerInfoPersonvern from './OppfolgingsdialogerInfoPersonve
 
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
     const sisteInnlogging = finnBrukersSisteInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
+    console.log(oppfolgingsdialoger);
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
         return harForrigeNaermesteLeder(oppfolgingsdialog) &&
             harNaermesteLeder(oppfolgingsdialog) &&
@@ -89,6 +90,7 @@ class Oppfolgingsdialoger extends Component {
         if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, dinesykmeldinger.data, naermesteLedere.data)) {
             panel = (<IngenledereInfoboks />);
         } else if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
+            console.log(oppfolgingsdialogMedNyNaermesteLeder)
             panel = (<NyNaermestelederInfoboks
                 ledetekster={ledetekster}
                 oppfolgingsdialog={oppfolgingsdialogMedNyNaermesteLeder}

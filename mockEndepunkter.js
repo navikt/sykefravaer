@@ -16,6 +16,7 @@ const NY_SOKNAD_UTLAND = 'nySoknadUtland';
 const ARBEIDSGIVERE = 'arbeidsgivere';
 const METADATA = 'metadata';
 const NAERMESTELEDERE = 'naermesteledere';
+const FORRIGE_LEDER = 'forrigeLeder';
 const OPPFOELGINGSDIALOGER = 'oppfoelgingsdialoger';
 const SOKNADER = 'soknader';
 const SYFOUNLEASH = 'syfounleash';
@@ -65,6 +66,7 @@ lastFilTilMinne(PERIODER);
 lastFilTilMinne(PERSON);
 lastFilTilMinne(PERSONVIRKSOMHETSNUMMER);
 lastFilTilMinne(VIRKSOMHET);
+lastFilTilMinne(FORRIGE_LEDER);
 
 let teksterFraProd;
 
@@ -274,7 +276,7 @@ function mockForOpplaeringsmiljo(server) {
 
     server.get('/restoppfoelgingsdialog/api/naermesteleder/:fnr/forrige', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({}));
+        res.send(JSON.stringify(mockData[FORRIGE_LEDER]));
     });
 
     server.post('/restoppfoelgingsdialog/api/oppfoelgingsdialoger/actions/:id/sett', (req, res) => {

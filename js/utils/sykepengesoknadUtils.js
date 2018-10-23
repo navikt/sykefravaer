@@ -1,10 +1,16 @@
 import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
+import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
+import { PERIODEUTLAND } from '../enums/tagtyper';
+import { SENDT, NY } from '../enums/soknadstatuser';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
-        return soknad.sendtTilNAVDato > soknad.sendtTilArbeidsgiverDato ? soknad.sendtTilArbeidsgiverDato : soknad.sendtTilNAVDato;
+        return soknad.sendtTilNAVDato > soknad.sendtTilArbeidsgiverDato
+            ? soknad.sendtTilArbeidsgiverDato
+            : soknad.sendtTilNAVDato;
     }
-    return soknad.sendtTilNAVDato || soknad.sendtTilArbeidsgiverDato;
+    return soknad.sendtTilNAVDato
+        || soknad.sendtTilArbeidsgiverDato;
 };
 
 export const sorterEtterSendtDato = (soknad1, soknad2) => {
@@ -108,8 +114,26 @@ export const getSendtTilSuffix = (sykepengesoknad) => {
     return '';
 };
 
+const getTomFraSoknad = (soknad) => {
+    const getTomForUtland = (_soknad) => {
+        const periode = _soknad.sporsmal.find((spm) => {
+            return spm.tag === PERIODEUTLAND;
+        }).svar[0].verdi;
+        const jsonPeriode = JSON.parse(periode);
+        return new Date(jsonPeriode.tom);
+    };
+
+    return soknad.soknadstype === OPPHOLD_UTLAND && soknad.status === SENDT
+        ? getTomForUtland(soknad)
+        : soknad.soknadstype === OPPHOLD_UTLAND && soknad.status === NY
+            ? soknad.opprettetDato
+            : soknad.tom;
+};
+
 export const sorterEtterPerioder = (soknad1, soknad2) => {
-    return soknad2.tom.getTime() - soknad1.tom.getTime();
+    const tom1 = getTomFraSoknad(soknad1);
+    const tom2 = getTomFraSoknad(soknad2);
+    return tom2.getTime() - tom1.getTime();
 };
 
 export const sorterEtterOpprettetDato = (soknad1, soknad2) => {

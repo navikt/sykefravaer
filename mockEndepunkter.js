@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const request = require('request');
 
 const uuid = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -64,6 +65,30 @@ lastFilTilMinne(PERIODER);
 lastFilTilMinne(PERSON);
 lastFilTilMinne(PERSONVIRKSOMHETSNUMMER);
 lastFilTilMinne(VIRKSOMHET);
+
+let teksterFraProd;
+
+function hentTeksterFraProd() {
+    const TEKSTER_URL = 'https://syfoapi.nav.no/syfotekster/api/tekster';
+    request(TEKSTER_URL, function (error, response, body) {
+        if (error) {
+            console.log('Kunne ikke hente tekster fra prod', error);
+        } else {
+            teksterFraProd = body;
+        }
+    });
+}
+
+function mockTekster(server) {
+    const HVERT_FEMTE_MINUTT = 1000 * 60 * 5;
+    hentTeksterFraProd();
+    setInterval(hentTeksterFraProd, HVERT_FEMTE_MINUTT);
+
+    server.get('/syfotekster/api/tekster', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(teksterFraProd || mockData[TEKSTER]));
+    });
+}
 
 function mockEndepunkterSomEndrerState(server) {
     server.post('/syfoapi/syfosoknad/api/opprettSoknadUtland', (req, res) => {
@@ -167,10 +192,7 @@ function mockEndepunkterSomEndrerState(server) {
 }
 
 function mockForOpplaeringsmiljo(server) {
-    server.get('/syfotekster/api/tekster', (req, res) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[TEKSTER]));
-    });
+    mockTekster(server);
 
     server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');

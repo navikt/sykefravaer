@@ -17,7 +17,7 @@ const ARBEIDSGIVERE = 'arbeidsgivere';
 const METADATA = 'metadata';
 const NAERMESTELEDERE = 'naermesteledere';
 const OPPFOELGINGSDIALOGER = 'oppfoelgingsdialoger';
-const UTLANDSOKNADER = 'soknadUtland';
+const SOKNADER = 'soknader';
 const SYFOUNLEASH = 'syfounleash';
 const SYKEFORLOEAP = 'sykeforloep';
 const SYKEPENGESOKNADER = 'sykepengesoknader';
@@ -48,7 +48,7 @@ lastFilTilMinne(ARBEIDSGIVERE);
 lastFilTilMinne(METADATA);
 lastFilTilMinne(NAERMESTELEDERE);
 lastFilTilMinne(OPPFOELGINGSDIALOGER);
-lastFilTilMinne(UTLANDSOKNADER);
+lastFilTilMinne(SOKNADER);
 lastFilTilMinne(SYFOUNLEASH);
 lastFilTilMinne(SYKEFORLOEAP);
 lastFilTilMinne(SYKEPENGESOKNADER);
@@ -196,7 +196,7 @@ function mockForOpplaeringsmiljo(server) {
 
     server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[UTLANDSOKNADER]));
+        res.send(JSON.stringify(mockData[SOKNADER]));
     });
 
     server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {

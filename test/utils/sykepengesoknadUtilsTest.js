@@ -14,6 +14,7 @@ describe('sykepengesoknadUtils', () => {
     let soknad5;
     let sendtSoknadUtland;
     let ikkeSendtSoknadUtland;
+    let sendtSoknadUtlandMedFlerePerioder;
     let data;
 
     beforeEach(() => {
@@ -91,6 +92,33 @@ describe('sykepengesoknadUtils', () => {
             ],
         });
 
+        sendtSoknadUtlandMedFlerePerioder = parseSoknad({
+            status: 'SENDT',
+            soknadstype: 'OPPHOLD_UTLAND',
+            sporsmal: [
+                {
+                    id: '24869',
+                    tag: 'PERIODEUTLAND',
+                    sporsmalstekst: 'Når skal du være utenfor Norge?',
+                    undertekst: null,
+                    svartype: 'PERIODER',
+                    min: '2018-07-22',
+                    max: '2019-04-22',
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [
+                        {
+                            verdi: '{"fom":"2013-01-01","tom":"2013-01-02"}',
+                        },
+                        {
+                            verdi: '{"fom":"2015-08-01","tom":"2017-10-10"}',
+                        },
+                    ],
+                    undersporsmal: [],
+                },
+            ],
+        });
+
         ikkeSendtSoknadUtland = parseSoknad({
             status: 'NY',
             soknadstype: 'OPPHOLD_UTLAND',
@@ -140,6 +168,12 @@ describe('sykepengesoknadUtils', () => {
             data = [soknad1, soknad2, soknad3, soknad4, sendtSoknadUtland, ikkeSendtSoknadUtland];
             const res = data.sort(utils.sorterEtterPerioder);
             expect(res).to.deep.equal([soknad3, sendtSoknadUtland, ikkeSendtSoknadUtland, soknad1, soknad2, soknad4]);
+        });
+
+        it('Skal sortere sendt utenlandssøknad med flere perioder etter seneste tom', () => {
+            data = [soknad1, soknad2, soknad3, soknad4, sendtSoknadUtlandMedFlerePerioder, ikkeSendtSoknadUtland];
+            const res = data.sort(utils.sorterEtterPerioder);
+            expect(res).to.deep.equal([soknad3, sendtSoknadUtlandMedFlerePerioder, ikkeSendtSoknadUtland, soknad1, soknad2, soknad4]);
         });
     });
 

@@ -1,4 +1,4 @@
-import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
+import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, senesteTom, tilDatePeriode } from 'digisyfo-npm';
 import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
 import { PERIODEUTLAND } from '../enums/tagtyper';
 import { SENDT, NY } from '../enums/soknadstatuser';
@@ -116,11 +116,16 @@ export const getSendtTilSuffix = (sykepengesoknad) => {
 
 const getTomFraSoknad = (soknad) => {
     const getTomForUtland = (_soknad) => {
-        const periode = _soknad.sporsmal.find((spm) => {
+        const perioder = _soknad.sporsmal.find((spm) => {
             return spm.tag === PERIODEUTLAND;
-        }).svar[0].verdi;
-        const jsonPeriode = JSON.parse(periode);
-        return new Date(jsonPeriode.tom);
+        }).svar.map((periode) => {
+            const jsonPeriode = JSON.parse(periode.verdi);
+            return {
+                fom: new Date(jsonPeriode.fom),
+                tom: new Date(jsonPeriode.tom),
+            };
+        });
+        return senesteTom(perioder);
     };
 
     return soknad.soknadstype === OPPHOLD_UTLAND && soknad.status === SENDT

@@ -4,7 +4,8 @@ import { log } from 'digisyfo-npm';
 
 export default class HotjarTrigger extends Component {
     componentDidMount() {
-        if (typeof window.hj === 'function') {
+        if (typeof window.hj === 'function'
+            && window.location.href.indexOf('herokuapp') === -1) {
             window.hj('trigger', this.props.hotjarTrigger);
         }
         log(`Trigger hotjar: ${this.props.hotjarTrigger}`);

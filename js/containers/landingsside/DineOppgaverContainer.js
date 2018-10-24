@@ -151,7 +151,7 @@ export const mapStateToProps = (state) => {
             return s.status === NY;
         })
         .filter((s) => {
-            return toggleNyArbeidstakerSoknad()
+            return toggleNyArbeidstakerSoknad(state)
                 ? s.soknadstype === SELVSTENDIGE_OG_FRILANSERE || s.soknadstype === ARBEIDSTAKERE
                 : s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
         });

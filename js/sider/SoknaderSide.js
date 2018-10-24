@@ -69,7 +69,7 @@ export function mapDispatchToProps(dispatch) {
 
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
-    const soknader = toggleNyArbeidstakerSoknad()
+    const soknader = toggleNyArbeidstakerSoknad(state)
         ? state.soknader.data
         : state.soknader.data.filter((s) => {
             return s.soknadstype !== ARBEIDSTAKERE;

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Feilmelding from '../../components/Feilmelding';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import * as soknadActions from '../../actions/sykepengesoknader_actions';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 
 const GenerellArbeidstakersoknadContainer = (props) => {
     const { Component, sykepengesoknad, hentingFeilet } = props;
@@ -46,7 +46,7 @@ export const mapStateToProps = (state, ownProps) => {
     const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
         return soknad.id === ownProps.params.sykepengesoknadId;
     })[0];
-    const skjemanavn = getSykepengesoknadArbeidstakerSkjemanavn(ownProps.params.sykepengesoknadId);
+    const skjemanavn = getSoknadSkjemanavn(ownProps.params.sykepengesoknadId);
     const skjemasoknad = state.form && state.form[skjemanavn] ? state.form[skjemanavn].values : undefined;
     const dekorertSkjemasoknad = dekorerSkjemasoknad(skjemasoknad, sykepengesoknad);
 

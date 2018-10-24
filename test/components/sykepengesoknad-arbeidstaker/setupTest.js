@@ -5,7 +5,7 @@ import { inntektskildetyper } from 'digisyfo-npm';
 import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import { mapStateToPropsMedInitialValues, mapStateToProps, mapToInitialValues, andreInntektskilderDefault } from '../../../js/components/sykepengesoknad-arbeidstaker/setup';
 import { getParsetSoknad, getSoknad } from '../../mockSykepengesoknader';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../js/enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -84,7 +84,7 @@ describe('setup', () => {
             });
             const props = mapStateToPropsMedInitialValues(state, ownProps);
             expect(props.key).to.equal(id);
-            expect(props.form).to.equal(getSykepengesoknadArbeidstakerSkjemanavn('min-fine-id'));
+            expect(props.form).to.equal(getSoknadSkjemanavn('min-fine-id'));
         });
     });
 
@@ -133,7 +133,7 @@ describe('setup', () => {
             });
             const props = mapStateToProps(state, ownProps);
             expect(props.key).to.equal(id);
-            expect(props.form).to.equal(getSykepengesoknadArbeidstakerSkjemanavn('min-fine-id'));
+            expect(props.form).to.equal(getSoknadSkjemanavn('min-fine-id'));
         });
     });
 

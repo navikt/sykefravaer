@@ -3,7 +3,7 @@ import { setLedetekster } from 'digisyfo-npm';
 import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
 import validerFravaerOgFriskmelding from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerFravaerOgFriskmelding';
 import { ANSVARSERKLARING, TILBAKE_I_ARBEID, JOBBET_DU_GRADERT, JOBBET_DU_100_PROSENT, TILBAKE_NAR } from '../../../../js/enums/tagtyper';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
 import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
 

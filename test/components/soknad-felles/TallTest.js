@@ -1,8 +1,8 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import { genererValiderTall } from '../../../js/components/soknad-felles/Tall';
-import { genererParseForEnkeltverdi } from '../../../js/components/soknad-felles/fieldUtils';
+import { genererValiderTall } from '../../../js/components/soknad-felles-sporsmal/Tall';
+import { genererParseForEnkeltverdi } from '../../../js/components/soknad-felles-sporsmal/fieldUtils';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

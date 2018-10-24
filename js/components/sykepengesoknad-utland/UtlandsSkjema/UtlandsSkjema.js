@@ -7,7 +7,7 @@ import { reduxForm } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 import Header from '../SykepengesoknadUtlandHeader';
-import Sporsmal from '../../soknad-felles/Sporsmal';
+import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
 import { soknad as soknadPt } from '../../../propTypes';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerUtlandsSkjema';

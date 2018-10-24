@@ -9,7 +9,7 @@ import {
     INNTEKTSKILDE_ANNET,
     INNTEKTSKILDE_ANNET_ER_DU_SYKMELDT, UTLAND,
 } from '../../../../js/enums/tagtyper';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
 import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
 import { PERIODER } from '../../../../js/enums/svartyper';

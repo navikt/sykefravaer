@@ -11,7 +11,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import SykepengesoknadHeader from '../../sykepengesoknad-felles/SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import SykmeldingUtdragContainer from '../../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import DetFinnesEldreSoknader from './DetFinnesEldreSoknader';
 import KorrigerVarsel from '../../sykepengesoknad-felles/KorrigerVarsel';
 import ForsteSoknadIntro from './ForsteSoknadIntro';
@@ -71,7 +71,7 @@ class FoerDuBegynner extends Component {
 
             <SykmeldingUtdragContainer erApen sykepengesoknad={sykepengesoknad} />
             <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
-            <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
+            <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(sykepengesoknad.id)} />
             <FoerDuBegynnerSkjemaSetup
                 sykepengesoknad={sykepengesoknad} />
         </div>);

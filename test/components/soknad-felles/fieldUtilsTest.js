@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles/fieldUtils';
+import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { UNCHECKED, CHECKED } from '../../../js/enums/svarEnums';
 import { ANDRE_INNTEKTSKILDER, JOBBET_DU_GRADERT } from '../../../js/enums/tagtyper';
 

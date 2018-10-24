@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Checkboks from '../skjema/Checkbox';
-import { fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
+import { fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes/index';
 import Undersporsmal from './Undersporsmal';
 import { formaterEnkeltverdi, genererParseForCheckbox } from './fieldUtils';
 

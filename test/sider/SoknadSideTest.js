@@ -7,7 +7,6 @@ import { reducer as formReducer } from 'redux-form';
 import SoknadSide, {
     mapStateToProps,
     Container,
-    SykepengeskjemaForSelvstendige,
 } from '../../js/sider/SoknadSide';
 import AppSpinner from '../../js/components/AppSpinner';
 import SykepengesoknadSelvstendigKvitteringContainer from '../../js/containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
@@ -22,12 +21,16 @@ import OppsummeringContainer from '../../js/containers/sykepengesoknad-selvstend
 import mountWithStore from '../mountWithStore';
 import { getSendtSoknadSelvstendig, getNySoknadSelvstendig } from '../mockSoknadSelvstendig';
 import reduxFormMeta from '../../js/reducers/reduxFormMeta';
+import { getNySoknadArbeidstaker } from '../mockSoknadArbeidstaker';
+import { SykepengeskjemaForSelvstendige } from '../../js/components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
+import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
+import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
 
 chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-describe('SykepengesoknadContainerTest', () => {
+describe('SoknadSideTest', () => {
     let state;
     let ownProps;
     let actions;
@@ -146,7 +149,7 @@ describe('SykepengesoknadContainerTest', () => {
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
-        describe('SykepengesoknadSelvstendigNaeringsdrivende', () => {
+        describe('SoknadSelvstendigNaeringsdrivende', () => {
             describe('Når søknad er sendt', () => {
                 beforeEach(() => {
                     state.soknader.data = [getSendtSoknadSelvstendig({
@@ -207,6 +210,25 @@ describe('SykepengesoknadContainerTest', () => {
                     const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
                     expect(component.find(OppsummeringContainer)).to.have.length(1);
+                });
+            });
+        });
+
+        describe('Ny søknad for arbeidstakere', () => {
+            describe('Når søknad er NY', () => {
+                beforeEach(() => {
+                    state.soknader.data = [getNySoknadArbeidstaker({
+                        id: 'soknad-id',
+                    })];
+                    state.reduxFormMeta = reduxFormMeta();
+                    state.form = formReducer();
+                });
+
+                it('Skal vise NySoknadArbeidstaker og FoerDuBegynner på side 1', () => {
+                    ownProps.location.pathname = '/sykefravaer/soknader/soknad-id';
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
+                    expect(component.find(NySoknadArbeidstaker)).to.have.length(1);
+                    expect(component.find(NyFoerDuBegynnerArbeidstakerContainer)).to.have.length(1);
                 });
             });
         });

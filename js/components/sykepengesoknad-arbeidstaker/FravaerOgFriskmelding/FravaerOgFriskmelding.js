@@ -12,7 +12,7 @@ import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmel
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 
 export class FravaerOgFriskmeldingSkjema extends Component {
     componentDidMount() {
@@ -57,7 +57,7 @@ const FravaerOgFriskmelding = ({ sykepengesoknad, skjemasoknad }) => {
             aktivtSteg="2"
             tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
             sykepengesoknad={sykepengesoknad}>
-            <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
+            <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(sykepengesoknad.id)} />
             <FravaerOgFriskmeldingSkjemaSetup
                 sykepengesoknad={sykepengesoknad}
                 erEgenmeldingsperioderPreutfylt={skjemasoknad._erEgenmeldingsperioderPreutfylt} />

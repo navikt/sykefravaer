@@ -22,7 +22,7 @@ import {
     SOKNAD_GJENAPNET,
 } from '../actions/actiontyper';
 import { DATO, PERIODER, PROSENT, TIMER } from '../enums/svartyper';
-import { SENDT, NY, AVBRUTT } from '../enums/soknadstatuser';
+import { SENDT, NY, AVBRUTT, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
 
 const initiellState = {
@@ -157,7 +157,7 @@ export default (state = initiellState, action = {}) => {
             };
         }
         case SOKNAD_AVBRUTT: {
-            const data = action.soknad.soknadstype === OPPHOLD_UTLAND
+            const data = action.soknad.soknadstype === OPPHOLD_UTLAND || action.soknad.status === UTKAST_TIL_KORRIGERING
                 ? [...state.data.filter((s) => {
                     return s.id !== action.soknad.id;
                 })]

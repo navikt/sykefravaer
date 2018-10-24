@@ -6,8 +6,8 @@ import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
-import { AVBRUTT, NY, SENDT, FREMTIDIG } from '../../js/enums/soknadstatuser';
-import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
+import { AVBRUTT, NY, SENDT, FREMTIDIG, UTKAST_TIL_KORRIGERING } from '../../js/enums/soknadstatuser';
+import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
 
 describe('soknader', () => {
     let getStateMedDataHentet;
@@ -105,6 +105,22 @@ describe('soknader', () => {
     it('Håndterer soknadAvbrutt når søknaden som avbrytes er en utenlandsopphold-søknad', () => {
         const initState = getStateMedDataHentet();
         initState.data[0].soknadstype = OPPHOLD_UTLAND;
+
+        const avbryterAction = actions.avbryterSoknad();
+        let nyState = soknader(deepFreeze(initState), avbryterAction);
+
+        const avbruttAction = actions.soknadAvbrutt(nyState.data[0]);
+        nyState = soknader(deepFreeze(nyState), avbruttAction);
+
+        expect(nyState.data).to.deep.equal([]);
+        expect(nyState.avbryter).to.equal(false);
+        expect(nyState.avbrytSoknadFeilet).to.equal(false);
+    });
+
+    it('Håndterer soknadAvbrutt når søknaden som avbrytes er et utkast til korrigering', () => {
+        const initState = getStateMedDataHentet();
+        initState.data[0].soknadstype = SELVSTENDIGE_OG_FRILANSERE;
+        initState.data[0].status = UTKAST_TIL_KORRIGERING;
 
         const avbryterAction = actions.avbryterSoknad();
         let nyState = soknader(deepFreeze(initState), avbryterAction);

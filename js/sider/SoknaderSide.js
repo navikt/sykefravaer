@@ -12,6 +12,7 @@ import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../actions/soknader_actions';
 import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
 import { skalHenteSoknader } from '../selectors/soknaderSelectors';
+import { ARBEIDSTAKERE } from '../enums/soknadtyper';
 
 export class Container extends Component {
     componentWillMount() {
@@ -67,7 +68,9 @@ export function mapDispatchToProps(dispatch) {
 
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
-    const soknader = state.soknader.data;
+    const soknader = state.soknader.data.filter((s) => {
+        return s.soknadstype !== ARBEIDSTAKERE;
+    });
 
     return {
         sykepengesoknader,

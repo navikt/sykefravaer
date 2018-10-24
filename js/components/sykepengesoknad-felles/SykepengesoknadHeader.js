@@ -2,7 +2,7 @@ import React from 'react';
 import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import * as proptypes from '../../propTypes/index';
+import * as proptypes from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 
 const SykepengesoknadHeader = ({ sykepengesoknad }) => {

@@ -20,7 +20,7 @@ const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => {
     });
 };
 
-export default function arbeidsgiversSykmeldinger(state = initiellState, action) {
+export default function arbeidsgiversSykmeldinger(state = initiellState, action = {}) {
     switch (action.type) {
         case actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {

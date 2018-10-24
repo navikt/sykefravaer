@@ -1,5 +1,5 @@
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
-import { getSykepengesoknadSelvstendigSkjemanavn, OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
+import { getSoknadSkjemanavn, OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
 
 export const getSkjemanavnFraSoknad = (soknad) => {
     switch (soknad.soknadstype) {
@@ -7,7 +7,7 @@ export const getSkjemanavnFraSoknad = (soknad) => {
             return OPPHOLD_UTLAND_SKJEMA;
         }
         case SELVSTENDIGE_OG_FRILANSERE: {
-            return getSykepengesoknadSelvstendigSkjemanavn(soknad.id);
+            return getSoknadSkjemanavn(soknad.id);
         }
         default: {
             return null;

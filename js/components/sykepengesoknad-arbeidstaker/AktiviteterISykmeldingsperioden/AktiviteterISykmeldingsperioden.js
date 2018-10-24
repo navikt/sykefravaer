@@ -18,7 +18,7 @@ import { getUtdanningssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { filtrerAktuelleAktiviteter } from '../../../utils/sykepengesoknadUtils';
 import { PreutfyltBjorn } from '../FravaerOgFriskmelding/Egenmeldingsdager';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 
 export const UtdanningStartDato = ({ senesteTom }) => {
     return (<div className="blokk">
@@ -116,7 +116,7 @@ const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, skjemasoknad }) => {
             aktivtSteg="3"
             tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
             sykepengesoknad={sykepengesoknad}>
-            <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
+            <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(sykepengesoknad.id)} />
             <AktiviteterISykmeldingsperiodenReduxSkjema
                 sykepengesoknad={sykepengesoknad}
                 erUtdanningPreutfylt={skjemasoknad._erUtdanningPreutfylt}

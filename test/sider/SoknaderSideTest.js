@@ -32,6 +32,9 @@ describe('SoknaderSide', () => {
                 soknader: {
                     data: [],
                 },
+                unleashToggles: {
+                    data: {}
+                }
             });
             expect(res.sykepengesoknader).to.deep.equal([
                 { id: 1 },
@@ -61,6 +64,9 @@ describe('SoknaderSide', () => {
                     henter: false,
                     hentingFeilet: false,
                     hentet: false,
+                },
+                unleashToggles: {
+                    data: {},
                 },
             };
             hentSykepengesoknader = sinon.spy();

@@ -5,7 +5,7 @@ import { Field, getFormValues } from 'redux-form';
 import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Radioknapper from '../../skjema/Radioknapper';
 import { datoErHelgedag, erGyldigPeriode, tilDager } from '../../../utils/periodeUtils';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 
 const tilTimestamp = (dato) => {
     return dato.getTime();
@@ -49,7 +49,7 @@ export const Sporsmal = ({ vis }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const values = getFormValues(getSykepengesoknadArbeidstakerSkjemanavn(ownProps.sykepengesoknad.id))(state);
+    const values = getFormValues(getSoknadSkjemanavn(ownProps.sykepengesoknad.id))(state);
 
     return {
         vis: visSoktOmSykepengerUtenlandsoppholdsporsmal(values),

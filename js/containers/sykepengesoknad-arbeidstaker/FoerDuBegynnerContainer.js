@@ -9,7 +9,7 @@ import SendtSoknad from '../../components/sykepengesoknad-arbeidstaker/SendtSokn
 import UtgaattSoknad from '../../components/sykepengesoknad-arbeidstaker/UtgaattSoknad';
 import Feilmelding from '../../components/Feilmelding';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 import AvbruttSoknad from '../../components/sykepengesoknad-arbeidstaker/AvbruttSoknad';
 import { filtrerOgSorterNyeSoknader } from '../../components/sykepengesoknader/Soknader';

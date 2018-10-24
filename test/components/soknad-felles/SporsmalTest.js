@@ -2,14 +2,14 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { SporsmalComponent as Sporsmal } from '../../../js/components/soknad-felles/Sporsmal';
-import Undersporsmal from '../../../js/components/soknad-felles/Undersporsmal';
-import { getSoknad } from '../../mockSoknader';
-import Checkbox from '../../../js/components/soknad-felles/Checkbox';
-import Tall from '../../../js/components/soknad-felles/Tall';
-import Tekstinput from '../../../js/components/soknad-felles/Tekstinput';
-import Dato from '../../../js/components/soknad-felles/Dato';
-import JaEllerNei from '../../../js/components/soknad-felles/JaEllerNei';
+import { SporsmalComponent as Sporsmal } from '../../../js/components/soknad-felles-sporsmal/Sporsmal';
+import Undersporsmal from '../../../js/components/soknad-felles-sporsmal/Undersporsmal';
+import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import Checkbox from '../../../js/components/soknad-felles-sporsmal/Checkbox';
+import Tall from '../../../js/components/soknad-felles-sporsmal/Tall';
+import Tekstinput from '../../../js/components/soknad-felles-sporsmal/Tekstinput';
+import Dato from '../../../js/components/soknad-felles-sporsmal/Dato';
+import JaEllerNei from '../../../js/components/soknad-felles-sporsmal/JaEllerNei';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -18,7 +18,7 @@ describe('Sporsmal', () => {
     let soknad;
 
     beforeEach(() => {
-        soknad = getSoknad();
+        soknad = getNySoknadSelvstendig();
     });
 
     it('Skal rendre et Underspørsmål hvis spørsmålet har Underspørsmål med svar', () => {

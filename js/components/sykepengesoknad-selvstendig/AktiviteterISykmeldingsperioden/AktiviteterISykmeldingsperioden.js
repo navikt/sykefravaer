@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { sykmelding as sykmeldingPt, getLedetekst } from 'digisyfo-npm';
 import { soknad as soknadPt } from '../../../propTypes';
 import history from '../../../history';
-import SoknadskjemaSelvstendig from '../SoknadskjemaSelvstendig';
-import Sporsmal from '../../soknad-felles/Sporsmal';
+import Soknadskjema from '../../soknad-felles/Soknadskjema';
+import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
 import { KnapperadTilbake } from '../../skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
-import { getSykepengesoknadSelvstendigSkjemanavn } from '../../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { ANDRE_INNTEKTSKILDER, UTDANNING, UTLAND } from '../../../enums/tagtyper';
 import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
 
@@ -44,16 +44,16 @@ AktiviteterISykmeldingsperiodenSkjema.propTypes = {
 
 const AktiviteterISykmeldingsperioden = (props) => {
     const { sykmelding, soknad, handleSubmit } = props;
-    return (<SoknadskjemaSelvstendig
+    return (<Soknadskjema
         aktivtSteg="3"
         tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
         sykmelding={sykmelding}
         soknad={soknad}>
-        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadSelvstendigSkjemanavn(soknad.id)} />
+        <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
         <AktiviteterISykmeldingsperiodenSkjema
             soknad={soknad}
             handleSubmit={handleSubmit} />
-    </SoknadskjemaSelvstendig>);
+    </Soknadskjema>);
 };
 
 AktiviteterISykmeldingsperioden.propTypes = {

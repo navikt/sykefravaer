@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import deepFreeze from 'deep-freeze';
 import { mapStateToProps } from '../../../js/containers/sykepengesoknad-arbeidstaker/GenerellArbeidstakersoknadContainer';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../js/enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
 
@@ -20,7 +20,7 @@ describe('GenerellArbeidstakersoknadContainer', () => {
         forrigeSykeforloepTom = new Date('1984-08-02');
 
         state.form = {
-            [getSykepengesoknadArbeidstakerSkjemanavn('soknad-id')]: {
+            [getSoknadSkjemanavn('soknad-id')]: {
                 values: {
                     id: 'soknad-id',
                 },

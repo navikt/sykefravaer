@@ -15,7 +15,7 @@ import Side from './Side';
 import Sykmeldingkvittering, { kvitteringtyper } from '../components/sykmeldingkvittering/Sykmeldingkvittering';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { soknad as soknadPt, sykmelding as sykmeldingPt } from '../propTypes/index';
+import { soknad as soknadPt, sykmelding as sykmeldingPt } from '../propTypes';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;

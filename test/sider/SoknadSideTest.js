@@ -3,14 +3,12 @@ import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import {
+import { reducer as formReducer } from 'redux-form';
+import SoknadSide, {
     mapStateToProps,
     Container,
-    SykepengesoknadSelvstendigNaeringsdrivende,
-    SykepengeskjemaForSelvstendige,
 } from '../../js/sider/SoknadSide';
 import AppSpinner from '../../js/components/AppSpinner';
-import { NY, SENDT, TIL_SENDING } from '../../js/enums/soknadstatuser';
 import SykepengesoknadSelvstendigKvitteringContainer from '../../js/containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import sykepengesoknader from '../../js/reducers/sykepengesoknader';
 import soknader from '../../js/reducers/soknader';
@@ -20,12 +18,19 @@ import FoerDuBegynnerContainer from '../../js/containers/sykepengesoknad-selvste
 import FravaerOgFriskmeldingContainer from '../../js/containers/sykepengesoknad-selvstendig/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenContainer from '../../js/containers/sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../../js/containers/sykepengesoknad-selvstendig/OppsummeringContainer';
+import mountWithStore from '../mountWithStore';
+import { getSendtSoknadSelvstendig, getNySoknadSelvstendig } from '../mockSoknadSelvstendig';
+import reduxFormMeta from '../../js/reducers/reduxFormMeta';
+import { getNySoknadArbeidstaker } from '../mockSoknadArbeidstaker';
+import { SykepengeskjemaForSelvstendige } from '../../js/components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
+import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
+import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
 
 chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-describe('SykepengesoknadContainerTest', () => {
+describe('SoknadSideTest', () => {
     let state;
     let ownProps;
     let actions;
@@ -134,121 +139,96 @@ describe('SykepengesoknadContainerTest', () => {
 
         it('Skal vise spinner dersom det hentes søknader', () => {
             state.soknader.henter = true;
-            const props = mapStateToProps(state, ownProps);
-            const component = shallow(<Container {...props} actions={actions} />);
+            const component = mountWithStore(<SoknadSide {...ownProps} />, state);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
         it('Skal vise spinner dersom det hentes sykepengesoknader', () => {
             state.sykepengesoknader.henter = true;
-            const props = mapStateToProps(state, ownProps);
-            const component = shallow(<Container {...props} actions={actions} />);
+            const component = mountWithStore(<SoknadSide {...ownProps} />, state);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
-        describe('SykepengesoknadSelvstendigNaeringsdrivende', () => {
+        describe('SoknadSelvstendigNaeringsdrivende', () => {
             describe('Når søknad er sendt', () => {
                 beforeEach(() => {
-                    state.soknader.data = [{
+                    state.soknader.data = [getSendtSoknadSelvstendig({
                         id: 'soknad-id',
-                        status: SENDT,
-                    }];
+                    })];
                 });
 
                 it('Skal vise kvittering dersom man står på kvitteringssiden', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/kvittering';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SykepengesoknadSelvstendigKvitteringContainer)).to.have.length(1);
                 });
 
                 it('Skal vise Sendt søknad dersom man står på noe annet enn kvitteringssiden', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/olsen';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SendtSoknadSelvstendig)).to.have.length(1);
                 });
 
                 it('Skal vise Sendt søknad dersom man står på side 1', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
-                    expect(component.find(SendtSoknadSelvstendig)).to.have.length(1);
-                });
-            });
-
-            describe('Når søknad er TIL_SENDING', () => {
-                beforeEach(() => {
-                    state.soknader.data = [{
-                        id: 'soknad-id',
-                        status: TIL_SENDING,
-                    }];
-                });
-
-                it('Skal vise kvittering dersom man står på kvitteringssiden', () => {
-                    ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/kvittering';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
-                    expect(component.find(SykepengesoknadSelvstendigKvitteringContainer)).to.have.length(1);
-                });
-
-                it('Skal vise Sendt søknad dersom man står på noe annet enn kvitteringssiden', () => {
-                    ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/olsen';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
-                    expect(component.find(SendtSoknadSelvstendig)).to.have.length(1);
-                });
-
-                it('Skal vise Sendt søknad dersom man står på side 1', () => {
-                    ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SendtSoknadSelvstendig)).to.have.length(1);
                 });
             });
 
             describe('Når søknad er NY', () => {
                 beforeEach(() => {
-                    state.soknader.data = [{
+                    state.soknader.data = [getNySoknadSelvstendig({
                         id: 'soknad-id',
-                        status: NY,
-                    }];
+                    })];
+                    state.reduxFormMeta = reduxFormMeta();
+                    state.form = formReducer();
                 });
 
                 it('Skal vise FoerDuBegynnerContainer dersom man står på side 1', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
-                    const skjema = shallow(<SykepengeskjemaForSelvstendige {...props} />);
-                    expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
-                    expect(skjema.find(FoerDuBegynnerContainer)).to.have.length(1);
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
+                    expect(component.find(FoerDuBegynnerContainer)).to.have.length(1);
                 });
 
                 it('Skal vise FravaerOgFriskmelding hvis man står på side 2', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/fravaer-og-friskmelding/';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
-                    const skjema = shallow(<SykepengeskjemaForSelvstendige {...props} />);
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
-                    expect(skjema.find(FravaerOgFriskmeldingContainer)).to.have.length(1);
+                    expect(component.find(FravaerOgFriskmeldingContainer)).to.have.length(1);
                 });
 
                 it('Skal vise AktiviteterISykmeldingsperiodenContainer hvis man står på side 3', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/aktiviteter-i-sykmeldingsperioden/';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
-                    const skjema = shallow(<SykepengeskjemaForSelvstendige {...props} />);
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
-                    expect(skjema.find(AktiviteterISykmeldingsperiodenContainer)).to.have.length(1);
+                    expect(component.find(AktiviteterISykmeldingsperiodenContainer)).to.have.length(1);
                 });
 
                 it('Skal vise Oppsummering hvis man står på side 4', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/oppsummering/';
-                    const props = mapStateToProps(state, ownProps);
-                    const component = shallow(<SykepengesoknadSelvstendigNaeringsdrivende {...props} />);
-                    const skjema = shallow(<SykepengeskjemaForSelvstendige {...props} />);
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
-                    expect(skjema.find(OppsummeringContainer)).to.have.length(1);
+                    expect(component.find(OppsummeringContainer)).to.have.length(1);
+                });
+            });
+        });
+
+        describe('Ny søknad for arbeidstakere', () => {
+            describe('Når søknad er NY', () => {
+                beforeEach(() => {
+                    state.soknader.data = [getNySoknadArbeidstaker({
+                        id: 'soknad-id',
+                    })];
+                    state.reduxFormMeta = reduxFormMeta();
+                    state.form = formReducer();
+                });
+
+                it('Skal vise NySoknadArbeidstaker og FoerDuBegynner på side 1', () => {
+                    ownProps.location.pathname = '/sykefravaer/soknader/soknad-id';
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
+                    expect(component.find(NySoknadArbeidstaker)).to.have.length(1);
+                    expect(component.find(NyFoerDuBegynnerArbeidstakerContainer)).to.have.length(1);
                 });
             });
         });

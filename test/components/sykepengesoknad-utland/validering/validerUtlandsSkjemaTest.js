@@ -1,9 +1,9 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import { getSoknadUtland } from '../../../mockSoknader';
+import { getSoknadUtland } from '../../../mockSoknadUtland';
 import { ledeteksterUtland } from '../../../mockLedetekster';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import validerUtlandsSkjema from '../../../../js/components/sykepengesoknad-utland/validering/validerUtlandsSkjema';
 import {
     ARBEIDSGIVER,

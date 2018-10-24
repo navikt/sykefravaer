@@ -1,13 +1,15 @@
-import { SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
-import { FREMTIDIG, NY, SENDT } from '../enums/soknadstatuser';
+import { SELVSTENDIGE_OG_FRILANSERE, ARBEIDSTAKERE } from '../enums/soknadtyper';
+import { SENDT } from '../enums/soknadstatuser';
 
 export const erForsteSoknad = (state) => {
-    const selvstendigSoknader = state.soknader.data.filter((s) => {
-        return s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
+    const sendteSoknader = state.soknader.data.filter((soknad) => {
+        return (soknad.soknadstype === ARBEIDSTAKERE || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
+            && soknad.status === SENDT;
     });
-    return selvstendigSoknader.filter((s) => {
-        return s.status === NY || s.status === FREMTIDIG;
-    }).length === selvstendigSoknader.length;
+    const sendteSykepengesoknader = state.sykepengesoknader.data.filter((soknad) => {
+        return soknad.status === SENDT;
+    });
+    return sendteSoknader.length === 0 && sendteSykepengesoknader.length === 0;
 };
 
 export const skalHenteSoknader = (state) => {

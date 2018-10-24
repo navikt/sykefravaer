@@ -2,14 +2,14 @@ import chai from 'chai';
 import { setLedetekster } from 'digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
 import validerAktiviteterISykmeldingsperioden from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerAktiviteterISykmeldingsperioden';
-import { getSoknad } from '../../../mockSoknader';
+import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
 import {
     ANDRE_INNTEKTSKILDER,
     HVILKE_ANDRE_INNTEKTSKILDER,
     INNTEKTSKILDE_ANNET,
     INNTEKTSKILDE_ANNET_ER_DU_SYKMELDT, UTLAND,
 } from '../../../../js/enums/tagtyper';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
 import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
 import { PERIODER } from '../../../../js/enums/svartyper';
@@ -31,20 +31,20 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
     });
 
     it('Skal klage hvis verdier er undefined', () => {
-        const soknad = getSoknad();
+        const soknad = getNySoknadSelvstendig();
         const feilmeldinger = validerAktiviteterISykmeldingsperioden(undefined, { soknad });
         expect(feilmeldinger[ANDRE_INNTEKTSKILDER]).to.equal('Vennligst svar på om du har andre inntektskilder');
     });
 
     describe('Andre inntektskilder', () => {
         it('Skal klage hvis bruker ikke har svart på om han har andre inntektskilder', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const feilmeldinger = validerAktiviteterISykmeldingsperioden({}, { soknad });
             expect(feilmeldinger[ANDRE_INNTEKTSKILDER]).to.equal('Vennligst svar på om du har andre inntektskilder');
         });
 
         it('Skal ikke klage hvis bruker har svart NEI på om hun har andre inntektskilder', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const svar = parse(NEI);
             const values = {
                 [ANDRE_INNTEKTSKILDER]: svar,
@@ -58,7 +58,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
             let values;
 
             beforeEach(() => {
-                soknad = getSoknad();
+                soknad = getNySoknadSelvstendig();
                 const svar = parse(JA);
                 values = {
                     [ANDRE_INNTEKTSKILDER]: svar,
@@ -132,7 +132,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
 
     describe('Utenlandsopphold med perioder', () => {
         it('Skal klage når man har svart JA uten å fylle ut perioder', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const svar = parse(JA);
             const values = {
                 [UTLAND]: svar,
@@ -146,7 +146,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
         });
 
         it('Skal ikke klage når man har svart JA og perioder er fylt ut', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const svar = parse(JA);
             const values = {
                 [UTLAND]: svar,
@@ -160,7 +160,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
         });
 
         it('Skal ikke klage når man har svart NEI og perioder er fylt ut med ugyldige datoer', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const svar = parse(NEI);
             const values = {
                 [UTLAND]: svar,
@@ -174,7 +174,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
         });
 
         it('Skal klage når man har svart JA og perioder er fylt ut med ugyldige datoer', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const svar = parse(JA);
             const values = {
                 [UTLAND]: svar,
@@ -190,7 +190,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
         });
 
         it('Skal ikke validere perioder når man har svart NEI', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const svar = parse(NEI);
             const values = {
                 [UTLAND]: svar,

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import SoknadskjemaSelvstendig from '../SoknadskjemaSelvstendig';
+import Soknadskjema from '../../soknad-felles/Soknadskjema';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../../enums/tagtyper';
-import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
+import Checkboxpanel from '../../soknad-felles-sporsmal/Checkboxpanel';
 import OppsummeringUndertekst from '../../soknad-felles-oppsummering/OppsummeringUndertekst';
 import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
 
@@ -77,7 +77,7 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
 
 const Oppsummering = (props) => {
     const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender } = props;
-    return (<SoknadskjemaSelvstendig
+    return (<Soknadskjema
         aktivtSteg="4"
         sykmelding={sykmelding}
         soknad={soknad}>
@@ -88,7 +88,7 @@ const Oppsummering = (props) => {
             sendingFeilet={sendingFeilet}
             sender={sender}
             actions={actions} />
-    </SoknadskjemaSelvstendig>);
+    </Soknadskjema>);
 };
 
 Oppsummering.propTypes = {

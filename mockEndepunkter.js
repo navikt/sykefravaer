@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
+const express = require('express');
 
 const uuid = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -202,6 +203,9 @@ function mockEndepunkterSomEndrerState(server) {
 function mockForOpplaeringsmiljo(server) {
     mockTekster(server);
 
+    server.use(express.json());
+    server.use(express.urlencoded());
+
     server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[SOKNADER]));
@@ -212,11 +216,6 @@ function mockForOpplaeringsmiljo(server) {
 
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(soknad));
-    });
-
-    server.post('/syfounleash/', (req, res) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[SYFOUNLEASH]));
     });
 
     server.get('/syforest/sykmeldinger?type=arbeidsgiver', (req, res) => {
@@ -365,7 +364,28 @@ function mockForOpplaeringsmiljo(server) {
     });
 }
 
+function mockUnleashOpplaeringsmiljo(server) {
+    server.post('/syfounleash/', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[SYFOUNLEASH]));
+    });
+}
+
+function mockUnleashLokal(server) {
+    server.post('/syfounleash/', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        const toggles = req.body.reduce((acc, cur) => {
+            return Object.assign({}, acc, {
+                [cur]: true,
+            });
+        }, {});
+        res.send(JSON.stringify(toggles));
+    });
+}
+
 module.exports = {
     mockForOpplaeringsmiljo,
     mockEndepunkterSomEndrerState,
+    mockUnleashOpplaeringsmiljo,
+    mockUnleashLokal,
 };

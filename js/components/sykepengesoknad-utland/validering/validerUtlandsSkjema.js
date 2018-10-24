@@ -1,6 +1,6 @@
 import validerSporsmal, { beregnFeilmeldingstekstFraTag } from '../../../utils/soknad-felles/validerSporsmal';
 import { BEKREFT_OPPLYSNINGER_UTLAND } from '../../../enums/tagtyper';
-import { formaterEnkeltverdi } from '../../soknad-felles/fieldUtils';
+import { formaterEnkeltverdi } from '../../soknad-felles-sporsmal/fieldUtils';
 
 const validerUtlandsSkjema = (values = {}, { soknad }) => {
     const validering = validerSporsmal(soknad.sporsmal, values);

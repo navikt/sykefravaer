@@ -1,6 +1,6 @@
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER } from '../../enums/svartyper';
-import { genererParseForEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
+import { genererParseForEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
 import { ANSVARSERKLARING, BEKREFT_OPPLYSNINGER } from '../../enums/tagtyper';
 
 const tilInitielleSvarverder = ({ svar, svartype, id }) => {

@@ -11,18 +11,18 @@ import SendtSoknadSelvstendig, { SendtSoknadSelvstendigStatuspanel } from '../..
 import RelaterteSoknaderContainer from '../../../js/containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
 import getSykmelding from '../../mockSykmeldinger';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../js/enums/soknadtyper';
-import { getSendtSoknad } from '../../mockSoknader';
+import { getSendtSoknadSelvstendig } from '../../mockSoknadSelvstendig';
 import { KORRIGERT, SENDT } from '../../../js/enums/soknadstatuser';
 import SykmeldingUtdragForSelvstendige
     from '../../../js/components/sykepengesoknad-selvstendig/SykmeldingUtdragForSelvstendige';
-import Soknadtopp from '../../../js/components/sykepengesoknad-selvstendig/Soknadtopp';
+import Soknadtopp from '../../../js/components/soknad-felles/Soknadtopp';
 import EndreSoknadContainer from '../../../js/containers/sykepengesoknad-selvstendig/EndreSoknadContainer';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('SendtSoknadSelvstendigTest', () => {
-    const sendtSoknad = getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1' });
+    const sendtSoknad = getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' });
     const tilhorendeSykmelding = getSykmelding({
         id: 'sykmelding1',
         valgtArbeidssituasjon: SELVSTENDIGE_OG_FRILANSERE,
@@ -53,7 +53,7 @@ describe('SendtSoknadSelvstendigTest', () => {
         const component = mount(<Provider store={mockStore(state)}>
             <SendtSoknadSelvstendig
                 sykmelding={getSykmelding({ id: 'sykmelding1' })}
-                soknad={getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
+                soknad={getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
                 kanViseKorrigering={false}
                 params={{ sykepengesoknadId: 'soknad1' }} />
         </Provider>);
@@ -64,7 +64,7 @@ describe('SendtSoknadSelvstendigTest', () => {
         const component = mount(<Provider store={mockStore(state)}>
             <SendtSoknadSelvstendig
                 sykmelding={getSykmelding({ id: 'sykmelding1' })}
-                soknad={getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
+                soknad={getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
                 kanViseKorrigering={false}
                 params={{ sykepengesoknadId: 'soknad1' }} />
         </Provider>);
@@ -75,7 +75,7 @@ describe('SendtSoknadSelvstendigTest', () => {
         const component = mount(<Provider store={mockStore(state)}>
             <SendtSoknadSelvstendig
                 sykmelding={getSykmelding({ id: 'sykmelding1' })}
-                soknad={getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
+                soknad={getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
                 kanViseKorrigering={false}
                 params={{ sykepengesoknadId: 'soknad1' }} />
         </Provider>);
@@ -86,7 +86,7 @@ describe('SendtSoknadSelvstendigTest', () => {
         const component = mount(<Provider store={mockStore(state)}>
             <SendtSoknadSelvstendig
                 sykmelding={getSykmelding({ id: 'sykmelding1' })}
-                soknad={getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
+                soknad={getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
                 kanViseKorrigering={false}
                 params={{ sykepengesoknadId: 'soknad1' }} />
         </Provider>);
@@ -94,7 +94,7 @@ describe('SendtSoknadSelvstendigTest', () => {
     });
 
     it('Skal ikke vise tilhørende søknader om søknaden er korrigert', () => {
-        const korrigertSoknad = getSendtSoknad({ id: 'korrigert1', status: KORRIGERT, korrigertAv: 'soknad1' });
+        const korrigertSoknad = getSendtSoknadSelvstendig({ id: 'korrigert1', status: KORRIGERT, korrigertAv: 'soknad1' });
         state.soknader.data = [...state.soknader.data, korrigertSoknad];
 
         const component = mount(<Provider store={mockStore(state)}>
@@ -108,7 +108,7 @@ describe('SendtSoknadSelvstendigTest', () => {
     });
 
     it('Skal vise lenke til korrigering tilhørende søknader om søknaden er korrigert', () => {
-        const korrigertSoknad = getSendtSoknad({ id: 'korrigert1', status: KORRIGERT, korrigertAv: 'soknad1' });
+        const korrigertSoknad = getSendtSoknadSelvstendig({ id: 'korrigert1', status: KORRIGERT, korrigertAv: 'soknad1' });
         state.soknader.data = [...state.soknader.data, korrigertSoknad];
 
         const component = mount(<Provider store={mockStore(state)}>
@@ -123,7 +123,7 @@ describe('SendtSoknadSelvstendigTest', () => {
 });
 
 describe('SendtSoknadSelvstendigStatuspanel', () => {
-    const sendtSoknad = getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1', status: SENDT });
+    const sendtSoknad = getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1', status: SENDT });
 
     it('Viser endreknapp om soknad har status sendt og toggle på', () => {
         const component = shallow(<SendtSoknadSelvstendigStatuspanel soknad={sendtSoknad} kanViseKorrigering />);

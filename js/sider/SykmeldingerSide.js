@@ -6,7 +6,7 @@ import DineSykmeldinger from '../components/sykmeldinger/DineSykmeldinger';
 import Feilmelding from '../components/Feilmelding';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
-import { brodsmule as brodsmulePt, sykmelding as sykmeldingPt } from '../propTypes/index';
+import { brodsmule as brodsmulePt, sykmelding as sykmeldingPt } from '../propTypes';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 
 export class Container extends Component {

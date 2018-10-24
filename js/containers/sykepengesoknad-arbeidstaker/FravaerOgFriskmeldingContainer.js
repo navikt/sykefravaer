@@ -5,7 +5,7 @@ import FravaerOgFriskmelding from '../../components/sykepengesoknad-arbeidstaker
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad-arbeidstaker/Kvittering';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === sykepengesoknadstatuser.SENDT || props.sykepengesoknad.status === sykepengesoknadstatuser.TIL_SENDING) {

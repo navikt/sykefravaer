@@ -6,7 +6,7 @@ import OppsummeringSkjema from '../../components/sykepengesoknad-arbeidstaker/Op
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad-arbeidstaker/Kvittering';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad-arbeidstaker/mappers/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
 import { hentLedere } from '../../actions/ledere_actions';

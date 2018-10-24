@@ -10,7 +10,7 @@ import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
 import { soknadperiode, fieldPropTypes } from '../../../propTypes';
 import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
 import { getTotalJobbingSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -173,7 +173,7 @@ AngiTid.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const values = getFormValues(getSykepengesoknadArbeidstakerSkjemanavn(ownProps.sykepengesoknad.id))(state);
+    const values = getFormValues(getSoknadSkjemanavn(ownProps.sykepengesoknad.id))(state);
     const ferieOgPermisjonPerioder = getFeriePermisjonPerioder(values);
     return {
         ferieOgPermisjonPerioder,

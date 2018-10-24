@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as actiontyper from '../actions/actiontyper';
 
-function innstillinger(state = {}, action) {
+function innstillinger(state = {}, action = {}) {
     switch (action.type) {
         case actiontyper.SET_TIDSLINJE_ARBEIDSSITUASJON: {
             return {
@@ -21,7 +21,7 @@ const defaultState = {
     hentingFeilet: false,
 };
 
-function innlogging(state = defaultState, action) {
+function innlogging(state = defaultState, action = {}) {
     switch (action.type) {
         case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
@@ -58,7 +58,7 @@ function innlogging(state = defaultState, action) {
     }
 }
 
-function bruker(state = { data: {} }, action) {
+function bruker(state = { data: {} }, action = {}) {
     switch (action.type) {
         case actiontyper.HENT_BRUKERINFO_FEILET: {
             return {

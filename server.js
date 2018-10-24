@@ -89,11 +89,13 @@ const startServer = (html) => {
 
     if (env === 'opplaering') {
         require('./mockEndepunkter').mockForOpplaeringsmiljo(server);
+        require('./mockEndepunkter').mockUnleashOpplaeringsmiljo(server);
     }
 
     if (env === 'local') {
-        require('./mockEndepunkter').mockEndepunkterSomEndrerState(server);
         require('./mockEndepunkter').mockForOpplaeringsmiljo(server);
+        require('./mockEndepunkter').mockEndepunkterSomEndrerState(server);
+        require('./mockEndepunkter').mockUnleashLokal(server);
     }
 
     const port = process.env.PORT || 8080;

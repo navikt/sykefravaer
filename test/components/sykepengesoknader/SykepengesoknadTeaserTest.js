@@ -4,7 +4,8 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadTeaser, { SendtUlikt, TeaserPeriode, TeaserStatus, TeaserTittel, TeaserUndertekst } from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
-import { getSoknad, getSoknadUtland } from '../../mockSoknader';
+import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import { getSoknadUtland } from '../../mockSoknadUtland';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -41,7 +42,7 @@ describe('SykepengesoknadTeaser', () => {
             'soknad.teaser.status.AVBRUTT': 'Avbrutt av deg %DATO%',
             'soknad.utland.teaser.tittel': 'Søknad om å beholde sykepenger utenfor Norge',
         });
-        frilansersoknad = getSoknad();
+        frilansersoknad = getNySoknadSelvstendig();
         utlandsoknad = getSoknadUtland();
     });
 

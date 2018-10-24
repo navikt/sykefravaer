@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sykmelding as sykmeldingPt, getLedetekst } from 'digisyfo-npm';
 import history from '../../../history';
-import SoknadskjemaSelvstendig from '../SoknadskjemaSelvstendig';
-import Sporsmal from '../../soknad-felles/Sporsmal';
+import Soknadskjema from '../../soknad-felles/Soknadskjema';
+import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
 import { KnapperadTilbake } from '../../skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
-import { getSykepengesoknadSelvstendigSkjemanavn } from '../../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT, TILBAKE_I_ARBEID } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
 import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
@@ -24,7 +24,7 @@ const FravaerOgFriskmeldingSkjema = (props) => {
         history.push(`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
     return (<form className="soknadskjema" id="fravaer-og-friskmeldnig-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadSelvstendigSkjemanavn(soknad.id)} />
+        <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
         {
             sporsmalsliste.map((sporsmal) => {
                 return (<Sporsmal
@@ -46,13 +46,13 @@ FravaerOgFriskmeldingSkjema.propTypes = {
 
 const FravaerOgFriskmelding = (props) => {
     const { sykmelding, soknad, handleSubmit } = props;
-    return (<SoknadskjemaSelvstendig
+    return (<Soknadskjema
         aktivtSteg="2"
         tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
         sykmelding={sykmelding}
         soknad={soknad}>
         <FravaerOgFriskmeldingSkjema soknad={soknad} handleSubmit={handleSubmit} />
-    </SoknadskjemaSelvstendig>);
+    </Soknadskjema>);
 };
 
 FravaerOgFriskmelding.propTypes = {

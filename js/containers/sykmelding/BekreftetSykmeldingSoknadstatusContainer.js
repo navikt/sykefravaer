@@ -9,7 +9,7 @@ import { skalHenteSoknader as skalHenteSoknaderSelector } from '../../selectors/
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import { PapirsoknadMelding } from '../../components/sykmelding/SykmeldingSoknadstatus';
 import AppSpinner from '../../components/AppSpinner';
-import { soknad as soknadPt } from '../../propTypes/index';
+import { soknad as soknadPt } from '../../propTypes';
 
 const Soknadstatus = ({ soknader, erSelvstendigEllerFrilanserSykmelding }) => {
     if (!erSelvstendigEllerFrilanserSykmelding) {

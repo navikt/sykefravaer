@@ -25,6 +25,7 @@ import fraBackendsoknadTilInitiellSoknad from '../utils/soknad-felles/fraBackend
 import { hentSkjemaVerdier } from '../selectors/reduxFormSelectors';
 import { getSkjemanavnFraSoknad } from '../utils/soknad-felles/getSkjemanavnFraSoknad';
 import getContextRoot from '../utils/getContextRoot';
+import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -78,8 +79,8 @@ export function* avbrytSoknad(action) {
             yield put(actions.avbryterSoknad());
             yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/avbryt`);
             yield put(actions.soknadAvbrutt(action.soknad));
-            if (action.soknad.soknadstype === OPPHOLD_UTLAND) {
-                browserHistory.push(getContextRoot());
+            if (action.soknad.soknadstype === OPPHOLD_UTLAND || action.soknad.status === UTKAST_TIL_KORRIGERING) {
+                browserHistory.push(`${getContextRoot()}/soknader`);
             }
         } catch (e) {
             log(e);

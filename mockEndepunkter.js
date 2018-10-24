@@ -107,7 +107,7 @@ function mockEndepunkterSomEndrerState(server) {
 
     server.post('/syfoapi/syfosoknad/api/avbrytSoknad', (req, res) => {
         const soknad = req.body;
-        if (soknad.soknadstype === 'OPPHOLD_UTLAND') {
+        if (soknad.soknadstype === 'OPPHOLD_UTLAND' || soknad.status === 'UTKAST_TIL_KORRIGERING') {
             mockData.soknader = mockData.soknader.filter((s) => {
                 return s.id !== soknad.id;
             });
@@ -192,6 +192,11 @@ function mockEndepunkterSomEndrerState(server) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(utkast));
     });
+
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
+        mockData.soknader = mockData.soknader.filter(soknad => soknad.id !== req.params.id);
+        res.send(JSON.stringify({}));
+    })
 }
 
 function mockForOpplaeringsmiljo(server) {

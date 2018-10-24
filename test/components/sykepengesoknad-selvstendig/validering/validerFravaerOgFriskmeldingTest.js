@@ -1,6 +1,6 @@
 import chai from 'chai';
 import { setLedetekster } from 'digisyfo-npm';
-import { getSoknad } from '../../../mockSoknader';
+import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
 import validerFravaerOgFriskmelding from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerFravaerOgFriskmelding';
 import { ANSVARSERKLARING, TILBAKE_I_ARBEID, JOBBET_DU_GRADERT, JOBBET_DU_100_PROSENT, TILBAKE_NAR } from '../../../../js/enums/tagtyper';
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
@@ -28,19 +28,19 @@ describe('validerFravaerOgFriskmelding', () => {
 
     it('Skal klage hvis verdier er undefined', () => {
         const verdier = undefined;
-        const soknad = getSoknad();
+        const soknad = getNySoknadSelvstendig();
         const feilmeldinger = validerFravaerOgFriskmelding(verdier, { soknad });
         expect(feilmeldinger[TILBAKE_I_ARBEID]).to.equal('Vennligst svar på om du var tilbake i arbeid før sykmeldingsperioden utløp');
     });
 
     it('Skal klage hvis bruker ikke har svart på om han var tilbake i fullt arbeid', () => {
-        const soknad = getSoknad();
+        const soknad = getNySoknadSelvstendig();
         const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
         expect(feilmeldinger[TILBAKE_I_ARBEID]).to.equal('Vennligst svar på om du var tilbake i arbeid før sykmeldingsperioden utløp');
     });
 
     it('Skal klage hvis bruker har svart på om han var tilbake i fullt arbeid, men ikke fylt ut hvilken dato', () => {
-        const soknad = getSoknad();
+        const soknad = getNySoknadSelvstendig();
         const parse = genererParseForEnkeltverdi('1');
         const parsetSvar = parse(JA);
         values[TILBAKE_I_ARBEID] = parsetSvar;
@@ -50,7 +50,7 @@ describe('validerFravaerOgFriskmelding', () => {
     });
 
     it('Skal ikke klage om bruker har svart på alt som er påkrevd', () => {
-        const soknad = getSoknad();
+        const soknad = getNySoknadSelvstendig();
         const parse = genererParseForEnkeltverdi('1');
         const parsetSvar = parse(NEI);
         values[TILBAKE_I_ARBEID] = parsetSvar;
@@ -62,7 +62,7 @@ describe('validerFravaerOgFriskmelding', () => {
 
     describe('TILBAKE_I_ARBEID - med to perioder', () => {
         it('Skal klage hvis bruker ikke har svart på noen av periodene', () => {
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
             expect(feilmeldinger.JOBBET_DU_100_PROSENT_0).to.equal('Vennligst svar på om du jobbet mer enn sykmeldingen tilsier');
             expect(feilmeldinger.JOBBET_DU_GRADERT_1).to.equal('Vennligst svar på om du jobbet mer enn sykmeldingen tilsier');
@@ -70,7 +70,7 @@ describe('validerFravaerOgFriskmelding', () => {
 
         it('Skal klage hvis bruker har svart på den ene perioden', () => {
             const parse = genererParseForEnkeltverdi('1');
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const verdi = parse(JA);
             values.JOBBET_DU_100_PROSENT_0 = verdi;
             const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
@@ -80,7 +80,7 @@ describe('validerFravaerOgFriskmelding', () => {
 
         it('Skal ikke klage på ja/nei-spørsmål hvis bruker har svart på begge periodene', () => {
             const parse = genererParseForEnkeltverdi('1');
-            const soknad = getSoknad();
+            const soknad = getNySoknadSelvstendig();
             const verdi = parse(JA);
             const verdi2 = parse(NEI);
             values.JOBBET_DU_100_PROSENT_0 = verdi;

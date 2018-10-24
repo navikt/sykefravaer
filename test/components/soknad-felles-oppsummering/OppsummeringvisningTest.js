@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import { getSoknad } from '../../mockSoknader';
+import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
 import Oppsummeringsvisning from '../../../js/components/soknad-felles-oppsummering/Oppsummeringsvisning';
 import populerSoknadMedSvar from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
 
@@ -159,40 +159,40 @@ describe('Oppsummeringvisning', () => {
     });
 
     it('Skal vise besvarte spørsmål på nivå 1', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.text()).to.contain('Jeg vet at dersom jeg gir uriktige opplysninger');
     });
 
     it('Skal vise besvarte spørsmål på nivå 1 (ja/nei-spørsmål)', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.text()).to.contain('Var du tilbake i fullt arbeid som FRILANSER før sykmeldingsperioden utløp 28.05.2018?');
         expect(component.text()).to.contain('Ja');
     });
 
     it('Skal vise besvarte spørsmål på nivå 2 når hovedspørsmål er besvart med JA', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.find('#js-tilbake_nar').text()).to.contain('Når var du tilbake i arbeid?');
         expect(component.find('#js-tilbake_nar').text()).to.contain('21.03.2018');
     });
 
     it('Skal vise besvarte spørsmål på nivå 2 når underspørsmål er av typen TIMER', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.find('#js-hvor_mange_timer_0').text()).to.contain('37 timer totalt');
         expect(component.find('#js-hvor_mye_har_du_jobbet_0').text()).to.contain('15 prosent');
     });
 
     it('Skal vise besvarte spørsmål på nivå 2 når underspørsmål er av typen PERIODER', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.find('#js-perioder').text()).to.contain('Fra 20.03.2018 til 22.03.2018');
     });
 
     it('Skal vise besvarte spørsmål på nivå 2 når underspørsmål er av typen Andre arbeidsforhold', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.find('#js-hvilke_andre_inntektskilder').text()).to.contain('Arbeidsforhold');
         expect(component.find('#js-hvilke_andre_inntektskilder').text()).to.contain('Er du sykmeldt fra dette?');
@@ -200,14 +200,14 @@ describe('Oppsummeringvisning', () => {
     });
 
     it('Skal ha riktig overskriftsnivå på underspørsmål i checkboxgrupper', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.contains(<h5 className="oppsummering__sporsmal">Er du sykmeldt fra dette?</h5>)).to.equal(true);
         expect(component.contains(<h4 className="oppsummering__sporsmal">Hvilke andre inntektskilder har du?</h4>)).to.equal(true);
     });
 
     it('Skal vise dato på riktig format', () => {
-        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const populertSoknad = populerSoknadMedSvar(getNySoknadSelvstendig(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.text()).to.contain('22.03.2014');
     });

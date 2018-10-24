@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import soknader from '../../js/reducers/soknader';
 import * as actions from '../../js/actions/soknader_actions';
-import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
+import mockSoknader, { getNySoknadSelvstendig, soknadrespons } from '../mockSoknadSelvstendig';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
 import { AVBRUTT, NY, SENDT, FREMTIDIG } from '../../js/enums/soknadstatuser';
@@ -59,7 +59,7 @@ describe('soknader', () => {
     it('Håndterer soknadSendt', () => {
         const initState = getStateMedDataHentet();
         const data = {
-            ...getSoknad(),
+            ...getNySoknadSelvstendig(),
             test: 'ok',
         };
         const action2 = actions.senderSoknad();
@@ -160,29 +160,29 @@ describe('soknader', () => {
     it('Fjerner bare søknader som tilhører den aktuelle sykmeldingen', () => {
         const initState = getStateMedDataHentet();
         initState.data = [
-            getSoknad({ sykmeldingId: '1', status: NY }),
-            getSoknad({ sykmeldingId: '2', status: NY }),
-            getSoknad({ sykmeldingId: '2', status: NY }),
+            getNySoknadSelvstendig({ sykmeldingId: '1', status: NY }),
+            getNySoknadSelvstendig({ sykmeldingId: '2', status: NY }),
+            getNySoknadSelvstendig({ sykmeldingId: '2', status: NY }),
         ];
         const action = bekreftSykmeldingAngret('2');
         const state = soknader(deepFreeze(initState), action);
-        expect(state.data).to.deep.equal([getSoknad({ sykmeldingId: '1', status: NY })]);
+        expect(state.data).to.deep.equal([getNySoknadSelvstendig({ sykmeldingId: '1', status: NY })]);
     });
 
     it('Fjerner bare søknader som som er NY eller FREMTIDIG for aktuelle sykmeldingen', () => {
         const initState = getStateMedDataHentet();
         initState.data = [
-            getSoknad({ sykmeldingId: '1', status: NY }),
-            getSoknad({ sykmeldingId: '2', status: NY }),
-            getSoknad({ sykmeldingId: '2', status: FREMTIDIG }),
-            getSoknad({ sykmeldingId: '2', status: SENDT }),
+            getNySoknadSelvstendig({ sykmeldingId: '1', status: NY }),
+            getNySoknadSelvstendig({ sykmeldingId: '2', status: NY }),
+            getNySoknadSelvstendig({ sykmeldingId: '2', status: FREMTIDIG }),
+            getNySoknadSelvstendig({ sykmeldingId: '2', status: SENDT }),
         ];
         const action = bekreftSykmeldingAngret('2');
         const state = soknader(deepFreeze(initState), action);
 
         const forventetResultat = [
-            getSoknad({ sykmeldingId: '1', status: NY }),
-            getSoknad({ sykmeldingId: '2', status: SENDT }),
+            getNySoknadSelvstendig({ sykmeldingId: '1', status: NY }),
+            getNySoknadSelvstendig({ sykmeldingId: '2', status: SENDT }),
         ];
 
         expect(state.data).to.deep.equal(forventetResultat);
@@ -191,7 +191,7 @@ describe('soknader', () => {
     it('Håndterer gjenåpner', () => {
         const initState = getStateMedDataHentet();
         initState.data = [
-            getSoknad({ sykmeldingId: '1', status: AVBRUTT }),
+            getNySoknadSelvstendig({ sykmeldingId: '1', status: AVBRUTT }),
         ];
         const action = actions.gjenapnerSoknad();
         const state = soknader(deepFreeze(initState), action);
@@ -200,7 +200,7 @@ describe('soknader', () => {
 
     it('Håndterer soknadGjenapnet', () => {
         const initState = getStateMedDataHentet();
-        const soknad = getSoknad({ sykmeldingId: '1', status: AVBRUTT, avbruttDato: new Date() });
+        const soknad = getNySoknadSelvstendig({ sykmeldingId: '1', status: AVBRUTT, avbruttDato: new Date() });
         initState.data = [
             soknad,
         ];
@@ -213,7 +213,7 @@ describe('soknader', () => {
 
     it('Korrigering av soknad oppretter utkast i state korrekt', () => {
         const initState = getStateMedDataHentet();
-        const soknad1 = getSoknad({ sykmeldingId: '1', status: 'SENDT', id: 'soknadsId1' });
+        const soknad1 = getNySoknadSelvstendig({ sykmeldingId: '1', status: 'SENDT', id: 'soknadsId1' });
         initState.data = [
             soknad1,
         ];

@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { SporsmalComponent as Sporsmal } from '../../../js/components/soknad-felles/Sporsmal';
 import Undersporsmal from '../../../js/components/soknad-felles/Undersporsmal';
-import { getSoknad } from '../../mockSoknader';
+import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
 import Checkbox from '../../../js/components/soknad-felles/Checkbox';
 import Tall from '../../../js/components/soknad-felles/Tall';
 import Tekstinput from '../../../js/components/soknad-felles/Tekstinput';
@@ -18,7 +18,7 @@ describe('Sporsmal', () => {
     let soknad;
 
     beforeEach(() => {
-        soknad = getSoknad();
+        soknad = getNySoknadSelvstendig();
     });
 
     it('Skal rendre et Underspørsmål hvis spørsmålet har Underspørsmål med svar', () => {

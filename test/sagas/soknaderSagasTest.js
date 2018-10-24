@@ -9,7 +9,7 @@ import {
 } from '../../js/sagas/soknaderSagas';
 import { get, post } from '../../js/gateway-api';
 import * as actions from '../../js/actions/soknader_actions';
-import mockSoknader from '../mockSoknader';
+import mockSoknader from '../mockSoknadSelvstendig';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
 import { UTKAST_TIL_KORRIGERING } from '../../js/enums/soknadstatuser';
 

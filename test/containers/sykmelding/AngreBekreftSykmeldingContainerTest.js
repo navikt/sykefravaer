@@ -10,7 +10,7 @@ import unleashToggles from '../../../js/reducers/unleashToggles';
 import { unleashTogglesHentet } from '../../../js/actions/unleashToggles_actions';
 import { setDineSykmeldinger } from '../../../js/actions/dineSykmeldinger_actions';
 import { soknaderHentet } from '../../../js/actions/soknader_actions';
-import { getSoknad } from '../../mockSoknader';
+import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
 import getSykmelding from '../../mockSykmeldinger';
 import { Container, mapStateToProps } from '../../../js/containers/sykmelding/AngreBekreftSykmeldingContainer';
 import { SYKMELDING_ARBEIDSSITUASJON } from '../../../js/enums/unleashToggles';
@@ -41,7 +41,7 @@ describe('Container', () => {
             ),
             soknader: soknader(soknader(),
                 soknaderHentet([
-                    getSoknad({
+                    getNySoknadSelvstendig({
                         sykmeldingId: 'sykmelding-1',
                         status: 'NY',
                     }),
@@ -81,7 +81,7 @@ describe('Container', () => {
         };
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'NY' })]),
+            soknaderHentet([getNySoknadSelvstendig({ sykmeldingId: 'sykmelding-2', status: 'NY' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).not.to.equal(null);
@@ -93,7 +93,7 @@ describe('Container', () => {
         };
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'FREMTIDIG' })]),
+            soknaderHentet([getNySoknadSelvstendig({ sykmeldingId: 'sykmelding-2', status: 'FREMTIDIG' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).not.to.equal(null);
@@ -105,7 +105,7 @@ describe('Container', () => {
         };
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'SENDT' })]),
+            soknaderHentet([getNySoknadSelvstendig({ sykmeldingId: 'sykmelding-2', status: 'SENDT' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).to.equal(null);
@@ -120,7 +120,7 @@ describe('Container', () => {
         };
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'NY' })]),
+            soknaderHentet([getNySoknadSelvstendig({ sykmeldingId: 'sykmelding-2', status: 'NY' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).to.equal(null);
@@ -138,7 +138,7 @@ describe('Container', () => {
         );
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'SENDT' })]),
+            soknaderHentet([getNySoknadSelvstendig({ sykmeldingId: 'sykmelding-2', status: 'SENDT' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).to.equal(null);

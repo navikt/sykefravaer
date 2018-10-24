@@ -12,7 +12,7 @@ import getSykmelding from '../../mockSykmeldinger';
 import RelaterteSoknaderContainer from '../../../js/containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
 import mockLedetekster from '../../mockLedetekster';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../js/enums/soknadtyper';
-import { getSendtSoknad } from '../../mockSoknader';
+import { getSendtSoknadSelvstendig } from '../../mockSoknadSelvstendig';
 
 
 chai.use(chaiEnzyme());
@@ -33,7 +33,7 @@ beforeEach(() => {
             data: [tilhorendeSykmelding],
         },
         soknader: {
-            data: [getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1' })],
+            data: [getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' })],
         },
         unleashToggles: {
             data: [],
@@ -44,7 +44,7 @@ beforeEach(() => {
 
 describe('RelaterteSoknaderContainerTest', () => {
     it('Er null om det ikke finnes relaterte søknader', () => {
-        const sendtSoknad = getSendtSoknad({ id: 'soknad1', sykmeldingId: 'sykmelding1' });
+        const sendtSoknad = getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' });
         const component = mount(<Provider store={mockStore(state)}>
             <RelaterteSoknaderContainer soknad={sendtSoknad} />
         </Provider>);
@@ -52,14 +52,14 @@ describe('RelaterteSoknaderContainerTest', () => {
     });
 
     it('Viser relaterte søknader sortert om de finnes', () => {
-        const sendtSoknad = getSendtSoknad({
+        const sendtSoknad = getSendtSoknadSelvstendig({
             id: 'soknad1',
             sykmeldingId: 'sykmelding1',
             status: KORRIGERT,
             korrigertAv: 'soknad2',
             innsendtDato: new Date('2018-10-13'),
         });
-        const korrigering1 = getSendtSoknad({
+        const korrigering1 = getSendtSoknadSelvstendig({
             id: 'soknad2',
             sykmeldingId: 'sykmelding1',
             status: KORRIGERT,
@@ -67,7 +67,7 @@ describe('RelaterteSoknaderContainerTest', () => {
             korrigerer: 'soknad1',
             innsendtDato: new Date('2018-10-14'),
         });
-        const korrigering2 = getSendtSoknad({
+        const korrigering2 = getSendtSoknadSelvstendig({
             id: 'soknad3',
             sykmeldingId: 'sykmelding1',
             status: KORRIGERT,
@@ -75,7 +75,7 @@ describe('RelaterteSoknaderContainerTest', () => {
             korrigerer: 'soknad2',
             innsendtDato: new Date('2018-10-14'),
         });
-        const korrigering3 = getSendtSoknad({
+        const korrigering3 = getSendtSoknadSelvstendig({
             id: 'soknad4',
             sykmeldingId: 'sykmelding1',
             status: 'SENDT',

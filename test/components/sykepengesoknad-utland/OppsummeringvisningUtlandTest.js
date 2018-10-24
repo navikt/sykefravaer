@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
 import Oppsummeringsvisning from '../../../js/components/soknad-felles-oppsummering/Oppsummeringsvisning';
 import populerSoknadMedSvar from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
-import { getSoknadUtland } from '../../mockSoknader';
+import { getSoknadUtland } from '../../mockSoknadUtland';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

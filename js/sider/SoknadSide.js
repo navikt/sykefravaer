@@ -17,7 +17,6 @@ import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../containers/s
 import OppsummeringSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/OppsummeringContainer';
 import KvitteringSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from './Side';
-import AppSpinner from '../components/AppSpinner';
 import { KORRIGERT, NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } from '../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../propTypes/index';
@@ -186,7 +185,7 @@ export class Container extends Component {
         return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykmeldinger || henter}>
             {(() => {
                 if (henter) {
-                    return <AppSpinner />;
+                    return <div />;
                 }
                 if (erArbeidstakersoknad) {
                     return (<ArbeidstakerSoknadHotjarTrigger>

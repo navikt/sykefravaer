@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { getSoknad } from '../../mockSykepengesoknader';
 import FremtidigSoknadTeaser from '../../../js/components/sykepengesoknader/FremtidigSoknadTeaser';
-import { getSoknad as getModerneSoknad } from '../../mockSoknader';
+import { getNySoknadSelvstendig as getModerneSoknad } from '../../mockSoknadSelvstendig';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

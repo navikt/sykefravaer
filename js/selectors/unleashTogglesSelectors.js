@@ -22,5 +22,5 @@ export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
 };
 
 export const toggleNyArbeidstakerSoknad = () => {
-    return false;
+    return window.location.href.indexOf('localhost') > -1;
 };

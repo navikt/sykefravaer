@@ -6,160 +6,14 @@ import * as soknaderActions from '../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../actions/sykepengesoknader_actions';
 import * as dineSykmeldingerActions from '../actions/dineSykmeldinger_actions';
 import Feilmelding from '../components/Feilmelding';
-import FoerDuBegynnerContainer from '../containers/sykepengesoknad-arbeidstaker/FoerDuBegynnerContainer';
-import FravaerOgFriskmeldingContainer from '../containers/sykepengesoknad-arbeidstaker/FravaerOgFriskmeldingContainer';
-import AktiviteterISykmeldingsperiodenContainer from '../containers/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperiodenContainer';
-import OppsummeringContainer from '../containers/sykepengesoknad-arbeidstaker/OppsummeringContainer';
-import SykepengesoknadKvitteringContainer from '../containers/sykepengesoknad-arbeidstaker/SykepengesoknadKvitteringContainer';
-import FoerDuBegynnerSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/FoerDuBegynnerContainer';
-import FravaerOgFriskmeldingSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/FravaerOgFriskmeldingContainer';
-import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
-import OppsummeringSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/OppsummeringContainer';
-import KvitteringSelvstendigContainer from '../containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from './Side';
-import { KORRIGERT, NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } from '../enums/soknadstatuser';
-import SendtSoknadSelvstendig from '../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
-import { soknad as soknadPt } from '../propTypes/index';
-import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
+import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import SykepengesoknadUtlandSkjemaContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger, SykepengerUtlandSoknadTrigger } from '../components/HotjarTrigger';
-import AvbruttSoknadSelvstendig from '../components/sykepengesoknad-selvstendig/AvbruttSoknadSelvstendig';
-
-const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
-const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
-const AKTIVITETER_I_SYKMELDINGSPERIODEN = 'AKTIVITETER_I_SYKMELDINGSPERIODEN';
-const OPPSUMMERING = 'OPPSUMMERING';
-const KVITTERING = 'KVITTERING';
-
-const beregnSteg = (sti) => {
-    if (sti.indexOf('oppsummering') > -1) {
-        return OPPSUMMERING;
-    }
-    if (sti.indexOf('kvittering') > -1) {
-        return KVITTERING;
-    }
-    if (sti.indexOf('fravaer-og-friskmelding') > -1) {
-        return FRAVAER_OG_FRISKMELDING;
-    }
-    if (sti.indexOf('aktiviteter-i-sykmeldingsperioden') > -1) {
-        return AKTIVITETER_I_SYKMELDINGSPERIODEN;
-    }
-    return FOER_DU_BEGYNNER;
-};
-
-const beregnBrodsmulesti = (sti, id) => {
-    const dittSykefravaerSmule = {
-        tittel: 'Ditt sykefravær',
-        sti: '/',
-        erKlikkbar: true,
-    };
-    const soknaderSmule = {
-        tittel: 'Søknader om sykepenger',
-        sti: '/soknader/',
-        erKlikkbar: true,
-    };
-    switch (beregnSteg(sti)) {
-        case KVITTERING: {
-            return [dittSykefravaerSmule, soknaderSmule, {
-                tittel: 'Søknad',
-                sti: `/soknader/${id}`,
-                erKlikkbar: true,
-            }, {
-                tittel: 'Kvittering',
-            }];
-        }
-        default: {
-            return [dittSykefravaerSmule, soknaderSmule, {
-                tittel: 'Søknad',
-            }];
-        }
-    }
-};
-
-export const SykepengeskjemaForSelvstendige = (props) => {
-    switch (beregnSteg(props.sti)) {
-        case FOER_DU_BEGYNNER: {
-            return <FoerDuBegynnerSelvstendigContainer {...props} />;
-        }
-        case FRAVAER_OG_FRISKMELDING: {
-            return <FravaerOgFriskmeldingSelvstendigContainer {...props} />;
-        }
-        case AKTIVITETER_I_SYKMELDINGSPERIODEN: {
-            return <AktiviteterISykmeldingsperiodenSelvstendigContainer {...props} />;
-        }
-        case OPPSUMMERING: {
-            return <OppsummeringSelvstendigContainer {...props} />;
-        }
-        case KVITTERING: {
-            return <KvitteringSelvstendigContainer {...props} />;
-        }
-        default: {
-            return <Feilmelding />;
-        }
-    }
-};
-
-SykepengeskjemaForSelvstendige.propTypes = {
-    sti: PropTypes.string,
-};
-
-export const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
-    const { soknad, sti } = props;
-    switch (soknad.status) {
-        case NY:
-        case UTKAST_TIL_KORRIGERING: {
-            return <SykepengeskjemaForSelvstendige {...props} />;
-        }
-        case TIL_SENDING:
-        case SENDT:
-        case KORRIGERT: {
-            if (beregnSteg(sti) === KVITTERING) {
-                return <KvitteringSelvstendigContainer {...props} />;
-            }
-            return <SendtSoknadSelvstendig {...props} />;
-        }
-        case AVBRUTT: {
-            return <AvbruttSoknadSelvstendig {...props} />;
-        }
-        default: {
-            return <Feilmelding melding="feil status" />;
-        }
-    }
-};
-
-SykepengesoknadSelvstendigNaeringsdrivende.propTypes = {
-    sti: PropTypes.string,
-    soknad: soknadPt,
-};
-
-const SykepengesoknadArbeidstaker = (props) => {
-    const { sti } = props;
-    const steg = beregnSteg(sti);
-    switch (steg) {
-        case FOER_DU_BEGYNNER: {
-            return <FoerDuBegynnerContainer {...props} />;
-        }
-        case FRAVAER_OG_FRISKMELDING: {
-            return <FravaerOgFriskmeldingContainer {...props} />;
-        }
-        case AKTIVITETER_I_SYKMELDINGSPERIODEN: {
-            return <AktiviteterISykmeldingsperiodenContainer {...props} />;
-        }
-        case OPPSUMMERING: {
-            return <OppsummeringContainer {...props} />;
-        }
-        case KVITTERING: {
-            return <SykepengesoknadKvitteringContainer {...props} />;
-        }
-        default: {
-            return <Feilmelding />;
-        }
-    }
-};
-
-SykepengesoknadArbeidstaker.propTypes = {
-    sti: PropTypes.string,
-};
+import beregnBrodsmulesti from '../utils/soknad-felles/beregnBrodsmulesti';
+import SoknadSelvstendigNaeringsdrivende from '../components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
+import SykepengesoknadArbeidstaker from '../components/sykepengesoknad-arbeidstaker/SykepengesoknadArbeidstaker';
+import NySoknadArbeidstaker from '../components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
 
 export class Container extends Component {
     componentDidMount() {
@@ -177,10 +31,12 @@ export class Container extends Component {
             erArbeidstakersoknad,
             erSelvstendigNaeringsdrivendeSoknad,
             erSoknadOmUtenlandsopphold,
+            erNyArbeidstakersoknad,
             skalHenteSykmeldinger,
             henter,
             sti,
         } = this.props;
+
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
         return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykmeldinger || henter}>
             {(() => {
@@ -193,12 +49,14 @@ export class Container extends Component {
                     </ArbeidstakerSoknadHotjarTrigger>);
                 } else if (erSelvstendigNaeringsdrivendeSoknad) {
                     return (<FrilanserSoknadHotjarTrigger>
-                        <SykepengesoknadSelvstendigNaeringsdrivende {...this.props} />
+                        <SoknadSelvstendigNaeringsdrivende {...this.props} />
                     </FrilanserSoknadHotjarTrigger>);
                 } else if (erSoknadOmUtenlandsopphold) {
                     return (<SykepengerUtlandSoknadTrigger>
                         <SykepengesoknadUtlandSkjemaContainer {...this.props} />
                     </SykepengerUtlandSoknadTrigger>);
+                } else if (erNyArbeidstakersoknad) {
+                    return <NySoknadArbeidstaker {...this.props} />;
                 }
                 return <Feilmelding />;
             })()}
@@ -218,7 +76,7 @@ Container.propTypes = {
     erArbeidstakersoknad: PropTypes.bool,
     erSelvstendigNaeringsdrivendeSoknad: PropTypes.bool,
     erSoknadOmUtenlandsopphold: PropTypes.bool,
-    brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
+    erNyArbeidstakersoknad: PropTypes.bool,
     sti: PropTypes.string,
     henter: PropTypes.bool,
     soknadId: PropTypes.string,
@@ -239,6 +97,7 @@ export const mapStateToProps = (state, ownProps) => {
     const sykepengesoknad = state.sykepengesoknader.data.find(finnSoknad);
     const erSelvstendigNaeringsdrivendeSoknad = soknad !== undefined && soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
     const erSoknadOmUtenlandsopphold = soknad !== undefined && soknad.soknadstype === OPPHOLD_UTLAND;
+    const erNyArbeidstakersoknad = soknad !== undefined && soknad.soknadstype === ARBEIDSTAKERE;
     const erArbeidstakersoknad = sykepengesoknad !== undefined;
     const skalHenteSykmeldinger = !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
@@ -249,6 +108,7 @@ export const mapStateToProps = (state, ownProps) => {
         erSelvstendigNaeringsdrivendeSoknad,
         erSoknadOmUtenlandsopphold,
         erArbeidstakersoknad,
+        erNyArbeidstakersoknad,
         henter,
         hentingFeilet,
         sti: ownProps.location.pathname,

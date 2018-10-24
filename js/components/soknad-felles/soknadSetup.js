@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
 import { bindActionCreators, compose } from 'redux';
-import { onSubmitFail } from '../skjema/FeiloppsummeringContainer';
+import { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
 import { sendSoknad } from '../../actions/soknader_actions';
-import { getSykepengesoknadSelvstendigSkjemanavn } from '../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 import { erForsteSoknad } from '../../selectors/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
 import fraBackendsoknadTilInitiellSoknad from '../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
@@ -28,11 +28,11 @@ const mapStateToProps = (state, ownProps) => {
     return {
         soknad,
         sykmelding: finnSykmelding(state, ownProps),
-        skjemasvar: getFormValues(getSykepengesoknadSelvstendigSkjemanavn(ownProps.params.sykepengesoknadId))(state),
+        skjemasvar: getFormValues(getSoknadSkjemanavn(ownProps.params.sykepengesoknadId))(state),
         sender: state.soknader.sender,
         sendingFeilet: state.soknader.sendingFeilet,
         key: soknad.id,
-        form: getSykepengesoknadSelvstendigSkjemanavn(soknad.id),
+        form: getSoknadSkjemanavn(soknad.id),
     };
 };
 
@@ -68,7 +68,7 @@ export default (validate, Component, initialize = false) => {
             destroyOnUnmount: false,
             forceUnregisterOnUnmount: true,
             onSubmitFail: (errors, dispatch, submitError, props) => {
-                onSubmitFail(errors, dispatch, getSykepengesoknadSelvstendigSkjemanavn(props.soknad.id));
+                onSubmitFail(errors, dispatch, getSoknadSkjemanavn(props.soknad.id));
             },
         }),
     )(Component);

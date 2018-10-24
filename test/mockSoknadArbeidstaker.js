@@ -1744,6 +1744,13 @@ export const sendtSoknadArbeidstaker = {
 
 /* eslint-enable max-len */
 
+export const getNySoknadArbeidstaker = (soknad = {}) => {
+    return parseSoknad({
+        ...nySoknadArbeidstaker,
+        ...soknad,
+    });
+};
+
 const mockSoknadArbeidstaker = (soknad = {}) => {
     return parseSoknad({
         ...nySoknadArbeidstaker,

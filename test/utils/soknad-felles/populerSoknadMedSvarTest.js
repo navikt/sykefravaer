@@ -12,7 +12,7 @@ import {
     TILBAKE_NAR,
     UTLAND,
 } from '../../../js/enums/tagtyper';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { CHECKED, JA, NEI } from '../../../js/enums/svarEnums';
 import { PERIODER } from '../../../js/enums/svartyper';
 import { getSoknadUtland } from '../../mockSoknadUtland';

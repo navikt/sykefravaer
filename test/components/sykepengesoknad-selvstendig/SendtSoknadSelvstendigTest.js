@@ -15,7 +15,7 @@ import { getSendtSoknadSelvstendig } from '../../mockSoknadSelvstendig';
 import { KORRIGERT, SENDT } from '../../../js/enums/soknadstatuser';
 import SykmeldingUtdragForSelvstendige
     from '../../../js/components/sykepengesoknad-selvstendig/SykmeldingUtdragForSelvstendige';
-import Soknadtopp from '../../../js/components/sykepengesoknad-selvstendig/Soknadtopp';
+import Soknadtopp from '../../../js/components/soknad-felles/Soknadtopp';
 import EndreSoknadContainer from '../../../js/containers/sykepengesoknad-selvstendig/EndreSoknadContainer';
 
 chai.use(chaiEnzyme());

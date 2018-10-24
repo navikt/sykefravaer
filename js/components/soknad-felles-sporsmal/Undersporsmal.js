@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { soknad as soknadPt, sporsmal as sporsmalPt } from '../../propTypes';
+import { soknad as soknadPt, sporsmal as sporsmalPt } from '../../propTypes/index';
 import {
     CHECKBOX,
     DATO,

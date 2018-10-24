@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
+import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes/index';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 import SporsmalBjorn from './SporsmalBjorn';

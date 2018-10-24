@@ -4,7 +4,7 @@ import { FieldArray } from 'redux-form';
 import Sporsmalstekst from './Sporsmalstekst';
 import Feilomrade from '../skjema/Feilomrade';
 import Checkbox from './Checkbox';
-import { sporsmal as sporsmalPt, fieldPropTypes } from '../../propTypes';
+import { sporsmal as sporsmalPt, fieldPropTypes } from '../../propTypes/index';
 import Undertekst from './Undertekst';
 
 const rendreCheckboxGruppe = ({ fields, meta }) => {

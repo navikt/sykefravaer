@@ -6,7 +6,7 @@ import history from '../../history';
 import { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
 import { getTidligsteSendtDato, mapAktiviteter } from '../../utils/sykepengesoknadUtils';
 import mapBackendsoknadToSkjemasoknad from './/mappers/mapBackendsoknadToSkjemasoknad';
-import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../enums/skjemanavn';
+import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
@@ -119,7 +119,7 @@ export const mapStateToProps = (state, ownProps) => {
     const { sykepengesoknad } = ownProps;
     return {
         key: sykepengesoknad.id,
-        form: getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id),
+        form: getSoknadSkjemanavn(sykepengesoknad.id),
         sykepengesoknad: mapAktiviteter(sykepengesoknad),
     };
 };
@@ -142,7 +142,7 @@ const setup = (validate, Component, initialize = false) => {
             forceUnregisterOnUnmount: true,
             sendTilFoerDuBegynner,
             onSubmitFail: (errors, dispatch, submitError, props) => {
-                onSubmitFail(errors, dispatch, getSykepengesoknadArbeidstakerSkjemanavn(props.sykepengesoknad.id));
+                onSubmitFail(errors, dispatch, getSoknadSkjemanavn(props.sykepengesoknad.id));
             },
         }),
     )(Component);

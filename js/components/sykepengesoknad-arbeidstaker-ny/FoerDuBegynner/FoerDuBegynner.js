@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
-import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
-import Checkboxpanel from '../../soknad-felles-sporsmal/Checkboxpanel';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
+import Checkboxpanel from '../../soknad-felles-sporsmal/Checkboxpanel';
 import { soknad as soknadPt } from '../../../propTypes';
-import ForsteSoknadIntro from './ForsteSelvstendigFrilanserSoknadIntro';
-import SoknadIntro from './SelvstendigFrilanserSoknadIntro';
+import ForsteSoknadIntro from '../../sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
+import SoknadIntro from '../../sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';
 
 export const hentSporsmalForDuBegynner = (soknad) => {
     return soknad.sporsmal.filter((s) => {
@@ -34,17 +33,16 @@ export class FoerDuBegynnerSkjema extends Component {
             history.push(`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`);
         };
 
-        const sporsmal = hentSporsmalForDuBegynner(soknad);
+        const sporsmal = hentSporsmalForDuBegynner(soknad)[0];
 
         return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
             <div className="panel redaksjonelt-innhold">
                 <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
-                <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} />
+                <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
             </div>
             <div className="knapperad blokk">
                 <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
             </div>
-            <AvbrytSoknadContainer sykepengesoknad={soknad} />
         </form>);
     }
 }
@@ -64,8 +62,8 @@ const FoerDuBegynner = (props) => {
     return (<Soknadskjema
         aktivtSteg="1"
         tittel={getLedetekst('sykepengesoknad.for-du-begynner.tittel')}
-        sykmelding={props.sykmelding}
         intro={intro}
+        sykmelding={props.sykmelding}
         soknad={props.soknad}>
         <FoerDuBegynnerSkjema
             actions={props.actions}

@@ -9,7 +9,7 @@ import {
 import {
     hentSykmeldingGyldigForOppfoelging,
     hentSykmeldingIkkeGyldigForOppfoelging,
-} from '../mockSykmeldinger';
+} from '../mock/mockSykmeldinger';
 import {
     mapStateToProps,
     Container,

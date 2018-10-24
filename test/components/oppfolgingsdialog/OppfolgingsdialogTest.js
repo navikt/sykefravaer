@@ -17,7 +17,7 @@ import IngenlederInfoboks from '../../../js/components/oppfolgingsdialoger/Ingen
 import Arbeidsoppgaver from '../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver';
 import Tiltak from '../../../js/components/oppfolgingsdialoger/utfylling/Tiltak';
 import ReleasetPlanAT from '../../../js/components/oppfolgingsdialoger/releasetplan/ReleasetPlanAT';
-import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
+import getOppfolgingsdialog from '../../mock/mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

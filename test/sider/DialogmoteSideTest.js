@@ -4,10 +4,10 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { Kvittering, Svarside } from 'moter-npm';
 import sinon from 'sinon';
-import ledetekster from '../mockLedetekster';
+import ledetekster from '../mock/mockLedetekster';
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
-import { getMote, moteBesvartAlleAlternativer } from '../mockMote';
+import { getMote, moteBesvartAlleAlternativer } from '../mock/mockMote';
 import { Container, mapStateToProps, mapDispatchToProps } from '../../js/sider/DialogmoteSide';
 
 chai.use(chaiEnzyme());

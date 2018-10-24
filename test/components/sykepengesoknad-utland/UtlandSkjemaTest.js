@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 
-import { getSoknadUtland } from '../../mockSoknadUtland';
+import { getSoknadUtland } from '../../mock/mockSoknadUtland';
 import { Utlandsskjema } from '../../../js/components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 import Sporsmal from '../../../js/components/soknad-felles-sporsmal/Sporsmal';
 

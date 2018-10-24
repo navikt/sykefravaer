@@ -6,8 +6,8 @@ import { DineSykmeldingOpplysninger, setLedetekster } from 'digisyfo-npm';
 import SendtSykmelding from '../../../js/components/sykmelding/SendtSykmelding';
 import SykmeldingStatuspanel from '../../../js/components/sykmeldingstatuspanel/SykmeldingStatuspanel';
 import ArbeidsgiversSykmeldingContainer from '../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer';
-import ledetekster from '../../mockLedetekster';
-import getSykmelding from '../../mockSykmeldinger';
+import ledetekster from '../../mock/mockLedetekster';
+import getSykmelding from '../../mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

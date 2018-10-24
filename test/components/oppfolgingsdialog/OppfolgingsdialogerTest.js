@@ -14,12 +14,12 @@ import Oppfolgingsdialoger from '../../../js/components/oppfolgingsdialoger/Oppf
 import IngenledereInfoboks from '../../../js/components/oppfolgingsdialoger/IngenledereInfoboks';
 import OppfolgingsdialogerVisning from '../../../js/components/oppfolgingsdialoger/OppfolgingsdialogerVisning';
 import OppfolgingsdialogerInfoPersonvern from '../../../js/components/oppfolgingsdialoger/OppfolgingsdialogerInfoPersonvern';
-import getOppfolgingsdialog, { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
+import getOppfolgingsdialog, { getOppfolgingsdialoger } from '../../mock/mockOppfolgingsdialoger';
 import {
     hentSykmeldingIkkeGyldigForOppfoelging,
     hentSykmeldingGyldigForOppfoelging,
     leggTilDagerPaaDato,
-} from '../../mockSykmeldinger';
+} from '../../mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

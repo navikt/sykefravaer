@@ -7,7 +7,7 @@ import FoerDuBegynner, {
     FoerDuBegynnerSkjema,
 } from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/FoerDuBegynner';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
-import { getSoknad } from '../../../mockSykepengesoknader';
+import { getSoknad } from '../../../mock/mockSykepengesoknader';
 import DetFinnesEldreSoknader from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/DetFinnesEldreSoknader';
 import ForsteSoknadIntro from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
 import SoknadIntro from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';

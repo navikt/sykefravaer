@@ -12,8 +12,8 @@ import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, mapStateToProps } fr
 import StrengtFortroligInfo from '../../../js/components/sykmeldingskjema/StrengtFortroligInfo';
 import VelgArbeidssituasjon from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
 import * as dinSykmeldingActions from '../../../js/actions/dinSykmelding_actions';
-import ledetekster from '../../mockLedetekster';
-import getSykmelding from '../../mockSykmeldinger';
+import ledetekster from '../../mock/mockLedetekster';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import { getSykmeldingSkjemanavn } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());

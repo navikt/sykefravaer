@@ -3,7 +3,7 @@ import { get } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { hentSykeforloep } from '../../js/sagas/sykeforloepSagas';
 import * as actions from '../../js/actions/sykeforloep_actions';
-import getSykeforloep from '../mockSykeforloep';
+import getSykeforloep from '../mock/mockSykeforloep';
 
 describe('sykeforloepSagas', () => {
     beforeEach(() => {

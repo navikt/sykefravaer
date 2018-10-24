@@ -2,9 +2,9 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { getSoknad } from '../../mockSykepengesoknader';
+import { getSoknad } from '../../mock/mockSykepengesoknader';
 import FremtidigSoknadTeaser from '../../../js/components/sykepengesoknader/FremtidigSoknadTeaser';
-import { getNySoknadSelvstendig as getModerneSoknad } from '../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig as getModerneSoknad } from '../../mock/mockSoknadSelvstendig';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

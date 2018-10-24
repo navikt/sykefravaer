@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import soknader from '../../js/reducers/soknader';
 import * as actions from '../../js/actions/soknader_actions';
-import mockSoknader, { getNySoknadSelvstendig, soknadrespons } from '../mockSoknadSelvstendig';
+import mockSoknader, { getNySoknadSelvstendig, soknadrespons } from '../mock/mockSoknadSelvstendig';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
 import { AVBRUTT, NY, SENDT, FREMTIDIG, UTKAST_TIL_KORRIGERING } from '../../js/enums/soknadstatuser';

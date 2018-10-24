@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import getSykmelding from '../../mockSykmeldinger';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import { Sykmeldingstatus } from '../../../js/components/sykmeldingstatuspanel/SykmeldingStatuspanelOpplysning';
 
 chai.use(chaiEnzyme());

@@ -8,7 +8,7 @@ import {
     TIDSLINJE_TYPER,
     setLedetekster,
 } from 'digisyfo-npm';
-import ledetekster from '../mockLedetekster';
+import ledetekster from '../mock/mockLedetekster';
 import {
     Container,
     mapStateToProps,

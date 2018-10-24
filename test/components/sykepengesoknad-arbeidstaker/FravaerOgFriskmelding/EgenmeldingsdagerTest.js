@@ -6,8 +6,8 @@ import { setLedetekster } from 'digisyfo-npm';
 import Egenmeldingsdager from '../../../../js/components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/Egenmeldingsdager';
 import Periodevelger from '../../../../js/components/skjema/datovelger/Periodevelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad-arbeidstaker/JaEllerNei';
-import { getSoknad } from '../../../mockSykepengesoknader';
-import ledetekster from '../../../mockLedetekster';
+import { getSoknad } from '../../../mock/mockSykepengesoknader';
+import ledetekster from '../../../mock/mockLedetekster';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

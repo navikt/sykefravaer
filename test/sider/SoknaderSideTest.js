@@ -33,8 +33,8 @@ describe('SoknaderSide', () => {
                     data: [],
                 },
                 unleashToggles: {
-                    data: {}
-                }
+                    data: {},
+                },
             });
             expect(res.sykepengesoknader).to.deep.equal([
                 { id: 1 },

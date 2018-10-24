@@ -1,6 +1,6 @@
 import chai from 'chai';
 import { setLedetekster } from 'digisyfo-npm';
-import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';
 import validerFravaerOgFriskmelding from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerFravaerOgFriskmelding';
 import { ANSVARSERKLARING, TILBAKE_I_ARBEID, JOBBET_DU_GRADERT, JOBBET_DU_100_PROSENT, TILBAKE_NAR } from '../../../../js/enums/tagtyper';
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';

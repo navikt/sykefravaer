@@ -4,7 +4,7 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { getSoknad } from '../../mockSykepengesoknader';
+import { getSoknad } from '../../mock/mockSykepengesoknader';
 import Soknadstatuspanel from '../../../js/components/sykepengesoknad-arbeidstaker/Soknadstatuspanel';
 
 chai.use(chaiEnzyme());

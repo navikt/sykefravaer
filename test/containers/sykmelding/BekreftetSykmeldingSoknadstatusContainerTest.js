@@ -3,9 +3,9 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import { Container, mapStateToProps } from '../../../js/containers/sykmelding/BekreftetSykmeldingSoknadstatusContainer';
-import getSykmelding from '../../mockSykmeldinger';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import { NY } from '../../../js/enums/soknadstatuser';
 import {
     FlereSoknader,

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import populerSoknadMedSvar, { populerSoknadMedSvarUtenKonvertertePerioder } from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
-import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import {
     ANDRE_INNTEKTSKILDER,
     ANSVARSERKLARING,
@@ -15,7 +15,7 @@ import {
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { CHECKED, JA, NEI } from '../../../js/enums/svarEnums';
 import { PERIODER } from '../../../js/enums/svartyper';
-import { getSoknadUtland } from '../../mockSoknadUtland';
+import { getSoknadUtland } from '../../mock/mockSoknadUtland';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

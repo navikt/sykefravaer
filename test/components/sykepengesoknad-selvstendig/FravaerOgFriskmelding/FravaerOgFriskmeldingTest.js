@@ -1,6 +1,6 @@
 import chai from 'chai';
 import { hentSporsmalForFravaerOgFriskmelding } from '../../../../js/components/sykepengesoknad-selvstendig/FravaerOgFriskmelding/FravaerOgFriskmelding';
-import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';
 
 const expect = chai.expect;
 

@@ -10,7 +10,7 @@ import {
     ArbeidsgiverSkjema,
     VelgArbeidsgiverUndertekst,
 } from '../../../../js/components/oppfolgingsdialoger/opprett/ArbeidsgiverSkjema';
-import { getOppfolgingsdialoger } from '../../../mockOppfolgingsdialoger';
+import { getOppfolgingsdialoger } from '../../../mock/mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -9,9 +9,9 @@ import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
 import SendtSoknadSelvstendig, { SendtSoknadSelvstendigStatuspanel } from '../../../js/components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import RelaterteSoknaderContainer from '../../../js/containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
-import getSykmelding from '../../mockSykmeldinger';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../js/enums/soknadtyper';
-import { getSendtSoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import { getSendtSoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import { KORRIGERT, SENDT } from '../../../js/enums/soknadstatuser';
 import SykmeldingUtdragForSelvstendige
     from '../../../js/components/sykepengesoknad-selvstendig/SykmeldingUtdragForSelvstendige';

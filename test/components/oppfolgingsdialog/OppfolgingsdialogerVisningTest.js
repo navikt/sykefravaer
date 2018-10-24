@@ -14,10 +14,10 @@ import OppfolgingsdialogerIngenplanAT from '../../../js/components/oppfolgingsdi
 import {
     hentOppfolgingsdialogAktiv,
     hentOppfolgingsdialogTidligere,
-} from '../../mockOppfolgingsdialoger';
+} from '../../mock/mockOppfolgingsdialoger';
 import {
     hentSykmeldingGyldigForOppfoelging,
-} from '../../mockSykmeldinger';
+} from '../../mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

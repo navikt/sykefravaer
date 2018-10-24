@@ -14,7 +14,7 @@ import {
     SOKNAD_ENDRET, SOKNAD_SENDT,
     SYKMELDING_BEKREFTET,
 } from '../actions/actiontyper';
-import { soknadrespons } from '../../test/mockSoknadSelvstendig';
+import { soknadrespons } from '../../test/mock/mockSoknadSelvstendig';
 import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '../toggles';
 import logger from '../logging';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
@@ -25,7 +25,7 @@ import fraBackendsoknadTilInitiellSoknad from '../utils/soknad-felles/fraBackend
 import { hentSkjemaVerdier } from '../selectors/reduxFormSelectors';
 import { getSkjemanavnFraSoknad } from '../utils/soknad-felles/getSkjemanavnFraSoknad';
 import getContextRoot from '../utils/getContextRoot';
-import { soknadUtland1 } from '../../test/mockSoknadUtland';
+import { soknadUtland1 } from '../../test/mock/mockSoknadUtland';
 import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 
 const gaTilKvittering = (soknadId) => {

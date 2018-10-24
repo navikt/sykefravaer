@@ -1,4 +1,4 @@
-import { leggTilDagerPaaDato } from './testUtils';
+import { leggTilDagerPaaDato } from '../testUtils';
 
 export const getOppfolgingsdialoger = [
     {

@@ -13,9 +13,9 @@ import Aktiviteter from '../../../../js/components/sykepengesoknad-arbeidstaker/
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../../../js/components/sykepengesoknad-arbeidstaker/JaEllerNei';
 import AndreInntektskilder from '../../../../js/components/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import Datovelger from '../../../../js/components/skjema/datovelger/Datovelger';
-import ledetekster from '../../../mockLedetekster';
+import ledetekster from '../../../mock/mockLedetekster';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
-import { getSoknad } from '../../../mockSykepengesoknader';
+import { getSoknad } from '../../../mock/mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

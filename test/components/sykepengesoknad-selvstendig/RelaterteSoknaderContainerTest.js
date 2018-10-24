@@ -8,11 +8,11 @@ import { Provider } from 'react-redux';
 import { Link } from 'react-router';
 import { setLedetekster } from 'digisyfo-npm';
 import { KORRIGERT } from '../../../js/enums/soknadstatuser';
-import getSykmelding from '../../mockSykmeldinger';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import RelaterteSoknaderContainer from '../../../js/containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
-import mockLedetekster from '../../mockLedetekster';
+import mockLedetekster from '../../mock/mockLedetekster';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../js/enums/soknadtyper';
-import { getSendtSoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import { getSendtSoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 
 
 chai.use(chaiEnzyme());

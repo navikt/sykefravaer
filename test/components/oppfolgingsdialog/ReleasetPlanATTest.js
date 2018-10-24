@@ -8,7 +8,7 @@ import {
 } from 'oppfolgingsdialog-npm';
 import ReleasetPlanAT from '../../../js/components/oppfolgingsdialoger/releasetplan/ReleasetPlanAT';
 import ArbeidsgiverHarTvangsgodkjent from '../../../js/components/oppfolgingsdialoger/releasetplan/ArbeidsgiverHarTvangsgodkjent';
-import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
+import getOppfolgingsdialog from '../../mock/mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

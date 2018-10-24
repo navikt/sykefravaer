@@ -2,7 +2,7 @@ import chai from 'chai';
 import { setLedetekster } from 'digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
 import validerAktiviteterISykmeldingsperioden from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerAktiviteterISykmeldingsperioden';
-import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';
 import {
     ANDRE_INNTEKTSKILDER,
     HVILKE_ANDRE_INNTEKTSKILDER,

@@ -4,8 +4,8 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
 import sinon from 'sinon';
-import ledetekster from '../../mockLedetekster';
-import getSykmelding from '../../mockSykmeldinger';
+import ledetekster from '../../mock/mockLedetekster';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import Feilmelding from '../../../js/components/Feilmelding';
 
 import { mapStateToProps, Skjemalaster } from '../../../js/containers/sykmelding/DinSykmeldingSkjemaContainer';

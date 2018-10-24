@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { SporsmalComponent as Sporsmal } from '../../../js/components/soknad-felles-sporsmal/Sporsmal';
 import Undersporsmal from '../../../js/components/soknad-felles-sporsmal/Undersporsmal';
-import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import Checkbox from '../../../js/components/soknad-felles-sporsmal/Checkbox';
 import Tall from '../../../js/components/soknad-felles-sporsmal/Tall';
 import Tekstinput from '../../../js/components/soknad-felles-sporsmal/Tekstinput';

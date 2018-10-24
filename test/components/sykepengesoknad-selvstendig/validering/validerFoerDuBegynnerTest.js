@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';
 import { genererParseForCheckbox } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import validerFoerDuBegynner from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerFoerDuBegynner';
 import { ANSVARSERKLARING } from '../../../../js/enums/tagtyper';

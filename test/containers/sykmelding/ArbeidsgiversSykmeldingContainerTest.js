@@ -3,7 +3,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import getSykmelding from '../../mockSykmeldinger';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import { ArbeidsgiversSykmeldingWrapper, mapStateToProps } from '../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ArbeidsgiversSykmelding from '../../../js/components/sykmelding/ArbeidsgiversSykmelding';
 

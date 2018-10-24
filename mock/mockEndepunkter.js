@@ -38,7 +38,7 @@ const PERSONVIRKSOMHETSNUMMER = 'personVirksomhetsnummer';
 const VIRKSOMHET = 'virksomhet';
 
 const lastFilTilMinne = (filnavn) => {
-    fs.readFile(path.join(__dirname, `/test/mock/${filnavn}.json`), (err, data) => {
+    fs.readFile(path.join(__dirname, `/data/${filnavn}.json`), (err, data) => {
         if (err) throw err;
         mockData[filnavn] = JSON.parse(data.toString());
     });

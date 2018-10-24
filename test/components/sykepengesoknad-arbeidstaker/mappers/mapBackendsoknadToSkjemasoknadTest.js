@@ -3,7 +3,7 @@ import chaiEnzyme from 'chai-enzyme';
 import deepFreeze from 'deep-freeze';
 import { inntektskildetyper as inntektskildetyper_ } from 'digisyfo-npm';
 
-import { getParsetSoknad } from '../../../mockSykepengesoknader';
+import { getParsetSoknad } from '../../../mock/mockSykepengesoknader';
 import mapBackendsoknadToSkjemasoknad from '../../../../js/components/sykepengesoknad-arbeidstaker/mappers/mapBackendsoknadToSkjemasoknad';
 
 chai.use(chaiEnzyme());

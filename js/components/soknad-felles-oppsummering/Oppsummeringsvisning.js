@@ -1,6 +1,6 @@
 import React from 'react';
 import OppsummeringSporsmal from './OppsummeringSporsmal';
-import { soknad as soknadPt } from '../../propTypes/index';
+import { soknad as soknadPt } from '../../propTypes';
 import { IKKE_RELEVANT } from '../../enums/svartyper';
 
 export const getKey = (tag, id) => {

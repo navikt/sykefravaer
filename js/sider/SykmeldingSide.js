@@ -11,7 +11,7 @@ import UtgaattSykmelding from '../components/sykmelding/UtgaattSykmelding';
 import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger';
 import Feilmelding from '../components/Feilmelding';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
-import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes/index';
+import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatuser;
 

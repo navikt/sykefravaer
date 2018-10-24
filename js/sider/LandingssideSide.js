@@ -10,7 +10,7 @@ import SideStrippet from './SideStrippet';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { brodsmule as brodsmulePt } from '../propTypes/index';
+import { brodsmule as brodsmulePt } from '../propTypes';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';

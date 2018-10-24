@@ -19,7 +19,7 @@ import {
     brodsmule as brodsmulePt,
     tidslinjehendelse,
     sykeforloepPt,
-} from '../propTypes/index';
+} from '../propTypes';
 
 export class Container extends Component {
     componentWillMount() {

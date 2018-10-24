@@ -60,7 +60,7 @@ import {
 import {
     brodsmule as brodsmulePt,
     dinesykmeldingerReducerPt,
-} from '../propTypes/index';
+} from '../propTypes';
 
 export class Container extends Component {
     componentWillMount() {

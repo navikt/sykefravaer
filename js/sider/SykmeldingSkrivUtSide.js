@@ -7,7 +7,7 @@ import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import { Feilmelding } from '../components/Feilmelding';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
-import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes/index';
+import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 let printTrigget = false;
 

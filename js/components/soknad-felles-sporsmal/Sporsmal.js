@@ -5,7 +5,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import { bindActionCreators } from 'redux';
 import JaEllerNei from './JaEllerNei';
 import Undersporsmal from './Undersporsmal';
-import { sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes/index';
+import { sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
 import {
     CHECKBOX,
     CHECKBOX_GRUPPE,

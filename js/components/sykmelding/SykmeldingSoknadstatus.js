@@ -4,7 +4,7 @@ import { getHtmlLedetekst, getLedetekst, sykepengesoknad as sykepengesoknadPt, t
 import { Link } from 'react-router';
 import IllustrertInnhold from '../IllustrertInnhold';
 import Soknadsdatoliste from '../sykmeldingkvittering/Soknadsdatoliste';
-import { soknad as soknadPt } from '../../propTypes/index';
+import { soknad as soknadPt } from '../../propTypes';
 
 const LenkeTilSoknader = () => {
     return (<p className="sist">

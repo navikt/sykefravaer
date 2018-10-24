@@ -7,7 +7,7 @@ import Soknader from '../components/sykepengesoknader/Soknader';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../propTypes/index';
+import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../propTypes';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../actions/soknader_actions';
 import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';

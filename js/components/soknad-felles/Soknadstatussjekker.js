@@ -4,7 +4,7 @@ import { SENDT } from '../../enums/soknadstatuser';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import Kvittering from '../sykepengesoknad-selvstendig/Kvittering/Kvittering';
 import StartIgjen from '../sykepengesoknad-felles/StartIgjen';
-import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes/index';
+import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 
 const soknadErSendt = (soknad) => {

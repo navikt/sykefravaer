@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';
 import Standardkvittering from '../../components/sykmeldingkvittering/StandardSykmeldingkvittering';
 

@@ -10,7 +10,7 @@ import Artikkel from '../components/aktivitetskrav/AktivitetskravArtikkel';
 import BekreftAktivitetskravSkjema from '../components/aktivitetskrav/BekreftAktivitetskravSkjema';
 import { AKTIVITETSKRAV_VARSEL, AKTIVITETSKRAV_BEKREFTET } from '../enums/hendelsetyper';
 import { hentHendelser } from '../actions/hendelser_actions';
-import { Vis } from '../utils/index';
+import { Vis } from '../utils';
 
 export const INGEN_AKTIVITETSKRAVVARSEL = 'INGEN_AKTIVITETSKRAVVARSEL';
 export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';

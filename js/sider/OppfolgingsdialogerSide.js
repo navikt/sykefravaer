@@ -33,7 +33,7 @@ import {
     brodsmule as brodsmulePt,
     dinesykmeldingerReducerPt,
     ledereReducerPt,
-} from '../propTypes/index';
+} from '../propTypes';
 import {
     henterEllerHarHentetLedere,
     henterEllerHarHentetToggles,

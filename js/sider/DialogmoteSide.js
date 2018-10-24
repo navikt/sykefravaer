@@ -9,7 +9,7 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Side from './Side';
 import { erMotePassert } from '../utils/moteUtils';
-import { brodsmule as brodsmulePt } from '../propTypes/index';
+import { brodsmule as brodsmulePt } from '../propTypes';
 
 const { BEKREFTET, MOTESTATUS, BRUKER, AVBRUTT } = konstanter;
 

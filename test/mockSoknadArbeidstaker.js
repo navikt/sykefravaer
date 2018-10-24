@@ -1,24 +1,24 @@
 import { parseSoknad } from '../js/reducers/soknader';
 /* eslint-disable max-len */
 export const nySoknadArbeidstaker = {
-    id: '96b7f65e-8a1e-4909-ba0a-25f20b754135',
+    id: '0ad1c9c2-14af-4498-a199-4ab5f36cda00',
     aktorId: 'aktorId-745463060',
-    sykmeldingId: '289148ba-4c3c-4b3f-b7a3-385b7e7c927d',
+    sykmeldingId: '460e8015-0a06-43e9-b53d-8870fe3dd18c',
     soknadstype: 'ARBEIDSTAKERE',
     status: 'NY',
-    fom: '2018-10-04',
-    tom: '2018-10-13',
-    opprettetDato: '2018-10-23',
+    fom: '2018-10-05',
+    tom: '2018-10-14',
+    opprettetDato: '2018-10-24',
     innsendtDato: null,
     avbruttDato: null,
     korrigerer: null,
     korrigertAv: null,
     sporsmal: [
         {
-            id: '109',
+            id: '104',
             tag: 'ANSVARSERKLARING',
-            sporsmalstekst: 'Det du fyller ut har avgjørende betydning for sykepengene som NAV utbetaler. Det er svært viktig at opplysningene du gir er riktige. Derfor ber vi deg bekrefte dette:',
-            undertekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg i sykmeldingsperioden satt i varetekt, sonet straff eller var under forvaring.',
+            sporsmalstekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg i sykmeldingsperioden satt i varetekt, sonet straff eller var under forvaring.',
+            undertekst: null,
             svartype: 'CHECKBOX_PANEL',
             min: null,
             max: null,
@@ -32,9 +32,9 @@ export const nySoknadArbeidstaker = {
             undersporsmal: [],
         },
         {
-            id: '110',
+            id: '105',
             tag: 'EGENMELDINGER',
-            sporsmalstekst: 'Vi har registrert at du ble sykmeldt lørdag 29. september 2018. Brukte du egenmeldinger og/eller var du sykmeldt i perioden 13. - 28. september 2018?',
+            sporsmalstekst: 'Vi har registrert at du ble sykmeldt søndag 30. september 2018. Brukte du egenmeldinger og/eller var du sykmeldt i perioden 14. - 29. september 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -48,18 +48,18 @@ export const nySoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '111',
+                    id: '106',
                     tag: 'EGENMELDINGER_NAR',
-                    sporsmalstekst: 'Hvilke dager før 29. september 2018 var du borte fra jobb?',
+                    sporsmalstekst: 'Hvilke dager før 30. september 2018 var du borte fra jobb?',
                     undertekst: null,
                     svartype: 'PERIODER',
-                    min: '2018-03-29',
-                    max: '2018-09-28',
+                    min: '2018-03-30',
+                    max: '2018-09-29',
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
                     svar: [
                         {
-                            verdi: '{"fom":"2018-09-26","tom":"2018-09-28"}',
+                            verdi: '{"fom":"2018-09-27","tom":"2018-09-29"}',
                         },
                     ],
                     undersporsmal: [],
@@ -67,9 +67,9 @@ export const nySoknadArbeidstaker = {
             ],
         },
         {
-            id: '112',
+            id: '107',
             tag: 'TILBAKE_I_ARBEID',
-            sporsmalstekst: 'Var du tilbake i fullt arbeid hos ARBEIDSGIVER A/S før 14. oktober 2018?',
+            sporsmalstekst: 'Var du tilbake i fullt arbeid hos ARBEIDSGIVER A/S før 15. oktober 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -83,18 +83,18 @@ export const nySoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '113',
+                    id: '108',
                     tag: 'TILBAKE_NAR',
                     sporsmalstekst: 'Fra hvilken dato ble arbeidet gjenopptatt?',
                     undertekst: null,
                     svartype: 'DATO',
-                    min: '2018-10-04',
-                    max: '2018-10-13',
+                    min: '2018-10-05',
+                    max: '2018-10-14',
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
                     svar: [
                         {
-                            verdi: '2018-10-11',
+                            verdi: '2018-10-12',
                         },
                     ],
                     undersporsmal: [],
@@ -102,9 +102,9 @@ export const nySoknadArbeidstaker = {
             ],
         },
         {
-            id: '114',
+            id: '109',
             tag: 'JOBBET_DU_100_PROSENT_0',
-            sporsmalstekst: 'I perioden 4. - 8. oktober 2018 var du 100 % sykmeldt fra ARBEIDSGIVER A/S. Jobbet du noe i denne perioden?',
+            sporsmalstekst: 'I perioden 5. - 9. oktober 2018 var du 100 % sykmeldt fra ARBEIDSGIVER A/S. Jobbet du noe i denne perioden?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -118,7 +118,7 @@ export const nySoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '115',
+                    id: '110',
                     tag: 'HVOR_MANGE_TIMER_PER_UKE_0',
                     sporsmalstekst: 'Hvor mange timer jobbet du per uke før du ble sykmeldt?',
                     undertekst: 'timer per uke',
@@ -135,9 +135,9 @@ export const nySoknadArbeidstaker = {
                     undersporsmal: [],
                 },
                 {
-                    id: '116',
+                    id: '111',
                     tag: 'HVOR_MYE_HAR_DU_JOBBET_0',
-                    sporsmalstekst: 'Hvor mye jobbet du totalt 4. - 8. oktober 2018 hos ARBEIDSGIVER A/S?',
+                    sporsmalstekst: 'Hvor mye jobbet du totalt 5. - 9. oktober 2018 hos ARBEIDSGIVER A/S?',
                     undertekst: null,
                     svartype: 'RADIO_GRUPPE',
                     min: null,
@@ -147,7 +147,7 @@ export const nySoknadArbeidstaker = {
                     svar: [],
                     undersporsmal: [
                         {
-                            id: '117',
+                            id: '112',
                             tag: 'HVOR_MYE_PROSENT_0',
                             sporsmalstekst: 'prosent',
                             undertekst: null,
@@ -163,7 +163,7 @@ export const nySoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '118',
+                                    id: '113',
                                     tag: 'HVOR_MYE_PROSENT_VERDI_0',
                                     sporsmalstekst: null,
                                     undertekst: 'prosent',
@@ -182,7 +182,7 @@ export const nySoknadArbeidstaker = {
                             ],
                         },
                         {
-                            id: '119',
+                            id: '114',
                             tag: 'HVOR_MYE_TIMER_0',
                             sporsmalstekst: 'timer',
                             undertekst: null,
@@ -194,7 +194,7 @@ export const nySoknadArbeidstaker = {
                             svar: [],
                             undersporsmal: [
                                 {
-                                    id: '120',
+                                    id: '115',
                                     tag: 'HVOR_MYE_TIMER_VERDI_0',
                                     sporsmalstekst: null,
                                     undertekst: 'timer totalt',
@@ -213,9 +213,9 @@ export const nySoknadArbeidstaker = {
             ],
         },
         {
-            id: '121',
+            id: '116',
             tag: 'JOBBET_DU_GRADERT_1',
-            sporsmalstekst: 'I perioden 9. - 13. oktober 2018 skulle du jobbe 60 % av ditt normale arbeid hos ARBEIDSGIVER A/S. Jobbet du mer enn dette?',
+            sporsmalstekst: 'I perioden 10. - 14. oktober 2018 skulle du jobbe 60 % av ditt normale arbeid hos ARBEIDSGIVER A/S. Jobbet du mer enn dette?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -229,7 +229,7 @@ export const nySoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '122',
+                    id: '117',
                     tag: 'HVOR_MANGE_TIMER_PER_UKE_1',
                     sporsmalstekst: 'Hvor mange timer jobbet du per uke før du ble sykmeldt?',
                     undertekst: 'timer per uke',
@@ -246,9 +246,9 @@ export const nySoknadArbeidstaker = {
                     undersporsmal: [],
                 },
                 {
-                    id: '123',
+                    id: '118',
                     tag: 'HVOR_MYE_HAR_DU_JOBBET_1',
-                    sporsmalstekst: 'Hvor mye jobbet du totalt 9. - 13. oktober 2018 hos ARBEIDSGIVER A/S?',
+                    sporsmalstekst: 'Hvor mye jobbet du totalt 10. - 14. oktober 2018 hos ARBEIDSGIVER A/S?',
                     undertekst: null,
                     svartype: 'RADIO_GRUPPE',
                     min: null,
@@ -258,7 +258,7 @@ export const nySoknadArbeidstaker = {
                     svar: [],
                     undersporsmal: [
                         {
-                            id: '124',
+                            id: '119',
                             tag: 'HVOR_MYE_PROSENT_1',
                             sporsmalstekst: 'prosent',
                             undertekst: null,
@@ -270,7 +270,7 @@ export const nySoknadArbeidstaker = {
                             svar: [],
                             undersporsmal: [
                                 {
-                                    id: '125',
+                                    id: '120',
                                     tag: 'HVOR_MYE_PROSENT_VERDI_1',
                                     sporsmalstekst: null,
                                     undertekst: 'prosent',
@@ -285,7 +285,7 @@ export const nySoknadArbeidstaker = {
                             ],
                         },
                         {
-                            id: '126',
+                            id: '121',
                             tag: 'HVOR_MYE_TIMER_1',
                             sporsmalstekst: 'timer',
                             undertekst: null,
@@ -301,7 +301,7 @@ export const nySoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '127',
+                                    id: '122',
                                     tag: 'HVOR_MYE_TIMER_VERDI_1',
                                     sporsmalstekst: null,
                                     undertekst: 'timer totalt',
@@ -324,9 +324,9 @@ export const nySoknadArbeidstaker = {
             ],
         },
         {
-            id: '128',
+            id: '123',
             tag: 'FERIE_PERMISJON_UTLAND',
-            sporsmalstekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 4. - 13. oktober 2018?',
+            sporsmalstekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 5. - 14. oktober 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -340,7 +340,7 @@ export const nySoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '129',
+                    id: '124',
                     tag: 'FERIE_PERMISJON_UTLAND_HVA',
                     sporsmalstekst: 'Kryss av alt som gjelder deg:',
                     undertekst: null,
@@ -352,7 +352,7 @@ export const nySoknadArbeidstaker = {
                     svar: [],
                     undersporsmal: [
                         {
-                            id: '130',
+                            id: '125',
                             tag: 'FERIE',
                             sporsmalstekst: 'Jeg tok ut ferie',
                             undertekst: null,
@@ -368,18 +368,18 @@ export const nySoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '131',
+                                    id: '126',
                                     tag: 'FERIE_NAR',
                                     sporsmalstekst: null,
                                     undertekst: null,
                                     svartype: 'PERIODER',
-                                    min: '2018-10-04',
-                                    max: '2018-10-13',
+                                    min: '2018-10-05',
+                                    max: '2018-10-14',
                                     pavirkerAndreSporsmal: false,
                                     kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
-                                            verdi: '{"fom":"2018-10-06","tom":"2018-10-08"}',
+                                            verdi: '{"fom":"2018-10-07","tom":"2018-10-09"}',
                                         },
                                     ],
                                     undersporsmal: [],
@@ -387,7 +387,7 @@ export const nySoknadArbeidstaker = {
                             ],
                         },
                         {
-                            id: '132',
+                            id: '127',
                             tag: 'PERMISJON',
                             sporsmalstekst: 'Jeg hadde permisjon',
                             undertekst: null,
@@ -399,13 +399,13 @@ export const nySoknadArbeidstaker = {
                             svar: [],
                             undersporsmal: [
                                 {
-                                    id: '133',
+                                    id: '128',
                                     tag: 'PERMISJON_NAR',
                                     sporsmalstekst: null,
                                     undertekst: null,
                                     svartype: 'PERIODER',
-                                    min: '2018-10-04',
-                                    max: '2018-10-13',
+                                    min: '2018-10-05',
+                                    max: '2018-10-14',
                                     pavirkerAndreSporsmal: false,
                                     kriterieForVisningAvUndersporsmal: null,
                                     svar: [],
@@ -414,7 +414,7 @@ export const nySoknadArbeidstaker = {
                             ],
                         },
                         {
-                            id: '134',
+                            id: '129',
                             tag: 'UTLAND',
                             sporsmalstekst: 'Jeg var utenfor Norge',
                             undertekst: null,
@@ -430,21 +430,21 @@ export const nySoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '135',
+                                    id: '130',
                                     tag: 'UTLAND_NAR',
                                     sporsmalstekst: null,
                                     undertekst: null,
                                     svartype: 'PERIODER',
-                                    min: '2018-10-04',
-                                    max: '2018-10-13',
+                                    min: '2018-10-05',
+                                    max: '2018-10-14',
                                     pavirkerAndreSporsmal: false,
                                     kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
-                                            verdi: '{"fom":"2018-10-05","tom":"2018-10-06"}',
+                                            verdi: '{"fom":"2018-10-06","tom":"2018-10-07"}',
                                         },
                                         {
-                                            verdi: '{"fom":"2018-10-08","tom":"2018-10-10"}',
+                                            verdi: '{"fom":"2018-10-09","tom":"2018-10-11"}',
                                         },
                                     ],
                                     undersporsmal: [],
@@ -456,7 +456,7 @@ export const nySoknadArbeidstaker = {
             ],
         },
         {
-            id: '136',
+            id: '131',
             tag: 'ANDRE_INNTEKTSKILDER',
             sporsmalstekst: 'Har du andre inntektskilder, eller jobber du for andre enn ARBEIDSGIVER A/S?',
             undertekst: null,
@@ -472,7 +472,7 @@ export const nySoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '137',
+                    id: '132',
                     tag: 'HVILKE_ANDRE_INNTEKTSKILDER',
                     sporsmalstekst: 'Hvilke andre inntektskilder har du?',
                     undertekst: 'Du trenger ikke oppgi andre ytelser fra NAV',
@@ -484,7 +484,7 @@ export const nySoknadArbeidstaker = {
                     svar: [],
                     undersporsmal: [
                         {
-                            id: '138',
+                            id: '133',
                             tag: 'INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD',
                             sporsmalstekst: 'Andre arbeidsforhold',
                             undertekst: null,
@@ -500,7 +500,7 @@ export const nySoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '139',
+                                    id: '134',
                                     tag: 'INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -508,32 +508,18 @@ export const nySoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
                                             verdi: 'JA',
                                         },
                                     ],
-                                    undersporsmal: [
-                                        {
-                                            id: '140',
-                                            tag: 'INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_INFO',
-                                            sporsmalstekst: 'Du må sende egen sykepengesøknad for dette. Det betyr også at legen må skrive en sykmelding for hvert arbeidsforhold du er sykmeldt fra.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '141',
+                            id: '135',
                             tag: 'INNTEKTSKILDE_SELVSTENDIG',
                             sporsmalstekst: 'Selvstendig næringsdrivende',
                             undertekst: null,
@@ -549,7 +535,7 @@ export const nySoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '142',
+                                    id: '136',
                                     tag: 'INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -557,32 +543,18 @@ export const nySoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
                                             verdi: 'JA',
                                         },
                                     ],
-                                    undersporsmal: [
-                                        {
-                                            id: '143',
-                                            tag: 'INNTEKTSKILDE_SELVSTENDIG_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '144',
+                            id: '137',
                             tag: 'INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA',
                             sporsmalstekst: 'Selvstendig næringsdrivende dagmamma',
                             undertekst: null,
@@ -598,7 +570,7 @@ export const nySoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '145',
+                                    id: '138',
                                     tag: 'INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -606,32 +578,18 @@ export const nySoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
                                             verdi: 'NEI',
                                         },
                                     ],
-                                    undersporsmal: [
-                                        {
-                                            id: '146',
-                                            tag: 'INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '147',
+                            id: '139',
                             tag: 'INNTEKTSKILDE_JORDBRUKER',
                             sporsmalstekst: 'Jordbruker / Fisker / Reindriftsutøver',
                             undertekst: null,
@@ -643,7 +601,7 @@ export const nySoknadArbeidstaker = {
                             svar: [],
                             undersporsmal: [
                                 {
-                                    id: '148',
+                                    id: '140',
                                     tag: 'INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -651,28 +609,14 @@ export const nySoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [],
-                                    undersporsmal: [
-                                        {
-                                            id: '149',
-                                            tag: 'INNTEKTSKILDE_JORDBRUKER_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '150',
+                            id: '141',
                             tag: 'INNTEKTSKILDE_FRILANSER',
                             sporsmalstekst: 'Frilanser',
                             undertekst: null,
@@ -684,7 +628,7 @@ export const nySoknadArbeidstaker = {
                             svar: [],
                             undersporsmal: [
                                 {
-                                    id: '151',
+                                    id: '142',
                                     tag: 'INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -692,28 +636,14 @@ export const nySoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [],
-                                    undersporsmal: [
-                                        {
-                                            id: '152',
-                                            tag: 'INNTEKTSKILDE_FRILANSER_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '153',
+                            id: '143',
                             tag: 'INNTEKTSKILDE_ANNET',
                             sporsmalstekst: 'Annet',
                             undertekst: null,
@@ -730,9 +660,9 @@ export const nySoknadArbeidstaker = {
             ],
         },
         {
-            id: '154',
+            id: '144',
             tag: 'UTDANNING',
-            sporsmalstekst: 'Har du vært under utdanning i løpet av perioden 4. - 13. oktober 2018?',
+            sporsmalstekst: 'Har du vært under utdanning i løpet av perioden 5. - 14. oktober 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -746,24 +676,24 @@ export const nySoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '155',
+                    id: '145',
                     tag: 'UTDANNING_START',
                     sporsmalstekst: 'Når startet du på utdanningen?',
                     undertekst: null,
                     svartype: 'DATO',
                     min: null,
-                    max: '2018-10-13',
+                    max: '2018-10-14',
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
                     svar: [
                         {
-                            verdi: '2018-10-07',
+                            verdi: '2018-10-08',
                         },
                     ],
                     undersporsmal: [],
                 },
                 {
-                    id: '156',
+                    id: '146',
                     tag: 'FULLTIDSSTUDIUM',
                     sporsmalstekst: 'Er utdanningen et fulltidsstudium?',
                     undertekst: null,
@@ -782,7 +712,7 @@ export const nySoknadArbeidstaker = {
             ],
         },
         {
-            id: '157',
+            id: '147',
             tag: 'VAER_KLAR_OVER_AT',
             sporsmalstekst: 'Vær klar over at:',
             undertekst: '<ul><li>rett til sykepenger forutsetter at du er borte fra arbeid på grunn av egen sykdom. Sosiale eller økonomiske problemer gir ikke rett til sykepenger</li><li>du kan miste retten til sykepenger hvis du uten rimelig grunn nekter å opplyse om egen funksjonsevne eller nekter å ta imot tilbud om behandling og/eller tilrettelegging</li><li>sykepenger utbetales i maksimum 52 uker, også for gradert (delvis) sykmelding</li><li>fristen for å søke sykepenger er som hovedregel 3 måneder</li></ul>',
@@ -795,7 +725,7 @@ export const nySoknadArbeidstaker = {
             undersporsmal: [],
         },
         {
-            id: '158',
+            id: '148',
             tag: 'BEKREFT_OPPLYSNINGER',
             sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
             undertekst: null,
@@ -812,7 +742,7 @@ export const nySoknadArbeidstaker = {
             undersporsmal: [],
         },
         {
-            id: '159',
+            id: '149',
             tag: 'BETALER_ARBEIDSGIVER',
             sporsmalstekst: 'Betaler arbeidsgiveren lønnen din når du er syk?',
             undertekst: null,
@@ -824,7 +754,7 @@ export const nySoknadArbeidstaker = {
             svar: [],
             undersporsmal: [
                 {
-                    id: '160',
+                    id: '150',
                     tag: 'BETALER_ARBEIDSGIVER_JA',
                     sporsmalstekst: 'Ja',
                     undertekst: 'Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.',
@@ -837,7 +767,7 @@ export const nySoknadArbeidstaker = {
                     undersporsmal: [],
                 },
                 {
-                    id: '161',
+                    id: '151',
                     tag: 'BETALER_ARBEIDSGIVER_NEI',
                     sporsmalstekst: 'Nei',
                     undertekst: 'Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.',
@@ -850,7 +780,7 @@ export const nySoknadArbeidstaker = {
                     undersporsmal: [],
                 },
                 {
-                    id: '162',
+                    id: '152',
                     tag: 'BETALER_ARBEIDSGIVER_VET_IKKE',
                     sporsmalstekst: 'Vet ikke',
                     undertekst: 'Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV.',
@@ -872,15 +802,15 @@ export const nySoknadArbeidstaker = {
 };
 
 export const sendtSoknadArbeidstaker = {
-    id: '7c678db6-f2d1-4659-86f3-8192e010bea6',
+    id: '0680a4d3-b6d0-464f-9a73-f3fdd5a4a115',
     aktorId: 'aktorId-745463060',
     sykmeldingId: '14e78e84-50a5-45bb-9919-191c54f99691',
     soknadstype: 'ARBEIDSTAKERE',
     status: 'SENDT',
-    fom: '2018-09-23',
-    tom: '2018-10-01',
-    opprettetDato: '2018-10-23',
-    innsendtDato: '2018-10-23',
+    fom: '2018-09-24',
+    tom: '2018-10-02',
+    opprettetDato: '2018-10-24',
+    innsendtDato: '2018-10-24',
     avbruttDato: null,
     korrigerer: null,
     korrigertAv: null,
@@ -888,8 +818,8 @@ export const sendtSoknadArbeidstaker = {
         {
             id: '55',
             tag: 'ANSVARSERKLARING',
-            sporsmalstekst: 'Det du fyller ut har avgjørende betydning for sykepengene som NAV utbetaler. Det er svært viktig at opplysningene du gir er riktige. Derfor ber vi deg bekrefte dette:',
-            undertekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg i sykmeldingsperioden satt i varetekt, sonet straff eller var under forvaring.',
+            sporsmalstekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg i sykmeldingsperioden satt i varetekt, sonet straff eller var under forvaring.',
+            undertekst: null,
             svartype: 'CHECKBOX_PANEL',
             min: null,
             max: null,
@@ -905,7 +835,7 @@ export const sendtSoknadArbeidstaker = {
         {
             id: '56',
             tag: 'EGENMELDINGER',
-            sporsmalstekst: 'Vi har registrert at du ble sykmeldt søndag 23. september 2018. Brukte du egenmeldinger og/eller var du sykmeldt i perioden 7. - 22. september 2018?',
+            sporsmalstekst: 'Vi har registrert at du ble sykmeldt mandag 24. september 2018. Brukte du egenmeldinger og/eller var du sykmeldt i perioden 8. - 23. september 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -921,16 +851,16 @@ export const sendtSoknadArbeidstaker = {
                 {
                     id: '57',
                     tag: 'EGENMELDINGER_NAR',
-                    sporsmalstekst: 'Hvilke dager før 23. september 2018 var du borte fra jobb?',
+                    sporsmalstekst: 'Hvilke dager før 24. september 2018 var du borte fra jobb?',
                     undertekst: null,
                     svartype: 'PERIODER',
-                    min: '2018-03-23',
-                    max: '2018-09-22',
+                    min: '2018-03-24',
+                    max: '2018-09-23',
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
                     svar: [
                         {
-                            verdi: '{"fom":"2018-09-15","tom":"2018-09-17"}',
+                            verdi: '{"fom":"2018-09-16","tom":"2018-09-18"}',
                         },
                     ],
                     undersporsmal: [],
@@ -940,7 +870,7 @@ export const sendtSoknadArbeidstaker = {
         {
             id: '58',
             tag: 'TILBAKE_I_ARBEID',
-            sporsmalstekst: 'Var du tilbake i fullt arbeid hos ARBEIDSGIVER A/S før 2. oktober 2018?',
+            sporsmalstekst: 'Var du tilbake i fullt arbeid hos ARBEIDSGIVER A/S før 3. oktober 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -959,13 +889,13 @@ export const sendtSoknadArbeidstaker = {
                     sporsmalstekst: 'Fra hvilken dato ble arbeidet gjenopptatt?',
                     undertekst: null,
                     svartype: 'DATO',
-                    min: '2018-09-23',
-                    max: '2018-10-01',
+                    min: '2018-09-24',
+                    max: '2018-10-02',
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
                     svar: [
                         {
-                            verdi: '2018-09-30',
+                            verdi: '2018-10-01',
                         },
                     ],
                     undersporsmal: [],
@@ -975,7 +905,7 @@ export const sendtSoknadArbeidstaker = {
         {
             id: '60',
             tag: 'JOBBET_DU_100_PROSENT_0',
-            sporsmalstekst: 'I perioden 23. - 27. september 2018 var du 100 % sykmeldt fra ARBEIDSGIVER A/S. Jobbet du noe i denne perioden?',
+            sporsmalstekst: 'I perioden 24. - 28. september 2018 var du 100 % sykmeldt fra ARBEIDSGIVER A/S. Jobbet du noe i denne perioden?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -1008,7 +938,7 @@ export const sendtSoknadArbeidstaker = {
                 {
                     id: '62',
                     tag: 'HVOR_MYE_HAR_DU_JOBBET_0',
-                    sporsmalstekst: 'Hvor mye jobbet du totalt 23. - 27. september 2018 hos ARBEIDSGIVER A/S?',
+                    sporsmalstekst: 'Hvor mye jobbet du totalt 24. - 28. september 2018 hos ARBEIDSGIVER A/S?',
                     undertekst: null,
                     svartype: 'RADIO_GRUPPE',
                     min: null,
@@ -1086,7 +1016,7 @@ export const sendtSoknadArbeidstaker = {
         {
             id: '67',
             tag: 'JOBBET_DU_GRADERT_1',
-            sporsmalstekst: 'I perioden 28. september - 1. oktober 2018 skulle du jobbe 60 % av ditt normale arbeid hos ARBEIDSGIVER A/S. Jobbet du mer enn dette?',
+            sporsmalstekst: 'I perioden 29. september - 2. oktober 2018 skulle du jobbe 60 % av ditt normale arbeid hos ARBEIDSGIVER A/S. Jobbet du mer enn dette?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -1119,7 +1049,7 @@ export const sendtSoknadArbeidstaker = {
                 {
                     id: '69',
                     tag: 'HVOR_MYE_HAR_DU_JOBBET_1',
-                    sporsmalstekst: 'Hvor mye jobbet du totalt 28. september - 1. oktober 2018 hos ARBEIDSGIVER A/S?',
+                    sporsmalstekst: 'Hvor mye jobbet du totalt 29. september - 2. oktober 2018 hos ARBEIDSGIVER A/S?',
                     undertekst: null,
                     svartype: 'RADIO_GRUPPE',
                     min: null,
@@ -1197,7 +1127,7 @@ export const sendtSoknadArbeidstaker = {
         {
             id: '74',
             tag: 'FERIE_PERMISJON_UTLAND',
-            sporsmalstekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 23. september - 1. oktober 2018?',
+            sporsmalstekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 24. september - 2. oktober 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -1244,13 +1174,13 @@ export const sendtSoknadArbeidstaker = {
                                     sporsmalstekst: null,
                                     undertekst: null,
                                     svartype: 'PERIODER',
-                                    min: '2018-09-23',
-                                    max: '2018-10-01',
+                                    min: '2018-09-24',
+                                    max: '2018-10-02',
                                     pavirkerAndreSporsmal: false,
                                     kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
-                                            verdi: '{"fom":"2018-09-25","tom":"2018-09-27"}',
+                                            verdi: '{"fom":"2018-09-26","tom":"2018-09-28"}',
                                         },
                                     ],
                                     undersporsmal: [],
@@ -1275,8 +1205,8 @@ export const sendtSoknadArbeidstaker = {
                                     sporsmalstekst: null,
                                     undertekst: null,
                                     svartype: 'PERIODER',
-                                    min: '2018-09-23',
-                                    max: '2018-10-01',
+                                    min: '2018-09-24',
+                                    max: '2018-10-02',
                                     pavirkerAndreSporsmal: false,
                                     kriterieForVisningAvUndersporsmal: null,
                                     svar: [],
@@ -1306,16 +1236,16 @@ export const sendtSoknadArbeidstaker = {
                                     sporsmalstekst: null,
                                     undertekst: null,
                                     svartype: 'PERIODER',
-                                    min: '2018-09-23',
-                                    max: '2018-10-01',
+                                    min: '2018-09-24',
+                                    max: '2018-10-02',
                                     pavirkerAndreSporsmal: false,
                                     kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
-                                            verdi: '{"fom":"2018-09-24","tom":"2018-09-25"}',
+                                            verdi: '{"fom":"2018-09-25","tom":"2018-09-26"}',
                                         },
                                         {
-                                            verdi: '{"fom":"2018-09-27","tom":"2018-09-29"}',
+                                            verdi: '{"fom":"2018-09-28","tom":"2018-09-30"}',
                                         },
                                     ],
                                     undersporsmal: [],
@@ -1379,32 +1309,18 @@ export const sendtSoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
                                             verdi: 'JA',
                                         },
                                     ],
-                                    undersporsmal: [
-                                        {
-                                            id: '86',
-                                            tag: 'INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_INFO',
-                                            sporsmalstekst: 'Du må sende egen sykepengesøknad for dette. Det betyr også at legen må skrive en sykmelding for hvert arbeidsforhold du er sykmeldt fra.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '87',
+                            id: '86',
                             tag: 'INNTEKTSKILDE_SELVSTENDIG',
                             sporsmalstekst: 'Selvstendig næringsdrivende',
                             undertekst: null,
@@ -1420,7 +1336,7 @@ export const sendtSoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '88',
+                                    id: '87',
                                     tag: 'INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -1428,32 +1344,18 @@ export const sendtSoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
                                             verdi: 'JA',
                                         },
                                     ],
-                                    undersporsmal: [
-                                        {
-                                            id: '89',
-                                            tag: 'INNTEKTSKILDE_SELVSTENDIG_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '90',
+                            id: '88',
                             tag: 'INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA',
                             sporsmalstekst: 'Selvstendig næringsdrivende dagmamma',
                             undertekst: null,
@@ -1469,7 +1371,7 @@ export const sendtSoknadArbeidstaker = {
                             ],
                             undersporsmal: [
                                 {
-                                    id: '91',
+                                    id: '89',
                                     tag: 'INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -1477,32 +1379,18 @@ export const sendtSoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [
                                         {
                                             verdi: 'NEI',
                                         },
                                     ],
-                                    undersporsmal: [
-                                        {
-                                            id: '92',
-                                            tag: 'INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '93',
+                            id: '90',
                             tag: 'INNTEKTSKILDE_JORDBRUKER',
                             sporsmalstekst: 'Jordbruker / Fisker / Reindriftsutøver',
                             undertekst: null,
@@ -1514,7 +1402,7 @@ export const sendtSoknadArbeidstaker = {
                             svar: [],
                             undersporsmal: [
                                 {
-                                    id: '94',
+                                    id: '91',
                                     tag: 'INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -1522,28 +1410,14 @@ export const sendtSoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [],
-                                    undersporsmal: [
-                                        {
-                                            id: '95',
-                                            tag: 'INNTEKTSKILDE_JORDBRUKER_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '96',
+                            id: '92',
                             tag: 'INNTEKTSKILDE_FRILANSER',
                             sporsmalstekst: 'Frilanser',
                             undertekst: null,
@@ -1555,7 +1429,7 @@ export const sendtSoknadArbeidstaker = {
                             svar: [],
                             undersporsmal: [
                                 {
-                                    id: '97',
+                                    id: '93',
                                     tag: 'INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT',
                                     sporsmalstekst: 'Er du sykmeldt fra dette?',
                                     undertekst: null,
@@ -1563,28 +1437,14 @@ export const sendtSoknadArbeidstaker = {
                                     min: null,
                                     max: null,
                                     pavirkerAndreSporsmal: false,
-                                    kriterieForVisningAvUndersporsmal: 'JA',
+                                    kriterieForVisningAvUndersporsmal: null,
                                     svar: [],
-                                    undersporsmal: [
-                                        {
-                                            id: '98',
-                                            tag: 'INNTEKTSKILDE_FRILANSER_INFO',
-                                            sporsmalstekst: 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.',
-                                            undertekst: null,
-                                            svartype: 'IKKE_RELEVANT',
-                                            min: null,
-                                            max: null,
-                                            pavirkerAndreSporsmal: false,
-                                            kriterieForVisningAvUndersporsmal: null,
-                                            svar: [],
-                                            undersporsmal: [],
-                                        },
-                                    ],
+                                    undersporsmal: [],
                                 },
                             ],
                         },
                         {
-                            id: '99',
+                            id: '94',
                             tag: 'INNTEKTSKILDE_ANNET',
                             sporsmalstekst: 'Annet',
                             undertekst: null,
@@ -1601,9 +1461,9 @@ export const sendtSoknadArbeidstaker = {
             ],
         },
         {
-            id: '100',
+            id: '95',
             tag: 'UTDANNING',
-            sporsmalstekst: 'Har du vært under utdanning i løpet av perioden 23. september - 1. oktober 2018?',
+            sporsmalstekst: 'Har du vært under utdanning i løpet av perioden 24. september - 2. oktober 2018?',
             undertekst: null,
             svartype: 'JA_NEI',
             min: null,
@@ -1617,24 +1477,24 @@ export const sendtSoknadArbeidstaker = {
             ],
             undersporsmal: [
                 {
-                    id: '101',
+                    id: '96',
                     tag: 'UTDANNING_START',
                     sporsmalstekst: 'Når startet du på utdanningen?',
                     undertekst: null,
                     svartype: 'DATO',
                     min: null,
-                    max: '2018-10-01',
+                    max: '2018-10-02',
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
                     svar: [
                         {
-                            verdi: '2018-09-26',
+                            verdi: '2018-09-27',
                         },
                     ],
                     undersporsmal: [],
                 },
                 {
-                    id: '102',
+                    id: '97',
                     tag: 'FULLTIDSSTUDIUM',
                     sporsmalstekst: 'Er utdanningen et fulltidsstudium?',
                     undertekst: null,
@@ -1653,7 +1513,7 @@ export const sendtSoknadArbeidstaker = {
             ],
         },
         {
-            id: '103',
+            id: '98',
             tag: 'VAER_KLAR_OVER_AT',
             sporsmalstekst: 'Vær klar over at:',
             undertekst: '<ul><li>rett til sykepenger forutsetter at du er borte fra arbeid på grunn av egen sykdom. Sosiale eller økonomiske problemer gir ikke rett til sykepenger</li><li>du kan miste retten til sykepenger hvis du uten rimelig grunn nekter å opplyse om egen funksjonsevne eller nekter å ta imot tilbud om behandling og/eller tilrettelegging</li><li>sykepenger utbetales i maksimum 52 uker, også for gradert (delvis) sykmelding</li><li>fristen for å søke sykepenger er som hovedregel 3 måneder</li></ul>',
@@ -1666,7 +1526,7 @@ export const sendtSoknadArbeidstaker = {
             undersporsmal: [],
         },
         {
-            id: '104',
+            id: '99',
             tag: 'BEKREFT_OPPLYSNINGER',
             sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
             undertekst: null,
@@ -1683,7 +1543,7 @@ export const sendtSoknadArbeidstaker = {
             undersporsmal: [],
         },
         {
-            id: '105',
+            id: '100',
             tag: 'BETALER_ARBEIDSGIVER',
             sporsmalstekst: 'Betaler arbeidsgiveren lønnen din når du er syk?',
             undertekst: null,
@@ -1695,7 +1555,7 @@ export const sendtSoknadArbeidstaker = {
             svar: [],
             undersporsmal: [
                 {
-                    id: '106',
+                    id: '101',
                     tag: 'BETALER_ARBEIDSGIVER_JA',
                     sporsmalstekst: 'Ja',
                     undertekst: 'Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.',
@@ -1708,7 +1568,7 @@ export const sendtSoknadArbeidstaker = {
                     undersporsmal: [],
                 },
                 {
-                    id: '107',
+                    id: '102',
                     tag: 'BETALER_ARBEIDSGIVER_NEI',
                     sporsmalstekst: 'Nei',
                     undertekst: 'Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.',
@@ -1721,7 +1581,7 @@ export const sendtSoknadArbeidstaker = {
                     undersporsmal: [],
                 },
                 {
-                    id: '108',
+                    id: '103',
                     tag: 'BETALER_ARBEIDSGIVER_VET_IKKE',
                     sporsmalstekst: 'Vet ikke',
                     undertekst: 'Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV.',

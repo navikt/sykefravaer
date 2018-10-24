@@ -20,3 +20,7 @@ export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[SYKMELDING_ARBEIDSSITUASJON] === true;
 };
+
+export const toggleNyArbeidstakerSoknad = () => {
+    return false;
+};

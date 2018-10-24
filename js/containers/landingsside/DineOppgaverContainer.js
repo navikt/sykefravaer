@@ -17,7 +17,8 @@ import { hentHendelser } from '../../actions/hendelser_actions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../enums/soknadstatuser';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -145,9 +146,15 @@ export const mapStateToProps = (state) => {
     const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
         return s.status === sykepengesoknadstatuser.NY;
     });
-    const soknader = state.soknader.data.filter((s) => {
-        return s.status === NY && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
-    });
+    const soknader = state.soknader.data
+        .filter((s) => {
+            return s.status === NY;
+        })
+        .filter((s) => {
+            return toggleNyArbeidstakerSoknad()
+                ? s.soknadstype === SELVSTENDIGE_OG_FRILANSERE || s.soknadstype === ARBEIDSTAKERE
+                : s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
+        });
 
     const mote = state.mote.data;
     let moteRes = null;

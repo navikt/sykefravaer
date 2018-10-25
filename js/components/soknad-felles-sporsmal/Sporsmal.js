@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
 import { bindActionCreators } from 'redux';
 import JaEllerNei from './JaEllerNei';
-import Undersporsmal from './Undersporsmal';
 import { sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
 import {
     CHECKBOX,
@@ -15,7 +14,10 @@ import {
     PERIODER,
     PROSENT,
     TIMER,
-    IKKE_RELEVANT, CHECKBOX_PANEL,
+    IKKE_RELEVANT,
+    CHECKBOX_PANEL,
+    TALL,
+    RADIO_GRUPPE,
 } from '../../enums/svartyper';
 import Perioder from './Perioder';
 import Checkbox from './Checkbox';
@@ -26,38 +28,42 @@ import Tekstinput from './Tekstinput';
 import IkkeRelevant from './IkkeRelevant';
 import Checkboxpanel from './Checkboxpanel';
 import { soknadEndret } from '../../actions/soknader_actions';
+import UkjentSporsmal from './UkjentSporsmal';
+import RadioGruppe from './RadioGruppe';
+import Undersporsmalsliste from './Undersporsmalsliste';
 
 export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, actions, soknad }) => {
-    const undersporsmal = sporsmal.undersporsmal.map((underspm) => {
-        return underspm.svar !== null
-            ? <Undersporsmal sporsmal={underspm} key={underspm.tag} soknad={soknad} />
-            : null;
-    });
+    const undersporsmalsliste = <Undersporsmalsliste undersporsmal={sporsmal.undersporsmal} soknad={soknad} />;
 
     switch (sporsmal.svartype) {
         case DATO: {
             return (<Dato {...sporsmal} name={name}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </Dato>);
         }
         case TIMER: {
             return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.timer-totalt')}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </Tall>);
         }
         case PROSENT: {
             return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.prosent')}>
-                { undersporsmal }
+                { undersporsmalsliste }
+            </Tall>);
+        }
+        case TALL: {
+            return (<Tall {...sporsmal} name={name} label={sporsmal.undertekst}>
+                { undersporsmalsliste }
             </Tall>);
         }
         case CHECKBOX: {
             return (<Checkbox {...sporsmal} name={name}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </Checkbox>);
         }
         case PERIODER: {
             return (<Perioder {...sporsmal} {...ekstraProps} name={name}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </Perioder>);
         }
         case JA_NEI: {
@@ -67,31 +73,40 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
                 hovedsporsmal={hovedsporsmal}
                 soknad={soknad}
                 actions={actions}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </JaEllerNei>);
         }
         case CHECKBOX_GRUPPE: {
             return (<CheckboxGruppe {...sporsmal} name={name}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </CheckboxGruppe>);
         }
         case FRITEKST: {
             return (<Tekstinput {...sporsmal} name={name}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </Tekstinput>);
         }
         case IKKE_RELEVANT: {
             return (<IkkeRelevant {...sporsmal} name={name} >
-                { undersporsmal }
+                { undersporsmalsliste }
             </IkkeRelevant>);
         }
         case CHECKBOX_PANEL: {
             return (<Checkboxpanel {...sporsmal} name={name}>
-                { undersporsmal }
+                { undersporsmalsliste }
             </Checkboxpanel>);
         }
+        case RADIO_GRUPPE: {
+            return (<RadioGruppe
+                {...sporsmal}
+                name={name}
+                soknad={soknad}
+                actions={actions}>
+                { undersporsmalsliste }
+            </RadioGruppe>);
+        }
         default: {
-            return null;
+            return <UkjentSporsmal sporsmal={sporsmal} />;
         }
     }
 };

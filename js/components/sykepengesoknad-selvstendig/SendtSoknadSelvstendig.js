@@ -15,7 +15,7 @@ import Oppsummeringsvisning from '../soknad-felles-oppsummering/Oppsummeringsvis
 import { soknad as soknadPt } from '../../propTypes';
 import Soknadtopp from '../soknad-felles/Soknadtopp';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
-import { finnSykmelding } from '../soknad-felles/soknadSetup';
+import { finnSykmelding } from '../../utils/soknad-felles/soknadSetup';
 import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import EndreSoknadContainer from '../../containers/sykepengesoknad-selvstendig/EndreSoknadContainer';
 import { toggleKorrigerSelvstendigSoknad } from '../../selectors/unleashTogglesSelectors';

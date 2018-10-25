@@ -10,6 +10,7 @@ import FeiloppsummeringContainer from '../../../containers/skjema/Feiloppsummeri
 import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { ANDRE_INNTEKTSKILDER, UTDANNING, UTLAND } from '../../../enums/tagtyper';
 import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
+import Sporsmalsliste from '../../soknad-felles-sporsmal/Sporsmalsliste';
 
 export const hentSporsmalForAktiviteterISykmeldingsperioden = (soknad) => {
     return soknad.sporsmal.filter((s) => {
@@ -23,15 +24,7 @@ const AktiviteterISykmeldingsperiodenSkjema = (props) => {
         history.push(`/sykefravaer/soknader/${soknad.id}/oppsummering`);
     };
     return (<form className="soknadskjema" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
-        {
-            hentSporsmalForAktiviteterISykmeldingsperioden(soknad).map((sporsmal) => {
-                return (<Sporsmal
-                    hovedsporsmal
-                    sporsmal={sporsmal}
-                    key={sporsmal.tag}
-                    name={sporsmal.tag} />);
-            })
-        }
+        <Sporsmalsliste sporsmalsliste={hentSporsmalForAktiviteterISykmeldingsperioden(soknad)} />
         <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

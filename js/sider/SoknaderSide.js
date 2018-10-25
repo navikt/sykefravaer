@@ -54,6 +54,7 @@ Container.propTypes = {
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
+
     actions: PropTypes.shape({
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,

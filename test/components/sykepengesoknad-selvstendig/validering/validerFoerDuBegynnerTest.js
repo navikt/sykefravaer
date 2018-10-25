@@ -5,7 +5,7 @@ import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';
 import { genererParseForCheckbox } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import validerFoerDuBegynner from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerFoerDuBegynner';
 import { ANSVARSERKLARING } from '../../../../js/enums/tagtyper';
-import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
+import { beregnFeilmeldingnokkelFraTag } from '../../../../js/validering/validerSporsmal';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

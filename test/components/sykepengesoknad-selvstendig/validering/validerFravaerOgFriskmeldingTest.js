@@ -5,7 +5,7 @@ import validerFravaerOgFriskmelding from '../../../../js/components/sykepengesok
 import { ANSVARSERKLARING, TILBAKE_I_ARBEID, JOBBET_DU_GRADERT, JOBBET_DU_100_PROSENT, TILBAKE_NAR } from '../../../../js/enums/tagtyper';
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
-import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
+import { beregnFeilmeldingnokkelFraTag } from '../../../../js/validering/validerSporsmal';
 
 const expect = chai.expect;
 

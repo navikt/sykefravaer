@@ -1,7 +1,7 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import setup from '../../components/soknad-felles/soknadSetup';
+import setup from '../../utils/soknad-felles/soknadSetup';
 import Kvittering from '../../components/sykepengesoknad-selvstendig/Kvittering/Kvittering';
 import { KORRIGERT, NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import Feilmelding from '../../components/Feilmelding';

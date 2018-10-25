@@ -11,7 +11,7 @@ import {
 } from '../../../../js/enums/tagtyper';
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
-import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
+import { beregnFeilmeldingnokkelFraTag } from '../../../../js/validering/validerSporsmal';
 import { PERIODER } from '../../../../js/enums/svartyper';
 
 chai.use(chaiEnzyme());

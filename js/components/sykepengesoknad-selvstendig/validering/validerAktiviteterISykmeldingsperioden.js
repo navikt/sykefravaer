@@ -1,5 +1,5 @@
 import { hentSporsmalForAktiviteterISykmeldingsperioden } from '../AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
-import validerSporsmal from '../../../utils/soknad-felles/validerSporsmal';
+import validerSporsmal from '../../../validering/validerSporsmal';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 
 export default (values = {}, props) => {

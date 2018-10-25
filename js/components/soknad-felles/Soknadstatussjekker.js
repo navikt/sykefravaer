@@ -14,6 +14,7 @@ const soknadErSendt = (soknad) => {
 const Soknadstatussjekker = (props) => {
     const { soknad, skjemasvar, valider, Component } = props;
     const feilmeldinger = valider ? valider(skjemasvar, { soknad }) : {};
+
     if (soknadErSendt(soknad) && soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) {
         return <Kvittering />;
     }

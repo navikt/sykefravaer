@@ -1,8 +1,8 @@
 import { getLedetekst } from 'digisyfo-npm';
-import { fjernIndexFraTag, formaterEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
-import { CHECKED } from '../../enums/svarEnums';
-import { CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT } from '../../enums/svartyper';
-import { validerPerioder } from '../../components/sykepengesoknad-arbeidstaker/validering/valideringUtils';
+import { fjernIndexFraTag, formaterEnkeltverdi } from '../components/soknad-felles-sporsmal/fieldUtils';
+import { CHECKED } from '../enums/svarEnums';
+import { CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT } from '../enums/svartyper';
+import { validerPerioder } from '../components/sykepengesoknad-arbeidstaker/validering/valideringUtils';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste

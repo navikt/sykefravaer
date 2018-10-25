@@ -1,4 +1,4 @@
-import validerSporsmal, { beregnFeilmeldingstekstFraTag } from '../../../utils/soknad-felles/validerSporsmal';
+import validerSporsmal, { beregnFeilmeldingstekstFraTag } from '../../../validering/validerSporsmal';
 import { BEKREFT_OPPLYSNINGER_UTLAND } from '../../../enums/tagtyper';
 import { formaterEnkeltverdi } from '../../soknad-felles-sporsmal/fieldUtils';
 

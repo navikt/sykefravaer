@@ -6,7 +6,7 @@ import TekstfeltMedEnhet from '../skjema/TekstfeltMedEnhet';
 import Sporsmalstekst from './Sporsmalstekst';
 import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { lagDesimaltall } from '../../utils';
-import { beregnFeilmeldingstekstFraTag } from '../../utils/soknad-felles/validerSporsmal';
+import { beregnFeilmeldingstekstFraTag } from '../../validering/validerSporsmal';
 
 export const genererValiderTall = (min, max, blankfeilmelding = 'Vennligst fyll ut dette feltet') => {
     return (verdi) => {

@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import { sykmelding as sykmeldingPt, getLedetekst } from 'digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
-import Sporsmalsliste from '../../soknad-felles-sporsmal/Sporsmalsliste';
 import { KnapperadTilbake } from '../../skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
-import { JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT, TILBAKE_I_ARBEID } from '../../../enums/tagtyper';
+import { EGENMELDINGER, JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT, TILBAKE_I_ARBEID } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
-import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
+import Sporsmalsliste from '../../soknad-felles-sporsmal/Sporsmalsliste';
 
 export const hentSporsmalForFravaerOgFriskmelding = (soknad) => {
     return soknad.sporsmal.filter((sporsmal) => {
-        return sporsmal.tag === TILBAKE_I_ARBEID || sporsmal.tag.indexOf(JOBBET_DU_100_PROSENT) > -1 || sporsmal.tag.indexOf(JOBBET_DU_GRADERT) > -1;
+        return sporsmal.tag === EGENMELDINGER
+            || sporsmal.tag === TILBAKE_I_ARBEID
+            || sporsmal.tag.indexOf(JOBBET_DU_100_PROSENT) > -1
+            || sporsmal.tag.indexOf(JOBBET_DU_GRADERT) > -1;
     });
 };
 
@@ -25,9 +27,8 @@ const FravaerOgFriskmeldingSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="fravaer-og-friskmeldnig-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
-        <Sporsmalsliste sporsmalsliste={sporsmalsliste} />
-        <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/`} />
-        <AvbrytSoknadContainer sykepengesoknad={soknad} />
+        <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
+        <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}`} />
     </form>);
 };
 

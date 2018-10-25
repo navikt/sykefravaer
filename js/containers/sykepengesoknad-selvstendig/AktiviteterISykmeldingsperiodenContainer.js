@@ -1,5 +1,5 @@
 import React from 'react';
-import setup from '../../components/soknad-felles/soknadSetup';
+import setup from '../../utils/soknad-felles/soknadSetup';
 import AktiviteterISykmeldingsperioden from '../../components/sykepengesoknad-selvstendig/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import validerAktiviteterISykmeldingsperioden from '../../components/sykepengesoknad-selvstendig/validering/validerAktiviteterISykmeldingsperioden';
 import validerFravaerOgFriskmelding from '../../components/sykepengesoknad-selvstendig/validering/validerFravaerOgFriskmelding';

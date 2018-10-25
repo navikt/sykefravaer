@@ -21,7 +21,7 @@ import {
     GJENAPNE_SOKNAD_FEILET,
     SOKNAD_GJENAPNET,
 } from '../actions/actiontyper';
-import { DATO, PERIODER, PROSENT, TIMER } from '../enums/svartyper';
+import { DATO, PERIODER, PROSENT, TIMER, TALL } from '../enums/svartyper';
 import { SENDT, NY, AVBRUTT, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
 
@@ -47,6 +47,7 @@ const getMinMax = (sporsmal) => {
                 max: sporsmal.max ? new Date(sporsmal.max) : sporsmal.max,
             };
         }
+        case TALL:
         case TIMER:
         case PROSENT: {
             return {

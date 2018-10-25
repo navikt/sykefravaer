@@ -9,7 +9,7 @@ import AndreInntektskilderComponent, {
     inntektskildetyper } from '../../../../js/components/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
-import ledetekster from '../../../mockLedetekster';
+import ledetekster from '../../../mock/mockLedetekster';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

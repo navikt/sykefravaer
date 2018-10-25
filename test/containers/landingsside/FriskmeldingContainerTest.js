@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import { mapStateToProps } from '../../../js/containers/landingsside/FriskmeldingContainer';
-import mockSykmelding from '../../mockSykmeldinger';
+import mockSykmelding from '../../mock/mockSykmeldinger';
 
 const expect = chai.expect;
 

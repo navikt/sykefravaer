@@ -12,7 +12,7 @@ import ArbeidsgiverSkjemaForm from '../../../../js/components/oppfolgingsdialoge
 import Feilmelding from '../../../../js/components/Feilmelding';
 import getOppfolgingsdialog, {
     hentOppfolgingsdialogTidligere,
-} from '../../../mockOppfolgingsdialoger';
+} from '../../../mock/mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

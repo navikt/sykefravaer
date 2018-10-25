@@ -1,5 +1,5 @@
 import fraBackendsoknadTilInitiellSoknad from '../../../js/utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
-import mockLagretSoknad from '../../mockLagretSoknad';
+import mockLagretSoknad from '../../mock/mockLagretSoknad';
 import expect from '../../expect';
 import {
     ARBEIDSGIVER,

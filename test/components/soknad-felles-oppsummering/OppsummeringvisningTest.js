@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import Oppsummeringsvisning from '../../../js/components/soknad-felles-oppsummering/Oppsummeringsvisning';
 import populerSoknadMedSvar from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
 

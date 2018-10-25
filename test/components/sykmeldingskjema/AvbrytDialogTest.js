@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import sinon from 'sinon';
 import { setLedetekster } from 'digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from '../../mockLedetekster';
+import ledetekster from '../../mock/mockLedetekster';
 import { AvbrytSykmeldingDialog } from '../../../js/components/sykmeldingskjema/AvbrytDialog';
 
 chai.use(chaiEnzyme());

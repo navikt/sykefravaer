@@ -2,7 +2,7 @@ import chai from 'chai';
 import {
     hentSporsmalForAktiviteterISykmeldingsperioden,
 } from '../../../../js/components/sykepengesoknad-selvstendig/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
-import { getNySoknadSelvstendig } from '../../../mockSoknadSelvstendig';
+import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';
 
 const expect = chai.expect;
 

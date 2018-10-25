@@ -3,8 +3,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Utvidbar, ArbeidsgiversSykmeldingOpplysninger, setLedetekster } from 'digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from '../../mockLedetekster';
-import getSykmelding from '../../mockSykmeldinger';
+import ledetekster from '../../mock/mockLedetekster';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import ArbeidsgiversSykmelding from '../../../js/components/sykmelding/ArbeidsgiversSykmelding';
 
 chai.use(chaiEnzyme());

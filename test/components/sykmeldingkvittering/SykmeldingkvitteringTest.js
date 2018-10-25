@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import getSykmelding from '../../mockSykmeldinger';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import Sykmeldingkvittering from '../../../js/components/sykmeldingkvittering/Sykmeldingkvittering';
 import Kvitteringsteg from '../../../js/components/sykmeldingkvittering/Kvitteringsteg';
 import SokOmSykepengerNaaKvittering from '../../../js/components/sykmeldingkvittering/SokOmSykepengerNaaKvittering';

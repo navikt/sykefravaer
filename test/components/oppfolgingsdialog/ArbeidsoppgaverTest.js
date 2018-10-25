@@ -12,11 +12,11 @@ import {
     ArbeidsoppgaverInfoboks,
     ArbeidsoppgaverListe,
 } from 'oppfolgingsdialog-npm';
-import ledetekster from '../../mockLedetekster';
+import ledetekster from '../../mock/mockLedetekster';
 import Arbeidsoppgaver, {
     RenderOpprettArbeidsoppgave,
 } from '../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver';
-import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
+import getOppfolgingsdialog from '../../mock/mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

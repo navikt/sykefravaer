@@ -12,7 +12,7 @@ import {
     moteIkkeBesvart,
     moteBesvartAlleAlternativer,
     moteBesvartMedNyeAlternativerBesvart,
-    moteBesvartMedNyeAlternativerIkkeBesvart } from '../../mockMote';
+    moteBesvartMedNyeAlternativerIkkeBesvart } from '../../mock/mockMote';
 import { varselHendelse1, varselHendelse2, bekreftetHendelse1, bekreftetHendelse2, bekreftetHendelse3, ukjentHendelse } from '../../sider/AktivitetskravvarselSideTest';
 
 chai.use(chaiEnzyme());

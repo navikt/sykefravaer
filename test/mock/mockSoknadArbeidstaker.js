@@ -1,4 +1,4 @@
-import { parseSoknad } from '../js/reducers/soknader';
+import { parseSoknad } from '../../js/reducers/soknader';
 /* eslint-disable max-len */
 export const nySoknadArbeidstaker = {
     id: '0ad1c9c2-14af-4498-a199-4ab5f36cda00',

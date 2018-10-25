@@ -10,8 +10,8 @@ import unleashToggles from '../../../js/reducers/unleashToggles';
 import { unleashTogglesHentet } from '../../../js/actions/unleashToggles_actions';
 import { setDineSykmeldinger } from '../../../js/actions/dineSykmeldinger_actions';
 import { soknaderHentet } from '../../../js/actions/soknader_actions';
-import { getNySoknadSelvstendig } from '../../mockSoknadSelvstendig';
-import getSykmelding from '../../mockSykmeldinger';
+import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
+import getSykmelding from '../../mock/mockSykmeldinger';
 import { Container, mapStateToProps } from '../../../js/containers/sykmelding/AngreBekreftSykmeldingContainer';
 import { SYKMELDING_ARBEIDSSITUASJON } from '../../../js/enums/unleashToggles';
 

@@ -8,11 +8,11 @@ import {
 import {
     hentSykmeldingIkkeGyldigForOppfoelging,
     hentSykmeldingGyldigForOppfoelging,
-} from '../mockSykmeldinger';
+} from '../mock/mockSykmeldinger';
 import getOppfolgingsdialog, {
 
     hentOppfolgingsdialogTidligere,
-} from '../mockOppfolgingsdialoger';
+} from '../mock/mockOppfolgingsdialoger';
 
 const expect = chai.expect;
 

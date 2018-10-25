@@ -10,8 +10,8 @@ import {
 } from '../../../../js/components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
 import SoktOmSykepenger from '../../../../js/components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 import JaEllerNei from '../../../../js/components/sykepengesoknad-arbeidstaker/JaEllerNei';
-import { getSoknad } from '../../../mockSykepengesoknader';
-import { ledetekster } from '../../../mockLedetekster';
+import { getSoknad } from '../../../mock/mockSykepengesoknader';
+import { ledetekster } from '../../../mock/mockLedetekster';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Periodevelger from '../../../../js/components/skjema/datovelger/Periodevelger';
 

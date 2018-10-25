@@ -13,7 +13,7 @@ import validate, {
     arbeidsgradEr100ProsentFeil } from '../../../../js/components/sykepengesoknad-arbeidstaker/validering/validerAktiviteterISykmeldingsperioden';
 
 import { inntektskildetyper } from '../../../../js/components/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperioden/AndreInntektskilder';
-import { getSoknad } from '../../../mockSykepengesoknader';
+import { getSoknad } from '../../../mock/mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

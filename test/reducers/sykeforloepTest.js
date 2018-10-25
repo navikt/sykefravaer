@@ -3,7 +3,7 @@ import deepFreeze from 'deep-freeze';
 import * as actions from '../../js/actions/sykeforloep_actions';
 import { BRUKER_ER_UTLOGGET } from '../../js/actions/actiontyper';
 import sykeforloep, { hentStartdatoFraSykeforloep } from '../../js/reducers/sykeforloep';
-import getSykeforloep from '../mockSykeforloep';
+import getSykeforloep from '../mock/mockSykeforloep';
 
 describe('sykeforloep', () => {
     let state;

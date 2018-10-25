@@ -3,7 +3,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import SykmeldingTeaser from '../../../js/components/sykmeldinger/SykmeldingTeaser';
-import getSykmelding from '../../mockSykmeldinger';
+import getSykmelding from '../../mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

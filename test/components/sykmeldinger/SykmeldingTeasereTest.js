@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { setLedetekster } from 'digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from '../../mockLedetekster';
+import ledetekster from '../../mock/mockLedetekster';
 import SykmeldingTeaser from '../../../js/components/sykmeldinger/SykmeldingTeaser';
 import SykmeldingTeasere from '../../../js/components/sykmeldinger/SykmeldingTeasere';
 import SykmeldingerSorteringContainer from '../../../js/containers/sykmeldinger/SykmeldingerSorteringContainer';

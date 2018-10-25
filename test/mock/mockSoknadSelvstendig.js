@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { parseSoknad } from '../js/reducers/soknader';
+import { parseSoknad } from '../../js/reducers/soknader';
 
 export const soknadSelvstendig1 = {
     fom: '2018-05-20',

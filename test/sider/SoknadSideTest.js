@@ -19,9 +19,9 @@ import FravaerOgFriskmeldingContainer from '../../js/containers/sykepengesoknad-
 import AktiviteterISykmeldingsperiodenContainer from '../../js/containers/sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../../js/containers/sykepengesoknad-selvstendig/OppsummeringContainer';
 import mountWithStore from '../mountWithStore';
-import { getSendtSoknadSelvstendig, getNySoknadSelvstendig } from '../mockSoknadSelvstendig';
+import { getSendtSoknadSelvstendig, getNySoknadSelvstendig } from '../mock/mockSoknadSelvstendig';
 import reduxFormMeta from '../../js/reducers/reduxFormMeta';
-import { getNySoknadArbeidstaker } from '../mockSoknadArbeidstaker';
+import { getNySoknadArbeidstaker } from '../mock/mockSoknadArbeidstaker';
 import { SykepengeskjemaForSelvstendige } from '../../js/components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
 import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
 import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';

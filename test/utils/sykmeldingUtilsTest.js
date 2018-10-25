@@ -10,8 +10,8 @@ import {
     skalViseOppfoelgingsdialogLenke,
     sykmeldtHarGyldigSykmelding,
 } from '../../js/utils/sykmeldingUtils';
-import getSykmelding, { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mockSykmeldinger';
-import { getLedere } from '../mockLedere';
+import getSykmelding, { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mock/mockSykmeldinger';
+import { getLedere } from '../mock/mockLedere';
 
 const expect = chai.expect;
 

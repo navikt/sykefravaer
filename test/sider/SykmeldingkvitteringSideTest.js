@@ -13,8 +13,8 @@ import FrilanserMedPapirsoknadKvittering from '../../js/components/sykmeldingkvi
 import FrilanserUtenSoknadKvittering from '../../js/components/sykmeldingkvittering/FrilanserUtenSoknadKvittering';
 import SendtSykmeldingMedPapirSoknadKvittering from '../../js/components/sykmeldingkvittering/SendtSykmeldingMedPapirSoknadKvittering';
 
-import getSykmelding from '../mockSykmeldinger';
-import { getParsetSoknad } from '../mockSykepengesoknader';
+import getSykmelding from '../mock/mockSykmeldinger';
+import { getParsetSoknad } from '../mock/mockSykepengesoknader';
 import FrilanserSoekDigitaltNaa from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';

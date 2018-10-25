@@ -7,8 +7,8 @@ import sinon from 'sinon';
 import SendtSoknad, { Knapperad, ConnectedKnapperad } from '../../../js/components/sykepengesoknad-arbeidstaker/SendtSoknad';
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
 import Soknadstatuspanel from '../../../js/components/sykepengesoknad-arbeidstaker/Soknadstatuspanel';
-import { getSoknad } from '../../mockSykepengesoknader';
-import ledetekster from '../../mockLedetekster';
+import { getSoknad } from '../../mock/mockSykepengesoknader';
+import ledetekster from '../../mock/mockLedetekster';
 import SykepengesoknadHeader from '../../../js/components/sykepengesoknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../../js/containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 

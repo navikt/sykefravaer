@@ -7,7 +7,7 @@ import { OppfolgingsdialogerIngenplan } from 'oppfolgingsdialog-npm';
 import OppfolgingsdialogerIngenplanAT, { OppfolgingsdialogerIngenplanKnapper } from '../../../../js/components/oppfolgingsdialoger/opprett/OppfolgingsdialogerIngenplanAT';
 import getOppfolgingsdialog, {
     hentOppfolgingsdialogTidligere,
-} from '../../../mockOppfolgingsdialoger';
+} from '../../../mock/mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { setLedetekster } from 'digisyfo-npm';
-import { getParsetSoknad, getSoknad } from '../../mockSykepengesoknader';
+import { getParsetSoknad, getSoknad } from '../../mock/mockSykepengesoknader';
 import {
     ARBEIDSGIVER,
     mapStateToProps,

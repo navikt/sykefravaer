@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import Knapp from 'nav-frontend-knapper';
 import { setLedetekster } from 'digisyfo-npm';
 import { Ettersending, EttersendLightbox, EttersendDialogConnected, EttersendKvittering } from '../../../js/components/sykepengesoknad-arbeidstaker/Ettersending';
-import { getSoknad } from '../../mockSykepengesoknader';
+import { getSoknad } from '../../mock/mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

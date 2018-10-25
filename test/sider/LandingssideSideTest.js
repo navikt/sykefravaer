@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import deepFreeze from 'deep-freeze';
 import { Container, mapStateToProps } from '../../js/sider/LandingssideSide';
-import getSykmelding from '../mockSykmeldinger';
+import getSykmelding from '../mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

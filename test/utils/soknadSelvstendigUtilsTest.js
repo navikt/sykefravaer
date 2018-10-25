@@ -1,9 +1,9 @@
 import chai from 'chai';
 import deepFreeze from 'deep-freeze';
 import chaiEnzyme from 'chai-enzyme';
-import getSykmelding from '../mockSykmeldinger';
+import getSykmelding from '../mock/mockSykmeldinger';
 import { settErOppdelt } from '../../js/utils/soknadSelvstendigUtils';
-import { getParsetSoknad } from '../mockSykepengesoknader';
+import { getParsetSoknad } from '../mock/mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

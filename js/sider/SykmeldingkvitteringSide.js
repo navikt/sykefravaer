@@ -131,7 +131,7 @@ const getKvitteringtype = (
                     : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
         }
         case BEKREFTET: {
-            if (harStrengtFortroligAdresse) {
+            if (harStrengtFortroligAdresse && !erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
                 return kvitteringtyper.STRENGT_FORTROLIG_ADRESSE;
             }
             if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {

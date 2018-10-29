@@ -1,4 +1,4 @@
-import validerSporsmal from '../../../utils/soknad-felles/validerSporsmal';
+import validerSporsmal from '../../../validering/validerSporsmal';
 import { hentSporsmalForOppsummering } from '../Oppsummering/Oppsummering';
 import validerAktiviteterISykmeldingsperioden from './validerAktiviteterISykmeldingsperioden';
 

@@ -9,9 +9,14 @@ import {
     PERIODER,
     JA_NEI,
     CHECKBOX_GRUPPE,
-    FRITEKST, CHECKBOX_PANEL, IKKE_RELEVANT,
+    FRITEKST,
+    CHECKBOX_PANEL,
+    IKKE_RELEVANT,
+    TALL,
+    RADIO_GRUPPE,
 } from '../../enums/svartyper';
 import Sporsmal from './Sporsmal';
+import UkjentSporsmal from './UkjentSporsmal';
 
 const Wrap = ({ children }) => {
     return <div className="soknad__undersporsmal">{children}</div>;
@@ -33,6 +38,8 @@ const Undersporsmal = ({ sporsmal, soknad }) => {
         case PERIODER:
         case JA_NEI:
         case CHECKBOX_GRUPPE:
+        case TALL:
+        case RADIO_GRUPPE:
         case FRITEKST: {
             return (<Wrap>
                 <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
@@ -44,7 +51,7 @@ const Undersporsmal = ({ sporsmal, soknad }) => {
             </div>);
         }
         default: {
-            return null;
+            return <UkjentSporsmal sporsmal={sporsmal} />;
         }
     }
 };

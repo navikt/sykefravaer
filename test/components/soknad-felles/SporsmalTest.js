@@ -3,13 +3,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { SporsmalComponent as Sporsmal } from '../../../js/components/soknad-felles-sporsmal/Sporsmal';
-import Undersporsmal from '../../../js/components/soknad-felles-sporsmal/Undersporsmal';
 import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import Checkbox from '../../../js/components/soknad-felles-sporsmal/Checkbox';
 import Tall from '../../../js/components/soknad-felles-sporsmal/Tall';
 import Tekstinput from '../../../js/components/soknad-felles-sporsmal/Tekstinput';
 import Dato from '../../../js/components/soknad-felles-sporsmal/Dato';
 import JaEllerNei from '../../../js/components/soknad-felles-sporsmal/JaEllerNei';
+import Undersporsmalsliste from '../../../js/components/soknad-felles-sporsmal/Undersporsmalsliste';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -21,10 +21,10 @@ describe('Sporsmal', () => {
         soknad = getNySoknadSelvstendig();
     });
 
-    it('Skal rendre et Underspørsmål hvis spørsmålet har Underspørsmål med svar', () => {
+    it('Skal rendre en Undersporsmalsliste', () => {
         const sporsmal = soknad.sporsmal[1];
         const component = shallow(<Sporsmal sporsmal={sporsmal} />);
-        expect(component.find(Undersporsmal)).to.have.length(1);
+        expect(component.find(Undersporsmalsliste)).to.have.length(1);
     });
 
     it('Skal rendre et Spørsmål med Checkbox når svartype er CHECKBOX', () => {

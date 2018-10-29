@@ -25,6 +25,7 @@ import { getNySoknadArbeidstaker } from '../mock/mockSoknadArbeidstaker';
 import { SykepengeskjemaForSelvstendige } from '../../js/components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
 import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
 import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
+import NyFravaerOgFriskmeldingArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFravaerOgFriskmeldingArbeidstakerContainer';
 
 chai.use(chaiEnzyme());
 
@@ -229,6 +230,13 @@ describe('SoknadSideTest', () => {
                     const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(NySoknadArbeidstaker)).to.have.length(1);
                     expect(component.find(NyFoerDuBegynnerArbeidstakerContainer)).to.have.length(1);
+                });
+
+                it('Skal vise NySoknadArbeidstaker og FravaerOgFriskmelding på side 1', () => {
+                    ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/fravaer-og-friskmelding/';
+                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
+                    expect(component.find(NySoknadArbeidstaker)).to.have.length(1);
+                    expect(component.find(NyFravaerOgFriskmeldingArbeidstakerContainer)).to.have.length(1);
                 });
             });
         });

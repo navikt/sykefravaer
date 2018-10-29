@@ -12,7 +12,7 @@ import {
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
 } from '../../../../js/enums/tagtyper';
-import { beregnFeilmeldingstekstFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
+import { beregnFeilmeldingstekstFraTag } from '../../../../js/validering/validerSporsmal';
 import { JA, NEI } from '../../../../js/enums/svarEnums';
 
 chai.use(chaiEnzyme());

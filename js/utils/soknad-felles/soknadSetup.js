@@ -6,7 +6,7 @@ import { sendSoknad } from '../../actions/soknader_actions';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 import { erForsteSoknad } from '../../selectors/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
-import fraBackendsoknadTilInitiellSoknad from '../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
+import fraBackendsoknadTilInitiellSoknad from './fraBackendsoknadTilInitiellSoknad';
 
 export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {

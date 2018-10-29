@@ -66,7 +66,7 @@ const startServer = (html) => {
     );
 
     server.get(
-        ['/', '/sykefravaer/?', /^\/sykefravaer\/(?!.*dist).*$/],
+        ['/', '/sykefravaer/?', /^\/sykefravaer\/(?!(resources|img)).*$/, ],
         (req, res) => {
             res.send(html);
             httpRequestDurationMicroseconds

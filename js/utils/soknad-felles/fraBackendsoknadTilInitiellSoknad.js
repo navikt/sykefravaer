@@ -1,7 +1,6 @@
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE } from '../../enums/svartyper';
 import { genererParseForEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
-import { ANSVARSERKLARING, BEKREFT_OPPLYSNINGER } from '../../enums/tagtyper';
 
 const tilInitielleSvarverder = ({ svar, svartype, id }) => {
     const parse = genererParseForEnkeltverdi(id);
@@ -47,7 +46,6 @@ export default (soknad) => {
         .flatten();
 
     return alleSporsmal
-        // Dette må skje i backend ved korrigering! .filter((spm) => { return spm.tag !== ANSVARSERKLARING && spm.tag !== BEKREFT_OPPLYSNINGER; })
         .filter((spm) => { return spm.svar.length > 0; })
         .reduce((acc, sporsmal) => {
             acc[sporsmal.tag] = tilInitielleSvarverder(sporsmal);

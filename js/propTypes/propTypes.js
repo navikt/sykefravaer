@@ -98,6 +98,13 @@ export const svar = PropTypes.arrayOf(PropTypes.shape({
     verdi: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 }));
 
+export const svaralternativ = PropTypes.shape({
+    verdi: PropTypes.string.isRequired,
+    svartekst: PropTypes.string.isRequired,
+});
+
+export const svaralternativer = PropTypes.arrayOf(svaralternativ);
+
 const sporsmalShape = {
     id: PropTypes.string,
     kriterieForVisningAvUndersporsmal: PropTypes.string,
@@ -109,6 +116,7 @@ const sporsmalShape = {
     tag: PropTypes.string,
     undertekst: PropTypes.string,
     pavirkerAndreSporsmal: PropTypes.bool,
+    svaralternativer,
 };
 
 sporsmalShape.undersporsmal = PropTypes.arrayOf(PropTypes.shape(sporsmalShape));

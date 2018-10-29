@@ -4,7 +4,6 @@ import { sykmelding as sykmeldingPt, getLedetekst } from 'digisyfo-npm';
 import { soknad as soknadPt } from '../../../propTypes';
 import history from '../../../history';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
-import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
 import { KnapperadTilbake } from '../../skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';

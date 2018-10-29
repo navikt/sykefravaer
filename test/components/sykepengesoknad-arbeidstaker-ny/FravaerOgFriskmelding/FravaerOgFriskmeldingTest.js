@@ -18,17 +18,17 @@ describe('FravaerOgFriskmelding', () => {
             expect(sporsmal).to.deep.include(soknad.sporsmal[2]);
         });
 
-        it("Skal returnere spørsmål med tag JOBBET_DU_100_PROSENT_0", () => {
+        it('Skal returnere spørsmål med tag JOBBET_DU_100_PROSENT_0', () => {
             const soknad = getNySoknadArbeidstaker();
             const sporsmal = hentSporsmalForFravaerOgFriskmelding(soknad);
             expect(sporsmal).to.deep.include(soknad.sporsmal[3]);
         });
 
-        it("Skal returnere spørsmål med tag JOBBET_DU_GRADERT_1", () => {
+        it('Skal returnere spørsmål med tag JOBBET_DU_GRADERT_1', () => {
             const soknad = getNySoknadArbeidstaker();
             const sporsmal = hentSporsmalForFravaerOgFriskmelding(soknad);
             expect(sporsmal).to.deep.include(soknad.sporsmal[4]);
-        })
+        });
 
         it('Skal ikke returnere spørsmål med tag FERIE_PERMISJON_UTLAND', () => {
             const soknad = getNySoknadArbeidstaker();

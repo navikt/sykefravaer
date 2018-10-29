@@ -5,7 +5,6 @@
   "main": "index.js",
   "test": "npm run test",
   "scripts": {
-    "postinstall": "npm install babel-loader",
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill --require ignore-styles  ./test/setup.js \"test/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch",
     "coverage": "nyc report --reporter=html --reporter=lcov",

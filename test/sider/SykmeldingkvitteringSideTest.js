@@ -679,6 +679,30 @@ describe('SykmeldingkvitteringSide', () => {
                 skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
             });
 
+            it('Skal vise info om at bruker kan søke selv om bruker er kode6', () => {
+                state.sykepengesoknader.data = [];
+                const sykmelding = getSykmelding({
+                    id: '1',
+                    status: sykmeldingstatuser.BEKREFTET,
+                    valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                    mulighetForArbeid: {
+                        perioder: [{
+                            fom: new Date('2018-02-02'),
+                            tom: new Date('2018-02-20'),
+                        }],
+                    },
+                });
+                state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
+                state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta['1'] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                };
+                skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
+            });
+
             it('Skal vise info om at bruker kan søke om sykepenger', () => {
                 state.sykepengesoknader.data = [];
                 const sykmelding = getSykmelding({

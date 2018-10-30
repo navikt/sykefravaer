@@ -7,7 +7,7 @@ import Undersporsmalsliste from './Undersporsmalsliste';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
 import { fieldPropTypes, sporsmal as sporsmalPt, svarAlternativer as svaralternativerPt } from '../../propTypes';
 
-const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svaralternativer, id, kriterieForVisningAvUndersporsmal }) => {
+const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svaralternativer, id }) => {
     return (<div>
         <Radioknapper input={input} meta={meta} spoersmal={sporsmalstekst} horisontal>
             {
@@ -19,10 +19,7 @@ const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svar
                 })
             }
         </Radioknapper>
-        {
-            input.value === kriterieForVisningAvUndersporsmal
-                && <Undersporsmalsliste undersporsmal={undersporsmal} />
-        }
+        <Undersporsmalsliste undersporsmal={undersporsmal} parentValue={input.value} />
     </div>);
 };
 
@@ -32,7 +29,6 @@ RadiogruppeComponent.propTypes = {
     sporsmalstekst: PropTypes.string,
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
     svaralternativer: svaralternativerPt,
-    kriterieForVisningAvUndersporsmal: PropTypes.string,
     id: PropTypes.string,
 };
 

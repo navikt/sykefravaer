@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import Undersporsmal from './Undersporsmal';
 import { sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
 
-const Undersporsmalsliste = ({ undersporsmal, soknad }) => {
+const Undersporsmalsliste = ({ undersporsmal, soknad, parentValue }) => {
     const sporsmalsliste = undersporsmal
         .filter((underspm) => {
             return underspm.svar !== null;
         })
         .map((underspm) => {
-            return <Undersporsmal sporsmal={underspm} key={underspm.tag} soknad={soknad} />;
+            return (parentValue
+                && underspm.visningskriterie
+                && parentValue === underspm.visningskriterie) || !underspm.visningskriterie
+                ? <Undersporsmal
+                    sporsmal={underspm}
+                    key={underspm.tag}
+                    soknad={soknad} />
+                : null;
+        })
+        .filter((underspm) => {
+            return underspm !== null;
         });
 
     return sporsmalsliste.length > 0
@@ -20,6 +30,7 @@ const Undersporsmalsliste = ({ undersporsmal, soknad }) => {
 Undersporsmalsliste.propTypes = {
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
     soknad: soknadPt,
+    parentValue: PropTypes.string,
 };
 
 export default Undersporsmalsliste;

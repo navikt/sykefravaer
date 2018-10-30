@@ -27,7 +27,7 @@ const AktiviteterISykmeldingsperiodenSkjema = (props) => {
     return (<form className="soknadskjema" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
         <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
-        <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}`} />
+        <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`} />
     </form>);
 };
 

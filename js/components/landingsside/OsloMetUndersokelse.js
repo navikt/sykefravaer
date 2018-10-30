@@ -58,7 +58,7 @@ const mapStateToProps = (state) => {
         if (!sykeforloep) {
             return false;
         }
-        const oppfoelgingsdato = sykeforloep.oppfoelgingsdato;
+        const oppfoelgingsdato = state.sykeforloep.startdato;
         const harAktivSykmelding = sykeforloep.sykmeldinger.filter((sykmelding) => {
             const tom = senesteTom(sykmelding.mulighetForArbeid.perioder);
             const fom = tidligsteFom(sykmelding.mulighetForArbeid.perioder);

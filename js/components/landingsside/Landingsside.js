@@ -12,6 +12,7 @@ import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
 import ArbeidsrettetOppfolgingContainer from '../../containers/landingsside/ArbeidsrettetOppfolgingContainer';
 import IllustrertInnhold from '../IllustrertInnhold';
 import { Vis } from '../../utils';
+import OsloMetUndersokelse from './OsloMetUndersokelse';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -36,6 +37,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 !harSykmeldinger && <IngenSykmeldinger />
             }
             <DineOppgaverContainer />
+            <OsloMetUndersokelse />
             <Utdrag />
             <DinSituasjonContainer />
             <nav className="js-navigasjon landingssideNavigasjon">

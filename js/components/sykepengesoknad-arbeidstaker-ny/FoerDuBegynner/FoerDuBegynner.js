@@ -4,7 +4,7 @@ import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
-import Checkboxpanel from '../../soknad-felles-sporsmal/Checkboxpanel';
+import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
 import { soknad as soknadPt } from '../../../propTypes';
 import ForsteSoknadIntro from '../../sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
 import SoknadIntro from '../../sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';
@@ -38,7 +38,7 @@ export class FoerDuBegynnerSkjema extends Component {
         return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
             <div className="panel redaksjonelt-innhold">
                 <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
-                <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
+                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />
             </div>
             <div className="knapperad blokk">
                 <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>

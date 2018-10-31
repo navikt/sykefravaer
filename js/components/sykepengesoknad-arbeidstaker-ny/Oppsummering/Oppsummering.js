@@ -10,7 +10,6 @@ import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { BEKREFT_OPPLYSNINGER, BETALER_ARBEIDSGIVER, VAER_KLAR_OVER_AT } from '../../../enums/tagtyper';
-import Checkboxpanel from '../../soknad-felles-sporsmal/Checkboxpanel';
 import OppsummeringUndertekst from '../../soknad-felles-oppsummering/OppsummeringUndertekst';
 import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
 
@@ -41,7 +40,6 @@ export const hentSporsmalForOppsummering = (soknad) => {
 export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
     const { handleSubmit, soknad, skjemasvar, actions, sender, sendingFeilet } = props;
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
-    const sporsmal = hentSporsmalForOppsummering(soknad)[0];
     const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => { return s.tag === VAER_KLAR_OVER_AT; });
     const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => { return s.tag === BEKREFT_OPPLYSNINGER; });
     const betalerArbeidsgiverSpm = soknad.sporsmal.find((s) => { return s.tag === BETALER_ARBEIDSGIVER; });
@@ -58,7 +56,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
             <Sporsmal sporsmal={betalerArbeidsgiverSpm} name={betalerArbeidsgiverSpm.tag} />
         </div>
         <div className="bekreftet-container blokk">
-            <Sporsmal sporsmal={bekreftOpplysningerSpm} name={sporsmal.tag} />
+            <Sporsmal sporsmal={bekreftOpplysningerSpm} name={bekreftOpplysningerSpm.tag} />
         </div>
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">

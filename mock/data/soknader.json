@@ -509,11 +509,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "57",
@@ -526,11 +522,7 @@
             "max": "2018-09-30",
             "pavirkerAndreSporsmal": false,
             "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "{\"fom\":\"2018-09-28\",\"tom\":\"2018-09-30\"}"
-              }
-            ],
+            "svar": [],
             "undersporsmal": []
           }
         ]
@@ -546,11 +538,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "59",
@@ -563,11 +551,7 @@
             "max": "2018-10-15",
             "pavirkerAndreSporsmal": false,
             "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "2018-10-13"
-              }
-            ],
+            "svar": [],
             "undersporsmal": []
           }
         ]
@@ -583,11 +567,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "61",
@@ -600,11 +580,7 @@
             "max": "150",
             "pavirkerAndreSporsmal": false,
             "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "37,5"
-              }
-            ],
+            "svar": [],
             "undersporsmal": []
           },
           {
@@ -645,11 +621,7 @@
                 "pavirkerAndreSporsmal": false,
                 "visningskriterie": "PROSENT",
                 "kriterieForVisningAvUndersporsmal": null,
-                "svar": [
-                  {
-                    "verdi": "79"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": []
               },
               {
@@ -736,11 +708,7 @@
                 "pavirkerAndreSporsmal": false,
                 "visningskriterie": "PROSENT",
                 "kriterieForVisningAvUndersporsmal": null,
-                "svar": [
-                  {
-                    "verdi": "79"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": []
               },
               {
@@ -773,11 +741,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "69",
@@ -803,11 +767,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "71",
@@ -820,11 +780,7 @@
                     "max": "2018-10-15",
                     "pavirkerAndreSporsmal": false,
                     "kriterieForVisningAvUndersporsmal": null,
-                    "svar": [
-                      {
-                        "verdi": "{\"fom\":\"2018-10-08\",\"tom\":\"2018-10-10\"}"
-                      }
-                    ],
+                    "svar": [],
                     "undersporsmal": []
                   }
                 ]
@@ -869,11 +825,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "75",
@@ -886,14 +838,7 @@
                     "max": "2018-10-15",
                     "pavirkerAndreSporsmal": false,
                     "kriterieForVisningAvUndersporsmal": null,
-                    "svar": [
-                      {
-                        "verdi": "{\"fom\":\"2018-10-07\",\"tom\":\"2018-10-08\"}"
-                      },
-                      {
-                        "verdi": "{\"fom\":\"2018-10-10\",\"tom\":\"2018-10-12\"}"
-                      }
-                    ],
+                    "svar": [],
                     "undersporsmal": []
                   }
                 ]
@@ -913,11 +858,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "77",
@@ -943,11 +884,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "79",
@@ -960,11 +897,7 @@
                     "max": null,
                     "pavirkerAndreSporsmal": false,
                     "kriterieForVisningAvUndersporsmal": null,
-                    "svar": [
-                      {
-                        "verdi": "JA"
-                      }
-                    ],
+                    "svar": [],
                     "undersporsmal": []
                   }
                 ]
@@ -980,11 +913,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "81",
@@ -997,11 +926,7 @@
                     "max": null,
                     "pavirkerAndreSporsmal": false,
                     "kriterieForVisningAvUndersporsmal": null,
-                    "svar": [
-                      {
-                        "verdi": "JA"
-                      }
-                    ],
+                    "svar": [],
                     "undersporsmal": []
                   }
                 ]
@@ -1017,11 +942,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "83",
@@ -1034,11 +955,7 @@
                     "max": null,
                     "pavirkerAndreSporsmal": false,
                     "kriterieForVisningAvUndersporsmal": null,
-                    "svar": [
-                      {
-                        "verdi": "NEI"
-                      }
-                    ],
+                    "svar": [],
                     "undersporsmal": []
                   }
                 ]
@@ -1130,11 +1047,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "90",
@@ -1147,11 +1060,7 @@
             "max": "2018-10-15",
             "pavirkerAndreSporsmal": false,
             "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "2018-10-09"
-              }
-            ],
+            "svar": [],
             "undersporsmal": []
           },
           {
@@ -1165,11 +1074,7 @@
             "max": null,
             "pavirkerAndreSporsmal": false,
             "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "NEI"
-              }
-            ],
+            "svar": [],
             "undersporsmal": []
           }
         ]
@@ -1199,11 +1104,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": null,
-        "svar": [
-          {
-            "verdi": "CHECKED"
-          }
-        ],
+        "svar": [],
         "undersporsmal": []
       },
       {
@@ -1212,60 +1113,26 @@
         "sporsmalstekst": "Betaler arbeidsgiveren lønnen din når du er syk?",
         "undertekst": null,
         "svartype": "RADIO_GRUPPE",
-        "svaralternativer": null,
+        "svaralternativer": [
+          {
+            "verdi": "JA",
+            "svartekst": "Ja"
+          },
+          {
+            "verdi": "NEI",
+            "svartekst": "Nei"
+          },
+          {
+            "verdi": "VET_IKKE",
+            "svartekst": "Vet ikke"
+          }
+        ],
         "min": null,
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": null,
         "svar": [],
-        "undersporsmal": [
-          {
-            "id": "95",
-            "tag": "BETALER_ARBEIDSGIVER_JA",
-            "sporsmalstekst": "Ja",
-            "undertekst": "Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.",
-            "svartype": "RADIO",
-            "svaralternativer": null,
-            "min": null,
-            "max": null,
-            "pavirkerAndreSporsmal": false,
-            "kriterieForVisningAvUndersporsmal": null,
-            "svar": [],
-            "undersporsmal": []
-          },
-          {
-            "id": "96",
-            "tag": "BETALER_ARBEIDSGIVER_NEI",
-            "sporsmalstekst": "Nei",
-            "undertekst": "Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.",
-            "svartype": "RADIO",
-            "svaralternativer": null,
-            "min": null,
-            "max": null,
-            "pavirkerAndreSporsmal": false,
-            "kriterieForVisningAvUndersporsmal": null,
-            "svar": [],
-            "undersporsmal": []
-          },
-          {
-            "id": "97",
-            "tag": "BETALER_ARBEIDSGIVER_VET_IKKE",
-            "sporsmalstekst": "Vet ikke",
-            "undertekst": "Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV.",
-            "svartype": "RADIO",
-            "svaralternativer": null,
-            "min": null,
-            "max": null,
-            "pavirkerAndreSporsmal": false,
-            "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "CHECKED"
-              }
-            ],
-            "undersporsmal": []
-          }
-        ]
+        "undersporsmal": []
       }
     ]
   },

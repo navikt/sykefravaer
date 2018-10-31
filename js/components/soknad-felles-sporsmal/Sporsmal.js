@@ -101,9 +101,7 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
                 {...sporsmal}
                 name={name}
                 soknad={soknad}
-                actions={actions}>
-                { undersporsmalsliste }
-            </RadioGruppe>);
+                actions={actions} />);
         }
         default: {
             return <UkjentSporsmal sporsmal={sporsmal} />;

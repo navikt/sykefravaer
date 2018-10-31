@@ -473,6 +473,7 @@
     "sykefravaerarbeidsgiver.tidslinje.aktivitetsplikt.budskap": "<p>NAV har som oppgave å vurdere om den sykmeldte fyller kravene til aktivitet og fortsatt har rett til sykepenger.   Den som sykmelder pasienten skal gi NAV informasjon hvis medisinske forhold gjør at det ikke er mulig for den sykmeldte være i aktivitet. Ved alvorlig sykdom er det unntak fra aktivitetsplikten. Det er også unntak hvis arbeidsplassen ikke kan legge til rette for aktivitet. Da må du som arbeidsgiver dokumentere dette i oppfølgingsplanen som sendes til NAV.</p>\n<p><a href=\"https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Relatert+informasjon/hva-er-aktivitetsplikten\" target=\"_blank\">Innhold og regelverk for aktivitetsplikten</a></p>",
     "sykefravaerarbeidsgiver.landingsside.utgaatte.tittel": "Sykmeldinger som er utgått",
     "sykepengesoknad.sidetittel.periode": "Gjelder for perioden %FOM% – %TOM%",
+    "sykepengesoknad.sidetittel.periode-2": "Gjelder for perioden %PERIODE%",
     "oppfolgingsdialog.godkjennPlanMottatt.knapp.godkjenn": "Godkjenn",
     "sykepengesoknad.periodevelger.legg-til-ekstra": "Legg til ekstra periode",
     "oppfolgingsdialog.reviderEllerGodkjennPlan.forespoerselRevidering.sendt.arbeidstaker": "Lederen din har fått melding om å se på planen etter ønske fra deg.",

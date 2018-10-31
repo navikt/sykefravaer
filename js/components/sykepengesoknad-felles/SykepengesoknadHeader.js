@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import * as proptypes from '../../propTypes';
@@ -12,9 +12,8 @@ const SykepengesoknadHeader = ({ sykepengesoknad }) => {
             <h1 className="sidetopp__tittel">{getLedetekst('sykepengesoknad.sidetittel')}</h1>
             <div className="medHjelpetekst sidetopp__meta">
                 <p>{
-                    getLedetekst('sykepengesoknad.sidetittel.periode', {
-                        '%FOM%': tilLesbarDatoMedArstall(sykepengesoknad.fom),
-                        '%TOM%': tilLesbarDatoMedArstall(sykepengesoknad.tom),
+                    getLedetekst('sykepengesoknad.sidetittel.periode-2', {
+                        '%PERIODE%': tilLesbarPeriodeMedArstall(sykepengesoknad.fom, sykepengesoknad.tom),
                     })
                 }</p>
                 <Hjelpetekst id="oppdelt-soknad-hjelpetekst">{getLedetekst('sykepengesoknad.sidetittel.hjelpetekst.tekst')}</Hjelpetekst>

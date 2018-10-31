@@ -1550,5 +1550,19 @@
     "sykefravaerarbeidsgiver.sykmelding.teaser.tekst.ingen-grad": "Sykmeldt i %DAGER% dager",
     "oppfolgingsdialog.godkjennPlanMottatt.tekst.arbeidstaker": "Du har mottatt en ny oppfølgingsplan fra din arbeidsgiver: <b>%ARBEIDSGIVER%</b> for godkjenning.",
     "sykepengesoknad.egenmeldingsdager.janei.sporsmal-2": "Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger og/eller var du sykmeldt i perioden %FOM% til %TOM%?",
-    "oppfolgingsdialog.godkjennPlanOversiktInformasjon.tiltakBeskrivelse.label": "Beskrivelse"
+    "oppfolgingsdialog.godkjennPlanOversiktInformasjon.tiltakBeskrivelse.label": "Beskrivelse",
+    "soknad.feilmelding.hvor_mye_prosent_verdi": "Du må svare på hvor mye du jobbet totalt",
+    "soknad.feilmelding.hvor_mye_timer_verdi": "Du må svare på hvor mye du jobbet totalt",
+    "soknad.feilmelding.hvor_mange_timer_per_uke": "Du må svare på hvor mange timer du jobbet per uke før du ble sykmeldt",
+    "soknad.feilmelding.ferie_permisjon_utland_hva": "Du må krysse av det som gjelder deg",
+    "soknad.feilmelding.ferie_permisjon_utland": "Du må svare på om har hatt ferie, permisjon eller oppholdt deg utenfor Norge i denne perioden",
+    "soknad.feilmelding.egenmeldinger": "Du må svare på om du brukte egenmeldinger eller var sykmeldt i denne perioden",
+    "soknad.feilmelding.inntektskilde_frilanser_er_du_sykmeldt": "Du må svare på om du er sykmeldt fra dette",
+    "soknad.feilmelding.inntektskilde_andre_arbeidsforhold_er_du_sykmeldt": "Du må svare på om du er sykmeldt fra dette",
+    "soknad.feilmelding.inntektskilde_selvstendig_er_du_sykmeldt": "Du må svare på om du er sykmeldt fra dette",
+    "soknad.feilmelding.inntektskilde_selvstendig_dagmamma_er_du_sykmeldt": "Du må svare på om du er sykmeldt fra dette",
+    "soknad.feilmelding.betaler_arbeidsgiver": "Du må svare på om arbeidsgiveren betaler lønnen din når du er syk",
+    "soknad.infotekst.betaler_arbeidsgiver.ja": "Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.",
+    "soknad.infotekst.betaler_arbeidsgiver.nei": "Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.",
+    "soknad.infotekst.betaler_arbeidsgiver.vet_ikke": "Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV."
 }

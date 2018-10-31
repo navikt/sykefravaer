@@ -9,6 +9,7 @@ import Undersporsmalsliste from './Undersporsmalsliste';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
 import { fieldPropTypes, sporsmal as sporsmalPt, svaralternativer as svaralternativerPt } from '../../propTypes';
 import { BETALER_ARBEIDSGIVER, HVOR_MYE_HAR_DU_JOBBET } from '../../enums/tagtyper';
+import SporsmalHjelpetekst from './SporsmalHjelpetekst';
 
 const tagMatcher = (tags, inputTag) => {
     return tags.filter((tag) => {
@@ -18,7 +19,7 @@ const tagMatcher = (tags, inputTag) => {
 
 const skalViseInfotekst = (tag) => {
     return tagMatcher([
-        BETALER_ARBEIDSGIVER
+        BETALER_ARBEIDSGIVER,
     ], tag);
 };
 
@@ -39,17 +40,22 @@ Infotekst.propTypes = {
     tag: PropTypes.string,
     verdi: PropTypes.string,
     sist: PropTypes.bool,
-}
+};
 
 export const erHorisontal = (tag) => {
     return tagMatcher([
-        HVOR_MYE_HAR_DU_JOBBET
+        HVOR_MYE_HAR_DU_JOBBET,
     ], tag);
 };
 
 const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svaralternativer, id, tag }) => {
     return (<div>
-        <Radioknapper input={input} meta={meta} spoersmal={sporsmalstekst} horisontal={erHorisontal(tag)}>
+        <Radioknapper
+            input={input}
+            meta={meta}
+            spoersmal={sporsmalstekst}
+            hjelpetekst={<SporsmalHjelpetekst tag={tag} />}
+            horisontal={erHorisontal(tag)}>
             {
                 svaralternativer.map((svaralternativ, index) => {
                     return (<i

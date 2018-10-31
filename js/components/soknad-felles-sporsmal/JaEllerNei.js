@@ -9,6 +9,7 @@ import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 import SporsmalBjorn from './SporsmalBjorn';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
+import SporsmalHjelpetekst from './SporsmalHjelpetekst';
 
 const jaEllerNeiAlternativer = [JA, NEI];
 
@@ -35,7 +36,8 @@ JaEllerNeiRadioknapper.propTypes = {
 export const RendreJaEllerNei = (props) => {
     const classNames = props.hovedsporsmal ? 'hovedsporsmal blokk--xs' : null;
     const classNamesTilleggssporsmal = props.hovedsporsmal ? 'hovedsporsmal__tilleggssporsmal' : null;
-    const Sporsmal = <JaEllerNeiRadioknapper {...props} />;
+    const hjelpetekst = <SporsmalHjelpetekst tag={props.tag} />;
+    const Sporsmal = <JaEllerNeiRadioknapper {...props} hjelpetekst={hjelpetekst} />;
     if (props.undersporsmal.length === 0) {
         return Sporsmal;
     }
@@ -54,6 +56,7 @@ RendreJaEllerNei.propTypes = {
     children: childEllerChildren,
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
     hovedsporsmal: PropTypes.bool,
+    tag: PropTypes.string,
 };
 
 const JaEllerNei = (props) => {

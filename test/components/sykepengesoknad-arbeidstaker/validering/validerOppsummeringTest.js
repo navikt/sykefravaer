@@ -7,7 +7,7 @@ import { getSoknad } from '../../../mock/mockSykepengesoknader';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe('SykepengesoknadSelvstendigOppsummeringSkjema', () => {
+describe('SykepengesoknadArbeidstakerOppsummeringSkjema', () => {
     let sendTilFoerDuBegynner;
     let gyldigeVerdier;
     let sykepengesoknad;

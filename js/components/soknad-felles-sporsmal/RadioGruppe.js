@@ -5,7 +5,7 @@ import Radioknapper from '../skjema/Radioknapper';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import Undersporsmalsliste from './Undersporsmalsliste';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
-import { fieldPropTypes, sporsmal as sporsmalPt, svarAlternativer as svaralternativerPt } from '../../propTypes';
+import { fieldPropTypes, sporsmal as sporsmalPt, svaralternativer as svaralternativerPt } from '../../propTypes';
 
 const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svaralternativer, id }) => {
     return (<div>

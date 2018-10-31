@@ -7,7 +7,7 @@ import sykeforloep from '../../../js/reducers/sykeforloep';
 import { sykeforloepHentet } from '../../../js/actions/sykeforloep_actions';
 import getSykmelding from '../../mock/mockSykmeldinger';
 
-describe.only('OsloMetUndersokelse', () => {
+describe('OsloMetUndersokelse', () => {
     let clock;
     let initState;
     let inaktivSykmelding1;
@@ -122,148 +122,148 @@ describe.only('OsloMetUndersokelse', () => {
         expect(component.html()).not.to.equal(null);
     });
 
-    it("Test med data fra testmiljø", () => {
+    it('Test med data fra testmiljø', () => {
         const state = settSykeforloep([
             {
-                "id": "b4560845-1243-48f0-9f60-dcd80d1ee632",
-                "startLegemeldtFravaer": "2018-09-01",
-                "skalViseSkravertFelt": true,
-                "identdato": "2018-09-01",
-                "status": "SENDT",
-                "naermesteLederStatus": null,
-                "innsendtArbeidsgivernavn": null,
-                "valgtArbeidssituasjon": null,
-                "mottakendeArbeidsgiver": {
-                    "navn": "TESTARBEIDSGIVER",
-                    "virksomhetsnummer": "000111222",
-                    "juridiskOrgnummer": "000111222"
+                id: 'b4560845-1243-48f0-9f60-dcd80d1ee632',
+                startLegemeldtFravaer: '2018-09-01',
+                skalViseSkravertFelt: true,
+                identdato: '2018-09-01',
+                status: 'SENDT',
+                naermesteLederStatus: null,
+                innsendtArbeidsgivernavn: null,
+                valgtArbeidssituasjon: null,
+                mottakendeArbeidsgiver: {
+                    navn: 'TESTARBEIDSGIVER',
+                    virksomhetsnummer: '000111222',
+                    juridiskOrgnummer: '000111222',
                 },
-                "orgnummer": "982708672",
-                "sendtdato": "2018-10-30T15:38:31",
-                "sporsmal": {
-                    "arbeidssituasjon": "ARBEIDSTAKER",
-                    "dekningsgrad": null,
-                    "harForsikring": null,
-                    "fravaersperioder": [],
-                    "harAnnetFravaer": null
+                orgnummer: '982708672',
+                sendtdato: '2018-10-30T15:38:31',
+                sporsmal: {
+                    arbeidssituasjon: 'ARBEIDSTAKER',
+                    dekningsgrad: null,
+                    harForsikring: null,
+                    fravaersperioder: [],
+                    harAnnetFravaer: null,
                 },
-                "pasient": {
-                    "fnr": "000111222",
-                    "fornavn": "TEST",
-                    "mellomnavn": "TEST",
-                    "etternavn": "TEST"
+                pasient: {
+                    fnr: '000111222',
+                    fornavn: 'TEST',
+                    mellomnavn: 'TEST',
+                    etternavn: 'TEST',
                 },
-                "arbeidsgiver": "TEST",
-                "stillingsprosent": 100,
-                "diagnose": {
-                    "hoveddiagnose": {
-                        "diagnose": "TEST TEST",
-                        "diagnosekode": "123",
-                        "diagnosesystem": "TEST"
+                arbeidsgiver: 'TEST',
+                stillingsprosent: 100,
+                diagnose: {
+                    hoveddiagnose: {
+                        diagnose: 'TEST TEST',
+                        diagnosekode: '123',
+                        diagnosesystem: 'TEST',
                     },
-                    "bidiagnoser": [
+                    bidiagnoser: [
                         {
-                            "diagnose": "TEST TEST",
-                            "diagnosekode": "TEST",
-                            "diagnosesystem": "TEST"
-                        }
+                            diagnose: 'TEST TEST',
+                            diagnosekode: 'TEST',
+                            diagnosesystem: 'TEST',
+                        },
                     ],
-                    "fravaersgrunnLovfestet": null,
-                    "fravaerBeskrivelse": "Medising årsak i kategorien annet",
-                    "svangerskap": true,
-                    "yrkesskade": true,
-                    "yrkesskadeDato": "2018-10-01"
+                    fravaersgrunnLovfestet: null,
+                    fravaerBeskrivelse: 'Medising årsak i kategorien annet',
+                    svangerskap: true,
+                    yrkesskade: true,
+                    yrkesskadeDato: '2018-10-01',
                 },
-                "mulighetForArbeid": {
-                    "perioder": [
+                mulighetForArbeid: {
+                    perioder: [
                         {
-                            "fom": "2018-10-01",
-                            "tom": "2018-10-29",
-                            "grad": 100,
-                            "behandlingsdager": null,
-                            "reisetilskudd": null,
-                            "avventende": null
+                            fom: '2018-10-01',
+                            tom: '2018-10-29',
+                            grad: 100,
+                            behandlingsdager: null,
+                            reisetilskudd: null,
+                            avventende: null,
                         },
                         {
-                            "fom": "2018-10-30",
-                            "tom": "2018-11-05",
-                            "grad": 60,
-                            "behandlingsdager": null,
-                            "reisetilskudd": false,
-                            "avventende": null
-                        }
+                            fom: '2018-10-30',
+                            tom: '2018-11-05',
+                            grad: 60,
+                            behandlingsdager: null,
+                            reisetilskudd: false,
+                            avventende: null,
+                        },
                     ],
-                    "aktivitetIkkeMulig433": [
-                        "Annet"
+                    aktivitetIkkeMulig433: [
+                        'Annet',
                     ],
-                    "aktivitetIkkeMulig434": [
-                        "Annet"
+                    aktivitetIkkeMulig434: [
+                        'Annet',
                     ],
-                    "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
-                    "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+                    aarsakAktivitetIkkeMulig433: 'andre årsaker til sykefravær',
+                    aarsakAktivitetIkkeMulig434: 'andre årsaker til sykefravær',
                 },
-                "friskmelding": {
-                    "arbeidsfoerEtterPerioden": true,
-                    "hensynPaaArbeidsplassen": "Må ta det pent",
-                    "antarReturSammeArbeidsgiver": true,
-                    "antattDatoReturSammeArbeidsgiver": "2018-10-01",
-                    "antarReturAnnenArbeidsgiver": true,
-                    "tilbakemeldingReturArbeid": "2018-10-01",
-                    "utenArbeidsgiverAntarTilbakeIArbeid": false,
-                    "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
-                    "utenArbeidsgiverTilbakemelding": null
+                friskmelding: {
+                    arbeidsfoerEtterPerioden: true,
+                    hensynPaaArbeidsplassen: 'Må ta det pent',
+                    antarReturSammeArbeidsgiver: true,
+                    antattDatoReturSammeArbeidsgiver: '2018-10-01',
+                    antarReturAnnenArbeidsgiver: true,
+                    tilbakemeldingReturArbeid: '2018-10-01',
+                    utenArbeidsgiverAntarTilbakeIArbeid: false,
+                    utenArbeidsgiverAntarTilbakeIArbeidDato: null,
+                    utenArbeidsgiverTilbakemelding: null,
                 },
-                "utdypendeOpplysninger": {
-                    "sykehistorie": "TEST",
-                    "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
-                    "resultatAvBehandling": "Nei",
-                    "henvisningUtredningBehandling": "Henvist til fysio",
-                    "grupper": [
+                utdypendeOpplysninger: {
+                    sykehistorie: 'TEST',
+                    paavirkningArbeidsevne: 'Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket',
+                    resultatAvBehandling: 'Nei',
+                    henvisningUtredningBehandling: 'Henvist til fysio',
+                    grupper: [
                         {
-                            "id": "6.2",
-                            "sporsmal": [
+                            id: '6.2',
+                            sporsmal: [
                                 {
-                                    "id": "6.2.1",
-                                    "svar": "TEST"
+                                    id: '6.2.1',
+                                    svar: 'TEST',
                                 },
                                 {
-                                    "id": "6.2.2",
-                                    "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
+                                    id: '6.2.2',
+                                    svar: 'Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket',
                                 },
                                 {
-                                    "id": "6.2.3",
-                                    "svar": "Nei"
+                                    id: '6.2.3',
+                                    svar: 'Nei',
                                 },
                                 {
-                                    "id": "6.2.4",
-                                    "svar": "Henvist til fysio"
-                                }
-                            ]
-                        }
-                    ]
+                                    id: '6.2.4',
+                                    svar: 'Henvist til fysio',
+                                },
+                            ],
+                        },
+                    ],
                 },
-                "arbeidsevne": {
-                    "tilretteleggingArbeidsplass": "Fortsett som sist.",
-                    "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
-                    "tiltakAndre": null
+                arbeidsevne: {
+                    tilretteleggingArbeidsplass: 'Fortsett som sist.',
+                    tiltakNAV: 'Blablabla',
+                    tiltakAndre: null,
                 },
-                "meldingTilNav": {
-                    "navBoerTaTakISaken": false,
-                    "navBoerTaTakISakenBegrunnelse": null
+                meldingTilNav: {
+                    navBoerTaTakISaken: false,
+                    navBoerTaTakISakenBegrunnelse: null,
                 },
-                "innspillTilArbeidsgiver": null,
-                "tilbakedatering": {
-                    "dokumenterbarPasientkontakt": null,
-                    "tilbakedatertBegrunnelse": null
+                innspillTilArbeidsgiver: null,
+                tilbakedatering: {
+                    dokumenterbarPasientkontakt: null,
+                    tilbakedatertBegrunnelse: null,
                 },
-                "bekreftelse": {
-                    "utstedelsesdato": "2018-09-01",
-                    "sykmelder": "TEST TEST TEST",
-                    "sykmelderTlf": "TEST"
-                }
-            }
+                bekreftelse: {
+                    utstedelsesdato: '2018-09-01',
+                    sykmelder: 'TEST TEST TEST',
+                    sykmelderTlf: 'TEST',
+                },
+            },
         ], new Date('2018-09-15'));
         const component = mountWithStore(<OsloMetUndersokelse />, state);
         expect(component.html()).not.to.equal(null);
-    })
+    });
 });

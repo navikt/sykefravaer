@@ -643,12 +643,28 @@
                 "min": "1",
                 "max": "99",
                 "pavirkerAndreSporsmal": false,
+                "visningskriterie": "PROSENT",
                 "kriterieForVisningAvUndersporsmal": null,
                 "svar": [
                   {
                     "verdi": "79"
                   }
                 ],
+                "undersporsmal": []
+              },
+              {
+                "id": "64",
+                "tag": "HVOR_MYE_TIMER_VERDI_0",
+                "sporsmalstekst": null,
+                "undertekst": "timer totalt",
+                "svartype": "TALL",
+                "svaralternativer": null,
+                "min": "1",
+                "max": "107",
+                "pavirkerAndreSporsmal": false,
+                "visningskriterie": "TIMER",
+                "kriterieForVisningAvUndersporsmal": null,
+                "svar": [],
                 "undersporsmal": []
               }
             ]
@@ -700,8 +716,8 @@
             ],
             "min": null,
             "max": null,
-            "pavirkerAndreSporsmal": true,
-            "kriterieForVisningAvUndersporsmal": "PROSENT",
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
             "svar": [
               {
                 "verdi": "PROSENT"
@@ -709,15 +725,35 @@
             ],
             "undersporsmal": [
               {
-                "id": "67",
-                "tag": "HVOR_MYE_PROSENT_VERDI_1",
+                "id": "67A",
+                "tag": "HVOR_MYE_PROSENT_VERDI_0",
                 "sporsmalstekst": null,
                 "undertekst": "prosent",
                 "svartype": "TALL",
                 "svaralternativer": null,
-                "min": "61",
+                "min": "1",
                 "max": "99",
                 "pavirkerAndreSporsmal": false,
+                "visningskriterie": "PROSENT",
+                "kriterieForVisningAvUndersporsmal": null,
+                "svar": [
+                  {
+                    "verdi": "79"
+                  }
+                ],
+                "undersporsmal": []
+              },
+              {
+                "id": "67B",
+                "tag": "HVOR_MYE_TIMER_VERDI_0",
+                "sporsmalstekst": null,
+                "undertekst": "timer totalt",
+                "svartype": "TALL",
+                "svaralternativer": null,
+                "min": "1",
+                "max": "107",
+                "pavirkerAndreSporsmal": false,
+                "visningskriterie": "TIMER",
                 "kriterieForVisningAvUndersporsmal": null,
                 "svar": [],
                 "undersporsmal": []

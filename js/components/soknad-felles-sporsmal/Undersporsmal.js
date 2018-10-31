@@ -18,11 +18,11 @@ import {
 import Sporsmal from './Sporsmal';
 import UkjentSporsmal from './UkjentSporsmal';
 
-const Wrap = ({ children }) => {
+const SoknadUndersporsmal = ({ children }) => {
     return <div className="soknad__undersporsmal">{children}</div>;
 };
 
-Wrap.propTypes = {
+SoknadUndersporsmal.propTypes = {
     children: PropTypes.element,
 };
 
@@ -41,9 +41,9 @@ const Undersporsmal = ({ sporsmal, soknad }) => {
         case TALL:
         case RADIO_GRUPPE:
         case FRITEKST: {
-            return (<Wrap>
+            return (<SoknadUndersporsmal>
                 <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
-            </Wrap>);
+            </SoknadUndersporsmal>);
         }
         case IKKE_RELEVANT: {
             return (<div className="ekstrasporsmal">

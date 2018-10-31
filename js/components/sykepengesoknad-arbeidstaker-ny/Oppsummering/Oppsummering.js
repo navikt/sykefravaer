@@ -52,7 +52,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
         <div className="panel blokk">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
-        <div className="blokk">
+        <div className="panel blokk">
             <Sporsmal sporsmal={betalerArbeidsgiverSpm} name={betalerArbeidsgiverSpm.tag} />
         </div>
         <div className="bekreftet-container blokk">

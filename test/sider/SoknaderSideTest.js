@@ -35,6 +35,11 @@ describe('SoknaderSide', () => {
                 unleashToggles: {
                     data: {},
                 },
+                dineSykmeldinger: {
+                    data: [],
+                    hentet: true,
+                    hentingFeilet: false,
+                },
             });
             expect(res.sykepengesoknader).to.deep.equal([
                 { id: 1 },
@@ -46,6 +51,7 @@ describe('SoknaderSide', () => {
         let actions;
         let hentSykepengesoknader;
         let hentSoknader;
+        let hentDineSykmeldinger;
         let state;
 
         beforeEach(() => {
@@ -55,6 +61,11 @@ describe('SoknaderSide', () => {
                     henter: false,
                     hentingFeilet: false,
                     hentet: false,
+                },
+                dineSykmeldinger: {
+                    data: [],
+                    hentet: true,
+                    hentingFeilet: false,
                 },
                 ledetekster: {
 
@@ -71,7 +82,8 @@ describe('SoknaderSide', () => {
             };
             hentSykepengesoknader = sinon.spy();
             hentSoknader = sinon.spy();
-            actions = { hentSykepengesoknader, hentSoknader };
+            hentDineSykmeldinger = sinon.spy();
+            actions = { hentSykepengesoknader, hentSoknader, hentDineSykmeldinger };
         });
 
         it('Skal vise Alertstripe om henting av sykepengesøknader feiler', () => {

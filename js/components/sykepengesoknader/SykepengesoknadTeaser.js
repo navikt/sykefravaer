@@ -5,7 +5,8 @@ import { getLedetekst, toDatePrettyPrint, sykepengesoknadstatuser, tilLesbarDato
 import getContextRoot from '../../utils/getContextRoot';
 import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
-import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { FREMTIDIG } from '../../enums/soknadstatuser';
 
 const { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } = sykepengesoknadstatuser;
 
@@ -44,32 +45,85 @@ const visIkonHover = (soknadstype) => {
 
 const beregnUndertekst = (soknad) => {
     const sendtTilBeggeMenIkkeSamtidig = erSendtTilBeggeMenIkkeSamtidig(soknad);
+
     if (soknad.status === AVBRUTT) {
         return getLedetekst('soknad.teaser.status.AVBRUTT', {
             '%DATO%': tilLesbarDatoMedArstall(soknad.avbruttDato),
         });
     }
-    if (soknad.status !== SENDT && soknad.status !== TIL_SENDING && !soknad.soknadstype) {
-        return getLedetekst('soknad.teaser.undertekst', { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn });
+
+    if (soknad.status === FREMTIDIG) {
+        return getLedetekst(`soknad.teaser.status.${FREMTIDIG}`);
     }
-    if (sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY) {
-        return <SendtUlikt soknad={soknad} />;
-    }
-    if (soknad.status === NY && soknad.soknadstype === OPPHOLD_UTLAND) {
-        return null;
-    }
-    if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
-        if ((soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) && soknad.status === SENDT) {
-            return getLedetekst('soknad.teaser.status.SENDT.til-nav', {
-                '%DATO%': tilLesbarDatoMedArstall(soknad.innsendtDato),
-            });
+
+    switch (soknad.soknadstype) {
+        case OPPHOLD_UTLAND: {
+            switch (soknad.status) {
+                case SENDT: {
+                    return getLedetekst('soknad.teaser.status.SENDT.til-nav', {
+                        '%DATO%': tilLesbarDatoMedArstall(soknad.innsendtDato),
+                    });
+                }
+                default: {
+                    return null;
+                }
+            }
         }
-        return getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
-            '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
-            '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,
-        });
+        case SELVSTENDIGE_OG_FRILANSERE: {
+            switch (soknad.status) {
+                case SENDT: {
+                    return getLedetekst('soknad.teaser.status.SENDT.til-nav', {
+                        '%DATO%': tilLesbarDatoMedArstall(soknad.innsendtDato),
+                    });
+                }
+                default: {
+                    return null;
+                }
+            }
+        }
+        case ARBEIDSTAKERE: {
+            switch (soknad.status) {
+                case UTKAST_TIL_KORRIGERING:
+                case NY: {
+                    const arbeidsgiver = soknad.arbeidsgiver
+                        ? soknad.arbeidsgiver.navn
+                        : soknad.sykmelding
+                            ? soknad.sykmelding.innsendtArbeidsgivernavn
+                            : null;
+                    return arbeidsgiver
+                        ? getLedetekst('soknad.teaser.undertekst', {
+                            '%ARBEIDSGIVER%': arbeidsgiver,
+                        })
+                        : null;
+                }
+                default: {
+                    return null;
+                }
+            }
+        }
+        default: {
+            switch (soknad.status) {
+                case SENDT:
+                case TIL_SENDING: {
+                    return sendtTilBeggeMenIkkeSamtidig
+                        ? <SendtUlikt soknad={soknad} />
+                        : getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
+                            '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
+                            '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,
+                        });
+                }
+                case NY:
+                case UTKAST_TIL_KORRIGERING: {
+                    return getLedetekst('soknad.teaser.undertekst', {
+                        '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
+                    });
+                }
+                default: {
+                    return null;
+                }
+            }
+        }
     }
-    return null;
 };
 
 export const TeaserUndertekst = ({ soknad }) => {

@@ -3,6 +3,9 @@ import { get, log } from 'digisyfo-npm';
 import * as actions from '../actions/sykeforloep_actions';
 import {
     HENT_SYKEFORLOEP_FORESPURT,
+    SYKMELDING_BEKREFTET,
+    SYKMELDING_SENDT,
+    SYKMELDING_GJENAAPNET,
 } from '../actions/actiontyper';
 
 export function* hentSykeforloep() {
@@ -17,7 +20,12 @@ export function* hentSykeforloep() {
 }
 
 function* watchHentSykeforloep() {
-    yield takeEvery(HENT_SYKEFORLOEP_FORESPURT, hentSykeforloep);
+    yield takeEvery([
+        HENT_SYKEFORLOEP_FORESPURT,
+        SYKMELDING_SENDT,
+        SYKMELDING_BEKREFTET,
+        SYKMELDING_GJENAAPNET,
+    ], hentSykeforloep);
 }
 
 export default function* sykeforloepSagas() {

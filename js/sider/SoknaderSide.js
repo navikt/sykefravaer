@@ -12,6 +12,8 @@ import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../actions/soknader_actions';
 import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
 import { skalHenteSoknader } from '../selectors/soknaderSelectors';
+import { skalHenteDineSykmeldinger } from '../selectors/dineSykmeldingerSelectors';
+import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { ARBEIDSTAKERE } from '../enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../selectors/unleashTogglesSelectors';
 
@@ -19,6 +21,7 @@ export class Container extends Component {
     componentWillMount() {
         this.props.actions.hentSykepengesoknader();
         this.props.actions.hentSoknader();
+        this.props.actions.hentDineSykmeldinger();
     }
 
     render() {
@@ -56,6 +59,7 @@ Container.propTypes = {
     soknader: PropTypes.arrayOf(soknadPt),
 
     actions: PropTypes.shape({
+        hentDineSykmeldinger: PropTypes.func,
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
     }),
@@ -64,14 +68,25 @@ Container.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ hentSykepengesoknader, hentSoknader }, dispatch),
+        actions: bindActionCreators({ hentSykepengesoknader, hentSoknader, hentDineSykmeldinger }, dispatch),
     };
 }
 
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
+    const dineSykmeldinger = state.dineSykmeldinger.data;
     const soknader = toggleNyArbeidstakerSoknad(state)
-        ? state.soknader.data
+        ? state.soknader.data.map((soknad) => {
+            const sykmelding = dineSykmeldinger.find((sykmld) => {
+                return sykmld.id === soknad.sykmeldingId;
+            });
+            return soknad.soknadstype === ARBEIDSTAKERE
+                ? {
+                    ...soknad,
+                    sykmelding,
+                }
+                : soknad;
+        })
         : state.soknader.data.filter((s) => {
             return s.soknadstype !== ARBEIDSTAKERE;
         });
@@ -83,7 +98,8 @@ export function mapStateToProps(state) {
             || state.sykepengesoknader.henter
             || state.soknader.henter
             || skalHenteSoknader(state)
-            || skalHenteSykepengesoknader(state),
+            || skalHenteSykepengesoknader(state)
+            || skalHenteDineSykmeldinger(state),
         hentingFeilet: state.ledetekster.hentingFeilet
             || (state.sykepengesoknader.hentingFeilet && state.soknader.hentingFeilet),
         visFeil: [state.soknader.hentingFeilet, state.sykepengesoknader.hentingFeilet].some((s) => {

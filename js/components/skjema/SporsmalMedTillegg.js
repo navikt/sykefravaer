@@ -172,10 +172,7 @@ class SporsmalMedTillegg extends Component {
 }
 
 SporsmalMedTillegg.propTypes = {
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.element),
-        PropTypes.element,
-    ]),
+    children: PropTypes.node,
     Sporsmal: PropTypes.element,
     visTillegg: PropTypes.func,
     className: PropTypes.string,

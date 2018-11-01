@@ -7,6 +7,7 @@ import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
+import SporsmalBjornKondisjonell from './SporsmalBjornKondisjonell';
 import SporsmalBjorn from './SporsmalBjorn';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
 import SporsmalHjelpetekst from './SporsmalHjelpetekst';
@@ -49,6 +50,7 @@ export const RendreJaEllerNei = (props) => {
             return _props.input.value === _props.kriterieForVisningAvUndersporsmal;
         }}>
         <div className={classNamesTilleggssporsmal}>{props.children}</div>
+        <SporsmalBjorn tag={props.tag} className="press" />
     </SporsmalMedTillegg>);
 };
 
@@ -68,7 +70,8 @@ const JaEllerNei = (props) => {
             parse={genererParseForEnkeltverdi(props.id)}
             component={RendreJaEllerNei}
             {...props} />,
-        <SporsmalBjorn
+        <SporsmalBjornKondisjonell
+            soknad={props.soknad}
             key={`${props.id}-sporsmalbjorn`}
             tag={props.tag} />]);
 };

@@ -37,32 +37,32 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
 
     switch (sporsmal.svartype) {
         case DATO: {
-            return (<Dato {...sporsmal} name={name}>
+            return (<Dato {...sporsmal} name={name} soknad={soknad}>
                 { undersporsmalsliste }
             </Dato>);
         }
         case TIMER: {
-            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.timer-totalt')}>
+            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.timer-totalt')} soknad={soknad}>
                 { undersporsmalsliste }
             </Tall>);
         }
         case PROSENT: {
-            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.prosent')}>
+            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.prosent')} soknad={soknad}>
                 { undersporsmalsliste }
             </Tall>);
         }
         case TALL: {
-            return (<Tall {...sporsmal} name={name} label={sporsmal.undertekst}>
+            return (<Tall {...sporsmal} name={name} label={sporsmal.undertekst} soknad={soknad}>
                 { undersporsmalsliste }
             </Tall>);
         }
         case CHECKBOX: {
-            return (<Checkbox {...sporsmal} name={name}>
+            return (<Checkbox {...sporsmal} name={name} soknad={soknad}>
                 { undersporsmalsliste }
             </Checkbox>);
         }
         case PERIODER: {
-            return (<Perioder {...sporsmal} {...ekstraProps} name={name}>
+            return (<Perioder {...sporsmal} {...ekstraProps} name={name} soknad={soknad}>
                 { undersporsmalsliste }
             </Perioder>);
         }
@@ -77,22 +77,22 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
             </JaEllerNei>);
         }
         case CHECKBOX_GRUPPE: {
-            return (<CheckboxGruppe {...sporsmal} name={name}>
+            return (<CheckboxGruppe {...sporsmal} name={name} soknad={soknad}>
                 { undersporsmalsliste }
             </CheckboxGruppe>);
         }
         case FRITEKST: {
-            return (<Tekstinput {...sporsmal} name={name}>
+            return (<Tekstinput {...sporsmal} name={name} soknad={soknad}>
                 { undersporsmalsliste }
             </Tekstinput>);
         }
         case IKKE_RELEVANT: {
-            return (<IkkeRelevant {...sporsmal} name={name} >
+            return (<IkkeRelevant {...sporsmal} name={name} soknad={soknad}>
                 { undersporsmalsliste }
             </IkkeRelevant>);
         }
         case CHECKBOX_PANEL: {
-            return (<Checkboxpanel {...sporsmal} name={name}>
+            return (<Checkboxpanel {...sporsmal} name={name} soknad={soknad}>
                 { undersporsmalsliste }
             </Checkboxpanel>);
         }

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { tidligsteFom, senesteTom, sykmeldingstatuser } from 'digisyfo-npm';
+import { tidligsteFom, senesteTom, sykmeldingstatuser, log } from 'digisyfo-npm';
 
 const pushToDataLayer = (action) => {
     /* eslint-disable */
-    window.dataLayer.push({
+    const args = {
         'event': 'DIGISYFO_OSLOMET_2',
         'action': action
-    });
+    };
+    log('Push til datalayer', args);
+    window.dataLayer.push(args);
     /* eslint-enable */
 };
 

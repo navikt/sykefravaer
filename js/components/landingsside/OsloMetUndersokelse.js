@@ -6,7 +6,7 @@ import { tidligsteFom, senesteTom, sykmeldingstatuser } from 'digisyfo-npm';
 const pushToDataLayer = (action) => {
     /* eslint-disable */
     window.dataLayer.push({
-        'event': 'DIGISYFO_OSLOMET',
+        'event': 'DIGISYFO_OSLOMET_2',
         'action': action
     });
     /* eslint-enable */
@@ -31,7 +31,9 @@ const Panel = () => {
 
 class Container extends Component {
     componentDidMount() {
-        pushToDataLayer('OSLOMET_VIST');
+        if (this.props.vis) {
+            pushToDataLayer('OSLOMET_VIST');
+        }
     }
 
     render() {

@@ -6,6 +6,8 @@ import { setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadTeaser, { SendtUlikt, TeaserPeriode, TeaserStatus, TeaserTittel, TeaserUndertekst } from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
 import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import { getSoknadUtland } from '../../mock/mockSoknadUtland';
+import { getNySoknadArbeidstaker } from '../../mock/mockSoknadArbeidstaker';
+import getSykmelding from '../../mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -41,6 +43,7 @@ describe('SykepengesoknadTeaser', () => {
             'soknad.teaser.status.TIL_SENDING.til-arbeidsgiver-og-nav': 'Sender til %ARBEIDSGIVER% og NAV...',
             'soknad.teaser.status.AVBRUTT': 'Avbrutt av deg %DATO%',
             'soknad.utland.teaser.tittel': 'Søknad om å beholde sykepenger utenfor Norge',
+            'soknad.teaser.status.FREMTIDIG': 'Planlagt',
         });
         frilansersoknad = getNySoknadSelvstendig();
         utlandsoknad = getSoknadUtland();
@@ -136,7 +139,6 @@ describe('SykepengesoknadTeaser', () => {
             expect(component.find('.js-undertekst').text()).to.equal('Arbeidsgiver AS');
         });
 
-
         it('Viser datoen søknaden er sendt hvis den bare er sendt til NAV', () => {
             const _soknad = Object.assign({}, sykepengesoknad, {
                 status: 'SENDT',
@@ -215,7 +217,7 @@ describe('SykepengesoknadTeaser', () => {
             expect(component.text()).to.contain('Sendt til NAV 18. mai 2018');
         });
 
-        it('viser ikke status om soknad er sendt', () => {
+        it('viser ikke status om soknad er NY', () => {
             const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
             const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
             expect(component.find('.js-status')).to.be.length(0);
@@ -240,6 +242,84 @@ describe('SykepengesoknadTeaser', () => {
             const sendtUlikt = shallow(<SendtUlikt soknad={_soknad} />);
             expect(sendtUlikt.text()).to.contain('Sendt til Arbeidsgiver AS 11.05.2017');
             expect(sendtUlikt.text()).to.contain('Sendt til NAV 18.05.2017');
+        });
+
+        it('viser arbeidsgivernavn om soknad er UTKAST_TIL_KORRIGERING', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, { status: 'UTKAST_TIL_KORRIGERING' });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.equal('Arbeidsgiver AS');
+        });
+
+        it('Skal returnere planlagt for fremtidige at-søknader', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'FREMTIDIG',
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.equal('Planlagt');
+        });
+
+        describe('TeaserUndertekst for utenlandssøknader', () => {
+            it('Skal returnere null for nye utenlandssøknader', () => {
+                const component = shallow(<TeaserUndertekst soknad={getSoknadUtland()} />);
+                expect(component.html()).to.equal(null);
+            });
+
+            it('Skal returnere sendt-dato for sendte utenlandssøknader', () => {
+                const component = shallow(<TeaserUndertekst soknad={getSoknadUtland({
+                    status: 'SENDT',
+                    innsendtDato: new Date('2017-05-18'),
+                })} />);
+                expect(component.text()).to.equal('Sendt til NAV 18. mai 2017');
+            });
+        });
+
+        describe('TeaserUndertekst for frilansersøknader', () => {
+            it('Skal returnere ingenting for nye selvstendig næringsdrivende/frilanser-søknader', () => {
+                const component = shallow(<TeaserUndertekst soknad={getNySoknadSelvstendig()} />);
+                expect(component.html()).to.equal(null);
+            });
+
+            it('Skal returnere sendt-dato for sendte selvstendig næringsdrivende/frilanser-søknader', () => {
+                const component = shallow(<TeaserUndertekst soknad={getNySoknadSelvstendig({
+                    status: 'SENDT',
+                    innsendtDato: new Date('2017-05-18'),
+                })} />);
+                expect(component.text()).to.equal('Sendt til NAV 18. mai 2017');
+            });
+
+            it('Skal returnere sendt-dato for sendte selvstendig næringsdrivende/frilanser-søknader', () => {
+                const component = shallow(<TeaserUndertekst soknad={getNySoknadSelvstendig({
+                    status: 'AVBRUTT',
+                    avbruttDato: new Date('2017-05-18'),
+                })} />);
+                expect(component.text()).to.equal('Avbrutt av deg 18. mai 2017');
+            });
+
+            it('Skal returnere planlagt for fremtidige frilansersøknader', () => {
+                const component = shallow(<TeaserUndertekst soknad={getNySoknadSelvstendig({
+                    status: 'FREMTIDIG',
+                })} />);
+                expect(component.text()).to.equal('Planlagt');
+            });
+
+            it('Skal returnere ingenting for nye selvstendig næringsdrivende/frilanser-søknader', () => {
+                const component = shallow(<TeaserUndertekst soknad={getNySoknadSelvstendig({
+                    status: 'UTKAST_TIL_KORRIGERING',
+                })} />);
+                expect(component.html()).to.equal(null);
+            });
+        });
+
+        describe('TeaserUndertekst for nye arbeidstakere-søknader', () => {
+            it('Skal returnere navn på arbeidstaker når status er NY', () => {
+                const component = shallow(<TeaserUndertekst soknad={getNySoknadArbeidstaker({
+                    sykmelding: getSykmelding({
+                        status: 'SENDT',
+                        innsendtArbeidsgivernavn: 'Min arbeidsgiver',
+                    }),
+                })} />);
+                expect(component.text()).to.equal('Min arbeidsgiver');
+            });
         });
     });
 });

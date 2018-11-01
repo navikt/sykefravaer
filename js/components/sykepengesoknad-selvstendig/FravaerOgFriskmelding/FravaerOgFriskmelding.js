@@ -25,7 +25,7 @@ const FravaerOgFriskmeldingSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="fravaer-og-friskmeldnig-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
-        <Sporsmalsliste sporsmalsliste={sporsmalsliste} />
+        <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
         <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/`} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

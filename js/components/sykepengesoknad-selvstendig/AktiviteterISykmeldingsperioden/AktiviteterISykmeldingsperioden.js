@@ -23,7 +23,7 @@ const AktiviteterISykmeldingsperiodenSkjema = (props) => {
         history.push(`/sykefravaer/soknader/${soknad.id}/oppsummering`);
     };
     return (<form className="soknadskjema" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <Sporsmalsliste sporsmalsliste={hentSporsmalForAktiviteterISykmeldingsperioden(soknad)} />
+        <Sporsmalsliste sporsmalsliste={hentSporsmalForAktiviteterISykmeldingsperioden(soknad)} soknad={soknad} />
         <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

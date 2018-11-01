@@ -15,8 +15,8 @@ const Sporsmalsliste = ({ sporsmalsliste, soknad }) => {
 };
 
 Sporsmalsliste.propTypes = {
-    sporsmalsliste: PropTypes.arrayOf(sporsmalPt),
-    soknad: soknadPt,
+    sporsmalsliste: PropTypes.arrayOf(sporsmalPt).isRequired,
+    soknad: soknadPt.isRequired,
 };
 
 export default Sporsmalsliste;

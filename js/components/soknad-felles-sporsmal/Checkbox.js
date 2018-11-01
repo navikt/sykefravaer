@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Checkboks from '../skjema/Checkbox';
-import { fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
+import { fieldPropTypes, sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
 import Undersporsmal from './Undersporsmal';
 import { formaterEnkeltverdi, genererParseForCheckbox } from './fieldUtils';
 
@@ -14,7 +14,7 @@ rendreCheckbox.propTypes = {
     meta: fieldPropTypes.meta,
 };
 
-const Checkbox = ({ sporsmalstekst, undersporsmal, name, id, renderComponent = rendreCheckbox }) => {
+const Checkbox = ({ sporsmalstekst, undersporsmal, name, id, renderComponent = rendreCheckbox, soknad }) => {
     const parse = genererParseForCheckbox(id);
     return (<Field
         parse={parse}
@@ -25,7 +25,7 @@ const Checkbox = ({ sporsmalstekst, undersporsmal, name, id, renderComponent = r
         id={name}>
         {
             undersporsmal.map((spm, index) => {
-                return <Undersporsmal sporsmal={spm} key={`${spm.tag}-${index}`} />;
+                return <Undersporsmal sporsmal={spm} key={`${spm.tag}-${index}`} soknad={soknad} />;
             })
         }
     </Field>);
@@ -37,6 +37,7 @@ Checkbox.propTypes = {
     name: PropTypes.string,
     id: PropTypes.string,
     renderComponent: PropTypes.func,
+    soknad: soknadPt.isRequired,
 };
 
 export default Checkbox;

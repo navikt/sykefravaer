@@ -57,8 +57,8 @@ const Undersporsmal = ({ sporsmal, soknad }) => {
 };
 
 Undersporsmal.propTypes = {
-    sporsmal: sporsmalPt,
-    soknad: soknadPt,
+    sporsmal: sporsmalPt.isRequired,
+    soknad: soknadPt.isRequired,
 };
 
 export default Undersporsmal;

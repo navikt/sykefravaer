@@ -121,7 +121,7 @@ SporsmalComponent.propTypes = {
     hovedsporsmal: PropTypes.bool,
     ekstraProps: PropTypes.shape(),
     actions: PropTypes.shape(),
-    soknad: soknadPt,
+    soknad: soknadPt.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(SporsmalComponent);

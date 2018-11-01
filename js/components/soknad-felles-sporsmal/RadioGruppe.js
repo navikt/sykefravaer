@@ -7,7 +7,12 @@ import Radioknapper from '../skjema/Radioknapper';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import Undersporsmalsliste from './Undersporsmalsliste';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
-import { fieldPropTypes, sporsmal as sporsmalPt, svaralternativer as svaralternativerPt } from '../../propTypes';
+import {
+    fieldPropTypes,
+    sporsmal as sporsmalPt,
+    svaralternativer as svaralternativerPt,
+    soknad as soknadPt,
+} from '../../propTypes';
 import { BETALER_ARBEIDSGIVER, HVOR_MYE_HAR_DU_JOBBET } from '../../enums/tagtyper';
 import SporsmalHjelpetekst from './SporsmalHjelpetekst';
 
@@ -48,7 +53,7 @@ export const erHorisontal = (tag) => {
     ], tag);
 };
 
-const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svaralternativer, id, tag }) => {
+const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svaralternativer, id, tag, soknad }) => {
     return (<div>
         <Radioknapper
             input={input}
@@ -70,7 +75,7 @@ const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svar
                 })
             }
         </Radioknapper>
-        <Undersporsmalsliste undersporsmal={undersporsmal} parentValue={input.value} />
+        <Undersporsmalsliste soknad={soknad} undersporsmal={undersporsmal} parentValue={input.value} />
     </div>);
 };
 
@@ -82,6 +87,7 @@ RadiogruppeComponent.propTypes = {
     svaralternativer: svaralternativerPt,
     id: PropTypes.string,
     tag: PropTypes.string,
+    soknad: soknadPt.isRequired,
 };
 
 const RadioGruppe = (props) => {

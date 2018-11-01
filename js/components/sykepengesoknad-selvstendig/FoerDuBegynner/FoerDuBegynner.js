@@ -39,7 +39,7 @@ export class FoerDuBegynnerSkjema extends Component {
         return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
             <div className="panel redaksjonelt-innhold">
                 <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
-                <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} />
+                <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} soknad={soknad} />
             </div>
             <div className="knapperad blokk">
                 <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>

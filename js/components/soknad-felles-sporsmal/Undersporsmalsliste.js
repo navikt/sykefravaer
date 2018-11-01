@@ -29,7 +29,7 @@ const Undersporsmalsliste = ({ undersporsmal, soknad, parentValue }) => {
 
 Undersporsmalsliste.propTypes = {
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
-    soknad: soknadPt,
+    soknad: soknadPt.isRequired,
     parentValue: PropTypes.string,
 };
 

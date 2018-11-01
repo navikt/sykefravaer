@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
+import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 import SporsmalBjornKondisjonell from './SporsmalBjornKondisjonell';
@@ -78,6 +78,8 @@ const JaEllerNei = (props) => {
 
 JaEllerNei.propTypes = {
     id: PropTypes.string,
+    tag: PropTypes.string,
+    soknad: soknadPt.isRequired,
 };
 
 export default JaEllerNei;

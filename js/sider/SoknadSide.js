@@ -84,7 +84,11 @@ Container.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions }, dispatch),
+        actions: bindActionCreators({
+            ...sykepengesoknaderActions,
+            ...soknaderActions,
+            ...dineSykmeldingerActions,
+        }, dispatch),
     };
 }
 

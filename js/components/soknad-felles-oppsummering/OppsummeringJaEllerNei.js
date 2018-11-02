@@ -3,7 +3,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import OppsummeringSporsmalscontainer from './OppsummeringSporsmalscontainer';
 import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
 import OppsummeringAvkrysset from './OppsummeringAvkrysset';
-import OppsummeringUndersporsmal from './OppsummeringUndersporsmal';
+import OppsummeringUndersporsmalsliste from './OppsummeringUndersporsmalsliste';
 import { oppsummeringSporsmal } from '../../propTypes';
 
 const getLedetekstFraSvar = (svar) => {
@@ -23,7 +23,7 @@ const OppsummeringJaEllerNei = ({ svar, sporsmalstekst, tag, overskriftsnivaa = 
         <OppsummeringAvkrysset tekst={svartekst} />
         {
             erUndersporsmalStilt(svar, kriterieForVisningAvUndersporsmal)
-            && <OppsummeringUndersporsmal sporsmalsliste={undersporsmal} overskriftsnivaa={overskriftsnivaa + 1} />
+            && <OppsummeringUndersporsmalsliste sporsmalsliste={undersporsmal} overskriftsnivaa={overskriftsnivaa + 1} />
         }
     </OppsummeringSporsmalscontainer>);
 };

@@ -679,11 +679,7 @@ export const nySoknadArbeidstaker = {
                     max: null,
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
-                    svar: [
-                        {
-                            verdi: 'NEI',
-                        },
-                    ],
+                    svar: [],
                     undersporsmal: [],
                 },
             ],
@@ -713,11 +709,7 @@ export const nySoknadArbeidstaker = {
             max: null,
             pavirkerAndreSporsmal: false,
             kriterieForVisningAvUndersporsmal: null,
-            svar: [
-                {
-                    verdi: 'CHECKED',
-                },
-            ],
+            svar: [],
             undersporsmal: [],
         },
         {

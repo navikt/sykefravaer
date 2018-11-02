@@ -71,12 +71,10 @@ const erUndersporsmalStilt = (sporsmal, values) => {
     const svarverdistrenger = svarverdiliste.map((svarverdi) => {
         return svarverdi.verdi;
     });
-    const s = sporsmal.svartype === CHECKBOX_GRUPPE
+    return sporsmal.svartype === CHECKBOX_GRUPPE
         || sporsmal.svartype === IKKE_RELEVANT
         || sporsmal.svartype === RADIO_GRUPPE
         || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
-
-    return s;
 };
 
 const settMinMax = (sporsmal) => {

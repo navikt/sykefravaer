@@ -8,7 +8,7 @@ import {
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
 } from '../../../js/enums/tagtyper';
-import mockSoknadArbeidstaker from '../../mock/mockSoknadArbeidstaker';
+import mockSoknadArbeidstakerUtfylt from '../../mock/mockNySoknadArbeidstakerUtfylt';
 
 describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe perioder på norsk format', () => {
@@ -113,7 +113,7 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
     });
 
     it('Skal mappe RADIO_GRUPPE', () => {
-        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockSoknadArbeidstaker());
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockSoknadArbeidstakerUtfylt());
         expect(initiellSoknad.HVOR_MYE_HAR_DU_JOBBET_1).to.deep.equal({
             sporsmalsid: '66',
             svarverdier: [{

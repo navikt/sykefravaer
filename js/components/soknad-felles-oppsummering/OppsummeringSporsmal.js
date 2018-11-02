@@ -8,7 +8,7 @@ import {
     IKKE_RELEVANT,
     JA_NEI,
     PERIODER,
-    PROSENT,
+    PROSENT, RADIO_GRUPPE, TALL,
     TIMER,
 } from '../../enums/svartyper';
 import OppsummeringPerioder from './OppsummeringPerioder';
@@ -20,6 +20,7 @@ import OppsummeringJaEllerNei from './OppsummeringJaEllerNei';
 import { svartypePt } from '../../propTypes';
 import OppsummeringFritekst from './OppsummeringFritekst';
 import OppsummeringUndertekst from './OppsummeringUndertekst';
+import OppsummeringRadioGruppe from './OppsummeringRadioGruppe';
 
 const OppsummeringSporsmal = (props) => {
     switch (props.svartype) {
@@ -45,9 +46,13 @@ const OppsummeringSporsmal = (props) => {
         case CHECKBOX_GRUPPE: {
             return (<OppsummeringCheckboxgruppe {...props} />);
         }
+        case TALL:
         case PROSENT:
         case TIMER: {
             return <OppsummeringTall {...props} />;
+        }
+        case RADIO_GRUPPE: {
+            return <OppsummeringRadioGruppe {...props} />;
         }
         default: {
             return null;

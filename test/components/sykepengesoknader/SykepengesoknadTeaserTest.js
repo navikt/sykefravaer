@@ -6,7 +6,7 @@ import { setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadTeaser, { SendtUlikt, TeaserPeriode, TeaserStatus, TeaserTittel, TeaserUndertekst } from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
 import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import { getSoknadUtland } from '../../mock/mockSoknadUtland';
-import { getNySoknadArbeidstaker } from '../../mock/mockSoknadArbeidstaker';
+import mockNySoknadArbeidstaker from '../../mock/mockNySoknadArbeidstaker';
 import getSykmelding from '../../mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
@@ -312,7 +312,7 @@ describe('SykepengesoknadTeaser', () => {
 
         describe('TeaserUndertekst for nye arbeidstakere-søknader', () => {
             it('Skal returnere navn på arbeidstaker når status er NY', () => {
-                const component = shallow(<TeaserUndertekst soknad={getNySoknadArbeidstaker({
+                const component = shallow(<TeaserUndertekst soknad={mockNySoknadArbeidstaker({
                     sykmelding: getSykmelding({
                         status: 'SENDT',
                         innsendtArbeidsgivernavn: 'Min arbeidsgiver',

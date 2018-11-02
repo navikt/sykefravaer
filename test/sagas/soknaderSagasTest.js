@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import {
     avbrytSoknad,
     oppdaterSoknader,
@@ -12,6 +12,7 @@ import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mock/mockSoknadSelvstendig';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
 import { UTKAST_TIL_KORRIGERING } from '../../js/enums/soknadstatuser';
+import { toggleNyArbeidstakerSoknad } from '../../js/selectors/unleashTogglesSelectors';
 
 describe('soknaderSagas', () => {
     beforeEach(() => {
@@ -44,6 +45,11 @@ describe('soknaderSagas', () => {
         const soknadData = { test: 'data', soknadstype: OPPHOLD_UTLAND };
         const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
+
+        it('Skal sjekke toggle', () => {
+            const nextSelect = select(toggleNyArbeidstakerSoknad);
+            expect(generator.next(true).value).to.deep.equal(nextSelect);
+        });
 
         it('Skal dispatche SENDER_SOKNAD', () => {
             const nextPut = put(actions.senderSoknad());

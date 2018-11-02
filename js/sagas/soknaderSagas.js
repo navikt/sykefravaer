@@ -11,13 +11,15 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SOKNAD_ENDRET, SOKNAD_SENDT,
+    SOKNAD_ENDRET,
+    SOKNAD_SENDT,
     SYKMELDING_BEKREFTET,
+    SYKMELDING_SENDT,
 } from '../actions/actiontyper';
 import { soknadrespons } from '../../test/mock/mockSoknadSelvstendig';
 import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '../toggles';
 import logger from '../logging';
-import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
+import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import { hentSoknad, skalHenteSoknader } from '../selectors/soknaderSelectors';
 import { populerSoknadMedSvarUtenKonvertertePerioder } from '../utils/soknad-felles/populerSoknadMedSvar';
 import populerSkjemaverdier from '../utils/soknad-felles/populerSkjemaverdier';
@@ -27,6 +29,7 @@ import { getSkjemanavnFraSoknad } from '../utils/soknad-felles/getSkjemanavnFraS
 import getContextRoot from '../utils/getContextRoot';
 import { soknadUtland1 } from '../../test/mock/mockSoknadUtland';
 import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
+import { toggleNyArbeidstakerSoknad } from '../selectors/unleashTogglesSelectors';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -58,8 +61,10 @@ export function* hentSoknaderHvisIkkeHentet() {
 
 export function* sendSoknad(action) {
     try {
+        const toggle = yield select(toggleNyArbeidstakerSoknad);
         if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
-            || action.soknad.soknadstype === OPPHOLD_UTLAND) {
+            || action.soknad.soknadstype === OPPHOLD_UTLAND
+            || (action.soknad.soknadstype === ARBEIDSTAKERE && toggle)) {
             yield put(actions.senderSoknad(action.soknadId));
             yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
             yield put(actions.soknadSendt(action.soknad));
@@ -161,6 +166,7 @@ function* watchHentSoknader() {
 function* watchOppdaterSoknader() {
     yield takeEvery([
         SYKMELDING_BEKREFTET,
+        SYKMELDING_SENDT,
         SOKNAD_SENDT,
     ], oppdaterSoknader);
 }

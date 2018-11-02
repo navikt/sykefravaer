@@ -1,5 +1,5 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
-import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER } from '../../enums/svartyper';
+import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO_GRUPPE } from '../../enums/svartyper';
 
 const fraJSDatoTilBackendDato = (jsDato) => {
     return jsDato.toJSON().substr(0, 10);
@@ -43,7 +43,7 @@ const tilBackendMinMax = (minMax) => {
         : minMax;
 };
 
-const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
+const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options, parentValue) => {
     const svar = (() => {
         if (sporsmal.svartype === PERIODER) {
             return tilPeriodesvar(svarFraSkjema, options.konverterPerioder);
@@ -51,8 +51,12 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
         if (sporsmal.svartype === DATO) {
             return tilDatoSvar(svarFraSkjema);
         }
+        if (sporsmal.visningskriterie && parentValue.svarverdier[0].verdi !== sporsmal.visningskriterie) {
+            return [];
+        }
         return svarFraSkjema ? svarFraSkjema.svarverdier : [];
     })();
+
     return {
         ...sporsmal,
         min: tilBackendMinMax(sporsmal.min),
@@ -69,6 +73,7 @@ const erUndersporsmalStilt = (sporsmal, values) => {
     });
     return sporsmal.svartype === CHECKBOX_GRUPPE
         || sporsmal.svartype === IKKE_RELEVANT
+        || sporsmal.svartype === RADIO_GRUPPE
         || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
 };
 
@@ -92,15 +97,15 @@ const settMinMax = (sporsmal) => {
     }
 };
 
-const populerSporsmalsliste = (sporsmalsliste, values, options) => {
+const populerSporsmalsliste = (sporsmalsliste, values, options, parentValue) => {
     return sporsmalsliste.map((sporsmal) => {
         const svarValue = values[sporsmal.tag];
         const undersporsmalErStilt = erUndersporsmalStilt(sporsmal, values);
-        const populertSporsmal = populerSporsmalMedSvar(sporsmal, svarValue, options);
+        const populertSporsmal = populerSporsmalMedSvar(sporsmal, svarValue, options, parentValue);
         if (undersporsmalErStilt) {
             return {
                 ...populertSporsmal,
-                undersporsmal: populerSporsmalsliste(populertSporsmal.undersporsmal, values, options),
+                undersporsmal: populerSporsmalsliste(populertSporsmal.undersporsmal, values, options, svarValue),
             };
         }
         return settMinMax(populertSporsmal);

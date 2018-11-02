@@ -15,7 +15,7 @@ export const RelaterteSoknader = ({ relaterteSoknader }) => {
             {
                 relaterteSoknader
                     .sort((s1, s2) => {
-                        return s1.innsendtDato < s2.innsendtDato;
+                        return s2.innsendtDato - s1.innsendtDato;
                     })
                     .map((s, index) => {
                         return (<li key={index}>

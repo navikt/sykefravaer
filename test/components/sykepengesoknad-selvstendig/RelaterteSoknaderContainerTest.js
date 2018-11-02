@@ -51,7 +51,7 @@ describe('RelaterteSoknaderContainerTest', () => {
         expect(component.find('.tidligereVersjoner')).to.be.length(0);
     });
 
-    it('Viser relaterte søknader sortert om de finnes', () => {
+    it.only('Viser relaterte søknader sortert om de finnes', () => {
         const sendtSoknad = getSendtSoknadSelvstendig({
             id: 'soknad1',
             sykmeldingId: 'sykmelding1',
@@ -90,6 +90,9 @@ describe('RelaterteSoknaderContainerTest', () => {
         </Provider>);
         const links = component.find(Link);
         expect(links).to.be.length(3);
+        /* eslint-disable */
+        console.log(component.html());
+        /* eslint-enable */
         expect(links.at(0)).to.contain.text('Sendt 14. oktober 2018');
         expect(links.at(1)).to.contain.text('Sendt 14. oktober 2018');
         expect(links.at(2)).to.contain.text('Sendt 13. oktober 2018');

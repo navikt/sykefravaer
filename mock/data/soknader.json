@@ -698,7 +698,7 @@
             "undersporsmal": [
               {
                 "id": "67A",
-                "tag": "HVOR_MYE_PROSENT_VERDI_0",
+                "tag": "HVOR_MYE_PROSENT_VERDI_1",
                 "sporsmalstekst": null,
                 "undertekst": "prosent",
                 "svartype": "TALL",
@@ -713,7 +713,7 @@
               },
               {
                 "id": "67B",
-                "tag": "HVOR_MYE_TIMER_VERDI_0",
+                "tag": "HVOR_MYE_TIMER_VERDI_1",
                 "sporsmalstekst": null,
                 "undertekst": "timer totalt",
                 "svartype": "TALL",

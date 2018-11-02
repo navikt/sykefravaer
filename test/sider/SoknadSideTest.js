@@ -21,7 +21,7 @@ import OppsummeringContainer from '../../js/containers/sykepengesoknad-selvstend
 import mountWithStore from '../mountWithStore';
 import { getSendtSoknadSelvstendig, getNySoknadSelvstendig } from '../mock/mockSoknadSelvstendig';
 import reduxFormMeta from '../../js/reducers/reduxFormMeta';
-import { getNySoknadArbeidstaker } from '../mock/mockSoknadArbeidstaker';
+import mockNySoknadArbeidstaker from '../mock/mockNySoknadArbeidstaker';
 import { SykepengeskjemaForSelvstendige } from '../../js/components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
 import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
 import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
@@ -218,7 +218,7 @@ describe('SoknadSideTest', () => {
         describe('Ny søknad for arbeidstakere', () => {
             describe('Når søknad er NY', () => {
                 beforeEach(() => {
-                    state.soknader.data = [getNySoknadArbeidstaker({
+                    state.soknader.data = [mockNySoknadArbeidstaker({
                         id: 'soknad-id',
                     })];
                     state.reduxFormMeta = reduxFormMeta();

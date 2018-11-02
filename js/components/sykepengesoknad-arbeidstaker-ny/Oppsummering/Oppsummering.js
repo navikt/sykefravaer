@@ -39,6 +39,7 @@ export const hentSporsmalForOppsummering = (soknad) => {
 
 export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
     const { handleSubmit, soknad, skjemasvar, actions, sender, sendingFeilet } = props;
+
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
     const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => { return s.tag === VAER_KLAR_OVER_AT; });
     const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => { return s.tag === BEKREFT_OPPLYSNINGER; });
@@ -53,10 +54,16 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
         <div className="panel blokk">
-            <Sporsmal sporsmal={betalerArbeidsgiverSpm} name={betalerArbeidsgiverSpm.tag} />
+            <Sporsmal
+                sporsmal={betalerArbeidsgiverSpm}
+                name={betalerArbeidsgiverSpm.tag}
+                oknad={soknad} />
         </div>
         <div className="bekreftet-container blokk">
-            <Sporsmal sporsmal={bekreftOpplysningerSpm} name={bekreftOpplysningerSpm.tag} />
+            <Sporsmal
+                sporsmal={bekreftOpplysningerSpm}
+                name={bekreftOpplysningerSpm.tag}
+                soknad={soknad} />
         </div>
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">

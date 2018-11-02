@@ -134,11 +134,7 @@ export const nySoknadArbeidstaker = {
                     max: '150',
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: null,
-                    svar: [
-                        {
-                            verdi: '37,5',
-                        },
-                    ],
+                    svar: [],
                     undersporsmal: [],
                 },
                 {
@@ -160,16 +156,27 @@ export const nySoknadArbeidstaker = {
                     min: null,
                     max: null,
                     pavirkerAndreSporsmal: false,
-                    kriterieForVisningAvUndersporsmal: 'TIMER',
-                    svar: [
-                        {
-                            verdi: 'TIMER',
-                        },
-                    ],
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [],
                     undersporsmal: [
                         {
-                            id: '63',
+                            id: '63A',
                             tag: 'HVOR_MYE_PROSENT_VERDI_0',
+                            sporsmalstekst: null,
+                            undertekst: 'prosent',
+                            svartype: 'TALL',
+                            svaralternativer: null,
+                            visningskriterie: 'PROSENT',
+                            min: '1',
+                            max: '99',
+                            pavirkerAndreSporsmal: false,
+                            kriterieForVisningAvUndersporsmal: null,
+                            svar: [],
+                            undersporsmal: [],
+                        },
+                        {
+                            id: '63B',
+                            tag: 'HVOR_MYE_TIMER_VERDI_0',
                             sporsmalstekst: null,
                             undertekst: 'prosent',
                             svartype: 'TALL',
@@ -178,12 +185,9 @@ export const nySoknadArbeidstaker = {
                             max: '99',
                             pavirkerAndreSporsmal: false,
                             kriterieForVisningAvUndersporsmal: null,
-                            svar: [
-                                {
-                                    verdi: '79',
-                                },
-                            ],
+                            svar: [],
                             undersporsmal: [],
+                            visningskriterie: 'TIMER',
                         },
                     ],
                 },
@@ -236,14 +240,10 @@ export const nySoknadArbeidstaker = {
                     max: null,
                     pavirkerAndreSporsmal: false,
                     kriterieForVisningAvUndersporsmal: 'PROSENT',
-                    svar: [
-                        {
-                            verdi: 'PROSENT',
-                        },
-                    ],
+                    svar: [],
                     undersporsmal: [
                         {
-                            id: '67',
+                            id: '67A',
                             tag: 'HVOR_MYE_PROSENT_VERDI_1',
                             sporsmalstekst: null,
                             undertekst: 'prosent',
@@ -255,6 +255,22 @@ export const nySoknadArbeidstaker = {
                             kriterieForVisningAvUndersporsmal: null,
                             svar: [],
                             undersporsmal: [],
+                            visningskriterie: 'PROSENT',
+                        },
+                        {
+                            id: '67B',
+                            tag: 'HVOR_MYE_PROSENT_VERDI_1',
+                            sporsmalstekst: null,
+                            undertekst: 'timer',
+                            svartype: 'TALL',
+                            svaralternativer: null,
+                            min: '61',
+                            max: '99',
+                            pavirkerAndreSporsmal: false,
+                            kriterieForVisningAvUndersporsmal: null,
+                            svar: [],
+                            undersporsmal: [],
+                            visningskriterie: 'TIMER',
                         },
                     ],
                 },
@@ -770,18 +786,11 @@ export const nySoknadArbeidstaker = {
 
 /* eslint-enable max-len */
 
-export const getNySoknadArbeidstaker = (soknad = {}) => {
+const mockNySoknadArbeidstaker = (soknad = {}) => {
     return parseSoknad({
         ...nySoknadArbeidstaker,
         ...soknad,
     });
 };
 
-const mockSoknadArbeidstaker = (soknad = {}) => {
-    return parseSoknad({
-        ...nySoknadArbeidstaker,
-        ...soknad,
-    });
-};
-
-export default mockSoknadArbeidstaker;
+export default mockNySoknadArbeidstaker;

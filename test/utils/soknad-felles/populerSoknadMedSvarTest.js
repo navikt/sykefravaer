@@ -16,6 +16,7 @@ import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js
 import { CHECKED, JA, NEI } from '../../../js/enums/svarEnums';
 import { PERIODER } from '../../../js/enums/svartyper';
 import { getSoknadUtland } from '../../mock/mockSoknadUtland';
+import mockNySoknadArbeidstaker from '../../mock/mockNySoknadArbeidstaker';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -243,6 +244,53 @@ describe('populerSoknadMedSvar', () => {
             [PERIODEUTLAND]: [{}],
         };
         populerSoknadMedSvar(soknadUtland, valuesUtland);
+    });
+
+    it('Skal populere RADIO_GRUPPE', () => {
+        const arbeidstakersoknad = mockNySoknadArbeidstaker();
+        const hentSporsmal = (sporsmalsliste, tag) => {
+            return sporsmalsliste.find((s) => {
+                return s.tag === tag;
+            });
+        };
+        const toppnivaSporsmal = hentSporsmal(arbeidstakersoknad.sporsmal, 'JOBBET_DU_100_PROSENT_0');
+        const parseToppnivaSporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
+
+        const undersporsmalHvorMangeTimerPerUkeNormalt = hentSporsmal(toppnivaSporsmal.undersporsmal, 'HVOR_MANGE_TIMER_PER_UKE_0');
+        const parseUnderspormsalHvorMangeTimerPerUkeNormalt = genererParseForEnkeltverdi(undersporsmalHvorMangeTimerPerUkeNormalt.id);
+
+        const underspormalHvorMyeHarDuJobbet = hentSporsmal(toppnivaSporsmal.undersporsmal, 'HVOR_MYE_HAR_DU_JOBBET_0');
+        const parseUndersporsmalHvorMyeHarDuJobbet = genererParseForEnkeltverdi(underspormalHvorMyeHarDuJobbet.id);
+
+        const undersporsmalAntallTimerJobbet = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_TIMER_VERDI_0');
+        const parseAntallTimerJobbet = genererParseForEnkeltverdi(undersporsmalAntallTimerJobbet.id);
+
+        const undersporsmalProsentJobbet = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_PROSENT_VERDI_0');
+        const parseUndersporsmalProsentJobbet = genererParseForEnkeltverdi(undersporsmalProsentJobbet.id);
+
+        values[toppnivaSporsmal.tag] = parseToppnivaSporsmal(JA);
+        values[undersporsmalHvorMangeTimerPerUkeNormalt.tag] = parseUnderspormsalHvorMangeTimerPerUkeNormalt('37,5');
+        values[underspormalHvorMyeHarDuJobbet.tag] = parseUndersporsmalHvorMyeHarDuJobbet('TIMER');
+        values[undersporsmalAntallTimerJobbet.tag] = parseAntallTimerJobbet('10');
+        values[undersporsmalProsentJobbet.tag] = parseUndersporsmalProsentJobbet('35');
+
+        const populertSoknad = populerSoknadMedSvar(arbeidstakersoknad, values);
+        const parsetHovedsporsmal = hentSporsmal(populertSoknad.sporsmal, 'JOBBET_DU_100_PROSENT_0');
+        const populertUndersporsmalNormalJobbing = hentSporsmal(parsetHovedsporsmal.undersporsmal, 'HVOR_MANGE_TIMER_PER_UKE_0');
+        const populertUndersporsmalHvorMyeHarDuJobbet = hentSporsmal(parsetHovedsporsmal.undersporsmal, 'HVOR_MYE_HAR_DU_JOBBET_0');
+        const populertUndersporsmalAntallTimerJobbet = hentSporsmal(populertUndersporsmalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_TIMER_VERDI_0');
+        const populertUndersporsmalProsentJobbet = hentSporsmal(populertUndersporsmalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_PROSENT_VERDI_0');
+
+        expect(populertUndersporsmalNormalJobbing.svar).to.deep.equal([{
+            verdi: '37,5',
+        }]);
+        expect(populertUndersporsmalHvorMyeHarDuJobbet.svar).to.deep.equal([{
+            verdi: 'TIMER',
+        }]);
+        expect(populertUndersporsmalAntallTimerJobbet.svar).to.deep.equal([{
+            verdi: '10',
+        }]);
+        expect(populertUndersporsmalProsentJobbet.svar).to.deep.equal([]);
     });
 
     describe('populerSoknadMedSvarUtenKonvertertePerioder', () => {

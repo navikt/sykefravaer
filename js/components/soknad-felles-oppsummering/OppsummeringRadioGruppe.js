@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { svar as svarPt, sporsmal as sporsmalPt } from '../../propTypes';
+import { sporsmal as sporsmalPt } from '../../propTypes';
 import OppsummeringSporsmalscontainer from './OppsummeringSporsmalscontainer';
 import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
 import OppsummeringUndersporsmalsliste from './OppsummeringUndersporsmalsliste';
@@ -21,7 +21,6 @@ const OppsummeringRadiogruppe = ({ sporsmalstekst, tag, overskriftsnivaa, unders
 };
 
 OppsummeringRadiogruppe.propTypes = {
-    svar: svarPt,
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
     overskriftsnivaa: PropTypes.number,

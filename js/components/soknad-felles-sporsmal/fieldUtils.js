@@ -1,4 +1,4 @@
-import { UNCHECKED, CHECKED } from '../../enums/svarEnums';
+import { CHECKED, UNCHECKED } from '../../enums/svarEnums';
 
 export const genererParseForEnkeltverdi = (sporsmalsid) => {
     return (verdi) => {
@@ -40,4 +40,10 @@ export const fjernIndexFraTag = (tag) => {
         return tagdeler.join(separator);
     }
     return tag;
+};
+
+export const tagMatcher = (tags, inputTag) => {
+    return tags.filter((tag) => {
+        return inputTag.indexOf(tag) > -1;
+    }).length > 0;
 };

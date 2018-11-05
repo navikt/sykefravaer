@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, OPPSUMMERING } from '../../utils/soknad-felles/beregnSteg';
+import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, KVITTERING, OPPSUMMERING } from '../../utils/soknad-felles/beregnSteg';
 import NyFoerDuBegynnerArbeidstakerContainer from '../../containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
 import NyFravaerOgFriskmeldingArbeidstakerContainer from '../../containers/sykepengesoknad-arbeidstaker-ny/NyFravaerOgFriskmeldingArbeidstakerContainer';
 import NyAktiviteterISykmeldingsperiodenArbeidstakerContainer from '../../containers/sykepengesoknad-arbeidstaker-ny/NyAktiviteterISykmeldingsperiodenArbeidstakerContainer';
 import NyOppsummeringArbeidstakerContainer from '../../containers/sykepengesoknad-arbeidstaker-ny/NyOppsummeringArbeidstakerContainer';
+import SoknadKvitteringSjekker from '../soknad-felles/SoknadKvitteringSjekker';
+import { soknad as soknadPt } from '../../propTypes';
 
 const NySoknadArbeidstaker = (props) => {
     const { sti } = props;
@@ -22,6 +24,9 @@ const NySoknadArbeidstaker = (props) => {
         case OPPSUMMERING: {
             return <NyOppsummeringArbeidstakerContainer {...props} />;
         }
+        case KVITTERING: {
+            return <SoknadKvitteringSjekker soknad={props.soknad} />;
+        }
         default: {
             return null;
         }
@@ -30,6 +35,7 @@ const NySoknadArbeidstaker = (props) => {
 
 NySoknadArbeidstaker.propTypes = {
     sti: PropTypes.string,
+    soknad: soknadPt,
 };
 
 export default NySoknadArbeidstaker;

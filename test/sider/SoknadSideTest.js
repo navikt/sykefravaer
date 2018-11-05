@@ -9,7 +9,6 @@ import SoknadSide, {
     Container,
 } from '../../js/sider/SoknadSide';
 import AppSpinner from '../../js/components/AppSpinner';
-import SykepengesoknadSelvstendigKvitteringContainer from '../../js/containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import sykepengesoknader from '../../js/reducers/sykepengesoknader';
 import soknader from '../../js/reducers/soknader';
 import dineSykmeldinger from '../../js/reducers/dineSykmeldinger';
@@ -26,6 +25,7 @@ import { SykepengeskjemaForSelvstendige } from '../../js/components/sykepengesok
 import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
 import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
 import NyFravaerOgFriskmeldingArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFravaerOgFriskmeldingArbeidstakerContainer';
+import SoknadKvitteringSjekker from '../../js/components/soknad-felles/SoknadKvitteringSjekker';
 
 chai.use(chaiEnzyme());
 
@@ -161,7 +161,7 @@ describe('SoknadSideTest', () => {
                 it('Skal vise kvittering dersom man står på kvitteringssiden', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/soknad-id/kvittering';
                     const component = mountWithStore(<SoknadSide {...ownProps} />, state);
-                    expect(component.find(SykepengesoknadSelvstendigKvitteringContainer)).to.have.length(1);
+                    expect(component.find(SoknadKvitteringSjekker)).to.have.length(1);
                 });
 
                 it('Skal vise Sendt søknad dersom man står på noe annet enn kvitteringssiden', () => {

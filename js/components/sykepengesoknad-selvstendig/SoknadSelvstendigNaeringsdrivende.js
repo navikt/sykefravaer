@@ -19,10 +19,10 @@ import FoerDuBegynnerContainer from '../../containers/sykepengesoknad-selvstendi
 import FravaerOgFriskmeldingContainer from '../../containers/sykepengesoknad-selvstendig/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenContainer from '../../containers/sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../../containers/sykepengesoknad-selvstendig/OppsummeringContainer';
-import KvitteringSelvstendigContainer from '../../containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import SendtSoknadSelvstendig from './SendtSoknadSelvstendig';
 import Feilmelding from '../Feilmelding';
 import AvbruttSoknadSelvstendig from './AvbruttSoknadSelvstendig';
+import SoknadKvitteringSjekker from '../soknad-felles/SoknadKvitteringSjekker';
 
 export const SykepengeskjemaForSelvstendige = (props) => {
     switch (beregnSteg(props.sti)) {
@@ -39,7 +39,7 @@ export const SykepengeskjemaForSelvstendige = (props) => {
             return <OppsummeringContainer {...props} />;
         }
         case KVITTERING: {
-            return <KvitteringSelvstendigContainer {...props} />;
+            return <SoknadKvitteringSjekker {...props} />;
         }
         default: {
             return <Feilmelding />;
@@ -61,7 +61,7 @@ const SoknadSelvstendigNaeringsdrivende = (props) => {
         case SENDT:
         case KORRIGERT: {
             if (beregnSteg(sti) === KVITTERING) {
-                return <KvitteringSelvstendigContainer {...props} />;
+                return <SoknadKvitteringSjekker {...props} />;
             }
             return <SendtSoknadSelvstendig {...props} />;
         }

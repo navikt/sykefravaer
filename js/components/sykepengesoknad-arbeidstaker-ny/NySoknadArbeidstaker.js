@@ -7,8 +7,11 @@ import NyAktiviteterISykmeldingsperiodenArbeidstakerContainer from '../../contai
 import NyOppsummeringArbeidstakerContainer from '../../containers/sykepengesoknad-arbeidstaker-ny/NyOppsummeringArbeidstakerContainer';
 import SoknadKvitteringSjekker from '../soknad-felles/SoknadKvitteringSjekker';
 import { soknad as soknadPt } from '../../propTypes';
+import { KORRIGERT, NY, SENDT, UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
+import NySendtSoknadArbeidstaker from './NySendtSoknadArbeidstaker';
+import Feilmelding from '../Feilmelding';
 
-const NySoknadArbeidstaker = (props) => {
+const NySoknadArbeidstakerSkjema = (props) => {
     const { sti } = props;
     const steg = beregnSteg(sti);
     switch (steg) {
@@ -29,6 +32,31 @@ const NySoknadArbeidstaker = (props) => {
         }
         default: {
             return null;
+        }
+    }
+};
+
+NySoknadArbeidstakerSkjema.propTypes = {
+    sti: PropTypes.string,
+    soknad: soknadPt,
+};
+
+const NySoknadArbeidstaker = (props) => {
+    const { soknad, sti } = props;
+    switch (soknad.status) {
+        case NY:
+        case UTKAST_TIL_KORRIGERING: {
+            return <NySoknadArbeidstakerSkjema {...props} />;
+        }
+        case SENDT:
+        case KORRIGERT: {
+            if (beregnSteg(sti) === KVITTERING) {
+                return <SoknadKvitteringSjekker {...props} />;
+            }
+            return <NySendtSoknadArbeidstaker {...props} />;
+        }
+        default: {
+            return <Feilmelding melding="Søknaden har ukjent status" />;
         }
     }
 };

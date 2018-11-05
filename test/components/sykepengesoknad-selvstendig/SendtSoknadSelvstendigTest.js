@@ -122,7 +122,7 @@ describe('SendtSoknadSelvstendigTest', () => {
     });
 });
 
-describe('SendtSoknadSelvstendigStatuspanel', () => {
+describe('SendtSoknadArbeidstakerStatuspanel', () => {
     const sendtSoknad = getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1', status: SENDT });
 
     it('Viser endreknapp om soknad har status sendt og toggle på', () => {

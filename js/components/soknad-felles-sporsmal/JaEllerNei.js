@@ -5,24 +5,47 @@ import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
-import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
+import { formaterEnkeltverdi, genererParseForEnkeltverdi, tagMatcher } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 import SporsmalBjornKondisjonell from './SporsmalBjornKondisjonell';
 import SporsmalBjorn from './SporsmalBjorn';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
 import SporsmalHjelpetekst from './SporsmalHjelpetekst';
+import {
+    INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT,
+    INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT,
+    INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT,
+    INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT,
+} from '../../enums/tagtyper';
 
 const jaEllerNeiAlternativer = [JA, NEI];
+
+const visInfotekst = (tag, value) => {
+    return value === JA && tagMatcher([
+        INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT,
+        INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT,
+        INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT,
+        INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT,
+    ], tag);
+};
+
+const JaEllerNeiInfotekst = ({ tag, value }) => {
+    return visInfotekst(tag, value)
+        ? <p>Infotekst</p>
+        : null;
+};
 
 export const JaEllerNeiRadioknapper = (props) => {
     return (<Radioknapper {...props} name={props.input.name} spoersmal={props.sporsmalstekst}>
         {
             jaEllerNeiAlternativer
                 .map((alternativ, index) => {
-                    return (<input
+                    return (<i
                         value={alternativ}
                         label={getLedetekst(`soknad.${alternativ.toLowerCase()}`)}
-                        key={index} />);
+                        key={index}>
+                        <JaEllerNeiInfotekst tag={props.tag} value={props.input.value} />
+                    </i>);
                 })
         }
     </Radioknapper>);

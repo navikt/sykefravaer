@@ -11,3 +11,4 @@ export const IKKE_RELEVANT = 'IKKE_RELEVANT';
 export const TALL = 'TALL';
 export const RADIO_GRUPPE = 'RADIO_GRUPPE';
 export const RADIO = 'RADIO';
+export const BACKEND_RADIO_GRUPPE = 'BACKEND_RADIO_GRUPPE';

@@ -57,7 +57,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
             <Sporsmal
                 sporsmal={betalerArbeidsgiverSpm}
                 name={betalerArbeidsgiverSpm.tag}
-                oknad={soknad} />
+                soknad={soknad} />
         </div>
         <div className="bekreftet-container blokk">
             <Sporsmal

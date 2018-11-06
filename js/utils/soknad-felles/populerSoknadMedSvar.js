@@ -1,5 +1,5 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
-import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO_GRUPPE } from '../../enums/svartyper';
+import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT } from '../../enums/svartyper';
 
 const fraJSDatoTilBackendDato = (jsDato) => {
     return jsDato.toJSON().substr(0, 10);
@@ -52,7 +52,8 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
             case DATO: {
                 return tilDatoSvar(svarFraSkjema);
             }
-            case RADIO_GRUPPE: {
+            case RADIO_GRUPPE:
+            case RADIO_GRUPPE_TIMER_PROSENT: {
                 return [];
             }
             default: {
@@ -78,6 +79,7 @@ const erUndersporsmalStilt = (sporsmal, values) => {
     return sporsmal.svartype === CHECKBOX_GRUPPE
         || sporsmal.svartype === IKKE_RELEVANT
         || sporsmal.svartype === RADIO_GRUPPE
+        || sporsmal.svartype === RADIO_GRUPPE_TIMER_PROSENT
         || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
 };
 

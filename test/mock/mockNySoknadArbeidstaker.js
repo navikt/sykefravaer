@@ -1,4 +1,5 @@
 import { parseSoknad } from '../../js/reducers/soknader';
+
 /* eslint-disable max-len */
 export const nySoknadArbeidstaker = {
     id: '5d84aeec-7fa9-4d15-8d87-6d7a511abfcc',
@@ -116,7 +117,7 @@ export const nySoknadArbeidstaker = {
                     tag: 'HVOR_MYE_HAR_DU_JOBBET_0',
                     sporsmalstekst: 'Hvor mye jobbet du totalt 23. - 27. september 2018 hos ARBEIDSGIVER A/S?',
                     undertekst: null,
-                    svartype: 'RADIO_GRUPPE',
+                    svartype: 'RADIO_GRUPPE_TIMER_PROSENT',
                     min: null,
                     max: null,
                     pavirkerAndreSporsmal: false,
@@ -211,7 +212,7 @@ export const nySoknadArbeidstaker = {
                     tag: 'HVOR_MYE_HAR_DU_JOBBET_1',
                     sporsmalstekst: 'Hvor mye jobbet du totalt 28. september - 1. oktober 2018 hos ARBEIDSGIVER A/S?',
                     undertekst: null,
-                    svartype: 'RADIO_GRUPPE',
+                    svartype: 'RADIO_GRUPPE_TIMER_PROSENT',
                     min: null,
                     max: null,
                     pavirkerAndreSporsmal: false,

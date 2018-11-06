@@ -13,7 +13,7 @@ import {
     CHECKBOX_PANEL,
     IKKE_RELEVANT,
     TALL,
-    RADIO_GRUPPE,
+    RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT,
 } from '../../enums/svartyper';
 import Sporsmal from './Sporsmal';
 import UkjentSporsmal from './UkjentSporsmal';
@@ -40,6 +40,7 @@ const Undersporsmal = ({ sporsmal, soknad }) => {
         case CHECKBOX_GRUPPE:
         case TALL:
         case RADIO_GRUPPE:
+        case RADIO_GRUPPE_TIMER_PROSENT:
         case FRITEKST: {
             return (<SoknadUndersporsmal>
                 <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />

@@ -5,13 +5,19 @@ import OppsummeringSporsmalscontainer from './OppsummeringSporsmalscontainer';
 import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
 import OppsummeringUndersporsmalsliste from './OppsummeringUndersporsmalsliste';
 import OppsummeringAvkrysset from './OppsummeringAvkrysset';
+import { CHECKED } from '../../enums/svarEnums';
 
-const OppsummeringRadiogruppe = ({ svar, sporsmalstekst, tag, overskriftsnivaa, undersporsmal, id }) => {
-    return (<OppsummeringSporsmalscontainer tag={tag}>
-        <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
-        <OppsummeringAvkrysset id={id} tekst={svar[0].verdi} />
-        <OppsummeringUndersporsmalsliste sporsmalsliste={undersporsmal} />
-    </OppsummeringSporsmalscontainer>);
+const OppsummeringRadiogruppe = ({ sporsmalstekst, tag, overskriftsnivaa, undersporsmal, id }) => {
+    const besvartUndersporsmal = undersporsmal.find((s) => {
+        return s.svar.length > 0 && s.svar[0].verdi === CHECKED;
+    });
+    return besvartUndersporsmal
+        ? (<OppsummeringSporsmalscontainer tag={tag}>
+            <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
+            <OppsummeringAvkrysset id={id} tekst={besvartUndersporsmal.sporsmalstekst} />
+            <OppsummeringUndersporsmalsliste sporsmalsliste={besvartUndersporsmal.undersporsmal} overskriftsnivaa={overskriftsnivaa + 1} />
+        </OppsummeringSporsmalscontainer>)
+        : null;
 };
 
 OppsummeringRadiogruppe.propTypes = {
@@ -19,7 +25,7 @@ OppsummeringRadiogruppe.propTypes = {
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
     overskriftsnivaa: PropTypes.number,
-    undersporsmal: sporsmalPt,
+    undersporsmal: PropTypes.arrayOf(sporsmalPt),
     id: PropTypes.string,
 };
 

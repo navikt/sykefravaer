@@ -555,177 +555,193 @@
       },
       {
         "id": "60",
-        "kriterieForVisningAvUndersporsmal": "JA",
-        "max": null,
-        "min": null,
-        "pavirkerAndreSporsmal": false,
-        "sporsmalstekst": "I perioden 6. - 10. oktober 2018 var du 100 % sykmeldt fra ARBEIDSGIVER A/S. Jobbet du noe i denne perioden?",
-        "svar": [],
-        "svaralternativer": null,
-        "svartype": "JA_NEI",
         "tag": "JOBBET_DU_100_PROSENT_0",
+        "sporsmalstekst": "I perioden 23. - 27. september 2018 var du 100 % sykmeldt fra ARBEIDSGIVER A/S. Jobbet du noe i denne perioden?",
+        "undertekst": null,
+        "svartype": "JA_NEI",
+        "min": null,
+        "max": null,
+        "pavirkerAndreSporsmal": false,
+        "kriterieForVisningAvUndersporsmal": "JA",
+        "svar": [],
         "undersporsmal": [
           {
             "id": "61",
-            "kriterieForVisningAvUndersporsmal": null,
-            "max": "150",
-            "min": "1",
-            "pavirkerAndreSporsmal": false,
-            "sporsmalstekst": "Hvor mange timer jobbet du per uke før du ble sykmeldt?",
-            "svar": [],
-            "svaralternativer": null,
-            "svartype": "TALL",
             "tag": "HVOR_MANGE_TIMER_PER_UKE_0",
-            "undersporsmal": [],
-            "undertekst": "timer per uke"
+            "sporsmalstekst": "Hvor mange timer jobbet du per uke før du ble sykmeldt?",
+            "undertekst": "timer per uke",
+            "svartype": "TALL",
+            "min": "1",
+            "max": "150",
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
+            "svar": [],
+            "undersporsmal": []
           },
           {
             "id": "62",
-            "kriterieForVisningAvUndersporsmal": "PROSENT",
-            "max": null,
-            "min": null,
-            "pavirkerAndreSporsmal": true,
-            "sporsmalstekst": "Hvor mye jobbet du totaltttt 6. - 10. oktober 2018 hos ARBEIDSGIVER A/S?",
-            "svar": [
-              {
-                "verdi": "PROSENT"
-              }
-            ],
-            "svaralternativer": [
-              {
-                "svartekst": "prosent",
-                "verdi": "PROSENT"
-              },
-              {
-                "svartekst": "timer",
-                "verdi": "TIMER"
-              }
-            ],
-            "svartype": "RADIO_GRUPPE",
             "tag": "HVOR_MYE_HAR_DU_JOBBET_0",
+            "sporsmalstekst": "Hvor mye jobbet du totalt 23. - 27. september 2018 hos ARBEIDSGIVER A/S?",
+            "undertekst": null,
+            "svartype": "RADIO_GRUPPE",
+            "min": null,
+            "max": null,
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
+            "svar": [],
             "undersporsmal": [
               {
                 "id": "63",
-                "kriterieForVisningAvUndersporsmal": null,
-                "max": "99",
-                "min": "1",
+                "tag": "HVOR_MYE_PROSENT_0",
+                "sporsmalstekst": "prosent",
+                "undertekst": null,
+                "svartype": "RADIO",
+                "min": null,
+                "max": null,
                 "pavirkerAndreSporsmal": false,
-                "sporsmalstekst": null,
+                "kriterieForVisningAvUndersporsmal": "CHECKED",
                 "svar": [],
-                "svaralternativer": null,
-                "svartype": "TALL",
-                "tag": "HVOR_MYE_PROSENT_VERDI_0",
-                "undersporsmal": [],
-                "undertekst": "prosent",
-                "visningskriterie": "PROSENT"
+                "undersporsmal": [
+                  {
+                    "id": "64",
+                    "tag": "HVOR_MYE_PROSENT_VERDI_0",
+                    "sporsmalstekst": null,
+                    "undertekst": "prosent",
+                    "svartype": "TALL",
+                    "min": "1",
+                    "max": "99",
+                    "pavirkerAndreSporsmal": false,
+                    "kriterieForVisningAvUndersporsmal": null,
+                    "svar": [],
+                    "undersporsmal": []
+                  }
+                ]
               },
               {
-                "id": "64",
-                "kriterieForVisningAvUndersporsmal": null,
-                "max": "107",
-                "min": "1",
+                "id": "65",
+                "tag": "HVOR_MYE_TIMER_0",
+                "sporsmalstekst": "timer",
+                "undertekst": null,
+                "svartype": "RADIO",
+                "min": null,
+                "max": null,
                 "pavirkerAndreSporsmal": false,
-                "sporsmalstekst": null,
+                "kriterieForVisningAvUndersporsmal": "CHECKED",
                 "svar": [],
-                "svaralternativer": null,
-                "svartype": "TALL",
-                "tag": "HVOR_MYE_TIMER_VERDI_0",
-                "undersporsmal": [],
-                "undertekst": "timer totalt",
-                "visningskriterie": "TIMER"
+                "undersporsmal": [
+                  {
+                    "id": "66",
+                    "tag": "HVOR_MYE_TIMER_VERDI_0",
+                    "sporsmalstekst": null,
+                    "undertekst": "timer totalt",
+                    "svartype": "TALL",
+                    "min": "1",
+                    "max": "107",
+                    "pavirkerAndreSporsmal": false,
+                    "kriterieForVisningAvUndersporsmal": null,
+                    "svar": [],
+                    "undersporsmal": []
+                  }
+                ]
               }
-            ],
-            "undertekst": null
+            ]
           }
-        ],
-        "undertekst": null
+        ]
       },
       {
-        "id": "64",
-        "kriterieForVisningAvUndersporsmal": "JA",
-        "max": null,
-        "min": null,
-        "pavirkerAndreSporsmal": false,
-        "sporsmalstekst": "I perioden 11. - 15. oktober 2018 skulle du jobbe 60 % av ditt normale arbeid hos ARBEIDSGIVER A/S. Jobbet du mer enn dette?",
-        "svar": [],
-        "svaralternativer": null,
-        "svartype": "JA_NEI",
+        "id": "67",
         "tag": "JOBBET_DU_GRADERT_1",
+        "sporsmalstekst": "I perioden 28. september - 1. oktober 2018 skulle du jobbe 60 % av ditt normale arbeid hos ARBEIDSGIVER A/S. Jobbet du mer enn dette?",
+        "undertekst": null,
+        "svartype": "JA_NEI",
+        "min": null,
+        "max": null,
+        "pavirkerAndreSporsmal": false,
+        "kriterieForVisningAvUndersporsmal": "JA",
+        "svar": [],
         "undersporsmal": [
           {
-            "id": "65",
-            "kriterieForVisningAvUndersporsmal": null,
-            "max": "150",
-            "min": "1",
-            "pavirkerAndreSporsmal": false,
-            "sporsmalstekst": "Hvor mange timer jobbet du per uke før du ble sykmeldt?",
-            "svar": [],
-            "svaralternativer": null,
-            "svartype": "TALL",
+            "id": "68",
             "tag": "HVOR_MANGE_TIMER_PER_UKE_1",
-            "undersporsmal": [],
-            "undertekst": "timer per uke"
+            "sporsmalstekst": "Hvor mange timer jobbet du per uke før du ble sykmeldt?",
+            "undertekst": "timer per uke",
+            "svartype": "TALL",
+            "min": "1",
+            "max": "150",
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
+            "svar": [],
+            "undersporsmal": []
           },
           {
-            "id": "66",
-            "kriterieForVisningAvUndersporsmal": null,
-            "max": null,
-            "min": null,
-            "pavirkerAndreSporsmal": false,
-            "sporsmalstekst": "Hvor mye jobbet du totaltttt 11. - 15. oktober 2018 hos ARBEIDSGIVER A/S?",
-            "svar": [
-              {
-                "verdi": "PROSENT"
-              }
-            ],
-            "svaralternativer": [
-              {
-                "svartekst": "prosent",
-                "verdi": "PROSENT"
-              },
-              {
-                "svartekst": "timer",
-                "verdi": "TIMER"
-              }
-            ],
-            "svartype": "RADIO_GRUPPE",
+            "id": "69",
             "tag": "HVOR_MYE_HAR_DU_JOBBET_1",
+            "sporsmalstekst": "Hvor mye jobbet du totalt 28. september - 1. oktober 2018 hos ARBEIDSGIVER A/S?",
+            "undertekst": null,
+            "svartype": "RADIO_GRUPPE",
+            "min": null,
+            "max": null,
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
+            "svar": [],
             "undersporsmal": [
               {
-                "id": "67A",
-                "kriterieForVisningAvUndersporsmal": null,
-                "max": "99",
-                "min": "1",
+                "id": "70",
+                "tag": "HVOR_MYE_PROSENT_1",
+                "sporsmalstekst": "prosent",
+                "undertekst": null,
+                "svartype": "RADIO",
+                "min": null,
+                "max": null,
                 "pavirkerAndreSporsmal": false,
-                "sporsmalstekst": null,
+                "kriterieForVisningAvUndersporsmal": "CHECKED",
                 "svar": [],
-                "svaralternativer": null,
-                "svartype": "TALL",
-                "tag": "HVOR_MYE_PROSENT_VERDI_1",
-                "undersporsmal": [],
-                "undertekst": "prosent",
-                "visningskriterie": "PROSENT"
+                "undersporsmal": [
+                  {
+                    "id": "71",
+                    "tag": "HVOR_MYE_PROSENT_VERDI_1",
+                    "sporsmalstekst": null,
+                    "undertekst": "prosent",
+                    "svartype": "TALL",
+                    "min": "61",
+                    "max": "99",
+                    "pavirkerAndreSporsmal": false,
+                    "kriterieForVisningAvUndersporsmal": null,
+                    "svar": [],
+                    "undersporsmal": []
+                  }
+                ]
               },
               {
-                "id": "67B",
-                "kriterieForVisningAvUndersporsmal": null,
-                "max": "107",
-                "min": "1",
+                "id": "72",
+                "tag": "HVOR_MYE_TIMER_1",
+                "sporsmalstekst": "timer",
+                "undertekst": null,
+                "svartype": "RADIO",
+                "min": null,
+                "max": null,
                 "pavirkerAndreSporsmal": false,
-                "sporsmalstekst": null,
+                "kriterieForVisningAvUndersporsmal": "CHECKED",
                 "svar": [],
-                "svaralternativer": null,
-                "svartype": "TALL",
-                "tag": "HVOR_MYE_TIMER_VERDI_1",
-                "undersporsmal": [],
-                "undertekst": "timer totalt",
-                "visningskriterie": "TIMER"
+                "undersporsmal": [
+                  {
+                    "id": "73",
+                    "tag": "HVOR_MYE_TIMER_VERDI_1",
+                    "sporsmalstekst": null,
+                    "undertekst": "timer totalt",
+                    "svartype": "TALL",
+                    "min": "1",
+                    "max": "86",
+                    "pavirkerAndreSporsmal": false,
+                    "kriterieForVisningAvUndersporsmal": null,
+                    "svar": [],
+                    "undersporsmal": []
+                  }
+                ]
               }
-            ],
-            "undertekst": null
+            ]
           }
-        ],
-        "undertekst": null
+        ]
       },
       {
         "id": "68",
@@ -1105,31 +1121,61 @@
         "undertekst": null
       },
       {
-        "id": "94",
-        "kriterieForVisningAvUndersporsmal": null,
-        "max": null,
-        "min": null,
-        "pavirkerAndreSporsmal": false,
-        "sporsmalstekst": "Betaler arbeidsgiveren lønnen din når du er syk?",
-        "svar": [],
-        "svaralternativer": [
-          {
-            "svartekst": "Ja",
-            "verdi": "JA"
-          },
-          {
-            "svartekst": "Nei",
-            "verdi": "NEI"
-          },
-          {
-            "svartekst": "Vet ikke",
-            "verdi": "VET_IKKE"
-          }
-        ],
-        "svartype": "RADIO_GRUPPE",
+        "id": "105",
         "tag": "BETALER_ARBEIDSGIVER",
-        "undersporsmal": [],
-        "undertekst": null
+        "sporsmalstekst": "Betaler arbeidsgiveren lønnen din når du er syk?",
+        "undertekst": null,
+        "svartype": "RADIO_GRUPPE",
+        "min": null,
+        "max": null,
+        "pavirkerAndreSporsmal": false,
+        "kriterieForVisningAvUndersporsmal": null,
+        "svar": [],
+        "undersporsmal": [
+          {
+            "id": "106",
+            "tag": "BETALER_ARBEIDSGIVER_JA",
+            "sporsmalstekst": "Ja",
+            "undertekst": "Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.",
+            "svartype": "RADIO",
+            "min": null,
+            "max": null,
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
+            "svar": [],
+            "undersporsmal": []
+          },
+          {
+            "id": "107",
+            "tag": "BETALER_ARBEIDSGIVER_NEI",
+            "sporsmalstekst": "Nei",
+            "undertekst": "Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.",
+            "svartype": "RADIO",
+            "min": null,
+            "max": null,
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
+            "svar": [],
+            "undersporsmal": []
+          },
+          {
+            "id": "108",
+            "tag": "BETALER_ARBEIDSGIVER_VET_IKKE",
+            "sporsmalstekst": "Vet ikke",
+            "undertekst": "Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV.",
+            "svartype": "RADIO",
+            "min": null,
+            "max": null,
+            "pavirkerAndreSporsmal": false,
+            "kriterieForVisningAvUndersporsmal": null,
+            "svar": [
+              {
+                "verdi": "CHECKED"
+              }
+            ],
+            "undersporsmal": []
+          }
+        ]
       }
     ],
     "status": "NY",

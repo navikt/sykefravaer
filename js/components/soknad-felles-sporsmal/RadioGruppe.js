@@ -1,20 +1,19 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, autofill as autofillAction } from 'redux-form';
+import { Radio } from 'nav-frontend-skjema';
 import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
 import cn from 'classnames';
-import Radioknapper from '../skjema/Radioknapper';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
+import Sporsmalstekst from './Sporsmalstekst';
+import { getSkjemanavnFraSoknad } from '../../utils/soknad-felles/getSkjemanavnFraSoknad';
+import { hentSkjemaVerdier } from '../../selectors/reduxFormSelectors';
+import { CHECKED } from '../../enums/svarEnums';
 import Undersporsmalsliste from './Undersporsmalsliste';
-import { getOnChange } from '../../utils/soknad-felles/getOnChange';
-import {
-    fieldPropTypes,
-    sporsmal as sporsmalPt,
-    svaralternativer as svaralternativerPt,
-    soknad as soknadPt,
-} from '../../propTypes';
 import { BETALER_ARBEIDSGIVER, HVOR_MYE_HAR_DU_JOBBET } from '../../enums/tagtyper';
-import SporsmalHjelpetekst from './SporsmalHjelpetekst';
+import Feilomrade from '../skjema/Feilomrade';
+import { fieldPropTypes, sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
 
 const tagMatcher = (tags, inputTag) => {
     return tags.filter((tag) => {
@@ -28,8 +27,8 @@ const skalViseInfotekst = (tag) => {
     ], tag);
 };
 
-const Infotekst = ({ tag, verdi, sist }) => {
-    const nokkel = `soknad.infotekst.${tag.toLowerCase()}.${verdi.toLowerCase()}`;
+const Infotekst = ({ tag, sist }) => {
+    const nokkel = `soknad.infotekst.${tag.toLowerCase()}`;
     const classNames = cn('ekstrasporsmal', {
         'ekstrasporsmal--sist': sist,
     });
@@ -43,7 +42,6 @@ const Infotekst = ({ tag, verdi, sist }) => {
 
 Infotekst.propTypes = {
     tag: PropTypes.string,
-    verdi: PropTypes.string,
     sist: PropTypes.bool,
 };
 
@@ -53,56 +51,80 @@ export const erHorisontal = (tag) => {
     ], tag);
 };
 
-const RadiogruppeComponent = ({ input, meta, sporsmalstekst, undersporsmal, svaralternativer, id, tag, soknad }) => {
+const Radioknapp = ({ input, label, children }) => {
+    const checked = input.value === label;
     return (<div>
-        <Radioknapper
-            input={input}
-            meta={meta}
-            spoersmal={sporsmalstekst}
-            hjelpetekst={<SporsmalHjelpetekst tag={tag} />}
-            horisontal={erHorisontal(tag)}>
+        <Radio {...input} label={label} value={label} checked={checked} />
+        { checked && children }
+    </div>);
+};
+
+Radioknapp.propTypes = {
+    input: fieldPropTypes.input,
+    label: PropTypes.string,
+    children: PropTypes.node,
+};
+
+const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, undersporsmal, autofill, soknad, verdi }) => {
+    const sporsmalMedUndersporsmal = undersporsmal.find((s) => {
+        return s.sporsmalstekst === verdi;
+    });
+    return (<Feilomrade {...meta}>
+        <Sporsmalstekst tekst={sporsmalstekst} />
+        <div className={erHorisontal(tag) ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
             {
-                svaralternativer.map((svaralternativ, index) => {
-                    return (<i
-                        key={`${svaralternativ.verdi}_${id}`}
-                        label={svaralternativ.svartekst}
-                        value={svaralternativ.verdi}>
+                undersporsmal.map((sporsmal, index) => {
+                    return (<Field
+                        component={Radioknapp}
+                        key={sporsmal.sporsmalstekst}
+                        label={sporsmal.sporsmalstekst}
+                        name={tag}
+                        onChange={() => {
+                            undersporsmal.forEach((_underspm) => {
+                                const value = _underspm.tag === sporsmal.tag ? CHECKED : '';
+                                autofill(getSkjemanavnFraSoknad(soknad), _underspm.tag, genererParseForEnkeltverdi(_underspm.id)(value));
+                            });
+                        }}
+                        parse={genererParseForEnkeltverdi(sporsmal.id)}
+                        format={formaterEnkeltverdi}>
                         <Infotekst
-                            tag={tag}
-                            verdi={svaralternativ.verdi}
-                            sist={index + 1 === svaralternativer.length} />
-                    </i>);
+                            tag={sporsmal.tag}
+                            sist={index + 1 === undersporsmal.length} />
+                    </Field>);
                 })
             }
-        </Radioknapper>
-        <Undersporsmalsliste soknad={soknad} undersporsmal={undersporsmal} parentValue={input.value} />
-    </div>);
+        </div>
+        {
+            sporsmalMedUndersporsmal && <Undersporsmalsliste soknad={soknad} undersporsmal={sporsmalMedUndersporsmal.undersporsmal} />
+        }
+    </Feilomrade>);
 };
 
 RadiogruppeComponent.propTypes = {
     input: fieldPropTypes.input,
     meta: fieldPropTypes.meta,
+    tag: PropTypes.string,
     sporsmalstekst: PropTypes.string,
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
-    svaralternativer: svaralternativerPt,
-    id: PropTypes.string,
-    tag: PropTypes.string,
-    soknad: soknadPt.isRequired,
+    autofill: PropTypes.func,
+    soknad: soknadPt,
+    verdi: PropTypes.string,
 };
 
 const RadioGruppe = (props) => {
-    const { id } = props;
-    const parse = genererParseForEnkeltverdi(id);
-    return (<Field
-        onChange={getOnChange(props)}
-        parse={parse}
-        format={formaterEnkeltverdi}
-        component={RadiogruppeComponent}
-        {...props} />);
+    return (<Field name={props.tag} component={RadiogruppeComponent} {...props} />);
 };
 
 RadioGruppe.propTypes = {
-    id: PropTypes.string,
+    tag: PropTypes.string,
 };
 
-export default RadioGruppe;
+const mapStateToProps = (state, ownProps) => {
+    const verdier = hentSkjemaVerdier(state, getSkjemanavnFraSoknad(ownProps.soknad));
+
+    return {
+        verdi: formaterEnkeltverdi(verdier[ownProps.tag]),
+    };
+};
+
+export default connect(mapStateToProps, { autofill: autofillAction })(RadioGruppe);

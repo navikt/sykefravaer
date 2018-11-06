@@ -160,145 +160,212 @@ describe('Oppsummeringvisning', () => {
         };
 
         arbeidstakerValues = {
-            ANDRE_INNTEKTSKILDER: {
-                sporsmalsid: '76',
-                svarverdier: [
+            "BETALER_ARBEIDSGIVER_VET_IKKE": {
+                "sporsmalsid": "108",
+                "svarverdier": [
                     {
-                        verdi: 'NEI',
-                    },
-                ],
+                        "verdi": ""
+                    }
+                ]
             },
-            ANSVARSERKLARING: {
-                sporsmalsid: '55',
-                svarverdier: [
+            "ANSVARSERKLARING": {
+                "sporsmalsid": "55",
+                "svarverdier": [
                     {
-                        verdi: 'CHECKED',
-                    },
-                ],
+                        "verdi": "CHECKED"
+                    }
+                ]
             },
-            BEKREFT_OPPLYSNINGER: {
-                sporsmalsid: '93',
-                svarverdier: [
+            "EGENMELDINGER": {
+                "sporsmalsid": "56",
+                "svarverdier": [
                     {
-                        verdi: 'CHECKED',
-                    },
-                ],
+                        "verdi": "JA"
+                    }
+                ]
             },
-            BETALER_ARBEIDSGIVER: {
-                sporsmalsid: '94',
-                svarverdier: [
+            "TILBAKE_I_ARBEID": {
+                "sporsmalsid": "58",
+                "svarverdier": [
                     {
-                        verdi: 'JA',
-                    },
-                ],
+                        "verdi": "JA"
+                    }
+                ]
             },
-            EGENMELDINGER: {
-                sporsmalsid: '56',
-                svarverdier: [
-                    {
-                        verdi: 'NEI',
-                    },
-                ],
-            },
-            FERIE: {
-                sporsmalsid: '70',
-                svarverdier: [
-                    {
-                        verdi: 'UNCHECKED',
-                    },
-                ],
-            },
-            FERIE_NAR: [
-                {},
+            "EGENMELDINGER_NAR": [
+                {
+                    "fom": "03.09.2018",
+                    "tom": "09.09.2018"
+                }
             ],
-            FERIE_PERMISJON_UTLAND: {
-                sporsmalsid: '68',
-                svarverdier: [
+            "TILBAKE_NAR": {
+                "sporsmalsid": "59",
+                "svarverdier": [
                     {
-                        verdi: 'NEI',
-                    },
-                ],
+                        "verdi": "10.10.2018"
+                    }
+                ]
             },
-            HVOR_MANGE_TIMER_PER_UKE_0: {
-                sporsmalsid: '61',
-                svarverdier: [
+            "JOBBET_DU_100_PROSENT_0": {
+                "sporsmalsid": "60",
+                "svarverdier": [
                     {
-                        verdi: '37,5',
-                    },
-                ],
+                        "verdi": "JA"
+                    }
+                ]
             },
-            HVOR_MANGE_TIMER_PER_UKE_1: {
-                sporsmalsid: '65',
-                svarverdier: [
+            "HVOR_MANGE_TIMER_PER_UKE_0": {
+                "sporsmalsid": "61",
+                "svarverdier": [
                     {
-                        verdi: '37,5',
-                    },
-                ],
+                        "verdi": "25"
+                    }
+                ]
             },
-            HVOR_MYE_HAR_DU_JOBBET_0: {
-                sporsmalsid: '62',
-                svarverdier: [
+            "HVOR_MYE_PROSENT_0": {
+                "sporsmalsid": "63",
+                "svarverdier": [
                     {
-                        verdi: 'PROSENT',
-                    },
-                ],
+                        "verdi": "CHECKED"
+                    }
+                ]
             },
-            HVOR_MYE_HAR_DU_JOBBET_1: {
-                sporsmalsid: '66',
-                svarverdier: [
+            "HVOR_MYE_TIMER_0": {
+                "sporsmalsid": "65",
+                "svarverdier": [
                     {
-                        verdi: 'TIMER',
-                    },
-                ],
+                        "verdi": ""
+                    }
+                ]
             },
-            HVOR_MYE_PROSENT_VERDI_0: {
-                sporsmalsid: '63',
-                svarverdier: [
+            "HVOR_MYE_HAR_DU_JOBBET_0": {
+                "sporsmalsid": "63",
+                "svarverdier": [
                     {
-                        verdi: '23',
-                    },
-                ],
+                        "verdi": "prosent"
+                    }
+                ]
             },
-            HVOR_MYE_TIMER_VERDI_1: {
-                sporsmalsid: '67B',
-                svarverdier: [
+            "HVOR_MYE_PROSENT_VERDI_0": {
+                "sporsmalsid": "64",
+                "svarverdier": [
                     {
-                        verdi: '3',
-                    },
-                ],
+                        "verdi": "10"
+                    }
+                ]
             },
-            JOBBET_DU_100_PROSENT_0: {
-                sporsmalsid: '60',
-                svarverdier: [
+            "JOBBET_DU_GRADERT_1": {
+                "sporsmalsid": "67",
+                "svarverdier": [
                     {
-                        verdi: 'JA',
-                    },
-                ],
+                        "verdi": "JA"
+                    }
+                ]
             },
-            JOBBET_DU_GRADERT_1: {
-                sporsmalsid: '64',
-                svarverdier: [
+            "HVOR_MANGE_TIMER_PER_UKE_1": {
+                "sporsmalsid": "68",
+                "svarverdier": [
                     {
-                        verdi: 'JA',
-                    },
-                ],
+                        "verdi": "37,5"
+                    }
+                ]
             },
-            TILBAKE_I_ARBEID: {
-                sporsmalsid: '58',
-                svarverdier: [
+            "HVOR_MYE_PROSENT_1": {
+                "sporsmalsid": "70",
+                "svarverdier": [
                     {
-                        verdi: 'NEI',
-                    },
-                ],
+                        "verdi": ""
+                    }
+                ]
             },
-            UTDANNING: {
-                sporsmalsid: '89',
-                svarverdier: [
+            "HVOR_MYE_TIMER_1": {
+                "sporsmalsid": "72",
+                "svarverdier": [
                     {
-                        verdi: 'NEI',
-                    },
-                ],
+                        "verdi": "CHECKED"
+                    }
+                ]
             },
+            "HVOR_MYE_HAR_DU_JOBBET_1": {
+                "sporsmalsid": "72",
+                "svarverdier": [
+                    {
+                        "verdi": "timer"
+                    }
+                ]
+            },
+            "HVOR_MYE_TIMER_VERDI_1": {
+                "sporsmalsid": "73",
+                "svarverdier": [
+                    {
+                        "verdi": "20"
+                    }
+                ]
+            },
+            "FERIE_PERMISJON_UTLAND": {
+                "sporsmalsid": "68",
+                "svarverdier": [
+                    {
+                        "verdi": "NEI"
+                    }
+                ]
+            },
+            "ANDRE_INNTEKTSKILDER": {
+                "sporsmalsid": "76",
+                "svarverdier": [
+                    {
+                        "verdi": "JA"
+                    }
+                ]
+            },
+            "INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD": {
+                "sporsmalsid": "78",
+                "svarverdier": [
+                    {
+                        "verdi": "CHECKED"
+                    }
+                ]
+            },
+            "INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT": {
+                "sporsmalsid": "79",
+                "svarverdier": [
+                    {
+                        "verdi": "JA"
+                    }
+                ]
+            },
+            "UTDANNING": {
+                "sporsmalsid": "89",
+                "svarverdier": [
+                    {
+                        "verdi": "NEI"
+                    }
+                ]
+            },
+            "BETALER_ARBEIDSGIVER_JA": {
+                "sporsmalsid": "106",
+                "svarverdier": []
+            },
+            "BETALER_ARBEIDSGIVER_NEI": {
+                "sporsmalsid": "107",
+                "svarverdier": [
+                    {
+                        "verdi": ""
+                    }
+                ]
+            },
+            "BETALER_ARBEIDSGIVER": {
+                "sporsmalsid": "106",
+                "svarverdier": []
+            },
+            "BEKREFT_OPPLYSNINGER": {
+                "sporsmalsid": "93",
+                "svarverdier": [
+                    {
+                        "verdi": "CHECKED"
+                    }
+                ]
+            }
         };
     });
 
@@ -356,9 +423,17 @@ describe('Oppsummeringvisning', () => {
         expect(component.text()).to.contain('22.03.2014');
     });
 
-    it('Skal vise RADIO_GRUPPE', () => {
-        const populertsoknad = populerSoknadMedSvar(mockNySoknadArbeidstaker(), arbeidstakerValues);
-        const component = mount(<Oppsummeringsvisning soknad={populertsoknad} />);
-        expect(component.text()).to.contain('37,5 timer');
+    describe("RADIO_GRUPPE", () => {
+        it('Skal vise RADIO_GRUPPE', () => {
+            const populertsoknad = populerSoknadMedSvar(mockNySoknadArbeidstaker(), arbeidstakerValues);
+            const component = mount(<Oppsummeringsvisning soknad={populertsoknad} />);
+            expect(component.text()).to.contain('37,5 timer');
+        });
+
+        it('Skal ikke vise RADIO_GRUPPE når spørsmålet ikke er besvart', () => {
+            const populertsoknad = populerSoknadMedSvar(mockNySoknadArbeidstaker(), arbeidstakerValues);
+            const component = mount(<Oppsummeringsvisning soknad={populertsoknad} />);
+            expect(component.text()).not.to.contain('Betaler arbeidsgiveren lønnen din når du er syk?');
+        });
     });
 });

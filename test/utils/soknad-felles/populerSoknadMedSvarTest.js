@@ -262,15 +262,23 @@ describe('populerSoknadMedSvar', () => {
         const underspormalHvorMyeHarDuJobbet = hentSporsmal(toppnivaSporsmal.undersporsmal, 'HVOR_MYE_HAR_DU_JOBBET_0');
         const parseUndersporsmalHvorMyeHarDuJobbet = genererParseForEnkeltverdi(underspormalHvorMyeHarDuJobbet.id);
 
-        const undersporsmalAntallTimerJobbet = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_TIMER_VERDI_0');
+        const undersporsmalHvorMyeTimer = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_TIMER_0');
+        const parseUndersporsmalHvorMyeTimer = genererParseForEnkeltverdi(undersporsmalHvorMyeTimer.id);
+
+        const undersporsmalHvorMyeProsent = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_PROSENT_0');
+        const parseUndersporsmalHvorMyeProsent = genererParseForEnkeltverdi(undersporsmalHvorMyeProsent.id);
+
+        const undersporsmalAntallTimerJobbet = hentSporsmal(undersporsmalHvorMyeTimer.undersporsmal, 'HVOR_MYE_TIMER_VERDI_0');
         const parseAntallTimerJobbet = genererParseForEnkeltverdi(undersporsmalAntallTimerJobbet.id);
 
-        const undersporsmalProsentJobbet = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_PROSENT_VERDI_0');
+        const undersporsmalProsentJobbet = hentSporsmal(undersporsmalHvorMyeProsent.undersporsmal, 'HVOR_MYE_PROSENT_VERDI_0');
         const parseUndersporsmalProsentJobbet = genererParseForEnkeltverdi(undersporsmalProsentJobbet.id);
 
         values[toppnivaSporsmal.tag] = parseToppnivaSporsmal(JA);
         values[undersporsmalHvorMangeTimerPerUkeNormalt.tag] = parseUnderspormsalHvorMangeTimerPerUkeNormalt('37,5');
-        values[underspormalHvorMyeHarDuJobbet.tag] = parseUndersporsmalHvorMyeHarDuJobbet('TIMER');
+        values[underspormalHvorMyeHarDuJobbet.tag] = parseUndersporsmalHvorMyeHarDuJobbet('timer');
+        values[undersporsmalHvorMyeTimer.tag] = parseUndersporsmalHvorMyeTimer('CHECKED');
+        values[undersporsmalHvorMyeProsent.tag] = parseUndersporsmalHvorMyeProsent('');
         values[undersporsmalAntallTimerJobbet.tag] = parseAntallTimerJobbet('10');
         values[undersporsmalProsentJobbet.tag] = parseUndersporsmalProsentJobbet('35');
 
@@ -278,15 +286,15 @@ describe('populerSoknadMedSvar', () => {
         const parsetHovedsporsmal = hentSporsmal(populertSoknad.sporsmal, 'JOBBET_DU_100_PROSENT_0');
         const populertUndersporsmalNormalJobbing = hentSporsmal(parsetHovedsporsmal.undersporsmal, 'HVOR_MANGE_TIMER_PER_UKE_0');
         const populertUndersporsmalHvorMyeHarDuJobbet = hentSporsmal(parsetHovedsporsmal.undersporsmal, 'HVOR_MYE_HAR_DU_JOBBET_0');
-        const populertUndersporsmalAntallTimerJobbet = hentSporsmal(populertUndersporsmalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_TIMER_VERDI_0');
-        const populertUndersporsmalProsentJobbet = hentSporsmal(populertUndersporsmalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_PROSENT_VERDI_0');
+        const populertUndersporsmalSvarITimer = hentSporsmal(populertUndersporsmalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_TIMER_0');
+        const populertUndersporsmalSvarIProsent = hentSporsmal(populertUndersporsmalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_PROSENT_0');
+        const populertUndersporsmalAntallTimerJobbet = hentSporsmal(populertUndersporsmalSvarITimer.undersporsmal, 'HVOR_MYE_TIMER_VERDI_0');
+        const populertUndersporsmalProsentJobbet = hentSporsmal(populertUndersporsmalSvarIProsent.undersporsmal, 'HVOR_MYE_PROSENT_VERDI_0');
 
         expect(populertUndersporsmalNormalJobbing.svar).to.deep.equal([{
             verdi: '37,5',
         }]);
-        expect(populertUndersporsmalHvorMyeHarDuJobbet.svar).to.deep.equal([{
-            verdi: 'TIMER',
-        }]);
+        expect(populertUndersporsmalHvorMyeHarDuJobbet.svar).to.deep.equal([]);
         expect(populertUndersporsmalAntallTimerJobbet.svar).to.deep.equal([{
             verdi: '10',
         }]);

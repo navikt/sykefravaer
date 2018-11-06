@@ -29,8 +29,8 @@ import IkkeRelevant from './IkkeRelevant';
 import Checkboxpanel from './Checkboxpanel';
 import { soknadEndret } from '../../actions/soknader_actions';
 import UkjentSporsmal from './UkjentSporsmal';
-import RadioGruppe from './RadioGruppe';
 import Undersporsmalsliste from './Undersporsmalsliste';
+import RadioGruppe from './RadioGruppe';
 
 export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, actions, soknad }) => {
     const undersporsmalsliste = <Undersporsmalsliste undersporsmal={sporsmal.undersporsmal} soknad={soknad} />;
@@ -97,11 +97,7 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
             </Checkboxpanel>);
         }
         case RADIO_GRUPPE: {
-            return (<RadioGruppe
-                {...sporsmal}
-                name={name}
-                soknad={soknad}
-                actions={actions} />);
+            return <RadioGruppe {...sporsmal} name={name} soknad={soknad} />;
         }
         default: {
             return <UkjentSporsmal sporsmal={sporsmal} />;

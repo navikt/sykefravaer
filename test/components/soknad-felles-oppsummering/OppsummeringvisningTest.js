@@ -160,212 +160,212 @@ describe('Oppsummeringvisning', () => {
         };
 
         arbeidstakerValues = {
-            "BETALER_ARBEIDSGIVER_VET_IKKE": {
-                "sporsmalsid": "108",
-                "svarverdier": [
+            BETALER_ARBEIDSGIVER_VET_IKKE: {
+                sporsmalsid: '108',
+                svarverdier: [
                     {
-                        "verdi": ""
-                    }
-                ]
+                        verdi: '',
+                    },
+                ],
             },
-            "ANSVARSERKLARING": {
-                "sporsmalsid": "55",
-                "svarverdier": [
+            ANSVARSERKLARING: {
+                sporsmalsid: '55',
+                svarverdier: [
                     {
-                        "verdi": "CHECKED"
-                    }
-                ]
+                        verdi: 'CHECKED',
+                    },
+                ],
             },
-            "EGENMELDINGER": {
-                "sporsmalsid": "56",
-                "svarverdier": [
+            EGENMELDINGER: {
+                sporsmalsid: '56',
+                svarverdier: [
                     {
-                        "verdi": "JA"
-                    }
-                ]
+                        verdi: 'JA',
+                    },
+                ],
             },
-            "TILBAKE_I_ARBEID": {
-                "sporsmalsid": "58",
-                "svarverdier": [
+            TILBAKE_I_ARBEID: {
+                sporsmalsid: '58',
+                svarverdier: [
                     {
-                        "verdi": "JA"
-                    }
-                ]
+                        verdi: 'JA',
+                    },
+                ],
             },
-            "EGENMELDINGER_NAR": [
+            EGENMELDINGER_NAR: [
                 {
-                    "fom": "03.09.2018",
-                    "tom": "09.09.2018"
-                }
+                    fom: '03.09.2018',
+                    tom: '09.09.2018',
+                },
             ],
-            "TILBAKE_NAR": {
-                "sporsmalsid": "59",
-                "svarverdier": [
+            TILBAKE_NAR: {
+                sporsmalsid: '59',
+                svarverdier: [
                     {
-                        "verdi": "10.10.2018"
-                    }
-                ]
+                        verdi: '10.10.2018',
+                    },
+                ],
             },
-            "JOBBET_DU_100_PROSENT_0": {
-                "sporsmalsid": "60",
-                "svarverdier": [
+            JOBBET_DU_100_PROSENT_0: {
+                sporsmalsid: '60',
+                svarverdier: [
                     {
-                        "verdi": "JA"
-                    }
-                ]
+                        verdi: 'JA',
+                    },
+                ],
             },
-            "HVOR_MANGE_TIMER_PER_UKE_0": {
-                "sporsmalsid": "61",
-                "svarverdier": [
+            HVOR_MANGE_TIMER_PER_UKE_0: {
+                sporsmalsid: '61',
+                svarverdier: [
                     {
-                        "verdi": "25"
-                    }
-                ]
+                        verdi: '25',
+                    },
+                ],
             },
-            "HVOR_MYE_PROSENT_0": {
-                "sporsmalsid": "63",
-                "svarverdier": [
+            HVOR_MYE_PROSENT_0: {
+                sporsmalsid: '63',
+                svarverdier: [
                     {
-                        "verdi": "CHECKED"
-                    }
-                ]
+                        verdi: 'CHECKED',
+                    },
+                ],
             },
-            "HVOR_MYE_TIMER_0": {
-                "sporsmalsid": "65",
-                "svarverdier": [
+            HVOR_MYE_TIMER_0: {
+                sporsmalsid: '65',
+                svarverdier: [
                     {
-                        "verdi": ""
-                    }
-                ]
+                        verdi: '',
+                    },
+                ],
             },
-            "HVOR_MYE_HAR_DU_JOBBET_0": {
-                "sporsmalsid": "63",
-                "svarverdier": [
+            HVOR_MYE_HAR_DU_JOBBET_0: {
+                sporsmalsid: '63',
+                svarverdier: [
                     {
-                        "verdi": "prosent"
-                    }
-                ]
+                        verdi: 'prosent',
+                    },
+                ],
             },
-            "HVOR_MYE_PROSENT_VERDI_0": {
-                "sporsmalsid": "64",
-                "svarverdier": [
+            HVOR_MYE_PROSENT_VERDI_0: {
+                sporsmalsid: '64',
+                svarverdier: [
                     {
-                        "verdi": "10"
-                    }
-                ]
+                        verdi: '10',
+                    },
+                ],
             },
-            "JOBBET_DU_GRADERT_1": {
-                "sporsmalsid": "67",
-                "svarverdier": [
+            JOBBET_DU_GRADERT_1: {
+                sporsmalsid: '67',
+                svarverdier: [
                     {
-                        "verdi": "JA"
-                    }
-                ]
+                        verdi: 'JA',
+                    },
+                ],
             },
-            "HVOR_MANGE_TIMER_PER_UKE_1": {
-                "sporsmalsid": "68",
-                "svarverdier": [
+            HVOR_MANGE_TIMER_PER_UKE_1: {
+                sporsmalsid: '68',
+                svarverdier: [
                     {
-                        "verdi": "37,5"
-                    }
-                ]
+                        verdi: '37,5',
+                    },
+                ],
             },
-            "HVOR_MYE_PROSENT_1": {
-                "sporsmalsid": "70",
-                "svarverdier": [
+            HVOR_MYE_PROSENT_1: {
+                sporsmalsid: '70',
+                svarverdier: [
                     {
-                        "verdi": ""
-                    }
-                ]
+                        verdi: '',
+                    },
+                ],
             },
-            "HVOR_MYE_TIMER_1": {
-                "sporsmalsid": "72",
-                "svarverdier": [
+            HVOR_MYE_TIMER_1: {
+                sporsmalsid: '72',
+                svarverdier: [
                     {
-                        "verdi": "CHECKED"
-                    }
-                ]
+                        verdi: 'CHECKED',
+                    },
+                ],
             },
-            "HVOR_MYE_HAR_DU_JOBBET_1": {
-                "sporsmalsid": "72",
-                "svarverdier": [
+            HVOR_MYE_HAR_DU_JOBBET_1: {
+                sporsmalsid: '72',
+                svarverdier: [
                     {
-                        "verdi": "timer"
-                    }
-                ]
+                        verdi: 'timer',
+                    },
+                ],
             },
-            "HVOR_MYE_TIMER_VERDI_1": {
-                "sporsmalsid": "73",
-                "svarverdier": [
+            HVOR_MYE_TIMER_VERDI_1: {
+                sporsmalsid: '73',
+                svarverdier: [
                     {
-                        "verdi": "20"
-                    }
-                ]
+                        verdi: '20',
+                    },
+                ],
             },
-            "FERIE_PERMISJON_UTLAND": {
-                "sporsmalsid": "68",
-                "svarverdier": [
+            FERIE_PERMISJON_UTLAND: {
+                sporsmalsid: '68',
+                svarverdier: [
                     {
-                        "verdi": "NEI"
-                    }
-                ]
+                        verdi: 'NEI',
+                    },
+                ],
             },
-            "ANDRE_INNTEKTSKILDER": {
-                "sporsmalsid": "76",
-                "svarverdier": [
+            ANDRE_INNTEKTSKILDER: {
+                sporsmalsid: '76',
+                svarverdier: [
                     {
-                        "verdi": "JA"
-                    }
-                ]
+                        verdi: 'JA',
+                    },
+                ],
             },
-            "INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD": {
-                "sporsmalsid": "78",
-                "svarverdier": [
+            INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD: {
+                sporsmalsid: '78',
+                svarverdier: [
                     {
-                        "verdi": "CHECKED"
-                    }
-                ]
+                        verdi: 'CHECKED',
+                    },
+                ],
             },
-            "INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT": {
-                "sporsmalsid": "79",
-                "svarverdier": [
+            INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT: {
+                sporsmalsid: '79',
+                svarverdier: [
                     {
-                        "verdi": "JA"
-                    }
-                ]
+                        verdi: 'JA',
+                    },
+                ],
             },
-            "UTDANNING": {
-                "sporsmalsid": "89",
-                "svarverdier": [
+            UTDANNING: {
+                sporsmalsid: '89',
+                svarverdier: [
                     {
-                        "verdi": "NEI"
-                    }
-                ]
+                        verdi: 'NEI',
+                    },
+                ],
             },
-            "BETALER_ARBEIDSGIVER_JA": {
-                "sporsmalsid": "106",
-                "svarverdier": []
+            BETALER_ARBEIDSGIVER_JA: {
+                sporsmalsid: '106',
+                svarverdier: [],
             },
-            "BETALER_ARBEIDSGIVER_NEI": {
-                "sporsmalsid": "107",
-                "svarverdier": [
+            BETALER_ARBEIDSGIVER_NEI: {
+                sporsmalsid: '107',
+                svarverdier: [
                     {
-                        "verdi": ""
-                    }
-                ]
+                        verdi: '',
+                    },
+                ],
             },
-            "BETALER_ARBEIDSGIVER": {
-                "sporsmalsid": "106",
-                "svarverdier": []
+            BETALER_ARBEIDSGIVER: {
+                sporsmalsid: '106',
+                svarverdier: [],
             },
-            "BEKREFT_OPPLYSNINGER": {
-                "sporsmalsid": "93",
-                "svarverdier": [
+            BEKREFT_OPPLYSNINGER: {
+                sporsmalsid: '93',
+                svarverdier: [
                     {
-                        "verdi": "CHECKED"
-                    }
-                ]
-            }
+                        verdi: 'CHECKED',
+                    },
+                ],
+            },
         };
     });
 
@@ -423,7 +423,7 @@ describe('Oppsummeringvisning', () => {
         expect(component.text()).to.contain('22.03.2014');
     });
 
-    describe("RADIO_GRUPPE", () => {
+    describe('RADIO_GRUPPE', () => {
         it('Skal vise RADIO_GRUPPE', () => {
             const populertsoknad = populerSoknadMedSvar(mockNySoknadArbeidstaker(), arbeidstakerValues);
             const component = mount(<Oppsummeringsvisning soknad={populertsoknad} />);

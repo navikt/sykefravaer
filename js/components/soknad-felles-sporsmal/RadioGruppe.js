@@ -28,7 +28,7 @@ const skalViseInfotekst = (tag) => {
 };
 
 const Infotekst = ({ tag, sist }) => {
-    const nokkel = `soknad.infotekst.${tag.toLowerCase()}`;
+    const nokkel = `soknad.infotekst.${tag.toLowerCase()}.infotekst`;
     const classNames = cn('ekstrasporsmal', {
         'ekstrasporsmal--sist': sist,
     });

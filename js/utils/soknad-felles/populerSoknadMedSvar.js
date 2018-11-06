@@ -43,18 +43,22 @@ const tilBackendMinMax = (minMax) => {
         : minMax;
 };
 
-const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options, parentValue) => {
+const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
     const svar = (() => {
-        if (sporsmal.svartype === PERIODER) {
-            return tilPeriodesvar(svarFraSkjema, options.konverterPerioder);
+        switch (sporsmal.svartype) {
+            case PERIODER: {
+                return tilPeriodesvar(svarFraSkjema, options.konverterPerioder);
+            }
+            case DATO: {
+                return tilDatoSvar(svarFraSkjema);
+            }
+            case RADIO_GRUPPE: {
+                return [];
+            }
+            default: {
+                return svarFraSkjema ? svarFraSkjema.svarverdier : [];
+            }
         }
-        if (sporsmal.svartype === DATO) {
-            return tilDatoSvar(svarFraSkjema);
-        }
-        if (sporsmal.visningskriterie && parentValue.svarverdier[0].verdi !== sporsmal.visningskriterie) {
-            return [];
-        }
-        return svarFraSkjema ? svarFraSkjema.svarverdier : [];
     })();
 
     return {
@@ -97,11 +101,11 @@ const settMinMax = (sporsmal) => {
     }
 };
 
-const populerSporsmalsliste = (sporsmalsliste, values, options, parentValue) => {
+const populerSporsmalsliste = (sporsmalsliste, values, options) => {
     return sporsmalsliste.map((sporsmal) => {
         const svarValue = values[sporsmal.tag];
         const undersporsmalErStilt = erUndersporsmalStilt(sporsmal, values);
-        const populertSporsmal = populerSporsmalMedSvar(sporsmal, svarValue, options, parentValue);
+        const populertSporsmal = populerSporsmalMedSvar(sporsmal, svarValue, options);
         if (undersporsmalErStilt) {
             return {
                 ...populertSporsmal,

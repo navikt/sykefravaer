@@ -41,6 +41,9 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
     const { handleSubmit, soknad, skjemasvar, actions, sender, sendingFeilet } = props;
 
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
+
+    console.log(JSON.stringify(skjemasvar));
+
     const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => { return s.tag === VAER_KLAR_OVER_AT; });
     const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => { return s.tag === BEKREFT_OPPLYSNINGER; });
     const betalerArbeidsgiverSpm = soknad.sporsmal.find((s) => { return s.tag === BETALER_ARBEIDSGIVER; });

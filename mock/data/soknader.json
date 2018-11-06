@@ -563,11 +563,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "61",
@@ -579,11 +575,7 @@
             "max": "150",
             "pavirkerAndreSporsmal": false,
             "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "37,5"
-              }
-            ],
+            "svar": [],
             "undersporsmal": []
           },
           {
@@ -608,11 +600,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "64",
@@ -624,11 +612,7 @@
                     "max": "99",
                     "pavirkerAndreSporsmal": false,
                     "kriterieForVisningAvUndersporsmal": null,
-                    "svar": [
-                      {
-                        "verdi": "79"
-                      }
-                    ],
+                    "svar": [],
                     "undersporsmal": []
                   }
                 ]
@@ -674,11 +658,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "JA"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "68",
@@ -690,11 +670,7 @@
             "max": "150",
             "pavirkerAndreSporsmal": false,
             "kriterieForVisningAvUndersporsmal": null,
-            "svar": [
-              {
-                "verdi": "37.5"
-              }
-            ],
+            "svar": [],
             "undersporsmal": []
           },
           {
@@ -746,11 +722,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "73",
@@ -762,11 +734,7 @@
                     "max": "86",
                     "pavirkerAndreSporsmal": false,
                     "kriterieForVisningAvUndersporsmal": null,
-                    "svar": [
-                      {
-                        "verdi": "66"
-                      }
-                    ],
+                    "svar": [],
                     "undersporsmal": []
                   }
                 ]

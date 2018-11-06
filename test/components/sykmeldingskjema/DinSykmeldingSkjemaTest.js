@@ -285,17 +285,12 @@ describe('DinSykmeldingSkjema -', () => {
     });
 
     describe('Frilansersvar', () => {
-        let props;
         let brukersSvarverdier;
 
         beforeEach(() => {
             actions = {
                 handleSubmit: sinon.spy(),
                 dispatch: sinon.spy(),
-            };
-            props = {
-                modus: '',
-                sykmelding: getSykmelding(),
             };
             brukersSvarverdier = {};
         });

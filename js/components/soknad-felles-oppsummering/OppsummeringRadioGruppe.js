@@ -21,7 +21,6 @@ const OppsummeringRadiogruppe = ({ sporsmalstekst, tag, overskriftsnivaa, unders
 };
 
 OppsummeringRadiogruppe.propTypes = {
-    svar: svarPt,
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
     overskriftsnivaa: PropTypes.number,

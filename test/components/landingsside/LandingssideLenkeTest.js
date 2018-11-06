@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import LandingssideLenke from '../../../js/components/landingsside/LandingssideLenke';
 
@@ -14,7 +14,7 @@ describe('LandingsideLenke', () => {
     });
 
     it('Skal ikke vise undertittel om den ikke er definert', () => {
-        const lenke = mount(<LandingssideLenke tittel="Tittel" ikon="ikon" ikonAlt="banan" />);
+        const lenke = shallow(<LandingssideLenke tittel="Tittel" ikon="ikon" ikonAlt="banan" />);
         expect(lenke.find('p').length).to.equal(0);
     });
 

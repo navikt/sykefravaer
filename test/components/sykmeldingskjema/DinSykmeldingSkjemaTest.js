@@ -1,11 +1,8 @@
 import chai from 'chai';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
-import configureMockStore from 'redux-mock-store';
-import createSagaMiddleware from 'redux-saga';
-import { Provider } from 'react-redux';
 import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import deepFreeze from 'deep-freeze';
 import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, mapStateToProps } from '../../../js/components/sykmeldingskjema/DinSykmeldingSkjema';
@@ -15,19 +12,17 @@ import * as dinSykmeldingActions from '../../../js/actions/dinSykmelding_actions
 import ledetekster from '../../mock/mockLedetekster';
 import getSykmelding from '../../mock/mockSykmeldinger';
 import { getSykmeldingSkjemanavn } from '../../../js/enums/skjemanavn';
+import mountWithStore from '../../mountWithStore';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('DinSykmeldingSkjema -', () => {
     let component;
-    const sagaMiddleware = createSagaMiddleware();
-    const middlewares = [sagaMiddleware];
-    const mockStore = configureMockStore(middlewares);
 
     let values;
     let state;
-    let getStore;
+    let getState;
 
     const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
         return {
@@ -62,8 +57,8 @@ describe('DinSykmeldingSkjema -', () => {
             },
         };
 
-        getStore = (_values = {}, _state = state) => {
-            const stateToStore = {
+        getState = (_values = {}, _state = state) => {
+            return {
                 ..._state,
                 form: {
                     [getSykmeldingSkjemanavn('sykmelding-id')]: {
@@ -71,7 +66,6 @@ describe('DinSykmeldingSkjema -', () => {
                     },
                 },
             };
-            return mockStore(stateToStore);
         };
 
         ownProps = {
@@ -80,23 +74,19 @@ describe('DinSykmeldingSkjema -', () => {
             }),
         };
         actions = {};
-        getComponent = (s = getStore()) => {
-            return mount(<Provider store={s}>
-                <DinSykmeldingSkjema
-                    {...ownProps}
-                />
-            </Provider>);
+        getComponent = (s = getState()) => {
+            return mountWithStore(<DinSykmeldingSkjema {...ownProps} />, s);
         };
     });
 
     it('Skal vise VelgArbeidssituasjon', () => {
-        component = getComponent(getStore());
+        component = getComponent(getState());
         expect(component.find(VelgArbeidssituasjon)).to.have.length(1);
     });
 
     it('Skal vise info om utskrift dersom harStrengtFortroligAdresse = true', () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
-        component = getComponent(getStore({
+        component = getComponent(getState({
             valgtArbeidssituasjon: 'ARBEIDSTAKER',
         }));
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
@@ -104,7 +94,7 @@ describe('DinSykmeldingSkjema -', () => {
 
     it('Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = true', () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = false;
-        component = getComponent(getStore({
+        component = getComponent(getState({
             valgtArbeidssituasjon: 'ARBEIDSTAKER',
         }));
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
@@ -318,10 +308,9 @@ describe('DinSykmeldingSkjema -', () => {
                     orgnummer: '123456789',
                 },
             };
-            props.brukersSvarverdier = brukersSvarverdier;
-            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getDekningsgrad()).to.equal(null);
-            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
+            component = getComponent(getState(brukersSvarverdier));
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSLEDIG', () => {
@@ -329,10 +318,9 @@ describe('DinSykmeldingSkjema -', () => {
                 valgtArbeidssituasjon: 'ARBEIDSLEDIG',
                 opplysningeneErRiktige: true,
             };
-            props.brukersSvarverdier = brukersSvarverdier;
-            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getDekningsgrad()).to.equal(null);
-            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
+            component = getComponent(getState(brukersSvarverdier));
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er FRILANSER og tilleggsspørsmål for frilansere ikke er stilt', () => {
@@ -340,10 +328,9 @@ describe('DinSykmeldingSkjema -', () => {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
             };
-            props.brukersSvarverdier = brukersSvarverdier;
-            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getDekningsgrad()).to.equal(null);
-            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
+            component = getComponent(getState(brukersSvarverdier));
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart JA på egenmeldingsspørsmål', () => {
@@ -360,9 +347,8 @@ describe('DinSykmeldingSkjema -', () => {
                 }],
                 harForsikring: false,
             };
-            props.brukersSvarverdier = brukersSvarverdier;
-            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getEgenmeldingsperioder()).to.deep.equal([{
+            component = getComponent(getState(brukersSvarverdier));
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.deep.equal([{
                 fom: new Date('2018-03-01'),
                 tom: new Date('2018-03-05'),
             }, {
@@ -379,9 +365,8 @@ describe('DinSykmeldingSkjema -', () => {
                 fravaersperioder: [{}, {}],
                 harForsikring: false,
             };
-            props.brukersSvarverdier = brukersSvarverdier;
-            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
+            component = getComponent(getState(brukersSvarverdier));
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere tom dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart NEI på forsikringsspørsmålet', () => {
@@ -392,9 +377,8 @@ describe('DinSykmeldingSkjema -', () => {
                 harForsikring: false,
                 dekningsgrad: '75',
             };
-            props.brukersSvarverdier = brukersSvarverdier;
-            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getDekningsgrad()).to.equal(null);
+            component = getComponent(getState(brukersSvarverdier));
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
         });
 
         it('Skal returnere oppgitt dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart JA på forsikringsspørsmålet', () => {
@@ -405,9 +389,8 @@ describe('DinSykmeldingSkjema -', () => {
                 harForsikring: true,
                 dekningsgrad: '75',
             };
-            props.brukersSvarverdier = brukersSvarverdier;
-            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getDekningsgrad()).to.equal('75');
+            component = getComponent(getState(brukersSvarverdier));
+            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal('75');
         });
     });
 
@@ -432,7 +415,7 @@ describe('DinSykmeldingSkjema -', () => {
 
             const sendSykmeldingTilArbeidsgiver = sinon.stub(dinSykmeldingActions, 'sendSykmeldingTilArbeidsgiver');
 
-            component = getComponent(getStore(values));
+            component = getComponent(getState(values));
             component.simulate('submit');
 
             expect(sendSykmeldingTilArbeidsgiver.callCount).to.equal(1);
@@ -458,7 +441,7 @@ describe('DinSykmeldingSkjema -', () => {
 
             const bekreftSykmelding = sinon.stub(dinSykmeldingActions, 'bekreftSykmelding');
 
-            component = getComponent(getStore(values));
+            component = getComponent(getState(values));
             component.simulate('submit');
 
             expect(bekreftSykmelding.callCount).to.equal(1);
@@ -508,7 +491,7 @@ describe('DinSykmeldingSkjema -', () => {
                     },
                 } };
 
-            component = getComponent(getStore(values));
+            component = getComponent(getState(values));
             expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(0);
         });
 
@@ -525,7 +508,7 @@ describe('DinSykmeldingSkjema -', () => {
                     },
                 } };
 
-            component = getComponent(getStore(values));
+            component = getComponent(getState(values));
             expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(0);
         });
 
@@ -534,7 +517,7 @@ describe('DinSykmeldingSkjema -', () => {
                 valgtArbeidssituasjon: 'NAERINGSDRIVENDE',
             };
 
-            component = getComponent(getStore(values));
+            component = getComponent(getState(values));
             expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(1);
             expect(component.find('.dinSykmeldingSkjema__sendInfo')).text().to.contain('Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk');
         });

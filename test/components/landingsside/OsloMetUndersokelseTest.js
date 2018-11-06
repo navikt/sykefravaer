@@ -15,7 +15,8 @@ describe('OsloMetUndersokelse', () => {
     let inaktivSykmelding3;
     let aktivSykmelding;
     let settSykeforloep;
-    let FEMTISJU_DAGER_SIDEN;
+    let FEMTITO_UKER_SIDEN;
+    let FEMTITO_UKER_OG_EN_DAG_SIDEN;
     let TJUESJU_DAGER_SIDEN;
     let FEMTI_DAGER_SIDEN;
 
@@ -25,7 +26,8 @@ describe('OsloMetUndersokelse', () => {
 
         const ETT_DOGN = 1000 * 60 * 60 * 24;
 
-        FEMTISJU_DAGER_SIDEN = new Date(DAGENS_DATO.getTime() - (57 * ETT_DOGN));
+        FEMTITO_UKER_SIDEN = new Date(DAGENS_DATO.getTime() - (364 * ETT_DOGN));
+        FEMTITO_UKER_OG_EN_DAG_SIDEN = new Date(DAGENS_DATO.getTime() - (365 * ETT_DOGN));
         TJUESJU_DAGER_SIDEN = new Date(DAGENS_DATO.getTime() - (27 * ETT_DOGN));
         FEMTI_DAGER_SIDEN = new Date(DAGENS_DATO.getTime() - (50 * ETT_DOGN));
 
@@ -98,8 +100,8 @@ describe('OsloMetUndersokelse', () => {
         expect(component.html()).to.equal(null);
     });
 
-    it('Skal ikke vise undersøkelsen hvis det foreligger en aktiv sykmelding, men sykeforløpet har vart mer enn 56 dager', () => {
-        const state = settSykeforloep([inaktivSykmelding1, inaktivSykmelding2, aktivSykmelding], FEMTISJU_DAGER_SIDEN);
+    it('Skal ikke vise undersøkelsen hvis det foreligger en aktiv sykmelding, men sykeforløpet har vart mer enn 364 dager (52 uker)', () => {
+        const state = settSykeforloep([inaktivSykmelding1, inaktivSykmelding2, aktivSykmelding], FEMTITO_UKER_OG_EN_DAG_SIDEN);
         const component = mountWithStore(<OsloMetUndersokelse />, state);
         expect(component.html()).to.equal(null);
     });
@@ -110,14 +112,20 @@ describe('OsloMetUndersokelse', () => {
         expect(component.html()).to.equal(null);
     });
 
-    it('Skal ikke vise undersøkelsen hvis det foreligger en aktiv sykmelding som ikke er sendt, men sykeforløpet har vart i mellom 28 og 56 dager', () => {
+    it('Skal ikke vise undersøkelsen hvis det foreligger en aktiv sykmelding som ikke er sendt, men sykeforløpet har vart i mellom 28 og 364 dager', () => {
         const state = settSykeforloep([inaktivSykmelding1, inaktivSykmelding2, inaktivSykmelding3], FEMTI_DAGER_SIDEN);
         const component = mountWithStore(<OsloMetUndersokelse />, state);
         expect(component.html()).to.equal(null);
     });
 
-    it('Skal vise undersøkelsen hvis det foreligger en aktiv sykmelding, og sykeforløpet har vart i mellom 28 og 56 dager', () => {
+    it('Skal vise undersøkelsen hvis det foreligger en aktiv sykmelding, og sykeforløpet har vart i mellom 28 og 364 dager', () => {
         const state = settSykeforloep([inaktivSykmelding1, inaktivSykmelding2, aktivSykmelding], FEMTI_DAGER_SIDEN);
+        const component = mountWithStore(<OsloMetUndersokelse />, state);
+        expect(component.html()).not.to.equal(null);
+    });
+
+    it('Skal vise undersøkelsen hvis det foreligger en aktiv sykmelding, og sykeforløpet har vart i 364 dager', () => {
+        const state = settSykeforloep([inaktivSykmelding1, inaktivSykmelding2, aktivSykmelding], FEMTITO_UKER_SIDEN);
         const component = mountWithStore(<OsloMetUndersokelse />, state);
         expect(component.html()).not.to.equal(null);
     });

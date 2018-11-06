@@ -24,7 +24,7 @@ const Panel = () => {
             onClick={() => {
                 pushToDataLayer('OSLOMET_KLIKKET');
             }}
-            href="https://skjema.uio.no/screening"
+            href="https://www.muskhealth.com/landingsside-mi-nav"
             rel="noopener noreferrer"
             target="_blank"
             className="knapp knapp--mini">Bli med</a>
@@ -52,8 +52,8 @@ Container.propTypes = {
 const mapStateToProps = (state) => {
     const ETT_DOGN = 1000 * 60 * 60 * 24;
     const DAGENS_DATO = new Date();
-    const FEMTISJU_DAGER_SIDEN = new Date(DAGENS_DATO.getTime() - (57 * ETT_DOGN));
-    const TJUESJU_DAGER_SIDEN = new Date(DAGENS_DATO.getTime() - (27 * ETT_DOGN));
+    const FEMTITO_UKER_SIDEN = new Date(DAGENS_DATO.getTime() - (364 * ETT_DOGN));
+    const FIRE_UKER_SIDEN = new Date(DAGENS_DATO.getTime() - (28 * ETT_DOGN));
 
     const vis = (() => {
         const sykeforloep = state.sykeforloep.data.length > 0
@@ -74,8 +74,8 @@ const mapStateToProps = (state) => {
         }).length > 0;
 
         return harAktivSykmelding
-            && FEMTISJU_DAGER_SIDEN < oppfoelgingsdato
-            && TJUESJU_DAGER_SIDEN > oppfoelgingsdato;
+            && FEMTITO_UKER_SIDEN <= oppfoelgingsdato
+            && FIRE_UKER_SIDEN >= oppfoelgingsdato;
     })();
 
     return {

@@ -4,48 +4,16 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
-import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForEnkeltverdi, tagMatcher } from './fieldUtils';
+import { childEllerChildren, fieldPropTypes, soknad as soknadPt, sporsmal as sporsmalPt } from '../../propTypes';
+import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 import SporsmalBjornKondisjonell from './SporsmalBjornKondisjonell';
 import SporsmalBjorn from './SporsmalBjorn';
 import { getOnChange } from '../../utils/soknad-felles/getOnChange';
 import SporsmalHjelpetekst from './SporsmalHjelpetekst';
-import {
-    INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT,
-    INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT,
-    INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT,
-    INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT,
-    INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT,
-    INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT,
-} from '../../enums/tagtyper';
+import JaEllerNeiPresisering from './JaEllerNeiPresisering';
 
 const jaEllerNeiAlternativer = [JA, NEI];
-
-const visPresisering = (tag, value) => {
-    const tagsMedPresisering = [
-        INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT,
-        INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT,
-        INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT,
-        INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT,
-        INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT,
-        INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT,
-    ];
-    return value === JA && tagMatcher(tagsMedPresisering, tag);
-};
-
-const JaEllerNeiPresisering = ({ tag, value }) => {
-    return visPresisering(tag, value)
-        ? <div className="presisering blokk">
-            <p className="sist">{getLedetekst(`soknad.infotekst.${fjernIndexFraTag(tag).toLowerCase()}`)}</p>
-        </div>
-        : null;
-};
-
-JaEllerNeiPresisering.propTypes = {
-    tag: PropTypes.string,
-    value: PropTypes.string,
-};
 
 export const JaEllerNeiRadioknapper = (props) => {
     return (<Radioknapper {...props} name={props.input.name} spoersmal={props.sporsmalstekst}>
@@ -56,7 +24,7 @@ export const JaEllerNeiRadioknapper = (props) => {
                         value={alternativ}
                         label={getLedetekst(`soknad.${alternativ.toLowerCase()}`)}
                         key={index}>
-                        <JaEllerNeiPresisering tag={props.tag} value={props.input.value} />
+                        <JaEllerNeiPresisering tag={props.tag} value={props.input.value} soknad={props.soknad} />
                     </i>);
                 })
         }
@@ -68,6 +36,7 @@ JaEllerNeiRadioknapper.propTypes = {
     intro: PropTypes.string,
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
+    soknad: soknadPt,
 };
 
 export const RendreJaEllerNei = (props) => {
@@ -85,7 +54,7 @@ export const RendreJaEllerNei = (props) => {
                 return _props.input.value === _props.kriterieForVisningAvUndersporsmal;
             }}>
             <div className={classNamesTilleggssporsmal}>{props.children}</div>
-            <SporsmalBjorn tag={props.tag} className="press" />
+            <SporsmalBjorn tag={props.tag} soknad={props.soknad} className="press" />
         </SporsmalMedTillegg>);
 };
 
@@ -94,6 +63,7 @@ RendreJaEllerNei.propTypes = {
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
     hovedsporsmal: PropTypes.bool,
     tag: PropTypes.string,
+    soknad: soknadPt,
 };
 
 const JaEllerNei = (props) => {

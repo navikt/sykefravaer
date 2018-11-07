@@ -4,14 +4,16 @@ import { Bjorn } from 'digisyfo-npm';
 import { fjernIndexFraTag } from './fieldUtils';
 import { JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT } from '../../enums/tagtyper';
 import getContextRoot from '../../utils/getContextRoot';
+import { soknad as soknadPt } from '../../propTypes';
+import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 
-const tagsMedBjorn = [
-    JOBBET_DU_GRADERT,
-    JOBBET_DU_100_PROSENT,
-];
+const tagsMedBjorn = {
+    [ARBEIDSTAKERE]: [JOBBET_DU_GRADERT, JOBBET_DU_100_PROSENT],
+};
 
-const harBjorntekst = (tag) => {
-    return tagsMedBjorn.indexOf(fjernIndexFraTag(tag)) > -1;
+const harBjorntekst = (tag, soknadstype) => {
+    return tagsMedBjorn[soknadstype]
+        && tagsMedBjorn[soknadstype].indexOf(fjernIndexFraTag(tag)) > -1;
 };
 
 const hentBjornNokkel = (tag) => {
@@ -19,8 +21,8 @@ const hentBjornNokkel = (tag) => {
     return `soknad.bjorn.${tagUtenIndex.toLowerCase()}`;
 };
 
-const SporsmalBjorn = ({ tag, className }) => {
-    return harBjorntekst(tag)
+const SporsmalBjorn = ({ tag, className, soknad }) => {
+    return harBjorntekst(tag, soknad.soknadstype)
         ? <Bjorn className={className} rootUrl={getContextRoot()} nokkel={hentBjornNokkel(tag)} />
         : null;
 };
@@ -28,6 +30,7 @@ const SporsmalBjorn = ({ tag, className }) => {
 SporsmalBjorn.propTypes = {
     tag: PropTypes.string,
     className: PropTypes.string,
+    soknad: soknadPt,
 };
 
 export default SporsmalBjorn;

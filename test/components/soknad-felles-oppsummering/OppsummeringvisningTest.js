@@ -430,6 +430,12 @@ describe('Oppsummeringvisning', () => {
             expect(component.text()).to.contain('37,5 timer');
         });
 
+        it('Skal ikke rendre RADIO_GRUPPE_TIMER_PROSENT', () => {
+            const populertsoknad = populerSoknadMedSvar(mockNySoknadArbeidstaker(), arbeidstakerValues);
+            const component = mount(<Oppsummeringsvisning soknad={populertsoknad} />);
+            expect(component.find('#js-hvor_mye_har_du_jobbet_0').find('.oppsummering__avkrysset')).to.have.length(0);
+        });
+
         it('Skal ikke vise RADIO_GRUPPE når spørsmålet ikke er besvart', () => {
             const populertsoknad = populerSoknadMedSvar(mockNySoknadArbeidstaker(), arbeidstakerValues);
             const component = mount(<Oppsummeringsvisning soknad={populertsoknad} />);

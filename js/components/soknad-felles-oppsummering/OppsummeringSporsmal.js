@@ -8,7 +8,7 @@ import {
     IKKE_RELEVANT,
     JA_NEI,
     PERIODER,
-    PROSENT, RADIO_GRUPPE, TALL,
+    PROSENT, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT, TALL,
     TIMER,
 } from '../../enums/svartyper';
 import OppsummeringPerioder from './OppsummeringPerioder';
@@ -51,6 +51,7 @@ const OppsummeringSporsmal = (props) => {
         case TIMER: {
             return <OppsummeringTall {...props} />;
         }
+        case RADIO_GRUPPE_TIMER_PROSENT:
         case RADIO_GRUPPE: {
             return <OppsummeringRadioGruppe {...props} />;
         }

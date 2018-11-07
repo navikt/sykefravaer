@@ -11,9 +11,10 @@ import { getSkjemanavnFraSoknad } from '../../utils/soknad-felles/getSkjemanavnF
 import { hentSkjemaVerdier } from '../../selectors/reduxFormSelectors';
 import { CHECKED } from '../../enums/svarEnums';
 import Undersporsmalsliste from './Undersporsmalsliste';
-import { BETALER_ARBEIDSGIVER, HVOR_MYE_HAR_DU_JOBBET } from '../../enums/tagtyper';
+import { BETALER_ARBEIDSGIVER } from '../../enums/tagtyper';
 import Feilomrade from '../skjema/Feilomrade';
-import { fieldPropTypes, sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
+import { fieldPropTypes, sporsmal as sporsmalPt, soknad as soknadPt, svartypePt } from '../../propTypes';
+import { RADIO_GRUPPE_TIMER_PROSENT } from '../../enums/svartyper';
 
 const tagMatcher = (tags, inputTag) => {
     return tags.filter((tag) => {
@@ -45,10 +46,8 @@ Infotekst.propTypes = {
     sist: PropTypes.bool,
 };
 
-export const erHorisontal = (tag) => {
-    return tagMatcher([
-        HVOR_MYE_HAR_DU_JOBBET,
-    ], tag);
+export const erHorisontal = (svartype) => {
+    return svartype === RADIO_GRUPPE_TIMER_PROSENT;
 };
 
 const Radioknapp = ({ input, label, children }) => {
@@ -65,13 +64,13 @@ Radioknapp.propTypes = {
     children: PropTypes.node,
 };
 
-const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, undersporsmal, autofill, soknad, verdi }) => {
+const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, svartype, undersporsmal, autofill, soknad, verdi }) => {
     const sporsmalMedUndersporsmal = undersporsmal.find((s) => {
         return s.sporsmalstekst === verdi;
     });
     return (<Feilomrade {...meta}>
         <Sporsmalstekst tekst={sporsmalstekst} />
-        <div className={erHorisontal(tag) ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
+        <div className={erHorisontal(svartype) ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
             {
                 undersporsmal.map((sporsmal, index) => {
                     return (<Field
@@ -109,6 +108,7 @@ RadiogruppeComponent.propTypes = {
     autofill: PropTypes.func,
     soknad: soknadPt,
     verdi: PropTypes.string,
+    svartype: svartypePt,
 };
 
 const RadioGruppe = (props) => {

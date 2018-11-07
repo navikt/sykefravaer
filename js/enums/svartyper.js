@@ -10,4 +10,5 @@ export const FRITEKST = 'FRITEKST';
 export const IKKE_RELEVANT = 'IKKE_RELEVANT';
 export const TALL = 'TALL';
 export const RADIO_GRUPPE = 'RADIO_GRUPPE';
+export const RADIO_GRUPPE_TIMER_PROSENT = 'RADIO_GRUPPE_TIMER_PROSENT';
 export const RADIO = 'RADIO';

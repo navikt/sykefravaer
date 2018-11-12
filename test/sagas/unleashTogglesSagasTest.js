@@ -6,12 +6,6 @@ import { post } from '../../js/gateway-api';
 import * as toggles from '../../js/enums/unleashToggles';
 
 describe('togglesSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     const generator = hentUnleashToggles();
 
     it('Skal dispatche HENTER_TOGGLES', () => {

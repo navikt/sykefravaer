@@ -1,5 +1,12 @@
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import path from 'path';
+
+const dotEnvPath = path.resolve('.env');
+
+require('dotenv').config({
+    path: dotEnvPath,
+});
 
 Enzyme.configure({ adapter: new Adapter() });
 

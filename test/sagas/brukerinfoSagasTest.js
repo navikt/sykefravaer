@@ -5,10 +5,6 @@ import { hentBrukerinfo, sjekkInnlogging } from '../../js/sagas/brukerinfoSagas'
 import * as actiontyper from '../../js/actions/actiontyper';
 
 describe('brukerinfoSagas', () => {
-    window.APP_SETTINGS = {
-        REST_ROOT: 'http://tjenester.nav.no/syforest',
-    };
-
     describe('hentBrukerinfo', () => {
         const generator = hentBrukerinfo();
 
@@ -20,7 +16,7 @@ describe('brukerinfoSagas', () => {
         });
 
         it('Skal dernest hente brukerinfo', () => {
-            const nextCall = call(get, 'http://tjenester.nav.no/syforest/informasjon/bruker');
+            const nextCall = call(get, '/syforest/informasjon/bruker');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

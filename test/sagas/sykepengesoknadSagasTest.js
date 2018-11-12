@@ -20,9 +20,6 @@ describe('sykepengersoknadSagas', () => {
     let clock;
 
     beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
         clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
     });
 
@@ -43,7 +40,7 @@ describe('sykepengersoknadSagas', () => {
         });
 
         it('Skal dernest hente sykepengesoknader', () => {
-            const nextCall = call(get, 'http://tjenester.nav.no/syforest/soknader');
+            const nextCall = call(get, '/syforest/soknader');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -73,7 +70,7 @@ describe('sykepengersoknadSagas', () => {
         });
 
         it('skal dernest sende sykepengesoknader', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/1/actions/send', { id: '1' });
+            const nextCall = call(post, '/syforest/soknader/1/actions/send', { id: '1' });
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -102,8 +99,8 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
-        it('skal dernest sende sykepengesoknad-felles-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/1/actions/send-til-arbeidsgiver');
+        it('skal dernest sende sykepengesoknad', () => {
+            const nextCall = call(post, '/syforest/soknader/1/actions/send-til-arbeidsgiver');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -130,7 +127,7 @@ describe('sykepengersoknadSagas', () => {
         });
 
         it('skal dernest sende sykepengesoknad-felles-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/1/actions/send-til-nav');
+            const nextCall = call(post, '/syforest/soknader/1/actions/send-til-nav');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -162,7 +159,7 @@ describe('sykepengersoknadSagas', () => {
         });
 
         it('skal dernest sende sykepengesoknader', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/1/actions/send', { id: '1' });
+            const nextCall = call(post, '/syforest/soknader/1/actions/send', { id: '1' });
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -181,7 +178,7 @@ describe('sykepengersoknadSagas', () => {
         const generator = startEndring(action);
 
         it('Skal sende forespørsel til server', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/123/actions/korriger');
+            const nextCall = call(post, '/syforest/soknader/123/actions/korriger');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -202,7 +199,7 @@ describe('sykepengersoknadSagas', () => {
         });
 
         it('Skal sende forespørsel til server', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/123/actions/avbryt');
+            const nextCall = call(post, '/syforest/soknader/123/actions/avbryt');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -223,7 +220,7 @@ describe('sykepengersoknadSagas', () => {
         });
 
         it('Skal sende forespørsel til server', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/45668/actions/gjenapne');
+            const nextCall = call(post, '/syforest/soknader/45668/actions/gjenapne');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -257,7 +254,7 @@ describe('sykepengersoknadSagas', () => {
             });
 
             it('Skal dernest hente sykepengesoknader', () => {
-                const nextCall = call(get, 'http://tjenester.nav.no/syforest/soknader/123/berik');
+                const nextCall = call(get, '/syforest/soknader/123/berik');
                 expect(generator.next().value).to.deep.equal(nextCall);
             });
 
@@ -292,7 +289,7 @@ describe('sykepengersoknadSagas', () => {
             });
 
             it('Skal dernest hente sykepengesoknader', () => {
-                const nextCall = call(get, 'http://tjenester.nav.no/syforest/soknader/123/berik');
+                const nextCall = call(get, '/syforest/soknader/123/berik');
                 expect(generator.next().value).to.deep.equal(nextCall);
             });
 

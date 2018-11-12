@@ -11,7 +11,7 @@ import {
 export function* hentSykeforloep() {
     yield put(actions.henterSykeforloep());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykeforloep`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykeforloep`);
         yield put(actions.sykeforloepHentet(data));
     } catch (e) {
         log(e);

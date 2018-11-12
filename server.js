@@ -32,13 +32,7 @@ const renderApp = (decoratorFragments) => {
         server.render(
             'index.html',
             Object.assign(
-                {
-                    SYFOTEKSTER_URL: '/syfotekster/api',
-                    LOGINSERVICE_URL: `${process.env.LOGINSERVICE_URL}`,
-                    SYFOREST_URL: '/syforest',
-                    MOTEREST_URL: '/moterest/api',
-                    OPPFOLGINGSDIALOGREST_URL: '/restoppfoelgingsdialog/api',
-                },
+                {},
                 decoratorFragments,
                 settings,
             ),

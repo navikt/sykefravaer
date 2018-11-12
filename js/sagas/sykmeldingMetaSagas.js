@@ -7,7 +7,7 @@ export function* hentVentetid(action) {
     yield put(actions.henterVentetid(action.sykmeldingId));
     try {
         const erUtenforVentetid = yield call(post,
-            `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/erUtenforVentetid`);
+            `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/erUtenforVentetid`);
         const a = actions.ventetidHentet(action.sykmeldingId, erUtenforVentetid);
         yield put(a);
     } catch (e) {

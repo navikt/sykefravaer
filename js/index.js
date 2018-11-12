@@ -48,9 +48,9 @@ setInterval(() => {
 }, 5000);
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
-    window.APP_SETTINGS.VIS_LEDETEKSTNOKLER = true;
+    window.VIS_LEDETEKSTNOKLER = true;
 } else if (window.location.href.indexOf('visLedetekster=false') > -1) {
-    window.APP_SETTINGS.VIS_LEDETEKSTNOKLER = false;
+    window.VIS_LEDETEKSTNOKLER = false;
 }
 
 render(<Provider store={store}>

@@ -15,7 +15,7 @@ export const FrilanserSelvstendigKvitteringstegEn = () => {
 };
 
 export default () => {
-    const sokUrl = `${window.process.env.REACT_APP_CONTEXT_ROOT}/soknader`;
+    const sokUrl = `${process.env.REACT_APP_CONTEXT_ROOT}/soknader`;
     return (<div className="panel blokk js-kvittering js-kvittering--sok-naa-frilanser">
         <StegvisKvittering>
             <FrilanserSelvstendigKvitteringstegEn />

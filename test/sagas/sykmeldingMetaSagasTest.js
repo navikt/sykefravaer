@@ -5,12 +5,6 @@ import { hentVentetid } from '../../js/sagas/sykmeldingMetaSagas';
 import * as actions from '../../js/actions/sykmeldingMeta_actions';
 
 describe('ventetidSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     const SYKMELDING_ID = '4354ERWERHKQWJEHR387432434CDF';
     const action = actions.hentVentetid(SYKMELDING_ID);
     const generator = hentVentetid(action);
@@ -21,7 +15,7 @@ describe('ventetidSagas', () => {
     });
 
     it('Skal hente ventetid', () => {
-        const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/4354ERWERHKQWJEHR387432434CDF/actions/erUtenforVentetid');
+        const nextCall = call(post, '/syforest/sykmeldinger/4354ERWERHKQWJEHR387432434CDF/actions/erUtenforVentetid');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

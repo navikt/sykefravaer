@@ -11,12 +11,6 @@ import * as actions from '../../js/actions/dinSykmelding_actions';
 import { skalOppretteSoknadHentet } from '../../js/actions/sykmeldingMeta_actions';
 
 describe('dinSykmeldingSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     describe('bekreftSykmelding', () => {
         const action = actions.bekreftSykmelding(
             '123',
@@ -39,7 +33,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest bekrefte sykmeldingen', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/123/actions/bekreft', {
+            const nextCall = call(post, '/syforest/sykmeldinger/123/actions/bekreft', {
                 arbeidssituasjon: 'arbeidstaker',
                 feilaktigeOpplysninger: {
                     periode: true,
@@ -53,7 +47,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest sjekke om det skal opprettes søknad', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/123/actions/skalOppretteSoknad', {
+            const nextCall = call(post, '/syforest/sykmeldinger/123/actions/skalOppretteSoknad', {
                 egenmeldingsperioder: null,
                 dekningsgrad: null,
             });
@@ -98,7 +92,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest bekrefte sykmeldingen', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/123/actions/bekreft', {
+            const nextCall = call(post, '/syforest/sykmeldinger/123/actions/bekreft', {
                 arbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 feilaktigeOpplysninger: null,
                 dekningsgrad: '75',
@@ -115,7 +109,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest sjekke om det skulle ha vært opprettet søknad', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/123/actions/skalOppretteSoknad', {
+            const nextCall = call(post, '/syforest/sykmeldinger/123/actions/skalOppretteSoknad', {
                 egenmeldingsperioder: [{
                     fom: new Date('2018-01-02'),
                     tom: new Date('2018-01-08'),
@@ -153,7 +147,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest sende sykmeldingen', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/minSykmeldingId/actions/send', {
+            const nextCall = call(post, '/syforest/sykmeldinger/minSykmeldingId/actions/send', {
                 feilaktigeOpplysninger: {
                     sykmeldingsgrad: true,
                 },
@@ -181,7 +175,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest avbryte sykmeldingen', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/minAndreSykmeldingId/actions/avbryt', {
+            const nextCall = call(post, '/syforest/sykmeldinger/minAndreSykmeldingId/actions/avbryt', {
                 periode: true,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
@@ -206,7 +200,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest gjeaapne sykmeldingen', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/minAndreSykmeldingId/actions/gjenaapne');
+            const nextCall = call(post, '/syforest/sykmeldinger/minAndreSykmeldingId/actions/gjenaapne');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

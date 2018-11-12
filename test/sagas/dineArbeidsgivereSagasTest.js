@@ -5,12 +5,6 @@ import { hentDineArbeidsgivere } from '../../js/sagas/arbeidsgivereSagas';
 import * as actiontyper from '../../js/actions/actiontyper';
 
 describe('dineArbeidsgivereSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     const generator = hentDineArbeidsgivere({
         type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
         sykmeldingId: '887766',
@@ -25,7 +19,7 @@ describe('dineArbeidsgivereSagas', () => {
     });
 
     it('Skal dernest hente aktuelle arbeidsgivere', () => {
-        const nextCall = call(get, 'http://tjenester.nav.no/syforest/informasjon/arbeidsgivere?sykmeldingId=887766');
+        const nextCall = call(get, '/syforest/informasjon/arbeidsgivere?sykmeldingId=887766');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

@@ -6,12 +6,6 @@ import * as actions from '../../js/actions/sykeforloep_actions';
 import getSykeforloep from '../mock/mockSykeforloep';
 
 describe('sykeforloepSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: '/syforest',
-        };
-    });
-
     const action = actions.hentSykeforloep();
     const generator = hentSykeforloep(action);
 
@@ -21,7 +15,7 @@ describe('sykeforloepSagas', () => {
     });
 
     it('Skal hente sykeforloep', () => {
-        const nextCall = call(get, `${window.APP_SETTINGS.REST_ROOT}/sykeforloep`);
+        const nextCall = call(get, '/syforest/sykeforloep');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

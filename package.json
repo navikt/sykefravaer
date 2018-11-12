@@ -7,7 +7,6 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill --require ignore-styles  ./test/setup.js \"test/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch",
-    "coverage": "nyc report --reporter=html --reporter=lcov",
     "lint": "npm-run-all lintJs lintTest",
     "lint:fix": "npm-run-all lintJs:fix lintTest:fix",
     "lintJs": "eslint js/. --ext .js",
@@ -15,7 +14,6 @@
     "lintTest": "eslint test/. --ext .js",
     "lintTest:fix": "eslint test/. --ext .js --fix",
     "clean": "rimraf ./dist/resources/ && mkdirp ./dist/resources",
-    "deploy": "node deploy.js",
     "images-nav-frontend": "cp -R node_modules/nav-frontend-grafikk dist/resources/img",
     "images-local": "cp -R img dist/resources",
     "images": "npm-run-all images-nav-frontend images-local",
@@ -24,16 +22,8 @@
     "start": "node ./server.js",
     "start-opplaering": "node ./server.js opplaering",
     "start-local": "node ./server.js local",
-    "startdev": "node ./server.js local",
     "scripts:watch": "webpack-dev-server --inline --port 9090",
     "dev": "npm-run-all clean images filmtekster scripts:watch"
-  },
-  "nyc": {
-    "require": [
-      "babel-register"
-    ],
-    "sourceMap": false,
-    "instrument": false
   },
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
@@ -142,7 +132,6 @@
     "mustache": "2.2.1",
     "ncp": "2.0.0",
     "npm-run-all": "4.1.1",
-    "nyc": "10.3.2",
     "parallelshell": "3.0.2",
     "path": "0.12.7",
     "postcss-loader": "3.0.0",

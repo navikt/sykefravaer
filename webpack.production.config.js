@@ -4,6 +4,7 @@ var buildPath = path.resolve(__dirname, 'dist/resources');
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var autoprefixer = require('autoprefixer');
+var Dotenv = require('dotenv-webpack');
 
 var config = function (opts) {
     var timestamp = opts.timestamp;
@@ -74,6 +75,7 @@ var config = function (opts) {
             new Webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"production"',
             }),
+            new Dotenv(),
         ],
     };
 };

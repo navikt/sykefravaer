@@ -7,7 +7,7 @@ export function* hentDineArbeidsgivere(action) {
     const sykmeldingId = action.sykmeldingId;
     yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
         yield put(actions.aktuelleArbeidsgivereHentet(sykmeldingId, data));
     } catch (e) {
         log(e);

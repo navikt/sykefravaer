@@ -5,7 +5,7 @@ import { svarActions, actiontyper } from 'moter-npm';
 export function* sendSvar(action) {
     yield put(svarActions.senderSvar());
     try {
-        yield call(post, `${window.APP_SETTINGS.MOTEREST_ROOT}/v2/moter/actions/${action.moteUuid}/send`, {
+        yield call(post, `${process.env.REACT_APP_MOTEREST_ROOT}/v2/moter/actions/${action.moteUuid}/send`, {
             valgteAlternativIder: action.data,
             deltakertype: action.deltakertype,
         });

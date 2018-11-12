@@ -6,7 +6,7 @@ import * as actiontyper from '../actions/actiontyper';
 export function* hentVedlikehold() {
     yield put(actions.henterVedlikehold());
     try {
-        const vedlikehold = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/vedlikehold`);
+        const vedlikehold = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/vedlikehold`);
         yield put(actions.vedlikeholdHentet(vedlikehold));
     } catch (e) {
         log(e);

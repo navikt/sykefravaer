@@ -6,7 +6,7 @@ import { SJEKK_SKAL_VISE_FORSKUTTERINGSSPORSMAL_FORESPURT } from '../actions/act
 export function* sjekkSkalViseForskutteringssporsmal(action) {
     yield put(actions.sjekkerSkalViseForskutteringssporsmal());
     try {
-        const skalVise = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/vis-forskutteringsspoersmaal`, action.sykepengesoknad);
+        const skalVise = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/vis-forskutteringsspoersmaal`, action.sykepengesoknad);
         const a = actions.skalViseForskutteringssporsmalSjekket(skalVise);
         yield put(a);
     } catch (e) {

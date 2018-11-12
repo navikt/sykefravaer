@@ -6,7 +6,7 @@ import * as actiontyper from '../actions/actiontyper';
 export function* hentBrukerinfo() {
     yield put(actions.henterBrukerinfo());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/bruker`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/bruker`);
         yield put(actions.setBrukerinfo(data));
     } catch (e) {
         log(e);

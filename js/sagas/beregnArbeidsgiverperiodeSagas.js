@@ -7,7 +7,7 @@ export function* hentArbeidsgiverperiodeberegning(action) {
     yield put(actions.henterArbeidsgiverperiodeberegning());
     try {
         const arbeidsgiverperiodeberegning = yield call(post,
-            `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/beregn-arbeidsgiverperiode`,
+            `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/beregn-arbeidsgiverperiode`,
             action.sykepengesoknad);
         const a = actions.arbeidsgiverperiodeberegningHentet(arbeidsgiverperiodeberegning);
         yield put(a);

@@ -6,7 +6,7 @@ import * as actiontyper from '../actions/actiontyper';
 export function* hentHendelser() {
     yield put(actions.henterHendelser());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/hendelser`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/hendelser`);
         yield put(actions.hendelserHentet(data));
     } catch (e) {
         log(e);

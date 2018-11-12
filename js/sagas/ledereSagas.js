@@ -6,7 +6,7 @@ import * as actiontyper from '../actions/actiontyper';
 export function* hentLedere() {
     yield put(actions.henterLedere());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/naermesteledere`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/naermesteledere`);
         yield put(actions.ledereHentet(data));
     } catch (e) {
         log(e);
@@ -17,7 +17,7 @@ export function* hentLedere() {
 export function* avkreftLeder(action) {
     yield put(actions.avkrefterLeder(action.orgnummer));
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/naermesteledere/${action.orgnummer}/actions/avkreft`);
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/naermesteledere/${action.orgnummer}/actions/avkreft`);
         yield put(actions.lederAvkreftet(action.orgnummer));
     } catch (e) {
         log(e);

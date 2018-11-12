@@ -34,8 +34,8 @@ export function* bekreftSykmelding(action) {
             egenmeldingsperioder: erFrilanserEllerSelvstendig(verdier)
                 ? verdier.egenmeldingsperioder : null,
         };
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
-        const skalOppretteSoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
+        const skalOppretteSoknad = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
             dekningsgrad: verdier.dekningsgrad,
             egenmeldingsperioder: verdier.egenmeldingsperioder,
         });
@@ -53,7 +53,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
     yield put(actions.senderSykmelding(action.sykmeldingId));
     const { type, sykmeldingId, ...body } = action;
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`, body);
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`, body);
         yield put(actions.sykmeldingSendt(sykmeldingId));
         gaTilKvittering(sykmeldingId);
     } catch (e) {
@@ -66,7 +66,7 @@ export function* avbrytSykmelding(action) {
     yield put(actions.avbryterSykmelding());
     const body = action.feilaktigeOpplysninger;
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
         yield put(actions.sykmeldingAvbrutt(action.sykmeldingId));
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
@@ -78,7 +78,7 @@ export function* avbrytSykmelding(action) {
 export function* gjenaapneSykmelding(action) {
     yield put(actions.gjenaapnerSykmelding());
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
         yield put(actions.sykmeldingGjenaapnet(action.sykmeldingId));
     } catch (e) {
         log(e);
@@ -89,7 +89,7 @@ export function* gjenaapneSykmelding(action) {
 export function* angreBekreftSykmelding(action) {
     yield put(actions.angrerBekreftSykmelding());
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
         yield put(actions.bekreftSykmeldingAngret(action.sykmeldingId));
         if (window.location.href.indexOf('sykmeldinger') === -1) {
             gaTilSykmelding(action.sykmeldingId);

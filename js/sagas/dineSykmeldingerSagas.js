@@ -7,7 +7,7 @@ import { skalHenteDineSykmeldinger } from '../selectors/dineSykmeldingerSelector
 export function* oppdaterDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger`);
         yield put(actions.setDineSykmeldinger(data));
     } catch (e) {
         log(e);

@@ -5,12 +5,6 @@ import * as actions from '../../js/actions/hendelser_actions';
 import { hentHendelser } from '../../js/sagas/hendelserSagas';
 
 describe('hendelserSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     describe('hentHendelser', () => {
         const generator = hentHendelser();
 
@@ -20,7 +14,7 @@ describe('hendelserSagas', () => {
         });
 
         it('Skal dernest hente hendelser', () => {
-            const nextCall = call(get, 'http://tjenester.nav.no/syforest/informasjon/hendelser');
+            const nextCall = call(get, '/syforest/informasjon/hendelser');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

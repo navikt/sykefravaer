@@ -6,12 +6,6 @@ import * as actions from '../../js/actions/ledere_actions';
 import * as actiontyper from '../../js/actions/actiontyper';
 
 describe('ledereSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     describe('hentLedere', () => {
         const generator = hentLedere({});
 
@@ -21,7 +15,7 @@ describe('ledereSagas', () => {
         });
 
         it('Skal dernest hente ledere', () => {
-            const nextCall = call(get, 'http://tjenester.nav.no/syforest/naermesteledere');
+            const nextCall = call(get, '/syforest/naermesteledere');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -43,7 +37,7 @@ describe('ledereSagas', () => {
         });
 
         it('skal dernest poste avkreft', () => {
-            const nextCall = call(post, 'http://tjenester.nav.no/syforest/naermesteledere/orgnummer/actions/avkreft');
+            const nextCall = call(post, '/syforest/naermesteledere/orgnummer/actions/avkreft');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

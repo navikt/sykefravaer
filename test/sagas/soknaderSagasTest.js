@@ -15,12 +15,6 @@ import { UTKAST_TIL_KORRIGERING } from '../../js/enums/soknadstatuser';
 import { toggleNyArbeidstakerSoknad } from '../../js/selectors/unleashTogglesSelectors';
 
 describe('soknaderSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            SYFOSOKNAD_ROOT: 'https://syfoapi-q.nav.no/syfosoknad/api',
-        };
-    });
-
     describe('Henting av søknader når det er togglet på', () => {
         const action = actions.hentSoknader();
         const generator = oppdaterSoknader(action);

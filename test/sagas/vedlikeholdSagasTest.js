@@ -6,12 +6,6 @@ import * as actiontyper from '../../js/actions/actiontyper';
 import * as actions from '../../js/actions/vedlikehold_actions';
 
 describe('vedlikeholdSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     describe('hentVedlikehold', () => {
         const generator = hentVedlikehold();
 
@@ -23,7 +17,7 @@ describe('vedlikeholdSagas', () => {
         });
 
         it('Skal dernest hente vedlikehold', () => {
-            const nextCall = call(get, 'http://tjenester.nav.no/syforest/informasjon/vedlikehold');
+            const nextCall = call(get, '/syforest/informasjon/vedlikehold');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

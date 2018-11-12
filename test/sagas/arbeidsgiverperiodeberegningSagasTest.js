@@ -5,12 +5,6 @@ import { hentArbeidsgiverperiodeberegning } from '../../js/sagas/beregnArbeidsgi
 import * as actions from '../../js/actions/arbeidsgiverperiodeberegning_actions';
 
 describe('arbeidsgiverperiodeberegningSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest',
-        };
-    });
-
     const sykepengesoknad = {
         id: '2',
     };
@@ -23,7 +17,7 @@ describe('arbeidsgiverperiodeberegningSagas', () => {
     });
 
     it('Skal sjekke', () => {
-        const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/2/actions/beregn-arbeidsgiverperiode', sykepengesoknad);
+        const nextCall = call(post, '/syforest/soknader/2/actions/beregn-arbeidsgiverperiode', sykepengesoknad);
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

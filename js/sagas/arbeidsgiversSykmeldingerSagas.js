@@ -6,7 +6,7 @@ import * as actions from '../actions/arbeidsgiversSykmeldinger_actions';
 export function* hentArbeidsgiversSykmeldinger() {
     yield put(actions.henterArbeidsgiversSykmeldinger());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger?type=arbeidsgiver`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger?type=arbeidsgiver`);
         yield put(actions.setArbeidsgiversSykmeldinger(data));
     } catch (e) {
         log(e);

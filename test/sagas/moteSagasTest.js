@@ -5,12 +5,6 @@ import { put, call } from 'redux-saga/effects';
 import { hentMote } from '../../js/sagas/moteSagas';
 
 describe('moteSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            MOTEREST_ROOT: 'http://tjenester.nav.no/moterest/api',
-        };
-    });
-
     describe('hentMote', () => {
         const generator = hentMote({});
 
@@ -20,7 +14,7 @@ describe('moteSagas', () => {
         });
 
         it('Skal dernest hente mote', () => {
-            const nextCall = call(get, 'http://tjenester.nav.no/moterest/api/v2/moter/siste');
+            const nextCall = call(get, '/moterest/api/v2/moter/siste');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

@@ -5,10 +5,6 @@ import { bekreftAktivitetskrav } from '../../js/sagas/aktivitetskravSagas';
 import * as actions from '../../js/actions/aktivitetskrav_actions';
 
 describe('aktivitetskravSagas', () => {
-    window.APP_SETTINGS = {
-        REST_ROOT: 'http://tjenester.nav.no/syforest',
-    };
-
     const action = actions.bekreftAktivitetskrav('min-id');
 
     const generator = bekreftAktivitetskrav(action);
@@ -19,7 +15,7 @@ describe('aktivitetskravSagas', () => {
     });
 
     it('Skal dernest poste', () => {
-        const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav');
+        const nextCall = call(post, '/syforest/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

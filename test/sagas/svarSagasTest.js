@@ -5,12 +5,6 @@ import { svarActions } from 'moter-npm';
 import { sendSvar } from '../../js/sagas/svarSagas';
 
 describe('svarSagas', () => {
-    beforeEach(() => {
-        window.APP_SETTINGS = {
-            MOTEREST_ROOT: 'http://tjenester.nav.no/moterest/api',
-        };
-    });
-
     const action = svarActions.sendSvar('minFineMoteUuid', 'Bruker', [1, 2]);
 
     const generator = sendSvar(action);
@@ -21,7 +15,7 @@ describe('svarSagas', () => {
     });
 
     it('Skal poste svar', () => {
-        const nextCall = call(post, 'http://tjenester.nav.no/moterest/api/v2/moter/actions/minFineMoteUuid/send', {
+        const nextCall = call(post, '/moterest/api/v2/moter/actions/minFineMoteUuid/send', {
             valgteAlternativIder: [1, 2],
             deltakertype: 'Bruker',
         });

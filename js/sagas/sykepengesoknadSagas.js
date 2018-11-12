@@ -15,7 +15,7 @@ const gaTilKvittering = (sykepengesoknadsId) => {
 export function* oppdaterSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/soknader`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader`);
         yield put(actions.sykepengesoknaderHentet(data));
     } catch (e) {
         log(e);
@@ -34,7 +34,7 @@ export function* hentSykepengesoknaderHvisIkkeHentet() {
 export function* sendSykepengesoknad(action) {
     yield put(actions.senderSykepengesoknad());
     try {
-        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/send`, action.sykepengesoknad);
+        const sykepengesoknad = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/send`, action.sykepengesoknad);
         yield put(actions.sykepengesoknadSendt(action.sykepengesoknad.id, sykepengesoknad));
     } catch (e) {
         log(e);
@@ -46,7 +46,7 @@ export function* sendSykepengesoknad(action) {
 export function* sendSykepengesoknadTilArbeidsgiver(action) {
     yield put(actions.senderSykepengesoknad());
     try {
-        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-arbeidsgiver`);
+        const sykepengesoknad = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-arbeidsgiver`);
         yield put(actions.sykepengesoknadSendtTilArbeidsgiver(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
@@ -58,7 +58,7 @@ export function* sendSykepengesoknadTilArbeidsgiver(action) {
 export function* sendSykepengesoknadTilNAV(action) {
     yield put(actions.senderSykepengesoknad());
     try {
-        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-nav`);
+        const sykepengesoknad = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-nav`);
         yield put(actions.sykepengesoknadSendtTilNAV(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
@@ -69,7 +69,7 @@ export function* sendSykepengesoknadTilNAV(action) {
 
 export function* startEndring(action) {
     try {
-        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/korriger`);
+        const sykepengesoknad = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/korriger`);
         yield put(actions.endringStartet(sykepengesoknad));
         yield history.push(`/sykefravaer/soknader/${sykepengesoknad.id}`);
     } catch (e) {
@@ -86,7 +86,7 @@ export function* hentBerikelse(action) {
 
     yield put(actions.henterBerikelse());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/berik`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknadsId}/berik`);
         yield put(actions.berikelseHentet(data, action.sykepengesoknadsId));
     } catch (e) {
         log(e);
@@ -98,7 +98,7 @@ export function* hentBerikelse(action) {
 export function* avbrytSoknad(action) {
     yield put(actions.avbryterSoknad());
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/avbryt`);
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/avbryt`);
         yield put(actions.soknadAvbrutt(action.sykepengesoknad.id));
         gaTilKvittering(action.sykepengesoknad.id);
     } catch (e) {
@@ -111,7 +111,7 @@ export function* avbrytSoknad(action) {
 export function* gjenapneSoknad(action) {
     yield put(actions.gjenapnerSoknad());
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/gjenapne`);
+        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/gjenapne`);
         yield put(actions.soknadGjenapnet(action.sykepengesoknad.id));
     } catch (e) {
         log(e);

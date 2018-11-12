@@ -1,6 +1,7 @@
 var path = require('path');
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
 var autoprefixer = require('autoprefixer');
+var Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: ['babel-polyfill', mainPath],
@@ -61,4 +62,7 @@ module.exports = {
     devServer: {
         stats: 'errors-only',
     },
+    plugins: [
+        new Dotenv(),
+    ],
 };

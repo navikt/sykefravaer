@@ -5,10 +5,6 @@ import { hentArbeidsgiversSykmeldinger } from '../../js/sagas/arbeidsgiversSykme
 import * as actiontyper from '../../js/actions/actiontyper';
 
 describe('arbeidsgiversSykmeldingerSagas', () => {
-    window.APP_SETTINGS = {
-        REST_ROOT: 'http://tjenester.nav.no/syforest',
-    };
-
     const generator = hentArbeidsgiversSykmeldinger();
 
     it('Skal dispatche HENTER_ARBEIDSGIVERS_SYKMELDINGER', () => {
@@ -17,7 +13,7 @@ describe('arbeidsgiversSykmeldingerSagas', () => {
     });
 
     it('Skal dernest hente arbeidsgivers sykmeldinger', () => {
-        const nextCall = call(get, 'http://tjenester.nav.no/syforest/sykmeldinger?type=arbeidsgiver');
+        const nextCall = call(get, '/syforest/sykmeldinger?type=arbeidsgiver');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

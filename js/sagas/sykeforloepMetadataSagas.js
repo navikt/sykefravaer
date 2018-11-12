@@ -12,7 +12,7 @@ import { skalHenteSykeforloepMetadata } from '../selectors/sykeforloepMetadataSe
 export function* oppdaterSykeforloepMetadata() {
     yield put(actions.henterSykeforloepMetadata());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykeforloep/metadata`);
+        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykeforloep/metadata`);
         yield put(actions.sykeforloepMetadataHentet(data));
     } catch (e) {
         log(e);

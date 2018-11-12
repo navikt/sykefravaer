@@ -5,7 +5,7 @@ import { moteActions, actiontyper } from 'moter-npm';
 export function* hentMote() {
     yield put(moteActions.henterMote());
     try {
-        const mote = yield call(get, `${window.APP_SETTINGS.MOTEREST_ROOT}/v2/moter/siste`);
+        const mote = yield call(get, `${process.env.REACT_APP_MOTEREST_ROOT}/api/v2/moter/siste`);
         yield put(moteActions.moteHentet(mote));
     } catch (e) {
         if (e.message === '404') {

@@ -24,10 +24,36 @@ export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
     }).length > 0;
 };
 
+export const erSykmeldingAktiv = (sykmelding) => {
+    const dagensDato = new Date();
+    dagensDato.setHours(0, 0, 0, 0);
+    return sykmelding.mulighetForArbeid &&
+        sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+            return new Date(periode.tom) >= new Date(dagensDato);
+        }).length > 0;
+};
+
 export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
     const dagensDato = new Date();
     return sykmeldinger.filter((sykmelding) => {
         return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, dagensDato);
+    }).map((sykmelding) => {
+        return {
+            virksomhetsnummer: sykmelding.orgnummer,
+            navn: sykmelding.arbeidsgiver,
+            harNaermesteLeder: sykmeldtHarNaermestelederHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
+            naermesteLeder: finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
+        };
+    }).filter((sykmelding, idx, self) => {
+        return self.findIndex((t) => {
+            return t.virksomhetsnummer === sykmelding.virksomhetsnummer && sykmelding.virksomhetsnummer !== null;
+        }) === idx;
+    });
+};
+
+export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLedere) => {
+    return sykmeldinger.filter((sykmelding) => {
+        return erSykmeldingAktiv(sykmelding);
     }).map((sykmelding) => {
         return {
             virksomhetsnummer: sykmelding.orgnummer,

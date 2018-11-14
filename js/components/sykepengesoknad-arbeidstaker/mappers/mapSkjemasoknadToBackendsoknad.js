@@ -116,13 +116,14 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
     const ferieperioder = parsePerioder(ferie);
     const ferieOgPermisjonPerioder = [...ferieperioder, ...permisjonperioder];
     const gjenopptattArbeidFulltUtDato = soknad.harGjenopptattArbeidFulltUt ? fraInputdatoTilJSDato(soknad.gjenopptattArbeidFulltUtDato) : null;
+    const andreInntektskilder = soknad.harAndreInntektskilder ? parseInntektskilder(soknad.andreInntektskilder) : [];
 
     const backendSoknad = {
         ...soknad,
         permisjon: permisjonperioder,
         ferie: ferieperioder,
         utenlandsopphold,
-        andreInntektskilder: parseInntektskilder(soknad.andreInntektskilder),
+        andreInntektskilder,
         gjenopptattArbeidFulltUtDato,
         egenmeldingsperioder: soknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer ? parsePerioder(soknad.egenmeldingsperioder) : [],
         aktiviteter: getAktiviteter(soknad.aktiviteter, ferieOgPermisjonPerioder, gjenopptattArbeidFulltUtDato),

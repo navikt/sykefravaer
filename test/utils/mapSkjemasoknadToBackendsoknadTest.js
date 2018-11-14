@@ -482,5 +482,21 @@ describe('mapSkjemasoknadToBackendsoknad', () => {
                 timer: 5,
             });
         });
+
+        it('kutter andre inntektskilder om bruker trykker ja, og så nei', () => {
+            const _soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(Object.assign({}, soknad, {
+                harAndreInntektskilder: false,
+                andreInntektskilder: [
+                    { annenInntektskildeType: 'ANDRE_ARBEIDSFORHOLD', avkrysset: true, sykmeldt: true },
+                    { annenInntektskildeType: 'SELVSTENDIG_NAERINGSDRIVENDE' },
+                    { annenInntektskildeType: 'SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA' },
+                    { annenInntektskildeType: 'JORDBRUKER_FISKER_REINDRIFTSUTOEVER' },
+                    { annenInntektskildeType: 'FRILANSER' },
+                    { annenInntektskildeType: 'ANNET' },
+                ],
+            })));
+
+            expect(_soknad.andreInntektskilder).to.deep.equal([]);
+        });
     });
 });

@@ -26,6 +26,7 @@ import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstak
 import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
 import NyFravaerOgFriskmeldingArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFravaerOgFriskmeldingArbeidstakerContainer';
 import SoknadKvitteringSjekker from '../../js/components/soknad-felles/SoknadKvitteringSjekker';
+import soknadMeta from '../../js/reducers/soknadMeta';
 
 chai.use(chaiEnzyme());
 
@@ -184,6 +185,7 @@ describe('SoknadSideTest', () => {
                     })];
                     state.reduxFormMeta = reduxFormMeta();
                     state.form = formReducer();
+                    state.soknadMeta = soknadMeta();
                 });
 
                 it('Skal vise FoerDuBegynnerContainer dersom man står på side 1', () => {
@@ -222,6 +224,7 @@ describe('SoknadSideTest', () => {
                         id: 'soknad-id',
                     })];
                     state.reduxFormMeta = reduxFormMeta();
+                    state.soknadMeta = soknadMeta();
                     state.form = formReducer();
                 });
 

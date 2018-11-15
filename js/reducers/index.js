@@ -43,6 +43,7 @@ import soknader from './soknader';
 import unleashToggles from './unleashToggles';
 import metrikker from './metrikker';
 import history from '../history';
+import soknadMeta from './soknadMeta';
 
 const reducers = {
     arbeidsforhold,
@@ -93,6 +94,7 @@ const reducers = {
     soknader,
     unleashToggles,
     metrikker,
+    soknadMeta,
 };
 
 export default reducers;

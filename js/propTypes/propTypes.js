@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { naermesteLeder } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
 import * as svartyper from '../enums/svartyper';
+import * as soknadmottakertyper from '../enums/soknadmottakertyper';
 
 export { arbeidssituasjon,
     soknadperiode,
@@ -120,6 +121,17 @@ const sporsmalShape = {
 };
 
 sporsmalShape.undersporsmal = PropTypes.arrayOf(PropTypes.shape(sporsmalShape));
+
+export const soknadmottakerPt = PropTypes.oneOf(Object.values(soknadmottakertyper));
+
+export const soknadMetaPt = PropTypes.shape({
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    hentet: PropTypes.bool,
+    data: PropTypes.shape({
+        mottaker: soknadmottakerPt,
+    }),
+});
 
 export const sporsmal = PropTypes.shape(sporsmalShape);
 

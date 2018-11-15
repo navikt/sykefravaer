@@ -36,6 +36,7 @@ const PERIODER = 'perioder';
 const PERSON = 'person';
 const PERSONVIRKSOMHETSNUMMER = 'personVirksomhetsnummer';
 const VIRKSOMHET = 'virksomhet';
+const SISTE = 'siste';
 
 const lastFilTilMinne = (filnavn) => {
     fs.readFile(path.join(__dirname, `/data/${filnavn}.json`), (err, data) => {
@@ -68,6 +69,7 @@ lastFilTilMinne(PERSON);
 lastFilTilMinne(PERSONVIRKSOMHETSNUMMER);
 lastFilTilMinne(VIRKSOMHET);
 lastFilTilMinne(FORRIGE_LEDER);
+lastFilTilMinne(SISTE);
 
 let teksterFraProd;
 
@@ -225,6 +227,11 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/syforest/sykmeldinger', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[SYKMELDINGER]));
+    });
+
+    server.get('/moterest/api/v2/moter/siste', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[SISTE]));
     });
 
     server.post('/syforest/sykmeldinger/:id/actions/erUtenforVentetid', (req, res) => {

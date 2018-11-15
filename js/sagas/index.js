@@ -26,6 +26,7 @@ import soknaderSagas from './soknaderSagas';
 import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
+import soknadMetaSagas from './soknadMetaSagas';
 
 export default function* rootSaga() {
     yield all([
@@ -54,5 +55,6 @@ export default function* rootSaga() {
         unleashTogglesSagas(),
         metrikkerSagas(),
         oppfolgingsdialogerSagas(),
+        soknadMetaSagas(),
     ]);
 }

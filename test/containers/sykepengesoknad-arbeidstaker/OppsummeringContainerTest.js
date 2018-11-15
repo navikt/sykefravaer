@@ -5,11 +5,9 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { setLedetekster } from 'digisyfo-npm';
 import { getParsetSoknad, getSoknad } from '../../mock/mockSykepengesoknader';
+import { NAV, ARBEIDSGIVER_OG_NAV, ARBEIDSGIVER } from '../../../js/enums/soknadmottakertyper';
 import {
-    ARBEIDSGIVER,
     mapStateToProps,
-    NAV,
-    NAV_OG_ARBEIDSGIVER,
     Oppsummering,
     skalViseForskutteringssporsmal,
     utledMottaker,
@@ -93,14 +91,14 @@ describe('OppsummeringContainer', () => {
                 },
             );
 
-            expect(utledMottaker(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(utledMottaker(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(ARBEIDSGIVER_OG_NAV);
             expect(skalViseForskutteringssporsmal(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
         });
 
         it('Skal ikke vise forskutteringsspørsmål hvis arbeidsgiver har svart på forskuttering', () => {
             const startdato = new Date('2016-01-01');
 
-            expect(utledMottaker(lederSvartJa, soknad, startdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(utledMottaker(lederSvartJa, soknad, startdato)).to.equal(ARBEIDSGIVER_OG_NAV);
             expect(skalViseForskutteringssporsmal(lederSvartJa, soknad, startdato)).to.equal(false);
 
             expect(utledMottaker(lederSvartNei, soknad, startdato)).to.equal(NAV);
@@ -123,7 +121,7 @@ describe('OppsummeringContainer', () => {
                 },
             );
 
-            expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(ARBEIDSGIVER_OG_NAV);
             expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
         });
 
@@ -148,7 +146,7 @@ describe('OppsummeringContainer', () => {
                 },
             );
 
-            expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(ARBEIDSGIVER_OG_NAV);
             expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
         });
     });

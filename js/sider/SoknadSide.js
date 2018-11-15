@@ -106,7 +106,10 @@ export const mapStateToProps = (state, ownProps) => {
     const erNyArbeidstakersoknad = soknad !== undefined && soknad.soknadstype === ARBEIDSTAKERE;
     const erArbeidstakersoknad = sykepengesoknad !== undefined;
     const skalHenteSykmeldinger = !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
-    const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
+    const henter = state.soknader.henter
+        || state.sykepengesoknader.henter
+        || state.ledetekster.henter
+        || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
 
     return {

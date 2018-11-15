@@ -16,12 +16,13 @@ import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidsta
 import Feilstripe from '../../Feilstripe';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
+import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../../enums/soknadmottakertyper';
 
 const mottaker = (sendesTil, sykepengesoknad) => {
     switch (sendesTil) {
-        case 'NAV': return getLedetekst('sykepengesoknad.oppsummering.nav-som-mottaker');
-        case 'ARBEIDSGIVER': return getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
-        case 'NAV_OG_ARBEIDSGIVER': return getLedetekst('sykepengesoknad.oppsummering.nav-og-arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
+        case NAV: return getLedetekst('sykepengesoknad.oppsummering.nav-som-mottaker');
+        case ARBEIDSGIVER: return getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
+        case ARBEIDSGIVER_OG_NAV: return getLedetekst('sykepengesoknad.oppsummering.nav-og-arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
         default: return undefined;
     }
 };

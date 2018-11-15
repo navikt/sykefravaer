@@ -12,10 +12,7 @@ import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperi
 import { hentLedere } from '../../actions/ledere_actions';
 import AppSpinner from '../../components/AppSpinner';
 import mapSkjemasoknadToOppsummeringsoknad from '../../components/sykepengesoknad-arbeidstaker/mappers/mapSkjemasoknadToOppsummeringsoknad';
-
-export const NAV_OG_ARBEIDSGIVER = 'NAV_OG_ARBEIDSGIVER';
-export const NAV = 'NAV';
-export const ARBEIDSGIVER = 'ARBEIDSGIVER';
+import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../enums/soknadmottakertyper';
 
 const beforeunload = 'beforeunload';
 
@@ -109,7 +106,7 @@ export const utledMottaker = (ledere, skjemasoknad, startdato) => {
             && (forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, skjemasoknad.fom)
             || AGsSvarPaForskuttering(ledere, skjemasoknad.arbeidsgiver.orgnummer)
             || brukersSvarPaForskuttering(skjemasoknad.arbeidsgiverForskutterer))
-            ? NAV_OG_ARBEIDSGIVER
+            ? ARBEIDSGIVER_OG_NAV
             : NAV);
 };
 

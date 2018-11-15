@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
-import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
+import { soknad as soknadPt, skjemasvar as skjemasvarPt, soknadMetaPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
@@ -12,6 +12,7 @@ import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummerings
 import { BEKREFT_OPPLYSNINGER, BETALER_ARBEIDSGIVER, VAER_KLAR_OVER_AT } from '../../../enums/tagtyper';
 import OppsummeringUndertekst from '../../soknad-felles-oppsummering/OppsummeringUndertekst';
 import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
+import SoknadMottaker from './SoknadMottaker';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
     const _soknad = {
@@ -29,6 +30,7 @@ OppsummeringUtvidbar.propTypes = {
     soknad: soknadPt,
 };
 
+
 export const hentSporsmalForOppsummering = (soknad) => {
     return soknad.sporsmal.filter((s) => {
         return s.tag === VAER_KLAR_OVER_AT
@@ -38,7 +40,15 @@ export const hentSporsmalForOppsummering = (soknad) => {
 };
 
 export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
-    const { handleSubmit, soknad, skjemasvar, actions, sender, sendingFeilet } = props;
+    const {
+        handleSubmit,
+        soknad,
+        skjemasvar,
+        actions,
+        sender,
+        sendingFeilet,
+        sykmelding,
+    } = props;
 
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
 
@@ -66,6 +76,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
                 name={bekreftOpplysningerSpm.tag}
                 soknad={soknad} />
         </div>
+        { !betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} sykmelding={sykmelding} /> }
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
@@ -85,19 +96,21 @@ SykepengesoknadArbeidstakerOppsummeringSkjema.propTypes = {
     }),
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
+    sykmelding: sykmeldingPt,
 };
 
 const Oppsummering = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender } = props;
+    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender, soknadMeta } = props;
     return (<Soknadskjema
         aktivtSteg="4"
         sykmelding={sykmelding}
         soknad={soknad}>
         <SykepengesoknadArbeidstakerOppsummeringSkjema
             soknad={soknad}
+            sykmelding={sykmelding}
             handleSubmit={handleSubmit}
             skjemasvar={skjemasvar}
-            sendingFeilet={sendingFeilet}
+            sendingFeilet={sendingFeilet || soknadMeta.hentingFeilet}
             sender={sender}
             actions={actions} />
     </Soknadskjema>);
@@ -114,6 +127,7 @@ Oppsummering.propTypes = {
     }),
     sendingFeilet: PropTypes.bool,
     sender: PropTypes.bool,
+    soknadMeta: soknadMetaPt,
 };
 
 export default Oppsummering;

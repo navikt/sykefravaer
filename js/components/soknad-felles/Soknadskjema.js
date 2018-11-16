@@ -8,7 +8,8 @@ import KorrigerVarsel from '../sykepengesoknad-felles/KorrigerVarsel';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import Soknadtopp from './Soknadtopp';
 import SykmeldingUtdragForSelvstendige from '../sykepengesoknad-selvstendig/SykmeldingUtdragForSelvstendige';
-import { SELVSTENDIGE_OG_FRILANSERE, ARBEIDSTAKERE } from '../../enums/soknadtyper';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import TidligSoknad from './TidligSoknad';
 
 const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmelding, intro = null }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
@@ -18,21 +19,22 @@ const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmeld
             soknad={soknad}
             sykmelding={sykmelding} />
         <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
-        {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
+        {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
+        <TidligSoknad soknad={soknad} />
         {intro}
         {sykmelding
-            && soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
-            && <SykmeldingUtdragForSelvstendige
-                sykmelding={sykmelding}
-                erApen={aktivtSteg === '1'}
-                erOppdelt={_erOppdelt} />}
+        && soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
+        && <SykmeldingUtdragForSelvstendige
+            sykmelding={sykmelding}
+            erApen={aktivtSteg === '1'}
+            erOppdelt={_erOppdelt} />}
         {sykmelding
-            && soknad.soknadstype === ARBEIDSTAKERE
-            && <SykmeldingUtdrag
-                rootUrl="/sykefravaer"
-                sykmelding={sykmelding}
-                erApen={aktivtSteg === '1'}
-                erOppdelt={_erOppdelt} />}
+        && soknad.soknadstype === ARBEIDSTAKERE
+        && <SykmeldingUtdrag
+            rootUrl="/sykefravaer"
+            sykmelding={sykmelding}
+            erApen={aktivtSteg === '1'}
+            erOppdelt={_erOppdelt} />}
         {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
         {children}
     </div>);

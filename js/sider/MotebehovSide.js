@@ -123,8 +123,7 @@ export function mapStateToProps(state, ownProps) {
     const virksomhetsnr = ownProps.params.virksomhetsnr;
 
     const togglesReducer = state.toggles;
-    let motebehovReducer = { data: {} };
-    motebehovReducer = state.motebehov || motebehovReducer;
+    const motebehovReducer = state.motebehov;
     let motebehovSvarReducer = {};
     motebehovSvarReducer = state.motebehovSvar[virksomhetsnr] || motebehovSvarReducer;
     const oppfolgingsforlopsPerioderReducer = state.oppfolgingsforlopsPerioder[virksomhetsnr] || { data: [] };

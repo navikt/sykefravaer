@@ -43,7 +43,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 hentingFeilet: true,
             };
         }
-        case moteActiontyper.HENT_MOTEBEHOV_FORBUDT: {
+        case moteActiontyper.HENT_MOTEBEHOV_FORBUDT: {skalViseMotebehovKvittering
             return {
                 ...state,
                 henter: false,

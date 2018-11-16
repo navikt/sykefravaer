@@ -156,11 +156,10 @@ export function mapStateToProps(state) {
     const togglesReducer = state.toggles;
     const ledereReducer = state.ledere;
     const dineSykmeldingerReducer = state.dineSykmeldinger;
+    const motebehovReducer = state.motebehov;
     const oppfolgingsforlopsPerioderReducer = state.oppfolgingsforlopsPerioder || {};
-    const harMote = getMote(state);
 
-    let motebehovReducer = { data: {} };
-    motebehovReducer = state.motebehov || motebehovReducer;
+    const harMote = getMote(state);
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(dineSykmeldingerReducer.data, ledereReducer.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(oppfolgingsforlopsPerioderReducer, virksomhetsnrListe);

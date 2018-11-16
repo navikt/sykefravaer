@@ -8,10 +8,10 @@ import {
     proptypes as motebehovProptypes,
     MotebehovKvittering,
     MotebehovSvarAT,
-    skalViseMotebehovKvittering,
 } from 'moter-npm';
 import getContextRoot from '../../utils/getContextRoot';
 import Sidetopp from '../Sidetopp';
+import { skalViseMotebehovKvittering } from '../../utils/motebehovUtils';
 
 const MotebehovInnhold = (
     {
@@ -22,7 +22,7 @@ const MotebehovInnhold = (
         virksomhetsnr,
     }) => {
     let innhold;
-    if (skalViseMotebehovKvittering(motebehovReducer)) {
+    if (skalViseMotebehovKvittering(motebehovReducer, virksomhetsnr)) {
         innhold = (<MotebehovKvittering
             ledetekster={ledetekster}
             motebehov={motebehovReducer}

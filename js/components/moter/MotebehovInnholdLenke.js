@@ -6,12 +6,7 @@ import {
     keyValue,
 } from 'digisyfo-npm';
 import { proptypes as motebehovProptypes } from 'moter-npm';
-
-export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnummer) => {
-    return motebehovReducer.data.find((motebehov) => {
-        return motebehov.virksomhetsnummer === virksomhetsnummer;
-    });
-};
+import { skalViseMotebehovKvittering } from '../../utils/motebehovUtils';
 
 const MotebehovInnholdLenke = (
     {

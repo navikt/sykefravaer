@@ -3,6 +3,12 @@ import {
     leggTilDagerPaaDato,
 } from './datoUtils';
 
+export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnummer) => {
+    return motebehovReducer.data.find((motebehov) => {
+        return motebehov.virksomhetsnummer === virksomhetsnummer;
+    });
+};
+
 export const hentMoteLandingssideUrl = (skalViseMotebehov) => {
     const moteVisning = skalViseMotebehov ? '' : '/mote';
     return `/sykefravaer/dialogmoter${moteVisning}`;

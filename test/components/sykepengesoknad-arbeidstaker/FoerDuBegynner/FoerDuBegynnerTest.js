@@ -3,15 +3,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import FoerDuBegynner, {
-    FoerDuBegynnerSkjema,
-} from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/FoerDuBegynner';
+import FoerDuBegynner, { FoerDuBegynnerSkjema } from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/FoerDuBegynner';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import { getSoknad } from '../../../mock/mockSykepengesoknader';
-import DetFinnesEldreSoknader from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/DetFinnesEldreSoknader';
+import DetFinnesEldreSoknader
+    from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/DetFinnesEldreSoknader';
 import ForsteSoknadIntro from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
 import SoknadIntro from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';
-import TidligSoknad from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/TidligSoknad';
+import TidligSoknad from '../../../../js/components/soknad-felles/TidligSoknad';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -43,23 +42,9 @@ describe('TidligSoknad', () => {
 
     it('Skal inneholde en TidligSoknad', () => {
         sykepengesoknad.status = 'NY';
-        sykepengesoknad.tom = new Date().setDate(new Date().getDate() + 1);
+        sykepengesoknad.tom = new Date(new Date().setDate(new Date().getDate() + 1));
         component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
-        expect(component.contains(<TidligSoknad />)).to.equal(true);
-    });
-
-    it('Skal ikke inneholde en TidligSoknad - Ikke tidlig', () => {
-        sykepengesoknad.status = 'NY';
-        sykepengesoknad.tom = new Date();
-        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
-        expect(component.contains(<TidligSoknad />)).to.equal(false);
-    });
-
-    it('Skal ikke inneholde en TidligSoknad - Ikke NY søknad', () => {
-        sykepengesoknad.status = 'SENDT';
-        sykepengesoknad.tom = new Date().setDate(new Date().getDate() + 1);
-        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
-        expect(component.contains(<TidligSoknad />)).to.equal(false);
+        expect(component.contains(<TidligSoknad soknad={sykepengesoknad} />)).to.equal(true);
     });
 });
 

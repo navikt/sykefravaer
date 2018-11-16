@@ -16,9 +16,9 @@ import DetFinnesEldreSoknader from './DetFinnesEldreSoknader';
 import KorrigerVarsel from '../../sykepengesoknad-felles/KorrigerVarsel';
 import ForsteSoknadIntro from './ForsteSoknadIntro';
 import SoknadIntro from './SoknadIntro';
-import TidligSoknad from './TidligSoknad';
+import TidligSoknad from '../../soknad-felles/TidligSoknad';
 
-const { NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
+const { UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
 
 export const FoerDuBegynnerSkjema = (props) => {
     const { handleSubmit, sykepengesoknad } = props;
@@ -55,8 +55,6 @@ class FoerDuBegynner extends Component {
 
     render() {
         const { sykepengesoknad, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId } = this.props;
-        const now = new Date();
-
         return (<div>
             <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
             {
@@ -65,7 +63,8 @@ class FoerDuBegynner extends Component {
                 && <DetFinnesEldreSoknader eldsteSoknadId={eldsteSoknadId} />
             }
             { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
-            { (sykepengesoknad.status === NY && sykepengesoknad.tom > now) && <TidligSoknad /> }
+
+            <TidligSoknad soknad={sykepengesoknad} />
 
             { erForsteSoknad ? <ForsteSoknadIntro /> : <SoknadIntro />}
 

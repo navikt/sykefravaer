@@ -33,7 +33,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 ...state,
                 henter: false,
                 hentet: true,
-                data: action.data.length > 0 ? sorterMotebehovEtterNyeste(action.data)[0] : [],
+                data: action.data.length > 0 ? sorterMotebehovEtterNyeste(action.data) : [],
             };
         }
         case moteActiontyper.HENT_MOTEBEHOV_FEILET: {

@@ -141,12 +141,7 @@ export const TeaserTittel = ({ soknad }) => {
         <small className="inngangspanel__meta js-meta">
             {
                 getLedetekst('soknad.teaser.dato', {
-                    '%DATO%':
-                        tilLesbarDatoMedArstall(
-                            soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
-                                ? soknad.opprettetDato
-                                : soknad.tom,
-                        ),
+                    '%DATO%': tilLesbarDatoMedArstall(soknad.opprettetDato),
                 })
             }
         </small>

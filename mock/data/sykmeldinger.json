@@ -744,5 +744,95 @@
       "sykmelder": "Helen Flood",
       "sykmelderTlf": "113"
     }
+  },
+  {
+    "id": "525df5c6-53e1-4b4b-92b6-4c306b7911f7",
+    "startLegemeldtFravaer": "2018-11-06",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-11-06",
+    "status": "SENDT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": "PONTYPANDY FIRE SERVICE",
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": {
+      "navn": "PONTYPANDY FIRE SERVICE",
+      "virksomhetsnummer": "110110110",
+      "juridiskOrgnummer": "110110110"
+    },
+    "orgnummer": "110110110",
+    "sendtdato": "2018-11-15T10:49:03",
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Samuel \"Sam\"",
+      "mellomnavn": "Peyton",
+      "etternavn": "Jones"
+    },
+    "arbeidsgiver": "PONTYPANDY FIRE SERVICE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-11-11",
+          "tom": "2019-02-03",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": [],
+      "aktivitetIkkeMulig434": [
+        "Annet"
+      ],
+      "aarsakAktivitetIkkeMulig433": null,
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-11-11",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": null,
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": null,
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-11-06",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
   }
 ]

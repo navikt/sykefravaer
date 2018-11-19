@@ -177,6 +177,7 @@ export function mapStateToProps(state) {
         && forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe)
         && (!skalViseMotebehov || forsoektHentetMotebehov(motebehovReducer));
 
+    console.log('motebehovReducer', motebehovReducer);
     return {
         henter: !harForsoektHentetAlt,
         hentingFeilet: state.ledetekster.hentingFeilet

@@ -32,7 +32,7 @@ const DialogmoterInnhold = (
         <MotebehovInnholdLenke
             ledetekster={ledetekster}
             koblingId={koblingId}
-            motebehov={motebehovReducer}
+            motebehovReducer={motebehovReducer}
             virksomhetsnrListe={virksomhetsnrListe}
             rootUrl={getContextRoot()}
         />

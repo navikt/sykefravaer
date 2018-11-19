@@ -11,11 +11,11 @@ import { skalViseMotebehovKvittering } from '../../utils/motebehovUtils';
 const MotebehovInnholdLenke = (
     {
         ledetekster,
-        motebehov,
+        motebehovReducer,
         virksomhetsnrListe,
         rootUrl,
     }) => {
-    const knappTekstNokkel = skalViseMotebehovKvittering(motebehov, virksomhetsnrListe) ?
+    const knappTekstNokkel = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe) ?
         'mote.motebehovInnholdLenke.knapp.kvittering'
         :
         'mote.motebehovInnholdLenke.knapp.svar';
@@ -32,7 +32,7 @@ const MotebehovInnholdLenke = (
 };
 MotebehovInnholdLenke.propTypes = {
     ledetekster: keyValue,
-    motebehov: motebehovProptypes.motebehovReducerATPt,
+    motebehovReducer: motebehovProptypes.motebehovReducerATPt,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     rootUrl: PropTypes.string,
 };

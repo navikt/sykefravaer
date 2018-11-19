@@ -12,7 +12,7 @@ import {
 import getContextRoot from '../../utils/getContextRoot';
 import Sidetopp from '../Sidetopp';
 import {
-    finnNyesteMotebehovsHosVirksomhetListe,
+    finnNyesteMotebehovForVirksomhetListe,
 } from '../../utils/motebehovUtils';
 
 const MotebehovInnhold = (
@@ -24,7 +24,7 @@ const MotebehovInnhold = (
         virksomhetsnrListe,
     }) => {
     let innhold;
-    const motebehov = finnNyesteMotebehovsHosVirksomhetListe(motebehovReducer, virksomhetsnrListe);
+    const motebehov = finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetsnrListe);
     if (motebehov) {
         innhold = (<MotebehovKvittering
             ledetekster={ledetekster}

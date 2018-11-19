@@ -3,7 +3,7 @@ import {
     leggTilDagerPaaDato,
 } from './datoUtils';
 
-export const finnNyesteMotebehovsHosVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => {
+export const finnNyesteMotebehovForVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => {
     return motebehovReducer.data.filter((motebehov) => {
         return virksomhetsnrListe.filter((virksomhetsnr) => {
             return motebehov.virksomhetsnummer === virksomhetsnr;
@@ -14,7 +14,7 @@ export const finnNyesteMotebehovsHosVirksomhetListe = (motebehovReducer, virksom
 };
 
 export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnrListe) => {
-    return finnNyesteMotebehovsHosVirksomhetListe(motebehovReducer, virksomhetsnrListe);
+    return finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetsnrListe);
 };
 
 export const hentMoteLandingssideUrl = (skalViseMotebehov) => {

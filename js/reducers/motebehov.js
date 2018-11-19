@@ -2,7 +2,7 @@ import { actiontyper as moteActiontyper } from 'moter-npm';
 
 export const sorterMotebehovEtterNyeste = (motebehovListe) => {
     return [...motebehovListe].filter((element) => {
-        return element.aktoerId === element.opprettetAv;
+        return element.aktorId === element.opprettetAv;
     }).sort((t1, t2) => {
         return t2.opprettetDato - t1.opprettetDato;
     });

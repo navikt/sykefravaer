@@ -88,6 +88,10 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
                     { sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} /> }
                     { (sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} /> }
                     { mote !== null && <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
+                    {
+                        // TODO: Test for når og til hvem linken til InfoSideFO skal vises
+                        <Li url="/sykefravaer/arbeidsrettet-oppfolging" tekst={getLedetekst('infoside-fo.inngangstekst')} />
+                    }
                     { avventendeGodkjenninger.length > 0 && <Li url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
                     { nyePlaner.length > 0 && <Li url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} /> }
                     { visAktivitetskrav && <NyttAktivitetskravvarsel /> }

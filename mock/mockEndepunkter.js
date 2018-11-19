@@ -90,7 +90,8 @@ function mockTekster(server) {
 
     server.get('/syfotekster/api/tekster', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(teksterFraProd || mockData[TEKSTER]));
+        // res.send(JSON.stringify(teksterFraProd || mockData[TEKSTER]));
+        res.send(JSON.stringify(mockData[TEKSTER]));
     });
 }
 

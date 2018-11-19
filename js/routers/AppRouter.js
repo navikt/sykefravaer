@@ -14,7 +14,7 @@ import OppfolgingsdialogSide from '../sider/OppfolgingsdialogSide';
 import AktivitetskravvarselSide from '../sider/AktivitetskravvarselSide';
 import SykepengesoknadContainer from '../sider/SoknadSide';
 import SykepengesoknadUtlandContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandContainer';
-import { InfoSideFO } from '../sider/InfoSideFO';
+import InfoSideFO from '../sider/InfoSideFO';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

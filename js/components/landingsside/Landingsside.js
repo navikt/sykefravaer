@@ -72,7 +72,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     hvis={skalViseOppfolgingsdialog}
                     render={() => {
                         return (<LandingssideLenke
-                            to="/sykefravaer/oppfolgingsplaner"
+                            to={`${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`}
                             ikon="oppfolgingsplaner"
                             ikonAlt="Oppfølgingsplaner"
                             tittel="Oppfølgingsplaner" />);

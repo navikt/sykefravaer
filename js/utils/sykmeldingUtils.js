@@ -1,6 +1,4 @@
-import {
-    erSykmeldingGyldigForOppfolgingMedGrensedato,
-} from 'oppfolgingsdialog-npm';
+import erSykmeldingGyldigForOppfolgingMedGrensedato from '../oppfolgingsdialogNpm/erSykmeldingGyldigForOppfolgingMedGrensedato';
 
 export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
     return naermesteLedere.filter((leder) => {

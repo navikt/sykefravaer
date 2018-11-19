@@ -1,6 +1,4 @@
-import {
-    MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING,
-} from 'oppfolgingsdialog-npm';
+import { MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING } from '../../js/oppfolgingsdialogNpm/oppfolgingsdialogEnums';
 
 const MILLISEKUNDER_PER_DAG = 86400000;
 

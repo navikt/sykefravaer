@@ -6,7 +6,6 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { forlengInnloggetSesjon, hentLedetekster, setPerformOnHttpCalls, sjekkInnloggingssesjon } from 'digisyfo-npm';
-import { setPerformOnOppDialogHttpCalls } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
 import history from './history';
@@ -15,6 +14,7 @@ import '../styles/styles.less';
 import './logging';
 import { hentUnleashToggles } from './actions/unleashToggles_actions';
 import { hentSoknader } from './actions/soknader_actions';
+import setPerformOnOppDialogHttpCalls from './oppfolgingsdialogNpm/setPerformOnOppDialogHttpCalls';
 import reducers from './reducers';
 
 const rootReducer = combineReducers(reducers);

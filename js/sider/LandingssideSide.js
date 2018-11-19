@@ -4,7 +4,7 @@ import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLedetekst } from 'digisyfo-npm';
-import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
+import { hentOppfolgingsdialoger } from '../oppfolgingsdialogNpm/oppfolgingsdialoger_actions';
 import Landingsside from '../components/landingsside/Landingsside';
 import SideStrippet from './SideStrippet';
 import Side from './Side';

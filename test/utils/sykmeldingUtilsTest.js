@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import chai from 'chai';
-import { MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING } from 'oppfolgingsdialog-npm';
+import { MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING } from '../../js/oppfolgingsdialogNpm/oppfolgingsdialogEnums';
 import {
     finnArbeidsgivereForGyldigeSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
@@ -162,7 +162,7 @@ describe('sykmeldingUtils', () => {
             expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(true);
         });
 
-        it('skal returnere false med 1 sykmelding, som har siste gyldige sykmeldingsdato eldre enn grensedato(4mnd siden), med oppfolgingsdialoger', () => {
+        it('skal returnere false med 1 sykmelding, som har siste gyldige sykmeldingsdato eldre enn grensedato(4mnd siden), med oppfolgingsdialogerSagas', () => {
             oppfolgingsdialoger = {
                 data: [{
                     virksomhetsnummer: '12345678',
@@ -172,7 +172,7 @@ describe('sykmeldingUtils', () => {
             expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(true);
         });
 
-        it('skal returnere false med 1 sykmelding uten orgnummer, uten oppfolgingsdialoger', () => {
+        it('skal returnere false med 1 sykmelding uten orgnummer, uten oppfolgingsdialogerSagas', () => {
             oppfolgingsdialoger = {
                 data: [],
             };
@@ -183,7 +183,7 @@ describe('sykmeldingUtils', () => {
         });
 
         // eslint-disable-next-line max-len
-        it('skal returnere false med 1 sykmelding, som ikke har orgnummer, men som har siste gyldige sykmeldingsdato nyligere eller lik grensedato(4mnd siden), uten oppfolgingsdialoger', () => {
+        it('skal returnere false med 1 sykmelding, som ikke har orgnummer, men som har siste gyldige sykmeldingsdato nyligere eller lik grensedato(4mnd siden), uten oppfolgingsdialogerSagas', () => {
             oppfolgingsdialoger = {
                 data: [],
             };
@@ -193,7 +193,7 @@ describe('sykmeldingUtils', () => {
             expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(false);
         });
 
-        it('skal returnere true med 1 sykmelding, som har siste gyldige sykmeldingsdato nyligere enn grensedato(4mnd siden), uteno oppfolgingsdialoger', () => {
+        it('skal returnere true med 1 sykmelding, som har siste gyldige sykmeldingsdato nyligere enn grensedato(4mnd siden), uteno oppfolgingsdialogerSagas', () => {
             oppfolgingsdialoger = {
                 data: [],
             };

@@ -27,6 +27,14 @@ Li.propTypes = {
     url: PropTypes.string.isRequired,
 };
 
+const EksternLi = ({ tekst, url }) => {
+    return (<li>
+        <a href={url}>{tekst}</a>
+    </li>);
+};
+
+EksternLi.propTypes = Li.propTypes;
+
 export const NySykmelding = ({ sykmeldinger }) => {
     const url = sykmeldinger.length === 1 ? `/sykefravaer/sykmeldinger/${sykmeldinger[0].id}` : '/sykefravaer/sykmeldinger';
     const tekst = sykmeldinger.length === 1 ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding') : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
@@ -76,7 +84,7 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
         return null;
     }
 
-    const oppPlanUrl = `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
+    const OPPFOLGINGSPLANER_URL = `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 
     return (<div className="landingspanel dineOppgaver">
         <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/oppgaver.svg" ikonAlt="Oppgaver">
@@ -86,8 +94,8 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
                     { sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} /> }
                     { (sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} /> }
                     { mote !== null && <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
-                    { avventendeGodkjenninger.length > 0 && <Li url={oppPlanUrl} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
-                    { nyePlaner.length > 0 && <Li url={oppPlanUrl} tekst={nyePlanerTekst(nyePlaner.length)} /> }
+                    { avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
+                    { nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} /> }
                     { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
                 </ul>
             </div>

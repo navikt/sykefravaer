@@ -4,12 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { getSvarsideModus } from 'moter-npm';
 import { getLedetekst, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
-import {
-    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
-    proptypes as oppfolgingProptypes,
-    henterEllerHarHentetOppfolgingsdialoger,
-} from 'oppfolgingsdialog-npm';
-import { oppgaverOppfoelgingsdialoger } from '../../utils/oppfolgingsdialogUtils';
+import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingProptypes';
+import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, soknad as soknadPt } from '../../propTypes';
 import { erMotePassert } from '../../utils/moteUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
@@ -30,6 +26,14 @@ Li.propTypes = {
     tekst: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
 };
+
+const EksternLi = ({ tekst, url }) => {
+    return (<li>
+        <a href={url}>{tekst}</a>
+    </li>);
+};
+
+EksternLi.propTypes = Li.propTypes;
 
 export const NySykmelding = ({ sykmeldinger }) => {
     const url = sykmeldinger.length === 1 ? `/sykefravaer/sykmeldinger/${sykmeldinger[0].id}` : '/sykefravaer/sykmeldinger';
@@ -80,6 +84,8 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
         return null;
     }
 
+    const OPPFOLGINGSPLANER_URL = `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
+
     return (<div className="landingspanel dineOppgaver">
         <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/oppgaver.svg" ikonAlt="Oppgaver">
             <div>
@@ -88,8 +94,8 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
                     { sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} /> }
                     { (sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} /> }
                     { mote !== null && <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
-                    { avventendeGodkjenninger.length > 0 && <Li url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
-                    { nyePlaner.length > 0 && <Li url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} /> }
+                    { avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
+                    { nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} /> }
                     { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
                 </ul>
             </div>
@@ -98,8 +104,8 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
 };
 
 RendreOppgaver.propTypes = {
-    avventendeGodkjenninger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
-    nyePlaner: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    avventendeGodkjenninger: PropTypes.arrayOf(oppfolgingsdialogPt),
+    nyePlaner: PropTypes.arrayOf(oppfolgingsdialogPt),
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
@@ -110,15 +116,17 @@ RendreOppgaver.propTypes = {
 
 export class DineOppgaver extends Component {
     componentWillMount() {
-        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet } = this.props;
+        const {
+            sykmeldingerHentet,
+            sykmeldingerHentingFeilet,
+            hendelserHentet,
+            hentingFeiletHendelser,
+        } = this.props;
         if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
             this.props.hentDineSykmeldinger();
         }
         if (!hendelserHentet && !hentingFeiletHendelser) {
             this.props.hentHendelser();
-        }
-        if (!oppfolgingsdialogerHentet) {
-            this.props.hentOppfolgingsdialoger();
         }
     }
 
@@ -163,7 +171,7 @@ export const mapStateToProps = (state) => {
             moteRes = 'TRENGER_SVAR';
         }
     }
-    const _oppgaverOppfoelgingsdialoger = oppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
+    const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const visOppgaver = sykmeldinger.length > 0 ||
         sykepengesoknader.length > 0 ||
@@ -176,9 +184,8 @@ export const mapStateToProps = (state) => {
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
-        sykmeldingerHentingFeilet: state.dineSykmeldinger.hentingFeilet,
-        oppfolgingsdialogerHentet: henterEllerHarHentetOppfolgingsdialoger(state.oppfolgingsdialoger)
-        || state.oppfolgingsdialoger.hentingFeilet,
+        sykmeldingerHentingFeilet: state.dineSykmeldinger.hentingFeilet
+            || state.oppfolgingsdialoger.hentingFeilet,
         sykepengesoknader,
         soknader,
         visOppgaver,
@@ -192,7 +199,7 @@ export const mapStateToProps = (state) => {
 };
 
 const DineOppgaverContainer = connect(mapStateToProps, {
-    hentDineSykmeldinger, hentHendelser, hentOppfolgingsdialoger,
+    hentDineSykmeldinger, hentHendelser,
 })(DineOppgaver);
 
 export default DineOppgaverContainer;

@@ -275,14 +275,14 @@ describe('LandingssideSide', () => {
         });
 
         describe('Oppfølgingsdialoger', () => {
-            it('Skal hente oppfolgingsdialoger dersom oppfolgingsdialoger ikke er hentet', () => {
+            it('Skal hente oppfolgingsdialogerSagas dersom oppfolgingsdialogerSagas ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentOppfolgingsdialoger.calledOnce).to.equal(true);
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente oppfolgingsdialoger dersom oppfolgingsdialoger er hentet', () => {
+            it('Skal ikke hente oppfolgingsdialogerSagas dersom oppfolgingsdialogerSagas er hentet', () => {
                 state.oppfolgingsdialoger.hentet = true;
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
@@ -290,7 +290,7 @@ describe('LandingssideSide', () => {
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente oppfolgingsdialoger dersom oppfolgingsdialoger hentes nå', () => {
+            it('Skal ikke hente oppfolgingsdialogerSagas dersom oppfolgingsdialogerSagas hentes nå', () => {
                 state.oppfolgingsdialoger.henter = true;
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
@@ -298,7 +298,7 @@ describe('LandingssideSide', () => {
                 expect(props.henter).to.equal(true);
             });
 
-            it('Skal ikke hente oppfolgingsdialoger dersom henting av sykeforløp har feilet', () => {
+            it('Skal ikke hente oppfolgingsdialogerSagas dersom henting av sykeforløp har feilet', () => {
                 state.oppfolgingsdialoger.hentingFeilet = true;
                 state.oppfolgingsdialoger.hentet = false;
                 const props = mapStateToProps(deepFreeze(state));
@@ -447,13 +447,13 @@ describe('LandingssideSide', () => {
                 expect(props.skalViseOppfolgingsdialog).to.equal(true);
             });
 
-            it('Skal være true om vi har ingen oppfolgingsdialoger, men en sykmelding som gikk ut for mindre enn fire måneder siden', () => {
+            it('Skal være true om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for mindre enn fire måneder siden', () => {
                 state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomErUtgaattForMindreEnnFireManederSiden];
                 const props = mapStateToProps(state);
                 expect(props.skalViseOppfolgingsdialog).to.equal(true);
             });
 
-            it('Skal være false om vi har ingen oppfolgingsdialoger, men en sykmelding som gikk ut for fire måneder og én dag siden', () => {
+            it('Skal være false om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for fire måneder og én dag siden', () => {
                 state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomNettoppErUtgaatt];
                 const props = mapStateToProps(state);
                 expect(props.skalViseOppfolgingsdialog).to.equal(false);

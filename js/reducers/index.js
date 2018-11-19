@@ -1,29 +1,7 @@
-import {
-    oppfolgingsdialogerAt as oppfolgingsdialoger,
-    arbeidsoppgaver,
-    forespoerselRevidering,
-    kommentar,
-    kopierDialog as kopierDialogReducer,
-    dokument,
-    samtykke,
-    tilgangAt as tilgang,
-    tiltak,
-    navigasjontoggles,
-    nullstill,
-    avbrytdialogReducer,
-    arbeidsforhold,
-    nyNaermesteLeder,
-    delmednav,
-    fastlegeDeling,
-    person,
-    virksomhet,
-    kontaktinfo,
-    forrigenaermesteleder,
-    naermesteleder,
-} from 'oppfolgingsdialog-npm';
 import { ledetekster, sykeforlopsPerioder, tidslinjer, timeout, toggles } from 'digisyfo-npm';
 import { reducer as formReducer } from 'redux-form';
 import { mote, svar } from 'moter-npm';
+import oppfolgingsdialoger from '../oppfolgingsdialogNpm/oppfolgingsdialoger';
 import arbeidsgivere from './arbeidsgivere';
 import arbeidsgiverperiodeberegning from './arbeidsgiverperiodeberegning';
 import arbeidsgiversSykmeldinger from './arbeidsgiversSykmeldinger';
@@ -45,45 +23,24 @@ import metrikker from './metrikker';
 import history from '../history';
 
 const reducers = {
-    arbeidsforhold,
     arbeidsgivere,
     arbeidsgiverperiodeberegning,
     arbeidsgiversSykmeldinger,
-    arbeidsoppgaver,
-    avbrytdialogReducer,
     brukerinfo,
     dineSykmeldinger,
     forskutteringssporsmal,
     history,
     ledere,
-    dokument,
-    forespoerselRevidering,
-    kommentar,
-    kopierDialogReducer,
     ledetekster,
     mote,
-    navigasjontoggles,
-    nullstill,
-    nyNaermesteLeder,
-    oppfolgingsdialoger,
-    samtykke,
     svar,
     sykepengesoknader,
     toggles,
-    fastlegeDeling,
-    delmednav,
     tidslinjer,
-    tilgang,
-    tiltak,
     vedlikehold,
     hendelser,
     aktivitetskrav,
-    person,
-    virksomhet,
-    kontaktinfo,
     sykeforlopsPerioder,
-    forrigenaermesteleder,
-    naermesteleder,
     timeout,
     form: formReducer,
     formMeta: reduxFormMeta,
@@ -93,6 +50,7 @@ const reducers = {
     soknader,
     unleashToggles,
     metrikker,
+    oppfolgingsdialoger,
 };
 
 export default reducers;

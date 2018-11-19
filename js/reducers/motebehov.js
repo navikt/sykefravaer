@@ -53,7 +53,7 @@ export default function motebehov(state = initiellState, action = {}) {
         case moteActiontyper.SVAR_MOTEBEHOV_SENDT: {
             const nyttMotebehov = {
                 ...action.svar,
-                motebehovSvar: action.motebehovSvar,
+                virksomhetsnummer: action.virksomhetsnummer,
                 opprettetDato: new Date(),
             };
             return {

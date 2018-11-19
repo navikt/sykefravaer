@@ -4,6 +4,7 @@ import {
 } from './datoUtils';
 
 export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnummer) => {
+    console.log('skalViseMotebehovKvittering/motebehovReducer', motebehovReducer);
     return motebehovReducer.data.find((motebehov) => {
         return motebehov.virksomhetsnummer === virksomhetsnummer;
     });

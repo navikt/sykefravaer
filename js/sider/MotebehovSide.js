@@ -95,7 +95,7 @@ Container.propTypes = {
     skalHenteToggles: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    motebehov: motebehovProptypes.motebehovReducerATPt,
+    motebehovReducer: motebehovProptypes.motebehovReducerATPt,
     motebehovSvarReducer: motebehovProptypes.motebehovSvarReducerPt,
     virksomhetsnr: PropTypes.string,
     actions: PropTypes.shape({

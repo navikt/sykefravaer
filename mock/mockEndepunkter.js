@@ -18,6 +18,7 @@ const ARBEIDSGIVERE = 'arbeidsgivere';
 const METADATA = 'metadata';
 const NAERMESTELEDERE = 'naermesteledere';
 const FORRIGE_LEDER = 'forrigeLeder';
+const MOTEBEHOV = 'motebehov';
 const OPPFOELGINGSDIALOGER = 'oppfoelgingsdialoger';
 const SOKNADER = 'soknader';
 const SYFOUNLEASH = 'syfounleash';
@@ -49,6 +50,7 @@ lastFilTilMinne(ARBEIDSGIVERS_SYKMELDINGER);
 lastFilTilMinne(NY_SOKNAD_UTLAND);
 lastFilTilMinne(ARBEIDSGIVERE);
 lastFilTilMinne(METADATA);
+lastFilTilMinne(MOTEBEHOV);
 lastFilTilMinne(NAERMESTELEDERE);
 lastFilTilMinne(OPPFOELGINGSDIALOGER);
 lastFilTilMinne(SOKNADER);
@@ -200,6 +202,18 @@ function mockEndepunkterSomEndrerState(server) {
         mockData.soknader = mockData.soknader.filter(soknad => soknad.id !== req.params.id);
         res.send(JSON.stringify({}));
     })
+
+    server.get('/syfomotebehov/api/motebehov', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[MOTEBEHOV]));
+    });
+
+    server.post('/syfomotebehov/api/motebehov', (req, res) => {
+        const nyttMotebehov = req.body;
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(nyttMotebehov));
+    });
 }
 
 function mockForOpplaeringsmiljo(server) {

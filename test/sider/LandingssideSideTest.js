@@ -12,6 +12,7 @@ const expect = chai.expect;
 
 describe('LandingssideSide', () => {
     let hentMote;
+    let hentMotebehov;
     let hentSykepengesoknader;
     let hentSoknader;
     let hentLedere;
@@ -19,29 +20,37 @@ describe('LandingssideSide', () => {
     let hentSykeforloep;
     let hentSykeforloepMetadata;
     let hentOppfolgingsdialoger;
+    let hentOppfolgingsforlopsPerioder;
+    let hentToggles;
 
     let state;
     let actions;
 
     beforeEach(() => {
         hentMote = sinon.spy();
+        hentMotebehov = sinon.spy();
         hentSykepengesoknader = sinon.spy();
         hentLedere = sinon.spy();
         hentDineSykmeldinger = sinon.spy();
         hentSykeforloep = sinon.spy();
         hentSykeforloepMetadata = sinon.spy();
         hentOppfolgingsdialoger = sinon.spy();
+        hentOppfolgingsforlopsPerioder = sinon.spy();
         hentSoknader = sinon.spy();
+        hentToggles = sinon.spy();
 
         actions = {
             hentMote,
+            hentMotebehov,
             hentSykepengesoknader,
             hentLedere,
             hentDineSykmeldinger,
             hentSykeforloep,
             hentSykeforloepMetadata,
             hentOppfolgingsdialoger,
+            hentOppfolgingsforlopsPerioder,
             hentSoknader,
+            hentToggles,
         };
 
         state = {
@@ -52,17 +61,22 @@ describe('LandingssideSide', () => {
                 data: [],
             },
             mote: {},
-            ledere: {},
+            motebehov: {},
+            ledere: {
+                data: [],
+            },
             sykeforloep: {},
             sykeforloepMetadata: {},
             oppfolgingsdialoger: {
                 data: [],
             },
+            oppfolgingsforlopsPerioder: {},
             ledetekster: {},
             hendelser: {},
             soknader: {
                 data: [],
             },
+            toggles: {},
         };
     });
 

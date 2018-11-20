@@ -7,6 +7,8 @@ import DinSykmeldingContainer from '../sider/SykmeldingSide';
 import SykmeldingSkrivUtSide from '../sider/SykmeldingSkrivUtSide';
 import TidslinjeSide from '../sider/TidslinjeSide';
 import SykmeldingKvitteringContainer from '../sider/SykmeldingkvitteringSide';
+import DialogmoterContainer from '../sider/DialogmoterSide';
+import MotebehovContainer from '../sider/MotebehovSide';
 import DialogmoteSide from '../sider/DialogmoteSide';
 import SoknaderSide from '../sider/SoknaderSide';
 import AktivitetskravvarselSide from '../sider/AktivitetskravvarselSide';
@@ -29,6 +31,9 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/oppsummering" component={SykepengesoknadContainer} />
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/kvittering" component={SykepengesoknadContainer} />
         <Route path="/sykefravaer/dialogmote" component={DialogmoteSide} />
+        <Route path="/sykefravaer/dialogmoter" component={DialogmoterContainer} />
+        <Route path="/sykefravaer/dialogmoter/behov" component={MotebehovContainer} />
+        <Route path="/sykefravaer/dialogmoter/mote" component={DialogmoteSide} />
         <Route path="/sykefravaer/aktivitetsplikt" component={AktivitetskravvarselSide} />
         <Route path="/sykefravaer/sykepengesoknad-utland" component={SykepengesoknadUtlandContainer} />
         <Route path="*" component={LandingssideSide} />

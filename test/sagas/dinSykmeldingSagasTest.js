@@ -19,7 +19,6 @@ describe('dinSykmeldingSagas', () => {
                 feilaktigeOpplysninger: {
                     periode: true,
                 },
-                dekningsgrad: null,
                 egenmeldingsperioder: null,
                 harAnnetFravaer: false,
                 harForsikring: false,
@@ -39,7 +38,6 @@ describe('dinSykmeldingSagas', () => {
                     periode: true,
                 },
                 harForsikring: null,
-                dekningsgrad: null,
                 harAnnetFravaer: null,
                 egenmeldingsperioder: null,
             });
@@ -49,7 +47,7 @@ describe('dinSykmeldingSagas', () => {
         it('Skal dernest sjekke om det skal opprettes søknad', () => {
             const nextCall = call(post, '/syforest/sykmeldinger/123/actions/skalOppretteSoknad', {
                 egenmeldingsperioder: null,
-                dekningsgrad: null,
+                harForsikring: false,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });
@@ -76,7 +74,6 @@ describe('dinSykmeldingSagas', () => {
             {
                 arbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 feilaktigeOpplysninger: null,
-                dekningsgrad: '75',
                 egenmeldingsperioder: [{
                     fom: new Date('2018-01-02'),
                     tom: new Date('2018-01-08'),
@@ -95,7 +92,6 @@ describe('dinSykmeldingSagas', () => {
             const nextCall = call(post, '/syforest/sykmeldinger/123/actions/bekreft', {
                 arbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 feilaktigeOpplysninger: null,
-                dekningsgrad: '75',
                 egenmeldingsperioder: [
                     {
                         fom: new Date('2018-01-02'),
@@ -114,7 +110,7 @@ describe('dinSykmeldingSagas', () => {
                     fom: new Date('2018-01-02'),
                     tom: new Date('2018-01-08'),
                 }],
-                dekningsgrad: '75',
+                harForsikring: true,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });

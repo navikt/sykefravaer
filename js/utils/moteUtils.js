@@ -12,3 +12,15 @@ export const erMotePassert = (mote) => {
         return alternativ.tid <= newDate();
     }).length === antallAlternativer;
 };
+
+export const getMote = (state) => {
+    const moter = state.moter
+        && state.moter.data
+        && state.moter.data
+            .sort((m1, m2) => {
+                return new Date(m1.opprettetTidspunkt).getTime() <= new Date(m2.opprettetTidspunkt).getTime() ? 1 : -1;
+            });
+    return moter && moter.length > 0
+        ? moter[0]
+        : null;
+};

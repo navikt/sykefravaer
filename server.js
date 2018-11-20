@@ -47,8 +47,14 @@ const renderApp = (decoratorFragments) => {
     });
 };
 
-const startServer = (html) => {
+function nocache(req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next();
+}
 
+const startServer = (html) => {
     server.use(
         '/sykefravaer/resources',
         express.static(path.resolve(__dirname, 'dist/resources')),
@@ -61,6 +67,7 @@ const startServer = (html) => {
 
     server.get(
         ['/', '/sykefravaer/?', /^\/sykefravaer\/(?!(resources|img)).*$/],
+        nocache,
         (req, res) => {
             res.send(html);
             httpRequestDurationMicroseconds

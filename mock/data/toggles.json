@@ -1,6 +1,7 @@
 {
   "SYFOTOGGLES.OPPFOELGINGSDIALOG": "FALSE",
   "SYFOTOGGLES.SEND.OPPFOELGINGSDIALOG.FASTLEGE": "TRUE",
-  "SYFOTOGGLES.DIALOGMOTE.MOTEBEHOV.VIS": "TRUE",
+  "syfotoggles.dialogmote.motebehov.vis": "true",
+  "syfotoggles.enable.motebehov.at": "true",
   "SYFOTOGGLES.OPPFOELGINGSDIALOG.DELMEDNAV": "TRUE"
 }

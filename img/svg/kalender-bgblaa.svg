@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>kalenderikon_bgblå</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Etterspørre-møte" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="AG_Dialogmøte-landingsside" transform="translate(-212.000000, -652.000000)">
+            <g id="kalenderikon_bgblå" transform="translate(212.000000, 652.000000)">
+                <g id="Group-8" fill="#C9E9F1">
+                    <g id="Group">
+                        <circle id="Oval-Copy" cx="25" cy="25" r="25"></circle>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(11.000000, 10.000000)" stroke="#3E3832">
+                    <polyline id="Shape" points="5.4375 2.99452709 0.604166667 2.99452709 0.604166667 28.1485547 28.3958333 28.1485547 28.3958333 2.99452709 23.5625 2.99452709"></polyline>
+                    <path d="M5.4375,0.598905418 L9.0625,0.598905418 L9.0625,5.39014877 L5.4375,5.39014877 L5.4375,0.598905418 Z M19.9375,0.598905418 L23.5625,0.598905418 L23.5625,5.39014877 L19.9375,5.39014877 L19.9375,0.598905418 Z M9.0625,2.99452709 L19.9375,2.99452709 L9.0625,2.99452709 Z M0.604166667,8.98358128 L28.3958333,8.98358128 L0.604166667,8.98358128 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

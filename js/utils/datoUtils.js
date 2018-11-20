@@ -28,3 +28,15 @@ export const erGyldigDato = (dato) => {
     }
     return erGyldigDatoformat(dato);
 };
+
+export const ANTALL_MS_DAG = 1000 * 60 * 60 * 24;
+
+export const hentDagerMellomDatoer = (startDato, sluttDato) => {
+    return Math.round(Math.abs((sluttDato.getTime() - startDato.getTime()) / (ANTALL_MS_DAG)));
+};
+
+export const leggTilDagerPaaDato = (dato, dager) => {
+    const nyDato = new Date(dato);
+    nyDato.setTime(nyDato.getTime() + (dager * ANTALL_MS_DAG));
+    return new Date(nyDato);
+};

@@ -14,12 +14,15 @@ import vedlikehold from './vedlikehold';
 import hendelser from './hendelser';
 import aktivitetskrav from './aktivitetskrav';
 import reduxFormMeta from './reduxFormMeta';
+import oppfolgingsforlopsPerioder from './oppfolgingsforlopsPerioder';
 import sykeforloep from './sykeforloep';
 import sykeforloepMetadata from './sykeforloepMetadata';
 import sykmeldingMeta from './sykmeldingMeta';
 import soknader from './soknader';
 import unleashToggles from './unleashToggles';
 import metrikker from './metrikker';
+import motebehov from './motebehov';
+import motebehovSvar from './motebehovSvar';
 import history from '../history';
 import soknadMeta from './soknadMeta';
 
@@ -34,6 +37,9 @@ const reducers = {
     ledere,
     ledetekster,
     mote,
+    motebehov,
+    motebehovSvar,
+    oppfolgingsforlopsPerioder,
     svar,
     sykepengesoknader,
     toggles,

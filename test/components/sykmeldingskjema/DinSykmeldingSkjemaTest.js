@@ -216,7 +216,6 @@ describe('DinSykmeldingSkjema -', () => {
                             sporsmal: {
                                 arbeidssituasjon: 'FRILANSER',
                                 harForsikring: true,
-                                dekningsgrad: 75,
                                 harAnnetFravaer: false,
                             },
                         })];
@@ -227,7 +226,6 @@ describe('DinSykmeldingSkjema -', () => {
                         valgtArbeidssituasjonShadow: 'FRILANSER',
                         harForsikring: true,
                         harAnnetFravaer: false,
-                        dekningsgrad: 75,
                     });
                 });
             });
@@ -304,7 +302,6 @@ describe('DinSykmeldingSkjema -', () => {
                 },
             };
             component = getComponent(getState(brukersSvarverdier));
-            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
             expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
@@ -314,7 +311,6 @@ describe('DinSykmeldingSkjema -', () => {
                 opplysningeneErRiktige: true,
             };
             component = getComponent(getState(brukersSvarverdier));
-            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
             expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
@@ -324,7 +320,6 @@ describe('DinSykmeldingSkjema -', () => {
                 opplysningeneErRiktige: true,
             };
             component = getComponent(getState(brukersSvarverdier));
-            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
             expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
@@ -362,30 +357,6 @@ describe('DinSykmeldingSkjema -', () => {
             };
             component = getComponent(getState(brukersSvarverdier));
             expect(component.find(DinSykmeldingSkjemaComponent).instance().getEgenmeldingsperioder()).to.equal(null);
-        });
-
-        it('Skal returnere tom dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart NEI på forsikringsspørsmålet', () => {
-            brukersSvarverdier = {
-                valgtArbeidssituasjon: 'FRILANSER',
-                opplysningeneErRiktige: true,
-                harAnnetFravaer: false,
-                harForsikring: false,
-                dekningsgrad: '75',
-            };
-            component = getComponent(getState(brukersSvarverdier));
-            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal(null);
-        });
-
-        it('Skal returnere oppgitt dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart JA på forsikringsspørsmålet', () => {
-            brukersSvarverdier = {
-                valgtArbeidssituasjon: 'FRILANSER',
-                opplysningeneErRiktige: true,
-                harAnnetFravaer: false,
-                harForsikring: true,
-                dekningsgrad: '75',
-            };
-            component = getComponent(getState(brukersSvarverdier));
-            expect(component.find(DinSykmeldingSkjemaComponent).instance().getDekningsgrad()).to.equal('75');
         });
     });
 
@@ -450,7 +421,6 @@ describe('DinSykmeldingSkjema -', () => {
                     harForsikring: false,
                     harAnnetFravaer: false,
                     egenmeldingsperioder: null,
-                    dekningsgrad: null,
                 },
             ]);
             bekreftSykmelding.restore();

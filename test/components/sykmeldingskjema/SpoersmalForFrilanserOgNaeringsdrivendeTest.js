@@ -52,18 +52,8 @@ describe('SpoersmalForFrilanserOgNaeringsdrivende', () => {
                 'din-sykmelding.forsikring.janei.sporsmal': 'Har du forsikring som gjelder de første 16 dagene av sykefraværet?',
             });
             const component = shallow(<Forsikringssporsmal />);
-            expect(component.find(JaEllerNei).prop('spoersmal')).to.equal('Har du forsikring som gjelder de første 16 dagene av sykefraværet?');
-            expect(component.find(JaEllerNei).prop('name')).to.equal('harForsikring');
-        });
-
-        it('Skal inneholde Radioknapper med riktige props', () => {
-            setLedetekster({
-                'din-sykmelding.forsikring.type.sporsmal': 'Hvilken forsikring har du?',
-                'din-sykmelding.forsikring.type.100': '100 % sykepenger fra første dag',
-                'din-sykmelding.forsikring.type.65': '65 % sykepenger fra første dag',
-            });
-            const component = shallow(<Forsikringssporsmal />);
-            expect(component.find(Field).prop('name')).to.equal('dekningsgrad');
+            expect(component.find(Field).prop('spoersmal')).to.equal('Har du forsikring som gjelder de første 16 dagene av sykefraværet?');
+            expect(component.find(Field).prop('name')).to.equal('harForsikring');
         });
     });
 });

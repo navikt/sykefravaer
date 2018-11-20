@@ -101,21 +101,14 @@ SykmeldingopplysningFravaersperioder.propTypes = {
 };
 
 export const SykmeldingopplysningForsikring = ({ sykmelding, className }) => {
-    const grad = sykmelding.sporsmal.dekningsgrad;
-    const nokkel = grad === null
-        ? 'sykepengesoknad.sykmelding-utdrag.forsikring-nei'
-        : 'sykepengesoknad.sykmelding-utdrag.forsikring-ja';
+    const nokkel = sykmelding.sporsmal.harForsikring
+        ? 'sykepengesoknad.sykmelding-utdrag.forsikring-ja-2'
+        : 'sykepengesoknad.sykmelding-utdrag.forsikring-nei';
     return sykmelding.sporsmal.harForsikring !== null
         ? (<SykmeldingNokkelOpplysning
             className={className}
             tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.forsikring')}>
-            <p>
-                {
-                    sykmelding.sporsmal.harForsikring === true
-                        ? getLedetekst(nokkel, { '%GRAD%': grad })
-                        : getLedetekst('sykepengesoknad.sykmelding-utdrag.forsikring-nei')
-                }
-            </p>
+            <p>{getLedetekst(nokkel)}</p>
         </SykmeldingNokkelOpplysning>)
         : null;
 };

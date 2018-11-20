@@ -25,3 +25,11 @@ export const forsoektHentetLedere = (ledereReducer) => {
 export const forsoektHentetDineSykmeldinger = (dineSykmeldingerReducer) => {
     return dineSykmeldingerReducer.hentet || dineSykmeldingerReducer.hentingFeilet;
 };
+
+export const forsoktHentetMote = (moteReducer) => {
+    return moteReducer.hentet || moteReducer.hentingFeilet;
+};
+
+export const henterEllerHarHentetMote = (moteReducer) => {
+    return moteReducer.henter || forsoktHentetMote(moteReducer);
+};

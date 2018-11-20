@@ -26,8 +26,10 @@ import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import {
+    henterEllerHarHentetMote,
     henterEllerHarHentetLedere,
     henterEllerHarHentetToggles,
+    forsoktHentetMote,
     forsoektHentetDineSykmeldinger,
     forsoektHentetToggles,
     forsoektHentetLedere,
@@ -165,17 +167,19 @@ export function mapStateToProps(state) {
     const togglesReducer = state.toggles;
     const ledereReducer = state.ledere;
     const dineSykmeldingerReducer = state.dineSykmeldinger;
+    const moteReducer = state.mote;
     const motebehovReducer = state.motebehov;
     const oppfolgingsforlopsPerioderReducer = state.oppfolgingsforlopsPerioder || {};
 
     const harMote = getMote(state);
+    console.log('harMote', harMote);
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(dineSykmeldingerReducer.data, ledereReducer.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(oppfolgingsforlopsPerioderReducer, virksomhetsnrListe);
     const virksomhetnrMedMotebehovListe = finnVirksomhetnrListeMedSkalViseMotebehov(oppfolgingsforlopsPerioderReducerListe);
 
     const skalHenteLedere = !henterEllerHarHentetLedere(ledereReducer);
-    const skalHenteMote = !henterEllerHarForsoektHentetMotebehov(motebehovReducer);
+    const skalHenteMote = !henterEllerHarHentetMote(moteReducer);
     const skalHenteMotebehov = !henterEllerHarForsoektHentetMotebehov(motebehovReducer);
     const skalHenteToggles = !henterEllerHarHentetToggles(togglesReducer);
     const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, motebehovReducer);
@@ -184,6 +188,7 @@ export function mapStateToProps(state) {
     const harForsoektHentetAlt = forsoektHentetToggles(togglesReducer)
         && forsoektHentetDineSykmeldinger(dineSykmeldingerReducer)
         && forsoektHentetLedere(ledereReducer)
+        && forsoktHentetMote(moteReducer)
         && forsoektHentetToggles(togglesReducer)
         && forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe)
         && (!skalViseMotebehov || forsoektHentetMotebehov(motebehovReducer));

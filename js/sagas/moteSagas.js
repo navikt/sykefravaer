@@ -1,6 +1,13 @@
-import { call, put, fork, takeEvery } from 'redux-saga/effects';
+import {
+    call,
+    put,
+    fork,
+    takeEvery,
+    select,
+} from 'redux-saga/effects';
 import { get, log } from 'digisyfo-npm';
 import { moteActions, actiontyper } from 'moter-npm';
+import { skalHenteMote } from '../selectors/moteSelectors';
 
 export function* hentMote() {
     yield put(moteActions.henterMote());
@@ -17,8 +24,15 @@ export function* hentMote() {
     }
 }
 
+export function* hentMoteHvisIkkeHentet() {
+    const skalHente = yield select(skalHenteMote);
+    if (skalHente) {
+        yield hentMote();
+    }
+}
+
 function* watchHentMote() {
-    yield takeEvery(actiontyper.HENT_MOTE_FORESPURT, hentMote);
+    yield takeEvery(actiontyper.HENT_MOTE_FORESPURT, hentMoteHvisIkkeHentet);
 }
 
 export default function* svarSagas() {

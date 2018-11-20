@@ -5,6 +5,7 @@ import {
     togglesSagas,
     sykeforlopsPerioderSagas,
 } from 'digisyfo-npm';
+import { motebehovSagasAT as motebehovSagas } from 'moter-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
 import dineArbeidsgivereSagas from './arbeidsgivereSagas';
@@ -19,6 +20,7 @@ import hendelserSagas from './hendelserSagas';
 import aktivitetskravSagas from './aktivitetskravSagas';
 import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
+import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
 import sykeforloepMetadataSagas from './sykeforloepMetadataSagas';
@@ -42,11 +44,13 @@ export default function* rootSaga() {
         ledereSagas(),
         vedlikeholdSagas(),
         moteSagas(),
+        motebehovSagas(),
         svarSagas(),
         togglesSagas(),
         forskutteringssporsmalSagas(),
         hendelserSagas(),
         aktivitetskravSagas(),
+        oppfolgingsforlopsPerioderSagas(),
         sykeforloepMetadataSagas(),
         sykeforlopsPerioderSagas(),
         sykeforloepSagas(),

@@ -12,6 +12,7 @@ import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
 import ArbeidsrettetOppfolgingContainer from '../../containers/landingsside/ArbeidsrettetOppfolgingContainer';
 import IllustrertInnhold from '../IllustrertInnhold';
 import { Vis } from '../../utils';
+import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import OsloMetUndersokelse from './OsloMetUndersokelse';
 
 const IngenSykmeldinger = () => {
@@ -22,7 +23,7 @@ const IngenSykmeldinger = () => {
     </div>);
 };
 
-const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger, skalViseOppfolgingsdialog, skalViseAktivitetsplan }) => {
+const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger, skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan }) => {
     return (<div>
         <div className="sidebanner">
             <div className="sidebanner__innhold">
@@ -60,10 +61,10 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                             tittel="Søknader om sykepenger" />);
                     }} />
                 <Vis
-                    hvis={harDialogmote}
+                    hvis={harDialogmote || skalViseMotebehov}
                     render={() => {
                         return (<Peker
-                            to="/sykefravaer/dialogmote"
+                            to={hentMoteLandingssideUrl(skalViseMotebehov)}
                             ikon="dialogmoter"
                             ikonAlt="Dialogmøter"
                             tittel="Dialogmøter" />);
@@ -111,6 +112,7 @@ Landingsside.propTypes = {
     harSykmeldinger: PropTypes.bool,
     skalViseOppfolgingsdialog: PropTypes.bool,
     skalViseAktivitetsplan: PropTypes.bool,
+    skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 

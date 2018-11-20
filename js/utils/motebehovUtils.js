@@ -79,6 +79,26 @@ export const hentOppfolgingsforlopSluttdato = (oppfolgingsforlopsPeriodeData) =>
     })));
 };
 
+export const skalViseMotebehovForOppfolgingsforlop = (oppfolgingsforlopsPerioderReducer) => {
+    const startOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopStartdato(oppfolgingsforlopsPerioderReducer.data);
+    const sluttOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopSluttdato(oppfolgingsforlopsPerioderReducer.data);
+
+    return (startOppfolgingsdato && sluttOppfolgingsdato)
+        && !erOppfolgingstilfelleSluttDatoPassert(sluttOppfolgingsdato)
+        && erOppfoelgingsdatoPassertMed16UkerOgIkke26Uker(startOppfolgingsdato)
+        && erOppfoelgingsdatoNyereEnn132DagerForProdsetting(startOppfolgingsdato);
+};
+
+export const finnVirksomhetnrListeMedSkalViseMotebehov = (oppfolgingsforlopsPerioderReducerListe) => {
+    const liste = [];
+    oppfolgingsforlopsPerioderReducerListe.forEach((oppfolgingsforlopsPerioderReducer) => {
+        if (skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer)) {
+            liste.push(oppfolgingsforlopsPerioderReducer.virksomhetsnummer);
+        }
+    });
+    return liste;
+};
+
 export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPerioderReducerListe, toggles, motebehovReducer) => {
     try {
         if (!erMotebehovToggletPaa(toggles)) {

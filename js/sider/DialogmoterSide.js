@@ -10,6 +10,7 @@ import {
 } from 'digisyfo-npm';
 import {
     proptypes as motebehovProptypes,
+    moteActions,
     hentMotebehov,
     henterEllerHarForsoektHentetMotebehov,
     forsoektHentetMotebehov,
@@ -33,6 +34,7 @@ import {
 } from '../utils/reducerUtils';
 import { getMote } from '../utils/moteUtils';
 import {
+    finnVirksomhetnrListeMedSkalViseMotebehov,
     skalViseMotebehovMedOppfolgingsforlopListe,
 } from '../utils/motebehovUtils';
 import {
@@ -48,6 +50,7 @@ export const hentRessurser = (props) => {
         actions,
         oppfolgingsforlopsPerioderReducerListe,
         skalHenteLedere,
+        skalHenteMote,
         skalHenteMotebehov,
         skalHenteToggles,
         virksomhetsnrListe,
@@ -55,6 +58,9 @@ export const hentRessurser = (props) => {
     actions.hentDineSykmeldinger();
     if (skalHenteLedere) {
         actions.hentLedere();
+    }
+    if (skalHenteMote) {
+        actions.hentMote();
     }
     if (skalHenteMotebehov) {
         actions.hentMotebehov();
@@ -129,9 +135,11 @@ Container.propTypes = {
     harForsoektHentetAlt: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
+    virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
     actions: PropTypes.shape({
         hentDineSykmeldinger: PropTypes.func,
         hentLedere: PropTypes.func,
+        hentMote: PropTypes.func,
         hentMotebehov: PropTypes.func,
         hentOppfolgingsforlopsPerioder: PropTypes.func,
         hentToggles: PropTypes.func,
@@ -142,6 +150,7 @@ export function mapDispatchToProps(dispatch) {
     const actions = bindActionCreators({
         hentDineSykmeldinger,
         hentLedere,
+        hentMote: moteActions.hentMote,
         hentMotebehov,
         hentOppfolgingsforlopsPerioder,
         hentToggles,
@@ -163,8 +172,10 @@ export function mapStateToProps(state) {
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(dineSykmeldingerReducer.data, ledereReducer.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(oppfolgingsforlopsPerioderReducer, virksomhetsnrListe);
+    const virksomhetnrMedMotebehovListe = finnVirksomhetnrListeMedSkalViseMotebehov(oppfolgingsforlopsPerioderReducerListe);
 
     const skalHenteLedere = !henterEllerHarHentetLedere(ledereReducer);
+    const skalHenteMote = !henterEllerHarForsoektHentetMotebehov(motebehovReducer);
     const skalHenteMotebehov = !henterEllerHarForsoektHentetMotebehov(motebehovReducer);
     const skalHenteToggles = !henterEllerHarHentetToggles(togglesReducer);
     const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, motebehovReducer);
@@ -193,10 +204,12 @@ export function mapStateToProps(state) {
         harMote,
         harForsoektHentetAlt,
         skalHenteLedere,
+        skalHenteMote,
         skalHenteMotebehov,
         skalHenteToggles,
         skalViseMotebehov,
         virksomhetsnrListe,
+        virksomhetnrMedMotebehovListe,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

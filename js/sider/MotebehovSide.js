@@ -37,7 +37,10 @@ import {
     forsoektHentetOppfolgingsPerioder,
     henterEllerHarForsoektHentetOppfolgingsPerioder, hentOppfolgingsPerioderFeilet,
 } from '../utils/oppfolgingsforlopsperioderUtils';
-import { skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
+import {
+    finnVirksomhetnrListeMedSkalViseMotebehov,
+    skalViseMotebehovMedOppfolgingsforlopListe,
+} from '../utils/motebehovUtils';
 
 
 export const hentRessurser = (props) => {
@@ -113,6 +116,7 @@ Container.propTypes = {
     motebehovReducer: motebehovProptypes.motebehovReducerATPt,
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
+    virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
     actions: PropTypes.shape({
         hentDineSykmeldinger: PropTypes.func,
         hentLedere: PropTypes.func,
@@ -147,6 +151,7 @@ export function mapStateToProps(state) {
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(dineSykmeldingerReducer.data, ledereReducer.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(oppfolgingsforlopsPerioderReducer, virksomhetsnrListe);
+    const virksomhetnrMedMotebehovListe = finnVirksomhetnrListeMedSkalViseMotebehov(oppfolgingsforlopsPerioderReducerListe);
 
     const motebehovSvarReducerListe = [];
     virksomhetsnrListe.forEach((virksomhetsnr) => {
@@ -185,6 +190,7 @@ export function mapStateToProps(state) {
         motebehovSvarReducerListe,
         oppfolgingsforlopsPerioderReducerListe,
         virksomhetsnrListe,
+        virksomhetnrMedMotebehovListe,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

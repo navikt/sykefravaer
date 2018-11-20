@@ -21,10 +21,10 @@ const MotebehovInnhold = (
         actions,
         motebehovReducer,
         motebehovSvarReducerListe,
-        virksomhetsnrListe,
+        virksomhetnrMedMotebehovListe,
     }) => {
     let innhold;
-    const motebehov = finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetsnrListe);
+    const motebehov = finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetnrMedMotebehovListe);
     if (motebehov) {
         innhold = (<MotebehovKvittering
             ledetekster={ledetekster}
@@ -35,7 +35,7 @@ const MotebehovInnhold = (
         const sykmeldtFnr = '';
         innhold = (<MotebehovSvar
             ledetekster={ledetekster}
-            virksomhetsnrListe={virksomhetsnrListe}
+            virksomhetsnrListe={virksomhetnrMedMotebehovListe}
             sykmeldtFnr={sykmeldtFnr}
             motebehovSvarReducerListe={motebehovSvarReducerListe}
             svarMotebehov={actions.svarMotebehov}
@@ -56,7 +56,7 @@ MotebehovInnhold.propTypes = {
     }),
     motebehovReducer: motebehovProptypes.motebehovReducerATPt,
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
-    virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
+    virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default MotebehovInnhold;

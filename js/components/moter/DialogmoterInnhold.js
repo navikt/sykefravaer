@@ -24,7 +24,7 @@ const DialogmoterInnhold = (
         motebehovReducer,
         harMote,
         skalViseMotebehov,
-        virksomhetsnrListe,
+        virksomhetnrMedMotebehovListe,
     }) => {
     return (<div className="dialogmoterInnhold">
         <Sidetopp tittel={getLedetekst('mote.moter.sidetittel')} />
@@ -33,7 +33,7 @@ const DialogmoterInnhold = (
             ledetekster={ledetekster}
             koblingId={koblingId}
             motebehovReducer={motebehovReducer}
-            virksomhetsnrListe={virksomhetsnrListe}
+            virksomhetsnrListe={virksomhetnrMedMotebehovListe}
             rootUrl={getContextRoot()}
         />
         }
@@ -56,7 +56,7 @@ DialogmoterInnhold.propTypes = {
     motebehovReducer: motebehovProptypes.motebehovReducerATPt,
     harMote: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
-    virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
+    virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default DialogmoterInnhold;

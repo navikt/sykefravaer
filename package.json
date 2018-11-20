@@ -88,7 +88,7 @@
     "redux": "3.5.2",
     "redux-form": "6.6.3",
     "redux-saga": "0.16.0",
-    "request": "2.83.0",
+    "request": "2.88.0",
     "scroll-behavior": "0.3.2",
     "simple-ajax": "2.6.0",
     "source-map-explorer": "1.5.0",

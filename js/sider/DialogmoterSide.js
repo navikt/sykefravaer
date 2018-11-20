@@ -171,8 +171,7 @@ export function mapStateToProps(state) {
     const motebehovReducer = state.motebehov;
     const oppfolgingsforlopsPerioderReducer = state.oppfolgingsforlopsPerioder || {};
 
-    const harMote = getMote(state);
-    console.log('harMote', harMote);
+    const harMote = !!getMote(state);
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(dineSykmeldingerReducer.data, ledereReducer.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(oppfolgingsforlopsPerioderReducer, virksomhetsnrListe);

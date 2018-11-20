@@ -14,8 +14,5 @@ export const erMotePassert = (mote) => {
 };
 
 export const getMote = (state) => {
-    console.log(state.mote);
-    const mote = state.mote
-        && state.mote.data
-    return mote ? mote : null;
+    return state.mote && state.mote.data;
 };

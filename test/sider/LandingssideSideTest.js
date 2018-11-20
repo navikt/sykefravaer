@@ -12,6 +12,7 @@ const expect = chai.expect;
 
 describe('LandingssideSide', () => {
     let hentMote;
+    let hentMotebehov;
     let hentSykepengesoknader;
     let hentSoknader;
     let hentLedere;
@@ -19,29 +20,37 @@ describe('LandingssideSide', () => {
     let hentSykeforloep;
     let hentSykeforloepMetadata;
     let hentOppfolgingsdialoger;
+    let hentOppfolgingsforlopsPerioder;
+    let hentToggles;
 
     let state;
     let actions;
 
     beforeEach(() => {
         hentMote = sinon.spy();
+        hentMotebehov = sinon.spy();
         hentSykepengesoknader = sinon.spy();
         hentLedere = sinon.spy();
         hentDineSykmeldinger = sinon.spy();
         hentSykeforloep = sinon.spy();
         hentSykeforloepMetadata = sinon.spy();
         hentOppfolgingsdialoger = sinon.spy();
+        hentOppfolgingsforlopsPerioder = sinon.spy();
         hentSoknader = sinon.spy();
+        hentToggles = sinon.spy();
 
         actions = {
             hentMote,
+            hentMotebehov,
             hentSykepengesoknader,
             hentLedere,
             hentDineSykmeldinger,
             hentSykeforloep,
             hentSykeforloepMetadata,
             hentOppfolgingsdialoger,
+            hentOppfolgingsforlopsPerioder,
             hentSoknader,
+            hentToggles,
         };
 
         state = {
@@ -52,50 +61,76 @@ describe('LandingssideSide', () => {
                 data: [],
             },
             mote: {},
-            ledere: {},
+            motebehov: {},
+            ledere: {
+                data: [],
+            },
             sykeforloep: {},
             sykeforloepMetadata: {},
             oppfolgingsdialoger: {
                 data: [],
             },
+            oppfolgingsforlopsPerioder: {},
             ledetekster: {},
             hendelser: {},
             soknader: {
                 data: [],
             },
+            toggles: {},
         };
     });
 
     describe('Henting av data', () => {
         describe('Møte', () => {
-            it('Skal hente møte dersom møte ikke er hentet', () => {
+            it('Skal hente møte om møte ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentMote.calledOnce).to.equal(true);
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente møte dersom møte er hentet', () => {
+            it('Skal sette henter om møte er hentet', () => {
                 state.mote.hentet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentMote.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
 
-            it('Skal ikke hente møte dersom møte hentes nå', () => {
+            it('Skal sette henter til true om mote hentes nå', () => {
                 state.mote.henter = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentMote.called).to.equal(false);
                 expect(props.henter).to.equal(true);
             });
 
-            it('Skal ikke hente møte dersom henting av møte har feilet', () => {
+            it('Skal sette henter om henting av møte feilet', () => {
                 state.mote.hentingFeilet = true;
                 const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe('Møtebehov', () => {
+            it('Skal hente møtebehov om møte ikke er hentet', () => {
+                const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
-                expect(hentMote.called).to.equal(false);
+                expect(hentMotebehov.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+            });
+
+            it('Skal sette henter om møtebehov er hentet', () => {
+                state.motebehov.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter).to.equal(false);
+            });
+
+            it('Skal sette henter møtebehov om hentes nå', () => {
+                state.motebehov.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter).to.equal(true);
+            });
+
+            it('Skal sette henter om henting av møtebehov feilet', () => {
+                state.motebehov.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
                 expect(props.henter).to.equal(false);
             });
         });

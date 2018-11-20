@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 
 const DialogmoterInnholdLenke = (
     {
-        koblingId,
         imgUrl,
         visning,
         innholdstekster,
@@ -14,7 +13,7 @@ const DialogmoterInnholdLenke = (
     if (minimal) {
         return (<div className="dialogmoterInnholdLenke blokk--l">
             <article aria-labelledby={`dialogmoter-${visning}`}>
-                <Link className="inngangspanel" to={`${rootUrl}/${koblingId}/dialogmoter/${visning}`}>
+                <Link className="inngangspanel" to={`${rootUrl}/dialogmoter/${visning}`}>
                     <span className="dialogmoterInnholdLenke__ikon">
                         <img src={imgUrl} alt="bilde" />
                     </span>
@@ -36,7 +35,7 @@ const DialogmoterInnholdLenke = (
             <h2>{innholdstekster.tittel}</h2>
         </header>
         <article aria-labelledby={`dialogmoter-${visning}`}>
-            <Link className="inngangspanel" to={`${rootUrl}/${koblingId}/dialogmoter/${visning}`}>
+            <Link className="inngangspanel" to={`${rootUrl}/dialogmoter/${visning}`}>
                 <span className="dialogmoterInnholdLenke__ikon">
                     <img src={imgUrl} alt="bilde" />
                 </span>
@@ -57,7 +56,6 @@ const DialogmoterInnholdLenke = (
     </div>);
 };
 DialogmoterInnholdLenke.propTypes = {
-    koblingId: PropTypes.string,
     imgUrl: PropTypes.string,
     visning: PropTypes.string,
     innholdstekster: PropTypes.shape({

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import Veilederpanel from 'nav-frontend-veilederpanel';
 import { connect } from 'react-redux';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Feilmelding from '../components/Feilmelding';
@@ -71,34 +72,43 @@ const ArbeidsrettetOppfolging = () => {
 };
 
 const Rad1 = () => {
+    let veilederpanelType;
+    let veilederpanelKompakt;
+    if (window.matchMedia('(min-width: 768px)').matches) {
+        veilederpanelType = 'normal';
+        veilederpanelKompakt = true;
+    } else {
+        veilederpanelType = 'plakat';
+        veilederpanelKompakt = false;
+    }
     return (
         <div className="begrensning">
-            <div className="nav-veilederpanel nav-veilederpanel--kompakt">
-                <div className="nav-veileder nav-veileder--flytende">
-                    <div className="nav-veileder__frame nav-veileder__frame--s">
-                        <img src="/sykefravaer/img/svg/infoside-fo/veileder-mann.svg" alt="Veileder" />
-                    </div>
-                </div>
+            <Veilederpanel
+                svg={<img src="/sykefravaer/img/svg/infoside-fo/veileder-mann.svg" alt="Veileder" className="nav-veilederpanel__illustrasjon" />}
+                type={veilederpanelType}
+                kompakt={veilederpanelKompakt}
+            >
                 <div>
                     <h2>{getLedetekst('infoside-fo.intro-overskrift', { '%NAVN%': 'Kari' })}</h2>
-                    <div dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro-tekst', { '%FRA_DATO%': new Date(), '%TIL_DATO%': new Date() })} />
+                    <div dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro-tekst',
+                        { '%FRA_DATO%': new Date(), '%TIL_DATO%': new Date() })} />
                 </div>
-            </div>
+            </Veilederpanel>
         </div>
     );
 };
 
 const Rad2 = () => {
     return (
-        <div className="begrensning to-kol">
-            <div>
-                <img src="/sykefravaer/img/svg/infoside-fo/mer-veiledning.svg" alt="" />
+        <div className="begrensning info-bokser">
+            <div className="info-boks">
+                <img src="/sykefravaer/img/svg/infoside-fo/kontakt-arbeidsgiver.svg" alt="" className="info-boks__illustrasjon" />
                 <h2>{getLedetekst('infoside-fo.kontakt-overskrift')}</h2>
                 <p>{getLedetekst('infoside-fo.kontakt-tekst')}</p>
             </div>
 
-            <div>
-                <img src="/sykefravaer/img/svg/infoside-fo/kontakt-arbeidsgiver.svg" alt="" />
+            <div className="info-boks">
+                <img src="/sykefravaer/img/svg/infoside-fo/mer-veiledning.svg" alt="" className="info-boks__illustrasjon" />
                 <h2>{getLedetekst('infoside-fo.aktivitetsplan-overskrift')}</h2>
                 <p>{getLedetekst('infoside-fo.aktivitetsplan-tekst')}</p>
             </div>

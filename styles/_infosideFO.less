@@ -12,6 +12,8 @@
     }
 
     .rad {
+        padding: 4rem 0;
+
         &.rad--hvit {
             background-color: @white;
         }
@@ -20,8 +22,39 @@
             background-color: transparent;
         }
 
-        .begrensning {
-            padding: 4rem 0;
-        }
     }
+
+    .knapperad {
+        display: flex;
+        flex-direction: column;
+
+        & > .knapp {
+            flex-grow: 1;
+            margin: 1rem 0;
+        }
+
+    }
+
+}
+
+@media (min-width: @skjermLiten) {
+    .knapperad {
+        flex-direction: row !important;
+
+        .knapp {
+
+            &:nth-child(odd) {
+                margin: 0 .5rem 0 0;
+                flex-grow: 1;
+            }
+
+            &:nth-child(even) {
+                margin: 0 0 0 .5rem;
+                flex-grow: 1;
+            }
+
+        }
+
+    }
+
 }

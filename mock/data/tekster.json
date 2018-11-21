@@ -1586,5 +1586,8 @@
     "infoside-fo.forsikring-overskrift": "Har du forsikring eller privat pensjonsavtale?",
     "infoside-fo.forsikring-tekst": "Vi anbefaler at du undersøker rettighetene dine hos forsikringsselskapet eller pensjonskassen du er kunde hos. Gå inn på nettsidene deres i god tid før sykepengene tar slutt. Det er ikke NAV som administrerer slike ordninger.",
     "infoside-fo.veiledning-overskrift": "Trenger du mer veiledning fra NAV?",
-    "infoside-fo.veiledning-tekst": "Svarer du ja, får du noen spørsmål om situasjonen din slik at du kan få riktig hjelp. Du kan endre på svarene hvis situasjonen din endrer seg. Det er bare veilederen som  kan se svarene dine."
+    "infoside-fo.veiledning-tekst": "Svarer du ja, får du noen spørsmål om situasjonen din slik at du kan få riktig hjelp. Du kan endre på svarene hvis situasjonen din endrer seg. Det er bare veilederen som  kan se svarene dine.",
+    "infoside-fo.knapp-ja": "Ja",
+    "infoside-fo.knapp-nei": "Nei"
+
 }

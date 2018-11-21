@@ -60,8 +60,7 @@ const visEldreSykmeldingVarsel = (sykmeldinger, sykmeldingId) => {
     const erEldst = erEldsteSykmelding(nyeSykmeldinger, sykmeldingId);
     return erEldst
         ? false
-        : !(!erEldst
-            && detFinnesAndreSykmeldingerMedSammePeriode(nyeSykmeldinger, sykmeldingId)
+        : !(detFinnesAndreSykmeldingerMedSammePeriode(nyeSykmeldinger, sykmeldingId)
             && harSammePeriodeSomDenEldsteSykmeldingen(nyeSykmeldinger, sykmeldingId));
 };
 

@@ -15,11 +15,11 @@ export function* hentHendelser() {
 }
 
 function* watchHentHendelser() {
-    yield* takeEvery(actiontyper.HENT_HENDELSER_FORESPURT, hentHendelser);
+    yield takeEvery(actiontyper.HENT_HENDELSER_FORESPURT, hentHendelser);
 }
 
 function* watchAktivitetskravBekreftet() {
-    yield* takeEvery(actiontyper.AKTIVITETSKRAV_BEKREFTET, hentHendelser);
+    yield takeEvery(actiontyper.AKTIVITETSKRAV_BEKREFTET, hentHendelser);
 }
 
 export default function* hendelserSagas() {

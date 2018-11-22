@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
-    <title>Oppfølgingsplan_ikon</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="vol.2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
-        <g id="Oppfølgingsplan_ikon" stroke="#000000">
-            <g id="Group-5" stroke-linecap="round">
-                <polyline id="Stroke-1" points="18 19.3333333 11.3333333 19.3333333 6 24.6666667 6 19.3333333 0.666666667 19.3333333 0.666666667 0.666666667 28.6666667 0.666666667 28.6666667 12"></polyline>
-                <polygon id="Stroke-3" points="21.3333333 30 16.6666667 31.3333333 18 26.6666667 28 16.6666667 31.3333333 20"></polygon>
-            </g>
-            <path d="M25.3333333,19.3333333 L28.6666667,22.6666667" id="Stroke-6"></path>
-            <path d="M18,26.6666667 L21.3333333,30" id="Stroke-7" stroke-linecap="round"></path>
-        </g>
-    </g>
-</svg>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg"><g stroke="#000" fill="none" fill-rule="evenodd" stroke-linejoin="round"><g stroke-linecap="round"><path d="M18 19.333h-6.667L6 24.667v-5.334H.667V.667h28V12M21.333 30l-4.666 1.333L18 26.667l10-10L31.333 20z"/></g><path d="M25.333 19.333l3.334 3.334"/><path d="M18 26.667L21.333 30" stroke-linecap="round"/></g></svg>

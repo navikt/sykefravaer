@@ -12,7 +12,6 @@ import SoknaderSide from '../sider/SoknaderSide';
 import AktivitetskravvarselSide from '../sider/AktivitetskravvarselSide';
 import SykepengesoknadContainer from '../sider/SoknadSide';
 import SykepengesoknadUtlandContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandContainer';
-import InfoSideFO from '../sider/InfoSideFO';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -32,7 +31,8 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/dialogmote" component={DialogmoteSide} />
         <Route path="/sykefravaer/aktivitetsplikt" component={AktivitetskravvarselSide} />
         <Route path="/sykefravaer/sykepengesoknad-utland" component={SykepengesoknadUtlandContainer} />
-        <Route path="/sykefravaer/arbeidsrettet-oppfolging" component={InfoSideFO} />
+        {/* TODO: Kommenter ut linjen under når InfosideFO er klar */}
+        {/* <Route path="/sykefravaer/arbeidsrettet-oppfolging" component={InfoSideFO} /> */}
         <Route path="*" component={LandingssideSide} />
     </Router>);
 };

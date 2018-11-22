@@ -29,11 +29,11 @@ export const setAppClass = (laster, erInnlogget) => {
     }
 };
 
-export const getClassNames = (laster, erInnlogget) => {
+export const getClassNames = (laster, erInnlogget, className) => {
     return cn('side', {
         'side--laster': laster && erInnlogget,
         'side--lastet': !laster || !erInnlogget,
-    });
+    }, className);
 };
 
 const Plakat = () => {
@@ -78,16 +78,11 @@ export class SideComponent extends Component {
     }
 
     render() {
-        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, fullBredde } = this.props;
-        const sideClassNames = getClassNames(laster, erInnlogget);
-        let innholdClassNames;
-        if (!fullBredde) {
-            innholdClassNames = cn('side__innhold', {
-                'side__innhold--begrenset js-begrensning': begrenset || !erInnlogget || !toggleHeleAppen(),
-            });
-        } else {
-            innholdClassNames = 'side__innhold';
-        }
+        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, fullBredde, className } = this.props;
+        const sideClassNames = getClassNames(laster, erInnlogget, className);
+        const innholdClassNames = cn('side__innhold', {
+            'side__innhold--begrenset js-begrensning': !fullBredde && (begrenset || !erInnlogget || !toggleHeleAppen()),
+        });
         setAppClass(laster, erInnlogget);
 
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
@@ -126,6 +121,7 @@ SideComponent.propTypes = {
     erInnlogget: PropTypes.bool,
     fullBredde: PropTypes.bool,
     sjekkInnlogging: PropTypes.func,
+    className: PropTypes.string,
 };
 
 export const mapStateToProps = (state) => {

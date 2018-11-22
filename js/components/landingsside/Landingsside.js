@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
-import LandingssideLenke from './LandingssideLenke';
+import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/landingsside/DineOppgaverContainer';
@@ -22,7 +22,7 @@ const IngenSykmeldinger = () => {
     </div>);
 };
 
-const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger, skalViseOppfolgingsdialog }) => {
+const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger, skalViseOppfolgingsdialog, skalViseAktivitetsplan }) => {
     return (<div>
         <div className="sidebanner">
             <div className="sidebanner__innhold">
@@ -44,7 +44,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 <Vis
                     hvis={harSykmeldinger}
                     render={() => {
-                        return (<LandingssideLenke
+                        return (<Peker
                             to="/sykefravaer/sykmeldinger"
                             ikon="sykmeldinger"
                             ikonAlt="Sykmelding"
@@ -53,7 +53,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 <Vis
                     hvis={harSykepengesoknader}
                     render={() => {
-                        return (<LandingssideLenke
+                        return (<Peker
                             to="/sykefravaer/soknader"
                             ikon="soknader"
                             ikonAlt="Søknader"
@@ -62,7 +62,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 <Vis
                     hvis={harDialogmote}
                     render={() => {
-                        return (<LandingssideLenke
+                        return (<Peker
                             to="/sykefravaer/dialogmote"
                             ikon="dialogmoter"
                             ikonAlt="Dialogmøter"
@@ -71,14 +71,26 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 <Vis
                     hvis={skalViseOppfolgingsdialog}
                     render={() => {
-                        return (<LandingssideLenke
+                        return (<Peker
                             ekstern
                             to={`${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`}
                             ikon="oppfolgingsplaner"
                             ikonAlt="Oppfølgingsplaner"
-                            tittel="Oppfølgingsplaner" />);
+                            tittel="Oppfølgingsplaner"
+                            undertittel="For deg og arbeidsgiveren din" />);
                     }} />
-                <LandingssideLenke
+                <Vis
+                    hvis={skalViseAktivitetsplan}
+                    render={() => {
+                        return (<Peker
+                            ekstern
+                            to="/aktivitetsplan"
+                            ikon="aktivitetsplan"
+                            ikonAlt="Aktivitetsplan"
+                            tittel="Aktivitetsplan"
+                            undertittel="For deg og NAV" />);
+                    }} />
+                <Peker
                     to="/sykefravaer/tidslinjen"
                     ikon="tidslinje"
                     ikonAlt="Tidslinjen"
@@ -98,6 +110,7 @@ Landingsside.propTypes = {
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,
     skalViseOppfolgingsdialog: PropTypes.bool,
+    skalViseAktivitetsplan: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 

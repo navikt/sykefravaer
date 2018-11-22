@@ -31,7 +31,6 @@ export class Skjemalaster extends Component {
         const {
             sykmeldingId,
             skalHenteArbeidsgivere,
-            skalHenteBrukerinfo,
             skalHenteArbeidsgiversSykmeldinger,
             skalHenteVentetid,
             skalHenteSykeforloep,
@@ -40,9 +39,7 @@ export class Skjemalaster extends Component {
         if (skalHenteArbeidsgivere) {
             this.props.hentAktuelleArbeidsgivere(sykmeldingId);
         }
-        if (skalHenteBrukerinfo) {
-            this.props.hentBrukerinfo();
-        }
+        this.props.hentBrukerinfo();
         if (skalHenteArbeidsgiversSykmeldinger) {
             this.props.hentArbeidsgiversSykmeldinger();
         }
@@ -87,7 +84,6 @@ Skjemalaster.propTypes = {
     skalHenteArbeidsgivere: PropTypes.bool,
     skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
     hentAktuelleArbeidsgivere: PropTypes.func,
-    skalHenteBrukerinfo: PropTypes.bool,
     hentBrukerinfo: PropTypes.func,
     hentArbeidsgiversSykmeldinger: PropTypes.func,
     skalHenteVentetid: PropTypes.bool,
@@ -114,7 +110,6 @@ export const mapStateToProps = (state, ownProps) => {
     const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId) || {};
     const skalHenteVentetid = sykmeldingSelectors.skalHenteVentetid(state, sykmeldingId);
     const skalHenteArbeidsgivere = arbeidsgivereSelectors.skalHenteArbeidsgivere(state, sykmeldingId);
-    const skalHenteBrukerinfo = brukerinfoSelectors.skalHenteBrukerinfo(state);
     const skalHenteArbeidsgiversSykmeldinger = arbeidsgiversSykmeldingerSelectors.skalHenteArbeidsgiversSykmeldinger(state);
     const visFrilansersporsmal = skalViseFrilansersporsmal(state, sykmeldingId);
     const skalHenteSykeforloep = sykeforloepSelectors.skalHenteSykeforloep(state);
@@ -129,7 +124,6 @@ export const mapStateToProps = (state, ownProps) => {
         henter: henterDataTilSykmeldingskjema(state, sykmeldingId),
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere,
-        skalHenteBrukerinfo,
         skalHenteArbeidsgiversSykmeldinger,
         skalHenteVentetid,
         skalHenteSykeforloep,

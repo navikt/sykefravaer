@@ -6,6 +6,7 @@ import { skjemasvar as skjemasvarPt, soknadmottakerPt, soknad as soknadPt } from
 import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../../enums/soknadmottakertyper';
 import { hentSoknadMottaker } from '../../../actions/soknadMeta_actions';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
+import { soknadMottakerSelector } from '../../../selectors/soknadMetaSelectors';
 
 const mottakerTekst = (sendesTil, sykmelding) => {
     switch (sendesTil) {

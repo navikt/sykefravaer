@@ -36,6 +36,9 @@ describe('brukerinfo', () => {
             },
             innstillinger: {},
             innlogging: {},
+            oppfolging: {
+                data: {},
+            },
         });
     });
 
@@ -54,6 +57,9 @@ describe('brukerinfo', () => {
             },
             innstillinger: {},
             innlogging: {},
+            oppfolging: {
+                data: {},
+            },
         });
     });
 
@@ -150,6 +156,9 @@ describe('brukerinfo', () => {
                 henter: false,
             },
             bruker: {},
+            oppfolging: {
+                data: {},
+            },
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.sjekkerInnlogging());
         expect(nyState).to.deep.equal({
@@ -159,6 +168,9 @@ describe('brukerinfo', () => {
             },
             bruker: {},
             innstillinger: {},
+            oppfolging: {
+                data: {},
+            },
         });
     });
 
@@ -169,6 +181,9 @@ describe('brukerinfo', () => {
                 erInnlogget: true,
             },
             bruker: {},
+            oppfolging: {
+                data: {},
+            },
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.setErUtlogget());
         expect(nyState).to.deep.equal({
@@ -179,6 +194,9 @@ describe('brukerinfo', () => {
             },
             bruker: {},
             innstillinger: {},
+            oppfolging: {
+                data: {},
+            },
         });
     });
 
@@ -196,6 +214,9 @@ describe('brukerinfo', () => {
             },
             bruker: {},
             innstillinger: {},
+            oppfolging: {
+                data: {},
+            },
         });
     });
 
@@ -213,6 +234,9 @@ describe('brukerinfo', () => {
             },
             bruker: {},
             innstillinger: {},
+            oppfolging: {
+                data: {},
+            },
         });
     });
 });

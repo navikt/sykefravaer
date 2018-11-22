@@ -1,18 +1,23 @@
 import { expect } from 'chai';
 import { get, getAjax } from 'digisyfo-npm';
-import { put, call } from 'redux-saga/effects';
+import { put, call, select } from 'redux-saga/effects';
 import { hentBrukerinfo, sjekkInnlogging } from '../../js/sagas/brukerinfoSagas';
-import * as actiontyper from '../../js/actions/actiontyper';
+import { skalHenteBrukerinfo } from '../../js/selectors/brukerinfoSelectors';
+import { henterBrukerinfo, setBrukerinfo, setErInnlogget, sjekkerInnlogging } from '../../js/actions/brukerinfo_actions';
 
 describe('brukerinfoSagas', () => {
     describe('hentBrukerinfo', () => {
         const generator = hentBrukerinfo();
 
+        it('Skal sjekke om get skal utføres', () => {
+            const nextSelect = select(skalHenteBrukerinfo);
+            expect(generator.next().value).to.deep.equal(nextSelect);
+        });
+
         it('Skal dispatche HENTER_BRUKERINFO', () => {
-            const nextPut = put({
-                type: actiontyper.HENTER_BRUKERINFO,
-            });
-            expect(generator.next().value).to.deep.equal(nextPut);
+            const nextPut = put(henterBrukerinfo());
+            const skalHente = true;
+            expect(generator.next(skalHente).value).to.deep.equal(nextPut);
         });
 
         it('Skal dernest hente brukerinfo', () => {
@@ -21,12 +26,9 @@ describe('brukerinfoSagas', () => {
         });
 
         it('Skal dernest sette brukerinfo', () => {
-            const nextPut = put({
-                type: actiontyper.SET_BRUKERINFO,
-                data: {
-                    navn: 'Ole Olsen',
-                },
-            });
+            const nextPut = put(setBrukerinfo({
+                navn: 'Ole Olsen',
+            }));
             expect(generator.next({
                 navn: 'Ole Olsen',
             }).value).to.deep.equal(nextPut);
@@ -37,9 +39,7 @@ describe('brukerinfoSagas', () => {
         const generator = sjekkInnlogging();
 
         it('Skal dispatche SJEKKER_INNLOGGING', () => {
-            const nextPut = put({
-                type: actiontyper.SJEKKER_INNLOGGING,
-            });
+            const nextPut = put(sjekkerInnlogging());
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
@@ -49,9 +49,7 @@ describe('brukerinfoSagas', () => {
         });
 
         it('Skal dernest sette status for innlogging', () => {
-            const nextPut = put({
-                type: actiontyper.BRUKER_ER_INNLOGGET,
-            });
+            const nextPut = put(setErInnlogget());
             expect(generator.next().value).to.deep.equal(nextPut);
         });
     });

@@ -1571,9 +1571,9 @@
     "soknad.bjorn.jobbet_du_100_prosent": "Du har kanskje avtalt med arbeidsgiveren din at du skal ha færre arbeidsoppgaver, men bruke lenger tid på dem enn vanlig? Da svarer du i prosent hvor stor mengde av arbeidsoppgavene dine du har utført.",
 
     "infoside-fo.inngangstekst": "Oppfølging og ytelser etter 39 uker",
-    "infoside-fo.sidetittel": "Ditt sykefravaer",
+    "infoside-fo.sidetittel": "Mer veiledning fra NAV",
     "infoside-fo.intro-overskrift": "Hei, %NAVN%",
-    "infoside-fo.intro-tekst": "<p>Du har vært sykemeldt siden %FRA_DATO%. Du kan få sykepenger i maksimalt 52 uker. For deg betyr det at retten din går ut %TIL_DATO%.</p><p>Nå som retten til sykepenger nærmer seg slutten, ber vi deg lese informasjonen under og svare på om du trenger mer veiledning fra NAV enn det du får i dag.</p>",
+    "infoside-fo.intro-tekst": "<p>Du har vært sykemeldt siden %FRA_DATO%. Du kan få sykepenger i maksimalt 52 uker. For deg betyr det at retten din går ut <strong>%TIL_DATO%</strong>.</p><p>Nå som retten til sykepenger nærmer seg slutten, ber vi deg lese informasjonen under og svare på om du trenger mer veiledning fra NAV enn det du får i dag.</p>",
     "infoside-fo.kontakt-overskrift": "Kontakt med arbeidsgiveren din",
     "infoside-fo.kontakt-tekst": "Arbeidsgiveren din har fortsatt ansvaret for å tilpasse arbeidsplassen og oppgavene dine slik at du kan jobbe. Ta kontakt med arbeidsgiveren din hvis dere ikke allerede har snakket om dette.",
     "infoside-fo.aktivitetsplan-overskrift": "Mer veiledning fra NAV",

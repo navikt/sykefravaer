@@ -9,16 +9,25 @@ import Feilmelding from '../components/Feilmelding';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import history from '../history';
+import Sidetopp from '../components/Sidetopp';
 
 const InfoSideFO = ({ henter, hentingFeilet }) => {
+    const brodsmuler = [{
+        tittel: getLedetekst('landingsside.sidetittel'),
+        sti: '/',
+        erKlikkbar: true,
+    }, {
+        tittel: getLedetekst('infoside-fo.sidetittel'),
+        sti: '/oppfolgingsplaner',
+    }];
     return (
-        <Side tittel={getLedetekst('infoside-fo.sidetittel')} laster={henter} fullBredde>
+        <Side tittel={getLedetekst('infoside-fo.sidetittel')} laster={henter} brodsmuler={brodsmuler} className="infoside-fo" fullBredde>
             {
                 (() => {
                     if (henter) {
                         return <AppSpinner />;
                     } else if (hentingFeilet) {
-                        return (<Feilmelding />);
+                        return <Feilmelding />;
                     }
                     return (<ArbeidsrettetOppfolging />);
                 })()
@@ -43,15 +52,10 @@ export default connect(mapStateToProps)(InfoSideFO);
 
 const ArbeidsrettetOppfolging = () => {
     return (
-        <div className="infoside-fo">
-            <div className="sidebanner">
-                <div className="sidebanner__innhold">
-                    <h1 className="js-sidetittel sidebanner__tittel">
-                        {getLedetekst('infoside-fo.sidetittel')}
-                    </h1>
-                    <img className="sidebanner__illustrasjon" src="/sykefravaer/img/svg/landingsside/konsultasjon.svg" alt="Konsultasjon" />
-                </div>
-            </div>
+        <React.Fragment>
+            <Sidetopp
+                tittel={getLedetekst('infoside-fo.sidetittel')}
+            />
             <div className="rad rad--graa">
                 <Rad1 />
             </div>
@@ -64,7 +68,7 @@ const ArbeidsrettetOppfolging = () => {
             <div className="rad rad--hvit">
                 <Rad4 />
             </div>
-        </div>
+        </React.Fragment>
     );
 };
 
@@ -88,7 +92,7 @@ const Rad1 = () => {
                 <div>
                     <h2>{getLedetekst('infoside-fo.intro-overskrift', { '%NAVN%': 'Kari' })}</h2>
                     <div dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro-tekst',
-                        { '%FRA_DATO%': new Date(), '%TIL_DATO%': new Date() })} />
+                        { '%FRA_DATO%': 'FRA_DATO', '%TIL_DATO%': 'TIL_DATO' })} />
                 </div>
             </Veilederpanel>
         </div>
@@ -119,7 +123,7 @@ const Rad3 = () => {
             <h3>{getLedetekst('infoside-fo.dinokonomi.tittel')}</h3>
             <h4>{getLedetekst('infoside-fo.stotte-overskrift')}</h4>
             <p>{getLedetekst('infoside-fo.stotte-tekst')}</p>
-            <Ekspanderbartpanel tittel={getLedetekst('infoside-fo.arbeidsavklaring-overskrift')} tittelProps="undertittel" border>
+            <Ekspanderbartpanel tittel={getLedetekst('infoside-fo.arbeidsavklaring-overskrift')} tittelProps="element" border>
                 <div dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.arbeidsavklaring-tekst')} />
             </Ekspanderbartpanel>
             <h4>{getLedetekst('infoside-fo.forsikring-overskrift')}</h4>

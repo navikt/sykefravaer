@@ -96,6 +96,10 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
                     { mote !== null && <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
                     { avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
                     { nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} /> }
+                    {
+                        // TODO: Test for når og til hvem linken til InfoSideFO skal vises
+                        <Li url="/sykefravaer/arbeidsrettet-oppfolging" tekst={getLedetekst('infoside-fo.inngangstekst')} />
+                    }
                     { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
                 </ul>
             </div>

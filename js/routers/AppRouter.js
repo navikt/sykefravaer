@@ -9,8 +9,6 @@ import TidslinjeSide from '../sider/TidslinjeSide';
 import SykmeldingKvitteringContainer from '../sider/SykmeldingkvitteringSide';
 import DialogmoteSide from '../sider/DialogmoteSide';
 import SoknaderSide from '../sider/SoknaderSide';
-import OppfolgingsdialogerSide from '../sider/OppfolgingsdialogerSide';
-import OppfolgingsdialogSide from '../sider/OppfolgingsdialogSide';
 import AktivitetskravvarselSide from '../sider/AktivitetskravvarselSide';
 import SykepengesoknadContainer from '../sider/SoknadSide';
 import SykepengesoknadUtlandContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandContainer';
@@ -32,8 +30,6 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/oppsummering" component={SykepengesoknadContainer} />
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/kvittering" component={SykepengesoknadContainer} />
         <Route path="/sykefravaer/dialogmote" component={DialogmoteSide} />
-        <Route path="/sykefravaer/oppfolgingsplaner" component={OppfolgingsdialogerSide} />
-        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId" component={OppfolgingsdialogSide} />
         <Route path="/sykefravaer/aktivitetsplikt" component={AktivitetskravvarselSide} />
         <Route path="/sykefravaer/sykepengesoknad-utland" component={SykepengesoknadUtlandContainer} />
         <Route path="/sykefravaer/arbeidsrettet-oppfolging" component={InfoSideFO} />

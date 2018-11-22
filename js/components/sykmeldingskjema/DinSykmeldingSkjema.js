@@ -66,13 +66,6 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }, {});
     }
 
-    getDekningsgrad() {
-        const { brukersSvarverdier } = this.props;
-        return (!this.erFrilanser() || !brukersSvarverdier.harForsikring)
-            ? null
-            : brukersSvarverdier.dekningsgrad;
-    }
-
     getEgenmeldingsperioder() {
         const { brukersSvarverdier } = this.props;
         return !this.erFrilanser() || !brukersSvarverdier.harAnnetFravaer
@@ -113,7 +106,6 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         egenmeldingsperioder: this.getEgenmeldingsperioder(),
                         harForsikring: values.harForsikring,
                         harAnnetFravaer: values.harAnnetFravaer,
-                        dekningsgrad: this.getDekningsgrad(),
                     },
                 );
                 return;
@@ -289,10 +281,6 @@ export const mapStateToProps = (state, ownProps) => {
 
     if (sporsmal && sporsmal.harForsikring !== null) {
         initialValues.harForsikring = sporsmal.harForsikring;
-
-        if (sporsmal.dekningsgrad) {
-            initialValues.dekningsgrad = sporsmal.dekningsgrad;
-        }
     }
 
     if (sporsmal && sporsmal.harAnnetFravaer !== null) {

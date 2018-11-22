@@ -262,31 +262,12 @@ describe('validerSykmeldingskjema', () => {
                 it('Skal klage hvis harForsikring ikke er fylt ut', () => {
                     const res = validerSykmeldingskjema(values, props);
                     expect(res.harForsikring).to.equal('Du må svare på om du har forsikring som gjelder de første 16 dagene av sykefraværet');
-                    expect(res.dekningsgrad).to.equal(undefined);
                 });
 
                 it('Skal ikke klage hvis harForsikring er fylt ut med NEI', () => {
                     values.harForsikring = false;
                     const res = validerSykmeldingskjema(values, props);
                     expect(res.harForsikring).to.equal(undefined);
-                    expect(res.dekningsgrad).to.equal(undefined);
-                });
-            });
-
-            describe('dekningsgrad', () => {
-                beforeEach(() => {
-                    values.harForsikring = true;
-                });
-
-                it('Skal klage hvis forsikringstype ikke er valgt', () => {
-                    const res = validerSykmeldingskjema(values, props);
-                    expect(res.dekningsgrad).to.equal('Du må oppgi hvilken forsikring du har');
-                });
-
-                it('Skal ikke klage hvis dekningsgrad er valgt', () => {
-                    values.dekningsgrad = '65';
-                    const res = validerSykmeldingskjema(values, props);
-                    expect(res.dekningsgrad).to.equal(undefined);
                 });
             });
         });

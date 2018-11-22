@@ -5,28 +5,6 @@ import {
     togglesSagas,
     sykeforlopsPerioderSagas,
 } from 'digisyfo-npm';
-import {
-    oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas,
-    arbeidsoppgaveSagas,
-    arbeidsforholdSagas,
-    dokumentSagas,
-    forespoerRevideringSagas,
-    samtykkeSagas,
-    nullstillGodkjenningSagas,
-    tilgangAtSagas as tilgangSagas,
-    tiltakSagas,
-    settDialogSagas,
-    avbrytdialogSagas,
-    delMedFastlegeSagas,
-    delMedNavSagas,
-    virksomhetSagas,
-    personSagas,
-    kontaktinfoSagas,
-    forrigeNaermesteLederSagas,
-    naermesteLederSagas,
-    kommentarSagas,
-    kopierOppfolgingsdialogSagas,
-} from 'oppfolgingsdialog-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
 import dineArbeidsgivereSagas from './arbeidsgivereSagas';
@@ -47,11 +25,11 @@ import sykeforloepMetadataSagas from './sykeforloepMetadataSagas';
 import soknaderSagas from './soknaderSagas';
 import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
+import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
 
 export default function* rootSaga() {
     yield all([
         arbeidsgiversSykmeldingerSagas(),
-        arbeidsforholdSagas(),
         brukerinfoSagas(),
         beregnArbeidsgiverperiodeSagas(),
         dineArbeidsgivereSagas(),
@@ -63,30 +41,11 @@ export default function* rootSaga() {
         ledereSagas(),
         vedlikeholdSagas(),
         moteSagas(),
-        samtykkeSagas(),
         svarSagas(),
-        avbrytdialogSagas(),
-        oppfolgingsdialogerSagas(),
-        delMedFastlegeSagas(),
-        delMedNavSagas(),
-        forespoerRevideringSagas(),
-        nullstillGodkjenningSagas(),
-        arbeidsoppgaveSagas(),
-        dokumentSagas(),
-        kommentarSagas(),
-        kopierOppfolgingsdialogSagas(),
-        tilgangSagas(),
-        tiltakSagas(),
         togglesSagas(),
-        settDialogSagas(),
         forskutteringssporsmalSagas(),
         hendelserSagas(),
         aktivitetskravSagas(),
-        virksomhetSagas(),
-        personSagas(),
-        kontaktinfoSagas(),
-        forrigeNaermesteLederSagas(),
-        naermesteLederSagas(),
         sykeforloepMetadataSagas(),
         sykeforlopsPerioderSagas(),
         sykeforloepSagas(),
@@ -94,5 +53,6 @@ export default function* rootSaga() {
         soknaderSagas(),
         unleashTogglesSagas(),
         metrikkerSagas(),
+        oppfolgingsdialogerSagas(),
     ]);
 }

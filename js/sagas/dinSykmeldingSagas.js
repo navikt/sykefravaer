@@ -27,8 +27,6 @@ export function* bekreftSykmelding(action) {
             arbeidssituasjon: verdier.arbeidssituasjon,
             harForsikring: erFrilanserEllerSelvstendig(verdier)
                 ? verdier.harForsikring : null,
-            dekningsgrad: erFrilanserEllerSelvstendig(verdier)
-                ? verdier.dekningsgrad : null,
             harAnnetFravaer: erFrilanserEllerSelvstendig(verdier)
                 ? verdier.harAnnetFravaer : null,
             egenmeldingsperioder: erFrilanserEllerSelvstendig(verdier)
@@ -36,7 +34,7 @@ export function* bekreftSykmelding(action) {
         };
         yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
         const skalOppretteSoknad = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
-            dekningsgrad: verdier.dekningsgrad,
+            harForsikring: verdier.harForsikring,
             egenmeldingsperioder: verdier.egenmeldingsperioder,
         });
         yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));

@@ -19,10 +19,6 @@ const validerFrilansersporsmal = (values) => {
         feil.harForsikring = 'Du må svare på om du har forsikring som gjelder de første 16 dagene av sykefraværet';
     }
 
-    if (values.harForsikring && values.dekningsgrad === undefined) {
-        feil.dekningsgrad = 'Du må oppgi hvilken forsikring du har';
-    }
-
     return feil;
 };
 

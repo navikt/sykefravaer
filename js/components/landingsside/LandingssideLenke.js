@@ -26,9 +26,11 @@ export default class LandingssideLenke extends Component {
     }
 
     render() {
-        return (<Link
+        const Tag = this.props.ekstern ? 'a' : Link;
+        return (<Tag
             className={`peker ${this.props.className ? this.props.className : ''}`}
-            to={this.props.to}
+            href={this.props.ekstern ? this.props.to : null}
+            to={this.props.ekstern ? null : this.props.to}
             onMouseEnter={() => {
                 this.onMouseEnter();
             }}
@@ -41,7 +43,7 @@ export default class LandingssideLenke extends Component {
             <div className="peker__innhold">
                 <h2>{this.props.tittel}</h2>
             </div>
-        </Link>);
+        </Tag>);
     }
 }
 
@@ -52,4 +54,5 @@ LandingssideLenke.propTypes = {
     tittel: PropTypes.string.isRequired,
     to: PropTypes.string.isRequired,
     className: PropTypes.string,
+    ekstern: PropTypes.bool,
 };

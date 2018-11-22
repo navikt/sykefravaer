@@ -237,7 +237,7 @@ function mockForOpplaeringsmiljo(server) {
 
     server.post('/syforest/sykmeldinger/:id/actions/erUtenforVentetid', (req, res) => {
         res.send(JSON.stringify({
-            erUtenforVentetid: false,
+            erUtenforVentetid: true,
         }));
     });
 

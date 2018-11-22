@@ -213,6 +213,13 @@ function mockForOpplaeringsmiljo(server) {
         res.send(JSON.stringify(mockData[SOKNADER]));
     });
 
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/mottaker', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+            mottaker: 'ARBEIDSGIVER_OG_NAV'
+        }));
+    });
+
     server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
         const soknad = req.body;
 

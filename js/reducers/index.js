@@ -21,6 +21,7 @@ import soknader from './soknader';
 import unleashToggles from './unleashToggles';
 import metrikker from './metrikker';
 import history from '../history';
+import soknadMeta from './soknadMeta';
 
 const reducers = {
     arbeidsgivere,
@@ -51,6 +52,7 @@ const reducers = {
     unleashToggles,
     metrikker,
     oppfolgingsdialoger,
+    soknadMeta,
 };
 
 export default reducers;

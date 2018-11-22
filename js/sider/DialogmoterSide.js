@@ -187,6 +187,7 @@ export function mapStateToProps(state) {
         || togglesReducer.hentingFeilet
         || dineSykmeldingerReducer.hentingFeilet
         || hentOppfolgingsforlopsPerioderFeilet
+        || motebehovReducer.hentingForbudt
         || (skalViseMotebehov && motebehovReducer.hentingFeilet),
         ledetekster: state.ledetekster.data,
         togglesReducer,

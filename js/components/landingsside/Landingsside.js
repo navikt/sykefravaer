@@ -88,7 +88,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                             ikon="aktivitetsplan"
                             ikonAlt="Aktivitetsplan"
                             tittel="Aktivitetsplan"
-                            undertittel="For deg selv" />);
+                            undertittel="For deg og NAV" />);
                     }} />
                 <Peker
                     to="/sykefravaer/tidslinjen"

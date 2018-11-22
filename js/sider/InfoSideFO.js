@@ -8,10 +8,7 @@ import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Feilmelding from '../components/Feilmelding';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
-
-// const veilederBilde = require('../../img/svg/infoside-fo/veileder-mann.svg');
-// const merVeiledningBilde = require('../../img/svg/infoside-fo/mer-veiledning.svg');
-// const kontaktArbeidsgiverBilde = require('../../img/svg/infoside-fo/kontakt-arbeidsgiver.svg');
+import history from '../history';
 
 const InfoSideFO = ({ henter, hentingFeilet }) => {
     return (
@@ -109,7 +106,7 @@ const Rad2 = () => {
 
             <div className="info-boks">
                 <img src="/sykefravaer/img/svg/infoside-fo/mer-veiledning.svg" alt="" className="info-boks__illustrasjon" />
-                <h2>{getLedetekst('infoside-fo.aktivitetsplan-overskrift')}</h2>
+                <h2 className="info-boks__aktivitetsplan--overskrift">{getLedetekst('infoside-fo.aktivitetsplan-overskrift')}</h2>
                 <p>{getLedetekst('infoside-fo.aktivitetsplan-tekst')}</p>
             </div>
         </div>
@@ -131,16 +128,26 @@ const Rad3 = () => {
     );
 };
 
+const handleNeiBtnClicked = () => {
+    // TODO: Fjern dialog
+    history.push('/sykefravaer');
+};
+
+const handleJaBtnClicked = () => {
+    // TODO: Fjern dialog
+    history.push('/arbeidssokerregistrering');
+};
+
 const Rad4 = () => {
     return (
         <div className="begrensning">
             <h3>{getLedetekst('infoside-fo.veiledning-overskrift')}</h3>
             <p>{getLedetekst('infoside-fo.veiledning-tekst')}</p>
             <div className="knapperad">
-                <Knapp>
+                <Knapp onClick={handleNeiBtnClicked}>
                     {getLedetekst('infoside-fo.knapp-nei')}
                 </Knapp>
-                <Hovedknapp>
+                <Hovedknapp onClick={handleJaBtnClicked}>
                     {getLedetekst('infoside-fo.knapp-ja')}
                 </Hovedknapp>
             </div>

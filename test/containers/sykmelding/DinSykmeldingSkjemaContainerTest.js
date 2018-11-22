@@ -173,23 +173,6 @@ describe('DinSykmeldingSkjemaContainer', () => {
             expect(props.hentingFeilet).to.equal(false);
         });
 
-        it('Skal returnere skalHenteBrukerinfo = false hvis brukerinfo er hentet', () => {
-            const state = getState();
-            state.brukerinfo.bruker.hentet = true;
-            const res = mapStateToProps(state, {
-                sykmeldingId: 123,
-            });
-            expect(res.skalHenteBrukerinfo).to.equal(false);
-        });
-
-        it('Skal returnere skalHenteBrukerinfo = true hvis brukerinfo ikke er hentet', () => {
-            const state = getState();
-            const res = mapStateToProps(state, {
-                sykmeldingId: 123,
-            });
-            expect(res.skalHenteBrukerinfo).to.equal(true);
-        });
-
         it('Skal returnere henter dersom det hentes vedlikehold men ikke brukerinfo', () => {
             const state = getState();
             state.vedlikehold.henter = true;
@@ -401,14 +384,9 @@ describe('DinSykmeldingSkjemaContainer', () => {
             expect(comp.find(Feilmelding)).to.have.length(1);
         });
 
-        it('Skal hente brukerinfo hvis brukerinfo ikke er hentet', () => {
+        it('Skal hente brukerinfo', () => {
             shallow(<Skjemalaster skalHenteBrukerinfo {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
             expect(hentBrukerinfo.calledOnce).to.equal(true);
-        });
-
-        it('Skal ikke hente brukerinfo hvis brukerinfo er hentet', () => {
-            shallow(<Skjemalaster {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
-            expect(hentBrukerinfo.calledOnce).to.equal(false);
         });
 
         it('Skal hente ventetid hvis skalHenteVentetid er true', () => {

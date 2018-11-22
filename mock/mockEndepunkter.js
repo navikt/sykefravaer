@@ -199,7 +199,7 @@ function mockEndepunkterSomEndrerState(server) {
     server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
         mockData.soknader = mockData.soknader.filter(soknad => soknad.id !== req.params.id);
         res.send(JSON.stringify({}));
-    })
+    });
 }
 
 function mockForOpplaeringsmiljo(server) {
@@ -367,6 +367,30 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/syforest/informasjon/toggles', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[TOGGLES]));
+    });
+
+    server.get('/veilarboppfolging/api/oppfolging', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send({
+            'fnr': '18026902092',
+            'veilederId': null,
+            'reservasjonKRR': false,
+            'manuell': false,
+            'underOppfolging': false,
+            'underKvp': false,
+            'vilkarMaBesvares': true,
+            'oppfolgingUtgang': null,
+            'gjeldendeEskaleringsvarsel': null,
+            'kanStarteOppfolging': false,
+            'avslutningStatus': null,
+            'oppfolgingsPerioder': [],
+            'harSkriveTilgang': true,
+            'inaktivIArena': null,
+            'kanReaktiveres': null,
+            'inaktiveringsdato': null,
+            'erSykmeldtMedArbeidsgiver': null,
+            'erIkkeArbeidssokerUtenOppfolging': null
+        });
     });
 
     server.get('/esso/logout', (req, res) => {

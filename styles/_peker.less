@@ -39,14 +39,19 @@
   width: 0.625rem;
   height: 4.5rem;
   background-color: #C2EAF7;
+}
 
-  img {
-    display: none;
-  }
+.peker__ikonBilde {
+  display: none;
+}
+
+.peker__tittel {
+  .typo-undertittel-mixin();
 }
 
 .peker__undertittel {
   .typo-normal-mixin();
+  margin-top: .2em;
 }
 
 .peker__innhold {
@@ -71,13 +76,30 @@
   .peker__ikon {
     width: 4.5rem;
     margin-right: 1.5rem;
+  }
 
-    img {
-      width: 2rem;
-      height: 2rem;
+  .peker__ikonBilde {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+  }
+
+  .peker__ikonBilde--hover {
+    display: none;
+  }
+
+  .peker:hover {
+
+    .peker__ikonBilde--standard {
+      display: none;
+    }
+
+    .peker__ikonBilde--hover {
       display: flex;
     }
+
   }
+
 }
 
 .peker--sykepengeutbetaling {

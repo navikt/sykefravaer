@@ -153,7 +153,7 @@ Container.propTypes = {
 export function mapStateToProps(state) {
     const skalHente = (reducer) => {
         const r = state[reducer];
-        return !r.hentingFeilet && !r.henter && !r.hentet;
+        return !r.hentingForbudt && !r.hentingFeilet && !r.henter && !r.hentet;
     };
 
     const henter = (reducer) => {
@@ -177,9 +177,6 @@ export function mapStateToProps(state) {
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
-    const skalViseMotebehov = !state.dineSykmeldinger.hentingFeilet &&
-        !state.ledere.hentingFeilet &&
-        skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov);
 
     return {
         skalHenteLedere: skalHente('ledere'),
@@ -192,11 +189,13 @@ export function mapStateToProps(state) {
         henter: reducere.reduce((acc, val) => {
             return acc || henter(val);
         }, false)
-        || (skalViseMotebehov && !forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe)),
+        || !forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe),
         harDialogmote: state.mote.data !== null,
         harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
         harSykmeldinger: state.dineSykmeldinger.data.length > 0,
-        skalViseMotebehov,
+        skalViseMotebehov: !state.dineSykmeldinger.hentingFeilet &&
+            !state.ledere.hentingFeilet &&
+            skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov),
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet &&
             !state.oppfolgingsdialoger.hentingFeilet &&
             !state.ledere.hentingFeilet &&

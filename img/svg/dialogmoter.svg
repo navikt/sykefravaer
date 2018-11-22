@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
-    <title>Dialogmøter</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Dialogmøter" stroke="#3E3832">
-            <polyline id="Shape" points="6 3.33333333 0.666666667 3.33333333 0.666666667 31.3333333 31.3333333 31.3333333 31.3333333 3.33333333 26 3.33333333"></polyline>
-            <path d="M6,0.666666667 L10,0.666666667 L10,6 L6,6 L6,0.666666667 Z M22,0.666666667 L26,0.666666667 L26,6 L22,6 L22,0.666666667 Z M10,3.33333333 L22,3.33333333 L10,3.33333333 Z M0.666666667,10 L31.3333333,10 L0.666666667,10 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg"><g stroke="#3E3832" fill="none" fill-rule="evenodd"><path d="M6 3.333H.667v28h30.666v-28H26"/><path d="M6 .667h4V6H6V.667zm16 0h4V6h-4V.667zM10 3.333h12-12zM.667 10h30.666H.667z"/></g></svg>

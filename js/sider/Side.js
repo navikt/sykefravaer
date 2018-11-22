@@ -29,11 +29,11 @@ export const setAppClass = (laster, erInnlogget) => {
     }
 };
 
-export const getClassNames = (laster, erInnlogget) => {
+export const getClassNames = (laster, erInnlogget, className) => {
     return cn('side', {
         'side--laster': laster && erInnlogget,
         'side--lastet': !laster || !erInnlogget,
-    });
+    }, className);
 };
 
 const Plakat = () => {
@@ -78,8 +78,8 @@ export class SideComponent extends Component {
     }
 
     render() {
-        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, fullBredde } = this.props;
-        const sideClassNames = getClassNames(laster, erInnlogget);
+        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, fullBredde, className } = this.props;
+        const sideClassNames = getClassNames(laster, erInnlogget, className);
         let innholdClassNames;
         if (!fullBredde) {
             innholdClassNames = cn('side__innhold', {
@@ -126,6 +126,7 @@ SideComponent.propTypes = {
     erInnlogget: PropTypes.bool,
     fullBredde: PropTypes.bool,
     sjekkInnlogging: PropTypes.func,
+    className: PropTypes.string,
 };
 
 export const mapStateToProps = (state) => {

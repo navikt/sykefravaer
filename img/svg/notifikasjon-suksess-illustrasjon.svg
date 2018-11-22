@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="25px" height="24px" viewBox="0 0 25 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
-    <title>check circle 2 copy</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="VOL-4-(pilot)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Desktop-Copy-49" transform="translate(-201.000000, -527.000000)" fill="#3E3832">
-            <g id="Group-3" transform="translate(186.000000, 507.000000)">
-                <g id="check-circle-2-copy" transform="translate(15.868852, 20.000000)">
-                    <g id="Filled_Version">
-                        <path d="M11.9016393,0 C5.33887705,0 0,5.384 0,12 C0,18.616 5.33887705,24 11.9016393,24 C18.4634098,24 23.8032787,18.616 23.8032787,12 C23.8032787,5.384 18.4634098,0 11.9016393,0 Z M17.1988607,8.866 L9.76033607,15.866 C9.66512295,15.955 9.54313115,16 9.42213115,16 C9.29418852,16 9.16822951,15.951 9.07103279,15.854 L6.59152459,13.354 C6.39812295,13.159 6.39812295,12.842 6.59152459,12.647 C6.78492623,12.452 7.09932787,12.452 7.29272951,12.647 L9.43304098,14.805 L16.521459,8.135 C16.7208115,7.947 17.0352131,7.956 17.2226639,8.158 C17.4101148,8.36 17.3992049,8.677 17.1988607,8.866 Z" id="Shape"></path>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="25" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M12.77 0C6.208 0 .87 5.384.87 12S6.208 24 12.77 24c6.562 0 11.902-5.384 11.902-12S19.332 0 12.77 0zm5.298 8.866l-7.439 7a.495.495 0 0 1-.69-.012l-2.479-2.5a.503.503 0 0 1 0-.707.493.493 0 0 1 .702 0l2.14 2.158 7.088-6.67a.494.494 0 0 1 .702.023.504.504 0 0 1-.024.708z" fill="#3E3832" fill-rule="evenodd"/></svg>

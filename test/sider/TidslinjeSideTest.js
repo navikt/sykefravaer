@@ -185,12 +185,13 @@ describe('Container', () => {
 
     describe('Container', () => {
         let apneHendelserSpy;
-        let dispatch;
         let sykeforloep;
+        let hentSykeforloep;
 
         beforeEach(() => {
             apneHendelserSpy = sinon.spy();
-            dispatch = sinon.spy();
+
+            hentSykeforloep = sinon.spy();
             sykeforloep = {
                 henter: false,
                 hentet: false,
@@ -201,7 +202,7 @@ describe('Container', () => {
         it('Skal vise en AppSpinner dersom ledetekster ikke er lastet og vi venter på sykeforloep', () => {
             const hendelser = [];
             const component = shallow(<Container
-                dispatch={dispatch}
+                hentSykeforloep={hentSykeforloep}
                 ledetekster={ledetekster}
                 sykeforloep={Object.assign({}, sykeforloep, {
                     hentet: true,
@@ -217,7 +218,7 @@ describe('Container', () => {
         it('Skal vise en Feilmelding dersom henting av ledetekster feiler', () => {
             const hendelser = [];
             const component = shallow(<Container
-                dispatch={dispatch}
+                hentSykeforloep={hentSykeforloep}
                 ledetekster={ledetekster}
                 sykeforloep={sykeforloep}
                 hendelser={hendelser}
@@ -257,7 +258,7 @@ describe('Container', () => {
                 key: 4,
             }];
             const component = shallow(<Container
-                dispatch={dispatch}
+                hentSykeforloep={hentSykeforloep}
                 ledetekster={_ledetekster}
                 hendelser={hendelser}
                 sykeforloep={sykeforloep}

@@ -255,34 +255,10 @@ describe('LandingssideSide', () => {
         });
 
         describe('Sykeforløp', () => {
-            it('Skal hente sykeforloep dersom sykeforloep ikke er hentet', () => {
+            it('Skal hente sykeforloep', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
                 expect(hentSykeforloep.calledOnce).to.equal(true);
-                expect(props.henter).to.equal(false);
-            });
-
-            it('Skal ikke hente sykeforloep dersom sykeforloep er hentet', () => {
-                state.sykeforloep.hentet = true;
-                const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykeforloep.called).to.equal(false);
-                expect(props.henter).to.equal(false);
-            });
-
-            it('Skal ikke hente sykeforloep dersom sykeforloep hentes nå', () => {
-                state.sykeforloep.henter = true;
-                const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykeforloep.called).to.equal(false);
-                expect(props.henter).to.equal(true);
-            });
-
-            it('Skal ikke hente sykeforloep dersom henting av sykeforløp har feilet', () => {
-                state.sykeforloep.hentingFeilet = true;
-                const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykeforloep.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
         });

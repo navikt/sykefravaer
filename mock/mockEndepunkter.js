@@ -92,8 +92,7 @@ function mockTekster(server) {
 
     server.get('/syfotekster/api/tekster', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        // res.send(JSON.stringify(teksterFraProd || mockData[TEKSTER]));
-        res.send(JSON.stringify(mockData[TEKSTER]));
+        res.send(JSON.stringify(teksterFraProd || mockData[TEKSTER]));
     });
 }
 
@@ -200,7 +199,7 @@ function mockEndepunkterSomEndrerState(server) {
     server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
         mockData.soknader = mockData.soknader.filter(soknad => soknad.id !== req.params.id);
         res.send(JSON.stringify({}));
-    })
+    });
 }
 
 function mockForOpplaeringsmiljo(server) {

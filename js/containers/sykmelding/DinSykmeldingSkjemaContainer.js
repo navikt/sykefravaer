@@ -33,7 +33,6 @@ export class Skjemalaster extends Component {
             skalHenteArbeidsgivere,
             skalHenteArbeidsgiversSykmeldinger,
             skalHenteVentetid,
-            skalHenteSykeforloep,
         } = this.props;
 
         if (skalHenteArbeidsgivere) {
@@ -46,9 +45,7 @@ export class Skjemalaster extends Component {
         if (skalHenteVentetid) {
             this.props.hentVentetid(sykmeldingId);
         }
-        if (skalHenteSykeforloep) {
-            this.props.hentSykeforloep();
-        }
+        this.props.hentSykeforloep();
     }
 
     render() {
@@ -79,7 +76,6 @@ Skjemalaster.propTypes = {
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,
     }),
-    skalHenteSykeforloep: PropTypes.bool,
     hentSykeforloep: PropTypes.func,
     skalHenteArbeidsgivere: PropTypes.bool,
     skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
@@ -112,7 +108,6 @@ export const mapStateToProps = (state, ownProps) => {
     const skalHenteArbeidsgivere = arbeidsgivereSelectors.skalHenteArbeidsgivere(state, sykmeldingId);
     const skalHenteArbeidsgiversSykmeldinger = arbeidsgiversSykmeldingerSelectors.skalHenteArbeidsgiversSykmeldinger(state);
     const visFrilansersporsmal = skalViseFrilansersporsmal(state, sykmeldingId);
-    const skalHenteSykeforloep = sykeforloepSelectors.skalHenteSykeforloep(state);
 
     return {
         sykmelding,
@@ -126,7 +121,6 @@ export const mapStateToProps = (state, ownProps) => {
         skalHenteArbeidsgivere,
         skalHenteArbeidsgiversSykmeldinger,
         skalHenteVentetid,
-        skalHenteSykeforloep,
         visFrilansersporsmal,
     };
 };

@@ -24,7 +24,6 @@ export class Container extends Component {
         const {
             skalHenteMote,
             skalHenteLedere,
-            skalHenteSykeforloep,
             skalHenteOppfolgingsdialoger,
             actions,
         } = this.props;
@@ -33,23 +32,17 @@ export class Container extends Component {
             actions.hentMote();
         }
 
-        actions.hentSykepengesoknader();
-        actions.hentDineSykmeldinger();
-
         if (skalHenteLedere) {
             actions.hentLedere();
         }
 
-        if (skalHenteSykeforloep) {
-            actions.hentSykeforloep();
-        }
-
-        actions.hentSykeforloepMetadata();
-
         if (skalHenteOppfolgingsdialoger) {
             actions.hentOppfolgingsdialoger();
         }
-
+        actions.hentSykepengesoknader();
+        actions.hentDineSykmeldinger();
+        actions.hentSykeforloep();
+        actions.hentSykeforloepMetadata();
         actions.hentSoknader();
         actions.hentOppfolging();
     }
@@ -103,7 +96,6 @@ Container.propTypes = {
     skalViseAktivitetsplan: PropTypes.bool,
     skalHenteMote: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
-    skalHenteSykeforloep: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
     actions: PropTypes.shape({
         hentMote: PropTypes.func,
@@ -143,7 +135,6 @@ export function mapStateToProps(state) {
     return {
         skalHenteMote: skalHente('mote'),
         skalHenteLedere: skalHente('ledere'),
-        skalHenteSykeforloep: skalHente('sykeforloep'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
         skalHenteNoe: reducere.reduce((acc, val) => {
             return acc || skalHente(val);

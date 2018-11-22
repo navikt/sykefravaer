@@ -5,16 +5,15 @@ import {
     getLedetekst,
     Tidslinje,
     TidslinjeVelgArbeidssituasjon,
-    setHendelseData,
-    hentTidslinjer,
+    setHendelseData as setHendelseDataAction,
+    hentTidslinjer as hentTidslinjerAction,
 } from 'digisyfo-npm';
 import history from '../history';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Sidetopp from '../components/Sidetopp';
-import { hentSykeforloep } from '../actions/sykeforloep_actions';
-import { henterEllerHarHentetSykeforloep } from '../utils/reducerUtils';
+import { hentSykeforloep as hentSykeforloepAction } from '../actions/sykeforloep_actions';
 import {
     brodsmule as brodsmulePt,
     tidslinjehendelse,
@@ -22,28 +21,29 @@ import {
 } from '../propTypes';
 
 export class Container extends Component {
-    componentWillMount() {
-        const { dispatch, sykeforloep } = this.props;
-        if (!henterEllerHarHentetSykeforloep(sykeforloep)) {
-            dispatch(hentSykeforloep());
-        }
+    constructor(props) {
+        super(props);
         this.endreArbeidssituasjon = this.endreArbeidssituasjon.bind(this);
+        this.setHendelseData = this.setHendelseData.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.hentSykeforloep();
     }
 
     componentWillReceiveProps(nextProps) {
-        const { dispatch, apneHendelseIder, sykeforloep, arbeidssituasjon } = this.props;
+        const { hentTidslinjer, apneHendelseIder, sykeforloep, arbeidssituasjon } = this.props;
         if (!sykeforloep.hentet && nextProps.sykeforloep.hentet) {
-            dispatch(hentTidslinjer(apneHendelseIder, arbeidssituasjon, nextProps.sykeforloep.data));
+            hentTidslinjer(apneHendelseIder, arbeidssituasjon, nextProps.sykeforloep.data);
         }
     }
 
     setHendelseData(id, data) {
-        const { dispatch } = this.props;
-        dispatch(setHendelseData(id, data));
+        this.props.setHendelseData(id, data);
     }
 
     endreArbeidssituasjon(arbeidssituasjon) {
-        this.props.dispatch(hentTidslinjer([], arbeidssituasjon, this.props.sykeforloep.data));
+        this.props.hentTidslinjer([], arbeidssituasjon, this.props.sykeforloep.data);
     }
 
     render() {
@@ -65,14 +65,12 @@ export class Container extends Component {
                             valgtArbeidssituasjon={arbeidssituasjon}
                             hentTidslinjer={this.endreArbeidssituasjon}
                             endreUrl={history.replace}
-                            rootUrl="/sykefravaer"
+                            rootUrl={process.env.REACT_APP_CONTEXT_ROOT}
                         />
                         <Tidslinje
                             hendelser={hendelser}
                             arbeidssituasjon={arbeidssituasjon}
-                            setHendelseData={(id, data) => {
-                                this.setHendelseData(id, data);
-                            }} />
+                            setHendelseData={this.setHendelseData} />
                     </div>);
                 })()
             }
@@ -81,7 +79,6 @@ export class Container extends Component {
 }
 
 Container.propTypes = {
-    dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     hendelser: PropTypes.arrayOf(tidslinjehendelse),
     arbeidssituasjon: PropTypes.string,
@@ -89,6 +86,9 @@ Container.propTypes = {
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
     sykeforloep: sykeforloepPt,
+    hentSykeforloep: PropTypes.func,
+    hentTidslinjer: PropTypes.func,
+    setHendelseData: PropTypes.func,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -149,4 +149,8 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps)(Container);
+export default connect(mapStateToProps, {
+    hentSykeforloep: hentSykeforloepAction,
+    hentTidslinjer: hentTidslinjerAction,
+    setHendelseData: setHendelseDataAction,
+})(Container);

@@ -370,13 +370,15 @@ describe('DinSykmeldingSkjemaContainer', () => {
         let hentArbeidsgiversSykmeldinger;
         let hentBrukerinfo;
         let hentVentetid;
+        let hentSykeforloep;
 
         beforeEach(() => {
             hentBrukerinfo = sinon.spy();
             hentAktuelleArbeidsgivere = sinon.spy();
             hentArbeidsgiversSykmeldinger = sinon.spy();
             hentVentetid = sinon.spy();
-            actions = { hentBrukerinfo, hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentVentetid };
+            hentSykeforloep = sinon.spy();
+            actions = { hentBrukerinfo, hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentVentetid, hentSykeforloep };
         });
 
         it('Skal vise planlagt-vedlikehold ved vedlikehold', () => {
@@ -387,6 +389,11 @@ describe('DinSykmeldingSkjemaContainer', () => {
         it('Skal hente brukerinfo', () => {
             shallow(<Skjemalaster skalHenteBrukerinfo {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
             expect(hentBrukerinfo.calledOnce).to.equal(true);
+        });
+
+        it('Skal hente sykeforløp', () => {
+            shallow(<Skjemalaster skalHenteBrukerinfo {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
+            expect(hentSykeforloep.calledOnce).to.equal(true);
         });
 
         it('Skal hente ventetid hvis skalHenteVentetid er true', () => {

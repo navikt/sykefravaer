@@ -17,6 +17,7 @@ import { hentLedere } from '../actions/ledere_actions';
 import { hentSykeforloep, hentSykeforloepMetadata } from '../actions/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../utils/sykmeldingUtils';
 import { hentSoknader } from '../actions/soknader_actions';
+import { hentOppfolging } from '../actions/brukerinfo_actions';
 
 export class Container extends Component {
     componentWillMount() {
@@ -50,6 +51,7 @@ export class Container extends Component {
         }
 
         actions.hentSoknader();
+        actions.hentOppfolging();
     }
 
     render() {
@@ -62,6 +64,7 @@ export class Container extends Component {
             harDialogmote,
             harSykmeldinger,
             skalViseOppfolgingsdialog,
+            skalViseAktivitetsplan,
         } = this.props;
         const Sidetype = hentingFeilet ? Side : SideStrippet;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
@@ -80,6 +83,7 @@ export class Container extends Component {
                         harDialogmote={harDialogmote}
                         harSykmeldinger={harSykmeldinger}
                         skalViseOppfolgingsdialog={skalViseOppfolgingsdialog}
+                        skalViseAktivitetsplan={skalViseAktivitetsplan}
                     />);
                 })()
             }
@@ -96,6 +100,7 @@ Container.propTypes = {
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,
     skalViseOppfolgingsdialog: PropTypes.bool,
+    skalViseAktivitetsplan: PropTypes.bool,
     skalHenteMote: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
     skalHenteSykeforloep: PropTypes.bool,
@@ -153,6 +158,7 @@ export function mapStateToProps(state) {
             !state.oppfolgingsdialoger.hentingFeilet &&
             !state.ledere.hentingFeilet &&
             skalViseOppfoelgingsdialogLenke(state.dineSykmeldinger.data, state.oppfolgingsdialoger),
+        skalViseAktivitetsplan: state.brukerinfo.oppfolging.data.underOppfolging,
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
@@ -171,6 +177,7 @@ const mapDispatchToProps = (dispatch) => {
         hentSykeforloep,
         hentSykeforloepMetadata,
         hentSoknader,
+        hentOppfolging,
     }, dispatch);
     return { actions };
 };

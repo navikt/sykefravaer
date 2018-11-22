@@ -61,3 +61,28 @@ export function hentBrukerinfo() {
         type: actiontyper.HENT_BRUKERINFO_FORESPURT,
     };
 }
+
+export function hentOppfolging() {
+    return {
+        type: actiontyper.HENT_OPPFOLGING_FORESPURT,
+    };
+}
+
+export function henterOppfolging() {
+    return {
+        type: actiontyper.HENTER_OPPFOLGING,
+    };
+}
+
+export function oppfolgingHentet(data) {
+    return {
+        type: actiontyper.OPPFOLGING_HENTET,
+        data,
+    };
+}
+
+export function hentOppfolgingFeilet() {
+    return {
+        type: actiontyper.HENT_OPPFOLGING_FEILET,
+    };
+}

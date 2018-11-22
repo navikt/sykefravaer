@@ -96,10 +96,43 @@ function bruker(state = { data: {} }, action = {}) {
     }
 }
 
+function oppfolging(state = { data: {} }, action = {}) {
+    switch (action.type) {
+        case actiontyper.HENT_OPPFOLGING_FEILET: {
+            return {
+                data: {},
+                henter: false,
+                hentingFeilet: true,
+                hentet: true,
+            };
+        }
+        case actiontyper.HENTER_OPPFOLGING: {
+            return {
+                data: {},
+                henter: true,
+                hentingFeilet: false,
+                hentet: false,
+            };
+        }
+        case actiontyper.OPPFOLGING_HENTET: {
+            return {
+                henter: false,
+                hentingFeilet: false,
+                hentet: true,
+                data: action.data,
+            };
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 const brukerinfo = combineReducers({
     bruker,
     innstillinger,
     innlogging,
+    oppfolging,
 });
 
 export default brukerinfo;

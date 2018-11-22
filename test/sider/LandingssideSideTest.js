@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import deepFreeze from 'deep-freeze';
 import { Container, mapStateToProps } from '../../js/sider/LandingssideSide';
 import getSykmelding from '../mock/mockSykmeldinger';
+import brukerinfo from '../../js/reducers/brukerinfo';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -19,6 +20,7 @@ describe('LandingssideSide', () => {
     let hentSykeforloep;
     let hentSykeforloepMetadata;
     let hentOppfolgingsdialoger;
+    let hentOppfolging;
 
     let state;
     let actions;
@@ -32,6 +34,7 @@ describe('LandingssideSide', () => {
         hentSykeforloepMetadata = sinon.spy();
         hentOppfolgingsdialoger = sinon.spy();
         hentSoknader = sinon.spy();
+        hentOppfolging = sinon.spy();
 
         actions = {
             hentMote,
@@ -42,6 +45,7 @@ describe('LandingssideSide', () => {
             hentSykeforloepMetadata,
             hentOppfolgingsdialoger,
             hentSoknader,
+            hentOppfolging,
         };
 
         state = {
@@ -63,6 +67,7 @@ describe('LandingssideSide', () => {
             soknader: {
                 data: [],
             },
+            brukerinfo: brukerinfo(),
         };
     });
 

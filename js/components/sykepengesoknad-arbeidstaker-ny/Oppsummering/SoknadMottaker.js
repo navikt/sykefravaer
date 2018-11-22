@@ -19,7 +19,7 @@ const mottakerTekst = (sendesTil, sykmelding) => {
             return getLedetekst('sykepengesoknad.oppsummering.nav-og-arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykmelding.mottakendeArbeidsgiver.navn });
         }
         default: {
-            return undefined;
+            return null;
         }
     }
 };
@@ -61,9 +61,7 @@ SoknadMottaker.propTypes = {
 const mapStateToProps = (state, ownProps) => {
     const soknadMeta = state.soknadMeta[ownProps.soknad.id];
     return {
-        mottaker: soknadMeta && soknadMeta.data
-            ? soknadMeta.data.mottaker
-            : null,
+        mottaker: soknadMottakerSelector(state, ownProps.soknad.id),
         hentingfeilet: soknadMeta
             && soknadMeta.hentingFeilet,
     };

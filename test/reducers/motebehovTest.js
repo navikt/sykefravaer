@@ -1,7 +1,10 @@
 import { expect } from 'chai';
+import sinon from 'sinon';
 import deepFreeze from 'deep-freeze';
 import * as actions from '../../js/actions/motebehov_actions';
 import motebehov from '../../js/reducers/motebehov';
+import { MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER } from '../../js/utils/motebehovUtils';
+import { leggTilDagerPaaDato } from '../../js/utils/datoUtils';
 
 describe('motebehov', () => {
     const initState = deepFreeze({
@@ -11,6 +14,16 @@ describe('motebehov', () => {
         hentingForbudt: false,
         hentingForsokt: false,
         data: [],
+    });
+
+    let clock;
+    beforeEach(() => {
+        const dagensDato = new Date('2019-02-23');
+        clock = sinon.useFakeTimers(dagensDato.getTime());
+    });
+
+    afterEach(() => {
+        clock.restore();
     });
 
     it('håndterer HENT_MOTEBEHOV_HENTER', () => {
@@ -27,7 +40,11 @@ describe('motebehov', () => {
     });
 
     it('håndterer HENT_MOTEBEHOV_HENTET', () => {
-        const action = actions.hentMotebehovHentet([{ motebehovSvar: null }]);
+        const opprettetDato = leggTilDagerPaaDato(new Date(), -MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER);
+        const action = actions.hentMotebehovHentet([{
+            opprettetDato,
+            motebehovSvar: {},
+        }]);
         const nextState = motebehov(initState, action);
 
         expect(nextState).to.deep.equal({
@@ -37,7 +54,8 @@ describe('motebehov', () => {
             hentingForbudt: false,
             hentingForsokt: true,
             data: [{
-                motebehovSvar: null,
+                opprettetDato,
+                motebehovSvar: {},
             }],
         });
     });

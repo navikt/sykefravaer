@@ -154,3 +154,10 @@ export const oppsummeringSporsmal = {
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
 };
+
+export const oppfolgingsforlopPerioderPt = PropTypes.shape({
+    henter: PropTypes.bool,
+    hentet: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    data: PropTypes.array,
+});

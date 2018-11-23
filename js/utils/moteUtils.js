@@ -12,3 +12,7 @@ export const erMotePassert = (mote) => {
         return alternativ.tid <= newDate();
     }).length === antallAlternativer;
 };
+
+export const getMote = (state) => {
+    return state.mote && state.mote.data;
+};

@@ -14,5 +14,13 @@
     "behandlingsdager": 0,
     "reisetilskudd": false,
     "avventende": null
+  },
+  {
+    "fom": "2018-07-24",
+    "tom": "2019-10-05",
+    "grad": 100,
+    "behandlingsdager": 0,
+    "reisetilskudd": false,
+    "avventende": null
   }
 ]

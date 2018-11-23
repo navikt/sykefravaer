@@ -15,6 +15,7 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../enums/soknadstatuser';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
+import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -72,6 +73,13 @@ const nyePlanerTekst = (antall) => {
         });
 };
 
+export const NyttMotebehovVarsel = () => {
+    return (<Li
+        url="/sykefravaer/dialogmoter/behov"
+        tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
+    />);
+};
+
 const avventendeGodkjenningerTekst = (antall) => {
     return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall') :
         getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
@@ -79,7 +87,18 @@ const avventendeGodkjenningerTekst = (antall) => {
         });
 };
 
-const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav, soknader = [] }) => {
+const RendreOppgaver = (
+    {
+        soknader = [],
+        sykepengesoknader = [],
+        sykmeldinger = [],
+        visOppgaver,
+        mote,
+        avventendeGodkjenninger,
+        harNyttMotebehov,
+        nyePlaner,
+        visAktivitetskrav,
+    }) => {
     if (!visOppgaver) {
         return null;
     }
@@ -98,6 +117,7 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
                     {/* <Li url="/sykefravaer/arbeidsrettet-oppfolging" tekst={getLedetekst('infoside-fo.inngangstekst')} /> */}
                     { avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
                     { nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} /> }
+                    { harNyttMotebehov && <NyttMotebehovVarsel /> }
                     { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
                 </ul>
             </div>
@@ -111,6 +131,7 @@ RendreOppgaver.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
+    harNyttMotebehov: PropTypes.bool,
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     visAktivitetskrav: PropTypes.bool,
@@ -183,6 +204,8 @@ export const mapStateToProps = (state) => {
         _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 ||
         visAktivitetskrav;
 
+    const harNyttMotebehov = erMotebehovUbesvart(state);
+
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
@@ -194,6 +217,7 @@ export const mapStateToProps = (state) => {
         mote: moteRes,
         avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
+        harNyttMotebehov,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav,

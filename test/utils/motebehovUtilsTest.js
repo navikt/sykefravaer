@@ -10,8 +10,10 @@ import {
     erOppfoelgingsdatoNyereEnn132DagerForProdsetting,
     erOppfoelgingsdatoPassertMed16UkerOgIkke26Uker,
     skalViseMotebehovMedOppfolgingsforlopListe,
+    harMotebehovSvarSiste10Uker,
     hentOppfolgingsforlopStartdato,
     hentOppfolgingsforlopSluttdato,
+
 } from '../../js/utils/motebehovUtils';
 import { getMotebehov } from '../mock/mockMotebehov';
 import { leggTilDagerPaaDato } from '../testUtils';
@@ -110,13 +112,13 @@ describe('motebehovUtils', () => {
     });
 
     describe('hentMoteLandingssideUrl', () => {
-        it('Skal returnere url til landingsside for dialogmoter om skalViseMotebehov=true ', () => {
+        it('Skal returnere url til landingsside for dialogmoter om erMotebehovTilgjengelig=true ', () => {
             const exp = '/sykefravaer/dialogmoter';
             const res = hentMoteLandingssideUrl(true);
             expect(res).to.equal(exp);
         });
 
-        it('Skal returnere url til side for mote om skalViseMotebehov=false', () => {
+        it('Skal returnere url til side for mote om erMotebehovTilgjengelig=false', () => {
             const exp = '/sykefravaer/dialogmoter/mote';
             const res = hentMoteLandingssideUrl(false);
             expect(res).to.equal(exp);
@@ -385,6 +387,52 @@ describe('motebehovUtils', () => {
         it('skal returnere true dersom oppfoelgingsdato er nyere enn 132 dager for prodsetting av motebehov ', () => {
             oppfoelgingsdato = new Date(2018, 5, 14, 0, 0, 0, 0);
             const resultat = erOppfoelgingsdatoNyereEnn132DagerForProdsetting(oppfoelgingsdato);
+            const forventet = true;
+            expect(resultat).to.equal(forventet);
+        });
+    });
+
+    describe('harMotebehovSvarSiste10Uker', () => {
+        let state = {};
+
+        it('skal returnere false', () => {
+            const motebehovSvarUtgaatt = {
+                opprettetDato: leggTilDagerPaaDato(new Date(), -71),
+            };
+            state = {
+                motebehov: {
+                    data: [motebehovSvarUtgaatt],
+                },
+            };
+            const resultat = harMotebehovSvarSiste10Uker(state);
+            const forventet = false;
+            expect(resultat).to.equal(forventet);
+        });
+
+        it('skal returnere false', () => {
+            const motebehovSvarNestenUtgaatt = {
+                opprettetDato: leggTilDagerPaaDato(new Date(), -70),
+            };
+            state = {
+                motebehov: {
+                    data: [motebehovSvarNestenUtgaatt],
+                },
+            };
+            const resultat = harMotebehovSvarSiste10Uker(state);
+            const forventet = true;
+            expect(resultat).to.equal(forventet);
+        });
+
+        it('skal returnere true', () => {
+            const motebehovSvarIkkeUtgaatt = {
+                opprettetDato: leggTilDagerPaaDato(new Date(), -1),
+            };
+            state = {
+                motebehov: {
+                    data: [motebehovSvarIkkeUtgaatt],
+                },
+            };
+            const resultat = harMotebehovSvarSiste10Uker(state);
             const forventet = true;
             expect(resultat).to.equal(forventet);
         });

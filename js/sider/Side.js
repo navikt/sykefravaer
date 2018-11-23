@@ -78,10 +78,10 @@ export class SideComponent extends Component {
     }
 
     render() {
-        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, fullBredde } = this.props;
+        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget } = this.props;
         const sideClassNames = getClassNames(laster, erInnlogget);
         const innholdClassNames = cn('side__innhold', {
-            'side__innhold--begrenset js-begrensning': !fullBredde && (begrenset || !erInnlogget || !toggleHeleAppen()),
+            'side__innhold--begrenset js-begrensning': (begrenset || !erInnlogget || !toggleHeleAppen()),
         });
         setAppClass(laster, erInnlogget);
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
@@ -118,7 +118,6 @@ SideComponent.propTypes = {
     laster: PropTypes.bool,
     begrenset: PropTypes.bool,
     erInnlogget: PropTypes.bool,
-    fullBredde: PropTypes.bool,
     sjekkInnlogging: PropTypes.func,
 };
 

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-    moteActions,
-    hentMotebehov,
-} from 'moter-npm';
+import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -20,6 +17,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
+import { hentMotebehov } from '../actions/motebehov_actions';
 import { hentSykeforloep, hentSykeforloepMetadata } from '../actions/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../utils/sykmeldingUtils';
 import { skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';

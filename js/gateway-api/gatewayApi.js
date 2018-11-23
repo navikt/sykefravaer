@@ -108,3 +108,25 @@ export const hentApiUrl = () => {
     // Preprod
     return 'https://syfoapi-q.nav.no/syfosoknad/api';
 };
+
+export const hentSyfoApiUrl = (appNavn) => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    if (url.indexOf('tjenester.nav') > -1) {
+        // Prod
+        return `https://syfoapi.nav.no/${appNavn}/api`;
+    } else if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+        // Lokalt
+        return `http://localhost:8080/${appNavn}/api`;
+    }
+    // Preprod
+    return `https://syfoapi-q.nav.no/${appNavn}/api`;
+};
+
+export const API_NAVN = {
+    SYFOMOTEBEHOV: 'syfomotebehov',
+    SYFOSOKNAD: 'syfosoknad',
+};

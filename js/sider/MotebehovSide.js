@@ -9,9 +9,6 @@ import {
 } from 'digisyfo-npm';
 import {
     proptypes as motebehovProptypes,
-    hentMotebehov,
-    svarMotebehov,
-    forsoektHentetMotebehov,
     svarMotebehovFeilet,
 } from 'moter-npm';
 import {
@@ -29,6 +26,10 @@ import {
 } from '../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
+import {
+    hentMotebehov,
+    svarMotebehov,
+} from '../actions/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
@@ -158,7 +159,7 @@ export function mapStateToProps(state) {
     const harForsoektHentetAlt = forsoektHentetDineSykmeldinger(togglesReducer)
         && forsoektHentetToggles(togglesReducer)
         && forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe)
-        && (!skalViseMotebehov || forsoektHentetMotebehov(motebehovReducer));
+        && (!skalViseMotebehov || motebehovReducer.hentingForsokt);
 
     return {
         henter: !harForsoektHentetAlt,

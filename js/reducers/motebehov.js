@@ -13,6 +13,7 @@ const initiellState = {
     hentet: false,
     hentingFeilet: false,
     hentingForbudt: false,
+    hentingForsokt: false,
     data: [],
 };
 
@@ -25,6 +26,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 hentet: false,
                 hentingFeilet: false,
                 hentingForbudt: false,
+                hentingForsokt: false,
                 data: [],
             };
         }
@@ -33,6 +35,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 ...state,
                 henter: false,
                 hentet: true,
+                hentingForsokt: true,
                 data: action.data.length > 0 ? sorterMotebehovEtterNyeste(action.data) : [],
             };
         }
@@ -41,6 +44,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 ...state,
                 henter: false,
                 hentingFeilet: true,
+                hentingForsokt: true,
             };
         }
         case moteActiontyper.HENT_MOTEBEHOV_FORBUDT: {
@@ -48,6 +52,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 ...state,
                 henter: false,
                 hentingForbudt: true,
+                hentingForsokt: true,
             };
         }
         case moteActiontyper.SVAR_MOTEBEHOV_SENDT: {

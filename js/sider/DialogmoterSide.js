@@ -11,8 +11,6 @@ import {
 import {
     proptypes as motebehovProptypes,
     moteActions,
-    hentMotebehov,
-    forsoektHentetMotebehov,
 } from 'moter-npm';
 import getContextRoot from '../utils/getContextRoot';
 import history from '../history';
@@ -23,6 +21,7 @@ import DialogmoterInnhold from '../components/moter/DialogmoterInnhold';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
+import { hentMotebehov } from '../actions/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import {
     henterEllerHarHentetLedere,
@@ -177,7 +176,7 @@ export function mapStateToProps(state) {
         && forsoktHentetMote(moteReducer)
         && forsoektHentetToggles(togglesReducer)
         && forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe)
-        && (!skalViseMotebehov || forsoektHentetMotebehov(motebehovReducer));
+        && (!skalViseMotebehov || motebehovReducer.hentingForsokt);
 
     return {
         henter: !harForsoektHentetAlt,

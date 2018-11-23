@@ -1,0 +1,138 @@
+.infoside-fo {
+
+    .brodsmuler {
+        max-width: 42rem;
+        margin: 1rem 2rem 3rem 2rem;
+    }
+
+    .begrensning {
+        margin: 0 1rem;
+    }
+
+    .nav-veilederpanel__illustrasjon {
+        height: 100%;
+    }
+
+    .info-boks__illustrasjon{
+        width: 80%;
+    }
+
+    .sidebanner {
+        margin-bottom: 0;
+    }
+
+    .sidebanner__innhold {
+        min-height: 9rem;
+    }
+
+    .sidebanner__tittel {
+        margin-top: 2rem;
+    }
+
+    .info-bokser {
+        display: flex;
+        flex-direction: column;
+
+        .info-boks {
+            flex-basis: 0;
+            flex-grow: 1;
+
+            &__aktivitetsplan--overskrift {
+                margin-bottom: 2.3rem;
+            }
+
+            &:nth-child(odd) {
+                margin-bottom: 2rem;
+            }
+
+            &:nth-child(even) {
+                margin-top: 2rem;
+            }
+
+        }
+
+    }
+
+    .rad {
+        padding: 4rem 0;
+
+        &:nth-child(3) {
+            padding-top: 0;
+        }
+
+        &.rad--hvit {
+            background-color: @white;
+        }
+
+        &.rad--graa {
+            background-color: transparent;
+        }
+
+    }
+
+    .knapperad {
+        display: flex;
+        flex-direction: column;
+
+        & > .knapp {
+            flex-grow: 1;
+            margin: 1rem 0;
+        }
+
+    }
+
+}
+
+@media (min-width: @skjermLiten) {
+
+    .infoside-fo {
+
+        .brodsmuler {
+            margin: 1rem auto 3rem;
+        }
+
+        .begrensning {
+            margin: 0 auto;
+        }
+
+        .nav-veileder__frame.nav-veileder__frame--s {
+            margin-top: 5rem;
+        }
+
+        .info-bokser {
+            flex-direction: row;
+
+            .info-boks {
+
+                &:nth-child(odd) {
+                    margin: 0 1rem 0 0;
+                }
+
+                &:nth-child(even) {
+                    margin: 0 0 0 1rem;
+                }
+
+            }
+        }
+
+        .knapperad {
+            flex-direction: row !important;
+
+            .knapp {
+                flex-grow: 1;
+
+                &:nth-child(odd) {
+                    margin: 0 .5rem 0 0;
+                }
+
+                &:nth-child(even) {
+                    margin: 0 0 0 .5rem;
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="15px" height="12px" viewBox="0 0 15 12" version="1.1" xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: sketchtool 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
-    <title>25C2BA05-615C-4642-8762-DC782A84FDDF</title>
-    <desc>Created with sketchtool.</desc>
-    <defs></defs>
-    <g id="Page-8" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="tidslinje-desktop-informasjon" transform="translate(-295.000000, -456.000000)" fill="#FFFFFF">
-            <g id="Group-2" transform="translate(282.000000, 442.000000)">
-                <g id="Filled_Version" transform="translate(13.000000, 14.000000)">
-                    <path d="M4.3933,11.0258 C4.2685,11.1415 4.1086,11.2 3.95,11.2 C3.7823,11.2 3.6172,11.1363 3.4898,11.0102 L0.2398,7.7602 C-0.0137,7.5067 -0.0137,7.0946 0.2398,6.8411 C0.4933,6.5876 0.9054,6.5876 1.1589,6.8411 L3.9643,9.6465 L13.2554,0.9755 C13.5167,0.7311 13.9288,0.7428 14.1745,1.0054 C14.4202,1.268 14.4059,1.6801 14.1433,1.9258 L4.3933,11.0258 Z"
-                          id="Path"></path>
-                </g>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="15" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M4.393 11.026a.652.652 0 0 1-.903-.016L.24 7.76a.65.65 0 0 1 .919-.919l2.805 2.805 9.291-8.67a.65.65 0 1 1 .888.95l-9.75 9.1z" fill="#FFF" fill-rule="evenodd"/></svg>

@@ -78,13 +78,12 @@ export class SideComponent extends Component {
     }
 
     render() {
-        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget } = this.props;
+        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, fullBredde } = this.props;
         const sideClassNames = getClassNames(laster, erInnlogget);
         const innholdClassNames = cn('side__innhold', {
-            'side__innhold--begrenset js-begrensning': begrenset || !erInnlogget || !toggleHeleAppen(),
+            'side__innhold--begrenset js-begrensning': !fullBredde && (begrenset || !erInnlogget || !toggleHeleAppen()),
         });
         setAppClass(laster, erInnlogget);
-
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
             <div className={sideClassNames} aria-busy={laster}>
                 <TimeoutBox />
@@ -94,7 +93,7 @@ export class SideComponent extends Component {
                     </div>)
                 }
                 <div className={innholdClassNames}>
-                    { (begrenset || !erInnlogget) && <Brodsmuler brodsmuler={brodsmuler} /> }
+                    { (begrenset || !erInnlogget) && brodsmuler.length > 0 && <Brodsmuler brodsmuler={brodsmuler} /> }
                     { erInnlogget && toggleHeleAppen() && children }
                     { erInnlogget && !toggleHeleAppen() && <Plakat /> }
                     { !erInnlogget && <Utlogget /> }
@@ -109,6 +108,7 @@ SideComponent.defaultProps = {
     begrenset: true,
     laster: false,
     erInnlogget: true,
+    fullBredde: true,
 };
 
 SideComponent.propTypes = {
@@ -118,6 +118,7 @@ SideComponent.propTypes = {
     laster: PropTypes.bool,
     begrenset: PropTypes.bool,
     erInnlogget: PropTypes.bool,
+    fullBredde: PropTypes.bool,
     sjekkInnlogging: PropTypes.func,
 };
 

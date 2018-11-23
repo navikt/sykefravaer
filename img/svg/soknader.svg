@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
-    <title>Søknader</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Søknader" stroke="#3E3832">
-            <g id="Group">
-                <polyline id="Shape" points="12.6666667 28.6666667 0.666666667 28.6666667 0.666666667 0.666666667 15.3333333 0.666666667 22 7.33333333 22 17.3333333"></polyline>
-                <polyline id="Shape" points="15.3333333 0.666666667 15.3333333 7.33333333 22 7.33333333"></polyline>
-                <polygon id="Shape" points="21.3333333 30.0026667 16.6666667 31.336 18 26.6693333 28.0013333 16.6666667 31.3346667 20"></polygon>
-                <path d="M25.3346667,19.3333333 L28.668,22.6666667" id="Shape"></path>
-                <path d="M18,26.6693333 L21.3333333,30.0026667" id="Shape"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg"><g stroke="#3E3832" fill="none" fill-rule="evenodd"><path d="M12.667 28.667h-12v-28h14.666L22 7.333v10"/><path d="M15.333.667v6.666H22M21.333 30.003l-4.666 1.333L18 26.669l10.001-10.002L31.335 20zM25.335 19.333l3.333 3.334M18 26.67l3.333 3.333"/></g></svg>

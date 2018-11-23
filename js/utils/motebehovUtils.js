@@ -2,6 +2,10 @@ import {
     hentDagerMellomDatoer,
     leggTilDagerPaaDato,
 } from './datoUtils';
+import {
+    finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
+    finnVirksomheterMedAktivSykmelding,
+} from './oppfolgingsforlopsperioderUtils';
 
 export const finnNyesteMotebehovForVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => {
     return motebehovReducer.data.filter((motebehov) => {
@@ -112,6 +116,33 @@ export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPer
         return oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
             return skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer);
         }).length > 0;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const erMotebehovTilgjengeligForOppfolgingsforlop = (state) => {
+    const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
+    const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
+
+    return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov);
+};
+
+export const harMotebehovSvarSiste10Uker = (state) => {
+    return state.motebehov.data.filter((motebehov) => {
+        const dagensDato = new Date();
+        const opprettetGrenseDato = leggTilDagerPaaDato(dagensDato, -(7 * 10));
+        opprettetGrenseDato.setHours(0, 0, 0, 0);
+
+        const opprettetDato = new Date(motebehov.opprettetDato);
+
+        return opprettetDato.getTime() >= opprettetGrenseDato.getTime();
+    }).length > 0;
+};
+
+export const erMotebehovUbesvart = (state) => {
+    try {
+        return erMotebehovTilgjengeligForOppfolgingsforlop(state) && !harMotebehovSvarSiste10Uker(state);
     } catch (e) {
         return false;
     }

@@ -36,13 +36,6 @@ export const hentLoginUrl = () => {
     return 'https://loginservice-q.nav.no/login';
 };
 
-export const hentRedirectBaseUrl = (windowLocationHref) => {
-    if (windowLocationHref.indexOf('sykefravaer') > -1) {
-        return `${windowLocationHref.split('sykefravaer')[0]}sykefravaer`;
-    }
-    return windowLocationHref;
-};
-
 export function get(url) {
     const customFetch = getFetch();
     return customFetch(url, {
@@ -51,7 +44,7 @@ export function get(url) {
         .then((res) => {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
-                window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(window.location.href)}`;
+                window.location.href = `${hentLoginUrl()}?redirect=${window.location.href}`;
                 throw new Error('MANGLER_OIDC_TOKEN');
             } else if (res.status > 400) {
                 log(res);
@@ -79,7 +72,7 @@ export const post = (url, body) => {
         .then((res) => {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
-                window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(window.location.href)}`;
+                window.location.href = `${hentLoginUrl()}?redirect=${window.location.href}`;
                 return null;
             } else if (res.status > 400) {
                 log(res);

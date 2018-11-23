@@ -19,7 +19,7 @@ import {
     get,
     post,
 } from '../gateway-api/gatewayApi';
-import * as actions from '../actions/moteBehov_actions';
+import * as actions from '../actions/motebehov_actions';
 import { skalHenteMotebehov } from '../selectors/motebehovSelectors';
 
 export function* hentMotebehov() {

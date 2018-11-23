@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
         if (
             state[reducer].hentingFeilet
                 && reducer !== 'unleashToggles'
+                && reducer !== 'motebehov'
                 && (
                     !Array.isArray(state[reducer].hentingFeilet)
                     || state[reducer].hentingFeilet.length > 0)

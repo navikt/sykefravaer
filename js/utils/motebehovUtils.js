@@ -2,6 +2,22 @@ import {
     hentDagerMellomDatoer,
     leggTilDagerPaaDato,
 } from './datoUtils';
+import {
+    finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
+    finnVirksomheterMedAktivSykmelding,
+} from './oppfolgingsforlopsperioderUtils';
+
+export const MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER = 10 * 7;
+
+export const erMotebehovSvarGjeldende = (motebehov) => {
+    const dagensDato = new Date();
+    const opprettetGrenseDato = leggTilDagerPaaDato(dagensDato, -(MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER));
+    opprettetGrenseDato.setHours(0, 0, 0, 0);
+
+    const opprettetDato = new Date(motebehov.opprettetDato);
+
+    return opprettetDato.getTime() >= opprettetGrenseDato.getTime();
+};
 
 export const finnNyesteMotebehovForVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => {
     return motebehovReducer.data.filter((motebehov) => {
@@ -26,7 +42,7 @@ export const erOppfoelgingsdatoNyereEnn132DagerForProdsetting = (oppfoelgingsdat
     const antallDagerMellomGrensedatoOgProddato = 132;
     // TODO: fyll i dato for prodsetting her
     // Dato for prodsetting av motebehov
-    const motebehovPilotProdDato = new Date(2018, 9, 23, 0, 0, 0, 0);
+    const motebehovPilotProdDato = new Date(2018, 10, 26, 0, 0, 0, 0);
     // Dato hvor alle tidligere oppfoelgingsdatoer ikke skal vises motebehov for
     const grenseDato = leggTilDagerPaaDato(motebehovPilotProdDato, -antallDagerMellomGrensedatoOgProddato);
 
@@ -112,6 +128,27 @@ export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPer
         return oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
             return skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer);
         }).length > 0;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const erMotebehovTilgjengeligForOppfolgingsforlop = (state) => {
+    const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
+    const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
+
+    return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov);
+};
+
+export const harGjeldendeMotebehovSvar = (state) => {
+    return state.motebehov.data.filter((motebehov) => {
+        return erMotebehovSvarGjeldende(motebehov);
+    }).length > 0;
+};
+
+export const erMotebehovUbesvart = (state) => {
+    try {
+        return erMotebehovTilgjengeligForOppfolgingsforlop(state) && !harGjeldendeMotebehovSvar(state);
     } catch (e) {
         return false;
     }

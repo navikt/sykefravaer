@@ -14,11 +14,13 @@ import sykepengesoknadSagas from './sykepengesoknadSagas';
 import ledereSagas from './ledereSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
 import moteSagas from './moteSagas';
+import motebehovSagas from './motebehovSagas';
 import svarSagas from './svarSagas';
 import hendelserSagas from './hendelserSagas';
 import aktivitetskravSagas from './aktivitetskravSagas';
 import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
+import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
 import sykeforloepMetadataSagas from './sykeforloepMetadataSagas';
@@ -42,11 +44,13 @@ export default function* rootSaga() {
         ledereSagas(),
         vedlikeholdSagas(),
         moteSagas(),
+        motebehovSagas(),
         svarSagas(),
         togglesSagas(),
         forskutteringssporsmalSagas(),
         hendelserSagas(),
         aktivitetskravSagas(),
+        oppfolgingsforlopsPerioderSagas(),
         sykeforloepMetadataSagas(),
         sykeforlopsPerioderSagas(),
         sykeforloepSagas(),

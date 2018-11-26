@@ -19,6 +19,8 @@ import FrilanserSoekDigitaltNaa from '../../js/components/sykmeldingkvittering/F
 import FrilanserSoekDigitaltSenere from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
 import AnnetArbeidsledigKvittering from '../../js/components/sykmeldingkvittering/AnnetArbeidsledigKvittering';
+import arbeidsgivere from '../../js/reducers/arbeidsgivere';
+import { aktuelleArbeidsgivereHentet } from '../../js/actions/dineArbeidsgivere_actions';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -31,6 +33,7 @@ describe('SykmeldingkvitteringSide', () => {
     let nySoknad3;
     let nySoknad4;
     let fremtidigSoknad1;
+    let fremtidigSoknad2;
     let sykmeldinger;
     let ledetekster;
     const sagaMiddleware = createSagaMiddleware();
@@ -161,6 +164,11 @@ describe('SykmeldingkvitteringSide', () => {
             status: sykepengesoknadstatuser.FREMTIDIG,
         });
 
+        fremtidigSoknad2 = getParsetSoknad({
+            sykmeldingId: '1',
+            status: sykepengesoknadstatuser.FREMTIDIG,
+        });
+
         state.dineSykmeldinger = {
             data: sykmeldinger,
         };
@@ -245,6 +253,23 @@ describe('SykmeldingkvitteringSide', () => {
             'bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.tittel': 'Du må gjøre resten på papir',
             'bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.undertekst': '<p>Når sykefraværet er over, fyller du ut del D av papirsykmeldingen du fikk hos legen. Hvis du ikke har fått papiret, må du be legen om å få det.</p><p>Skal du reise ut av Norge? <br><a href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold" target="_blank">Se regler om sykepenger og opphold utenfor Norge</a></p>',
             'bekreft-sykmelding.annet-arbeidsledig.kvittering.bjorn': '<p>Du lurer kanskje på hvorfor du må søke som sykepenger på papir?<br>Vi jobber med å digitalisere sykepengesøknaden for alle, men vi er ikke helt ferdige ennå.</p>',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.kort-sykmelding.tittel': 'Nå har du levert første del',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.kort-sykmelding.undertekst': '<p>Du har sendt sykmeldingen til arbeidsgiveren din.</p>',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.kort-sykmelding.tittel': 'Når sykmeldingen er utløpt, må du svare på noen spørsmål',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.kort-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss med lenke til noen spørsmål. Du må svare selv om arbeidsgiveren din betaler deg lønn mens du er syk. Vi bruker svarene til å beregne hvor mye arbeidsgiveren skal ha tilbake fra NAV.</p>',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.lang-sykmelding.tittel': 'Nå har du levert første del',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.lang-sykmelding.undertekst': 'Du har sendt sykmeldingen til arbeidsgiveren din.',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.lang-sykmelding.tittel': 'Senere må du svare på noen spørsmål',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.lang-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss med lenke til noen spørsmål. Du må svare selv om arbeidsgiveren din betaler deg lønn mens du er syk. Vi bruker svarene til å beregne hvor mye arbeidsgiveren skal ha tilbake fra NAV.</p><p>Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.</p>',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel': 'Nå har du levert første del',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.undertekst': 'Du har sendt sykmeldingen til arbeidsgiveren din.',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel': 'Når sykmeldingen er utløpt, kan du fylle ut søknaden om sykepenger',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss med lenke til søknaden om sykepenger.</p><p>Minn gjerne arbeidsgiveren din på å sende inntektsopplysninger så tidlig som mulig. Da går saksbehandlingen fortere.</p>',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel': 'Nå har du levert første del',
+            'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.undertekst': '<p>Du har sendt sykmeldingen til arbeidsgiveren din.</p>',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel': 'Senere kan du fylle ut søknaden om sykepenger',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.lang-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss med lenke til søknaden om sykepenger.</p><p>Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.</p>',
+
         };
         /* eslint-enable max-len */
         setLedetekster(ledetekster);
@@ -264,134 +289,247 @@ describe('SykmeldingkvitteringSide', () => {
 
     const skalViseStandardSendtKvittering = (_state, _ownProps) => {
         const component = getComponent(_state, _ownProps);
-        expect(component.text()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-1.tittel']);
-        expect(component.html()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-1.undertekst']);
-        expect(component.text()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-2.tittel']);
-        expect(component.html()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-2.undertekst']);
-        expect(component.html()).to.contain(ledetekster['send-til-arbeidsgiver.kvittering.bjorn']);
-        expect(component.find(SendtSykmeldingMedPapirSoknadKvittering)).to.have.length(1);
+        expect(component.text())
+            .to
+            .contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-1.tittel']);
+        expect(component.html())
+            .to
+            .contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-1.undertekst']);
+        expect(component.text())
+            .to
+            .contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-2.tittel']);
+        expect(component.html())
+            .to
+            .contain(ledetekster['send-til-arbeidsgiver.kvittering.steg-2.undertekst']);
+        expect(component.html())
+            .to
+            .contain(ledetekster['send-til-arbeidsgiver.kvittering.bjorn']);
+        expect(component.find(SendtSykmeldingMedPapirSoknadKvittering))
+            .to
+            .have
+            .length(1);
     };
 
     const skalViseStandardBekreftetKvittering = (_state, _ownProps) => {
         const component = getComponent(_state, _ownProps);
-        expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.kvittering.tittel']);
-        expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.kvittering.undertekst']);
-        expect(component.find(StandardSykmeldingKvittering)).to.have.length(1);
+        expect(component.text())
+            .to
+            .contain(ledetekster['bekreft-sykmelding.kvittering.tittel']);
+        expect(component.html())
+            .to
+            .contain(ledetekster['bekreft-sykmelding.kvittering.undertekst']);
+        expect(component.find(StandardSykmeldingKvittering))
+            .to
+            .have
+            .length(1);
     };
 
     const skalViseAnnetArbeidsledigKvittering = (_state, _ownProps) => {
         const component = getComponent(_state, _ownProps);
-        expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.tittel']);
-        expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.undertekst']);
-        expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.tittel']);
-        expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.undertekst']);
-        expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.bjorn']);
-        expect(component.find(AnnetArbeidsledigKvittering)).to.have.length(1);
+        expect(component.text())
+            .to
+            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.tittel']);
+        expect(component.html())
+            .to
+            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.undertekst']);
+        expect(component.text())
+            .to
+            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.tittel']);
+        expect(component.html())
+            .to
+            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.undertekst']);
+        expect(component.html())
+            .to
+            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.bjorn']);
+        expect(component.find(AnnetArbeidsledigKvittering))
+            .to
+            .have
+            .length(1);
     };
 
-    describe('SENDT sykmelding', () => {
-        it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
+    describe('SENDT sykmelding og valgt arbeidsgiver forskutterer lønn', () => {
+        let sykmelding;
+        let arbeidsgivereData;
+
+        beforeEach(() => {
+            arbeidsgivereData = [{
+                navn: 'BERGEN KOMMUNE HR KONSERN',
+                orgnummer: '123456789',
+                naermesteLeder: {
+                    aktoerId: '123',
+                    navn: 'Fanny Storm',
+                    epost: 'g@g.no',
+                    mobil: '99887766',
+                    orgnummer: '123456789',
+                    organisasjonsnavn: null,
+                    aktivTom: null,
+                    arbeidsgiverForskuttererLoenn: true,
+                },
+                stilling: 'LÆRER (GRUNNSKOLE)',
+            }];
+            state.arbeidsgivere = arbeidsgivere(arbeidsgivere(), aktuelleArbeidsgivereHentet('1', arbeidsgivereData));
+            sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.SENDT,
                 erUtenforVentetid: true,
                 skalOppretteSoknad: true,
+                mottakendeArbeidsgiver: {
+                    virksomhetsnummer: '123456789',
+                },
             });
+        });
+
+        it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.SENDT,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            });
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [nySoknad2];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
-        it('Skal vise riktig kvittering hvis det finnes fremtidige sykepengesøknader som tlhører denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.SENDT,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            });
+        it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [fremtidigSoknad1];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tittel-3']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.kort-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain('<strong>25. januar 2017</strong> får du en melding');
+        });
+
+        it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [fremtidigSoknad1, fremtidigSoknad2];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.lang-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.lang-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.lang-sykmelding.tittel']);
+            expect(component.text())
+                .to
+                .contain('Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.');
         });
 
         it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader som tilhører denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [nySoknad4];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tittel-2']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tekst-2']);
+        });
+    });
+
+    describe('SENDT sykmelding og valgt arbeidsgiver forskutterer ikke lønn', () => {
+        let sykmelding;
+        let arbeidsgivereData;
+
+        beforeEach(() => {
+            arbeidsgivereData = [{
+                navn: 'BERGEN KOMMUNE HR KONSERN',
+                orgnummer: '123456789',
+                naermesteLeder: {
+                    aktoerId: '123',
+                    navn: 'Fanny Storm',
+                    epost: 'g@g.no',
+                    mobil: '99887766',
+                    orgnummer: '123456789',
+                    organisasjonsnavn: null,
+                    aktivTom: null,
+                    arbeidsgiverForskuttererLoenn: false,
+                },
+                stilling: 'LÆRER (GRUNNSKOLE)',
+            }];
+            state.arbeidsgivere = arbeidsgivere(arbeidsgivere(), aktuelleArbeidsgivereHentet('1', arbeidsgivereData));
+            sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.SENDT,
                 erUtenforVentetid: true,
                 skalOppretteSoknad: true,
+                mottakendeArbeidsgiver: {
+                    virksomhetsnummer: '123456789',
+                },
             });
-            state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [nySoknad4];
-            const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tittel-2']);
-            expect(component.html()).to.contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tekst-2']);
         });
-    });
 
-    describe('TIL_SENDING sykmelding', () => {
         it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.TIL_SENDING,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            });
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.TIL_SENDING,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            });
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [nySoknad2];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
-        it('Skal vise riktig kvittering hvis det finnes fremtidige søknader som tlhører denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.TIL_SENDING,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            });
+        it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [fremtidigSoknad1];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tittel-3']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain('<strong>25. januar 2017</strong> får du en melding');
         });
 
-        it('Skal vise riktig kvittering hvis det finnes nye søknader som tlhører denne sykmeldingen', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.TIL_SENDING,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            });
+        it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [fremtidigSoknad1, fremtidigSoknad2];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain('Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.');
+        });
+
+        it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [nySoknad4];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tittel-2']);
-            expect(component.html()).to.contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tekst-2']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tittel-2']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tekst-2']);
         });
     });
 
@@ -407,8 +545,12 @@ describe('SykmeldingkvitteringSide', () => {
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel']);
-            expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst']);
         });
 
         it('Skal vise riktig kvittering hvis arbeidssituasjon er ARBEIDSTAKER og bruker har strengt fortrolig adresse', () => {
@@ -423,28 +565,47 @@ describe('SykmeldingkvitteringSide', () => {
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel']);
-            expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.skjermingskode-6.kvittering.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.skjermingskode-6.kvittering.undertekst']);
         });
     });
 
     describe('BEKREFTET sykmelding for frilansere', () => {
         const skalViseInfoOmAtBrukerKanSoke = (_state, _ownProps) => {
             const component = getComponent(_state, _ownProps);
-            expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-opprettes-soknad.steg-1.tittel']);
-            expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-opprettes-soknad.steg-2.tittel']);
-            expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.skal-opprettes-soknad.steg-2.tekst']);
-            expect(component.find(FrilanserMedPapirsoknadKvittering)).to.have.length(1);
+            expect(component.text())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.skal-opprettes-soknad.steg-1.tittel']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.skal-opprettes-soknad.steg-2.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.skal-opprettes-soknad.steg-2.tekst']);
+            expect(component.find(FrilanserMedPapirsoknadKvittering))
+                .to
+                .have
+                .length(1);
         };
 
         const skalViseInfoOmAtFrilanserKanSokNaa = (_state, _ownProps) => {
             const component = getComponent(_state, _ownProps);
-            expect(component.find(FrilanserSoekDigitaltNaa)).to.have.length(1);
+            expect(component.find(FrilanserSoekDigitaltNaa))
+                .to
+                .have
+                .length(1);
         };
 
         const skalViseInfoOmAtFrilanserKanSokSenere = (_state, _ownProps) => {
             const component = getComponent(_state, _ownProps);
-            expect(component.find(FrilanserSoekDigitaltSenere)).to.have.length(1);
+            expect(component.find(FrilanserSoekDigitaltSenere))
+                .to
+                .have
+                .length(1);
         };
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen er avventende', () => {
@@ -531,10 +692,20 @@ describe('SykmeldingkvitteringSide', () => {
                     skalOppretteSoknad: false,
                 };
                 const component = getComponent(state, ownProps);
-                expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.tittel']);
-                expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst']);
-                expect(component.find(FrilanserMedPapirsoknadKvittering)).to.have.length(0);
-                expect(component.find(FrilanserUtenSoknadKvittering)).to.have.length(1);
+                expect(component.text())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.tittel']);
+                expect(component.html())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst']);
+                expect(component.find(FrilanserMedPapirsoknadKvittering))
+                    .to
+                    .have
+                    .length(0);
+                expect(component.find(FrilanserUtenSoknadKvittering))
+                    .to
+                    .have
+                    .length(1);
             });
 
             it('Skal vise info om at bruker kan søke hvis skalOppretteSoknad === true', () => {
@@ -640,10 +811,20 @@ describe('SykmeldingkvitteringSide', () => {
                 soknadstype: SELVSTENDIGE_OG_FRILANSERE,
             }];
             const component = getComponent(state, ownProps);
-            expect(component.find(FrilanserUtenSoknadKvittering)).to.have.length(1);
-            expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.tittel']);
-            expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst']);
-            expect(component.find(FrilanserMedPapirsoknadKvittering)).to.have.length(0);
+            expect(component.find(FrilanserUtenSoknadKvittering))
+                .to
+                .have
+                .length(1);
+            expect(component.text())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst']);
+            expect(component.find(FrilanserMedPapirsoknadKvittering))
+                .to
+                .have
+                .length(0);
         });
 
         describe('Når sykmeldingen har generert en søknad som er NY', () => {
@@ -803,10 +984,18 @@ describe('SykmeldingkvitteringSide', () => {
                     skalOppretteSoknad: true,
                 };
                 const component = getComponent(state, ownProps);
-                expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad.steg-1.tittel']);
-                expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad.steg-1.tekst']);
-                expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tittel']);
-                expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst']);
+                expect(component.text())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad.steg-1.tittel']);
+                expect(component.html())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad.steg-1.tekst']);
+                expect(component.text())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tittel']);
+                expect(component.html())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst']);
             });
         });
     });
@@ -850,34 +1039,47 @@ describe('SykmeldingkvitteringSide', () => {
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['avbryt-sykmelding.kvittering.tittel']);
-            expect(component.html()).to.contain(ledetekster['avbryt-sykmelding.kvittering.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['avbryt-sykmelding.kvittering.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['avbryt-sykmelding.kvittering.undertekst']);
         });
     });
 
     describe('mapStateToProps', () => {
         it('Skal returnere fremtidige soknader', () => {
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykepengesoknader).to.deep.equal([fremtidigSoknad1]);
+            expect(res.sykepengesoknader)
+                .to
+                .deep
+                .equal([fremtidigSoknad1]);
         });
 
         it('Skal returnere henter === true dersom sykmeldinger hentes', () => {
             state.dineSykmeldinger.henter = true;
 
             const res = mapStateToProps(state, ownProps);
-            expect(res.henter).to.equal(true);
+            expect(res.henter)
+                .to
+                .equal(true);
         });
 
         it('Skal returnere henter === true dersom ledetekster hentes', () => {
             state.ledetekster.henter = true;
             const res = mapStateToProps(state, ownProps);
-            expect(res.henter).to.equal(true);
+            expect(res.henter)
+                .to
+                .equal(true);
         });
 
         it('Skal returnere henter === true dersom sykepengesoknader hentes', () => {
             state.sykepengesoknader.henter = true;
             const res = mapStateToProps(state, ownProps);
-            expect(res.henter).to.equal(true);
+            expect(res.henter)
+                .to
+                .equal(true);
         });
 
         it('Skal returnere sykmelding === undefined dersom sykmeldingen ikke finnes', () => {
@@ -885,19 +1087,25 @@ describe('SykmeldingkvitteringSide', () => {
                 sykmeldingId: 'Ukjent_ID',
             };
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykmelding).to.equal(undefined);
+            expect(res.sykmelding)
+                .to
+                .equal(undefined);
         });
 
         it('Skal returnere feil dersom det oppstår en feil med sykmeldinger', () => {
             state.dineSykmeldinger.hentingFeilet = true;
             const res = mapStateToProps(state, ownProps);
-            expect(res.hentingFeilet).to.equal(true);
+            expect(res.hentingFeilet)
+                .to
+                .equal(true);
         });
 
         it('Skal returnere feil dersom det oppstår en feil med ledetekster', () => {
             state.ledetekster.hentingFeilet = true;
             const res = mapStateToProps(state, ownProps);
-            expect(res.hentingFeilet).to.equal(true);
+            expect(res.hentingFeilet)
+                .to
+                .equal(true);
         });
     });
 });

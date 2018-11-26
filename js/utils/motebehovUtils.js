@@ -2,6 +2,14 @@ import {
     hentDagerMellomDatoer,
     leggTilDagerPaaDato,
 } from './datoUtils';
+import {
+    finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
+    finnVirksomheterMedAktivSykmelding,
+} from './oppfolgingsforlopsperioderUtils';
+
+export const MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER = 10 * 7;
+export const OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER = 16 * 7;
+export const OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER = 26 * 7;
 
 export const finnNyesteMotebehovForVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => {
     return motebehovReducer.data.filter((motebehov) => {
@@ -26,7 +34,7 @@ export const erOppfoelgingsdatoNyereEnn132DagerForProdsetting = (oppfoelgingsdat
     const antallDagerMellomGrensedatoOgProddato = 132;
     // TODO: fyll i dato for prodsetting her
     // Dato for prodsetting av motebehov
-    const motebehovPilotProdDato = new Date(2018, 9, 23, 0, 0, 0, 0);
+    const motebehovPilotProdDato = new Date('2018-11-26');
     // Dato hvor alle tidligere oppfoelgingsdatoer ikke skal vises motebehov for
     const grenseDato = leggTilDagerPaaDato(motebehovPilotProdDato, -antallDagerMellomGrensedatoOgProddato);
 
@@ -34,9 +42,6 @@ export const erOppfoelgingsdatoNyereEnn132DagerForProdsetting = (oppfoelgingsdat
 };
 
 export const erOppfoelgingsdatoPassertMed16UkerOgIkke26Uker = (startOppfolgingsdato) => {
-    const antallDagerMotebehovStart = 16 * 7;
-    const antallDagerMotebehovSlutt = 26 * 7;
-
     const oppfoelgingstilfelleStartDato = new Date(startOppfolgingsdato);
     oppfoelgingstilfelleStartDato.setHours(0, 0, 0, 0);
     const dagensDato = new Date();
@@ -44,8 +49,8 @@ export const erOppfoelgingsdatoPassertMed16UkerOgIkke26Uker = (startOppfolgingsd
 
     const antallDagerSidenOppfoelgingsTilfelleStart = hentDagerMellomDatoer(oppfoelgingstilfelleStartDato, dagensDato);
 
-    return antallDagerSidenOppfoelgingsTilfelleStart >= antallDagerMotebehovStart
-        && antallDagerSidenOppfoelgingsTilfelleStart < antallDagerMotebehovSlutt;
+    return antallDagerSidenOppfoelgingsTilfelleStart >= OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER
+        && antallDagerSidenOppfoelgingsTilfelleStart < OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER;
 };
 
 export const erOppfolgingstilfelleSluttDatoPassert = (sluttOppfolgingsdato) => {
@@ -112,6 +117,25 @@ export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPer
         return oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
             return skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer);
         }).length > 0;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const erMotebehovTilgjengeligForOppfolgingsforlop = (state) => {
+    const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
+    const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
+
+    return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov);
+};
+
+export const harMotebehovSvar = (state) => {
+    return state.motebehov.data.length > 0;
+};
+
+export const erMotebehovUbesvart = (state) => {
+    try {
+        return erMotebehovTilgjengeligForOppfolgingsforlop(state) && !harMotebehovSvar(state);
     } catch (e) {
         return false;
     }

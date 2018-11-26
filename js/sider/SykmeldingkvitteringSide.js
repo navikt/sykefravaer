@@ -17,6 +17,7 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { soknad as soknadPt, sykmelding as sykmeldingPt } from '../propTypes';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
+import { harStrengtFortroligAdresseSelector } from '../selectors/brukerinfoSelectors';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
 const { FREMTIDIG, NY } = sykepengesoknadstatuser;
@@ -96,42 +97,66 @@ const erAvventendeReisetilskuddEllerBehandlingsdager = (sykmelding) => {
             });
 };
 
-const getKvitteringtype = (
-    sykmelding,
-    sykepengesoknader = [],
-    harStrengtFortroligAdresse = false,
-    skalOppretteSoknad = false,
-    soknader = [],
-    hentSoknaderFeilet = false) => {
+const getKvitteringtype = (state, sykmeldingId) => {
+    const sykmelding = state.dineSykmeldinger.data.find((s) => {
+        return s.id === sykmeldingId;
+    });
     if (!sykmelding) {
         return null;
     }
-    const denneSykmeldingensSykepengesoknader = sykepengesoknader.filter((s) => {
-        return s.sykmeldingId === sykmelding.id;
+    const denneSykmeldingensSykepengesoknader = state.sykepengesoknader.data.filter((s) => {
+        return s.sykmeldingId === sykmeldingId;
     });
     const nyeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter((s) => {
         return s.status === NY;
     });
-    const denneSykmeldingensSoknader = soknader.filter((s) => {
+    const fremtidigeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter((s) => {
+        return s.status === FREMTIDIG;
+    });
+    const denneSykmeldingensSoknader = state.soknader.data.filter((s) => {
         return s.sykmeldingId === sykmelding.id && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
     });
     const nyeSoknaderForDenneSykmeldingen = denneSykmeldingensSoknader.filter((s) => {
         return s.status === NY;
     });
+    const skalOppretteSoknad = (state.sykmeldingMeta[sykmeldingId] || {}).skalOppretteSoknad;
+    const mottakendeArbeidsgiver = sykmelding.mottakendeArbeidsgiver
+        ? state.arbeidsgivere.data.find((arbeidsgiver) => {
+            return arbeidsgiver.orgnummer === sykmelding.mottakendeArbeidsgiver.virksomhetsnummer;
+        })
+        : null;
+    const forskuttererArbeidsgiver = mottakendeArbeidsgiver
+        && mottakendeArbeidsgiver.naermesteLeder
+        ? mottakendeArbeidsgiver.naermesteLeder.arbeidsgiverForskuttererLoenn !== false
+        : true;
+
     switch (sykmelding.status) {
         case AVBRUTT: {
             return kvitteringtyper.AVBRUTT_SYKMELDING;
         }
         case SENDT:
         case TIL_SENDING: {
-            return denneSykmeldingensSykepengesoknader.length === 0
-                ? kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD
-                : nyeSykepengesoknaderForDenneSykmeldingen.length === 0
-                    ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE
-                    : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
+            return (() => {
+                if (denneSykmeldingensSykepengesoknader.length === 0) {
+                    return kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD;
+                }
+                if (nyeSykepengesoknaderForDenneSykmeldingen.length === 0
+                    && fremtidigeSykepengesoknaderForDenneSykmeldingen.length === 1) {
+                    return forskuttererArbeidsgiver
+                        ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING
+                        : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_KORT_SYKMELDING;
+                }
+                if (nyeSykepengesoknaderForDenneSykmeldingen.length === 0
+                    && fremtidigeSykepengesoknaderForDenneSykmeldingen.length > 1) {
+                    return forskuttererArbeidsgiver
+                        ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING
+                        : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING;
+                }
+                return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
+            })();
         }
         case BEKREFTET: {
-            if (harStrengtFortroligAdresse && !erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
+            if (harStrengtFortroligAdresseSelector(state) && !erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
                 return kvitteringtyper.STRENGT_FORTROLIG_ADRESSE;
             }
             if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {
@@ -141,7 +166,7 @@ const getKvitteringtype = (
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG;
             }
             if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding) && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
-                if (hentSoknaderFeilet) {
+                if (state.soknader.hentingFeilet) {
                     return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER;
                 }
                 if (nyeSoknaderForDenneSykmeldingen.length > 0) {
@@ -170,23 +195,7 @@ export function mapStateToProps(state, ownProps) {
     const sykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId) || undefined;
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
-    const sykmeldingMeta = state.sykmeldingMeta[sykmeldingId] || {};
-    const harStrengtFortroligAdresse = (() => {
-        try {
-            return state.brukerinfo.bruker.data.strengtFortroligAdresse;
-        } catch (e) {
-            return false;
-        }
-    })();
-
-    const hentSoknaderFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet;
-    const kvitteringtype = getKvitteringtype(
-        sykmelding,
-        state.sykepengesoknader.data,
-        harStrengtFortroligAdresse,
-        sykmeldingMeta.skalOppretteSoknad,
-        state.soknader.data,
-        hentSoknaderFeilet);
+    const kvitteringtype = getKvitteringtype(state, sykmeldingId);
     const soknadErFremtidig = (s) => {
         return s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
     };

@@ -3,10 +3,10 @@ import { get, getAjax, log } from 'digisyfo-npm';
 import * as actions from '../actions/brukerinfo_actions';
 import * as actiontyper from '../actions/actiontyper';
 import logger from '../logging';
-import { skalHenteBrukerinfo, skalHenteOppfolging } from '../selectors/brukerinfoSelectors';
+import { skalHenteBrukerinfoSelector, skalHenteOppfolgingSelector } from '../selectors/brukerinfoSelectors';
 
 export function* hentBrukerinfo() {
-    const skalHente = yield select(skalHenteBrukerinfo);
+    const skalHente = yield select(skalHenteBrukerinfoSelector);
     if (skalHente) {
         yield put(actions.henterBrukerinfo());
         try {
@@ -32,7 +32,7 @@ export function* sjekkInnlogging() {
 }
 
 export function* hentOppfolging() {
-    const skalHente = yield select(skalHenteOppfolging);
+    const skalHente = yield select(skalHenteOppfolgingSelector);
     if (skalHente) {
         yield put(actions.henterOppfolging());
         try {

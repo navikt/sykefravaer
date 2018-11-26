@@ -18,21 +18,9 @@ describe('Sykmeldingkvittering', () => {
         };
     });
 
-    it('Skal vise en SokOmSykepengerSenereKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_SENERE', () => {
-        const comp = shallow(<Sykmeldingkvittering kvitteringtype="KVITTERING_MED_SYKEPENGER_SØK_SENERE" />);
-        expect(comp.find(SokOmSykepengerSenereKvittering)).to.have.length(1);
-    });
-
     it('Skal vise en SokOmSykepengerNaaKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_NÅ', () => {
         const comp = shallow(<Sykmeldingkvittering kvitteringtype="KVITTERING_MED_SYKEPENGER_SØK_NÅ" />);
         expect(comp.find(SokOmSykepengerNaaKvittering)).to.have.length(1);
-    });
-
-    describe('SokOmSykepengerSenereKvittering', () => {
-        it('Skal vise to stk Kvitteringsteg', () => {
-            const comp = shallow(<SokOmSykepengerSenereKvittering sykmelding={getSykmelding()} sykepengesoknader={[]} />);
-            expect(comp.find(Kvitteringsteg)).to.have.length(2);
-        });
     });
 
     describe('SokOmSykepengerNaaKvittering', () => {

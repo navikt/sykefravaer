@@ -88,7 +88,7 @@ Skjemalaster.propTypes = {
 };
 
 export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => {
-    return brukerinfoSelectors.skalHenteBrukerinfo(state)
+    return brukerinfoSelectors.skalHenteBrukerinfoSelector(state)
         || state.brukerinfo.bruker.henter
         || sykmeldingSelectors.skalHenteVentetid(state, sykmeldingId)
         || state.sykmeldingMeta.henter

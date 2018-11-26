@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
     getLedetekst,
-    getSykmelding,
     tilLesbarDatoMedArstall,
     senesteTom,
     sykepengesoknadstatuser,
@@ -18,55 +18,85 @@ import Feilmelding from '../components/Feilmelding';
 import { soknad as soknadPt, sykmelding as sykmeldingPt } from '../propTypes';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import { harStrengtFortroligAdresseSelector } from '../selectors/brukerinfoSelectors';
+import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
+import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
+import { hentSoknader } from '../actions/soknader_actions';
+import { hentBrukerinfo } from '../actions/brukerinfo_actions';
+import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
+import { finnDinSykmeldingSelector } from '../selectors/dineSykmeldingerSelectors';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
 const { FREMTIDIG, NY } = sykepengesoknadstatuser;
 
-export const KvitteringSide = (props) => {
-    const { sykmelding, sykmeldingId, henter, hentingFeilet, kvitteringtype, sykepengesoknader, soknader } = props;
-    const brodsmuler = [{
-        tittel: getLedetekst('landingsside.sidetittel'),
-        sti: '/',
-        erKlikkbar: true,
-    }, {
-        tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
-        sti: '/sykmeldinger',
-        erKlikkbar: true,
-    }, {
-        tittel: getLedetekst('din-sykmelding.sidetittel'),
-        sti: `/sykmeldinger/${sykmeldingId}`,
-        erKlikkbar: true,
-    }, {
-        tittel: getLedetekst('din-sykmelding.kvittering.sidetittel'),
-    }];
+export class KvitteringSide extends Component {
+    componentDidMount() {
+        this.props.actions.hentSoknader();
+        this.props.actions.hentDineSykmeldinger();
+        this.props.actions.hentBrukerinfo();
+        this.props.actions.hentSykepengesoknader();
+        this.props.actions.hentAktuelleArbeidsgivere(this.props.sykmeldingId);
+    }
 
-    const innhold = (() => {
-        if (henter) {
-            return <AppSpinner />;
-        }
-        if (hentingFeilet) {
+    render() {
+        const {
+            sykmelding,
+            sykmeldingId,
+            henter,
+            hentingFeilet,
+            kvitteringtype,
+            sykepengesoknader,
+            soknader,
+        } = this.props;
+        const brodsmuler = [{
+            tittel: getLedetekst('landingsside.sidetittel'),
+            sti: '/',
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
+            sti: '/sykmeldinger',
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('din-sykmelding.sidetittel'),
+            sti: `/sykmeldinger/${sykmeldingId}`,
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('din-sykmelding.kvittering.sidetittel'),
+        }];
+
+        const innhold = (() => {
+            if (henter) {
+                return <AppSpinner />;
+            }
+            if (hentingFeilet) {
+                return <Feilmelding />;
+            }
+            if (!sykmelding) {
+                return (<Feilmelding
+                    tittel="Fant ikke kvittering"
+                    melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
+            }
+            if (kvitteringtype && [SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) > -1) {
+                return (<Sykmeldingkvittering
+                    kvitteringtype={kvitteringtype}
+                    sykepengesoknader={sykepengesoknader}
+                    soknader={soknader} />);
+            }
+            if ([SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) === -1) {
+                return (<Feilmelding
+                    tittel="Sykmeldingen har feil status"
+                    melding={`Du kan ikke se kvitteringen fordi sykmeldingen har status «${sykmelding.status}»`}
+                />);
+            }
             return <Feilmelding />;
-        }
-        if (!sykmelding) {
-            return (<Feilmelding
-                tittel="Fant ikke kvittering"
-                melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
-        }
-        if (kvitteringtype && [SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) > -1) {
-            return (<Sykmeldingkvittering
-                kvitteringtype={kvitteringtype}
-                sykepengesoknader={sykepengesoknader}
-                soknader={soknader} />);
-        }
-        return <Feilmelding />;
-    })();
+        })();
 
-    return (
-        <Side tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} brodsmuler={brodsmuler}>
-            {innhold}
-        </Side>
-    );
-};
+        return (
+            <Side tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} brodsmuler={brodsmuler}>
+                {innhold}
+            </Side>
+        );
+    }
+}
 
 KvitteringSide.propTypes = {
     sykmelding: sykmeldingPt,
@@ -76,6 +106,13 @@ KvitteringSide.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
     kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)),
+    actions: PropTypes.shape({
+        hentSoknader: PropTypes.func,
+        hentSykepengesoknader: PropTypes.func,
+        hentBrukerinfo: PropTypes.func,
+        hentDineSykmeldinger: PropTypes.func,
+        hentAktuelleArbeidsgivere: PropTypes.func,
+    }),
 };
 
 const getArbeidssituasjon = (sykmelding) => {
@@ -192,7 +229,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    const sykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId) || undefined;
+    const sykmelding = finnDinSykmeldingSelector(state, sykmeldingId);
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const kvitteringtype = getKvitteringtype(state, sykmeldingId);
@@ -212,6 +249,18 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const SykmeldingkvitteringSide = connect(mapStateToProps)(KvitteringSide);
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({
+            hentDineSykmeldinger,
+            hentSykepengesoknader,
+            hentSoknader,
+            hentBrukerinfo,
+            hentAktuelleArbeidsgivere,
+        }, dispatch),
+    };
+}
+
+const SykmeldingkvitteringSide = connect(mapStateToProps, mapDispatchToProps)(KvitteringSide);
 
 export default SykmeldingkvitteringSide;

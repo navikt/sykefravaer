@@ -1,6 +1,5 @@
 import React from 'react';
 import { getLedetekst, Bjorn } from 'digisyfo-npm';
-import getContextRoot from '../../utils/getContextRoot';
 import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from './Kvitteringsteg';
 import { FrilanserSelvstendigKvitteringHotjarTrigger } from '../HotjarTrigger';
 
@@ -25,8 +24,7 @@ const FrilanserMedPapirsoknadKvittering = () => {
                 className="blokk"
                 hvit
                 stor
-                nokkel="bekreft-sykmelding.skal-opprettes-soknad.bjorn"
-                rootUrl={getContextRoot()} />
+                nokkel="bekreft-sykmelding.skal-opprettes-soknad.bjorn" />
         </div>
     </FrilanserSelvstendigKvitteringHotjarTrigger>);
 };

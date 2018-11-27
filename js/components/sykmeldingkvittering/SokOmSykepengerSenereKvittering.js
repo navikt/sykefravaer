@@ -1,7 +1,6 @@
 import React from 'react';
 import { sykepengesoknad as sykepengesoknadPt, getLedetekst, Video, filmer, Bjorn } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
-import getContextRoot from '../../utils/getContextRoot';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremse } from './Soknadsdatoliste';
 
@@ -32,8 +31,7 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
             className="blokk"
             hvit
             stor
-            nokkel="sykmelding.kvittering.sok-senere.bjorn"
-            rootUrl={getContextRoot()} />
+            nokkel="sykmelding.kvittering.sok-senere.bjorn" />
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
             <Video film={filmer.SOKNAD_SYKEPENGER} />

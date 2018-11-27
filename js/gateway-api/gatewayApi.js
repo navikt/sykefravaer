@@ -106,7 +106,7 @@ export const hentApiUrl = () => {
         return 'https://syfoapi.nav.no/syfosoknad/api';
     } else if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
-        return `${window.location.origin}/syfoapi/syfosoknad/api`;
+        return '/syfoapi/syfosoknad/api';
     }
     // Preprod
     return 'https://syfoapi-q.nav.no/syfosoknad/api';
@@ -123,7 +123,7 @@ export const hentSyfoApiUrl = (appNavn) => {
         return `https://syfoapi.nav.no/${appNavn}/api`;
     } else if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
-        return `http://localhost:8080/${appNavn}/api`;
+        return `/${appNavn}/api`;
     }
     // Preprod
     return `https://syfoapi-q.nav.no/${appNavn}/api`;

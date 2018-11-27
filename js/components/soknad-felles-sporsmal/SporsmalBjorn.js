@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Bjorn } from 'digisyfo-npm';
 import { fjernIndexFraTag } from './fieldUtils';
 import { JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT } from '../../enums/tagtyper';
-import getContextRoot from '../../utils/getContextRoot';
 import { soknad as soknadPt } from '../../propTypes';
 import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 
@@ -23,7 +22,7 @@ const hentBjornNokkel = (tag) => {
 
 const SporsmalBjorn = ({ tag, className, soknad }) => {
     return harBjorntekst(tag, soknad.soknadstype)
-        ? <Bjorn className={className} rootUrl={getContextRoot()} nokkel={hentBjornNokkel(tag)} />
+        ? <Bjorn className={className} nokkel={hentBjornNokkel(tag)} />
         : null;
 };
 

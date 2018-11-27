@@ -1,6 +1,5 @@
 import React from 'react';
 import { getLedetekst, Bjorn } from 'digisyfo-npm';
-import getContextRoot from '../../utils/getContextRoot';
 import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from './Kvitteringsteg';
 
 const SendtSykmeldingMedPapirSoknadKvittering = () => {
@@ -24,8 +23,7 @@ const SendtSykmeldingMedPapirSoknadKvittering = () => {
             className="blokk"
             hvit
             stor
-            nokkel="send-til-arbeidsgiver.kvittering.bjorn"
-            rootUrl={getContextRoot()} />
+            nokkel="send-til-arbeidsgiver.kvittering.bjorn" />
     </div>);
 };
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
 import { getLedetekst, Bjorn, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import getContextRoot from '../../../utils/getContextRoot';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
@@ -32,10 +31,7 @@ export const Aktivitet = ({ field, index, autofill, untouch, sykepengesoknad }) 
                     `aktiviteter[${index}].avvik.arbeidstimerNormalUke`,
                     `aktiviteter[${index}].avvik.enhet`,
                 ]} />
-            <Bjorn
-                nokkel="sykepengesoknad.angi-tid.bjorn"
-                rootUrl={getContextRoot()}
-            />
+            <Bjorn nokkel="sykepengesoknad.angi-tid.bjorn" />
         </div>
     </JaEllerNei>);
 };

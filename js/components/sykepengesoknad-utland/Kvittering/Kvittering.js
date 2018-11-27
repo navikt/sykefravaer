@@ -3,7 +3,6 @@ import { Bjorn, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import Header from '../SykepengesoknadUtlandHeader';
 import { IllustrertInnholdGronnHake } from '../../IllustrertInnhold';
-import getContextRoot from '../../../utils/getContextRoot';
 
 const Kvittering = () => {
     return (<div>
@@ -19,7 +18,7 @@ const Kvittering = () => {
             </IllustrertInnholdGronnHake>
         </div>
         <div className="blokk">
-            <Bjorn rootUrl={getContextRoot()} hvit stor>
+            <Bjorn hvit stor>
                 <p>{getLedetekst('sykepengesoknad-utland.kvittering.sendt.bjorn')}</p>
             </Bjorn>
         </div>

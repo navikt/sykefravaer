@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Bjorn, getLedetekst } from 'digisyfo-npm';
 import { formValueSelector } from 'redux-form';
-import getContextRoot from '../../utils/getContextRoot';
 import { SYKMELDINGSGRAD, FERIE } from '../../enums/tagtyper';
 import { formaterEnkeltverdi } from './fieldUtils';
 import { NEI, JA } from '../../enums/svarEnums';
@@ -21,7 +20,7 @@ const ledetekstNokler = {
 
 export const SporsmalBjornComponent = ({ vis, tag }) => {
     return vis
-        ? (<Bjorn className="press" rootUrl={getContextRoot()}>
+        ? (<Bjorn className="press">
             <p>{getLedetekst(ledetekstNokler[tag])}</p>
         </Bjorn>)
         : null;

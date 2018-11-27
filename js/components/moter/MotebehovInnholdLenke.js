@@ -24,7 +24,7 @@ const MotebehovInnholdLenke = (
         ? 'mote.motebehovInnholdLenke.knapp.kvittering'
         : 'mote.motebehovInnholdLenke.knapp.svar';
     return (<div className="motebehovInnholdLenke panel">
-        <h3>{TEKSTER.tittel}</h3>
+        <h2 className="panel__tittel">{TEKSTER.tittel}</h2>
         <p>{TEKSTER.undertekst}</p>
         <Link
             className="knapp"

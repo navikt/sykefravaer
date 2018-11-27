@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Bjorn, getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
-import getContextRoot from '../../../utils/getContextRoot';
 import Feilstripe from '../../Feilstripe';
 
 export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }) => {
     return (<div>
         <div className="sidebanner sidebanner--utenramme">
             <div className="sidebanner__innhold blokk--xl">
-                <Bjorn rootUrl={getContextRoot()} stor hvit vertikal>
+                <Bjorn stor hvit vertikal>
                     <p>{ getLedetekst('sykepengesoknad-utland.bjorn') }</p>
                 </Bjorn>
             </div>

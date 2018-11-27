@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Bjorn, DineSykmeldingOpplysninger, getLedetekst, scrollTo } from 'digisyfo-npm';
-import getContextRoot from '../../utils/getContextRoot';
 import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../Sidetopp';
 import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
@@ -18,8 +17,7 @@ class NySykmelding extends Component {
                         <Bjorn
                             className="blokk"
                             hvit
-                            stor
-                            rootUrl={getContextRoot()}>
+                            stor>
                             <div>
                                 <p>
                                     {

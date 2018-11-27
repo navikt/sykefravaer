@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Bjorn, getHtmlLedetekst, getLedetekst, log } from 'digisyfo-npm';
 import { Knapp } from 'nav-frontend-knapper';
-import getContextRoot from '../../utils/getContextRoot';
 import { Vis } from '../../utils';
 import Lightbox from '../Lightbox';
 
@@ -98,7 +97,7 @@ class Friskmelding extends Component {
 
     render() {
         return ([
-            <Bjorn key="friskmeldingsbjorn" rootUrl={getContextRoot()} className="landingspanel" hvit>
+            <Bjorn key="friskmeldingsbjorn" className="landingspanel" hvit>
                 <TekstOgKnapp onClick={this.visLightbox} tekstnokkel="friskmelding.bjorn" />
             </Bjorn>,
             <Vis

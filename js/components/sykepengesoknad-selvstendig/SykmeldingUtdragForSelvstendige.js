@@ -9,7 +9,6 @@ import {
     tilLesbarDatoMedArstall,
     Utvidbar,
 } from 'digisyfo-npm';
-import getContextRoot from '../../utils/getContextRoot';
 import { SykmeldingopplysningForsikring, SykmeldingopplysningFravaersperioder } from '../sykmeldingstatuspanel/SykmeldingStatuspanelOpplysning';
 import EndreArbeidssituasjonFraBekreftetSoknad from './EndreArbeidssituasjonFraBekreftetSoknad';
 
@@ -28,7 +27,7 @@ const SykmeldingUtdragForSelvstendige = ({ erApen, sykmelding, erOppdelt }) => {
             <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} />
             {
                 erOppdelt
-                && <Bjorn rootUrl={getContextRoot()} className="blokk" nokkel="sykepengesoknad.sykmelding-utdrag.oppdelt.bjorn" />
+                && <Bjorn className="blokk" nokkel="sykepengesoknad.sykmelding-utdrag.oppdelt.bjorn" />
             }
             <SykmeldingNokkelOpplysning
                 tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.dato-sykmeldingen-ble-skrevet')}>

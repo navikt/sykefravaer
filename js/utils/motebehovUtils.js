@@ -34,7 +34,7 @@ export const erOppfoelgingsdatoNyereEnn132DagerForProdsetting = (oppfoelgingsdat
     const antallDagerMellomGrensedatoOgProddato = 132;
     // TODO: fyll i dato for prodsetting her
     // Dato for prodsetting av motebehov
-    const motebehovPilotProdDato = new Date('2018-11-19');
+    const motebehovPilotProdDato = new Date('2018-11-26');
     // Dato hvor alle tidligere oppfoelgingsdatoer ikke skal vises motebehov for
     const grenseDato = leggTilDagerPaaDato(motebehovPilotProdDato, -antallDagerMellomGrensedatoOgProddato);
 

@@ -516,14 +516,14 @@ describe('motebehovUtils', () => {
         let oppfoelgingsdato;
 
         it('skal returnere false dersom oppfoelgingsdato ikke er nyere enn 132 dager for prodsetting av motebehov ', () => {
-            oppfoelgingsdato = new Date('2018-07-10');
+            oppfoelgingsdato = new Date('2018-07-17');
             const resultat = erOppfoelgingsdatoNyereEnn132DagerForProdsetting(oppfoelgingsdato);
             const forventet = false;
             expect(resultat).to.equal(forventet);
         });
 
         it('skal returnere true dersom oppfoelgingsdato er nyere enn 132 dager for prodsetting av motebehov ', () => {
-            oppfoelgingsdato = new Date('2018-07-11');
+            oppfoelgingsdato = new Date('2018-07-18');
             const resultat = erOppfoelgingsdatoNyereEnn132DagerForProdsetting(oppfoelgingsdato);
             const forventet = true;
             expect(resultat).to.equal(forventet);

@@ -201,11 +201,6 @@ function mockEndepunkterSomEndrerState(server) {
     server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
         mockData.soknader = mockData.soknader.filter(soknad => soknad.id !== req.params.id);
         res.send(JSON.stringify({}));
-    })
-
-    server.get('/syfomotebehov/api/motebehov', (req, res) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[MOTEBEHOV]));
     });
 
     server.post('/syfomotebehov/api/motebehov', (req, res) => {
@@ -221,6 +216,11 @@ function mockForOpplaeringsmiljo(server) {
 
     server.use(express.json());
     server.use(express.urlencoded());
+
+    server.get('/syfomotebehov/api/motebehov', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[MOTEBEHOV]));
+    });
 
     server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');

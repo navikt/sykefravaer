@@ -29,7 +29,7 @@ export const SykepengesoknadUtlandOppsummeringSkjema = (props) => {
         <OppsummeringPanel soknad={soknad} />
         <Feilstripe vis={sendingFeilet} />
         <p className="ikke-print blokk navigasjonsstripe">
-            <Link to="/sykefravaer/soknader" className="tilbakelenke">
+            <Link to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`} className="tilbakelenke">
                 {getLedetekst('sykepengesoknad.navigasjon.gaa-til')}
             </Link>
         </p>

@@ -10,7 +10,7 @@ const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => {
             <header className="din-situasjon__header">
                 <img
                     className="din-situasjon__ikon"
-                    src="/sykefravaer/img/svg/landingsside/arbeidssituasjon.svg"
+                    src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/arbeidssituasjon.svg`}
                     alt="Arbeidssituasjon" />
                 <h2 className="din-situasjon__tittel">{getLedetekst('din-situasjon.tittel.2')}</h2>
                 <Hjelpetekst>{getLedetekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>

@@ -33,7 +33,7 @@ export default class Lenke extends Component {
             target="_blank"
             className="inngangspanel inngangspanel--ekstern blokk--l">
             <span className="inngangspanel__ikon">
-                <img alt="" className="js-ikon" src={`/sykefravaer/img/svg/${this.state.ikon}`} />
+                <img alt="" className="js-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${this.state.ikon}`} />
             </span>
             <div className="inngangspanel__innhold">
                 <h2 className="inngangspanel__tittel">{getLedetekst('soknader.sykepenger.tittel')}</h2>

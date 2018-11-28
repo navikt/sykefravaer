@@ -8,20 +8,20 @@ import { soknad as soknadPt } from '../../propTypes';
 
 const LenkeTilSoknader = () => {
     return (<p className="sist">
-        <Link to="/sykefravaer/soknader/" className="lenke">
+        <Link to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/`} className="lenke">
             {getLedetekst('sykmelding.sykepengesoknadstatus.soknader.lenke')}
         </Link>
     </p>);
 };
 
 export const PapirsoknadMelding = () => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/digital-til-papir.svg" ikonAlt="">
+    return (<IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/digital-til-papir.svg`} ikonAlt="">
         <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.sykepengesoknadstatus.papir.melding')} />
     </IllustrertInnhold>);
 };
 
 export const FlereSoknader = ({ sykepengesoknader }) => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/digital-til-papir.svg" ikonAlt="">
+    return (<IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/digital-til-papir.svg`} ikonAlt="">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.flere.tittel')}</h2>
             <Soknadsdatoliste sykepengesoknader={sykepengesoknader} visStatus />
@@ -35,12 +35,12 @@ FlereSoknader.propTypes = {
 };
 
 export const SokOmSykepengerNaa = ({ sykepengesoknad }) => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/kvitteringSokSykepenger.svg" ikonAlt="Søk om sykepenger">
+    return (<IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/kvitteringSokSykepenger.svg`} ikonAlt="Søk om sykepenger">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.sok.tittel')}</h2>
             <p>{getLedetekst('sykmelding.sykepengesoknadstatus.sok.melding')}</p>
             <p className="sist">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}`} className="knapp knapp--hoved">
+                <Link to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}`} className="knapp knapp--hoved">
                     {getLedetekst('sykmelding.sykepengesoknadstatus.sok.lenke')}
                 </Link>
             </p>
@@ -53,7 +53,7 @@ SokOmSykepengerNaa.propTypes = {
 };
 
 export const SoknadSendtBekreftelse = () => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/sykepengesoknad--sendt.svg" ikonAlt="Dataskjerm med hake">
+    return (<IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/sykepengesoknad--sendt.svg`} ikonAlt="Dataskjerm med hake">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.sokt.tittel')}</h2>
             <p>{getLedetekst('sykmelding.sykepengesoknadstatus.sokt.melding')}</p>
@@ -63,7 +63,7 @@ export const SoknadSendtBekreftelse = () => {
 };
 
 export const KommendeSoknad = ({ sykepengesoknad }) => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/kvitteringSokSykepenger.svg" ikonAlt="Søk om sykepenger">
+    return (<IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/kvitteringSokSykepenger.svg`} ikonAlt="Søk om sykepenger">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.sok-senere.tittel')}</h2>
             <p dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.sykepengesoknadstatus.sok-senere.melding', {
@@ -78,12 +78,12 @@ KommendeSoknad.propTypes = {
 };
 
 export const SoknadAvbruttBekreftelse = ({ sykepengesoknad }) => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/sykepengesoknad--avbrutt.svg" ikonAlt="Dataskjerm med utropstegn">
+    return (<IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/sykepengesoknad--avbrutt.svg`} ikonAlt="Dataskjerm med utropstegn">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.tittel')}</h2>
             <p>{getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.melding')}</p>
             <p className="sist">
-                <Link className="lenke" to={`/sykefravaer/soknader/${sykepengesoknad.id}`}>
+                <Link className="lenke" to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}`}>
                     {getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.lenke')}
                 </Link>
             </p>
@@ -96,7 +96,7 @@ SoknadAvbruttBekreftelse.propTypes = {
 };
 
 export const UtgaattSoknadBekreftelse = () => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/sykepengesoknad--utgaatt.svg" ikonAlt="Dataskjerm med utropstegn">
+    return (<IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/sykepengesoknad--utgaatt.svg`} ikonAlt="Dataskjerm med utropstegn">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.utgaatt.tittel')}</h2>
             <p>{getLedetekst('sykmelding.sykepengesoknadstatus.utgaatt.melding')}</p>

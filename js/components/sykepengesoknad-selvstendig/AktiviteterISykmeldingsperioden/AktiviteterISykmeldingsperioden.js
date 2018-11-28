@@ -20,11 +20,11 @@ export const hentSporsmalForAktiviteterISykmeldingsperioden = (soknad) => {
 const AktiviteterISykmeldingsperiodenSkjema = (props) => {
     const { handleSubmit, soknad } = props;
     const onSubmit = () => {
-        history.push(`/sykefravaer/soknader/${soknad.id}/oppsummering`);
+        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/oppsummering`);
     };
     return (<form className="soknadskjema" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Sporsmalsliste sporsmalsliste={hentSporsmalForAktiviteterISykmeldingsperioden(soknad)} soknad={soknad} />
-        <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`} />
+        <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/fravaer-og-friskmelding`} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };

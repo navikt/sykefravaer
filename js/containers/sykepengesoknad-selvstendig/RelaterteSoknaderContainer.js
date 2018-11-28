@@ -20,7 +20,9 @@ export const RelaterteSoknader = ({ relaterteSoknader }) => {
                     .map((s, index) => {
                         return (<li key={index}>
                             <Link
-                                to={`/sykefravaer/soknader/${s.id}`}>{getLedetekst('relaterte-soknader.sendt')} {tilLesbarDatoMedArstall(s.innsendtDato)}</Link>
+                                to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${s.id}`}>
+                                {getLedetekst('relaterte-soknader.sendt')} {tilLesbarDatoMedArstall(s.innsendtDato)}
+                            </Link>
                         </li>);
                     })
             }

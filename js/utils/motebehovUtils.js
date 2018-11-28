@@ -27,7 +27,7 @@ export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnrListe
 
 export const hentMoteLandingssideUrl = (skalViseMotebehov) => {
     const moteVisning = skalViseMotebehov ? '' : '/mote';
-    return `/sykefravaer/dialogmoter${moteVisning}`;
+    return `${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter${moteVisning}`;
 };
 
 export const erOppfoelgingsdatoNyereEnn132DagerForProdsetting = (oppfoelgingsdato) => {

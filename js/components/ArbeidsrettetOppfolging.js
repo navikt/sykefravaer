@@ -34,7 +34,7 @@ const VeilederRad = () => {
         <div className="rad rad--graa">
             <div className="begrensning">
                 <Veilederpanel
-                    svg={<img src="/sykefravaer/img/svg/infoside-fo/veileder-mann.svg" alt="Veileder" className="nav-veilederpanel__illustrasjon" />}
+                    svg={<img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/veileder-mann.svg`} alt="Veileder" className="nav-veilederpanel__illustrasjon" />}
                     type={veilederpanelType}
                     kompakt={veilederpanelKompakt}
                 >
@@ -54,12 +54,12 @@ const KommunikasjonRad = () => {
         <div className="rad rad--hvit">
             <div className="begrensning info-bokser">
                 <div className="info-boks">
-                    <img src="/sykefravaer/img/svg/infoside-fo/kontakt-arbeidsgiver.svg" alt="" className="info-boks__illustrasjon" />
+                    <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/kontakt-arbeidsgiver.svg`} alt="" className="info-boks__illustrasjon" />
                     <h2>{getLedetekst('infoside-fo.kontakt-overskrift')}</h2>
                     <p>{getLedetekst('infoside-fo.kontakt-tekst')}</p>
                 </div>
                 <div className="info-boks">
-                    <img src="/sykefravaer/img/svg/infoside-fo/mer-veiledning.svg" alt="" className="info-boks__illustrasjon" />
+                    <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/mer-veiledning.svg`} alt="" className="info-boks__illustrasjon" />
                     <h2 className="info-boks__aktivitetsplan--overskrift">{getLedetekst('infoside-fo.aktivitetsplan-overskrift')}</h2>
                     <p>{getLedetekst('infoside-fo.aktivitetsplan-tekst')}</p>
                 </div>

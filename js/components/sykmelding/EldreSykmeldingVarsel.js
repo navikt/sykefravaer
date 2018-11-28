@@ -12,7 +12,11 @@ const EldreSykmeldingVarsel = ({ visEldreSykmeldingVarsel, eldsteSykmeldingId })
         ? (<Alertstripe type="info" className="blokk">
             <p className="sist">
                 <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
-                <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
+                <Link
+                    className="lenke"
+                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${eldsteSykmeldingId}`}>
+                    {getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}
+                </Link>
             </p>
         </Alertstripe>)
         : null;

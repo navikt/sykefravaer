@@ -55,7 +55,7 @@ class SykmeldingTeaser extends Component {
                     this.onMouseLeave();
                 }}>
                 <span className="inngangspanel__ikon">
-                    <img alt="" src={`/sykefravaer/img/svg/${this.state.ikon}`} />
+                    <img alt="" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${this.state.ikon}`} />
                 </span>
                 <div className="inngangspanel__innhold">
                     <header className="inngangspanel__header">

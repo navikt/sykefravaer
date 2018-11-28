@@ -8,7 +8,7 @@ import NaermesteLederContainer from '../../containers/landingsside/NaermesteLede
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = situasjoner;
 
 export function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
-    const base = '/sykefravaer/img/svg/landingsside/';
+    const base = `${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/`;
     switch (arbeidssituasjon) {
         case ARBEIDSTAKER:
             return `${base}arbeidsgiver.svg`;

@@ -8,7 +8,7 @@ const DetFinnesEldreSoknader = ({ eldsteSoknadId }) => {
     return (<Alertstripe type="info" className="blokk">
         <p className="sist">{getLedetekst('sykepengesoknad.eldre-soknad.varsel.melding')}</p>
         <p className="sist">
-            <Link className="lenke" to={`/sykefravaer/soknader/${eldsteSoknadId}`}>{getLedetekst('sykepengesoknad.eldre-soknad.varsel.lenke')}</Link>
+            <Link className="lenke" to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${eldsteSoknadId}`}>{getLedetekst('sykepengesoknad.eldre-soknad.varsel.lenke')}</Link>
         </p>
     </Alertstripe>);
 };

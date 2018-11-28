@@ -31,7 +31,7 @@ export class FoerDuBegynnerSkjema extends Component {
     render() {
         const { handleSubmit, soknad } = this.props;
         const onSubmit = () => {
-            history.push(`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`);
+            history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/fravaer-og-friskmelding`);
         };
 
         const sporsmal = hentSporsmalForDuBegynner(soknad);

@@ -21,12 +21,12 @@ const FravaerOgFriskmeldingSkjema = (props) => {
     const { handleSubmit, soknad } = props;
     const sporsmalsliste = hentSporsmalForFravaerOgFriskmelding(soknad);
     const onSubmit = () => {
-        history.push(`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden`);
+        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
     return (<form className="soknadskjema" id="fravaer-og-friskmeldnig-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
         <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
-        <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/`} />
+        <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/`} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };

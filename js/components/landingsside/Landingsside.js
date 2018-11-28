@@ -17,7 +17,7 @@ import Sidebanner from '../Sidebanner';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
-        <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/veileder.svg" ikonAlt="NAV-veileder">
+        <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/veileder.svg`} ikonAlt="NAV-veileder">
             <p className="sist">{getLedetekst('landingsside.ingen-sykmelding')}</p>
         </IllustrertInnhold>
     </div>);
@@ -40,7 +40,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     hvis={harSykmeldinger}
                     render={() => {
                         return (<Peker
-                            to="/sykefravaer/sykmeldinger"
+                            to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`}
                             ikon="sykmeldinger"
                             ikonAlt="Sykmelding"
                             tittel="Sykmeldinger" />);
@@ -49,7 +49,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     hvis={harSykepengesoknader}
                     render={() => {
                         return (<Peker
-                            to="/sykefravaer/soknader"
+                            to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`}
                             ikon="soknader"
                             ikonAlt="Søknader"
                             tittel="Søknader om sykepenger" />);
@@ -86,7 +86,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                             undertittel="For deg og NAV" />);
                     }} />
                 <Peker
-                    to="/sykefravaer/tidslinjen"
+                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}
                     ikon="tidslinje"
                     ikonAlt="Tidslinjen"
                     tittel="Hva skjer under sykefraværet?" />

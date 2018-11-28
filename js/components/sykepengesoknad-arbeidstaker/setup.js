@@ -9,7 +9,7 @@ import mapBackendsoknadToSkjemasoknad from './/mappers/mapBackendsoknadToSkjemas
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
-    history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
+    history.replace(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}`);
 };
 
 export const andreInntektskilderDefault = Object.keys(inntektskildetypeEnums).map((key) => {

@@ -37,7 +37,7 @@ const EksternLi = ({ tekst, url }) => {
 EksternLi.propTypes = Li.propTypes;
 
 export const NySykmelding = ({ sykmeldinger }) => {
-    const url = sykmeldinger.length === 1 ? `/sykefravaer/sykmeldinger/${sykmeldinger[0].id}` : '/sykefravaer/sykmeldinger';
+    const url = sykmeldinger.length === 1 ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}` : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
     const tekst = sykmeldinger.length === 1 ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding') : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
         '%ANTALL%': sykmeldinger.length.toString(),
     });
@@ -50,7 +50,7 @@ NySykmelding.propTypes = {
 
 export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
     const alleSoknader = [...sykepengesoknader, ...soknader];
-    const url = alleSoknader.length === 1 ? `/sykefravaer/soknader/${alleSoknader[0].id}` : '/sykefravaer/soknader';
+    const url = alleSoknader.length === 1 ? `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${alleSoknader[0].id}` : `${process.env.REACT_APP_CONTEXT_ROOT}/soknader`;
     const tekst = alleSoknader.length === 1 ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad') : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
         '%ANTALL%': alleSoknader.length.toString(),
     });
@@ -63,7 +63,9 @@ NySykepengesoknad.propTypes = {
 };
 
 export const NyttAktivitetskravvarsel = () => {
-    return (<Li url="/sykefravaer/aktivitetsplikt/" tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
+    return (<Li
+        url={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt/`}
+        tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
 };
 
 const nyePlanerTekst = (antall) => {
@@ -75,7 +77,7 @@ const nyePlanerTekst = (antall) => {
 
 export const NyttMotebehovVarsel = () => {
     return (<Li
-        url="/sykefravaer/dialogmoter/behov"
+        url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`}
         tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
     />);
 };
@@ -106,15 +108,15 @@ const RendreOppgaver = (
     const OPPFOLGINGSPLANER_URL = `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 
     return (<div className="landingspanel dineOppgaver">
-        <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/oppgaver.svg" ikonAlt="Oppgaver">
+        <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/oppgaver.svg`} ikonAlt="Oppgaver">
             <div>
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
                     { sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} /> }
                     { (sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} /> }
-                    { mote !== null && <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
+                    { mote !== null && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
                     {/* TODO:  TODO: Kommenter ut linjen under når InfosideFO er klar  */}
-                    {/* <Li url="/sykefravaer/arbeidsrettet-oppfolging" tekst={getLedetekst('infoside-fo.inngangstekst')} /> */}
+                    {/* <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('infoside-fo.inngangstekst')} /> */}
                     { avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
                     { nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} /> }
                     { harNyttMotebehov && <NyttMotebehovVarsel /> }

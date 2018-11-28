@@ -23,7 +23,7 @@ export function* hentBrukerinfo() {
 export function* sjekkInnlogging() {
     yield put(actions.sjekkerInnlogging());
     try {
-        yield call(getAjax, '/sykefravaer/');
+        yield call(getAjax, `${process.env.REACT_APP_CONTEXT_ROOT}/`);
         yield put(actions.setErInnlogget());
     } catch (e) {
         log(e);

@@ -33,14 +33,14 @@ SendtUlikt.propTypes = {
 
 const visIkon = (soknadstype) => {
     return soknadstype === OPPHOLD_UTLAND
-        ? (<img alt="" className="js-ikon" src="/sykefravaer/img/svg/globe.svg" />)
-        : <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />;
+        ? (<img alt="" className="js-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/globe.svg`} />)
+        : <img alt="" className="js-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/soknader.svg`} />;
 };
 
 const visIkonHover = (soknadstype) => {
     return soknadstype === OPPHOLD_UTLAND
-        ? (<img alt="" className="js-ikon" src="/sykefravaer/img/svg/globe-hover.svg" />)
-        : <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader_hover-blue.svg" />;
+        ? (<img alt="" className="js-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/globe-hover.svg`} />)
+        : <img alt="" className="js-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/soknader_hover-blue.svg`} />;
 };
 
 const beregnUndertekst = (soknad) => {

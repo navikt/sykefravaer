@@ -79,7 +79,7 @@ tekster[UTEN_ARBEIDSGIVER] = teksterUtenArbeidsgiver;
 
 const TittelIngress = ({ nokkelbase, bilde }) => {
     return (<div className="tidslinjeutdrag">
-        <img className="tidslinjeutdrag__bilde" src={`/sykefravaer/img/tidslinjeutdrag/${bilde}`} alt="" />
+        <img className="tidslinjeutdrag__bilde" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/tidslinjeutdrag/${bilde}`} alt="" />
         <div className="tidslinjeutdrag__intro">
             <h2 className="tidslinjeutdrag__tittel">{getLedetekst(`${nokkelbase}.tittel`)}</h2>
             <div
@@ -229,7 +229,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
                             this.state.visInnhold && (<div>
                                 <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`)} />
                                 <p className="blokk">
-                                    <Link className="lenkeTilTidslinje" to="/sykefravaer/tidslinjen">
+                                    <Link className="lenkeTilTidslinje" to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}>
                                         {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}
                                     </Link>
                                 </p>

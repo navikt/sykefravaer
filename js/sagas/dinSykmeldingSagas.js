@@ -6,11 +6,11 @@ import { skalOppretteSoknadHentet } from '../actions/sykmeldingMeta_actions';
 import * as actiontyper from '../actions/actiontyper';
 
 const gaTilKvittering = (sykmeldingId) => {
-    browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
+    browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldingId}/kvittering`);
 };
 
 const gaTilSykmelding = (sykmeldingId) => {
-    browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/`);
+    browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldingId}/`);
 };
 
 const erFrilanserEllerSelvstendig = (verdier) => {

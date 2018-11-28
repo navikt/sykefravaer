@@ -44,7 +44,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
         const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato, erUtdanningPreutfylt, erInntektskilderPreutfylt } = this.props;
 
         const onSubmit = () => {
-            history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
+            history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/oppsummering`);
         };
 
         const _aktiviteter = filtrerAktuelleAktiviteter(sykepengesoknad.aktiviteter, gjenopptattArbeidFulltUtDato);
@@ -90,7 +90,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                                 Overskrift="h4" />
                         </JaEllerNei>
             }
-            <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
+            <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
     }

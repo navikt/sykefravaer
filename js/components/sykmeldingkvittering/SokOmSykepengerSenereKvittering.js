@@ -9,7 +9,7 @@ import {
 } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from './Kvitteringsteg';
-import { sorterSoknaderEtterDatoTilgjengelig } from './Soknadsdatoliste';
+import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from './Soknadsdatoliste';
 
 const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer' }) => {
     return (<div className="js-kvittering js-kvittering--sok-senere">
@@ -30,6 +30,7 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, sykmeldingstype = 
                         nokkel={`sykmelding.kvittering.sok-senere.steg-2.${forskutteringstype}.${sykmeldingstype}-sykmelding.undertekst`}
                         replacements={{
                             '%DATO%': tilLesbarDatoMedArstall(sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)[0].tom),
+                            '%DATOER%': soknadsdatoremseUtenForsteDato(sykepengesoknader),
                         }} />
                 </Kvitteringsteg>
             </StegvisKvittering>

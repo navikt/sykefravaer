@@ -35,16 +35,22 @@ const erstattSiste = (streng, finn, erstatning) => {
 };
 
 const tilKommaliste = (liste) => {
-    return liste.length <= 2
-        ? liste.join(' og ')
-        : erstattSiste(liste.join(', '), ', ', ' og ');
+    const datoStrenger = liste.map((s) => {
+        return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
+    });
+    return datoStrenger.length <= 2
+        ? datoStrenger.join(' og ')
+        : erstattSiste(datoStrenger.join(', '), ', ', ' og ');
+};
+
+export const soknadsdatoremseUtenForsteDato = (sykepengesoknader) => {
+    const datoer = [...sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)];
+    datoer.shift();
+    return datoer.length > 0 ? tilKommaliste(datoer) : null;
 };
 
 export const soknadsdatoremse = (sykepengesoknader) => {
-    const datoer = sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)
-        .map((s) => {
-            return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
-        });
+    const datoer = sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader);
     return tilKommaliste(datoer);
 };
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes';
-import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/landingsside/DineOppgaverContainer';
 import DinSituasjonContainer from '../../containers/landingsside/DinSituasjonContainer';
 import ServerfeilContainer from '../../containers/landingsside/ServerfeilContainer';
@@ -14,6 +13,7 @@ import IllustrertInnhold from '../IllustrertInnhold';
 import { Vis } from '../../utils';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import OsloMetUndersokelse from './OsloMetUndersokelse';
+import Sidebanner from '../Sidebanner';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -25,13 +25,7 @@ const IngenSykmeldinger = () => {
 
 const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger, skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan }) => {
     return (<div>
-        <div className="sidebanner">
-            <div className="sidebanner__innhold">
-                <Brodsmuler brodsmuler={brodsmuler} />
-                <h1 className="js-sidetittel sidebanner__tittel">{getLedetekst('landingsside.sidetittel')}</h1>
-                <img className="sidebanner__illustrasjon" src="/sykefravaer/img/svg/landingsside/konsultasjon.svg" alt="Konsultasjon" />
-            </div>
-        </div>
+        <Sidebanner brodsmuler={brodsmuler} />
         <div className="begrensning blokk">
             <ServerfeilContainer />
             {

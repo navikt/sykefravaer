@@ -1,42 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { getLedetekst } from 'digisyfo-npm';
 
-const DialogmoterInnholdLenke = (
-    {
-        imgUrl,
-        visning,
-        innholdstekster,
-        rootUrl,
-    }) => {
+const DialogmoterInnholdLenke = () => {
     return (<div className="dialogmoterInnholdLenke blokk--l">
-        <article aria-labelledby={`dialogmoter-${visning}`}>
-            <Link className="inngangspanel" to={`${rootUrl}/dialogmoter/${visning}`}>
+        <article aria-labelledby="dialogmoter-mote">
+            <Link className="inngangspanel" to="sykefravaer/dialogmoter/mote">
                 <span className="dialogmoterInnholdLenke__ikon">
-                    <img src={imgUrl} alt="bilde" />
+                    <img src="/sykefravaer/img/svg/kalender-bgblaa.svg" alt="bilde" />
                 </span>
                 <div className="inngangspanel__innhold">
                     <header className="inngangspanel__header">
-                        <h2 className="js-title" id={`dialogmoter-${visning}`}>
-                            <p className="inngangspanel_undertekst">
-                                {innholdstekster.tittel}
-                            </p>
+                        <h2 className="js-title inngangspanel_undertekst" id="dialogmoter-mote">
+                            {getLedetekst('mote.dialogmoterInnholdLenke.tittel')}
                         </h2>
                     </header>
                 </div>
             </Link>
         </article>
     </div>);
-};
-DialogmoterInnholdLenke.propTypes = {
-    imgUrl: PropTypes.string,
-    visning: PropTypes.string,
-    innholdstekster: PropTypes.shape({
-        tittel: PropTypes.string,
-        undertittel: PropTypes.string,
-        tekst: PropTypes.string,
-    }),
-    rootUrl: PropTypes.string,
 };
 
 export default DialogmoterInnholdLenke;

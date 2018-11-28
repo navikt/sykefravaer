@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import {
-    getLedetekst,
-    keyValue,
-} from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { proptypes as motebehovProptypes } from 'moter-npm';
 import { skalViseMotebehovKvittering } from '../../utils/motebehovUtils';
 
@@ -15,10 +12,8 @@ const TEKSTER = {
 
 const MotebehovInnholdLenke = (
     {
-        ledetekster,
         motebehovReducer,
         virksomhetsnrListe,
-        rootUrl,
     }) => {
     const knappTekstNokkel = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe)
         ? 'mote.motebehovInnholdLenke.knapp.kvittering'
@@ -28,17 +23,15 @@ const MotebehovInnholdLenke = (
         <p>{TEKSTER.undertekst}</p>
         <Link
             className="knapp"
-            to={`${rootUrl}/dialogmoter/behov`}
+            to="/sykefravaer/dialogmoter/behov"
         >
-            {getLedetekst(knappTekstNokkel, ledetekster)}
+            {getLedetekst(knappTekstNokkel)}
         </Link>
     </div>);
 };
 MotebehovInnholdLenke.propTypes = {
-    ledetekster: keyValue,
     motebehovReducer: motebehovProptypes.motebehovReducerATPt,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
-    rootUrl: PropTypes.string,
 };
 
 export default MotebehovInnholdLenke;

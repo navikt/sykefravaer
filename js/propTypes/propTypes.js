@@ -58,39 +58,11 @@ export const fieldPropTypes = { meta, input };
 
 export const childEllerChildren = PropTypes.node;
 
-export const opprettOppfolgingArbeidsgiverPt = PropTypes.shape({
-    virksomhetsnummer: PropTypes.string,
-    navn: PropTypes.string,
-    harNaermesteLeder: PropTypes.bool,
-    naermesteLeder: PropTypes.string,
-});
-
-export const dinesykmeldingerReducerPt = PropTypes.shape({
-    data: PropTypes.arrayOf(naermesteLeder),
-    henter: PropTypes.bool,
-    hentingFeilet: PropTypes.bool,
-    hentet: PropTypes.bool,
-    sender: PropTypes.bool,
-    sendingFeilet: PropTypes.bool,
-    avbryter: PropTypes.bool,
-    avbrytFeilet: PropTypes.bool,
-});
-
 export const sykeforloepPt = PropTypes.shape({
     data: PropTypes.array,
     henter: PropTypes.bool,
     hentet: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-});
-
-export const ledereReducerPt = PropTypes.shape({
-    data: PropTypes.arrayOf(naermesteLeder),
-    henter: PropTypes.bool,
-    hentet: PropTypes.bool,
-    hentingFeilet: PropTypes.bool,
-    avkrefter: PropTypes.bool,
-    avkreftet: PropTypes.bool,
-    avkreftFeilet: PropTypes.bool,
 });
 
 export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
@@ -155,9 +127,3 @@ export const oppsummeringSporsmal = {
     tag: PropTypes.string,
 };
 
-export const oppfolgingsforlopPerioderPt = PropTypes.shape({
-    henter: PropTypes.bool,
-    hentet: PropTypes.bool,
-    hentingFeilet: PropTypes.bool,
-    data: PropTypes.array,
-});

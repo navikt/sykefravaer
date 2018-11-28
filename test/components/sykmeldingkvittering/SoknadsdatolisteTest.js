@@ -22,6 +22,10 @@ describe('Soknadsdatoliste', () => {
         tom: new Date('2017-10-13'),
     };
 
+    const soknad4 = {
+        tom: new Date('2017-10-11'),
+    };
+
     beforeEach(() => {
 
     });
@@ -34,16 +38,21 @@ describe('Soknadsdatoliste', () => {
     });
 
     describe('soknadsdatoremse', () => {
-        it('Skal gi én dato hvis det bare finnes én søknad', () => {
-            expect(soknadsdatoremse([soknad1])).to.equal('<strong>14. oktober 2017</strong>');
+        it('Skal gi null dato hvis det bare finnes én søknad', () => {
+            expect(soknadsdatoremse([soknad1])).to.equal(null);
         });
 
-        it("Skal gi to datoer separert av 'og' hvis det finnes to søknader", () => {
-            expect(soknadsdatoremse([soknad1, soknad2])).to.equal('<strong>12. oktober 2017</strong> og <strong>14. oktober 2017</strong>');
+        it('Skal gi den siste datoen hvis det finnes to søknader', () => {
+            expect(soknadsdatoremse([soknad1, soknad2])).to.equal('<strong>14. oktober 2017</strong>');
         });
 
-        it("Skal gi tre datoer separert av komma og 'og' hvis det finnes tre søknader", () => {
+        it("Skal gi to datoer separert av 'og' hvis det finnes tre søknader", () => {
             expect(soknadsdatoremse([soknad1, soknad2, soknad3]))
+                .to.equal('<strong>13. oktober 2017</strong> og <strong>14. oktober 2017</strong>');
+        });
+
+        it("Skal gi tre datoer separert av komma og 'og' hvis det finnes fire søknader", () => {
+            expect(soknadsdatoremse([soknad1, soknad2, soknad3, soknad4]))
                 .to.equal('<strong>12. oktober 2017</strong>, <strong>13. oktober 2017</strong> og <strong>14. oktober 2017</strong>');
         });
     });

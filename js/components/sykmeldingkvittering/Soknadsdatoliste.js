@@ -41,11 +41,12 @@ const tilKommaliste = (liste) => {
 };
 
 export const soknadsdatoremse = (sykepengesoknader) => {
-    const datoer = sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)
-        .map((s) => {
-            return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
-        });
-    return tilKommaliste(datoer);
+    const datoer = [...sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)];
+    datoer.shift();
+    const datoStreng = datoer.map((s) => {
+        return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
+    });
+    return datoer.length > 0 ? tilKommaliste(datoStreng) : null;
 };
 
 export default Soknadsdatoliste;

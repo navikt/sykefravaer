@@ -1,6 +1,15 @@
-import { erGyldigDatoformat } from 'digisyfo-npm';
+import {
+    erGyldigDatoformat,
+    tilLesbarDatoMedArstall,
+    tilLesbarPeriodeMedArstall,
+} from 'digisyfo-npm';
 
-export { tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
+export {
+    tilLesbarDatoMedArstall,
+    tilLesbarPeriodeMedArstall,
+};
+
+export const ukedager = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
 
 export const datoMedKlokkeslett = (dato) => {
     if (dato === undefined || dato === null) {
@@ -39,4 +48,14 @@ export const leggTilDagerPaaDato = (dato, dager) => {
     const nyDato = new Date(dato);
     nyDato.setTime(nyDato.getTime() + (dager * ANTALL_MS_DAG));
     return new Date(nyDato);
+};
+
+export const capitalizeForsteBokstav = (ord) => {
+    return ord.charAt(0).toUpperCase() + ord.slice(1);
+};
+
+export const tilLesbarDatoMedArstallOgUkedag = (datoArg) => {
+    return datoArg
+        ? `${capitalizeForsteBokstav(ukedager[new Date(datoArg).getDay()])} ${tilLesbarDatoMedArstall(datoArg)}`
+        : null;
 };

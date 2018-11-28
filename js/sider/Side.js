@@ -104,7 +104,7 @@ export class SideComponent extends Component {
                     { erInnlogget && toggleHeleAppen() && children }
                     { erInnlogget && !toggleHeleAppen() && <Plakat /> }
                     { !erInnlogget && <Utlogget /> }
-                    { erInnlogget && toggleHeleAppen() && <LenkeTilSykefravaerArbeidsgiver/> }
+                    { erInnlogget && toggleHeleAppen() && <LenkeTilSykefravaerArbeidsgiver /> }
                 </div>
             </div>
         </DocumentTitle>);

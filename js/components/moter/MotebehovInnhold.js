@@ -1,23 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    getLedetekst,
-    keyValue,
-} from 'digisyfo-npm';
-import {
-    proptypes as motebehovProptypes,
-    MotebehovSvarAT as MotebehovSvar,
-    MotebehovKvitteringAT as MotebehovKvittering,
-} from 'moter-npm';
+import { getLedetekst } from 'digisyfo-npm';
+import { proptypes as motebehovProptypes } from 'moter-npm';
 import getContextRoot from '../../utils/getContextRoot';
 import Sidetopp from '../Sidetopp';
+import MotebehovSvar from './motebehov/MotebehovSvar';
+import MotebehovKvittering from './motebehov/MotebehovKvittering';
 import {
     finnNyesteMotebehovForVirksomhetListe,
 } from '../../utils/motebehovUtils';
 
 const MotebehovInnhold = (
     {
-        ledetekster,
         actions,
         motebehovReducer,
         motebehovSvarReducerListe,
@@ -27,12 +21,10 @@ const MotebehovInnhold = (
 
     const innhold = motebehov
         ? (<MotebehovKvittering
-            ledetekster={ledetekster}
             motebehov={motebehov}
             rootUrlImg={getContextRoot()}
         />)
         : (<MotebehovSvar
-            ledetekster={ledetekster}
             virksomhetsnrListe={virksomhetnrMedMotebehovListe}
             motebehovSvarReducerListe={motebehovSvarReducerListe}
             svarMotebehov={actions.svarMotebehov}
@@ -45,7 +37,6 @@ const MotebehovInnhold = (
     </div>);
 };
 MotebehovInnhold.propTypes = {
-    ledetekster: keyValue,
     actions: PropTypes.shape({
         hentMotebehov: PropTypes.func,
         svarMotebehov: PropTypes.func,

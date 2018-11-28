@@ -3,6 +3,7 @@ import chaiEnzyme from 'chai-enzyme';
 import {
     datoMedKlokkeslett,
     erGyldigDato,
+    tilLesbarDatoMedArstallOgUkedag,
 } from '../../js/utils/datoUtils';
 
 chai.use(chaiEnzyme());
@@ -41,6 +42,16 @@ describe('datoUtils', () => {
         it('Skal returnere false ved ugyldige datoer', () => {
             const d = erGyldigDato('31.11.2017');
             expect(d).to.equal(false);
+        });
+    });
+
+    describe('tilLesbarDatoMedArstallOgUkedag', () => {
+        it('Skal returnere dato med ukedag og tall for dag, uten null foran, når datoen er mellom 1 og 9', () => {
+            const dato = new Date('2018-01-02');
+            expect(tilLesbarDatoMedArstallOgUkedag(dato)).to.equal('Tirsdag 2. januar 2018');
+
+            const dato2 = new Date('2019-03-09');
+            expect(tilLesbarDatoMedArstallOgUkedag(dato2)).to.equal('Lørdag 9. mars 2019');
         });
     });
 });

@@ -1,68 +1,53 @@
-.motebehovInnholdLenke {
-  h3 {
-    margin-top: 0;
-  }
-}
-
 .motebehovSvar {
   .hjelpeboble {
     margin-bottom: 2em;
   }
 }
 
-.svarMotebehovSkjema {
-  a {
-    color: @navBla;
-  }
-  .svarMotebehovSkjema__inputgruppe > label {
-    font-weight: 600;
-    margin-bottom: -.5em;
-  }
-  .svarMotebehovSkjema__inputgruppe--tekst {
-    label {
-      font-weight: 600;
-      padding-top: 1em;
-    }
-    textarea {
-      resize: none;
-    }
-  }
+.motebehovInfoForSvar {
   @bildeBredde: 4em;
   @halvBildeBredde: @bildeBredde/2;
-  .svarMotebehovSkjema__tekstInformasjon {
-    position: relative;
-    border: 2px solid @navLysBla;
-    border-radius: 0.5em;
-    margin-top: 5em;
-    .tekstInformasjon__bilde {
-      left: 50% - @bildeBredde;
-      top: -@halvBildeBredde;
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #c2eaf7;
-      height: @bildeBredde;
-      width: @bildeBredde;
-      border-radius: 50%;
-    }
-    .tekstInformasjon__innhold {
-      margin-top: 1em;
-    }
-    .tekstInformasjon__tittel {
-      display: block;
-      width: 100%;
-      text-align: center;
-      font-size: 20px;
-    }
+
+  position: relative;
+  border: 2px solid @navLysBla;
+  border-radius: 0.5em;
+  margin-top: 5em;
+  .tekstInformasjon__bilde {
+    left: 50% - @bildeBredde;
+    top: -@halvBildeBredde;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c2eaf7;
+    height: @bildeBredde;
+    width: @bildeBredde;
+    border-radius: 50%;
   }
-  .svarMotebehovSkjema__tekstOpplysning {
-    margin-left: 2em;
+  .tekstInformasjon__innhold {
+    margin-top: 1em;
   }
-  .svarMotebehovSkjema__folketrygdloven {
-    p {
-      margin: 0;
-    }
+  .tekstInformasjon__tittel {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+  }
+}
+
+.svarMotebehovSkjema {
+  textarea {
+    resize: none;
+  }
+}
+
+.svarMotebehovSkjema__tekstOpplysning {
+  margin-left: 2em;
+}
+
+.folketrygdlovenTekst {
+  p {
+    margin: 0;
   }
 }
 
@@ -76,19 +61,13 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
-}
-
-.motebehovKvittering {
   img {
     width: 2em;
   }
 }
 
-.motebehovKvitteringUtvidbar {
-
-}
-.dialogmoterInnholdLenke {
-  p:last-child {
-    margin: 0;
+.motebehovSkjemaTekstomraade {
+  label {
+    margin-bottom: .5em;
   }
 }

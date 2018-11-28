@@ -7,7 +7,7 @@ import Soknadsdatoliste, { soknadsdatoremse, soknadsdatoremseUtenForsteDato } fr
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe.only('Soknadsdatoliste', () => {
+describe('Soknadsdatoliste', () => {
     let comp;
 
     const soknad1 = {

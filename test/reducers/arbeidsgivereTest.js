@@ -1,17 +1,14 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
-import * as actiontyper from '../../js/actions/actiontyper';
 
 import arbeidsgivere from '../../js/reducers/arbeidsgivere';
+import { aktuelleArbeidsgivereHentet, hentAktuelleArbeidsgivereFeilet, henterAktuelleArbeidsgivere } from '../../js/actions/dineArbeidsgivere_actions';
+import { setErUtlogget } from '../../js/actions/brukerinfo_actions';
 
 describe('arbeidsgivere', () => {
     it('håndterer HENTER_AKTUELLE_ARBEIDSGIVERE', () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE,
-            sykmeldingId: 55,
-        };
-        const nextState = arbeidsgivere(initialState, action);
+        const nextState = arbeidsgivere(initialState, henterAktuelleArbeidsgivere(55));
         expect(nextState).to.deep.equal({
             henter: true,
             hentingFeilet: false,
@@ -24,11 +21,7 @@ describe('arbeidsgivere', () => {
         const initialState = deepFreeze({
             henter: true,
         });
-        const action = {
-            type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
-            sykmeldingId: 88,
-        };
-        const nextState = arbeidsgivere(initialState, action);
+        const nextState = arbeidsgivere(initialState, hentAktuelleArbeidsgivereFeilet(88));
         expect(nextState).to.deep.equal({
             hentingFeilet: true,
             henter: false,
@@ -39,20 +32,16 @@ describe('arbeidsgivere', () => {
 
     it('håndterer AKTUELLE_ARBEIDSGIVERE_HENTET', () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET,
-            arbeidsgivere: [{
-                orgnr: 12345678,
-                navn: 'Hansens Frisørsalong',
-            }, {
-                orgnr: 87654321,
-                navn: 'Oslo Sykkelbutikk',
-            }, {
-                orgnr: 32165478,
-                navn: 'Bergen Malingsfabrikk',
-            }],
-            sykmeldingId: 23,
-        };
+        const action = aktuelleArbeidsgivereHentet(23, [{
+            orgnr: 12345678,
+            navn: 'Hansens Frisørsalong',
+        }, {
+            orgnr: 87654321,
+            navn: 'Oslo Sykkelbutikk',
+        }, {
+            orgnr: 32165478,
+            navn: 'Bergen Malingsfabrikk',
+        }]);
         const nextState = arbeidsgivere(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -78,9 +67,7 @@ describe('arbeidsgivere', () => {
             henter: false,
             hentingFeilet: false,
         });
-        const action = {
-            type: actiontyper.BRUKER_ER_UTLOGGET,
-        };
+        const action = setErUtlogget();
         const nextState = arbeidsgivere(initialState, action);
         expect(nextState).to.deep.equal({
             henter: false,

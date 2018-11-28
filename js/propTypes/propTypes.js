@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { naermesteLeder } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
 import * as svartyper from '../enums/svartyper';
 import * as soknadmottakertyper from '../enums/soknadmottakertyper';

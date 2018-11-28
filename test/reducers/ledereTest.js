@@ -1,9 +1,14 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
-import * as ledereActions from '../../js/actions/ledere_actions';
-import * as actiontyper from '../../js/actions/actiontyper';
-
 import ledere from '../../js/reducers/ledere';
+import {
+    hentLedereFeilet,
+    ledereHentet,
+    henterLedere,
+    avkreftLederFeilet,
+    lederAvkreftet,
+    avkrefterLeder,
+} from '../../js/actions/ledere_actions';
 
 describe('ledere', () => {
     it('Returnerer { data: [] } ved initializering', () => {
@@ -13,16 +18,13 @@ describe('ledere', () => {
 
     it('håndterer LEDERE_HENTET', () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.LEDERE_HENTET,
-            data: [{
-                navn: 'Kurt Nilsen',
-            }, {
-                navn: 'Hans Hansen',
-            }, {
-                navn: 'Nina Knutsen',
-            }],
-        };
+        const action = ledereHentet([{
+            navn: 'Kurt Nilsen',
+        }, {
+            navn: 'Hans Hansen',
+        }, {
+            navn: 'Nina Knutsen',
+        }]);
         const nextState = ledere(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -43,9 +45,7 @@ describe('ledere', () => {
         const initialState = deepFreeze({
             henter: false,
         });
-        const action = {
-            type: actiontyper.HENTER_LEDERE,
-        };
+        const action = henterLedere();
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
@@ -59,9 +59,7 @@ describe('ledere', () => {
         const initialState = deepFreeze({
             henter: false,
         });
-        const action = {
-            type: actiontyper.HENT_LEDERE_FEILET,
-        };
+        const action = hentLedereFeilet();
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
             henter: false,
@@ -88,7 +86,7 @@ describe('ledere', () => {
                 },
             ],
         });
-        const action = ledereActions.avkrefterLeder();
+        const action = avkrefterLeder();
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
             avkrefter: true,
@@ -115,7 +113,7 @@ describe('ledere', () => {
                 },
             ],
         });
-        const action = ledereActions.avkreftLederFeilet();
+        const action = avkreftLederFeilet();
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
             avkrefter: false,
@@ -141,7 +139,7 @@ describe('ledere', () => {
                 },
             ],
         });
-        const action = ledereActions.lederAvkreftet('23529291');
+        const action = lederAvkreftet('23529291');
         const nextState = ledere(initialState, action);
 
         expect(nextState).to.deep.equal({

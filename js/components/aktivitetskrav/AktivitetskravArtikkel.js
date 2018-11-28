@@ -46,7 +46,9 @@ class Artikkel extends Component {
             </header>
             <p className="artikkel__ingress">{getLedetekst('aktivitetskrav-varsel.ingress', ledetekster)}</p>
             <div className="artikkel__bilde">
-                <img src={`/sykefravaer/img/svg/aktivitetsvarsel_${this.state.arbeidssituasjon}.svg`} alt={`aktivitetskrav-varsel.alt.${this.state.arbeidssituasjon}`} />
+                <img
+                    src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/aktivitetsvarsel_${this.state.arbeidssituasjon}.svg`}
+                    alt={`aktivitetskrav-varsel.alt.${this.state.arbeidssituasjon}`} />
             </div>
             <div
                 className="artikkel__innhold"

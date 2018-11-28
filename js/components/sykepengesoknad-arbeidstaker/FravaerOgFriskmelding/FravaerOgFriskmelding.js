@@ -24,7 +24,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
     render() {
         const { handleSubmit, sykepengesoknad, erEgenmeldingsperioderPreutfylt } = this.props;
         const onSubmit = () => {
-            history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
+            history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
         };
         return (<form
             className="soknadskjema"
@@ -37,7 +37,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
             <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erEgenmeldingsperioderPreutfylt={erEgenmeldingsperioderPreutfylt} />
             <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
             <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
-            <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${sykepengesoknad.id}/`} />
+            <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
     }

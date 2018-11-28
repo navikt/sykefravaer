@@ -22,7 +22,7 @@ const SykepengesoknadSelvstendigKvitteringContainer = ({ soknad }) => {
                     <span>
                         {getLedetekst('soknad.kvittering.ugyldig.ny.melding')} <Link
                             className="lenke"
-                            to={`/sykefravaer/soknader/${soknad.id}`}>{getLedetekst('soknad.kvittering.ugyldig.ny.lenke')}</Link>
+                            to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}`}>{getLedetekst('soknad.kvittering.ugyldig.ny.lenke')}</Link>
                     </span>
                 </Feilmelding>
             </div>);

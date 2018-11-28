@@ -78,11 +78,11 @@
             <p>Her finner du <a href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade">informasjon om sykmelding og sykepenger</a>.</p>
             {{/isProd}}
             {{^isProd}}
-            <h2 class="scriptFeilmelding__tittel">Utvikling i syfofront</h2>
-            <p>Du må kjøre <code>npm run dev</code> for å få syfofront til å funke lokalt under utvikling.</p>
-            <p>I tillegg må du kjøre opp applikasjonene <strong>dev-proxy</strong> og <strong>syfoapi</strong>.</p>
-            <p>Syfofront blir da tilgjengelig under <a href="http://localhost:8080/sykefravaer">http://localhost:8080/sykefravaer</a></p>
-            <p>Happy coding.</p>
+            <h2 class="scriptFeilmelding__tittel">Utvikling i sykefravaer</h2>
+            <p>Kjør appen lokalt med mockede rest-endepunkter ved å kjøre <code>npm run start-local</code>. Mock-oppsett og mock-data finner du i <code>/mock</code></p>
+            <p>Kjør <code>npm run dev</code> for å kjøre opp en webpack-dev-server som gir bygger JS og CSS for deg.</p>
+            <p>Sykefravaer blir da tilgjengelig under <a href="http://localhost:8080/sykefravaer">http://localhost:8080/sykefravaer</a></p>
+            <p>Happy coding!</p>
             {{/isProd}}
         </div>
     </div>

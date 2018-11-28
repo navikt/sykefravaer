@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
 import * as actions from '../../js/actions/sykeforloep_actions';
-import { BRUKER_ER_UTLOGGET } from '../../js/actions/actiontyper';
 import sykeforloep, { hentStartdatoFraSykeforloep } from '../../js/reducers/sykeforloep';
 import getSykeforloep from '../mock/mockSykeforloep';
+import { setErUtlogget } from '../../js/actions/brukerinfo_actions';
 
 describe('sykeforloep', () => {
     let state;
@@ -93,9 +93,7 @@ describe('sykeforloep', () => {
             hentingFeilet: false,
             data: [],
         });
-        const action = {
-            type: BRUKER_ER_UTLOGGET,
-        };
+        const action = setErUtlogget();
         const nextState = sykeforloep(initialState, action);
         expect(nextState).to.deep.equal({
             henter: false,

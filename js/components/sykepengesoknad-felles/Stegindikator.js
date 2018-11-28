@@ -11,7 +11,7 @@ const Wrapper = ({ aktivtSteg, soknadId, urler = arbeidstakerUrler }) => {
     return (<div className="blokk--l" role="progressbar" aria-valuenow={aktivtSteg} aria-valuemin="1" aria-valuemax="3">
         <Stegindikator
             onChange={(stegindex) => {
-                history.replace(`/sykefravaer/soknader/${soknadId}/${urler[stegindex]}`);
+                history.replace(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknadId}/${urler[stegindex]}`);
             }}>
             {steg.map((s, index) => {
                 const erPassert = (parseFloat(aktivtSteg) - 1) > s;

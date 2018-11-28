@@ -12,7 +12,7 @@ const StandardSykmeldingkvittering = (props) => {
     });
     return (<div className="panel blokk js-kvittering js-kvittering--standard">
         <div className="illustrertTittel">
-            <img className={ikonKlasser} src={`/sykefravaer/img/svg/${ikon}`} alt="" />
+            <img className={ikonKlasser} src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${ikon}`} alt="" />
             <h2 className="illustrertTittel__tittel">
                 {tittel}
             </h2>

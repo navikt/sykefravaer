@@ -45,7 +45,7 @@ class FremtidigSoknadTeaser extends Component {
                     });
                 }}>
                 <span className="inngangspanel__ikon">
-                    <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />
+                    <img alt="" className="js-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/soknader.svg`} />
                 </span>
                 <div className="inngangspanel__innhold">
                     <header className="inngangspanel__header">

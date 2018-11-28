@@ -6,7 +6,7 @@ const ForsteSelvstendigFrilanserSoknadIntro = () => {
     return (<div className="panel blokk">
         <div className="blokk--s">
             <IllustrertInnhold
-                ikon="/sykefravaer/img/svg/foerste-soknad.svg"
+                ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/foerste-soknad.svg`}
                 ikonAlt="Din første digitale søknad om sykepenger"
                 liten>
                 <h2 className="panel__tittel sist">{getLedetekst('sykepengesoknad.foerste-selvstendig-soknad.tittel')}</h2>

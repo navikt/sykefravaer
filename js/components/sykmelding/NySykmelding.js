@@ -39,7 +39,7 @@ class NySykmelding extends Component {
                         </Bjorn>
                         <article>
                             <header className="panelHeader panelHeader--lysebla">
-                                <img className="panelHeader__ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
+                                <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />
                                 <h2 className="panelHeader__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.mellomnavn} {sykmelding.pasient.etternavn}</h2>
                             </header>
                             <div className="panel blokk">

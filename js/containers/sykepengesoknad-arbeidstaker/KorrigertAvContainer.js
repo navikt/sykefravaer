@@ -14,7 +14,7 @@ export const KorrigertAv = ({ korrigertAvSoknad }) => {
             })}
         </p>
         <p className="sist">
-            <Link className="lenke" to={`/sykefravaer/soknader/${korrigertAvSoknad.id}`}>{getLedetekst('sykepengesoknad.korrigert.lenketekst')}</Link>
+            <Link className="lenke" to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${korrigertAvSoknad.id}`}>{getLedetekst('sykepengesoknad.korrigert.lenketekst')}</Link>
         </p>
     </Alertstripe>);
 };

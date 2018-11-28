@@ -26,7 +26,7 @@ IllustrertInnhold.propTypes = {
 };
 
 export const IllustrertInnholdGronnHake = (props) => {
-    return <IllustrertInnhold {...props} ikon="/sykefravaer/img/svg/kvitteringhake.svg" ikonAlt="Hake" />;
+    return <IllustrertInnhold {...props} ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/kvitteringhake.svg`} ikonAlt="Hake" />;
 };
 
 export default IllustrertInnhold;

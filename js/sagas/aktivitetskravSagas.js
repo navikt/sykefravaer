@@ -6,7 +6,8 @@ import * as actiontyper from '../actions/actiontyper';
 export function* bekreftAktivitetskrav() {
     yield put(actions.bekrefterAktivitetskrav());
     try {
-        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav`);
+        const url = `${process.env.REACT_APP_SYFOREST_ROOT}/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav`;
+        yield call(post, url);
         yield put(actions.aktivitetskravBekreftet());
     } catch (e) {
         log(e);

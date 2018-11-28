@@ -66,7 +66,7 @@ export class OppsummeringForm extends Component {
             { !visForskutteringssporsmal && <p className="js-mottaker sykepengerskjema__sendesTil">{mottaker(sendesTil, sykepengesoknad)}</p> }
             <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
                 <Link
-                    to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
+                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
                     className="knapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
                 </Link>
                 <Hovedknapp

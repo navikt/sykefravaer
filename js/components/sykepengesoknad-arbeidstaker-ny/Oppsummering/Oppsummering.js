@@ -80,7 +80,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
-                to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
+                to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
             <Hovedknapp className="js-send" spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
         </Knapperad>

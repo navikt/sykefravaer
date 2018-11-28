@@ -23,7 +23,7 @@ const { UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
 export const FoerDuBegynnerSkjema = (props) => {
     const { handleSubmit, sykepengesoknad } = props;
     const onSubmit = () => {
-        history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
+        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
     };
     return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
         <div className="panel">

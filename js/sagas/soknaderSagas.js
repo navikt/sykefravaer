@@ -32,7 +32,7 @@ import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import { toggleNyArbeidstakerSoknad } from '../selectors/unleashTogglesSelectors';
 
 const gaTilKvittering = (soknadId) => {
-    browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
+    browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknadId}/kvittering`);
 };
 
 export function* oppdaterSoknader() {
@@ -125,7 +125,7 @@ export function* oppdaterSporsmal(action) {
 }
 
 const gaTilSkjemaUtland = (soknadUtlandId) => {
-    browserHistory.push(`/sykefravaer/soknader/${soknadUtlandId}`);
+    browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknadUtlandId}`);
 };
 
 export function* opprettSoknadUtland() {
@@ -151,7 +151,7 @@ export function* opprettUtkastTilKorrigering(action) {
     try {
         const data = yield call(post, `${hentApiUrl()}/soknader/${action.sykepengesoknadsId}/korriger`);
         yield put(actions.korrigeringOpprettet(data));
-        browserHistory.push(`/sykefravaer/soknader/${data.id}`);
+        browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${data.id}`);
     } catch (e) {
         log(e);
         logger.error(`Kunne ikke opprette utkast til korrigering. URL: ${window.location.href} - ${e.message}`);

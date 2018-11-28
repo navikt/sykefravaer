@@ -8,7 +8,7 @@ import { NY } from '../../enums/soknadstatuser';
 const TidligSoknad = ({ soknad }) => {
     const now = new Date();
     return soknad.status === NY && soknad.tom > now ? (<div className="panel panel--komprimert blokk">
-        <IllustrertInnhold ikon="/sykefravaer/img/svg/snomannen.svg" ikonAlt="Tidlig søknad">
+        <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/snomannen.svg`} ikonAlt="Tidlig søknad">
             <p className="sykepenger__tidligSoknad">{getLedetekst('sykepengesoknad.tidlig-soknad')}</p>
         </IllustrertInnhold>
     </div>) : null;

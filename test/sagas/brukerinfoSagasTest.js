@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { get, getAjax } from 'digisyfo-npm';
 import { put, call, select } from 'redux-saga/effects';
 import { hentBrukerinfo, sjekkInnlogging } from '../../js/sagas/brukerinfoSagas';
-import { skalHenteBrukerinfo } from '../../js/selectors/brukerinfoSelectors';
+import { skalHenteBrukerinfoSelector } from '../../js/selectors/brukerinfoSelectors';
 import { henterBrukerinfo, setBrukerinfo, setErInnlogget, sjekkerInnlogging } from '../../js/actions/brukerinfo_actions';
 
 describe('brukerinfoSagas', () => {
@@ -10,7 +10,7 @@ describe('brukerinfoSagas', () => {
         const generator = hentBrukerinfo();
 
         it('Skal sjekke om get skal utføres', () => {
-            const nextSelect = select(skalHenteBrukerinfo);
+            const nextSelect = select(skalHenteBrukerinfoSelector);
             expect(generator.next().value).to.deep.equal(nextSelect);
         });
 

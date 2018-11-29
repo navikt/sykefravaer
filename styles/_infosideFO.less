@@ -3,8 +3,7 @@
 
     &--innhold {
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
+        flex-direction: column;
         justify-content: space-between;
         padding: 0.4rem;
     }
@@ -15,143 +14,139 @@
 
     &--knapp {
         padding: 0.5rem;
+        margin-top: 1rem;
     }
 
 }
 
+.infoside-fo__brodsmuler--wrapper {
+    margin-top: 1rem !important;
+}
 
-.infoside-fo {
-
-    .brodsmuler {
-        max-width: 42rem;
-        margin: 1rem 2rem 3rem 2rem;
-    }
+.infoside-fo__rad {
 
     .begrensning {
-        margin: 0 1rem;
+        padding: 0 1rem;
     }
 
     .nav-veilederpanel__illustrasjon {
         height: 100%;
     }
+}
 
-    .info-boks__illustrasjon{
-        height: 115px;
-        margin-bottom: 0.5rem;
-    }
+.infoside-fo__info-bokser {
+    display: flex;
+    flex-direction: column;
 
-    .sidebanner {
-        margin-bottom: 0;
-    }
+    .infoside-fo__info-boks {
+        flex-basis: 0;
+        flex-grow: 1;
 
-    .sidebanner__innhold {
-        min-height: 9rem;
-    }
-
-    .sidebanner__tittel {
-        margin-top: 2rem;
-    }
-
-    .info-bokser {
-        display: flex;
-        flex-direction: column;
-
-        .info-boks {
-            flex-basis: 0;
-            flex-grow: 1;
-
-            &:nth-child(odd) {
-                margin-bottom: 2rem;
-            }
-
-            &:nth-child(even) {
-                margin-top: 2rem;
-            }
-
+        .info-boks__illustrasjon{
+            height: 115px;
+            margin-bottom: 0.5rem;
         }
 
-    }
-
-    .infoside-fo__alertstripe + .sidetopp {
-        margin-top: 4rem !important;
-    }
-
-    header + .rad {
-        padding-top: 0;
-    }
-
-    .rad {
-        padding: 4rem 0;
-
-        &.rad--hvit {
-            background-color: @white;
+        &:nth-child(odd) {
+            margin-bottom: 2rem;
         }
 
-        &.rad--graa {
-            background-color: transparent;
-        }
-
-    }
-
-    .knapperad {
-        display: flex;
-        flex-direction: column;
-
-        & > .knapp {
-            flex-grow: 1;
-            margin: 1rem 0;
+        &:nth-child(even) {
+            margin-top: 2rem;
         }
 
     }
 
 }
 
+.infoside-fo__alertstripe + .sidetopp {
+    margin-top: 4rem;
+}
+
+header + .infoside-fo__rad {
+    padding-top: 0;
+}
+
+.infoside-fo__rad {
+    padding: 4rem 0;
+
+    &.infoside-fo__rad--hvit {
+        background-color: @white;
+    }
+
+    &.infoside-fo__rad--graa {
+        background-color: transparent;
+    }
+
+}
+
+.infoside-fo__knapperad {
+    display: flex;
+    flex-direction: column;
+
+    & > .knapp {
+        flex-grow: 1;
+        margin: 0.5rem 0;
+    }
+
+}
+
+
 @media (min-width: @skjermLiten) {
 
-    .infoside-fo {
+    .infoside-fo__alertstripe {
 
-        .brodsmuler {
-            margin: 1rem auto 3rem;
+        &--innhold {
+            flex-direction: row;
+            flex-wrap: nowrap;
         }
 
+        &--knapp {
+            margin-top: 0;
+        }
+
+    }
+
+    .infoside-fo__rad {
+
         .begrensning {
-            margin: 0 auto;
+            padding: 0;
         }
 
         .nav-veileder__frame.nav-veileder__frame--s {
             margin-top: 4rem;
         }
+    }
 
-        .info-bokser {
-            flex-direction: row;
+    .infoside-fo__info-bokser {
+        flex-direction: row;
 
-            .info-boks {
+        .infoside-fo__info-boks {
 
-                &:nth-child(odd) {
-                    margin: 0 1rem 0 0;
-                }
-
-                &:nth-child(even) {
-                    margin: 0 0 0 1rem;
-                }
-
+            &:nth-child(odd) {
+                margin: 0 1rem 0 0;
             }
+
+            &:nth-child(even) {
+                margin: 0 0 0 1rem;
+            }
+
         }
+    }
 
-        .knapperad {
-            flex-direction: row !important;
 
-            .knapp {
-                flex-grow: 1;
+    .infoside-fo__knapperad {
+        flex-direction: row !important;
 
-                &:nth-child(odd) {
-                    margin: 0 .5rem 0 0;
-                }
+        .knapp {
+            flex-grow: 1;
 
-                &:nth-child(even) {
-                    margin: 0 0 0 .5rem;
-                }
+            &:nth-child(odd) {
+                margin: 0 .5rem 0 0;
+            }
 
+            &:nth-child(even) {
+                margin: 0 0 0 .5rem;
             }
 
         }

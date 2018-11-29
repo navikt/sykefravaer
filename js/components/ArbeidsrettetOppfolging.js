@@ -18,18 +18,20 @@ const ArbeidsrettetOppfolging = () => {
         sti: '/oppfolgingsplaner',
     }];
 
-    const harOppfolgingsFlagg = false;
+    const harOppfolgingsFlagg = true;
 
     return (
-        <div className="infoside-fo">
-            <Brodsmuler brodsmuler={brodsmuler} />
+        <React.Fragment>
+            <div className="infoside-fo__brodsmuler--wrapper begrensning">
+                <Brodsmuler brodsmuler={brodsmuler} />
+            </div>
             { harOppfolgingsFlagg ? <HarAlleredeOppfolgingAlertstripe /> : null }
             <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
             <VeilederRad />
             <KommunikasjonRad />
             <AapRad />
             { !harOppfolgingsFlagg ? <TrengerMerVeiledningRad /> : null }
-        </div>
+        </React.Fragment>
     );
 };
 
@@ -52,7 +54,7 @@ const VeilederRad = () => {
     const veilederpanelKompakt = window.matchMedia('(min-width: 768px)').matches;
     const veilederpanelType = veilederpanelKompakt ? 'normal' : 'plakat';
     return (
-        <div className="rad rad--graa">
+        <div className="infoside-fo__rad infoside-fo__rad--graa">
             <div className="begrensning">
                 <Veilederpanel
                     svg={<img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/veileder-mann.svg`} alt="Veileder" className="nav-veilederpanel__illustrasjon" />}
@@ -75,14 +77,14 @@ const VeilederRad = () => {
 
 const KommunikasjonRad = () => {
     return (
-        <div className="rad rad--hvit">
-            <div className="begrensning info-bokser">
-                <div className="info-boks">
+        <div className="infoside-fo__rad infoside-fo__rad--hvit">
+            <div className="begrensning infoside-fo__info-bokser">
+                <div className="infoside-fo__info-boks">
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/kontakt-arbeidsgiver.svg`} alt="" className="info-boks__illustrasjon" />
                     <Undertittel className="blokk-s">{getLedetekst('infoside-fo.kontakt-overskrift')}</Undertittel>
                     <Normaltekst>{getLedetekst('infoside-fo.kontakt-tekst')}</Normaltekst>
                 </div>
-                <div className="info-boks">
+                <div className="infoside-fo__info-boks">
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/mer-veiledning.svg`} alt="" className="info-boks__illustrasjon" />
                     <Undertittel className="blokk-s">{getLedetekst('infoside-fo.aktivitetsplan-overskrift')}</Undertittel>
                     <Normaltekst>{getLedetekst('infoside-fo.aktivitetsplan-tekst')}</Normaltekst>
@@ -94,7 +96,7 @@ const KommunikasjonRad = () => {
 
 const AapRad = () => {
     return (
-        <div className="rad rad--graa">
+        <div className="infoside-fo__rad infoside-fo__rad--graa">
             <div className="begrensning">
                 <Undertittel className="blokk-m">{getLedetekst('infoside-fo.dinokonomi.tittel')}</Undertittel>
                 <Element className="blokk-xxs">{getLedetekst('infoside-fo.stotte-overskrift')}</Element>
@@ -121,11 +123,11 @@ const handleJaBtnClicked = () => {
 
 const TrengerMerVeiledningRad = () => {
     return (
-        <div className="rad rad--hvit">
+        <div className="infoside-fo__rad infoside-fo__rad--hvit">
             <div className="begrensning">
                 <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning-overskrift')}</Undertittel>
-                <Normaltekst>{getLedetekst('infoside-fo.veiledning-tekst')}</Normaltekst>
-                <div className="knapperad">
+                <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning-tekst')}</Normaltekst>
+                <div className="infoside-fo__knapperad">
                     <Knapp onClick={handleNeiBtnClicked}>
                         {getLedetekst('infoside-fo.knapp-nei')}
                     </Knapp>

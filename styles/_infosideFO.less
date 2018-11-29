@@ -1,3 +1,25 @@
+.infoside-fo__alertstripe {
+    margin-bottom: 2rem !important;
+
+    &--innhold {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: 0.4rem;
+    }
+
+    &--tekst {
+        margin: auto 0;
+    }
+
+    &--knapp {
+        padding: 0.5rem;
+    }
+
+}
+
+
 .infoside-fo {
 
     .brodsmuler {
@@ -14,7 +36,8 @@
     }
 
     .info-boks__illustrasjon{
-        width: 80%;
+        height: 115px;
+        margin-bottom: 0.5rem;
     }
 
     .sidebanner {
@@ -37,10 +60,6 @@
             flex-basis: 0;
             flex-grow: 1;
 
-            &__aktivitetsplan--overskrift {
-                margin-bottom: 2.3rem;
-            }
-
             &:nth-child(odd) {
                 margin-bottom: 2rem;
             }
@@ -53,12 +72,16 @@
 
     }
 
+    .infoside-fo__alertstripe + .sidetopp {
+        margin-top: 4rem !important;
+    }
+
+    header + .rad {
+        padding-top: 0;
+    }
+
     .rad {
         padding: 4rem 0;
-
-        &:nth-child(3) {
-            padding-top: 0;
-        }
 
         &.rad--hvit {
             background-color: @white;
@@ -96,7 +119,7 @@
         }
 
         .nav-veileder__frame.nav-veileder__frame--s {
-            margin-top: 5rem;
+            margin-top: 4rem;
         }
 
         .info-bokser {

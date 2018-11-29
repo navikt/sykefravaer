@@ -1,5 +1,7 @@
 import React from 'react';
 import { getHtmlLedetekst, getLedetekst, Utvidbar } from 'digisyfo-npm';
+import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import Alertstripe from 'nav-frontend-alertstriper';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import history from '../history';
@@ -15,14 +17,33 @@ const ArbeidsrettetOppfolging = () => {
         tittel: getLedetekst('infoside-fo.sidetittel'),
         sti: '/oppfolgingsplaner',
     }];
+
+    const harOppfolgingsFlagg = false;
+
     return (
         <div className="infoside-fo">
             <Brodsmuler brodsmuler={brodsmuler} />
+            { harOppfolgingsFlagg ? <HarAlleredeOppfolgingAlertstripe /> : null }
             <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
             <VeilederRad />
             <KommunikasjonRad />
             <AapRad />
-            <TrengerMerVeiledningRad />
+            { !harOppfolgingsFlagg ? <TrengerMerVeiledningRad /> : null }
+        </div>
+    );
+};
+
+const HarAlleredeOppfolgingAlertstripe = () => {
+    return (
+        <div className="begrensning infoside-fo__alertstripe">
+            <Alertstripe type="suksess">
+                <div className="infoside-fo__alertstripe--innhold">
+                    <Normaltekst className="infoside-fo__alertstripe--tekst">{'Du har allerede bedt om mer veiledning fra NAV.'}</Normaltekst>
+                    <a className="knapp knapp--hoved infoside-fo__alertstripe--knapp" href="/veientilarbeid">
+                        {'Gå til oppfølging'}
+                    </a>
+                </div>
+            </Alertstripe>
         </div>
     );
 };
@@ -39,9 +60,12 @@ const VeilederRad = () => {
                     kompakt={veilederpanelKompakt}
                 >
                     <div>
-                        <h2>{getLedetekst('infoside-fo.intro-overskrift', { '%NAVN%': 'Kari' })}</h2>
-                        <div dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro-tekst',
-                            { '%FRA_DATO%': 'FRA_DATO', '%TIL_DATO%': 'TIL_DATO' })} />
+                        <Systemtittel className="blokk-xs">{getLedetekst('infoside-fo.intro-overskrift', { '%NAVN%': 'Kari' })}</Systemtittel>
+                        <div
+                            className="typo-normal"
+                            dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro-tekst',
+                                { '%FRA_DATO%': '01.01.1970', '%TIL_DATO%': '01.01.1970' })}
+                        />
                     </div>
                 </Veilederpanel>
             </div>
@@ -55,13 +79,13 @@ const KommunikasjonRad = () => {
             <div className="begrensning info-bokser">
                 <div className="info-boks">
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/kontakt-arbeidsgiver.svg`} alt="" className="info-boks__illustrasjon" />
-                    <h2>{getLedetekst('infoside-fo.kontakt-overskrift')}</h2>
-                    <p>{getLedetekst('infoside-fo.kontakt-tekst')}</p>
+                    <Undertittel className="blokk-s">{getLedetekst('infoside-fo.kontakt-overskrift')}</Undertittel>
+                    <Normaltekst>{getLedetekst('infoside-fo.kontakt-tekst')}</Normaltekst>
                 </div>
                 <div className="info-boks">
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/mer-veiledning.svg`} alt="" className="info-boks__illustrasjon" />
-                    <h2 className="info-boks__aktivitetsplan--overskrift">{getLedetekst('infoside-fo.aktivitetsplan-overskrift')}</h2>
-                    <p>{getLedetekst('infoside-fo.aktivitetsplan-tekst')}</p>
+                    <Undertittel className="blokk-s">{getLedetekst('infoside-fo.aktivitetsplan-overskrift')}</Undertittel>
+                    <Normaltekst>{getLedetekst('infoside-fo.aktivitetsplan-tekst')}</Normaltekst>
                 </div>
             </div>
         </div>
@@ -72,35 +96,35 @@ const AapRad = () => {
     return (
         <div className="rad rad--graa">
             <div className="begrensning">
-                <h3>{getLedetekst('infoside-fo.dinokonomi.tittel')}</h3>
-                <h4>{getLedetekst('infoside-fo.stotte-overskrift')}</h4>
-                <p>{getLedetekst('infoside-fo.stotte-tekst')}</p>
-                <Utvidbar tittel={getLedetekst('infoside-fo.arbeidsavklaring-overskrift')}>
+                <Undertittel className="blokk-m">{getLedetekst('infoside-fo.dinokonomi.tittel')}</Undertittel>
+                <Element className="blokk-xxs">{getLedetekst('infoside-fo.stotte-overskrift')}</Element>
+                <Normaltekst className="blokk-s">{getLedetekst('infoside-fo.stotte-tekst')}</Normaltekst>
+                <Utvidbar className="blokk-s" tittel={getLedetekst('infoside-fo.arbeidsavklaring-overskrift')}>
                     <div dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.arbeidsavklaring-tekst')} />
                 </Utvidbar>
-                <h4>{getLedetekst('infoside-fo.forsikring-overskrift')}</h4>
-                <p>{getLedetekst('infoside-fo.forsikring-tekst')}</p>
+                <Element className="blokk-xxs">{getLedetekst('infoside-fo.forsikring-overskrift')}</Element>
+                <Normaltekst>{getLedetekst('infoside-fo.forsikring-tekst')}</Normaltekst>
             </div>
         </div>
     );
 };
 
 const handleNeiBtnClicked = () => {
-    // TODO: Fjern dialog
+    // TODO: Legg til API-kall for å registrere knappetrykk
     history.push('/sykefravaer');
 };
 
 const handleJaBtnClicked = () => {
-    // TODO: Fjern dialog
-    history.push('/arbeidssokerregistrering');
+    // TODO: Legg til API-kall for å registrere knappetrykk
+    window.location.href = '/arbeidssokerregistrering';
 };
 
 const TrengerMerVeiledningRad = () => {
     return (
         <div className="rad rad--hvit">
             <div className="begrensning">
-                <h3>{getLedetekst('infoside-fo.veiledning-overskrift')}</h3>
-                <p>{getLedetekst('infoside-fo.veiledning-tekst')}</p>
+                <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning-overskrift')}</Undertittel>
+                <Normaltekst>{getLedetekst('infoside-fo.veiledning-tekst')}</Normaltekst>
                 <div className="knapperad">
                     <Knapp onClick={handleNeiBtnClicked}>
                         {getLedetekst('infoside-fo.knapp-nei')}

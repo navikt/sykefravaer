@@ -43,7 +43,7 @@ setPerformOnOppDialogHttpCalls(() => {
     store.dispatch(forlengInnloggetSesjon());
 });
 
-window.alert("Helge tester litt -- 1");
+window.alert('Helge tester litt -- 1');
 
 setInterval(() => {
     store.dispatch(sjekkInnloggingssesjon());

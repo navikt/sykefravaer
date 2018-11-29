@@ -14,6 +14,7 @@ import { Vis } from '../../utils';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import OsloMetUndersokelse from './OsloMetUndersokelse';
 import Sidebanner from '../Sidebanner';
+import { toggleErPaaHeroku } from '../../toggles';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -68,7 +69,10 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     render={() => {
                         return (<Peker
                             ekstern
-                            to={`${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`}
+                            to={toggleErPaaHeroku()
+                                ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
+                                : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`
+                            }
                             ikon="oppfolgingsplaner"
                             ikonAlt="Oppfølgingsplaner"
                             tittel="Oppfølgingsplaner"

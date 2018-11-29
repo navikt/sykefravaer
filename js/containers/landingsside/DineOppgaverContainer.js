@@ -16,6 +16,7 @@ import { NY } from '../../enums/soknadstatuser';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
+import { toggleErPaaHeroku } from '../../toggles';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -105,7 +106,9 @@ const RendreOppgaver = (
         return null;
     }
 
-    const OPPFOLGINGSPLANER_URL = `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
+    const OPPFOLGINGSPLANER_URL = toggleErPaaHeroku()
+        ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
+        : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 
     return (<div className="landingspanel dineOppgaver">
         <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/oppgaver.svg`} ikonAlt="Oppgaver">

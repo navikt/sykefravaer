@@ -14,7 +14,7 @@ fs.writeFile('./settings.json', JSON.stringify({
     }
 });
 
-childProcess.exec('webpack -p --config webpack.production.config.js --env.timestamp=' + timestamp, (error, stdout, stderr) => {
+childProcess.exec('webpack -p --config webpack.production.config.js', (error, stdout, stderr) => {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
     if (error !== null) {

@@ -99,6 +99,11 @@ function mockTekster(server) {
 }
 
 function mockEndepunkterSomEndrerState(server) {
+    server.post('/syforest/naermesteledere/:id/actions/avkreft', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({}));
+    });
+
     server.post('/syfoapi/syfosoknad/api/opprettSoknadUtland', (req, res) => {
         if (!mockData.soknader.find((soknad) => {
             return soknad.id === mockData[NY_SOKNAD_UTLAND].id;

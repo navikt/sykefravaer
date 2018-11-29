@@ -1,33 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 import Feilstripe from '../Feilstripe';
 
-export class LederAvkreftet extends Component {
-    componentDidMount() {
-        this.lukk.focus();
-    }
-
-    render() {
-        const { onLukk } = this.props;
-        return (<div>
-            <p className="hode hode--suksess">Lederen er avkreftet!</p>
-            <div className="knapperad">
-                <Knapp
-                    ref={(c) => {
-                        this.lukk = c;
-                    }}
-                    className="js-lukk"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onLukk();
-                    }}>Lukk</Knapp>
-            </div>
-        </div>);
-    }
-}
+export const LederAvkreftet = ({ onLukk }) => {
+    return (<div>
+        <h3 className="hode hode--suksess panel__tittel">Lederen er avkreftet!</h3>
+        <div className="knapperad">
+            <Knapp
+                className="knapp js-lukk"
+                onClick={(e) => {
+                    e.preventDefault();
+                    onLukk();
+                }}>Lukk</Knapp>
+        </div>
+    </div>);
+};
 
 LederAvkreftet.propTypes = {
     onLukk: PropTypes.func,

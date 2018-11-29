@@ -7,7 +7,7 @@ import Feilstripe from '../Feilstripe';
 
 export const LederAvkreftet = ({ onLukk }) => {
     return (<div>
-        <h3 className="hode hode--suksess panel__tittel">Lederen er avkreftet!</h3>
+        <h3 className="hode hode--suksess panel__tittel">{getLedetekst('sykefravaer.endre-naermeste-leder.kvittering.tittel')}</h3>
         <div className="knapperad">
             <Knapp
                 className="knapp js-lukk"

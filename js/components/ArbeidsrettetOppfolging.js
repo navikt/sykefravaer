@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getHtmlLedetekst, getLedetekst, Utvidbar } from 'digisyfo-npm';
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import Alertstripe from 'nav-frontend-alertstriper';
@@ -8,7 +9,7 @@ import history from '../history';
 import Sidetopp from './Sidetopp';
 import Brodsmuler from './Brodsmuler';
 
-const ArbeidsrettetOppfolging = () => {
+const ArbeidsrettetOppfolging = ({ underOppfolging }) => {
     const brodsmuler = [{
         tittel: getLedetekst('landingsside.sidetittel'),
         sti: '/',
@@ -17,22 +18,23 @@ const ArbeidsrettetOppfolging = () => {
         tittel: getLedetekst('infoside-fo.sidetittel'),
         sti: '',
     }];
-
-    const harOppfolgingsFlagg = true;
-
     return (
         <React.Fragment>
             <div className="infoside-fo__brodsmuler--wrapper begrensning">
                 <Brodsmuler brodsmuler={brodsmuler} />
             </div>
-            { harOppfolgingsFlagg ? <HarAlleredeOppfolgingAlertstripe /> : null }
+            { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
             <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
             <VeilederRad />
             <KommunikasjonRad />
             <AapRad />
-            { !harOppfolgingsFlagg ? <TrengerMerVeiledningRad /> : null }
+            { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
         </React.Fragment>
     );
+};
+
+ArbeidsrettetOppfolging.propTypes = {
+    underOppfolging: PropTypes.bool,
 };
 
 const HarAlleredeOppfolgingAlertstripe = () => {
@@ -40,9 +42,9 @@ const HarAlleredeOppfolgingAlertstripe = () => {
         <div className="begrensning infoside-fo__alertstripe">
             <Alertstripe type="suksess">
                 <div className="infoside-fo__alertstripe--innhold">
-                    <Normaltekst className="infoside-fo__alertstripe--tekst">{'Du har allerede bedt om mer veiledning fra NAV.'}</Normaltekst>
+                    <Normaltekst className="infoside-fo__alertstripe--tekst">{getLedetekst('infoside-fo.alertstripe-tekst')}</Normaltekst>
                     <a className="knapp knapp--hoved infoside-fo__alertstripe--knapp" href="/veientilarbeid">
-                        {'Gå til oppfølging'}
+                        {getLedetekst('infoside-fo.alertstripe-knapp-tekst')}
                     </a>
                 </div>
             </Alertstripe>

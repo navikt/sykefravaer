@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { setLedetekster } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { mapStateToProps, DineOppgaver } from '../../../js/containers/landingsside/DineOppgaverContainer';
+import { mapStateToProps, DineOppgaver, EksternLi } from '../../../js/containers/landingsside/DineOppgaverContainer';
 import {
     moteBekreftet,
     moteAvbrutt,
@@ -238,6 +238,8 @@ describe('DineOppgaverContainer', () => {
                 'dine-oppgaver.mote.svar': 'Svar på NAVs spørsmål om dialogmøte',
                 'dine-oppgaver.aktivitetskrav': 'Les hva du må gjøre for å innfri aktivitetskravet',
                 'sykefravaer.dineoppgaver.nyttMotebehovVarsel': 'Du har 1 ny forspørsel om behov for dialogmøte',
+                'dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall': 'Det er startet 1 oppfølgingsplan du er en del av',
+                'dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall': 'Du har 1 oppfølgingsplan som venter på godkjenning av deg.',
             });
         });
 
@@ -359,6 +361,32 @@ describe('DineOppgaverContainer', () => {
                     nyePlaner={[]} />);
                 expect(component.find(Link).at(0).prop('to')).to.equal('/sykefravaer/aktivitetsplikt/');
                 expect(component.find(Link).at(0).text()).to.equal('Les hva du må gjøre for å innfri aktivitetskravet');
+            });
+
+            it('Skal vise lenke til oppfølgingsplan hvis det er kommet nye planer', () => {
+                component = mount(<DineOppgaver
+                    sykmeldingerHentet
+                    oppfolgingsdialogerHentet
+                    hendelserHentet
+                    visOppgaver
+                    mote={null}
+                    avventendeGodkjenninger={[]}
+                    nyePlaner={[{ plan: 'test' }]} />);
+                expect(component.find(EksternLi).at(0).prop('url')).to.equal('/oppfolgingsplan/oppfolgingsplaner');
+                expect(component.find(EksternLi).at(0).text()).to.equal('Det er startet 1 oppfølgingsplan du er en del av');
+            });
+
+            it('Skal vise lenke til oppfølgingsplan hvis det er avventende godkjenninger', () => {
+                component = mount(<DineOppgaver
+                    sykmeldingerHentet
+                    oppfolgingsdialogerHentet
+                    hendelserHentet
+                    visOppgaver
+                    mote={null}
+                    avventendeGodkjenninger={[{ plan: 'test' }]}
+                    nyePlaner={[]} />);
+                expect(component.find(EksternLi).at(0).prop('url')).to.equal('/oppfolgingsplan/oppfolgingsplaner');
+                expect(component.find(EksternLi).at(0).text()).to.equal('Du har 1 oppfølgingsplan som venter på godkjenning av deg.');
             });
         });
     });

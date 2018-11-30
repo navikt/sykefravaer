@@ -1,4 +1,5 @@
 import React from 'react';
+import { toggleErPaaHeroku } from '../../../toggles';
 
 /* eslint-disable max-len */
 export const TEKSTER = {
@@ -29,7 +30,9 @@ export const TekstInformasjonInnhold = () => {
             <li>
                 {TEKSTER.forDuSvarer.ikkeLagetPlan} <a
                     className="lenke"
-                    href={`${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`}>
+                    href={toggleErPaaHeroku()
+                        ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
+                        : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`}>
                     {TEKSTER.tekstInformasjonInnhold.lenke}
                 </a>
             </li>

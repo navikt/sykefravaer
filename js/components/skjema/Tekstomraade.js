@@ -5,14 +5,16 @@ import Feilmelding from './Feilmelding';
 
 const Tekstomraade = (props) => {
     const { meta, className, input, id } = props;
-    return (<div>
+    return (<div className="skjemaelement">
         <textarea
+            className={`skjemaelement__input ${className}${meta.touched && meta.error ? ' skjemaelement__input--harFeil' : ''}`}
+            {...input}
+            value={input.value}
             autoComplete="off"
             placeholder={props.placeholder}
             id={id}
-            className={`${className}${meta.touched && meta.error ? ' input--feil' : ''}`}
-            {...input}
-            value={input.value} />
+            rows={props.rows}
+        />
         <Feilmelding {...meta} />
     </div>);
 };
@@ -20,6 +22,7 @@ const Tekstomraade = (props) => {
 Tekstomraade.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string,
+    rows: PropTypes.string,
     input: fieldPropTypes.input,
     className: PropTypes.string,
     placeholder: PropTypes.string,

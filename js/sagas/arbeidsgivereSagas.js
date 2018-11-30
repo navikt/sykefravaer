@@ -1,17 +1,24 @@
-import { call, put, fork, takeEvery } from 'redux-saga/effects';
+import { call, put, fork, takeEvery, select } from 'redux-saga/effects';
 import { get, log } from 'digisyfo-npm';
 import * as actions from '../actions/dineArbeidsgivere_actions';
 import * as actiontyper from '../actions/actiontyper';
 
+export const skalHenteArbeidsgivere = (state, sykmeldingId) => {
+    return state.arbeidsgivere.sykmeldingId !== sykmeldingId;
+};
+
 export function* hentDineArbeidsgivere(action) {
     const sykmeldingId = action.sykmeldingId;
-    yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));
-    try {
-        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
-        yield put(actions.aktuelleArbeidsgivereHentet(sykmeldingId, data));
-    } catch (e) {
-        log(e);
-        yield put(actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId));
+    const skalHente = yield select(skalHenteArbeidsgivere, sykmeldingId);
+    if (skalHente) {
+        yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));
+        try {
+            const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
+            yield put(actions.aktuelleArbeidsgivereHentet(sykmeldingId, data));
+        } catch (e) {
+            log(e);
+            yield put(actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId));
+        }
     }
 }
 

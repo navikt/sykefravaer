@@ -84,7 +84,7 @@ describe('DinSykmeldingSkjema -', () => {
         expect(component.find(VelgArbeidssituasjon)).to.have.length(1);
     });
 
-    it('Skal vise info om utskrift dersom harStrengtFortroligAdresse = true', () => {
+    it('Skal vise info om utskrift dersom harStrengtFortroligAdresseSelector = true', () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
         component = getComponent(getState({
             valgtArbeidssituasjon: 'ARBEIDSTAKER',
@@ -92,7 +92,7 @@ describe('DinSykmeldingSkjema -', () => {
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
     });
 
-    it('Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = true', () => {
+    it('Skal ikke vise info om utskrift dersom harStrengtFortroligAdresseSelector = true', () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = false;
         component = getComponent(getState({
             valgtArbeidssituasjon: 'ARBEIDSTAKER',

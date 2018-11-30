@@ -266,7 +266,7 @@ export const mapStateToProps = (state, ownProps) => {
         return s.id === sykmelding.id;
     });
     const sporsmal = dinSykmelding ? dinSykmelding.sporsmal : null;
-    const harStrengtFortroligAdresse = brukerinfoSelectors.harStrengtFortroligAdresse(state);
+    const harStrengtFortroligAdresse = brukerinfoSelectors.harStrengtFortroligAdresseSelector(state);
     const values = getFormValues(getSykmeldingSkjemanavn(sykmelding.id))(state) || {};
     const valgtArbeidssituasjon = sporsmal
         ? sporsmal.arbeidssituasjon

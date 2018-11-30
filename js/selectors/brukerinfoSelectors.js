@@ -1,13 +1,13 @@
-export const harStrengtFortroligAdresse = (state) => {
+export const harStrengtFortroligAdresseSelector = (state) => {
     return state.brukerinfo.bruker.data.strengtFortroligAdresse;
 };
 
-export const skalHenteBrukerinfo = (state) => {
+export const skalHenteBrukerinfoSelector = (state) => {
     return !state.brukerinfo.bruker.henter
         && !state.brukerinfo.bruker.hentet;
 };
 
-export const skalHenteOppfolging = (state) => {
+export const skalHenteOppfolgingSelector = (state) => {
     return !state.brukerinfo.oppfolging.henter
         && !state.brukerinfo.oppfolging.hentet;
 };

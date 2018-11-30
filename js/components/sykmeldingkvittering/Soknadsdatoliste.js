@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sykepengesoknad as sykepengesoknadPt, getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 
-const sorterSoknader = (sykepengesoknader) => {
+export const sorterSoknaderEtterDatoTilgjengelig = (sykepengesoknader) => {
     return [...sykepengesoknader]
         .sort((a, b) => {
             return a.tom.getTime() - b.tom.getTime();
@@ -12,7 +12,7 @@ const sorterSoknader = (sykepengesoknader) => {
 const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
     return (<ul className="js-soknadsdatoliste">
         {
-            sorterSoknader(sykepengesoknader)
+            sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)
                 .map((s, index) => {
                     const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
                     return (<li key={index}>
@@ -35,16 +35,22 @@ const erstattSiste = (streng, finn, erstatning) => {
 };
 
 const tilKommaliste = (liste) => {
-    return liste.length <= 2
-        ? liste.join(' og ')
-        : erstattSiste(liste.join(', '), ', ', ' og ');
+    const datoStrenger = liste.map((s) => {
+        return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
+    });
+    return datoStrenger.length <= 2
+        ? datoStrenger.join(' og ')
+        : erstattSiste(datoStrenger.join(', '), ', ', ' og ');
+};
+
+export const soknadsdatoremseUtenForsteDato = (sykepengesoknader) => {
+    const datoer = [...sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)];
+    datoer.shift();
+    return datoer.length > 0 ? tilKommaliste(datoer) : null;
 };
 
 export const soknadsdatoremse = (sykepengesoknader) => {
-    const datoer = sorterSoknader(sykepengesoknader)
-        .map((s) => {
-            return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
-        });
+    const datoer = sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader);
     return tilKommaliste(datoer);
 };
 

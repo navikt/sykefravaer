@@ -4,7 +4,12 @@ import { getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as 
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import StandardSykmeldingkvittering from './StandardSykmeldingkvittering';
-import SokOmSykepengerSenereKvittering from './SokOmSykepengerSenereKvittering';
+import {
+    SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding,
+    SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding,
+    SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding,
+    SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding,
+} from './SokOmSykepengerSenereKvittering';
 import SokOmSykepengerNaaKvittering from './SokOmSykepengerNaaKvittering';
 import FrilanserMedPapirsoknadKvittering from './FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from './FrilanserUtenSoknadKvittering';
@@ -18,7 +23,10 @@ import { soknad as soknadPt } from '../../propTypes';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ',
-    KVITTERING_MED_SYKEPENGER_SOK_SENERE: 'KVITTERING_MED_SYKEPENGER_SØK_SENERE',
+    KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING',
+    KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING',
+    KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_KORT_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_KORT_SYKMELDING',
+    KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING',
     KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ_FRILANSER',
     KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER: 'KVITTERING_MED_SYKEPENGER_SØK_SENERE_FRILANSER',
     KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER: 'KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER',
@@ -59,55 +67,33 @@ const BekreftetKvittering = () => {
 
 const SykmeldingKvittering = (props) => {
     const { kvitteringtype, sykepengesoknader, soknader } = props;
+    /* eslint-disable max-len */
+    const kvitteringMap = {
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING]: SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING]: SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING]: SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_KORT_SYKMELDING]: SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA]: SokOmSykepengerNaaKvittering,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR]: FrilanserMedPapirsoknadKvittering,
+        [kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE]: FrilanserUtenSoknadKvittering,
+        [kvitteringtyper.AVBRUTT_SYKMELDING]: AvbruttKvittering,
+        [kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD]: SendtSykmeldingMedPapirSoknadKvittering,
+        [kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER]: ArbeidstakerBekreftetSykmeldingKvittering,
+        [kvitteringtyper.STRENGT_FORTROLIG_ADRESSE]: StrengtFortroligAdresseKvittering,
+        [kvitteringtyper.BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER]: BekreftetKvittering,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER]: FrilanserSoekDigitaltSenere,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER]: FrilanserSoekDigitaltNaa,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER]: FrilanserSoekDigitaltFeil,
+        [kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG]: AnnetArbeidsledigKvittering,
+    };
+    /* eslint-enable max-len */
+    const Component = kvitteringMap[kvitteringtype];
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.hva-naa')} />
         {
-            (() => {
-                switch (kvitteringtype) {
-                    case kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE: {
-                        return <SokOmSykepengerSenereKvittering sykepengesoknader={sykepengesoknader} />;
-                    }
-                    case kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA: {
-                        return <SokOmSykepengerNaaKvittering />;
-                    }
-                    case kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR: {
-                        return <FrilanserMedPapirsoknadKvittering />;
-                    }
-                    case kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE: {
-                        return <FrilanserUtenSoknadKvittering />;
-                    }
-                    case kvitteringtyper.AVBRUTT_SYKMELDING: {
-                        return <AvbruttKvittering />;
-                    }
-                    case kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD: {
-                        return <SendtSykmeldingMedPapirSoknadKvittering />;
-                    }
-                    case kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER: {
-                        return <ArbeidstakerBekreftetSykmeldingKvittering />;
-                    }
-                    case kvitteringtyper.STRENGT_FORTROLIG_ADRESSE: {
-                        return <StrengtFortroligAdresseKvittering />;
-                    }
-                    case kvitteringtyper.BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER: {
-                        return <BekreftetKvittering />;
-                    }
-                    case kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER: {
-                        return <FrilanserSoekDigitaltSenere soknader={soknader} />;
-                    }
-                    case kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER: {
-                        return <FrilanserSoekDigitaltNaa />;
-                    }
-                    case kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER: {
-                        return <FrilanserSoekDigitaltFeil />;
-                    }
-                    case kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: {
-                        return <AnnetArbeidsledigKvittering />;
-                    }
-                    default: {
-                        return <Feilmelding />;
-                    }
-                }
-            })()
+            Component
+                ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />
+                : <Feilmelding />
         }
         <LenkeTilDineSykmeldinger />
     </div>);

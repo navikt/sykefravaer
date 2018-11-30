@@ -90,12 +90,14 @@ const startServer = (html) => {
 
     if (env === 'opplaering') {
         require('./mock/mockEndepunkter').mockForOpplaeringsmiljo(server);
+        require('./mock/mockEndepunkter').mockPilotEndepunkterForOpplaeringsmiljo(server);
         require('./mock/mockEndepunkter').mockUnleashOpplaeringsmiljo(server);
     }
 
     if (env === 'local') {
         require('./mock/mockEndepunkter').mockForOpplaeringsmiljo(server);
         require('./mock/mockEndepunkter').mockEndepunkterSomEndrerState(server);
+        require('./mock/mockEndepunkter').mockPilotEndepunkterForLokalmiljo(server);
         require('./mock/mockEndepunkter').mockUnleashLokal(server);
     }
 

@@ -9,33 +9,6 @@ import history from '../history';
 import Sidetopp from './Sidetopp';
 import Brodsmuler from './Brodsmuler';
 
-const ArbeidsrettetOppfolging = ({ underOppfolging }) => {
-    const brodsmuler = [{
-        tittel: getLedetekst('landingsside.sidetittel'),
-        sti: '/',
-        erKlikkbar: true,
-    }, {
-        tittel: getLedetekst('infoside-fo.sidetittel'),
-        sti: '',
-    }];
-    return (
-        <React.Fragment>
-            <div className="infoside-fo__brodsmuler--wrapper begrensning">
-                <Brodsmuler brodsmuler={brodsmuler} />
-            </div>
-            { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
-            <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
-            <VeilederRad />
-            <KommunikasjonRad />
-            <AapRad />
-            { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
-        </React.Fragment>
-    );
-};
-
-ArbeidsrettetOppfolging.propTypes = {
-    underOppfolging: PropTypes.bool,
-};
 
 const HarAlleredeOppfolgingAlertstripe = () => {
     return (
@@ -140,6 +113,33 @@ const TrengerMerVeiledningRad = () => {
             </div>
         </div>
     );
+};
+
+const ArbeidsrettetOppfolging = ({ underOppfolging }) => {
+    const brodsmuler = [{
+        tittel: getLedetekst('landingsside.sidetittel'),
+        sti: '/',
+        erKlikkbar: true,
+    }, {
+        tittel: getLedetekst('infoside-fo.sidetittel'),
+    }];
+    return (
+        <React.Fragment>
+            <div className="infoside-fo__brodsmuler--wrapper begrensning">
+                <Brodsmuler brodsmuler={brodsmuler} />
+            </div>
+            { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
+            <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
+            <VeilederRad />
+            <KommunikasjonRad />
+            <AapRad />
+            { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
+        </React.Fragment>
+    );
+};
+
+ArbeidsrettetOppfolging.propTypes = {
+    underOppfolging: PropTypes.bool,
 };
 
 export default ArbeidsrettetOppfolging;

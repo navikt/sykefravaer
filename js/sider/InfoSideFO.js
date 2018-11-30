@@ -11,7 +11,9 @@ import { hentOppfolging } from '../actions/brukerinfo_actions';
 
 class InfoSideFO extends Component {
     componentWillMount() {
-        this.props.actions.hentOppfolging();
+        if (!this.props.hentetOppfolging) {
+            this.props.actions.hentOppfolging();
+        }
     }
     render() {
         const {
@@ -43,6 +45,7 @@ InfoSideFO.propTypes = {
     hentingLedeteksterFeilet: PropTypes.bool,
     henterOppfolging: PropTypes.bool,
     hentingOppfolgingFeilet: PropTypes.bool,
+    hentetOppfolging: PropTypes.bool,
     underOppfolging: PropTypes.bool,
     actions: PropTypes.shape({
         hentOppfolging: PropTypes.func,
@@ -55,6 +58,7 @@ export function mapStateToProps(state) {
         hentingLedeteksterFeilet: state.ledetekster.hentingFeilet,
         henterOppfolging: state.brukerinfo.oppfolging.henter,
         hentingOppfolgingFeilet: state.brukerinfo.oppfolging.hentingFeilet,
+        hentetOppfolging: state.brukerinfo.oppfolging.hentet,
         underOppfolging: state.brukerinfo.oppfolging.data.underOppfolging,
     };
 }

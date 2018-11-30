@@ -1,18 +1,18 @@
 .infoside-fo__alertstripe {
     margin-bottom: 2rem !important;
 
-    &--innhold {
+    .infoside-fo__alertstripe--innhold {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         padding: 0.4rem;
     }
 
-    &--tekst {
+    .infoside-fo__alertstripe--tekst {
         margin: auto 0;
     }
 
-    &--knapp {
+    .infoside-fo__alertstripe--knapp {
         padding: 0.5rem;
         margin-top: 1rem;
     }
@@ -46,15 +46,14 @@
             height: 115px;
             margin-bottom: 0.5rem;
         }
+    }
 
-        &:nth-child(odd) {
-            margin-bottom: 2rem;
-        }
+    .infoside-fo__info-boks:nth-child(odd) {
+        margin-bottom: 2rem;
+    }
 
-        &:nth-child(even) {
-            margin-top: 2rem;
-        }
-
+    .infoside-fo__info-boks:nth-child(even) {
+        margin-top: 2rem;
     }
 
 }
@@ -69,26 +68,24 @@ header + .infoside-fo__rad {
 
 .infoside-fo__rad {
     padding: 4rem 0;
+}
 
-    &.infoside-fo__rad--hvit {
-        background-color: @white;
-    }
+.infoside-fo__rad--hvit {
+    background-color: @white;
+}
 
-    &.infoside-fo__rad--graa {
-        background-color: transparent;
-    }
-
+.infoside-fo__rad--graa {
+    background-color: transparent;
 }
 
 .infoside-fo__knapperad {
     display: flex;
     flex-direction: column;
+}
 
-    & > .knapp {
-        flex-grow: 1;
-        margin: 0.5rem 0;
-    }
-
+.infoside-fo__knapperad > .knapp {
+    flex-grow: 1;
+    margin: 0.5rem 0;
 }
 
 
@@ -96,12 +93,12 @@ header + .infoside-fo__rad {
 
     .infoside-fo__alertstripe {
 
-        &--innhold {
+        .infoside-fo__alertstripe--innhold {
             flex-direction: row;
             flex-wrap: nowrap;
         }
 
-        &--knapp {
+        .infoside-fo__alertstripe--knapp {
             margin-top: 0;
         }
 
@@ -121,17 +118,14 @@ header + .infoside-fo__rad {
     .infoside-fo__info-bokser {
         flex-direction: row;
 
-        .infoside-fo__info-boks {
-
-            &:nth-child(odd) {
-                margin: 0 1rem 0 0;
-            }
-
-            &:nth-child(even) {
-                margin: 0 0 0 1rem;
-            }
-
+        .infoside-fo__info-boks:nth-child(odd) {
+            margin: 0 1rem 0 0;
         }
+
+        .infoside-fo__info-boks:nth-child(even) {
+            margin: 0 0 0 1rem;
+        }
+
     }
 
 
@@ -140,15 +134,14 @@ header + .infoside-fo__rad {
 
         .knapp {
             flex-grow: 1;
+        }
 
-            &:nth-child(odd) {
-                margin: 0 .5rem 0 0;
-            }
+        .knapp:nth-child(odd) {
+            margin: 0 .5rem 0 0;
+        }
 
-            &:nth-child(even) {
-                margin: 0 0 0 .5rem;
-            }
-
+        .knapp:nth-child(even) {
+            margin: 0 0 0 .5rem;
         }
 
     }

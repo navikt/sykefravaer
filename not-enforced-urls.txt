@@ -1,4 +1,2 @@
 https://${DomainName}/sykefravaer/img/*
 https://${DomainName}/sykefravaer/resources/*
-https://${DomainName}/sykefravaerarbeidsgiver/img/*
-https://${DomainName}/sykefravaerarbeidsgiver/resources/*

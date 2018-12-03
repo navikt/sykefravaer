@@ -207,13 +207,6 @@ function mockEndepunkterSomEndrerState(server) {
         mockData.soknader = mockData.soknader.filter(soknad => soknad.id !== req.params.id);
         res.send(JSON.stringify({}));
     });
-
-    server.post('/syfomotebehov/api/motebehov', (req, res) => {
-        const nyttMotebehov = req.body;
-
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(nyttMotebehov));
-    });
 }
 
 function mockForOpplaeringsmiljo(server) {
@@ -221,11 +214,6 @@ function mockForOpplaeringsmiljo(server) {
 
     server.use(express.json());
     server.use(express.urlencoded());
-
-    server.get('/syfomotebehov/api/motebehov', (req, res) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[MOTEBEHOV]));
-    });
 
     server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
@@ -421,6 +409,27 @@ function mockForOpplaeringsmiljo(server) {
     });
 }
 
+function mockPilotEndepunkterForLokalmiljo(server) {
+    server.get('/syfomotebehov/api/motebehov', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[MOTEBEHOV]));
+    });
+
+    server.post('/syfomotebehov/api/motebehov', (req, res) => {
+        const nyttMotebehov = req.body;
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(nyttMotebehov));
+    });
+}
+
+function mockPilotEndepunkterForOpplaeringsmiljo(server) {
+    server.get('/syfomotebehov/api/motebehov', (req, res) => {
+        res.status(403);
+        res.send();
+    });
+}
+
 function mockUnleashOpplaeringsmiljo(server) {
     server.post('/syfounleash/', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
@@ -445,4 +454,6 @@ module.exports = {
     mockEndepunkterSomEndrerState,
     mockUnleashOpplaeringsmiljo,
     mockUnleashLokal,
+    mockPilotEndepunkterForOpplaeringsmiljo,
+    mockPilotEndepunkterForLokalmiljo,
 };

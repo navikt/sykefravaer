@@ -1572,6 +1572,8 @@
 
     "infoside-fo.inngangstekst": "Oppfølging og ytelser etter 39 uker",
     "infoside-fo.sidetittel": "Mer veiledning fra NAV",
+    "infoside-fo.alertstripe-tekst": "Du har allerede bedt om mer veiledning fra NAV.",
+    "infoside-fo.alertstripe-knapp-tekst": "Gå til oppfølging",
     "infoside-fo.intro-overskrift": "Hei, %NAVN%",
     "infoside-fo.intro-tekst": "<p>Du har vært sykemeldt siden %FRA_DATO%. Du kan få sykepenger i maksimalt 52 uker. For deg betyr det at retten din går ut <strong>%TIL_DATO%</strong>.</p><p>Nå som retten til sykepenger nærmer seg slutten, ber vi deg lese informasjonen under og svare på om du trenger mer veiledning fra NAV enn det du får i dag.</p>",
     "infoside-fo.kontakt-overskrift": "Kontakt med arbeidsgiveren din",

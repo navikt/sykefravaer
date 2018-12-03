@@ -3,7 +3,7 @@ import { get, getAjax } from 'digisyfo-npm';
 import { put, call, select } from 'redux-saga/effects';
 import { hentBrukerinfo, sjekkInnlogging } from '../../js/sagas/brukerinfoSagas';
 import { skalHenteBrukerinfoSelector } from '../../js/selectors/brukerinfoSelectors';
-import { henterBrukerinfo, setBrukerinfo, setErInnlogget, sjekkerInnlogging } from '../../js/actions/brukerinfo_actions';
+import { henterBrukerinfo, brukerinfoHentet, setErInnlogget, sjekkerInnlogging } from '../../js/actions/brukerinfo_actions';
 
 describe('brukerinfoSagas', () => {
     describe('hentBrukerinfo', () => {
@@ -26,7 +26,7 @@ describe('brukerinfoSagas', () => {
         });
 
         it('Skal dernest sette brukerinfo', () => {
-            const nextPut = put(setBrukerinfo({
+            const nextPut = put(brukerinfoHentet({
                 navn: 'Ole Olsen',
             }));
             expect(generator.next({

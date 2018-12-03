@@ -1,5 +1,17 @@
 import { combineReducers } from 'redux';
 import * as actiontyper from '../actions/actiontyper';
+import { createReducer } from './createReducer';
+
+const { BRUKERINFO_HENTET,
+    HENT_BRUKERINFO_FEILET,
+    HENT_OPPFOLGING_FEILET,
+    HENTER_BRUKERINFO,
+    HENTER_OPPFOLGING,
+    OPPFOLGING_HENTET,
+    HENT_SYKMELDTINFODATA_FEILET,
+    HENTER_SYKMELDTINFODATA,
+    SYKMELDTINFODATA_HENTET,
+} = actiontyper;
 
 function innstillinger(state = {}, action = {}) {
     switch (action.type) {
@@ -15,13 +27,13 @@ function innstillinger(state = {}, action = {}) {
     }
 }
 
-const defaultState = {
-    erInnlogget: true,
-    henter: false,
-    hentingFeilet: false,
-};
-
-function innlogging(state = defaultState, action = {}) {
+function innlogging(
+    state = {
+        erInnlogget: true,
+        henter: false,
+        hentingFeilet: false,
+    },
+    action = {}) {
     switch (action.type) {
         case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
@@ -58,81 +70,16 @@ function innlogging(state = defaultState, action = {}) {
     }
 }
 
-function bruker(state = { data: {} }, action = {}) {
-    switch (action.type) {
-        case actiontyper.HENT_BRUKERINFO_FEILET: {
-            return {
-                ...state,
-                data: {},
-                henter: false,
-                hentingFeilet: true,
-                hentet: true,
-            };
-        }
-        case actiontyper.HENTER_BRUKERINFO: {
-            return {
-                data: {},
-                henter: true,
-                hentingFeilet: false,
-                hentet: false,
-            };
-        }
-        case actiontyper.SET_BRUKERINFO: {
-            const data = {
-                ...state.data,
-                ...action.data,
-            };
-            return {
-                ...state,
-                henter: false,
-                hentingFeilet: false,
-                hentet: true,
-                data,
-            };
-        }
-        default: {
-            return state;
-        }
-    }
-}
-
-function oppfolging(state = { data: {} }, action = {}) {
-    switch (action.type) {
-        case actiontyper.HENT_OPPFOLGING_FEILET: {
-            return {
-                data: {},
-                henter: false,
-                hentingFeilet: true,
-                hentet: true,
-            };
-        }
-        case actiontyper.HENTER_OPPFOLGING: {
-            return {
-                data: {},
-                henter: true,
-                hentingFeilet: false,
-                hentet: false,
-            };
-        }
-        case actiontyper.OPPFOLGING_HENTET: {
-            return {
-                henter: false,
-                hentingFeilet: false,
-                hentet: true,
-                data: action.data,
-            };
-        }
-        default: {
-            return state;
-        }
-    }
-}
+const bruker = createReducer(HENT_BRUKERINFO_FEILET, HENTER_BRUKERINFO, BRUKERINFO_HENTET);
+const oppfolging = createReducer(HENT_OPPFOLGING_FEILET, HENTER_OPPFOLGING, OPPFOLGING_HENTET);
+const sykmeldtinfodata = createReducer(HENT_SYKMELDTINFODATA_FEILET, HENTER_SYKMELDTINFODATA, SYKMELDTINFODATA_HENTET);
 
 const brukerinfo = combineReducers({
     bruker,
     innstillinger,
     innlogging,
     oppfolging,
+    sykmeldtinfodata,
 });
 
 export default brukerinfo;

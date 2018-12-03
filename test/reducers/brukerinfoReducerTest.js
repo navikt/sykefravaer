@@ -27,7 +27,7 @@ describe('brukerinfo', () => {
             innlogging: {},
         });
         const nextState = brukerinfo(initiellState, brukerinfoActions.hentBrukerinfoFeilet());
-        expect(nextState).to.deep.equal({
+        expect(nextState).to.deep.include({
             bruker: {
                 data: {},
                 hentingFeilet: true,
@@ -39,6 +39,9 @@ describe('brukerinfo', () => {
             oppfolging: {
                 data: {},
             },
+            sykmeldtinfodata: {
+                data: {},
+            },
         });
     });
 
@@ -48,7 +51,7 @@ describe('brukerinfo', () => {
             innlogging: {},
         });
         const nextState = brukerinfo(initiellState, brukerinfoActions.henterBrukerinfo());
-        expect(nextState).to.deep.equal({
+        expect(nextState).to.deep.include({
             bruker: {
                 henter: true,
                 hentingFeilet: false,
@@ -60,11 +63,14 @@ describe('brukerinfo', () => {
             oppfolging: {
                 data: {},
             },
+            sykmeldtinfodata: {
+                data: {},
+            },
         });
     });
 
-    it('Håndterer setBrukerinfo når brukerinfo ikke finnes fra før', () => {
-        const nextState = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
+    it('Håndterer brukerinfoHentet når brukerinfo ikke finnes fra før', () => {
+        const nextState = brukerinfo(initiellState, brukerinfoActions.brukerinfoHentet({
             navn: 'Helge',
             alder: 32,
         }));
@@ -81,7 +87,7 @@ describe('brukerinfo', () => {
         });
     });
 
-    it('Håndterer setBrukerinfo når brukerinfo finnes fra før (1)', () => {
+    it('Håndterer brukerinfoHentet når brukerinfo finnes fra før (1)', () => {
         initiellState = deepFreeze({
             bruker: {
                 data: {
@@ -92,7 +98,7 @@ describe('brukerinfo', () => {
                 hentet: true,
             },
         });
-        const nextState1 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
+        const nextState1 = brukerinfo(initiellState, brukerinfoActions.brukerinfoHentet({
             navn: 'Helge',
             alder: 32,
         }));
@@ -110,7 +116,7 @@ describe('brukerinfo', () => {
         });
     });
 
-    it('Håndterer setBrukerinfo når brukerinfo finnes fra før (2)', () => {
+    it('Håndterer brukerinfoHentet når brukerinfo finnes fra før (2)', () => {
         initiellState = deepFreeze({
             bruker: {
                 data: {},
@@ -119,7 +125,7 @@ describe('brukerinfo', () => {
                 hentet: true,
             },
         });
-        const nextState2 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
+        const nextState2 = brukerinfo(initiellState, brukerinfoActions.brukerinfoHentet({
             navn: 'Helge',
             alder: 32,
         }));
@@ -161,15 +167,10 @@ describe('brukerinfo', () => {
             },
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.sjekkerInnlogging());
-        expect(nyState).to.deep.equal({
+        expect(nyState).to.deep.include({
             innlogging: {
                 henter: true,
                 hentingFeilet: false,
-            },
-            bruker: {},
-            innstillinger: {},
-            oppfolging: {
-                data: {},
             },
         });
     });
@@ -186,16 +187,11 @@ describe('brukerinfo', () => {
             },
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.setErUtlogget());
-        expect(nyState).to.deep.equal({
+        expect(nyState).to.deep.include({
             innlogging: {
                 erInnlogget: false,
                 henter: false,
                 hentingFeilet: false,
-            },
-            bruker: {},
-            innstillinger: {},
-            oppfolging: {
-                data: {},
             },
         });
     });
@@ -206,16 +202,11 @@ describe('brukerinfo', () => {
             bruker: {},
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.setErInnlogget());
-        expect(nyState).to.deep.equal({
+        expect(nyState).to.deep.include({
             innlogging: {
                 erInnlogget: true,
                 henter: false,
                 hentingFeilet: false,
-            },
-            bruker: {},
-            innstillinger: {},
-            oppfolging: {
-                data: {},
             },
         });
     });
@@ -226,16 +217,11 @@ describe('brukerinfo', () => {
             bruker: {},
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.sjekkInnloggingFeilet());
-        expect(nyState).to.deep.equal({
+        expect(nyState).to.deep.include({
             innlogging: {
                 erInnlogget: false,
                 henter: false,
                 hentingFeilet: true,
-            },
-            bruker: {},
-            innstillinger: {},
-            oppfolging: {
-                data: {},
             },
         });
     });

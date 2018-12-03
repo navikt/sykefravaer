@@ -7,22 +7,16 @@ import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from '.
 const { SENDT, NY, BEKREFTET, TIL_SENDING } = sykmeldingstatuser;
 
 const ETT_DOGN = 1000 * 60 * 60 * 24;
-
-const getSykefravaerVarighet = (dato) => {
-    const dagensDato = new Date();
-    dagensDato.setHours(0);
-    dagensDato.setMinutes(0);
-    dagensDato.setSeconds(0);
-    dagensDato.setMilliseconds(0);
-    const antallDager = (dagensDato.getTime() - dato.getTime()) / ETT_DOGN;
-    return Math.round(antallDager) + 1;
-};
+const TRETTINI_UKER = 7 * 39;
 
 export const Container = (props) => {
     const { visUtdrag, startdato, antallDager, visning, hentingFeilet } = props;
     return (!visUtdrag || hentingFeilet)
         ? null
-        : <TidslinjeUtdrag startdato={startdato} antallDager={antallDager} visning={visning} />;
+        : <TidslinjeUtdrag
+            startdato={startdato}
+            antallDager={antallDager}
+            visning={visning} />;
 };
 
 Container.propTypes = {
@@ -33,10 +27,30 @@ Container.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
-export const skalViseUtdrag = (sykmeldinger) => {
-    return !sykmeldinger
+const getSykefravaerVarighet = (state) => {
+    const dato = state.sykeforloep.startdato;
+    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv = state.brukerinfo.sykmeldtinfodata.data.erArbeidsrettetOppfolgingSykmeldtInngangAktiv;
+    const TVING_MER_ENN_39_UKER = 275;
+    const TVING_MINDRE_ENN_39_UKER = 272;
+    const dagensDato = new Date();
+    dagensDato.setHours(0);
+    dagensDato.setMinutes(0);
+    dagensDato.setSeconds(0);
+    dagensDato.setMilliseconds(0);
+    const antallDager = Math.round((dagensDato.getTime() - dato.getTime()) / ETT_DOGN) + 1;
+    return antallDager > 500
+        ? antallDager
+        : erArbeidsrettetOppfolgingSykmeldtInngangAktiv
+            ? TVING_MER_ENN_39_UKER
+            : antallDager > TRETTINI_UKER && erArbeidsrettetOppfolgingSykmeldtInngangAktiv === false
+                ? TVING_MINDRE_ENN_39_UKER
+                : antallDager;
+};
+
+export const skalViseUtdrag = (state) => {
+    return !state.dineSykmeldinger.data
         ? false
-        : sykmeldinger
+        : state.dineSykmeldinger.data
             .filter((s) => {
                 const tom = senesteTom(s.mulighetForArbeid.perioder);
                 const SJU_DAGER = ETT_DOGN * 7;
@@ -47,7 +61,9 @@ export const skalViseUtdrag = (sykmeldinger) => {
             }).length > 0;
 };
 
-export const getVisning = (dineSykmeldinger, startdato) => {
+const getVisning = (state) => {
+    const startdato = state.sykeforloep.startdato;
+    const dineSykmeldinger = state.dineSykmeldinger.data;
     if (!startdato) {
         return VALGFRI;
     }
@@ -91,15 +107,15 @@ export const mapStateToProps = (state) => {
     const hentingFeilet = state.sykeforloep.hentingFeilet;
     const startdato = state.sykeforloep.startdato;
     const antallDager = startdato
-        ? getSykefravaerVarighet(startdato)
+        ? getSykefravaerVarighet(state)
         : undefined;
 
     return {
         hentingFeilet,
-        visUtdrag: skalViseUtdrag(state.dineSykmeldinger.data),
         startdato,
         antallDager,
-        visning: getVisning(state.dineSykmeldinger.data, startdato),
+        visUtdrag: skalViseUtdrag(state),
+        visning: getVisning(state),
     };
 };
 

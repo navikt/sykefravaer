@@ -3,7 +3,11 @@ import { get, getAjax, log } from 'digisyfo-npm';
 import * as actions from '../actions/brukerinfo_actions';
 import * as actiontyper from '../actions/actiontyper';
 import logger from '../logging';
-import { skalHenteBrukerinfoSelector, skalHenteOppfolgingSelector } from '../selectors/brukerinfoSelectors';
+import {
+    skalHenteBrukerinfoSelector,
+    skalHenteOppfolgingSelector,
+    skalHenteSykmeldtinfodata,
+} from '../selectors/brukerinfoSelectors';
 
 export function* hentBrukerinfo() {
     const skalHente = yield select(skalHenteBrukerinfoSelector);
@@ -11,7 +15,7 @@ export function* hentBrukerinfo() {
         yield put(actions.henterBrukerinfo());
         try {
             const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/bruker`);
-            yield put(actions.setBrukerinfo(data));
+            yield put(actions.brukerinfoHentet(data));
         } catch (e) {
             log(e);
             logger.error(`Kunne ikke hente brukerinfo. URL: ${window.location.href} - ${e.message}`);
@@ -46,6 +50,21 @@ export function* hentOppfolging() {
     }
 }
 
+export function* hentSykmeldtinfodata() {
+    const skalHente = yield select(skalHenteSykmeldtinfodata);
+    if (skalHente) {
+        yield put(actions.henterSykmeldtinfodata());
+        try {
+            const data = yield call(get, process.env.REACT_APP_VEILARBREG_REST_URL);
+            yield put(actions.sykmeldtInfodataHentet(data));
+        } catch (e) {
+            logger.error(`Kunne ikke hente infodata om sykmeldt. URL: ${window.location.href} - ${e.message}`);
+            log(e);
+            yield put(actions.hentSykmeldtinfodataFeilet());
+        }
+    }
+}
+
 function* watchHentBrukerinfo() {
     yield takeEvery(actiontyper.HENT_BRUKERINFO_FORESPURT, hentBrukerinfo);
 }
@@ -58,9 +77,14 @@ function* watchHentOppfolging() {
     yield takeEvery(actiontyper.HENT_OPPFOLGING_FORESPURT, hentOppfolging);
 }
 
+function* watchHentSykmeldtinfodata() {
+    yield takeEvery(actiontyper.HENT_SYKMELDTINFODATA_FORESPURT, hentSykmeldtinfodata);
+}
+
 export default function* brukerinfoSagas() {
     yield all([
         fork(watchHentOppfolging),
+        fork(watchHentSykmeldtinfodata),
         fork(watchHentBrukerinfo),
         fork(watchSjekkInnlogging),
     ]);

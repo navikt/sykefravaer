@@ -22,8 +22,8 @@ import { hentSykeforloep, hentSykeforloepMetadata } from '../actions/sykeforloep
 import { skalViseOppfoelgingsdialogLenke } from '../utils/sykmeldingUtils';
 import { skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
 import { hentSoknader } from '../actions/soknader_actions';
-import { hentOppfolging } from '../actions/brukerinfo_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
+import { hentSykmeldtinfodata, hentOppfolging } from '../actions/brukerinfo_actions';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
@@ -53,6 +53,7 @@ export class Container extends Component {
         actions.hentSykeforloepMetadata();
         actions.hentSoknader();
         actions.hentOppfolging();
+        actions.hentSykmeldtinfodata();
     }
 
     componentDidMount() {
@@ -212,6 +213,7 @@ const mapDispatchToProps = (dispatch) => {
         hentSykeforloepMetadata,
         hentSoknader,
         hentOppfolging,
+        hentSykmeldtinfodata,
         hentToggles,
     }, dispatch);
     return { actions };

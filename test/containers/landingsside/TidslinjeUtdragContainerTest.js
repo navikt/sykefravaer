@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Container, mapStateToProps } from '../../../js/containers/landingsside/TidslinjeutdragContainer';
+import brukerinfo from '../../../js/reducers/brukerinfo';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -54,6 +55,8 @@ describe('TidslinjeutdragContainer', () => {
         state.sykeforloep = {
             startdato: new Date('2017-08-02'),
         };
+
+        state.brukerinfo = brukerinfo();
 
         hentStartdato = sinon.spy();
         actions = { hentStartdato };

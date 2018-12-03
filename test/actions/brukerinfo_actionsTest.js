@@ -32,20 +32,20 @@ describe('brukerinfo_actions', () => {
         });
     });
 
-    it('Skal ha en setBrukerinfo()-funksjon som returnerer riktig action', () => {
-        expect(actions.setBrukerinfo({
+    it('Skal ha en brukerinfoHentet()-funksjon som returnerer riktig action', () => {
+        expect(actions.brukerinfoHentet({
             navn: 'Helge',
             alder: 32,
         })).to.deep.equal({
-            type: actiontyper.SET_BRUKERINFO,
+            type: actiontyper.BRUKERINFO_HENTET,
             data: {
                 navn: 'Helge',
                 alder: 32,
             },
         });
 
-        expect(actions.setBrukerinfo()).to.deep.equal({
-            type: actiontyper.SET_BRUKERINFO,
+        expect(actions.brukerinfoHentet()).to.deep.equal({
+            type: actiontyper.BRUKERINFO_HENTET,
             data: {},
         });
     });

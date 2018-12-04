@@ -29,7 +29,7 @@ describe('arbeidsgiverperiodeberegning_actions', () => {
     it('Har en arbeidsgiverperiodeberegningHentet()-funksjon som returnerer riktig action', () => {
         expect(actions.arbeidsgiverperiodeberegningHentet({ en: 'to' })).to.deep.equal({
             type: actiontyper.ARBEIDSGIVERPERIODEBEREGNING_HENTET,
-            arbeidsgiverperiodeberegning: { en: 'to' },
+            data: { en: 'to' },
         });
     });
 

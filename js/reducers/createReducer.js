@@ -1,9 +1,15 @@
-export const createReducer = (feilActionType, henterActionType, hentetActionType, initState = { data: {} }) => {
+const initiellState = { data: {} };
+
+export const createReducer = (feilActionType,
+    henterActionType,
+    hentetActionType,
+    initState = initiellState,
+    mapper = null) => {
     return (state = initState, action = {}) => {
         switch (action.type) {
             case feilActionType: {
                 return {
-                    data: {},
+                    ...state,
                     henter: false,
                     hentingFeilet: true,
                     hentet: true,
@@ -11,7 +17,7 @@ export const createReducer = (feilActionType, henterActionType, hentetActionType
             }
             case henterActionType: {
                 return {
-                    data: {},
+                    ...state,
                     henter: true,
                     hentingFeilet: false,
                     hentet: false,
@@ -19,13 +25,10 @@ export const createReducer = (feilActionType, henterActionType, hentetActionType
             }
             case hentetActionType: {
                 return {
+                    data: mapper ? action.data.map(mapper) : action.data,
                     henter: false,
                     hentingFeilet: false,
                     hentet: true,
-                    data: {
-                        ...state.data,
-                        ...action.data,
-                    },
                 };
             }
             default: {

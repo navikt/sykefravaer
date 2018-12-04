@@ -23,7 +23,9 @@ describe('vedlikehold_actions', () => {
         it('Skal ha en vedlikeholdHentet()-funksjon som returnerer riktig action', () => {
             expect(actions.vedlikeholdHentet(true)).to.deep.equal({
                 type: actiontyper.VEDLIKEHOLD_HENTET,
-                data: true,
+                data: {
+                    vedlikehold: true,
+                },
             });
         });
 

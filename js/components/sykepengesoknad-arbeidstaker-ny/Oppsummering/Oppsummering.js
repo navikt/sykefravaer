@@ -76,7 +76,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
                 name={bekreftOpplysningerSpm.tag}
                 soknad={soknad} />
         </div>
-        { !betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} sykmelding={sykmelding} /> }
+        <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} sykmelding={sykmelding} />
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link

@@ -4,15 +4,16 @@ import * as actions from '../../js/actions/arbeidsgiverperiodeberegning_actions'
 import arbeidsgiverperiodeberegning from '../../js/reducers/arbeidsgiverperiodeberegning';
 
 describe('arbeidsgiverperiodeberegning', () => {
-    let state = {};
+    let state = arbeidsgiverperiodeberegning();
 
-    it('Håndterer hentArbeidsgiverperiodeberegning()', () => {
+    it('Håndterer henterArbeidsgiverperiodeberegning()', () => {
         const action = actions.henterArbeidsgiverperiodeberegning();
         state = arbeidsgiverperiodeberegning(deepFreeze(state), action);
         expect(state).to.deep.equal({
             henter: true,
             hentingFeilet: false,
-            data: null,
+            hentet: false,
+            data: {},
         });
     });
 
@@ -22,17 +23,20 @@ describe('arbeidsgiverperiodeberegning', () => {
         expect(state).to.deep.equal({
             henter: false,
             hentingFeilet: false,
+            hentet: true,
             data: { en: 'to' },
         });
     });
 
     it('Håndterer sjekkSkalViseForskutteringssporsmalFeilet', () => {
+        state = arbeidsgiverperiodeberegning();
         const action = actions.arbeidsgiverperiodeberegningFeilet();
         state = arbeidsgiverperiodeberegning(deepFreeze(state), action);
         expect(state).to.deep.equal({
             henter: false,
             hentingFeilet: true,
-            data: null,
+            hentet: true,
+            data: {},
         });
     });
 });

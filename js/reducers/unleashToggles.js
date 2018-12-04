@@ -1,4 +1,5 @@
 import * as actiontyper from '../actions/actiontyper';
+import { createReducer } from './createReducer';
 
 const initiellState = {
     data: {},
@@ -7,34 +8,10 @@ const initiellState = {
     hentet: false,
 };
 
-export default function unleashToggles(state = initiellState, action = {}) {
-    switch (action.type) {
-        case actiontyper.HENTET_UNLEASH_TOGGLES: {
-            return {
-                data: action.data,
-                henter: false,
-                hentingFeilet: false,
-                hentet: true,
-            };
-        }
-        case actiontyper.HENTER_UNLEASH_TOGGLES: {
-            return {
-                ...state,
-                henter: true,
-                hentingFeilet: false,
-                hentet: false,
-            };
-        }
-        case actiontyper.HENT_UNLEASH_TOGGLES_FEILET: {
-            return {
-                ...state,
-                henter: false,
-                hentingFeilet: true,
-                hentet: true,
-            };
-        }
-        default: {
-            return state;
-        }
-    }
-}
+const unleashToggles = createReducer(
+    actiontyper.HENT_UNLEASH_TOGGLES_FEILET,
+    actiontyper.HENTER_UNLEASH_TOGGLES,
+    actiontyper.HENTET_UNLEASH_TOGGLES,
+    initiellState);
+
+export default unleashToggles;

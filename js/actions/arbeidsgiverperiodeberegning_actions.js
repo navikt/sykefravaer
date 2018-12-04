@@ -13,10 +13,10 @@ export function henterArbeidsgiverperiodeberegning() {
     };
 }
 
-export function arbeidsgiverperiodeberegningHentet(arbeidsgiverperiodeberegning) {
+export function arbeidsgiverperiodeberegningHentet(data) {
     return {
         type: actiontyper.ARBEIDSGIVERPERIODEBEREGNING_HENTET,
-        arbeidsgiverperiodeberegning,
+        data,
     };
 }
 

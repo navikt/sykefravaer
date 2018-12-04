@@ -15,7 +15,9 @@ export const henterVedlikehold = () => {
 export const vedlikeholdHentet = (vedlikehold) => {
     return {
         type: actiontyper.VEDLIKEHOLD_HENTET,
-        data: vedlikehold,
+        data: {
+            vedlikehold,
+        },
     };
 };
 

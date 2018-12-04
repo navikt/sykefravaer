@@ -4,7 +4,7 @@ import * as actions from '../../js/actions/unleashToggles_actions';
 import expect from '../expect';
 
 describe('toggles', () => {
-    it('toggles TOGGLES_HENTET ', () => {
+    it('Håndterer TOGGLES_HENTET ', () => {
         const initialState = deepFreeze({});
         const action = actions.unleashTogglesHentet({
             'nokkel.1': 'Verdi 1',

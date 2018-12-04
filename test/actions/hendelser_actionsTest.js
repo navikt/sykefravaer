@@ -29,7 +29,7 @@ describe('hendelser', () => {
         const hendelser = [hendelse, hendelse];
         expect(actions.hendelserHentet(hendelser)).to.deep.equal({
             type: actiontyper.HENDELSER_HENTET,
-            hendelser,
+            data: hendelser,
         });
     });
 

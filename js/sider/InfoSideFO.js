@@ -8,29 +8,38 @@ import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from '../components/arbeidsrettet-oppfolging/ArbeidsrettetOppfolging';
 import SideStrippet from './SideStrippet';
 import { hentOppfolging } from '../actions/brukerinfo_actions';
+import { hentSykmeldtInfo } from '../actions/sykmeldtInfo_actions';
 
 class InfoSideFO extends Component {
     componentWillMount() {
         this.props.actions.hentOppfolging();
+        this.props.actions.hentSykmeldtInfo();
+
+        this.henter = this.henter.bind(this);
     }
+
+    henter() {
+        const { henterLedetekster, henterOppfolging, henterSykmeldtInfo } = this.props;
+        return henterLedetekster || henterOppfolging || henterSykmeldtInfo;
+    }
+
+    hentingFeilet() {
+        const { hentingLedeteksterFeilet, hentingOppfolgingFeilet, hentingSykmeldtInfoFeilet } = this.props;
+        return hentingLedeteksterFeilet || hentingOppfolgingFeilet || hentingSykmeldtInfoFeilet;
+    }
+
     render() {
-        const {
-            henterLedetekster,
-            hentingLedeteksterFeilet,
-            henterOppfolging,
-            hentingOppfolgingFeilet,
-            underOppfolging,
-        } = this.props;
+        const { underOppfolging, sykmeldtInfo } = this.props;
         return (
-            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={henterLedetekster || henterOppfolging} fullBredde>
+            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={this.henter()} fullBredde>
                 {
                     (() => {
-                        if (henterLedetekster || henterOppfolging) {
+                        if (this.henter()) {
                             return <AppSpinner />;
-                        } else if (hentingLedeteksterFeilet || hentingOppfolgingFeilet) {
+                        } else if (this.hentingFeilet()) {
                             return <Feilmelding />;
                         }
-                        return (<ArbeidsrettetOppfolging underOppfolging={underOppfolging} />);
+                        return (<ArbeidsrettetOppfolging underOppfolging={underOppfolging} sykmeldtInfo={sykmeldtInfo} />);
                     })()
                 }
             </SideStrippet>
@@ -44,8 +53,14 @@ InfoSideFO.propTypes = {
     henterOppfolging: PropTypes.bool,
     hentingOppfolgingFeilet: PropTypes.bool,
     underOppfolging: PropTypes.bool,
+    henterSykmeldtInfo: PropTypes.bool,
+    hentingSykmeldtInfoFeilet: PropTypes.bool,
+    sykmeldtInfo: PropTypes.shape({
+        maksDato: PropTypes.string,
+    }),
     actions: PropTypes.shape({
         hentOppfolging: PropTypes.func,
+        hentSykmeldtInfo: PropTypes.func,
     }),
 };
 
@@ -56,12 +71,16 @@ export function mapStateToProps(state) {
         henterOppfolging: state.brukerinfo.oppfolging.henter,
         hentingOppfolgingFeilet: state.brukerinfo.oppfolging.hentingFeilet,
         underOppfolging: state.brukerinfo.oppfolging.data.underOppfolging,
+        henterSykmeldtInfo: state.sykmeldtInfo.henter,
+        hentingSykmeldtInfoFeilet: state.sykmeldtInfo.hentingFeilet,
+        sykmeldtInfo: state.sykmeldtInfo.data,
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     const actions = bindActionCreators({
         hentOppfolging,
+        hentSykmeldtInfo,
     }, dispatch);
     return { actions };
 };

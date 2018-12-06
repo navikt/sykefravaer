@@ -25,6 +25,7 @@ import motebehov from './motebehov';
 import motebehovSvar from './motebehovSvar';
 import history from '../history';
 import soknadMeta from './soknadMeta';
+import sykmeldtInfo from './sykmeldtInfo';
 
 const reducers = {
     arbeidsgivere,
@@ -59,6 +60,7 @@ const reducers = {
     metrikker,
     oppfolgingsdialoger,
     soknadMeta,
+    sykmeldtInfo,
 };
 
 export default reducers;

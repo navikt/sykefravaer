@@ -25,6 +25,7 @@ const SYFOUNLEASH = 'syfounleash';
 const SYKEFORLOEAP = 'sykeforloep';
 const SYKEPENGESOKNADER = 'sykepengesoknader';
 const SYKMELDINGER = 'sykmeldinger';
+const SYKMELDT_INFO = 'sykmeldtInfo';
 const TEKSTER = 'tekster';
 const VARSLER = 'varsler';
 const VEDLIKEHOLD = 'vedlikehold';
@@ -58,6 +59,7 @@ lastFilTilMinne(SYFOUNLEASH);
 lastFilTilMinne(SYKEFORLOEAP);
 lastFilTilMinne(SYKEPENGESOKNADER);
 lastFilTilMinne(SYKMELDINGER);
+lastFilTilMinne(SYKMELDT_INFO);
 lastFilTilMinne(TEKSTER);
 lastFilTilMinne(VARSLER);
 lastFilTilMinne(VEDLIKEHOLD);
@@ -223,7 +225,7 @@ function mockForOpplaeringsmiljo(server) {
     server.post('/syfoapi/syfosoknad/api/soknader/:id/mottaker', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
-            mottaker: 'ARBEIDSGIVER_OG_NAV'
+            mottaker: 'ARBEIDSGIVER_OG_NAV',
         }));
     });
 
@@ -241,6 +243,11 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/syforest/sykmeldinger', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[SYKMELDINGER]));
+    });
+
+    server.get('/veilarbregistrering/api/sykmeldtinfodata', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[SYKMELDT_INFO]));
     });
 
     server.get('/moterest/api/v2/moter/siste', (req, res) => {

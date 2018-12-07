@@ -2,8 +2,9 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const VeilederRad = () => {
+const VeilederRad = ({ sykmeldtInfo }) => {
     const veilederpanelKompakt = window.matchMedia('(min-width: 768px)').matches;
     const veilederpanelType = veilederpanelKompakt ? 'normal' : 'plakat';
     return (
@@ -15,17 +16,22 @@ const VeilederRad = () => {
                     kompakt={veilederpanelKompakt}
                 >
                     <div>
-                        <Systemtittel className="blokk-xs">{getLedetekst('infoside-fo.intro-overskrift', { '%NAVN%': 'Kari' })}</Systemtittel>
+                        <Systemtittel className="blokk-xs">{getLedetekst('infoside-fo.intro.overskrift', { '%NAVN%': 'Test' })}</Systemtittel>
                         <div
                             className="typo-normal"
-                            dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro-tekst',
-                                { '%FRA_DATO%': '01.01.1970', '%TIL_DATO%': '01.01.1970' })}
+                            dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro.tekst', { '%DATO%': sykmeldtInfo.maksDato })}
                         />
                     </div>
                 </Veilederpanel>
             </div>
         </div>
     );
+};
+
+VeilederRad.propTypes = {
+    sykmeldtInfo: PropTypes.shape({
+        maksDato: PropTypes.string,
+    }),
 };
 
 export default VeilederRad;

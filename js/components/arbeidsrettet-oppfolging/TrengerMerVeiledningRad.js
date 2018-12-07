@@ -11,7 +11,7 @@ const handleNeiBtnClicked = () => {
 
 const handleJaBtnClicked = () => {
     // TODO: Legg til API-kall for å registrere knappetrykk
-    window.location.href = '/arbeidssokerregistrering';
+    window.location.href = '/arbeidssokerregistrering?fraSykefravaer=true';
 };
 
 const TrengerMerVeiledningRad = () => {

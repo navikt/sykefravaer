@@ -11,7 +11,7 @@ const AapRad = () => {
                 <Utvidbar className="blokk-s" tittel={getLedetekst('infoside-fo.arbeidsavklaring.overskrift')}>
                     <div dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.arbeidsavklaring.tekst')} />
                 </Utvidbar>
-                <Element className="blokk-xxs">{getLedetekst('infoside-fo.forsikring.overskrift')}</Element>
+                <Element className="blokk-xxs" tag="h3">{getLedetekst('infoside-fo.forsikring.overskrift')}</Element>
                 <Normaltekst>{getLedetekst('infoside-fo.forsikring.tekst')}</Normaltekst>
             </div>
         </div>

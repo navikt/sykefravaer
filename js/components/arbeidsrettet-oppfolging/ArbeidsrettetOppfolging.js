@@ -9,7 +9,7 @@ import KommunikasjonRad from './KommunikasjonRad';
 import AapRad from './AapRad';
 import TrengerMerVeiledningRad from './TrengerMerVeiledningRad';
 
-const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, sykmeldtInfo }) => {
+const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
     const brodsmuler = [{
         tittel: getLedetekst('landingsside.sidetittel'),
         sti: '/',
@@ -25,7 +25,7 @@ const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, sykmeldtInfo }) 
             </div>
             { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
             <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
-            <VeilederRad brukerNavn={brukerNavn} sykmeldtInfo={sykmeldtInfo} />
+            <VeilederRad brukerNavn={brukerNavn} maksDato={maksDato} />
             <KommunikasjonRad />
             <AapRad />
             { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
@@ -36,9 +36,7 @@ const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, sykmeldtInfo }) 
 ArbeidsrettetOppfolging.propTypes = {
     brukerNavn: PropTypes.string,
     underOppfolging: PropTypes.bool,
-    sykmeldtInfo: PropTypes.shape({
-        maksDato: PropTypes.string,
-    }),
+    maksDato: PropTypes.string,
 };
 
 export default ArbeidsrettetOppfolging;

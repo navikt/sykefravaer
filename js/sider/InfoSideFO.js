@@ -8,6 +8,8 @@ import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from '../components/arbeidsrettet-oppfolging/ArbeidsrettetOppfolging';
 import SideStrippet from './SideStrippet';
 import { hentLoginInfo, hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
+import { sykmeldtInfo as sykmeldtInfoPropTypes, oppfolging as oppfolgingPropTypes,
+    loginInfo as loginInfoPropTypes } from '../propTypes';
 
 class InfoSideFO extends Component {
     componentWillMount() {
@@ -17,19 +19,19 @@ class InfoSideFO extends Component {
     }
 
     henter() {
-        const { henterLedetekster, henterOppfolging, henterSykmeldtInfo, henterLoginInfo } = this.props;
-        return henterLedetekster || henterOppfolging || henterSykmeldtInfo || henterLoginInfo;
+        const { henterLedetekster, oppfolging, sykmeldtInfo, loginInfo } = this.props;
+        return henterLedetekster || oppfolging.henter || sykmeldtInfo.henter || loginInfo.henter;
     }
 
     hentingFeilet() {
-        const { hentingLedeteksterFeilet, hentingOppfolgingFeilet, hentingSykmeldtInfoFeilet, hentingLoginInfoFeilet } = this.props;
-        return hentingLedeteksterFeilet || hentingOppfolgingFeilet || hentingSykmeldtInfoFeilet || hentingLoginInfoFeilet;
+        const { hentingLedeteksterFeilet, oppfolging, sykmeldtInfo, loginInfo } = this.props;
+        return hentingLedeteksterFeilet || oppfolging.hentingFeilet || sykmeldtInfo.hentingFeilet || loginInfo.hentingFeilet;
     }
 
     render() {
-        const { underOppfolging, sykmeldtInfo, brukerNavn } = this.props;
+        const { oppfolging, sykmeldtInfo, loginInfo } = this.props;
         return (
-            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={this.henter()} fullBredde>
+            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={this.henter()}>
                 {
                     (() => {
                         if (this.henter()) {
@@ -37,7 +39,13 @@ class InfoSideFO extends Component {
                         } else if (this.hentingFeilet()) {
                             return <Feilmelding />;
                         }
-                        return (<ArbeidsrettetOppfolging brukerNavn={brukerNavn} underOppfolging={underOppfolging} sykmeldtInfo={sykmeldtInfo} />);
+                        return (
+                            <ArbeidsrettetOppfolging
+                                brukerNavn={loginInfo.data.name}
+                                underOppfolging={oppfolging.data.underOppfolging}
+                                maksDato={sykmeldtInfo.data.maksDato}
+                            />
+                        );
                     })()
                 }
             </SideStrippet>
@@ -48,17 +56,9 @@ class InfoSideFO extends Component {
 InfoSideFO.propTypes = {
     henterLedetekster: PropTypes.bool,
     hentingLedeteksterFeilet: PropTypes.bool,
-    henterOppfolging: PropTypes.bool,
-    hentingOppfolgingFeilet: PropTypes.bool,
-    underOppfolging: PropTypes.bool,
-    henterSykmeldtInfo: PropTypes.bool,
-    hentingSykmeldtInfoFeilet: PropTypes.bool,
-    sykmeldtInfo: PropTypes.shape({
-        maksDato: PropTypes.string,
-    }),
-    henterLoginInfo: PropTypes.bool,
-    hentingLoginInfoFeilet: PropTypes.bool,
-    brukerNavn: PropTypes.string,
+    oppfolging: oppfolgingPropTypes,
+    sykmeldtInfo: sykmeldtInfoPropTypes,
+    loginInfo: loginInfoPropTypes,
     actions: PropTypes.shape({
         hentOppfolging: PropTypes.func,
         hentSykmeldtinfodata: PropTypes.func,
@@ -71,15 +71,21 @@ export function mapStateToProps(state) {
     return {
         henterLedetekster: ledetekster.henter,
         hentingLedeteksterFeilet: ledetekster.hentingFeilet,
-        henterOppfolging: oppfolging.henter,
-        hentingOppfolgingFeilet: oppfolging.hentingFeilet,
-        underOppfolging: oppfolging.data.underOppfolging,
-        henterSykmeldtInfo: sykmeldtinfodata.henter,
-        hentingSykmeldtInfoFeilet: sykmeldtinfodata.hentingFeilet,
-        sykmeldtInfo: sykmeldtinfodata.data,
-        henterLoginInfo: loginInfo.henter,
-        hentingLoginInfoFeilet: loginInfo.hentingFeilet,
-        brukerNavn: loginInfo.data.name,
+        oppfolging: {
+            henter: oppfolging.henter,
+            hentingFeilet: oppfolging.hentingFeilet,
+            data: oppfolging.data,
+        },
+        sykmeldtInfo: {
+            henter: sykmeldtinfodata.henter,
+            hentingFeilet: sykmeldtinfodata.hentingFeilet,
+            data: sykmeldtinfodata.data,
+        },
+        loginInfo: {
+            henter: loginInfo.henter,
+            hentingFeilet: loginInfo.hentingFeilet,
+            data: loginInfo.data,
+        },
     };
 }
 

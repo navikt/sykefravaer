@@ -120,6 +120,31 @@ export const soknad = PropTypes.shape({
     sporsmal: PropTypes.arrayOf(sporsmal),
 });
 
+export const sykmeldtInfo = PropTypes.shape({
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    data: PropTypes.shape({
+        maksDato: PropTypes.string,
+        erArbeidsrettetOppfolgingSykmeldtInngangAktiv: PropTypes.bool,
+    }),
+});
+
+export const oppfolging = PropTypes.shape({
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    data: PropTypes.shape({
+        underOppfolging: PropTypes.bool,
+    }),
+});
+
+export const loginInfo = PropTypes.shape({
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    data: PropTypes.shape({
+        name: PropTypes.string,
+    }),
+});
+
 export const oppsummeringSporsmal = {
     svar,
     sporsmalstekst: PropTypes.string,

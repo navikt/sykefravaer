@@ -4,7 +4,7 @@ import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const VeilederRad = ({ sykmeldtInfo }) => {
+const VeilederRad = ({ brukerNavn, sykmeldtInfo }) => {
     const veilederpanelKompakt = window.matchMedia('(min-width: 768px)').matches;
     const veilederpanelType = veilederpanelKompakt ? 'normal' : 'plakat';
     return (
@@ -16,7 +16,7 @@ const VeilederRad = ({ sykmeldtInfo }) => {
                     kompakt={veilederpanelKompakt}
                 >
                     <div>
-                        <Systemtittel className="blokk-xs">{getLedetekst('infoside-fo.intro.overskrift', { '%NAVN%': 'Test' })}</Systemtittel>
+                        <Systemtittel className="blokk-xs">{getLedetekst('infoside-fo.intro.overskrift', { '%NAVN%': brukerNavn })}</Systemtittel>
                         <div
                             className="typo-normal"
                             dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro.tekst', { '%DATO%': sykmeldtInfo.maksDato })}
@@ -29,6 +29,7 @@ const VeilederRad = ({ sykmeldtInfo }) => {
 };
 
 VeilederRad.propTypes = {
+    brukerNavn: PropTypes.string,
     sykmeldtInfo: PropTypes.shape({
         maksDato: PropTypes.string,
     }),

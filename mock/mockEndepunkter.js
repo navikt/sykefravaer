@@ -408,6 +408,13 @@ function mockForOpplaeringsmiljo(server) {
         }));
     });
 
+    server.get('/innloggingslinje/auth', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+            name: 'Test Testesen',
+        }));
+    });
+
     server.get('/esso/logout', (req, res) => {
         res.send('<p>Du har blitt sendt til utlogging.</p><p><a href="/sykefravaer">Gå til Ditt sykefravær</a></p>');
     });

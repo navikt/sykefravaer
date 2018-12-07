@@ -112,3 +112,29 @@ export function hentSykmeldtinfodataFeilet() {
         type: actiontyper.HENT_SYKMELDTINFODATA_FEILET,
     };
 }
+
+
+export function hentLoginInfo() {
+    return {
+        type: actiontyper.HENT_LOGIN_INFO_FORESPURT,
+    };
+}
+
+export function henterLoginInfo() {
+    return {
+        type: actiontyper.HENTER_LOGIN_INFO,
+    };
+}
+
+export function loginInfoHentet(data) {
+    return {
+        type: actiontyper.LOGIN_INFO_HENTET,
+        data,
+    };
+}
+
+export function hentLoginInfoFeilet() {
+    return {
+        type: actiontyper.HENT_LOGIN_INFO_FEILET,
+    };
+}

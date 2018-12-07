@@ -4,7 +4,7 @@ import * as actions from '../actions/brukerinfo_actions';
 import * as actiontyper from '../actions/actiontyper';
 import logger from '../logging';
 import {
-    skalHenteBrukerinfoSelector,
+    skalHenteBrukerinfoSelector, skalHenteLoginInfo,
     skalHenteOppfolgingSelector,
     skalHenteSykmeldtinfodata,
 } from '../selectors/brukerinfoSelectors';
@@ -65,6 +65,21 @@ export function* hentSykmeldtinfodata() {
     }
 }
 
+export function* hentLoginInfo() {
+    const skalHente = yield select(skalHenteLoginInfo);
+    if (skalHente) {
+        yield put(actions.henterLoginInfo());
+        try {
+            const data = yield call(get, `${process.env.REACT_APP_INNLOGGINGSLINJE_REST_URL}?randomness=${Math.random()}`);
+            yield put(actions.loginInfoHentet(data));
+        } catch (e) {
+            logger.error(`Kunne ikke hente login info. URL: ${window.location.href} - ${e.message}`);
+            log(e);
+            yield put(actions.hentLoginInfoFeilet());
+        }
+    }
+}
+
 function* watchHentBrukerinfo() {
     yield takeEvery(actiontyper.HENT_BRUKERINFO_FORESPURT, hentBrukerinfo);
 }
@@ -81,11 +96,16 @@ function* watchHentSykmeldtinfodata() {
     yield takeEvery(actiontyper.HENT_SYKMELDTINFODATA_FORESPURT, hentSykmeldtinfodata);
 }
 
+function* watchHentLoginInfo() {
+    yield takeEvery(actiontyper.HENT_LOGIN_INFO_FORESPURT, hentLoginInfo);
+}
+
 export default function* brukerinfoSagas() {
     yield all([
         fork(watchHentOppfolging),
         fork(watchHentSykmeldtinfodata),
         fork(watchHentBrukerinfo),
+        fork(watchHentLoginInfo),
         fork(watchSjekkInnlogging),
     ]);
 }

@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { lagDesimaltall, lagHeltall, Vis } from '../../js/utils';
+import { hentFornavn, lagDesimaltall, lagHeltall, Vis } from '../../js/utils';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -157,6 +157,24 @@ describe('utils', () => {
                 }} />);
             const component = mount(toMount);
             expect(component.html()).to.equal(null);
+        });
+    });
+
+    describe('hentFornavn', () => {
+        it('Skal returnere tom streng hvis fornavn er udefinert', () => {
+            expect(hentFornavn(undefined)).to.equal('');
+        });
+
+        it('Skal returnere fornavn med stor forbokstav hvis navn er lowercase', () => {
+            expect(hentFornavn('test testesen')).to.equal('Test');
+        });
+
+        it('Skal returnere fornavn med stor forbokstav hvis navn allerede har stor forbokstav', () => {
+            expect(hentFornavn('Test testesen')).to.equal('Test');
+        });
+
+        it('Skal returnere fornavn hvis navn ikke har etternavn', () => {
+            expect(hentFornavn('Test')).to.equal('Test');
         });
     });
 });

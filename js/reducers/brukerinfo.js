@@ -11,6 +11,9 @@ const { BRUKERINFO_HENTET,
     HENT_SYKMELDTINFODATA_FEILET,
     HENTER_SYKMELDTINFODATA,
     SYKMELDTINFODATA_HENTET,
+    HENT_LOGIN_INFO_FEILET,
+    HENTER_LOGIN_INFO,
+    LOGIN_INFO_HENTET,
 } = actiontyper;
 
 function innstillinger(state = {}, action = {}) {
@@ -73,6 +76,7 @@ function innlogging(
 const bruker = createReducer(HENT_BRUKERINFO_FEILET, HENTER_BRUKERINFO, BRUKERINFO_HENTET);
 const oppfolging = createReducer(HENT_OPPFOLGING_FEILET, HENTER_OPPFOLGING, OPPFOLGING_HENTET);
 const sykmeldtinfodata = createReducer(HENT_SYKMELDTINFODATA_FEILET, HENTER_SYKMELDTINFODATA, SYKMELDTINFODATA_HENTET);
+const loginInfo = createReducer(HENT_LOGIN_INFO_FEILET, HENTER_LOGIN_INFO, LOGIN_INFO_HENTET);
 
 const brukerinfo = combineReducers({
     bruker,
@@ -80,6 +84,7 @@ const brukerinfo = combineReducers({
     innlogging,
     oppfolging,
     sykmeldtinfodata,
+    loginInfo,
 });
 
 export default brukerinfo;

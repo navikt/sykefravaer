@@ -1,3 +1,5 @@
+import { toggleFO39uker } from './unleashTogglesSelectors';
+
 export const harStrengtFortroligAdresseSelector = (state) => {
     return state.brukerinfo.bruker.data.strengtFortroligAdresse;
 };
@@ -13,7 +15,8 @@ export const skalHenteOppfolgingSelector = (state) => {
 };
 
 export const skalHenteSykmeldtinfodata = (state) => {
-    return !state.brukerinfo.sykmeldtinfodata.henter
+    return toggleFO39uker(state)
+        && !state.brukerinfo.sykmeldtinfodata.henter
         && !state.brukerinfo.sykmeldtinfodata.hentet;
 };
 

@@ -5,6 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Container, mapStateToProps } from '../../../js/containers/landingsside/TidslinjeutdragContainer';
 import brukerinfo from '../../../js/reducers/brukerinfo';
+import unleashToggles from '../../../js/reducers/unleashToggles';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -55,6 +56,8 @@ describe('TidslinjeutdragContainer', () => {
         state.sykeforloep = {
             startdato: new Date('2017-08-02'),
         };
+
+        state.unleashToggles = unleashToggles();
 
         state.brukerinfo = brukerinfo();
 

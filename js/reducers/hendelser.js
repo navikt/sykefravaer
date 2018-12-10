@@ -13,10 +13,10 @@ const hendelser = createReducer(
     actiontyper.HENTER_HENDELSER,
     actiontyper.HENDELSER_HENTET,
     initiellState,
-    (h) => {
+    (hendelse) => {
         return {
-            ...h,
-            inntruffetdato: new Date(h.inntruffetdato),
+            ...hendelse,
+            inntruffetdato: new Date(hendelse.inntruffetdato),
         };
     });
 

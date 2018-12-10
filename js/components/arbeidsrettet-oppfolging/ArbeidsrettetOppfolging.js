@@ -9,7 +9,7 @@ import KommunikasjonRad from './KommunikasjonRad';
 import AapRad from './AapRad';
 import TrengerMerVeiledningRad from './TrengerMerVeiledningRad';
 
-const ArbeidsrettetOppfolging = ({ underOppfolging }) => {
+const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
     const brodsmuler = [{
         tittel: getLedetekst('landingsside.sidetittel'),
         sti: '/',
@@ -17,6 +17,7 @@ const ArbeidsrettetOppfolging = ({ underOppfolging }) => {
     }, {
         tittel: getLedetekst('infoside-fo.sidetittel'),
     }];
+
     return (
         <React.Fragment>
             <div className="infoside-fo__brodsmuler--wrapper begrensning">
@@ -24,7 +25,7 @@ const ArbeidsrettetOppfolging = ({ underOppfolging }) => {
             </div>
             { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
             <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
-            <VeilederRad />
+            <VeilederRad brukerNavn={brukerNavn} maksDato={maksDato} />
             <KommunikasjonRad />
             <AapRad />
             { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
@@ -33,7 +34,9 @@ const ArbeidsrettetOppfolging = ({ underOppfolging }) => {
 };
 
 ArbeidsrettetOppfolging.propTypes = {
+    brukerNavn: PropTypes.string,
     underOppfolging: PropTypes.bool,
+    maksDato: PropTypes.string,
 };
 
 export default ArbeidsrettetOppfolging;

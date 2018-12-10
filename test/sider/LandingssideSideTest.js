@@ -24,6 +24,7 @@ describe('LandingssideSide', () => {
     let hentOppfolging;
     let hentOppfolgingsforlopsPerioder;
     let hentToggles;
+    let hentSykmeldtinfodata;
 
     let state;
     let actions;
@@ -41,6 +42,7 @@ describe('LandingssideSide', () => {
         hentSoknader = sinon.spy();
         hentOppfolging = sinon.spy();
         hentToggles = sinon.spy();
+        hentSykmeldtinfodata = sinon.spy();
 
         actions = {
             hentMote,
@@ -55,6 +57,7 @@ describe('LandingssideSide', () => {
             hentSoknader,
             hentOppfolging,
             hentToggles,
+            hentSykmeldtinfodata,
         };
 
         state = {

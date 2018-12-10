@@ -11,3 +11,13 @@ export const skalHenteOppfolgingSelector = (state) => {
     return !state.brukerinfo.oppfolging.henter
         && !state.brukerinfo.oppfolging.hentet;
 };
+
+export const skalHenteSykmeldtinfodata = (state) => {
+    return !state.brukerinfo.sykmeldtinfodata.henter
+        && !state.brukerinfo.sykmeldtinfodata.hentet;
+};
+
+export const skalHenteLoginInfo = (state) => {
+    return !state.brukerinfo.loginInfo.henter
+        && !state.brukerinfo.loginInfo.hentet;
+};

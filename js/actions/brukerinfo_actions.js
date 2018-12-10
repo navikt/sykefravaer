@@ -12,9 +12,9 @@ export function henterBrukerinfo() {
     };
 }
 
-export function setBrukerinfo(brukerinfo = {}) {
+export function brukerinfoHentet(brukerinfo = {}) {
     return {
-        type: actiontyper.SET_BRUKERINFO,
+        type: actiontyper.BRUKERINFO_HENTET,
         data: brukerinfo,
     };
 }
@@ -84,5 +84,57 @@ export function oppfolgingHentet(data) {
 export function hentOppfolgingFeilet() {
     return {
         type: actiontyper.HENT_OPPFOLGING_FEILET,
+    };
+}
+
+
+export function hentSykmeldtinfodata() {
+    return {
+        type: actiontyper.HENT_SYKMELDTINFODATA_FORESPURT,
+    };
+}
+
+export function henterSykmeldtinfodata() {
+    return {
+        type: actiontyper.HENTER_SYKMELDTINFODATA,
+    };
+}
+
+export function sykmeldtInfodataHentet(data) {
+    return {
+        type: actiontyper.SYKMELDTINFODATA_HENTET,
+        data,
+    };
+}
+
+export function hentSykmeldtinfodataFeilet() {
+    return {
+        type: actiontyper.HENT_SYKMELDTINFODATA_FEILET,
+    };
+}
+
+
+export function hentLoginInfo() {
+    return {
+        type: actiontyper.HENT_LOGIN_INFO_FORESPURT,
+    };
+}
+
+export function henterLoginInfo() {
+    return {
+        type: actiontyper.HENTER_LOGIN_INFO,
+    };
+}
+
+export function loginInfoHentet(data) {
+    return {
+        type: actiontyper.LOGIN_INFO_HENTET,
+        data,
+    };
+}
+
+export function hentLoginInfoFeilet() {
+    return {
+        type: actiontyper.HENT_LOGIN_INFO_FEILET,
     };
 }

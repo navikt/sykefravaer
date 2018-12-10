@@ -7,30 +7,45 @@ import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from '../components/arbeidsrettet-oppfolging/ArbeidsrettetOppfolging';
 import SideStrippet from './SideStrippet';
-import { hentOppfolging } from '../actions/brukerinfo_actions';
+import { hentLoginInfo, hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
+import { sykmeldtInfo as sykmeldtInfoPropTypes, oppfolging as oppfolgingPropTypes,
+    loginInfo as loginInfoPropTypes } from '../propTypes';
 
 class InfoSideFO extends Component {
     componentWillMount() {
         this.props.actions.hentOppfolging();
+        this.props.actions.hentSykmeldtinfodata();
+        this.props.actions.hentLoginInfo();
     }
+
+    henter() {
+        const { henterLedetekster, oppfolging, sykmeldtInfo, loginInfo } = this.props;
+        return henterLedetekster || oppfolging.henter || sykmeldtInfo.henter || loginInfo.henter;
+    }
+
+    hentingFeilet() {
+        const { hentingLedeteksterFeilet, oppfolging, sykmeldtInfo, loginInfo } = this.props;
+        return hentingLedeteksterFeilet || oppfolging.hentingFeilet || sykmeldtInfo.hentingFeilet || loginInfo.hentingFeilet;
+    }
+
     render() {
-        const {
-            henterLedetekster,
-            hentingLedeteksterFeilet,
-            henterOppfolging,
-            hentingOppfolgingFeilet,
-            underOppfolging,
-        } = this.props;
+        const { oppfolging, sykmeldtInfo, loginInfo } = this.props;
         return (
-            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={henterLedetekster || henterOppfolging} fullBredde>
+            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={this.henter()}>
                 {
                     (() => {
-                        if (henterLedetekster || henterOppfolging) {
+                        if (this.henter()) {
                             return <AppSpinner />;
-                        } else if (hentingLedeteksterFeilet || hentingOppfolgingFeilet) {
+                        } else if (this.hentingFeilet()) {
                             return <Feilmelding />;
                         }
-                        return (<ArbeidsrettetOppfolging underOppfolging={underOppfolging} />);
+                        return (
+                            <ArbeidsrettetOppfolging
+                                brukerNavn={loginInfo.data.name}
+                                underOppfolging={oppfolging.data.underOppfolging}
+                                maksDato={sykmeldtInfo.data.maksDato}
+                            />
+                        );
                     })()
                 }
             </SideStrippet>
@@ -41,27 +56,44 @@ class InfoSideFO extends Component {
 InfoSideFO.propTypes = {
     henterLedetekster: PropTypes.bool,
     hentingLedeteksterFeilet: PropTypes.bool,
-    henterOppfolging: PropTypes.bool,
-    hentingOppfolgingFeilet: PropTypes.bool,
-    underOppfolging: PropTypes.bool,
+    oppfolging: oppfolgingPropTypes,
+    sykmeldtInfo: sykmeldtInfoPropTypes,
+    loginInfo: loginInfoPropTypes,
     actions: PropTypes.shape({
         hentOppfolging: PropTypes.func,
+        hentSykmeldtinfodata: PropTypes.func,
+        hentLoginInfo: PropTypes.func,
     }),
 };
 
 export function mapStateToProps(state) {
+    const { ledetekster, brukerinfo: { oppfolging, sykmeldtinfodata, loginInfo } } = state;
     return {
-        henterLedetekster: state.ledetekster.henter,
-        hentingLedeteksterFeilet: state.ledetekster.hentingFeilet,
-        henterOppfolging: state.brukerinfo.oppfolging.henter,
-        hentingOppfolgingFeilet: state.brukerinfo.oppfolging.hentingFeilet,
-        underOppfolging: state.brukerinfo.oppfolging.data.underOppfolging,
+        henterLedetekster: ledetekster.henter,
+        hentingLedeteksterFeilet: ledetekster.hentingFeilet,
+        oppfolging: {
+            henter: oppfolging.henter,
+            hentingFeilet: oppfolging.hentingFeilet,
+            data: oppfolging.data,
+        },
+        sykmeldtInfo: {
+            henter: sykmeldtinfodata.henter,
+            hentingFeilet: sykmeldtinfodata.hentingFeilet,
+            data: sykmeldtinfodata.data,
+        },
+        loginInfo: {
+            henter: loginInfo.henter,
+            hentingFeilet: loginInfo.hentingFeilet,
+            data: loginInfo.data,
+        },
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     const actions = bindActionCreators({
         hentOppfolging,
+        hentSykmeldtinfodata,
+        hentLoginInfo,
     }, dispatch);
     return { actions };
 };

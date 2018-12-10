@@ -18,8 +18,8 @@ const TrengerMerVeiledningRad = () => {
     return (
         <div className="infoside-fo__rad infoside-fo__rad--hvit">
             <div className="begrensning">
-                <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning-overskrift')}</Undertittel>
-                <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning-tekst')}</Normaltekst>
+                <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
+                <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>
                 <div className="infoside-fo__knapperad">
                     <Knapp onClick={handleNeiBtnClicked}>
                         {getLedetekst('infoside-fo.knapp-nei')}

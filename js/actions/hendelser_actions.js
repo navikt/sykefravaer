@@ -18,9 +18,9 @@ export function henterHendelser() {
     };
 }
 
-export function hendelserHentet(hendelser) {
+export function hendelserHentet(data) {
     return {
         type: actiontyper.HENDELSER_HENTET,
-        hendelser,
+        data,
     };
 }

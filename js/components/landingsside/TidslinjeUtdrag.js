@@ -38,7 +38,7 @@ const teksterMedArbeidsgiver = [{
 }, {
     fom: 274,
     tom: 500,
-    nokkel: 'tidslinje.utdrag.sluttfasen.med-arbeidsgiver-2',
+    nokkel: 'tidslinje.utdrag.sluttfasen.med-arbeidsgiver',
     bilde: 'sluttfasen.svg',
 }];
 
@@ -65,7 +65,7 @@ const teksterUtenArbeidsgiver = [{
 }, {
     fom: 274,
     tom: 500,
-    nokkel: 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2',
+    nokkel: 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver',
     bilde: 'sluttfasen.svg',
 }];
 
@@ -167,7 +167,11 @@ export default class TidslinjeUtdrag extends Utvidbar {
     }
 
     getNokkelbase() {
-        return this.getTekstObjekt().nokkel;
+        const nokkel = this.getTekstObjekt().nokkel;
+        return nokkel === 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver'
+            && this.props.toggleFO39uker
+            ? 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2'
+            : nokkel;
     }
 
     getBilde() {

@@ -93,7 +93,10 @@ function* watchHentOppfolging() {
 }
 
 function* watchHentSykmeldtinfodata() {
-    yield takeEvery(actiontyper.HENT_SYKMELDTINFODATA_FORESPURT, hentSykmeldtinfodata);
+    yield takeEvery([
+        actiontyper.HENT_SYKMELDTINFODATA_FORESPURT,
+        actiontyper.HENTET_UNLEASH_TOGGLES,
+    ], hentSykmeldtinfodata);
 }
 
 function* watchHentLoginInfo() {

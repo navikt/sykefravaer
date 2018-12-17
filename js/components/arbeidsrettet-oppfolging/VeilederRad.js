@@ -3,12 +3,13 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hentFornavn } from '../../utils';
+import { hentFornavn, formaterDato } from '../../utils';
 
 const VeilederRad = ({ brukerNavn, maksDato }) => {
     const veilederpanelKompakt = window.matchMedia('(min-width: 768px)').matches;
     const veilederpanelType = veilederpanelKompakt ? 'normal' : 'plakat';
     const fornavn = hentFornavn(brukerNavn);
+    const formatertDato = formaterDato(maksDato);
 
     return (
         <div className="infoside-fo__rad infoside-fo__rad--graa">
@@ -22,7 +23,7 @@ const VeilederRad = ({ brukerNavn, maksDato }) => {
                         <Systemtittel className="blokk-xs">{getLedetekst('infoside-fo.intro.overskrift', { '%NAVN%': fornavn })}</Systemtittel>
                         <div
                             className="typo-normal"
-                            dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro.tekst', { '%DATO%': maksDato })}
+                            dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.intro.tekst', { '%DATO%': formatertDato })}
                         />
                     </div>
                 </Veilederpanel>

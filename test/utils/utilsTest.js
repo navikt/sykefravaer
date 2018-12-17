@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { hentFornavn, lagDesimaltall, lagHeltall, Vis } from '../../js/utils';
+import { formaterDato, hentFornavn, lagDesimaltall, lagHeltall, Vis } from '../../js/utils';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -175,6 +175,21 @@ describe('utils', () => {
 
         it('Skal returnere fornavn hvis navn ikke har etternavn', () => {
             expect(hentFornavn('Test')).to.equal('Test');
+        });
+    });
+
+    describe('formaterDato', () => {
+        it('Skal returnere riktig formatert dato', () => {
+            expect(formaterDato('02.03.2018')).to.equal('02. mars 2018');
+        });
+
+        it('Skal ikke formatere dato for ugyldig dato', () => {
+            const dato = '02.032018';
+            expect(formaterDato(dato)).to.equal(dato);
+        });
+
+        it('Skal returnere tom streng for undefined dato', () => {
+            expect(formaterDato(undefined)).to.equal('');
         });
     });
 });

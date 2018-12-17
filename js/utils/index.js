@@ -65,6 +65,34 @@ export const hentFornavn = (navn) => {
     return fornavn.charAt(0).toUpperCase() + fornavn.slice(1).toLowerCase();
 };
 
+const maaneder = [
+    'januar', 'februar', 'mars', 'april',
+    'mai', 'juni', 'juli', 'august',
+    'september', 'oktober', 'november', 'desember',
+];
+
+// Formater dato på formen DD.MM.YYYY til f.eks 01. juni 2018
+export const formaterDato = (dato) => {
+    if (!dato || dato === '') {
+        return '';
+    }
+
+    const verdier = dato.split('.');
+
+    if (verdier.length !== 3) {
+        return dato;
+    }
+
+    const maaned = parseInt(verdier[1], 10);
+    const maanedStr = maaneder[maaned - 1];
+
+    if (!maanedStr) {
+        return dato;
+    }
+
+    return `${verdier[0]}. ${maanedStr} ${verdier[2]}`;
+};
+
 export const formaterOrgnr = (orgnr) => {
     return orgnr.replace(/(...)(...)(...)/g, '$1 $2 $3');
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 import {
     getLedetekst,
     hentToggles,
@@ -30,9 +31,17 @@ import {
     finnVirksomheterMedAktivSykmelding,
     forsoektHentetOppfolgingsPerioder,
 } from '../utils/oppfolgingsforlopsperioderUtils';
+import { REDIRECT_ETTER_LOGIN } from '../gateway-api/gatewayApi';
 
 export class Container extends Component {
     componentWillMount() {
+        const redirect = window.localStorage.getItem(REDIRECT_ETTER_LOGIN);
+
+        if (redirect) {
+            window.localStorage.removeItem(REDIRECT_ETTER_LOGIN);
+            browserHistory.push(redirect);
+        }
+
         const {
             skalHenteLedere,
             skalHenteOppfolgingsdialoger,

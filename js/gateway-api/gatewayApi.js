@@ -2,6 +2,7 @@ import { log } from 'digisyfo-npm';
 import ponyfill from 'fetch-ponyfill';
 
 const ponyfills = ponyfill();
+export const REDIRECT_ETTER_LOGIN = 'REDIRECT_ETTER_LOGIN';
 
 const isEdge = () => {
     return window.navigator.userAgent.indexOf('Edge') > -1;
@@ -25,6 +26,7 @@ const getHeaders = () => {
 };
 
 export const hentLoginUrl = () => {
+    window.localStorage.setItem(REDIRECT_ETTER_LOGIN, window.location.href);
     if (window.location.href.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://loginservice.nav.no/login';
@@ -44,7 +46,7 @@ export function get(url) {
         .then((res) => {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
-                window.location.href = `${hentLoginUrl()}?redirect=${window.location.href}`;
+                window.location.href = `${hentLoginUrl()}?redirect=${window.location.host}/sykefravaer`;
                 throw new Error('MANGLER_OIDC_TOKEN');
             } else if (res.status === 403) {
                 log(res);

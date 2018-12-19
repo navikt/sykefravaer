@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { getLedetekst, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
 import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingProptypes';
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
-import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, soknad as soknadPt } from '../../propTypes';
+import { soknad as soknadPt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentHendelser } from '../../actions/hendelser_actions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../sider/AktivitetskravvarselSide';
@@ -19,6 +19,7 @@ import {
 } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { toggleErPaaHeroku } from '../../toggles';
+import { harMerVeiledingHendelse } from '../../reducers/hendelser';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -99,6 +100,7 @@ const RendreOppgaver = (
         sykmeldinger = [],
         visOppgaver,
         mote,
+        visMerVeiledingHendelse,
         avventendeGodkjenninger,
         harNyttMotebehov,
         nyePlaner,
@@ -117,15 +119,14 @@ const RendreOppgaver = (
             <div>
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
-                    { sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} /> }
-                    { (sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} /> }
-                    { mote !== null && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
-                    {/* TODO:  TODO: Kommenter ut linjen under når InfosideFO er klar  */}
-                    {/* <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('infoside-fo.inngangstekst')} /> */}
-                    { avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
-                    { nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} /> }
-                    { harNyttMotebehov && <NyttMotebehovVarsel /> }
-                    { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
+                    {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
+                    {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
+                    {mote !== null && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
+                    {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('infoside-fo.inngangstekst')} />}
+                    {avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />}
+                    {nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} />}
+                    {harNyttMotebehov && <NyttMotebehovVarsel />}
+                    {visAktivitetskrav && <NyttAktivitetskravvarsel />}
                 </ul>
             </div>
         </IllustrertInnhold>
@@ -141,6 +142,7 @@ RendreOppgaver.propTypes = {
     harNyttMotebehov: PropTypes.bool,
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    visMerVeiledingHendelse: PropTypes.bool,
     visAktivitetskrav: PropTypes.bool,
 };
 
@@ -211,8 +213,6 @@ export const mapStateToProps = (state) => {
         _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 ||
         visAktivitetskrav;
 
-    const harNyttMotebehov = erMotebehovUbesvart(state);
-
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
@@ -222,9 +222,10 @@ export const mapStateToProps = (state) => {
         soknader,
         visOppgaver,
         mote: moteRes,
+        visMerVeiledingHendelse: harMerVeiledingHendelse(state),
         avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
-        harNyttMotebehov,
+        harNyttMotebehov: erMotebehovUbesvart(state),
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav,

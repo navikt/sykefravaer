@@ -1,3 +1,5 @@
+/* eslint-disable arrow-body-style */
+
 import * as actiontyper from '../actions/actiontyper';
 import { createReducer } from './createReducer';
 
@@ -21,3 +23,9 @@ const hendelser = createReducer(
     });
 
 export default hendelser;
+
+export const harMerVeiledingHendelse = (state) => {
+    return state.hendelser.data
+        .map(hendelse => hendelse.type)
+        .some(type => type === 'MER_VEILEDNING');
+};

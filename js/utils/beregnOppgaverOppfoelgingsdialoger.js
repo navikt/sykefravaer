@@ -1,17 +1,7 @@
-import erSykmeldingGyldigForOppfolgingMedGrensedato from '../oppfolgingsdialogNpm/erSykmeldingGyldigForOppfolgingMedGrensedato';
-
 const finnNyesteGodkjenning = (godkjenninger) => {
     return godkjenninger.sort((g1, g2) => {
         return new Date(g2.godkjenningsTidspunkt) - new Date(g1.godkjenningsTidspunkt);
     })[0];
-};
-
-const erOppfolgingsdialogKnyttetTilGyldigSykmelding = (oppfolgingsdialog, sykmeldinger) => {
-    const dagensDato = new Date();
-    return sykmeldinger.filter((sykmelding) => {
-        return oppfolgingsdialog.virksomhet.virksomhetsnummer === sykmelding.orgnummer
-            && erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, dagensDato);
-    }).length > 0;
 };
 
 const idAlleredeFunnet = (planer, id) => {
@@ -20,17 +10,14 @@ const idAlleredeFunnet = (planer, id) => {
     }).length > 0;
 };
 
-const beregnOppgaverOppfoelgingsdialoger = (oppfolgingsdialoger, sykmeldinger) => {
-    const oppfolgingdialogerKnyttetTilGyldigSykmelding = oppfolgingsdialoger.filter((plan) => {
-        return erOppfolgingsdialogKnyttetTilGyldigSykmelding(plan, sykmeldinger);
-    });
-    const avventendeGodkjenninger = oppfolgingdialogerKnyttetTilGyldigSykmelding
+const beregnOppgaverOppfoelgingsdialoger = (oppfolgingsdialoger) => {
+    const avventendeGodkjenninger = oppfolgingsdialoger
         .filter((plan) => {
             return plan.godkjenninger.length > 0 &&
                 plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr &&
                 finnNyesteGodkjenning(plan.godkjenninger).godkjent;
         });
-    const nyePlaner = oppfolgingdialogerKnyttetTilGyldigSykmelding
+    const nyePlaner = oppfolgingsdialoger
         .filter((plan) => {
             return plan.arbeidstaker.sistInnlogget === null
                 && plan.status === 'UNDER_ARBEID'

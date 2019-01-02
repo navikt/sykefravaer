@@ -5,7 +5,6 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import deepFreeze from 'deep-freeze';
 import { Container, mapStateToProps } from '../../js/sider/LandingssideSide';
-import getSykmelding from '../mock/mockSykmeldinger';
 import brukerinfo from '../../js/reducers/brukerinfo';
 
 chai.use(chaiEnzyme());
@@ -423,106 +422,32 @@ describe('LandingssideSide', () => {
         });
 
         describe('skalViseOppfolgingsdialog', () => {
-            let clock;
-            let getSykmeldingMedTomDato;
-            let utgaattSykmelding;
-            let fremtidigSykmelding;
-            let fremtidigSykmeldingUtenArbeidsgiver;
-            let sykmeldingSomErUtgaattForMindreEnnFireManederSiden;
-            let sykmeldingSomNettoppErUtgaatt;
-
-            beforeEach(() => {
-                clock = sinon.useFakeTimers(new Date('2018-05-01').getTime());
-                getSykmeldingMedTomDato = (tomdato) => {
-                    const fom = new Date(tomdato);
-                    fom.setDate(fom.getTime() - 18);
-                    return getSykmelding({
-                        orgnummer: '123',
-                        mulighetForArbeid: {
-                            perioder: [{
-                                fom,
-                                tom: tomdato,
-                            }],
-                        },
-                    });
-                };
-
-                utgaattSykmelding = getSykmeldingMedTomDato(new Date('2017-12-22'));
-                fremtidigSykmelding = getSykmeldingMedTomDato(new Date('2018-06-13'));
-                fremtidigSykmeldingUtenArbeidsgiver = getSykmeldingMedTomDato(new Date('2018-06-13'));
-                fremtidigSykmeldingUtenArbeidsgiver.orgnummer = null;
-                sykmeldingSomErUtgaattForMindreEnnFireManederSiden = getSykmeldingMedTomDato(new Date('2018-01-01'));
-                sykmeldingSomNettoppErUtgaatt = getSykmeldingMedTomDato(new Date('2017-31-12'));
-            });
-
-            afterEach(() => {
-                clock.restore();
-            });
-
-            it('Skal være true om vi har en oppfolgingsdialog, men ingen sykmeldinger', () => {
-                state.oppfolgingsdialoger.data = [{}];
-                state.dineSykmeldinger.data = [];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(true);
-            });
-
-            it('Skal være true om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for mindre enn fire måneder siden', () => {
-                state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomErUtgaattForMindreEnnFireManederSiden];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(true);
-            });
-
-            it('Skal være false om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for fire måneder og én dag siden', () => {
-                state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomNettoppErUtgaatt];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(false);
-            });
-
-            it('Skal være false om det finnes fremtidig sykmelding uten arbeidsgiver', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(false);
-            });
-
-            it('Skal være true om det finnes fremtidig sykmelding med arbeidsgiver', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmelding];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(true);
-            });
-
-            it('Skal være false om det eksisterer 1 sykmelding uten orgnummer', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(false);
-            });
-
-            it('Skal være false om henting av oppfølgingsdialoger har feilet', () => {
-                state.dineSykmeldinger.data = [{
-                    orgnummer: '123',
-                    mulighetForArbeid: {
-                        perioder: [],
-                    },
-                }];
+            it('Skal være false om vi har oppfolgingdialog eller ledere', () => {
                 state.oppfolgingsdialoger.data = [];
-                state.oppfolgingsdialoger.hentingFeilet = true;
+                state.ledere.data = [];
                 const props = mapStateToProps(state);
                 expect(props.skalViseOppfolgingsdialog).to.equal(false);
             });
 
-            it('Skal være false om henting av sykmeldinger har feilet', () => {
-                state.dineSykmeldinger.data = [];
-                state.dineSykmeldinger.hentingFeilet = true;
-                state.oppfolgingsdialoger.data = [{}];
+            it('Skal være true om vi har leder, men ikke oppfolgingsdialog', () => {
+                state.oppfolgingsdialoger.data = [];
+                state.ledere.data = [{}];
                 const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+                expect(props.skalViseOppfolgingsdialog).to.equal(true);
             });
 
-            it('Skal være false om henting av ledere har feilet', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmelding];
+            it('Skal være true om vi har en oppfolgingsdialog, men ingen ledere', () => {
                 state.oppfolgingsdialoger.data = [{}];
-                state.ledere.hentingFeilet = true;
+                state.ledere.data = [];
                 const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+                expect(props.skalViseOppfolgingsdialog).to.equal(true);
+            });
+
+            it('Skal være true om vi har 1 oppfolgingsdialog og leder', () => {
+                state.oppfolgingsdialoger.data = [{}];
+                state.ledere.data = [{}];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(true);
             });
         });
 

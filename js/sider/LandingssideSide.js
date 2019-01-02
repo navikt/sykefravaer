@@ -188,7 +188,7 @@ export function mapStateToProps(state) {
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet &&
             !state.oppfolgingsdialoger.hentingFeilet &&
             !state.ledere.hentingFeilet &&
-            skalViseOppfoelgingsdialogLenke(state.dineSykmeldinger.data, state.oppfolgingsdialoger),
+            skalViseOppfoelgingsdialogLenke(state.ledere, state.oppfolgingsdialoger),
         skalViseAktivitetsplan: state.brukerinfo.oppfolging.data.underOppfolging,
         hentingFeilet: state.ledetekster.hentingFeilet,
         oppfolgingsforlopsPerioderReducerListe,

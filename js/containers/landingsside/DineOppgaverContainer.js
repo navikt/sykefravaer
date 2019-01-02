@@ -199,7 +199,7 @@ export const mapStateToProps = (state) => {
             moteRes = 'TRENGER_SVAR';
         }
     }
-    const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
+    const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const visOppgaver = sykmeldinger.length > 0 ||
         sykepengesoknader.length > 0 ||

@@ -31,24 +31,6 @@ export const erSykmeldingAktiv = (sykmelding) => {
         }).length > 0;
 };
 
-export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
-    const dagensDato = new Date();
-    return sykmeldinger.filter((sykmelding) => {
-        return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, dagensDato);
-    }).map((sykmelding) => {
-        return {
-            virksomhetsnummer: sykmelding.orgnummer,
-            navn: sykmelding.arbeidsgiver,
-            harNaermesteLeder: sykmeldtHarNaermestelederHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
-            naermesteLeder: finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
-        };
-    }).filter((sykmelding, idx, self) => {
-        return self.findIndex((t) => {
-            return t.virksomhetsnummer === sykmelding.virksomhetsnummer && sykmelding.virksomhetsnummer !== null;
-        }) === idx;
-    });
-};
-
 export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLedere) => {
     return sykmeldinger.filter((sykmelding) => {
         return erSykmeldingAktiv(sykmelding);
@@ -68,18 +50,6 @@ export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLe
 
 export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, oppfolgingsdialoger) => {
     return sykmeldtHarGyldigSykmelding(sykmeldinger) || oppfolgingsdialoger.data.length > 0;
-};
-
-export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {
-    return arbeidsgivere.filter((arbeidsgiver) => {
-        return !arbeidsgiver.harNaermesteLeder;
-    }).length > 0;
-};
-
-export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
-    return arbeidsgivere.filter((arbeidsgiver) => {
-        return arbeidsgiver.harNaermesteLeder;
-    }).length > 0;
 };
 
 export const getTidligsteStartdatoSykeforloep = (sykepengesoknad) => {

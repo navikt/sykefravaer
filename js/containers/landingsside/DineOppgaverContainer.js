@@ -17,7 +17,7 @@ import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyp
 import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { toggleErPaaHeroku } from '../../toggles';
-import { harMerVeiledingHendelse } from '../../reducers/hendelser';
+import { selectHarMerVeiledingHendelse } from '../../reducers/hendelser';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -220,7 +220,7 @@ export const mapStateToProps = (state) => {
         soknader,
         visOppgaver,
         mote: moteRes,
-        visMerVeiledingHendelse: harMerVeiledingHendelse(state),
+        visMerVeiledingHendelse: selectHarMerVeiledingHendelse(state),
         avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
         harNyttMotebehov: erMotebehovUbesvart(state),

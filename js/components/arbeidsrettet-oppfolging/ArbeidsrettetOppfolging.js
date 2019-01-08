@@ -27,8 +27,8 @@ const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
             <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
             <VeilederRad brukerNavn={brukerNavn} maksDato={maksDato} />
             <KommunikasjonRad />
-            <AapRad />
             { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
+            <AapRad />
         </React.Fragment>
     );
 };

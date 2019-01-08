@@ -4,7 +4,7 @@ import React from 'react';
 
 const AapRad = () => {
     return (
-        <div className="infoside-fo__rad infoside-fo__rad--graa">
+        <div className="infoside-fo__rad infoside-fo__rad--hvit">
             <div className="begrensning">
                 <Undertittel className="blokk-s">{getLedetekst('infoside-fo.dinokonomi.tittel')}</Undertittel>
                 <Normaltekst className="blokk-s">{getLedetekst('infoside-fo.dinokonomi.tekst')}</Normaltekst>

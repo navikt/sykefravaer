@@ -1,20 +1,30 @@
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { getLedetekst } from 'digisyfo-npm';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import React from 'react';
+import { connect } from 'react-redux';
+import * as PT from 'prop-types';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
+import { bekreftMerVeiledning } from '../../actions/merVeiledning_actions';
+import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';
 
-const handleNeiBtnClicked = () => {
-    // TODO: Legg til API-kall for å registrere knappetrykk
-    history.push('/sykefravaer');
-};
+const TrengerMerVeiledningRad = ({ doBekreftMerVeiledning, merVeiledningHendelseIder }) => {
+    const bekreftAlleMerVeiledninghendelser = () => {
+        merVeiledningHendelseIder.forEach((id) => {
+            return doBekreftMerVeiledning(id);
+        });
+    };
 
-const handleJaBtnClicked = () => {
-    // TODO: Legg til API-kall for å registrere knappetrykk
-    window.location.href = '/arbeidssokerregistrering/?fraSykefravaer=true';
-};
+    const handleNeiBtnClicked = () => {
+        bekreftAlleMerVeiledninghendelser();
+        history.push('/sykefravaer');
+    };
 
-const TrengerMerVeiledningRad = () => {
+    const handleJaBtnClicked = () => {
+        bekreftAlleMerVeiledninghendelser();
+        window.location.href = '/arbeidssokerregistrering/?fraSykefravaer=true';
+    };
+
     return (
         <div className="infoside-fo__rad infoside-fo__rad--graa">
             <div className="begrensning">
@@ -33,4 +43,22 @@ const TrengerMerVeiledningRad = () => {
     );
 };
 
-export default TrengerMerVeiledningRad;
+TrengerMerVeiledningRad.propTypes = {
+    doBekreftMerVeiledning: PT.func,
+    merVeiledningHendelseIder: PT.arrayOf(PT.number),
+};
+
+const mapStateToProps = (state) => {
+    return {
+        merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
+    };
+};
+
+const actionCreators = {
+    doBekreftMerVeiledning: bekreftMerVeiledning,
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators,
+)(TrengerMerVeiledningRad);

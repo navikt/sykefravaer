@@ -19,7 +19,7 @@ import {
 } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { toggleErPaaHeroku } from '../../toggles';
-import { harMerVeiledingHendelse } from '../../reducers/hendelser';
+import { selectHarMerVeiledingHendelse } from '../../reducers/hendelser';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -222,7 +222,7 @@ export const mapStateToProps = (state) => {
         soknader,
         visOppgaver,
         mote: moteRes,
-        visMerVeiledingHendelse: harMerVeiledingHendelse(state),
+        visMerVeiledingHendelse: selectHarMerVeiledingHendelse(state),
         avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
         harNyttMotebehov: erMotebehovUbesvart(state),

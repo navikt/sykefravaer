@@ -1,20 +1,32 @@
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { getLedetekst } from 'digisyfo-npm';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import React from 'react';
+import { connect } from 'react-redux';
+import * as PT from 'prop-types';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
+import { bekreftMerVeiledning } from '../../actions/merVeiledning_actions';
+import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';
+import { henterSoknader } from '../../actions/soknader_actions';
 
-const handleNeiBtnClicked = () => {
-    // TODO: Legg til API-kall for å registrere knappetrykk
-    history.push('/sykefravaer');
-};
+const TrengerMerVeiledningRad = ({ doBekreftMerVeiledning, doHentHendelser, merVeiledningHendelseIder }) => {
+    const bekreftAlleMerVeiledninghendelser = () => {
+        merVeiledningHendelseIder.forEach((id) => {
+            doBekreftMerVeiledning(id);
+        });
+    };
 
-const handleJaBtnClicked = () => {
-    // TODO: Legg til API-kall for å registrere knappetrykk
-    window.location.href = '/arbeidssokerregistrering/?fraSykefravaer=true';
-};
+    const handleNeiBtnClicked = async () => {
+        await bekreftAlleMerVeiledninghendelser();
+        await doHentHendelser();
+        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}`);
+    };
 
-const TrengerMerVeiledningRad = () => {
+    const handleJaBtnClicked = () => {
+        bekreftAlleMerVeiledninghendelser();
+        window.location.href = '/arbeidssokerregistrering/?fraSykefravaer=true';
+    };
+
     return (
         <div className="infoside-fo__rad infoside-fo__rad--graa">
             <div className="begrensning">
@@ -33,4 +45,24 @@ const TrengerMerVeiledningRad = () => {
     );
 };
 
-export default TrengerMerVeiledningRad;
+TrengerMerVeiledningRad.propTypes = {
+    doBekreftMerVeiledning: PT.func,
+    doHentHendelser: PT.func,
+    merVeiledningHendelseIder: PT.arrayOf(PT.number),
+};
+
+const mapStateToProps = (state) => {
+    return {
+        merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
+    };
+};
+
+const actionCreators = {
+    doBekreftMerVeiledning: bekreftMerVeiledning,
+    doHentHendelser: henterSoknader,
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators,
+)(TrengerMerVeiledningRad);

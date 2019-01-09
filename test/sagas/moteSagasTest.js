@@ -1,14 +1,21 @@
 import { expect } from 'chai';
-import { get } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import {
     HENTER_MOTE,
     MOTE_HENTET,
 } from '../../js/actions/moter_actions';
 import { hentMote } from '../../js/sagas/moteSagas';
+import {
+    get,
+    hentSyfoApiUrl,
+    API_NAVN,
+} from '../../js/gateway-api/gatewayApi';
 
 describe('moteSagas', () => {
+    let apiUrlBase;
+
     describe('hentMote', () => {
+        apiUrlBase = hentSyfoApiUrl(API_NAVN.SYFOMOTEADMIN);
         const generator = hentMote({});
 
         it(`Skal dispatche ${HENTER_MOTE}`, () => {
@@ -17,7 +24,7 @@ describe('moteSagas', () => {
         });
 
         it('Skal dernest hente mote', () => {
-            const nextCall = call(get, '/moterest/api/v2/moter/siste');
+            const nextCall = call(get, `${apiUrlBase}/bruker/arbeidstaker/moter/siste`);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

@@ -31,13 +31,13 @@ fasitResources:
     resourceType: baseurl
   - alias: loginservice
     resourceType: restservice
+  - alias: syfoapi-syfomoteadminapi
+    resourceType: restservice
   - alias: syfoapi-syfoteksterapi
     resourceType: restservice
   - alias: syfoapi-syfosoknadapi
     resourceType: restservice
   - alias: sykefravaerapi
-    resourceType: restservice
-  - alias: moterestapi
     resourceType: restservice
   - alias: oppfoelgingsdialogapi
     resourceType: restservice

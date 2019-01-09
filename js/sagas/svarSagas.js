@@ -1,11 +1,17 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { post, log } from 'digisyfo-npm';
+import { log } from 'digisyfo-npm';
 import * as actions from '../actions/moter_actions';
+import {
+    API_NAVN,
+    hentSyfoApiUrl,
+    post,
+} from '../gateway-api/gatewayApi';
 
 export function* sendSvar(action) {
     yield put(actions.senderSvar());
     try {
-        yield call(post, `${process.env.REACT_APP_MOTEREST_ROOT}/api/v2/moter/actions/${action.moteUuid}/send`, {
+        const url = `${hentSyfoApiUrl(API_NAVN.SYFOMOTEADMIN)}/bruker/moter/${action.moteUuid}/send`;
+        yield call(post, url, {
             valgteAlternativIder: action.data,
             deltakertype: action.deltakertype,
         });

@@ -132,6 +132,7 @@ export const hentSyfoApiUrl = (appNavn) => {
 };
 
 export const API_NAVN = {
+    SYFOMOTEADMIN: 'syfomoteadmin',
     SYFOMOTEBEHOV: 'syfomotebehov',
     SYFOSOKNAD: 'syfosoknad',
     SYFOSERVICESTRANGLER: 'syfoservicestrangler',

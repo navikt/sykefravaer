@@ -703,7 +703,7 @@ describe('LandingssideSide', () => {
 
         describe('redirect etter innlogging', () => {
             it('Redirecter om en url er satt i localStorage', () => {
-                localStorage.setItem(REDIRECT_ETTER_LOGIN, 'www.vg.no');
+                localStorage.setItem(REDIRECT_ETTER_LOGIN, 'tjenester.nav.no/sykefravaer');
 
                 const spy = sinon.spy();
                 router.browserHistory = { push: spy };
@@ -711,11 +711,23 @@ describe('LandingssideSide', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<Container {...props} actions={actions} />);
 
-                expect(spy.withArgs('www.vg.no').calledOnce).to.equal(true);
+                expect(spy.withArgs('tjenester.nav.no/sykefravaer').calledOnce).to.equal(true);
             });
 
             it('Redirecter ikke om en url ikke er satt i localStorage', () => {
                 localStorage.setItem(REDIRECT_ETTER_LOGIN, undefined);
+
+                const spy = sinon.spy();
+                router.browserHistory = { push: spy };
+
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<Container {...props} actions={actions} />);
+
+                expect(spy.withArgs('tjenester.nav.no/sykefravaer').notCalled).to.equal(true);
+            });
+
+            it('Redirecter ikke om url som er satt i localStorage ikke inneholder sykefravaer', () => {
+                localStorage.setItem(REDIRECT_ETTER_LOGIN, 'www.vg.no');
 
                 const spy = sinon.spy();
                 router.browserHistory = { push: spy };

@@ -37,7 +37,7 @@ export class Container extends Component {
     componentWillMount() {
         const redirect = window.localStorage.getItem(REDIRECT_ETTER_LOGIN);
 
-        if (redirect && redirect.indexOf('sykefravaer') > -1) {
+        if (redirect && redirect.indexOf(`${window.location.origin}/sykefravaer`) > -1) {
             window.localStorage.removeItem(REDIRECT_ETTER_LOGIN);
             browserHistory.push(redirect);
         }

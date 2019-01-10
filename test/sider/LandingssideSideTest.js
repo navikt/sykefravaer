@@ -13,6 +13,8 @@ import { REDIRECT_ETTER_LOGIN } from '../../js/gateway-api/gatewayApi';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
+const _originalWindow = global.window;
+
 const storage = {};
 const _localStorage = {};
 _localStorage.getItem = (key) => {
@@ -743,5 +745,8 @@ describe('LandingssideSide', () => {
                 expect(spy.withArgs('www.vg.no').notCalled).to.equal(true);
             });
         });
+    });
+    afterEach(() => {
+        global.window = _originalWindow;
     });
 });

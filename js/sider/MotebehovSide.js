@@ -8,11 +8,12 @@ import {
     hentToggles,
 } from 'digisyfo-npm';
 import {
-    proptypes as motebehovProptypes,
     svarMotebehovFeilet,
 } from 'moter-npm';
 import {
     brodsmule as brodsmulePt,
+    motebehovReducerATPt,
+    motebehovSvarReducerPt,
 } from '../propTypes';
 import Side from './Side';
 import MotebehovInnhold from '../components/moter/MotebehovInnhold';
@@ -105,8 +106,8 @@ Container.propTypes = {
     skalHenteToggles: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    motebehovReducer: motebehovProptypes.motebehovReducerATPt,
-    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
+    motebehovReducer: motebehovReducerATPt,
+    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
     actions: PropTypes.shape({

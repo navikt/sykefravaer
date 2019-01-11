@@ -3,17 +3,22 @@ import {
     put,
     call,
 } from 'redux-saga/effects';
-import { actiontyper } from 'moter-npm';
-import {
-    hentMotebehov,
-    svarMotebehov,
-} from '../../js/sagas/motebehovSagas';
 import {
     get,
     post,
     hentSyfoApiUrl,
     API_NAVN,
 } from '../../js/gateway-api/gatewayApi';
+import {
+    hentMotebehov,
+    svarMotebehov,
+} from '../../js/sagas/motebehovSagas';
+import {
+    HENT_MOTEBEHOV_HENTER,
+    HENT_MOTEBEHOV_HENTET,
+    SVAR_MOTEBEHOV_SENDER,
+    SVAR_MOTEBEHOV_SENDT,
+} from '../../js/actions/motebehov_actions';
 
 describe('motebehovSagas', () => {
     const virksomhetsnummer = '123456789';
@@ -25,9 +30,9 @@ describe('motebehovSagas', () => {
             id: 1,
         });
 
-        it(`Skal dispatche ${actiontyper.HENT_MOTEBEHOV_HENTER}`, () => {
+        it(`Skal dispatche ${HENT_MOTEBEHOV_HENTER}`, () => {
             const nextPut = put({
-                type: actiontyper.HENT_MOTEBEHOV_HENTER,
+                type: HENT_MOTEBEHOV_HENTER,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -37,9 +42,9 @@ describe('motebehovSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('Skal dernest sette motebehov hentet', () => {
+        it(`Skal dernest sette ${HENT_MOTEBEHOV_HENTET}`, () => {
             const nextPut = put({
-                type: actiontyper.HENT_MOTEBEHOV_HENTET,
+                type: HENT_MOTEBEHOV_HENTET,
                 data: [
                     { motebehovSvar: null },
                 ],
@@ -53,15 +58,15 @@ describe('motebehovSagas', () => {
     describe('svarMotebehov', () => {
         const generator = svarMotebehov({
             svar: {
-                harMotebehov: true,
+                harMotebehov: 'true',
                 forklaring: 'forklaring',
             },
             virksomhetsnummer,
         });
 
-        it(`Skal dispatche ${actiontyper.SVAR_MOTEBEHOV_SENDER}`, () => {
+        it(`Skal dispatche ${SVAR_MOTEBEHOV_SENDER}`, () => {
             const nextPut = put({
-                type: actiontyper.SVAR_MOTEBEHOV_SENDER,
+                type: SVAR_MOTEBEHOV_SENDER,
                 virksomhetsnummer,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
@@ -79,9 +84,9 @@ describe('motebehovSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('Skal dernest sette motebehov sendt', () => {
+        it(`Skal dernest sette ${SVAR_MOTEBEHOV_SENDT}`, () => {
             const nextPut = put({
-                type: actiontyper.SVAR_MOTEBEHOV_SENDT,
+                type: SVAR_MOTEBEHOV_SENDT,
                 svar: {
                     arbeidstakerFnr: '',
                     virksomhetsnummer,

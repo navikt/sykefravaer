@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Bjorn } from 'digisyfo-npm';
-import { proptypes as motebehovProptypes } from 'moter-npm';
+import { motebehovSvarReducerPt } from '../../../propTypes';
 import SvarMotebehovSkjema from './SvarMotebehovSkjema';
 import MotebehovInfoForSvar from './MotebehovInfoForSvar';
 import FolketrygdlovenTekst from './FolketrygdlovenTekst';
@@ -35,7 +35,7 @@ const MotebehovSvar = (
 };
 MotebehovSvar.propTypes = {
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
-    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
+    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
     svarMotebehov: PropTypes.func,
 };
 

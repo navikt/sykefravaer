@@ -4,7 +4,7 @@ import {
     getLedetekst,
     Utvidbar,
 } from 'digisyfo-npm';
-import { proptypes as motebehovProptypes } from 'moter-npm';
+import { motebehovPt } from '../../../propTypes';
 import { FELTER } from './SvarMotebehovSkjema';
 import { tilLesbarDatoMedArstallOgUkedag } from '../../../utils/datoUtils';
 
@@ -43,7 +43,7 @@ export const MotebehovKvitteringUtvidbar = (
     </Utvidbar>);
 };
 MotebehovKvitteringUtvidbar.propTypes = {
-    motebehov: motebehovProptypes.motebehovPt,
+    motebehov: motebehovPt,
 };
 
 const MotebehovKvittering = (
@@ -75,7 +75,7 @@ const MotebehovKvittering = (
     </Fragment>);
 };
 MotebehovKvittering.propTypes = {
-    motebehov: motebehovProptypes.motebehovPt,
+    motebehov: motebehovPt,
 };
 
 export default MotebehovKvittering;

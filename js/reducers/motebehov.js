@@ -1,4 +1,10 @@
-import { actiontyper as moteActiontyper } from 'moter-npm';
+import {
+    HENT_MOTEBEHOV_HENTER,
+    HENT_MOTEBEHOV_HENTET,
+    HENT_MOTEBEHOV_FEILET,
+    HENT_MOTEBEHOV_FORBUDT,
+    SVAR_MOTEBEHOV_SENDT,
+} from '../actions/motebehov_actions';
 
 export const sorterMotebehovEtterNyeste = (motebehovListe) => {
     return [...motebehovListe].filter((element) => {
@@ -19,7 +25,7 @@ const initiellState = {
 
 export default function motebehov(state = initiellState, action = {}) {
     switch (action.type) {
-        case moteActiontyper.HENT_MOTEBEHOV_HENTER: {
+        case HENT_MOTEBEHOV_HENTER: {
             return {
                 ...state,
                 henter: true,
@@ -30,7 +36,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 data: [],
             };
         }
-        case moteActiontyper.HENT_MOTEBEHOV_HENTET: {
+        case HENT_MOTEBEHOV_HENTET: {
             return {
                 ...state,
                 henter: false,
@@ -39,7 +45,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 data: action.data.length > 0 ? sorterMotebehovEtterNyeste(action.data) : [],
             };
         }
-        case moteActiontyper.HENT_MOTEBEHOV_FEILET: {
+        case HENT_MOTEBEHOV_FEILET: {
             return {
                 ...state,
                 henter: false,
@@ -47,7 +53,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 hentingForsokt: true,
             };
         }
-        case moteActiontyper.HENT_MOTEBEHOV_FORBUDT: {
+        case HENT_MOTEBEHOV_FORBUDT: {
             return {
                 ...state,
                 henter: false,
@@ -55,7 +61,7 @@ export default function motebehov(state = initiellState, action = {}) {
                 hentingForsokt: true,
             };
         }
-        case moteActiontyper.SVAR_MOTEBEHOV_SENDT: {
+        case SVAR_MOTEBEHOV_SENDT: {
             const nyttMotebehov = {
                 ...action.svar,
                 virksomhetsnummer: action.virksomhetsnummer,

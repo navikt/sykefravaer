@@ -4,10 +4,8 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 import { Link } from 'react-router';
-import {
-    proptypes as motebehovProptypes,
-    svarMotebehovSender,
-} from 'moter-npm';
+import { harSvarMotebehovSender } from '../../../utils/motebehovUtils';
+import { motebehovSvarReducerPt } from '../../../propTypes';
 import Tekstomraade from '../../skjema/Tekstomraade';
 import Radioknapper from '../../skjema/Radioknapper';
 
@@ -134,7 +132,7 @@ export const Knapper = ({ motebehovSvarReducerListe }) => {
         <div className="knapperad">
             <Hovedknapp
                 type="submit"
-                spinner={svarMotebehovSender(motebehovSvarReducerListe)}
+                spinner={harSvarMotebehovSender(motebehovSvarReducerListe)}
             >
                 {TEKSTER_INFORMASJON.knappSend}
             </Hovedknapp>
@@ -147,7 +145,7 @@ export const Knapper = ({ motebehovSvarReducerListe }) => {
     </Fragment>);
 };
 Knapper.propTypes = {
-    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
+    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
 };
 
 
@@ -198,7 +196,7 @@ SvarMotebehovSkjemaKomponent.propTypes = {
     harMotebehov: PropTypes.string,
     handleSubmit: PropTypes.func,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
-    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
+    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
     svarMotebehov: PropTypes.func,
 };
 

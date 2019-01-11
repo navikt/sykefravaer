@@ -10,10 +10,6 @@ import {
     log,
 } from 'digisyfo-npm';
 import {
-    input2RSLagreMotebehov,
-    actiontyper,
-} from 'moter-npm';
-import {
     API_NAVN,
     hentSyfoApiUrl,
     get,
@@ -21,6 +17,7 @@ import {
 } from '../gateway-api/gatewayApi';
 import * as actions from '../actions/motebehov_actions';
 import { skalHenteMotebehov } from '../selectors/motebehovSelectors';
+import { input2RSLagreMotebehov } from '../utils/motebehovUtils';
 
 export function* hentMotebehov() {
     yield put(actions.hentMotebehovHenter());
@@ -60,11 +57,11 @@ export function* svarMotebehov(action) {
 }
 
 function* watchHentMotebehov() {
-    yield takeEvery(actiontyper.HENT_MOTEBEHOV_FORESPURT, hentMotebehovHvisIkkeHentet);
+    yield takeEvery(actions.HENT_MOTEBEHOV_FORESPURT, hentMotebehovHvisIkkeHentet);
 }
 
 function* watchSvarMotebehov() {
-    yield takeEvery(actiontyper.SVAR_MOTEBEHOV_FORESPURT, svarMotebehov);
+    yield takeEvery(actions.SVAR_MOTEBEHOV_FORESPURT, svarMotebehov);
 }
 
 export default function* motebehovSagas() {

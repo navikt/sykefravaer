@@ -46,7 +46,7 @@ export function get(url) {
         .then((res) => {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
-                window.location.href = `${hentLoginUrl()}?redirect=https://${window.location.host}/sykefravaer`;
+                window.location.href = `${hentLoginUrl()}?redirect=https://${window.location.origin}/sykefravaer`;
                 throw new Error('MANGLER_OIDC_TOKEN');
             } else if (res.status === 403) {
                 log(res);

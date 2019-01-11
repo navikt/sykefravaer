@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { getSvarsideModus } from 'moter-npm';
 import { getLedetekst, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
 import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingProptypes';
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, soknad as soknadPt } from '../../propTypes';
-import { erMotePassert } from '../../utils/moteUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentHendelser } from '../../actions/hendelser_actions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../sider/AktivitetskravvarselSide';
@@ -15,6 +13,10 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../enums/soknadstatuser';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
+import {
+    erMotePassert,
+    getSvarsideModus,
+} from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { toggleErPaaHeroku } from '../../toggles';
 

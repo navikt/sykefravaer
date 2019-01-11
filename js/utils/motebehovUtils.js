@@ -17,6 +17,12 @@ export const harSvarMotebehovSender = (motebehovSvarReducerListe) => {
     }).length > 0;
 };
 
+export const harSvarMotebehovFeilet = (motebehovSvarReducerListe) => {
+    return motebehovSvarReducerListe.filter((reducer) => {
+        return reducer.sendingFeilet;
+    }).length > 0;
+};
+
 export const input2RSLagreMotebehov = (motebehov, virksomhetsnummer, fnr) => {
     const rsLagreMotebehov = {};
     const rsMotebehovSvar = {};

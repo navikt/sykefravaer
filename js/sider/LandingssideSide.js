@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
@@ -8,6 +7,7 @@ import {
     getLedetekst,
     hentToggles,
 } from 'digisyfo-npm';
+import { hentMote } from '../actions/moter_actions';
 import { hentOppfolgingsdialoger } from '../oppfolgingsdialogNpm/oppfolgingsdialoger_actions';
 import Landingsside from '../components/landingsside/Landingsside';
 import SideStrippet from './SideStrippet';
@@ -211,7 +211,7 @@ export function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
     const actions = bindActionCreators({
-        hentMote: moteActions.hentMote,
+        hentMote,
         hentMotebehov,
         hentSykepengesoknader,
         hentLedere,

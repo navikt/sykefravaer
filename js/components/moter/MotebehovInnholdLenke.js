@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst } from 'digisyfo-npm';
-import { motebehovReducerATPt } from '../../propTypes';
+import { motebehovReducerPt } from '../../propTypes';
 import { skalViseMotebehovKvittering } from '../../utils/motebehovUtils';
 
 const TEKSTER = {
@@ -30,7 +30,7 @@ const MotebehovInnholdLenke = (
     </div>);
 };
 MotebehovInnholdLenke.propTypes = {
-    motebehovReducer: motebehovReducerATPt,
+    motebehovReducer: motebehovReducerPt,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
 };
 

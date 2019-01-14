@@ -21,7 +21,7 @@ export {
     oppsummeringsoknad,
 } from 'digisyfo-npm';
 
-export * from './motebehovProptypes';
+export * from './dialogmoteProptypes';
 
 export const brodsmule = PropTypes.shape({
     sti: PropTypes.string,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
-import { motebehovReducerATPt } from '../../propTypes';
+import { motebehovReducerPt } from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 import DialogmoterInnholdLenke from './DialogmoterInnholdLenke';
 import MotebehovInnholdLenke from './MotebehovInnholdLenke';
@@ -27,7 +27,7 @@ const DialogmoterInnhold = (
     </div>);
 };
 DialogmoterInnhold.propTypes = {
-    motebehovReducer: motebehovReducerATPt,
+    motebehovReducer: motebehovReducerPt,
     harMote: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),

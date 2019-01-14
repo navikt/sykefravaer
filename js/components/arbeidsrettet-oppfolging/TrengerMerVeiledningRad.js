@@ -16,7 +16,7 @@ const handleJaBtnClicked = () => {
 
 const TrengerMerVeiledningRad = () => {
     return (
-        <div className="infoside-fo__rad infoside-fo__rad--hvit">
+        <div className="infoside-fo__rad infoside-fo__rad--graa">
             <div className="begrensning">
                 <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
                 <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>

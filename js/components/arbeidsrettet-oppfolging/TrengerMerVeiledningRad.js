@@ -13,7 +13,7 @@ const TrengerMerVeiledningRad = ({ doBekreftMerVeiledning, merVeiledningHendelse
         merVeiledningHendelseIder.forEach((id) => {
             doBekreftMerVeiledning(id);
         });
-        callback();
+        window.setTimeout(callback(), 3000);
     };
 
     const handleNeiBtnClicked = () => {

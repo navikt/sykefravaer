@@ -11,9 +11,9 @@ import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';
 const TrengerMerVeiledningRad = ({ doBekreftMerVeiledning, merVeiledningHendelseIder }) => {
     const bekreftAlleMerVeiledninghendelser = (callback) => {
         merVeiledningHendelseIder.forEach((id) => {
-            doBekreftMerVeiledning(id);
+            doBekreftMerVeiledning(id)
+                .then(callback);
         });
-        window.setTimeout(callback, 3000);
     };
 
     const handleNeiBtnClicked = () => {
@@ -22,7 +22,9 @@ const TrengerMerVeiledningRad = ({ doBekreftMerVeiledning, merVeiledningHendelse
     };
 
     const handleJaBtnClicked = () => {
-        bekreftAlleMerVeiledninghendelser(() => { window.location.href = '/arbeidssokerregistrering/?fraSykefravaer=true'; });
+        bekreftAlleMerVeiledninghendelser(() => {
+            window.location.href = '/arbeidssokerregistrering/?fraSykefravaer=true';
+        });
     };
 
     return (

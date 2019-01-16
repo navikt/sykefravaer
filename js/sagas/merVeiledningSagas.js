@@ -7,10 +7,12 @@ import { hentHendelser } from '../actions/hendelser_actions';
 export function* bekreftMerVeiledning(action) {
     yield put(bekrefterMerVeiledning());
     try {
+        console.log('bekreft mer veiledning');
         const url = `${hentSyfoApiUrl(API_NAVN.SYFOSERVICESTRANGLER)}/hendelse/${action.hendelseId}/bekreft`;
         yield call(post, url);
         yield put(merVeiledningBekreftet());
         yield put(hentHendelser());
+        yield call(action.callback);
     } catch (e) {
         log(e);
         yield put(bekreftMerVeiledningFeilet());

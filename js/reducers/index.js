@@ -1,6 +1,5 @@
 import { ledetekster, sykeforlopsPerioder, tidslinjer, timeout, toggles } from 'digisyfo-npm';
 import { reducer as formReducer } from 'redux-form';
-import { mote, svar } from 'moter-npm';
 import oppfolgingsdialoger from '../oppfolgingsdialogNpm/oppfolgingsdialoger';
 import arbeidsgivere from './arbeidsgivere';
 import arbeidsgiverperiodeberegning from './arbeidsgiverperiodeberegning';
@@ -21,6 +20,8 @@ import sykmeldingMeta from './sykmeldingMeta';
 import soknader from './soknader';
 import unleashToggles from './unleashToggles';
 import metrikker from './metrikker';
+import mote from './mote';
+import svar from './svar';
 import motebehov from './motebehov';
 import motebehovSvar from './motebehovSvar';
 import history from '../history';

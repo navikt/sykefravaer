@@ -1,36 +1,83 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as PT from 'prop-types';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { getLedetekst } from 'digisyfo-npm';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import React from 'react';
+import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
+import { bekreftMerVeiledning } from '../../actions/merVeiledning_actions';
+import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';
+import { hentHendelser } from '../../actions/hendelser_actions';
 
-const handleNeiBtnClicked = () => {
-    // TODO: Legg til API-kall for å registrere knappetrykk
-    history.push('/sykefravaer');
-};
+class TrengerMerVeiledningRad extends Component {
+    constructor(props) {
+        super(props);
 
-const handleJaBtnClicked = () => {
-    // TODO: Legg til API-kall for å registrere knappetrykk
-    window.location.href = '/arbeidssokerregistrering/?fraSykefravaer=true';
-};
+        this.handleNeiBtnClicked = this.handleNeiBtnClicked.bind(this);
+        this.handleJaBtnClicked = this.handleJaBtnClicked.bind(this);
+        this.bekreftAlleMerVeiledninghendelser = this.bekreftAlleMerVeiledninghendelser.bind(this);
+    }
 
-const TrengerMerVeiledningRad = () => {
-    return (
-        <div className="infoside-fo__rad infoside-fo__rad--hvit">
-            <div className="begrensning">
-                <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
-                <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>
-                <div className="infoside-fo__knapperad">
-                    <Knapp onClick={handleNeiBtnClicked}>
-                        {getLedetekst('infoside-fo.knapp-nei')}
-                    </Knapp>
-                    <Hovedknapp onClick={handleJaBtnClicked}>
-                        {getLedetekst('infoside-fo.knapp-ja')}
-                    </Hovedknapp>
+    componentDidMount() {
+        this.props.doHentHendelser();
+    }
+
+    bekreftAlleMerVeiledninghendelser(callback) {
+        this.props.merVeiledningHendelseIder.forEach((id) => {
+            this.props.doBekreftMerVeiledning(id, callback);
+        });
+    }
+
+    handleNeiBtnClicked() {
+        this.bekreftAlleMerVeiledninghendelser(() => {
+            return history.push('/sykefravaer');
+        });
+    }
+
+    handleJaBtnClicked() {
+        this.bekreftAlleMerVeiledninghendelser(() => {
+            return window.location.assign('/arbeidssokerregistrering/?fraSykefravaer=true');
+        });
+    }
+
+    render() {
+        return (
+            <div className="infoside-fo__rad infoside-fo__rad--graa">
+                <div className="begrensning">
+                    <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
+                    <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>
+                    <div className="infoside-fo__knapperad">
+                        <Knapp onClick={this.handleNeiBtnClicked}>
+                            {getLedetekst('infoside-fo.knapp-nei')}
+                        </Knapp>
+                        <Hovedknapp onClick={this.handleJaBtnClicked}>
+                            {getLedetekst('infoside-fo.knapp-ja')}
+                        </Hovedknapp>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+}
+
+TrengerMerVeiledningRad.propTypes = {
+    doBekreftMerVeiledning: PT.func,
+    doHentHendelser: PT.func,
+    merVeiledningHendelseIder: PT.arrayOf(PT.number),
 };
 
-export default TrengerMerVeiledningRad;
+const mapStateToProps = (state) => {
+    return {
+        merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
+    };
+};
+
+const actionCreators = {
+    doBekreftMerVeiledning: bekreftMerVeiledning,
+    doHentHendelser: hentHendelser,
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators,
+)(TrengerMerVeiledningRad);

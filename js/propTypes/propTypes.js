@@ -3,7 +3,8 @@ import * as hendelsetyper from '../enums/hendelsetyper';
 import * as svartyper from '../enums/svartyper';
 import * as soknadmottakertyper from '../enums/soknadmottakertyper';
 
-export { arbeidssituasjon,
+export {
+    arbeidssituasjon,
     soknadperiode,
     annenInntektskilde,
     naermesteLeder,
@@ -17,7 +18,10 @@ export { arbeidssituasjon,
     sykmeldingstatus,
     sykmelding,
     tidslinjehendelse,
-    oppsummeringsoknad } from 'digisyfo-npm';
+    oppsummeringsoknad,
+} from 'digisyfo-npm';
+
+export * from './dialogmoteProptypes';
 
 export const brodsmule = PropTypes.shape({
     sti: PropTypes.string,

@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { moteActions, svarActions, Kvittering, MotePassert, AvbruttMote, BekreftetKvittering, getSvarsideModus,
-    Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { bindActionCreators } from 'redux';
+import {
+    brodsmule as brodsmulePt,
+    moteplanleggerDeltakerPt,
+    motePt,
+} from '../propTypes';
+import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import Side from './Side';
-import { erMotePassert } from '../utils/moteUtils';
-import { brodsmule as brodsmulePt } from '../propTypes';
-
-const { BEKREFTET, MOTESTATUS, BRUKER, AVBRUTT } = konstanter;
+import AvbruttMote from '../components/moter/moteplanlegger/AvbruttMote';
+import BekreftetKvittering from '../components/moter/moteplanlegger/BekreftetKvittering';
+import Kvittering from '../components/moter/moteplanlegger/Kvittering';
+import MotePassert from '../components/moter/moteplanlegger/MotePassert';
+import Svarside from '../components/moter/moteplanlegger/Svarside';
+import {
+    hentMote,
+    sendSvar,
+} from '../actions/moter_actions';
+import {
+    AVBRUTT,
+    BEKREFTET,
+    MOTESTATUS,
+    erMotePassert,
+    getSvarsideModus,
+} from '../utils/moteUtils';
+import { BRUKER } from '../enums/moteplanleggerDeltakerTyper';
 
 export class Container extends Component {
     componentWillMount() {
@@ -19,9 +35,21 @@ export class Container extends Component {
     }
 
     render() {
-        const { henter, hentet, mote, brodsmuler, hentingFeilet, moteIkkeFunnet, actions, ledetekster } = this.props;
+        const {
+            henter,
+            hentet,
+            mote,
+            brodsmuler,
+            hentingFeilet,
+            moteIkkeFunnet,
+            actions,
+        } = this.props;
         const modus = getSvarsideModus(mote);
-        return (<Side tittel={getLedetekst('mote.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
+        return (<Side
+            tittel={getLedetekst('mote.sidetittel')}
+            brodsmuler={brodsmuler}
+            laster={henter || !hentet}
+        >
             {
                 (() => {
                     if (henter) {
@@ -33,24 +61,38 @@ export class Container extends Component {
                     if (moteIkkeFunnet) {
                         return (<Feilmelding
                             tittel="Du har ingen møteforespørsel for øyeblikket"
-                            melding="Er du sikker på at du er på riktig side?" />);
+                            melding="Er du sikker på at du er på riktig side?"
+                        />);
                     }
                     if (erMotePassert(mote)) {
-                        return <MotePassert deltakertype={BRUKER} ledetekster={ledetekster} />;
+                        return <MotePassert deltakertype={BRUKER} />;
                     }
                     if (modus === BEKREFTET) {
-                        return <BekreftetKvittering mote={mote} deltakertype={BRUKER} ledetekster={ledetekster} />;
+                        return (<BekreftetKvittering
+                            mote={mote}
+                            deltakertype={BRUKER}
+                        />);
                     }
                     if (modus === MOTESTATUS) {
-                        return <Kvittering mote={mote} deltakertype={BRUKER} ledetekster={ledetekster} />;
+                        return (<Kvittering
+                            mote={mote}
+                            deltakertype={BRUKER}
+                        />);
                     }
                     if (modus === AVBRUTT) {
-                        return (<AvbruttMote mote={mote} deltakertype={BRUKER} ledetekster={ledetekster} />);
+                        return (<AvbruttMote
+                            mote={mote}
+                            deltakertype={BRUKER}
+                        />);
                     }
                     if (mote) {
-                        return <Svarside {...this.props} deltakertype={BRUKER} sendSvar={actions.sendSvar} ledetekster={ledetekster} />;
+                        return (<Svarside
+                            {...this.props}
+                            deltakertype={BRUKER}
+                            sendSvar={actions.sendSvar}
+                        />);
                     }
-                    return <Feilmelding ledetekster={ledetekster} />;
+                    return <Feilmelding />;
                 })()
             }
         </Side>);
@@ -58,10 +100,9 @@ export class Container extends Component {
 }
 
 Container.propTypes = {
-    ledetekster: keyValue,
     henter: PropTypes.bool,
     fantIkkeDeltaker: PropTypes.bool,
-    deltaker: moterPropTypes.deltaker,
+    deltaker: moteplanleggerDeltakerPt,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     actions: PropTypes.shape({
         hentMote: PropTypes.func,
@@ -71,26 +112,29 @@ Container.propTypes = {
     moteIkkeFunnet: PropTypes.bool,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
-    mote: moterPropTypes.mote,
+    mote: motePt,
     hentet: PropTypes.bool,
 };
 
 export function mapDispatchToProps(dispatch) {
-    const mActions = bindActionCreators(moteActions, dispatch);
-    const sActions = bindActionCreators(svarActions, dispatch);
+    const actions = bindActionCreators({
+        hentMote,
+        sendSvar,
+    }, dispatch);
     return {
-        actions: { ...mActions, ...sActions },
+        actions,
     };
 }
 
 export function mapStateToProps(state) {
     return {
-        ledetekster: state.ledetekster.henter ? {} : state.ledetekster.data,
         mote: state.mote.data,
         moteIkkeFunnet: state.mote.moteIkkeFunnet === true,
         henter: state.mote.henter,
         hentet: state.mote.hentet === true,
-        hentingFeilet: state.mote.hentingFeilet || state.ledetekster.hentingFeilet || false,
+        hentingFeilet: state.mote.hentingFeilet
+        || state.ledetekster.hentingFeilet
+        || false,
         sender: state.svar.sender,
         sendingFeilet: state.svar.sendingFeilet,
         brodsmuler: [{

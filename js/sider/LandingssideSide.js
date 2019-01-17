@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 import {
     getLedetekst,
     hentToggles,
 } from 'digisyfo-npm';
+import { hentMote } from '../actions/moter_actions';
 import { hentOppfolgingsdialoger } from '../oppfolgingsdialogNpm/oppfolgingsdialoger_actions';
 import Landingsside from '../components/landingsside/Landingsside';
 import SideStrippet from './SideStrippet';
@@ -30,9 +31,17 @@ import {
     finnVirksomheterMedAktivSykmelding,
     forsoektHentetOppfolgingsPerioder,
 } from '../utils/oppfolgingsforlopsperioderUtils';
+import { REDIRECT_ETTER_LOGIN } from '../gateway-api/gatewayApi';
 
 export class Container extends Component {
     componentWillMount() {
+        const redirect = window.localStorage.getItem(REDIRECT_ETTER_LOGIN);
+
+        if (redirect && redirect.indexOf(`${window.location.origin}/sykefravaer`) > -1) {
+            window.localStorage.removeItem(REDIRECT_ETTER_LOGIN);
+            browserHistory.push(redirect);
+        }
+
         const {
             skalHenteLedere,
             skalHenteOppfolgingsdialoger,
@@ -202,7 +211,7 @@ export function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
     const actions = bindActionCreators({
-        hentMote: moteActions.hentMote,
+        hentMote,
         hentMotebehov,
         hentSykepengesoknader,
         hentLedere,

@@ -38,6 +38,7 @@ const PERSON = 'person';
 const PERSONVIRKSOMHETSNUMMER = 'personVirksomhetsnummer';
 const VIRKSOMHET = 'virksomhet';
 const SISTE = 'siste';
+const HENDELSER = 'hendelser';
 
 const lastFilTilMinne = (filnavn) => {
     fs.readFile(path.join(__dirname, `/data/${filnavn}.json`), (err, data) => {
@@ -72,6 +73,7 @@ lastFilTilMinne(PERSONVIRKSOMHETSNUMMER);
 lastFilTilMinne(VIRKSOMHET);
 lastFilTilMinne(FORRIGE_LEDER);
 lastFilTilMinne(SISTE);
+lastFilTilMinne(HENDELSER);
 
 let teksterFraProd;
 
@@ -352,7 +354,7 @@ function mockForOpplaeringsmiljo(server) {
     });
 
     server.get('/syforest/informasjon/hendelser', (req, res) => {
-        res.send(JSON.stringify([]));
+        res.send(JSON.stringify(mockData[HENDELSER]));
     });
 
     server.get('/syforest/informasjon/arbeidsgivere', (req, res) => {

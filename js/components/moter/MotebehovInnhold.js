@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
-import { proptypes as motebehovProptypes } from 'moter-npm';
+import {
+    motebehovReducerPt,
+    motebehovSvarReducerPt,
+} from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 import MotebehovSvar from './motebehov/MotebehovSvar';
 import MotebehovKvittering from './motebehov/MotebehovKvittering';
@@ -38,8 +41,8 @@ MotebehovInnhold.propTypes = {
         hentMotebehov: PropTypes.func,
         svarMotebehov: PropTypes.func,
     }),
-    motebehovReducer: motebehovProptypes.motebehovReducerATPt,
-    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
+    motebehovReducer: motebehovReducerPt,
+    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
 };
 

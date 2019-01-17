@@ -8,11 +8,9 @@ import {
     hentToggles,
 } from 'digisyfo-npm';
 import {
-    proptypes as motebehovProptypes,
-    svarMotebehovFeilet,
-} from 'moter-npm';
-import {
     brodsmule as brodsmulePt,
+    motebehovReducerPt,
+    motebehovSvarReducerPt,
 } from '../propTypes';
 import Side from './Side';
 import MotebehovInnhold from '../components/moter/MotebehovInnhold';
@@ -40,6 +38,7 @@ import {
     hentOppfolgingsPerioderFeilet,
 } from '../utils/oppfolgingsforlopsperioderUtils';
 import {
+    harSvarMotebehovFeilet,
     finnVirksomhetnrListeMedSkalViseMotebehov,
     skalViseMotebehovMedOppfolgingsforlopListe,
 } from '../utils/motebehovUtils';
@@ -105,8 +104,8 @@ Container.propTypes = {
     skalHenteToggles: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    motebehovReducer: motebehovProptypes.motebehovReducerATPt,
-    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovProptypes.motebehovSvarReducerPt),
+    motebehovReducer: motebehovReducerPt,
+    motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
     actions: PropTypes.shape({
@@ -169,7 +168,7 @@ export function mapStateToProps(state) {
         || motebehovReducer.hentingFeilet
         || hentOppfolgingsforlopsPerioderFeilet
         || togglesReducer.hentingFeilet,
-        sendingFeilet: svarMotebehovFeilet(motebehovSvarReducerListe),
+        sendingFeilet: harSvarMotebehovFeilet(motebehovSvarReducerListe),
         skalHenteLedere,
         skalHenteOppfolgingsPerioder,
         skalHenteToggles,

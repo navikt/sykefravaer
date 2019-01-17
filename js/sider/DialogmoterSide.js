@@ -8,19 +8,19 @@ import {
     togglesPt,
     hentToggles,
 } from 'digisyfo-npm';
-import {
-    proptypes as motebehovProptypes,
-    moteActions,
-} from 'moter-npm';
 import getContextRoot from '../utils/getContextRoot';
 import history from '../history';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import DialogmoterInnhold from '../components/moter/DialogmoterInnhold';
-import { brodsmule as brodsmulePt } from '../propTypes';
+import {
+    brodsmule as brodsmulePt,
+    motebehovReducerPt,
+} from '../propTypes';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
+import { hentMote } from '../actions/moter_actions';
 import { hentMotebehov } from '../actions/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import {
@@ -118,7 +118,7 @@ Container.propTypes = {
     ledetekster: keyValue,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     koblingId: PropTypes.string,
-    motebehovReducer: motebehovProptypes.motebehovReducerATPt,
+    motebehovReducer: motebehovReducerPt,
     togglesReducer: togglesPt,
     harMote: PropTypes.bool,
     harForsoektHentetAlt: PropTypes.bool,
@@ -141,7 +141,7 @@ export function mapDispatchToProps(dispatch) {
     const actions = bindActionCreators({
         hentDineSykmeldinger,
         hentLedere,
-        hentMote: moteActions.hentMote,
+        hentMote,
         hentMotebehov,
         hentOppfolgingsforlopsPerioder,
         hentToggles,

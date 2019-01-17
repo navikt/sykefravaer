@@ -12,7 +12,6 @@ import ArbeidsrettetOppfolgingContainer from '../../containers/landingsside/Arbe
 import IllustrertInnhold from '../IllustrertInnhold';
 import { Vis } from '../../utils';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
-import OsloMetUndersokelse from './OsloMetUndersokelse';
 import Sidebanner from '../Sidebanner';
 import { toggleErPaaHeroku } from '../../toggles';
 
@@ -33,7 +32,6 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 !harSykmeldinger && <IngenSykmeldinger />
             }
             <DineOppgaverContainer />
-            <OsloMetUndersokelse />
             <Utdrag />
             <DinSituasjonContainer />
             <nav className="js-navigasjon landingssideNavigasjon">

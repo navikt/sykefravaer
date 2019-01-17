@@ -26,7 +26,7 @@ const hendelser = createReducer(
 
 export default hendelser;
 
-export const selectHarMerVeiledingHendelse = (state) => {
+export const selectHarMerVeiledningHendelse = (state) => {
     return state.hendelser.data
         .map(hendelse => hendelse.type)
         .some(type => type === MER_VEILEDNING);

@@ -13,13 +13,10 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../enums/soknadstatuser';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
-import {
-    erMotePassert,
-    getSvarsideModus,
-} from '../../utils/moteUtils';
+import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { toggleErPaaHeroku } from '../../toggles';
-import { selectHarMerVeiledingHendelse } from '../../reducers/hendelser';
+import { selectHarMerVeiledningHendelse } from '../../reducers/hendelser';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -222,7 +219,7 @@ export const mapStateToProps = (state) => {
         soknader,
         visOppgaver,
         mote: moteRes,
-        visMerVeiledingHendelse: selectHarMerVeiledingHendelse(state),
+        visMerVeiledingHendelse: selectHarMerVeiledningHendelse(state),
         avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
         harNyttMotebehov: erMotebehovUbesvart(state),

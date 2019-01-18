@@ -231,9 +231,10 @@ export default class TidslinjeUtdrag extends Utvidbar {
                         }}>
                         {
                             this.state.visInnhold && (<div>
-                                <div className="redaksjonelt-innhold blokk"
-                                     dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`,
-                                    { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
+                                <div
+                                    className="redaksjonelt-innhold blokk"
+                                    dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`,
+                                        { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
                                 <p className="blokk">
                                     <Link className="lenkeTilTidslinje" to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}>
                                         {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}

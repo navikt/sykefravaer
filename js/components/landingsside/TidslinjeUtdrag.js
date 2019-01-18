@@ -169,7 +169,6 @@ export default class TidslinjeUtdrag extends Utvidbar {
     getNokkelbase() {
         const nokkel = this.getTekstObjekt().nokkel;
         return nokkel === 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2'
-            && this.props.toggleFO39uker
             ? 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2'
             : nokkel;
     }

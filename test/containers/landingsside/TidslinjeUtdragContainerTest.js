@@ -6,8 +6,6 @@ import sinon from 'sinon';
 import { Container, mapStateToProps } from '../../../js/containers/landingsside/TidslinjeutdragContainer';
 import brukerinfo from '../../../js/reducers/brukerinfo';
 import unleashToggles from '../../../js/reducers/unleashToggles';
-import { unleashTogglesHentet } from '../../../js/actions/unleashToggles_actions';
-import { FO_DATO_39_UKER } from '../../../js/enums/unleashToggles';
 import { sykmeldtInfodataHentet } from '../../../js/actions/brukerinfo_actions';
 
 chai.use(chaiEnzyme());
@@ -133,10 +131,7 @@ describe('TidslinjeutdragContainer', () => {
         expect(props.antallDager).to.equal(15);
     });
 
-    it('Skal tvinge varighet til 275 dager når FO-endepunkt er togglet på og returnerer true', () => {
-        state.unleashToggles = unleashToggles(unleashToggles(), unleashTogglesHentet({
-            [FO_DATO_39_UKER]: true,
-        }));
+    it('Skal tvinge varighet til 275 dager hvis sykeforløp er mindre enn 500 dager og arbeidsrettet oppfølging er aktivert', () => {
         state.brukerinfo = brukerinfo(state.brukerinfo, sykmeldtInfodataHentet({
             erArbeidsrettetOppfolgingSykmeldtInngangAktiv: true,
         }));
@@ -144,12 +139,9 @@ describe('TidslinjeutdragContainer', () => {
         expect(props.antallDager).to.equal(275);
     });
 
-    it('Skal tvinge varighet til 272 når FO-endepunkt er togglet på og returnerer false, selv om beregning fra sykeforløp returnerer > 39 uker', () => {
+    it('Skal tvinge varighet til 272 når arbeidsrettet oppfølging er deaktivert, selv om beregning fra sykeforløp returnerer > 39 uker', () => {
         clock = sinon.useFakeTimers(new Date('2018-12-11').getTime() + 156655);
         state.sykeforloep.startdato = new Date('2018-03-06');
-        state.unleashToggles = unleashToggles(unleashToggles(), unleashTogglesHentet({
-            [FO_DATO_39_UKER]: true,
-        }));
         state.brukerinfo = brukerinfo(state.brukerinfo, sykmeldtInfodataHentet({
             erArbeidsrettetOppfolgingSykmeldtInngangAktiv: false,
         }));
@@ -157,17 +149,14 @@ describe('TidslinjeutdragContainer', () => {
         expect(props.antallDager).to.equal(272);
     });
 
-    it('Skal beregne varighet fra sykeforløp når FO-endepunkt er togglet av', () => {
+    it('Skal beregne varighet fra sykeforløp når arbeidsrettet oppfølging er deaktivert og beregning fra sykeforløp returnerer < 39 uker', () => {
         clock = sinon.useFakeTimers(new Date('2018-12-11').getTime() + 156655);
-        state.sykeforloep.startdato = new Date('2018-03-07');
-        state.unleashToggles = unleashToggles(unleashToggles(), unleashTogglesHentet({
-            [FO_DATO_39_UKER]: false,
-        }));
+        state.sykeforloep.startdato = new Date('2018-03-20');
         state.brukerinfo = brukerinfo(state.brukerinfo, sykmeldtInfodataHentet({
             erArbeidsrettetOppfolgingSykmeldtInngangAktiv: false,
         }));
         const props = mapStateToProps(state);
-        expect(props.antallDager).to.equal(280);
+        expect(props.antallDager).to.equal(267);
     });
 
     describe('Med eller uten arbeidsgiver?', () => {

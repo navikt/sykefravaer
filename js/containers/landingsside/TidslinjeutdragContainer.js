@@ -3,7 +3,6 @@ import { senesteTom, sykmeldingstatuser, arbeidssituasjoner } from 'digisyfo-npm
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from '../../components/landingsside/TidslinjeUtdrag';
-import { toggleFO39uker as toggleFO39ukerSelector } from '../../selectors/unleashTogglesSelectors';
 
 const { SENDT, NY, BEKREFTET, TIL_SENDING } = sykmeldingstatuser;
 
@@ -11,11 +10,10 @@ const ETT_DOGN = 1000 * 60 * 60 * 24;
 const TRETTINI_UKER = 7 * 39;
 
 export const Container = (props) => {
-    const { visUtdrag, startdato, antallDager, visning, hentingFeilet, toggleFO39uker } = props;
+    const { visUtdrag, startdato, antallDager, visning, hentingFeilet } = props;
     return (!visUtdrag || hentingFeilet)
         ? null
         : <TidslinjeUtdrag
-            toggleFO39uker={toggleFO39uker}
             startdato={startdato}
             antallDager={antallDager}
             visning={visning} />;
@@ -27,7 +25,6 @@ Container.propTypes = {
     antallDager: PropTypes.number,
     visning: PropTypes.oneOf([MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI]),
     hentingFeilet: PropTypes.bool,
-    toggleFO39uker: PropTypes.bool,
 };
 
 const getSykefravaerVarighet = (state) => {
@@ -41,7 +38,7 @@ const getSykefravaerVarighet = (state) => {
     dagensDato.setSeconds(0);
     dagensDato.setMilliseconds(0);
     const antallDager = Math.round((dagensDato.getTime() - dato.getTime()) / ETT_DOGN) + 1;
-    return antallDager > 500 || !toggleFO39ukerSelector(state)
+    return antallDager > 500
         ? antallDager
         : erArbeidsrettetOppfolgingSykmeldtInngangAktiv
             ? TVING_MER_ENN_39_UKER
@@ -119,7 +116,6 @@ export const mapStateToProps = (state) => {
         antallDager,
         visUtdrag: skalViseUtdrag(state),
         visning: getVisning(state),
-        toggleFO39uker: toggleFO39ukerSelector(state),
     };
 };
 

@@ -131,7 +131,7 @@ describe('TidslinjeutdragContainer', () => {
         expect(props.antallDager).to.equal(15);
     });
 
-    it('Skal tvinge varighet til 275 dager hvis sykeforløp er mindre enn 500 dager og arbeidsrettet oppfølging er aktivert', () => {
+    it('Skal tvinge varighet til 275 dager hvis det er mindre enn 13 uker igjen til maksdato', () => {
         state.brukerinfo = brukerinfo(state.brukerinfo, sykmeldtInfodataHentet({
             erArbeidsrettetOppfolgingSykmeldtInngangAktiv: true,
         }));
@@ -139,7 +139,7 @@ describe('TidslinjeutdragContainer', () => {
         expect(props.antallDager).to.equal(275);
     });
 
-    it('Skal tvinge varighet til 272 når arbeidsrettet oppfølging er deaktivert, selv om beregning fra sykeforløp returnerer > 39 uker', () => {
+    it('Skal tvinge varighet til 272 når det er mer enn 13 uker igjen til maksdato, selv om beregning fra sykeforløp returnerer > 39 uker', () => {
         clock = sinon.useFakeTimers(new Date('2018-12-11').getTime() + 156655);
         state.sykeforloep.startdato = new Date('2018-03-06');
         state.brukerinfo = brukerinfo(state.brukerinfo, sykmeldtInfodataHentet({
@@ -149,7 +149,7 @@ describe('TidslinjeutdragContainer', () => {
         expect(props.antallDager).to.equal(272);
     });
 
-    it('Skal beregne varighet fra sykeforløp når arbeidsrettet oppfølging er deaktivert og beregning fra sykeforløp returnerer < 39 uker', () => {
+    it('Skal beregne varighet fra sykeforløp når det er mer enn 13 uker igjen til maksdato og beregning fra sykeforløp returnerer < 39 uker', () => {
         clock = sinon.useFakeTimers(new Date('2018-12-11').getTime() + 156655);
         state.sykeforloep.startdato = new Date('2018-03-20');
         state.brukerinfo = brukerinfo(state.brukerinfo, sykmeldtInfodataHentet({

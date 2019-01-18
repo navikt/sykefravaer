@@ -84,7 +84,8 @@ const TittelIngress = ({ nokkelbase, bilde }) => {
             <h2 className="tidslinjeutdrag__tittel">{getLedetekst(`${nokkelbase}.tittel`)}</h2>
             <div
                 className="tidslinjeutdrag__ingress redaksjonelt-innhold"
-                dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.ingress`)} />
+                dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.ingress`,
+                    { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
         </div>
     </div>);
 };
@@ -230,7 +231,9 @@ export default class TidslinjeUtdrag extends Utvidbar {
                         }}>
                         {
                             this.state.visInnhold && (<div>
-                                <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`)} />
+                                <div className="redaksjonelt-innhold blokk"
+                                     dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`,
+                                    { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
                                 <p className="blokk">
                                     <Link className="lenkeTilTidslinje" to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}>
                                         {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}

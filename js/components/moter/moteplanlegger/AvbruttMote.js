@@ -45,7 +45,7 @@ const AvbruttMote = (
                 <div className="kvittering__svar blokk">
                     { mote.alternativer.map((alternativ) => {
                         return (<label key={alternativ.id} className="avbrutt__mote__svar">
-                            {`${visDato(alternativ.tid)} ${getLedetekst('mote.kvitterng.kl')} ${visKlokkeslett(alternativ.tid)}`}
+                            {`${visDato(alternativ.tid)} ${getLedetekst('mote.kvittering.kl')} ${visKlokkeslett(alternativ.tid)}`}
                         </label>);
                     })
                     }

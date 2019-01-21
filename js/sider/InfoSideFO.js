@@ -1,49 +1,48 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { getLedetekst } from 'digisyfo-npm';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from '../components/arbeidsrettet-oppfolging/ArbeidsrettetOppfolging';
 import SideStrippet from './SideStrippet';
 import { hentLoginInfo, hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
-import { sykmeldtInfo as sykmeldtInfoPropTypes, oppfolging as oppfolgingPropTypes,
-    loginInfo as loginInfoPropTypes } from '../propTypes';
+import { selectLedeteksterHenter, selectLedeteksterHentingFeilet } from '../selectors/ledeteksterSelectors';
+import {
+    selectLoginInfoHenter,
+    selectLoginInfoHentingFeilet,
+    selectLoginInfoNavn,
+    selectOppfolgingErUnderOppfolging,
+    selectOppfolgingHenter,
+    selectOppfolgingHentingFeilet,
+    selectSykmeldtinfodataHenter,
+    selectSykmeldtinfodataHentingFeilet,
+    selectSykmeldtinfodataMaksdatoString,
+} from '../reducers/brukerinfo';
 
 class InfoSideFO extends Component {
-    componentWillMount() {
-        this.props.actions.hentOppfolging();
-        this.props.actions.hentSykmeldtinfodata();
-        this.props.actions.hentLoginInfo();
-    }
-
-    henter() {
-        const { henterLedetekster, oppfolging, sykmeldtInfo, loginInfo } = this.props;
-        return henterLedetekster || oppfolging.henter || sykmeldtInfo.henter || loginInfo.henter;
-    }
-
-    hentingFeilet() {
-        const { hentingLedeteksterFeilet, oppfolging, sykmeldtInfo, loginInfo } = this.props;
-        return hentingLedeteksterFeilet || oppfolging.hentingFeilet || sykmeldtInfo.hentingFeilet || loginInfo.hentingFeilet;
+    componentDidMount() {
+        this.props.doHentOppfolging();
+        this.props.doHentSykmeldtinfodata();
+        this.props.doHentLoginInfo();
     }
 
     render() {
-        const { oppfolging, sykmeldtInfo, loginInfo } = this.props;
+        const { henter, hentingFeilet, underOppfolging, maksDatoString, brukernavn } = this.props;
         return (
-            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={this.henter()}>
+            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={henter}>
                 {
                     (() => {
-                        if (this.henter()) {
+                        if (henter) {
                             return <AppSpinner />;
-                        } else if (this.hentingFeilet()) {
+                        } else if (hentingFeilet) {
                             return <Feilmelding />;
                         }
                         return (
                             <ArbeidsrettetOppfolging
-                                brukerNavn={loginInfo.data.name}
-                                underOppfolging={oppfolging.data.underOppfolging}
-                                maksDato={sykmeldtInfo.data.maksDato}
+                                brukerNavn={brukernavn}
+                                underOppfolging={underOppfolging}
+                                maksDato={maksDatoString}
                             />
                         );
                     })()
@@ -54,48 +53,36 @@ class InfoSideFO extends Component {
 }
 
 InfoSideFO.propTypes = {
-    henterLedetekster: PropTypes.bool,
-    hentingLedeteksterFeilet: PropTypes.bool,
-    oppfolging: oppfolgingPropTypes,
-    sykmeldtInfo: sykmeldtInfoPropTypes,
-    loginInfo: loginInfoPropTypes,
-    actions: PropTypes.shape({
-        hentOppfolging: PropTypes.func,
-        hentSykmeldtinfodata: PropTypes.func,
-        hentLoginInfo: PropTypes.func,
-    }),
+    doHentOppfolging: PropTypes.func,
+    doHentSykmeldtinfodata: PropTypes.func,
+    doHentLoginInfo: PropTypes.func,
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    underOppfolging: PropTypes.bool,
+    maksDatoString: PropTypes.string,
+    brukernavn: PropTypes.string,
 };
 
-export function mapStateToProps(state) {
-    const { ledetekster, brukerinfo: { oppfolging, sykmeldtinfodata, loginInfo } } = state;
+const mapStateToProps = (state) => {
     return {
-        henterLedetekster: ledetekster.henter,
-        hentingLedeteksterFeilet: ledetekster.hentingFeilet,
-        oppfolging: {
-            henter: oppfolging.henter,
-            hentingFeilet: oppfolging.hentingFeilet,
-            data: oppfolging.data,
-        },
-        sykmeldtInfo: {
-            henter: sykmeldtinfodata.henter,
-            hentingFeilet: sykmeldtinfodata.hentingFeilet,
-            data: sykmeldtinfodata.data,
-        },
-        loginInfo: {
-            henter: loginInfo.henter,
-            hentingFeilet: loginInfo.hentingFeilet,
-            data: loginInfo.data,
-        },
+        henter: selectLedeteksterHenter(state)
+            || selectOppfolgingHenter(state)
+            || selectSykmeldtinfodataHenter(state)
+            || selectLoginInfoHenter(state),
+        hentingFeilet: selectLedeteksterHentingFeilet(state)
+            || selectOppfolgingHentingFeilet(state)
+            || selectSykmeldtinfodataHentingFeilet(state)
+            || selectLoginInfoHentingFeilet(state),
+        underOppfolging: selectOppfolgingErUnderOppfolging(state),
+        maksDatoString: selectSykmeldtinfodataMaksdatoString(state),
+        brukernavn: selectLoginInfoNavn(state),
     };
-}
-
-const mapDispatchToProps = (dispatch) => {
-    const actions = bindActionCreators({
-        hentOppfolging,
-        hentSykmeldtinfodata,
-        hentLoginInfo,
-    }, dispatch);
-    return { actions };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoSideFO);
+const actionCreators = {
+    doHentOppfolging: hentOppfolging,
+    doHentSykmeldtinfodata: hentSykmeldtinfodata,
+    doHentLoginInfo: hentLoginInfo,
+};
+
+export default connect(mapStateToProps, actionCreators)(InfoSideFO);

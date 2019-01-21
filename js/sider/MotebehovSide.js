@@ -2,32 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-    getLedetekst,
-    keyValue,
-    hentToggles,
-} from 'digisyfo-npm';
-import {
-    brodsmule as brodsmulePt,
-    motebehovReducerPt,
-    motebehovSvarReducerPt,
-} from '../propTypes';
+import { getLedetekst, hentToggles, keyValue } from 'digisyfo-npm';
+import { brodsmule as brodsmulePt, motebehovReducerPt, motebehovSvarReducerPt } from '../propTypes';
 import Side from './Side';
 import MotebehovInnhold from '../components/moter/MotebehovInnhold';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import {
-    henterEllerHarHentetLedere,
-    henterEllerHarHentetToggles,
-    forsoektHentetToggles,
-    forsoektHentetDineSykmeldinger,
-} from '../utils/reducerUtils';
+import { forsoektHentetDineSykmeldinger, forsoektHentetToggles, henterEllerHarHentetLedere, henterEllerHarHentetToggles } from '../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
-import {
-    hentMotebehov,
-    svarMotebehov,
-} from '../actions/motebehov_actions';
+import { hentMotebehov, svarMotebehov } from '../actions/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
@@ -37,11 +21,8 @@ import {
     henterEllerHarForsoektHentetOppfolgingsPerioder,
     hentOppfolgingsPerioderFeilet,
 } from '../utils/oppfolgingsforlopsperioderUtils';
-import {
-    harSvarMotebehovFeilet,
-    finnVirksomhetnrListeMedSkalViseMotebehov,
-    skalViseMotebehovMedOppfolgingsforlopListe,
-} from '../utils/motebehovUtils';
+import { finnVirksomhetnrListeMedSkalViseMotebehov, harSvarMotebehovFeilet, skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
+import { selectLedeteksterData } from '../selectors/ledeteksterSelectors';
 
 class Container extends Component {
     componentDidMount() {
@@ -173,7 +154,7 @@ export function mapStateToProps(state) {
         skalHenteOppfolgingsPerioder,
         skalHenteToggles,
         skalViseMotebehov,
-        ledetekster: state.ledetekster.data,
+        ledetekster: selectLedeteksterData(state),
         motebehovReducer,
         motebehovSvarReducerListe,
         oppfolgingsforlopsPerioderReducerListe,

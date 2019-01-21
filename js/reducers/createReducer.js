@@ -1,6 +1,12 @@
-const initiellState = { data: {} };
+const initiellState = {
+    henter: false,
+    hentingFeilet: false,
+    hentet: false,
+    data: {},
+};
 
-export const createReducer = (feilActionType,
+export const createReducer = (
+    feilActionType,
     henterActionType,
     hentetActionType,
     initState = initiellState,

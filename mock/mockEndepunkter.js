@@ -405,7 +405,7 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/veilarbregistrering/api/sykmeldtinfodata', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
-            maksDato: '01.01.1970',
+            maksDato: '2018-01-01',
             erArbeidsrettetOppfolgingSykmeldtInngangAktiv: false,
         }));
     });

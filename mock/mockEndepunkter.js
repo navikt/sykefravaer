@@ -245,7 +245,7 @@ function mockForOpplaeringsmiljo(server) {
         res.send(JSON.stringify(mockData[SYKMELDINGER]));
     });
 
-    server.get('/moterest/api/v2/moter/siste', (req, res) => {
+    server.get('/syfomoteadmin/api/bruker/arbeidstaker/moter/siste', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[SISTE]));
     });

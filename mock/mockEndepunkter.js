@@ -424,6 +424,10 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/dittnav', (req, res) => {
         res.send('<p>Ditt Nav er ikke tilgjengelig - dette er en testside som kun viser Ditt sykefravær.</p><p><a href="/sykefravaer">Gå til Ditt sykefravær</a></p>');
     });
+
+    server.post('/syfoservicestrangler/api/hendelse/:hendelseId/bekreft', (req, res) => {
+        res.send();
+    });
 }
 
 function mockPilotEndepunkterForLokalmiljo(server) {

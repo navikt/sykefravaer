@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { tilLesbarDatoMedArstall, scrollTo, getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue, scrollTo, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Artikkel from '../components/aktivitetskrav/AktivitetskravArtikkel';
 import BekreftAktivitetskravSkjema from '../components/aktivitetskrav/BekreftAktivitetskravSkjema';
-import { AKTIVITETSKRAV_VARSEL, AKTIVITETSKRAV_BEKREFTET } from '../enums/hendelsetyper';
+import { AKTIVITETSKRAV_BEKREFTET, AKTIVITETSKRAV_VARSEL } from '../enums/hendelsetyper';
 import { hentHendelser } from '../actions/hendelser_actions';
 import { Vis } from '../utils';
+import { selectLedeteksterData } from '../selectors/ledeteksterSelectors';
 
 export const INGEN_AKTIVITETSKRAVVARSEL = 'INGEN_AKTIVITETSKRAVVARSEL';
 export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';
@@ -155,7 +156,7 @@ export function mapStateToProps(state) {
     return {
         hentingFeilet: state.ledetekster.hentingFeilet,
         henter: state.ledetekster.henter,
-        ledetekster: state.ledetekster.data,
+        ledetekster: selectLedeteksterData(state),
         visning,
         varseldato: sisteAktivitetskrav ? sisteAktivitetskrav.inntruffetdato : null,
         bekreftetdato: bekreftelseAvSisteAktivitetskrav ? bekreftelseAvSisteAktivitetskrav.inntruffetdato : null,

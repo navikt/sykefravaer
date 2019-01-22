@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
 import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';
 import Feilstripe from '../Feilstripe';
+import { selectLedeteksterData } from '../../selectors/ledeteksterSelectors';
 
 const Aktivitetskrav = (props) => {
     const { handleSubmit, ledetekster, dispatch, bekrefter, bekreftFeilet } = props;
@@ -53,7 +54,7 @@ const form = reduxForm({
 
 const mapStateToProps = (state) => {
     return {
-        ledetekster: state.ledetekster.data,
+        ledetekster: selectLedeteksterData(state),
         bekrefter: state.aktivitetskrav.bekrefter,
         bekreftFeilet: state.aktivitetskrav.bekreftFeilet,
     };

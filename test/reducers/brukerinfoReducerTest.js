@@ -38,9 +38,15 @@ describe('brukerinfo', () => {
             innlogging: {},
             oppfolging: {
                 data: {},
+                hentingFeilet: false,
+                henter: false,
+                hentet: false,
             },
             sykmeldtinfodata: {
                 data: {},
+                hentingFeilet: false,
+                henter: false,
+                hentet: false,
             },
         });
     });
@@ -62,9 +68,15 @@ describe('brukerinfo', () => {
             innlogging: {},
             oppfolging: {
                 data: {},
+                hentingFeilet: false,
+                henter: false,
+                hentet: false,
             },
             sykmeldtinfodata: {
                 data: {},
+                hentingFeilet: false,
+                henter: false,
+                hentet: false,
             },
         });
     });

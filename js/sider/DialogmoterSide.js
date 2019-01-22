@@ -2,47 +2,37 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-    getLedetekst,
-    keyValue,
-    togglesPt,
-    hentToggles,
-} from 'digisyfo-npm';
+import { getLedetekst, hentToggles, keyValue, togglesPt } from 'digisyfo-npm';
 import getContextRoot from '../utils/getContextRoot';
 import history from '../history';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import DialogmoterInnhold from '../components/moter/DialogmoterInnhold';
-import {
-    brodsmule as brodsmulePt,
-    motebehovReducerPt,
-} from '../propTypes';
+import { brodsmule as brodsmulePt, motebehovReducerPt } from '../propTypes';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
 import { hentMote } from '../actions/moter_actions';
 import { hentMotebehov } from '../actions/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import {
+    forsoektHentetDineSykmeldinger,
+    forsoektHentetLedere,
+    forsoektHentetToggles,
+    forsoktHentetMote,
     henterEllerHarHentetLedere,
     henterEllerHarHentetToggles,
-    forsoktHentetMote,
-    forsoektHentetDineSykmeldinger,
-    forsoektHentetToggles,
-    forsoektHentetLedere,
 } from '../utils/reducerUtils';
 import { getMote } from '../utils/moteUtils';
+import { finnVirksomhetnrListeMedSkalViseMotebehov, skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
 import {
-    finnVirksomhetnrListeMedSkalViseMotebehov,
-    skalViseMotebehovMedOppfolgingsforlopListe,
-} from '../utils/motebehovUtils';
-import {
-    hentOppfolgingsPerioderFeilet,
     finnOgHentManglendeOppfolgingsforlopsPerioder,
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
-    forsoektHentetOppfolgingsPerioder,
     finnVirksomheterMedAktivSykmelding,
+    forsoektHentetOppfolgingsPerioder,
+    hentOppfolgingsPerioderFeilet,
 } from '../utils/oppfolgingsforlopsperioderUtils';
+import { selectLedeteksterData } from '../selectors/ledeteksterSelectors';
 
 class Container extends Component {
     componentDidMount() {
@@ -188,7 +178,7 @@ export function mapStateToProps(state) {
         || hentOppfolgingsforlopsPerioderFeilet
         || motebehovReducer.hentingForbudt
         || (skalViseMotebehov && motebehovReducer.hentingFeilet),
-        ledetekster: state.ledetekster.data,
+        ledetekster: selectLedeteksterData(state),
         togglesReducer,
         motebehovReducer,
         oppfolgingsforlopsPerioderReducerListe,

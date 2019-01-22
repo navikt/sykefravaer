@@ -41,7 +41,7 @@ class TrengerMerVeiledningRad extends Component {
 
     handleJaBtnClicked() {
         this.bekreftAlleMerVeiledninghendelser(() => {
-            return window.location.assign('/arbeidssokerregistrering/?fraSykefravaer=true');
+            return window.location.assign('/arbeidssokerregistrering/start?fraSykefravaer=true');
         });
     }
 

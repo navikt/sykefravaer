@@ -383,7 +383,7 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/veilarboppfolging/api/oppfolging', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send({
-            fnr: '18026902092',
+            fnr: '10000020000',
             veilederId: null,
             reservasjonKRR: false,
             manuell: false,

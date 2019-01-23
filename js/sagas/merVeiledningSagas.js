@@ -10,7 +10,7 @@ export function* bekreftMerVeiledning(action) {
     yield put(bekrefterMerVeiledning());
     try {
         yield all(
-            action.hendelseIder.map((hendelse) => { return call(post, lagUrl(hendelse)); }),
+            action.hendelseIder.map((hendelseId) => { return call(post, lagUrl(hendelseId)); }),
         );
 
         yield put(merVeiledningBekreftet());

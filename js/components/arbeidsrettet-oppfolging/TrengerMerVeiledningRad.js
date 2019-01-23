@@ -25,9 +25,7 @@ class TrengerMerVeiledningRad extends Component {
     bekreftAlleMerVeiledninghendelser(callback) {
         const { merVeiledningHendelseIder, doBekreftMerVeiledning } = this.props;
         if (merVeiledningHendelseIder.length > 0) {
-            merVeiledningHendelseIder.forEach((id) => {
-                doBekreftMerVeiledning(id, callback);
-            });
+            doBekreftMerVeiledning(merVeiledningHendelseIder, callback);
         } else {
             callback();
         }

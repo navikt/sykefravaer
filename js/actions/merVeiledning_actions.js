@@ -4,10 +4,10 @@ const BEKREFT_MER_VEILEDNING_FEILET = 'BEKREFT_MER_VEILEDNING_FEILET';
 const MER_VEILEDNING_BEKREFTET = 'MER_VEILEDNING_BEKREFTET';
 
 
-export function bekreftMerVeiledning(hendelseId, callback) {
+export function bekreftMerVeiledning(hendelseIder, callback) {
     return {
         type: BEKREFT_MER_VEILEDNING_FORESPURT,
-        hendelseId,
+        hendelseIder,
         callback,
     };
 }

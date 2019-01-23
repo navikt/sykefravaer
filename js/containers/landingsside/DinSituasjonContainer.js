@@ -7,16 +7,17 @@ import DinSituasjon from '../../components/landingsside/DinSituasjon';
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 const { ARBEIDSTAKER } = situasjoner;
 
-export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
+export function filtrerSykmeldingerPaaPeriode(state) {
     const treMndSiden = new Date();
     treMndSiden.setMonth(treMndSiden.getMonth() - 3);
 
-    return sykmeldinger.filter((sykmelding) => {
+    return state.dineSykmeldinger.data.filter((sykmelding) => {
         return senesteTom(sykmelding.mulighetForArbeid.perioder) > treMndSiden;
     });
 }
 
-export function filtrerArbeidssituasjoner(sykmeldinger) {
+export function filtrerArbeidssituasjoner(state) {
+    const sykmeldinger = filtrerSykmeldingerPaaPeriode(state);
     return [...new Set(sykmeldinger.filter((sykmelding) => {
         return sykmelding.status === BEKREFTET;
     }).map((sykmelding) => {
@@ -24,8 +25,8 @@ export function filtrerArbeidssituasjoner(sykmeldinger) {
     }))];
 }
 
-export function filtrerArbeidsgivere(sykmeldinger) {
-    return [...new Set(sykmeldinger.filter((sykmelding) => {
+export function filtrerArbeidsgivere(state) {
+    return [...new Set(state.dineSykmeldinger.data.filter((sykmelding) => {
         return sykmelding.status === SENDT || sykmelding.status === TIL_SENDING;
     }).map((sykmelding) => {
         return sykmelding.innsendtArbeidsgivernavn;
@@ -34,7 +35,9 @@ export function filtrerArbeidsgivere(sykmeldinger) {
 
 export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
     return ((arbeidsgivere && arbeidsgivere.length) || (arbeidssituasjoner && arbeidssituasjoner.length))
-        ? <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
+        ? <DinSituasjon
+            arbeidsgivere={arbeidsgivere}
+            arbeidssituasjoner={arbeidssituasjoner} />
         : null;
 };
 
@@ -44,9 +47,8 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    const sykmeldingerFiltrertPaaPeriode = filtrerSykemeldingerPaaPeriode(state.dineSykmeldinger.data);
-    const arbeidsgivere = filtrerArbeidsgivere(sykmeldingerFiltrertPaaPeriode);
-    const arbeidssituasjoner = filtrerArbeidssituasjoner(sykmeldingerFiltrertPaaPeriode)
+    const arbeidsgivere = filtrerArbeidsgivere(state);
+    const arbeidssituasjoner = filtrerArbeidssituasjoner(state)
         .filter((arbeidssituasjon) => {
             return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
         });

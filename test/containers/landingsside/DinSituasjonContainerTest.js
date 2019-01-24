@@ -22,6 +22,7 @@ const expect = chai.expect;
 describe('DinSituasjonContainer', () => {
     let clock;
     let sykmeldinger;
+    let state;
 
     beforeEach(() => {
         clock = sinon.useFakeTimers(new Date('2018-01-01').getTime());
@@ -56,6 +57,12 @@ describe('DinSituasjonContainer', () => {
                 }],
             },
         }];
+
+        state = {
+            dineSykmeldinger: {
+                data: sykmeldinger,
+            },
+        };
     });
 
     afterEach(() => {
@@ -64,79 +71,59 @@ describe('DinSituasjonContainer', () => {
 
     describe('filtrerSykemeldingerPaaPeriode', () => {
         it('Skal filtrere sykmeldinger på periode', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = filtrerSykemeldingerPaaPeriode(state);
             expect(filtrert).to.have.length(2);
         });
 
         it('Skal filtrere vekk sykmeldinger med tom mer enn 3 måneder tilbake i tid', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = filtrerSykemeldingerPaaPeriode(state);
             expect(filtrert[0].id).to.not.equal('fireMndSiden');
         });
 
         it('Skal ikke filtrere vekk sykmeldinger med tom mindre enn 3 måneder tilbake i tid', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = filtrerSykemeldingerPaaPeriode(state);
             expect(filtrert[0].id).to.equal('toMndSiden');
         });
 
         it('Skal ikke filtrere vekk sykmeldinger med tom framover i tid', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = filtrerSykemeldingerPaaPeriode(state);
             expect(filtrert[1].id).to.equal('omTiMnd');
         });
     });
 
     describe('filtrerArbeidssituasjoner', () => {
-        let filtrertPaaPeriode;
-
-        beforeEach(() => {
-            filtrertPaaPeriode = filtrerSykemeldingerPaaPeriode(sykmeldinger);
-        });
-
         it('Skal filtrere sykemeldinger med status BEKREFTET', () => {
-            const filtrert = filtrerArbeidssituasjoner(filtrertPaaPeriode);
+            const filtrert = filtrerArbeidssituasjoner(state);
             expect(filtrert).to.have.length(1);
         });
 
         it('Skal returnere arbeidssituasjon', () => {
-            const filtrert = filtrerArbeidssituasjoner(filtrertPaaPeriode);
+            const filtrert = filtrerArbeidssituasjoner(state);
             expect(filtrert[0]).to.equal(FRILANSER);
         });
     });
 
     describe('filtrerArbeidsgivere', () => {
-        let filtrertPaaPeriode;
-
-        beforeEach(() => {
-            filtrertPaaPeriode = filtrerSykemeldingerPaaPeriode(sykmeldinger);
-        });
-
         it('Skal filtrere sykemeldinger med status SENDT', () => {
-            const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
+            const filtrert = filtrerArbeidsgivere(state);
             expect(filtrert).to.have.length(1);
         });
 
         it('Skal filtrere sykemeldinger med status TIL_SENDING', () => {
-            filtrertPaaPeriode[1].status = TIL_SENDING;
-            const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
-            expect(filtrert).to.have.length(1);
+            sykmeldinger[1].status = TIL_SENDING;
+            sykmeldinger[1].innsendtArbeidsgivernavn = 'Min bedrift';
+            state.dineSykmeldinger.data = sykmeldinger;
+            const filtrert = filtrerArbeidsgivere(state);
+            expect(filtrert).to.deep.equal(['Min bedrift', 'SOLSTRÅLEN PIZZA']);
         });
 
         it('Skal returnere arbeidsgiver', () => {
-            const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
+            const filtrert = filtrerArbeidsgivere(state);
             expect(filtrert[0]).to.equal('SOLSTRÅLEN PIZZA');
         });
     });
 
     describe('mapStateToProps', () => {
-        let state;
-
-        beforeEach(() => {
-            state = {
-                dineSykmeldinger: {
-                    data: sykmeldinger,
-                },
-            };
-        });
-
         it('Skal returnere filtrerte arbeidssituasjoner', () => {
             const props = mapStateToProps(state);
             expect(props.arbeidssituasjoner[0]).to.equal(FRILANSER);

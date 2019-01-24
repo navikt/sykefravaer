@@ -7,25 +7,25 @@ import DinSituasjon from '../../components/landingsside/DinSituasjon';
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 const { ARBEIDSTAKER } = situasjoner;
 
-export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
+export function filtrerSykemeldingerPaaPeriode(state) {
     const treMndSiden = new Date();
     treMndSiden.setMonth(treMndSiden.getMonth() - 3);
 
-    return sykmeldinger.filter((sykmelding) => {
+    return state.dineSykmeldinger.data.filter((sykmelding) => {
         return senesteTom(sykmelding.mulighetForArbeid.perioder) > treMndSiden;
     });
 }
 
-export function filtrerArbeidssituasjoner(sykmeldinger) {
-    return [...new Set(sykmeldinger.filter((sykmelding) => {
+export function filtrerArbeidssituasjoner(state) {
+    return [...new Set(filtrerSykemeldingerPaaPeriode(state).filter((sykmelding) => {
         return sykmelding.status === BEKREFTET;
     }).map((sykmelding) => {
         return sykmelding.valgtArbeidssituasjon;
     }))];
 }
 
-export function filtrerArbeidsgivere(sykmeldinger) {
-    return [...new Set(sykmeldinger.filter((sykmelding) => {
+export function filtrerArbeidsgivere(state) {
+    return [...new Set(filtrerSykemeldingerPaaPeriode(state).filter((sykmelding) => {
         return sykmelding.status === SENDT || sykmelding.status === TIL_SENDING;
     }).map((sykmelding) => {
         return sykmelding.innsendtArbeidsgivernavn;
@@ -44,9 +44,8 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    const sykmeldingerFiltrertPaaPeriode = filtrerSykemeldingerPaaPeriode(state.dineSykmeldinger.data);
-    const arbeidsgivere = filtrerArbeidsgivere(sykmeldingerFiltrertPaaPeriode);
-    const arbeidssituasjoner = filtrerArbeidssituasjoner(sykmeldingerFiltrertPaaPeriode)
+    const arbeidsgivere = filtrerArbeidsgivere(state);
+    const arbeidssituasjoner = filtrerArbeidssituasjoner(state)
         .filter((arbeidssituasjon) => {
             return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
         });

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
 import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import { angreBekreftSykmelding as angreBekreftSykmeldingAction } from '../../actions/dinSykmelding_actions';
-import { kanEndreSykmeldingArbeidssituasjonSelector } from '../../selectors/dineSykmeldingerSelectors';
+import { selectKanEndreSykmeldingArbeidssituasjon } from '../../selectors/dineSykmeldingerSelectors';
 
 export const Container = ({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis, angrerBekreftSykmelding }) => {
     return vis ? (
@@ -40,7 +40,7 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state, ownProps) => {
-    const vis = kanEndreSykmeldingArbeidssituasjonSelector(state, ownProps.sykmelding);
+    const vis = selectKanEndreSykmeldingArbeidssituasjon(state, ownProps.sykmelding);
     return {
         vis,
         angreBekreftSykmeldingFeilet: state.dineSykmeldinger.angreBekreftSykmeldingFeilet,

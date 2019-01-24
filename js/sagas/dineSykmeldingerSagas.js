@@ -2,7 +2,7 @@ import { call, put, fork, takeEvery, all, select } from 'redux-saga/effects';
 import { get, log } from 'digisyfo-npm';
 import * as actions from '../actions/dineSykmeldinger_actions';
 import * as actiontyper from '../actions/actiontyper';
-import { skalHenteDineSykmeldingerSelector } from '../selectors/dineSykmeldingerSelectors';
+import { selectSkalHenteDineSykmeldinger } from '../selectors/dineSykmeldingerSelectors';
 
 export function* oppdaterDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
@@ -16,7 +16,7 @@ export function* oppdaterDineSykmeldinger() {
 }
 
 export function* hentDineSykmeldingerHvisIkkeHentet() {
-    const skalHente = yield select(skalHenteDineSykmeldingerSelector);
+    const skalHente = yield select(selectSkalHenteDineSykmeldinger);
     if (skalHente) {
         yield oppdaterDineSykmeldinger();
     }

@@ -61,6 +61,7 @@ module.exports = {
     },
     devServer: {
         stats: 'errors-only',
+        disableHostCheck: true,
     },
     plugins: [
         new Dotenv(),

@@ -7,7 +7,7 @@ import DinSituasjon from '../../components/landingsside/DinSituasjon';
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 const { ARBEIDSTAKER } = situasjoner;
 
-export function filtrerSykemeldingerPaaPeriode(state) {
+export function sykmeldingerYngreEnnTreMaanederSelector(state) {
     const treMndSiden = new Date();
     treMndSiden.setMonth(treMndSiden.getMonth() - 3);
 
@@ -16,19 +16,33 @@ export function filtrerSykemeldingerPaaPeriode(state) {
     });
 }
 
-export function filtrerArbeidssituasjoner(state) {
-    return [...new Set(filtrerSykemeldingerPaaPeriode(state).filter((sykmelding) => {
+export function aktuelleArbeidssituasjonerSelector(state) {
+    return [...new Set(sykmeldingerYngreEnnTreMaanederSelector(state).filter((sykmelding) => {
         return sykmelding.status === BEKREFTET;
     }).map((sykmelding) => {
         return sykmelding.valgtArbeidssituasjon;
     }))];
 }
 
-export function filtrerArbeidsgivere(state) {
-    return [...new Set(filtrerSykemeldingerPaaPeriode(state).filter((sykmelding) => {
+export function arbeidsgivereIDinSituasjonSelector(state) {
+    const orgnummereMedLedere = state.ledere.data.map((leder) => {
+        return leder.orgnummer;
+    });
+    const sykmeldingerFiltrertPaPeriode = sykmeldingerYngreEnnTreMaanederSelector(state);
+    const sykmeldingerMedAktivNaermesteLeder = state.dineSykmeldinger.data.filter((sykmelding) => {
+        const orgnummer = sykmelding.mottakendeArbeidsgiver
+            ? sykmelding.mottakendeArbeidsgiver.virksomhetsnummer
+            : sykmelding.orgnummer;
+        return orgnummereMedLedere.indexOf(orgnummer) > -1;
+    });
+    const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel = [
+        ...sykmeldingerMedAktivNaermesteLeder,
+        ...sykmeldingerFiltrertPaPeriode,
+    ];
+    return [...new Set(sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel.filter((sykmelding) => {
         return sykmelding.status === SENDT || sykmelding.status === TIL_SENDING;
     }).map((sykmelding) => {
-        return sykmelding.innsendtArbeidsgivernavn;
+        return sykmelding.mottakendeArbeidsgiver.navn;
     }))];
 }
 
@@ -44,8 +58,8 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    const arbeidsgivere = filtrerArbeidsgivere(state);
-    const arbeidssituasjoner = filtrerArbeidssituasjoner(state)
+    const arbeidsgivere = arbeidsgivereIDinSituasjonSelector(state);
+    const arbeidssituasjoner = aktuelleArbeidssituasjonerSelector(state)
         .filter((arbeidssituasjon) => {
             return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
         });

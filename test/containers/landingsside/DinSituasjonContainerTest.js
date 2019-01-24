@@ -8,10 +8,12 @@ import DinSituasjon from '../../../js/components/landingsside/DinSituasjon';
 import {
     Container,
     mapStateToProps,
-    filtrerSykemeldingerPaaPeriode,
-    filtrerArbeidssituasjoner,
-    filtrerArbeidsgivere,
+    selectSykmeldingerYngreEnnTreMaaneder,
+    selectAktuelleArbeidssituasjoner,
+    selectArbeidsgivereTilDinSituasjon,
 } from '../../../js/containers/landingsside/DinSituasjonContainer';
+import ledere from '../../../js/reducers/ledere';
+import { ledereHentet } from '../../../js/actions/ledere_actions';
 
 const { ARBEIDSTAKER, FRILANSER } = situasjoner;
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
@@ -22,6 +24,7 @@ const expect = chai.expect;
 describe('DinSituasjonContainer', () => {
     let clock;
     let sykmeldinger;
+    let state;
 
     beforeEach(() => {
         clock = sinon.useFakeTimers(new Date('2018-01-01').getTime());
@@ -48,7 +51,9 @@ describe('DinSituasjonContainer', () => {
         }, {
             id: 'omTiMnd',
             status: SENDT,
-            innsendtArbeidsgivernavn: 'SOLSTRÅLEN PIZZA',
+            mottakendeArbeidsgiver: {
+                navn: 'SOLSTRÅLEN PIZZA',
+            },
             mulighetForArbeid: {
                 perioder: [{
                     fom: new Date('2018-10-01'),
@@ -56,87 +61,111 @@ describe('DinSituasjonContainer', () => {
                 }],
             },
         }];
+
+        state = {
+            dineSykmeldinger: {
+                data: sykmeldinger,
+            },
+            ledere: ledere(),
+        };
     });
 
     afterEach(() => {
         clock.restore();
     });
 
-    describe('filtrerSykemeldingerPaaPeriode', () => {
+    describe('selectSykmeldingerYngreEnnTreMaaneder', () => {
         it('Skal filtrere sykmeldinger på periode', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = selectSykmeldingerYngreEnnTreMaaneder(state);
             expect(filtrert).to.have.length(2);
         });
 
         it('Skal filtrere vekk sykmeldinger med tom mer enn 3 måneder tilbake i tid', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = selectSykmeldingerYngreEnnTreMaaneder(state);
             expect(filtrert[0].id).to.not.equal('fireMndSiden');
         });
 
         it('Skal ikke filtrere vekk sykmeldinger med tom mindre enn 3 måneder tilbake i tid', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = selectSykmeldingerYngreEnnTreMaaneder(state);
             expect(filtrert[0].id).to.equal('toMndSiden');
         });
 
         it('Skal ikke filtrere vekk sykmeldinger med tom framover i tid', () => {
-            const filtrert = filtrerSykemeldingerPaaPeriode(sykmeldinger);
+            const filtrert = selectSykmeldingerYngreEnnTreMaaneder(state);
             expect(filtrert[1].id).to.equal('omTiMnd');
         });
     });
 
-    describe('filtrerArbeidssituasjoner', () => {
-        let filtrertPaaPeriode;
-
-        beforeEach(() => {
-            filtrertPaaPeriode = filtrerSykemeldingerPaaPeriode(sykmeldinger);
-        });
-
+    describe('selectAktuelleArbeidssituasjoner', () => {
         it('Skal filtrere sykemeldinger med status BEKREFTET', () => {
-            const filtrert = filtrerArbeidssituasjoner(filtrertPaaPeriode);
+            const filtrert = selectAktuelleArbeidssituasjoner(state);
             expect(filtrert).to.have.length(1);
         });
 
         it('Skal returnere arbeidssituasjon', () => {
-            const filtrert = filtrerArbeidssituasjoner(filtrertPaaPeriode);
+            const filtrert = selectAktuelleArbeidssituasjoner(state);
             expect(filtrert[0]).to.equal(FRILANSER);
         });
     });
 
-    describe('filtrerArbeidsgivere', () => {
-        let filtrertPaaPeriode;
-
-        beforeEach(() => {
-            filtrertPaaPeriode = filtrerSykemeldingerPaaPeriode(sykmeldinger);
-        });
-
+    describe('selectArbeidsgivereTilDinSituasjon', () => {
         it('Skal filtrere sykemeldinger med status SENDT', () => {
-            const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
+            const filtrert = selectArbeidsgivereTilDinSituasjon(state);
             expect(filtrert).to.have.length(1);
         });
 
         it('Skal filtrere sykemeldinger med status TIL_SENDING', () => {
-            filtrertPaaPeriode[1].status = TIL_SENDING;
-            const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
-            expect(filtrert).to.have.length(1);
+            sykmeldinger[1].status = TIL_SENDING;
+            sykmeldinger[1].mottakendeArbeidsgiver = {
+                navn: 'Min bedrift',
+            };
+            state.dineSykmeldinger.data = sykmeldinger;
+            const filtrert = selectArbeidsgivereTilDinSituasjon(state);
+            expect(filtrert).to.deep.equal(['Min bedrift', 'SOLSTRÅLEN PIZZA']);
         });
 
         it('Skal returnere arbeidsgiver', () => {
-            const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
+            const filtrert = selectArbeidsgivereTilDinSituasjon(state);
             expect(filtrert[0]).to.equal('SOLSTRÅLEN PIZZA');
+        });
+
+        it('Skal bare returnere arbeidsgivere for sykmeldinger som er yngre enn 3 måneder', () => {
+            state.dineSykmeldinger.data[0].status = SENDT;
+            state.dineSykmeldinger.data[0].mottakendeArbeidsgiver = {
+                navn: 'Testbedrift',
+            };
+            const filtrert = selectArbeidsgivereTilDinSituasjon(state);
+            expect(filtrert).to.deep.equal(['SOLSTRÅLEN PIZZA']);
+        });
+
+        it('Skal returnere arbeidsgivere for sykmeldinger som er eldre enn 3 måneder dersom arbeidsgiveren har en aktiv nærmeste leder', () => {
+            state.dineSykmeldinger.data[0].status = SENDT;
+            state.dineSykmeldinger.data[0].mottakendeArbeidsgiver = {
+                navn: 'PONTYPANDY FIRE SERVICE',
+                virksomhetsnummer: '110110110',
+                juridiskOrgnummer: '110110110',
+            };
+
+            const lederData = [
+                {
+                    aktoerId: '1101101101102',
+                    navn: 'Station Officer Steele',
+                    epost: 'steele@pontypandyfire.gov.uk',
+                    mobil: '110',
+                    orgnummer: '110110110',
+                    organisasjonsnavn: 'PONTYPANDY FIRE SERVICE',
+                    aktivTom: null,
+                    arbeidsgiverForskuttererLoenn: true,
+                },
+            ];
+
+            state.ledere = ledere(ledere(), ledereHentet(lederData));
+            const filtrert = selectArbeidsgivereTilDinSituasjon(state);
+            expect(filtrert).to.deep.equal(['PONTYPANDY FIRE SERVICE', 'SOLSTRÅLEN PIZZA']);
         });
     });
 
     describe('mapStateToProps', () => {
-        let state;
-
-        beforeEach(() => {
-            state = {
-                dineSykmeldinger: {
-                    data: sykmeldinger,
-                },
-            };
-        });
-
         it('Skal returnere filtrerte arbeidssituasjoner', () => {
             const props = mapStateToProps(state);
             expect(props.arbeidssituasjoner[0]).to.equal(FRILANSER);

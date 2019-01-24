@@ -1,13 +1,22 @@
 import { sykmeldingHarBehandletSoknad } from './soknaderSelectors';
 import { toggleSykmeldingEndreArbeidssituasjon } from './unleashTogglesSelectors';
 
-export const skalHenteDineSykmeldingerSelector = (state) => {
-    return !state.dineSykmeldinger.henter
-        && !state.dineSykmeldinger.hentet
-        && !state.dineSykmeldinger.hentingFeilet;
+export const selectDineSykmeldingerSlice = (state) => {
+    return state.dineSykmeldinger;
 };
 
-export const kanEndreSykmeldingArbeidssituasjonSelector = (state, sykmelding) => {
+export const selectDineSykmeldingerData = (state) => {
+    return selectDineSykmeldingerSlice(state).data;
+};
+
+export const selectSkalHenteDineSykmeldinger = (state) => {
+    const dineSykmeldinger = selectDineSykmeldingerSlice(state);
+    return !dineSykmeldinger.henter
+        && !dineSykmeldinger.hentet
+        && !dineSykmeldinger.hentingFeilet;
+};
+
+export const selectKanEndreSykmeldingArbeidssituasjon = (state, sykmelding) => {
     const FIRE_MANEDER_SIDEN = new Date();
     FIRE_MANEDER_SIDEN.setMonth(FIRE_MANEDER_SIDEN.getMonth() - 4);
     return sykmelding.sendtdato > FIRE_MANEDER_SIDEN
@@ -15,8 +24,8 @@ export const kanEndreSykmeldingArbeidssituasjonSelector = (state, sykmelding) =>
         && toggleSykmeldingEndreArbeidssituasjon(state);
 };
 
-export const finnDinSykmeldingSelector = (state, sykmeldingId) => {
-    return state.dineSykmeldinger.data.find((s) => {
+export const selectDinSykmelding = (state, sykmeldingId) => {
+    return selectDineSykmeldingerData(state).find((s) => {
         return s.id === sykmeldingId;
     });
 };

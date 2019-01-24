@@ -12,7 +12,7 @@ import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../actions/soknader_actions';
 import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
 import { skalHenteSoknader } from '../selectors/soknaderSelectors';
-import { skalHenteDineSykmeldingerSelector } from '../selectors/dineSykmeldingerSelectors';
+import { selectSkalHenteDineSykmeldinger } from '../selectors/dineSykmeldingerSelectors';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { ARBEIDSTAKERE } from '../enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../selectors/unleashTogglesSelectors';
@@ -99,7 +99,7 @@ export function mapStateToProps(state) {
             || state.soknader.henter
             || skalHenteSoknader(state)
             || skalHenteSykepengesoknader(state)
-            || skalHenteDineSykmeldingerSelector(state),
+            || selectSkalHenteDineSykmeldinger(state),
         hentingFeilet: state.ledetekster.hentingFeilet
             || (state.sykepengesoknader.hentingFeilet && state.soknader.hentingFeilet),
         visFeil: [state.soknader.hentingFeilet, state.sykepengesoknader.hentingFeilet].some((s) => {

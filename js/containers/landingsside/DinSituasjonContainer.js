@@ -3,33 +3,63 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { senesteTom, sykmeldingstatuser as statuser, arbeidssituasjoner as situasjoner } from 'digisyfo-npm';
 import DinSituasjon from '../../components/landingsside/DinSituasjon';
+import { selectDineSykmeldingerData } from '../../selectors/dineSykmeldingerSelectors';
+import { selectLedereData } from '../../selectors/ledereSelectors';
 
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 const { ARBEIDSTAKER } = situasjoner;
 
-export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
+export function selectSykmeldingerYngreEnnTreMaaneder(state) {
     const treMndSiden = new Date();
     treMndSiden.setMonth(treMndSiden.getMonth() - 3);
 
-    return sykmeldinger.filter((sykmelding) => {
+    return selectDineSykmeldingerData(state).filter((sykmelding) => {
         return senesteTom(sykmelding.mulighetForArbeid.perioder) > treMndSiden;
     });
 }
 
-export function filtrerArbeidssituasjoner(sykmeldinger) {
-    return [...new Set(sykmeldinger.filter((sykmelding) => {
-        return sykmelding.status === BEKREFTET;
-    }).map((sykmelding) => {
-        return sykmelding.valgtArbeidssituasjon;
-    }))];
+export function selectArbeidsgivereTilDinSituasjon(state) {
+    const orgnummereMedLedere = selectLedereData(state)
+        .map((leder) => {
+            return leder.orgnummer;
+        });
+    const sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(state);
+    const sykmeldingerMedAktivNaermesteLeder = selectDineSykmeldingerData(state)
+        .filter((sykmelding) => {
+            const orgnummer = sykmelding.mottakendeArbeidsgiver
+                ? sykmelding.mottakendeArbeidsgiver.virksomhetsnummer
+                : sykmelding.orgnummer;
+            return orgnummereMedLedere.indexOf(orgnummer) > -1;
+        });
+    const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel = [
+        ...sykmeldingerMedAktivNaermesteLeder,
+        ...sykmeldingerFiltrertPaPeriode,
+    ];
+    return [
+        ...new Set(sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel
+            .filter((sykmelding) => {
+                return sykmelding.status === SENDT || sykmelding.status === TIL_SENDING;
+            })
+            .map((sykmelding) => {
+                return sykmelding.mottakendeArbeidsgiver.navn;
+            })),
+    ];
 }
 
-export function filtrerArbeidsgivere(sykmeldinger) {
-    return [...new Set(sykmeldinger.filter((sykmelding) => {
-        return sykmelding.status === SENDT || sykmelding.status === TIL_SENDING;
-    }).map((sykmelding) => {
-        return sykmelding.innsendtArbeidsgivernavn;
-    }))];
+export function selectAktuelleArbeidssituasjoner(state) {
+    const arbeidsgivere = selectArbeidsgivereTilDinSituasjon(state);
+    return [
+        ...new Set(selectSykmeldingerYngreEnnTreMaaneder(state)
+            .filter((sykmelding) => {
+                return sykmelding.status === BEKREFTET;
+            })
+            .map((sykmelding) => {
+                return sykmelding.valgtArbeidssituasjon;
+            })
+            .filter((arbeidssituasjon) => {
+                return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
+            })),
+    ];
 }
 
 export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
@@ -44,12 +74,9 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    const sykmeldingerFiltrertPaaPeriode = filtrerSykemeldingerPaaPeriode(state.dineSykmeldinger.data);
-    const arbeidsgivere = filtrerArbeidsgivere(sykmeldingerFiltrertPaaPeriode);
-    const arbeidssituasjoner = filtrerArbeidssituasjoner(sykmeldingerFiltrertPaaPeriode)
-        .filter((arbeidssituasjon) => {
-            return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
-        });
+    const arbeidsgivere = selectArbeidsgivereTilDinSituasjon(state);
+    const arbeidssituasjoner = selectAktuelleArbeidssituasjoner(state);
+
     return {
         arbeidsgivere,
         arbeidssituasjoner,

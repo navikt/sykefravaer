@@ -23,7 +23,7 @@ import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../actions/soknader_actions';
 import { hentBrukerinfo } from '../actions/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
-import { finnDinSykmeldingSelector } from '../selectors/dineSykmeldingerSelectors';
+import { selectDinSykmelding } from '../selectors/dineSykmeldingerSelectors';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
 const { FREMTIDIG, NY } = sykepengesoknadstatuser;
@@ -229,7 +229,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    const sykmelding = finnDinSykmeldingSelector(state, sykmeldingId);
+    const sykmelding = selectDinSykmelding(state, sykmeldingId);
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const kvitteringtype = getKvitteringtype(state, sykmeldingId);

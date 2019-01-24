@@ -7,7 +7,7 @@ import DinSituasjon from '../../components/landingsside/DinSituasjon';
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 const { ARBEIDSTAKER } = situasjoner;
 
-export function sykmeldingerYngreEnnTreMaanederSelector(state) {
+export function selectSykmeldingerYngreEnnTreMaaneder(state) {
     const treMndSiden = new Date();
     treMndSiden.setMonth(treMndSiden.getMonth() - 3);
 
@@ -16,19 +16,11 @@ export function sykmeldingerYngreEnnTreMaanederSelector(state) {
     });
 }
 
-export function aktuelleArbeidssituasjonerSelector(state) {
-    return [...new Set(sykmeldingerYngreEnnTreMaanederSelector(state).filter((sykmelding) => {
-        return sykmelding.status === BEKREFTET;
-    }).map((sykmelding) => {
-        return sykmelding.valgtArbeidssituasjon;
-    }))];
-}
-
-export function arbeidsgivereIDinSituasjonSelector(state) {
+export function selectArbeidsgivereTilDinSituasjon(state) {
     const orgnummereMedLedere = state.ledere.data.map((leder) => {
         return leder.orgnummer;
     });
-    const sykmeldingerFiltrertPaPeriode = sykmeldingerYngreEnnTreMaanederSelector(state);
+    const sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(state);
     const sykmeldingerMedAktivNaermesteLeder = state.dineSykmeldinger.data.filter((sykmelding) => {
         const orgnummer = sykmelding.mottakendeArbeidsgiver
             ? sykmelding.mottakendeArbeidsgiver.virksomhetsnummer
@@ -46,6 +38,19 @@ export function arbeidsgivereIDinSituasjonSelector(state) {
     }))];
 }
 
+export function selectAktuelleArbeidssituasjoner(state) {
+    const arbeidsgivere = selectArbeidsgivereTilDinSituasjon(state);
+    return [
+        ...new Set(selectSykmeldingerYngreEnnTreMaaneder(state).filter((sykmelding) => {
+            return sykmelding.status === BEKREFTET;
+        }).map((sykmelding) => {
+            return sykmelding.valgtArbeidssituasjon;
+        }).filter((arbeidssituasjon) => {
+            return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
+        })),
+    ];
+}
+
 export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
     return ((arbeidsgivere && arbeidsgivere.length) || (arbeidssituasjoner && arbeidssituasjoner.length))
         ? <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
@@ -58,11 +63,9 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    const arbeidsgivere = arbeidsgivereIDinSituasjonSelector(state);
-    const arbeidssituasjoner = aktuelleArbeidssituasjonerSelector(state)
-        .filter((arbeidssituasjon) => {
-            return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
-        });
+    const arbeidsgivere = selectArbeidsgivereTilDinSituasjon(state);
+    const arbeidssituasjoner = selectAktuelleArbeidssituasjoner(state);
+
     return {
         arbeidsgivere,
         arbeidssituasjoner,

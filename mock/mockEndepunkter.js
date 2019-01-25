@@ -79,7 +79,7 @@ let teksterFraProd;
 
 function hentTeksterFraProd() {
     const TEKSTER_URL = 'https://syfoapi.nav.no/syfotekster/api/tekster';
-    request(TEKSTER_URL, function (error, response, body) {
+    request(TEKSTER_URL, (error, response, body) => {
         if (error) {
             console.log('Kunne ikke hente tekster fra prod', error);
         } else {
@@ -206,7 +206,9 @@ function mockEndepunkterSomEndrerState(server) {
     });
 
     server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
-        mockData.soknader = mockData.soknader.filter(soknad => soknad.id !== req.params.id);
+        mockData.soknader = mockData.soknader.filter((soknad) => {
+            return soknad.id !== req.params.id;
+        });
         res.send(JSON.stringify({}));
     });
 }
@@ -225,7 +227,7 @@ function mockForOpplaeringsmiljo(server) {
     server.post('/syfoapi/syfosoknad/api/soknader/:id/mottaker', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
-            mottaker: 'ARBEIDSGIVER_OG_NAV'
+            mottaker: 'ARBEIDSGIVER_OG_NAV',
         }));
     });
 
@@ -381,24 +383,24 @@ function mockForOpplaeringsmiljo(server) {
     server.get('/veilarboppfolging/api/oppfolging', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send({
-            'fnr': '18026902092',
-            'veilederId': null,
-            'reservasjonKRR': false,
-            'manuell': false,
-            'underOppfolging': false,
-            'underKvp': false,
-            'vilkarMaBesvares': true,
-            'oppfolgingUtgang': null,
-            'gjeldendeEskaleringsvarsel': null,
-            'kanStarteOppfolging': false,
-            'avslutningStatus': null,
-            'oppfolgingsPerioder': [],
-            'harSkriveTilgang': true,
-            'inaktivIArena': null,
-            'kanReaktiveres': null,
-            'inaktiveringsdato': null,
-            'erSykmeldtMedArbeidsgiver': null,
-            'erIkkeArbeidssokerUtenOppfolging': null
+            fnr: '10000020000',
+            veilederId: null,
+            reservasjonKRR: false,
+            manuell: false,
+            underOppfolging: false,
+            underKvp: false,
+            vilkarMaBesvares: true,
+            oppfolgingUtgang: null,
+            gjeldendeEskaleringsvarsel: null,
+            kanStarteOppfolging: false,
+            avslutningStatus: null,
+            oppfolgingsPerioder: [],
+            harSkriveTilgang: true,
+            inaktivIArena: null,
+            kanReaktiveres: null,
+            inaktiveringsdato: null,
+            erSykmeldtMedArbeidsgiver: null,
+            erIkkeArbeidssokerUtenOppfolging: null,
         });
     });
 
@@ -426,7 +428,18 @@ function mockForOpplaeringsmiljo(server) {
     });
 
     server.post('/syfoservicestrangler/api/hendelse/:hendelseId/bekreft', (req, res) => {
-        res.send();
+        // Her er det kodet inn en random fail sånn at vi får testet feilsituasjoner
+        const { hendelseId } = req.params;
+        const draw = Math.random() * 10;
+        if (draw > 8) {
+            res.status(500);
+        } else {
+            mockData.hendelser = mockData.hendelser.filter((h) => { return h.id != hendelseId; });
+        }
+
+        setTimeout((() => {
+            res.send();
+        }), 1000);
     });
 }
 

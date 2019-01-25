@@ -8,6 +8,7 @@ import history from '../../history';
 import { bekreftMerVeiledning } from '../../actions/merVeiledning_actions';
 import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';
 import { hentHendelser } from '../../actions/hendelser_actions';
+import Feilstripe from '../Feilstripe';
 
 class TrengerMerVeiledningRad extends Component {
     constructor(props) {
@@ -25,9 +26,7 @@ class TrengerMerVeiledningRad extends Component {
     bekreftAlleMerVeiledninghendelser(callback) {
         const { merVeiledningHendelseIder, doBekreftMerVeiledning } = this.props;
         if (merVeiledningHendelseIder.length > 0) {
-            merVeiledningHendelseIder.forEach((id) => {
-                doBekreftMerVeiledning(id, callback);
-            });
+            doBekreftMerVeiledning(merVeiledningHendelseIder, callback);
         } else {
             callback();
         }
@@ -46,16 +45,18 @@ class TrengerMerVeiledningRad extends Component {
     }
 
     render() {
+        const { bekrefter, bekreftingFeilet } = this.props;
         return (
             <div className="infoside-fo__rad infoside-fo__rad--graa">
                 <div className="begrensning">
                     <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
                     <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>
+                    <Feilstripe vis={bekreftingFeilet} className="blokk-s" />
                     <div className="infoside-fo__knapperad">
-                        <Knapp onClick={this.handleNeiBtnClicked}>
+                        <Knapp onClick={this.handleNeiBtnClicked} disabled={bekrefter}>
                             {getLedetekst('infoside-fo.knapp-nei')}
                         </Knapp>
-                        <Hovedknapp onClick={this.handleJaBtnClicked}>
+                        <Hovedknapp onClick={this.handleJaBtnClicked} spinner={bekrefter} disabled={bekrefter}>
                             {getLedetekst('infoside-fo.knapp-ja')}
                         </Hovedknapp>
                     </div>
@@ -68,12 +69,16 @@ class TrengerMerVeiledningRad extends Component {
 TrengerMerVeiledningRad.propTypes = {
     doBekreftMerVeiledning: PT.func,
     doHentHendelser: PT.func,
+    bekrefter: PT.bool,
+    bekreftingFeilet: PT.bool,
     merVeiledningHendelseIder: PT.arrayOf(PT.number),
 };
 
 const mapStateToProps = (state) => {
     return {
         merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
+        bekrefter: state.merVeiledning.bekrefter,
+        bekreftingFeilet: state.merVeiledning.bekreftingFeilet,
     };
 };
 

@@ -26,6 +26,7 @@ import motebehov from './motebehov';
 import motebehovSvar from './motebehovSvar';
 import history from '../history';
 import soknadMeta from './soknadMeta';
+import merVeiledning from './merVeiledning';
 
 const reducers = {
     arbeidsgivere,
@@ -37,6 +38,7 @@ const reducers = {
     history,
     ledere,
     ledetekster,
+    merVeiledning,
     mote,
     motebehov,
     motebehovSvar,

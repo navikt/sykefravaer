@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 import {
     getLedetekst,
     hentToggles,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import { hentMote } from '../actions/moter_actions';
 import { hentOppfolgingsdialoger } from '../oppfolgingsdialogNpm/oppfolgingsdialoger_actions';
 import Landingsside from '../components/landingsside/Landingsside';

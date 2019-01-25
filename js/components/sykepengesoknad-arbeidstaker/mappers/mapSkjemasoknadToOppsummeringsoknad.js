@@ -4,7 +4,7 @@ import {
     sykepengesoknadsvartyper as svartype,
     sporsmalstyper,
     tilDatePeriode,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import {
     getAktivitetssporsmal, getEgenmeldingsdagerSporsmal,
     getFeriePermisjonEllerUtenlandsoppholdSporsmal,

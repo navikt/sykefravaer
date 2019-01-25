@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
-import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import { angreBekreftSykmelding as angreBekreftSykmeldingAction } from '../../actions/dinSykmelding_actions';
 import { selectKanEndreSykmeldingArbeidssituasjon } from '../../selectors/dineSykmeldingerSelectors';
 

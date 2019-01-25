@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, tilLesbarDatoMedArstall, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';

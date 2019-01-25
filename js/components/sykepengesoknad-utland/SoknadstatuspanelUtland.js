@@ -3,7 +3,7 @@ import {
     tilLesbarDatoMedArstall,
     getLedetekst,
     sykepengesoknadstatuser,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { soknad as soknadPt } from '../../propTypes';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';

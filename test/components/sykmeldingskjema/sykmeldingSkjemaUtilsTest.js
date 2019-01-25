@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { arbeidssituasjoner } from 'digisyfo-npm';
+import { arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import { getSkjemaModus, skalViseFrilansersporsmal } from '../../../js/components/sykmeldingskjema/sykmeldingSkjemaUtils';
 import { sykmeldingskjemamodi as modi } from '../../../js/enums/sykmeldingskjemaenums';
 import getSykmelding from '../../mock/mockSykmeldinger';

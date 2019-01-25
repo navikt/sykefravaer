@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import setup from '../../utils/soknad-felles/soknadSetup';
 import Kvittering from '../../components/sykepengesoknad-selvstendig/Kvittering/Kvittering';

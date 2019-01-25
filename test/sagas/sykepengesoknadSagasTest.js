@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { get, post } from 'digisyfo-npm';
+import { get, post } from '@navikt/digisyfo-npm';
 import { call, put, select } from 'redux-saga/effects';
 import sinon from 'sinon';
 import {

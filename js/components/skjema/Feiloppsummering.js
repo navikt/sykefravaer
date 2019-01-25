@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
+import { scrollTo, erSynligIViewport } from '@navikt/digisyfo-npm';
 import { Vis } from '../../utils';
 
 const FeillisteMelding = ({ feltnavn, feilmelding }) => {

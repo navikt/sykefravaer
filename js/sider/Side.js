@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { TimeoutBox } from 'digisyfo-npm';
+import { TimeoutBox } from '@navikt/digisyfo-npm';
 import cn from 'classnames';
 import AppSpinner from '../components/AppSpinner';
 import Brodsmuler from '../components/Brodsmuler';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SykmeldingNokkelOpplysning } from 'digisyfo-npm';
+import { SykmeldingNokkelOpplysning } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 

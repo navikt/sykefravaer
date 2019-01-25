@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { string, node } from 'prop-types';
-import { log } from 'digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
 
 export default class HotjarTrigger extends Component {
     componentDidMount() {

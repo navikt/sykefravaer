@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { arbeidssituasjoner as situasjoner } from 'digisyfo-npm';
+import { arbeidssituasjoner as situasjoner } from '@navikt/digisyfo-npm';
 import Arbeidssituasjon from '../../../js/components/landingsside/Arbeidssituasjon';
 import Arbeidssituasjoner, {
     Arbeidsgiver,

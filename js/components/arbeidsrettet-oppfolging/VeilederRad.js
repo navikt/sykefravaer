@@ -1,6 +1,6 @@
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hentFornavn } from '../../utils';

@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Field } from 'redux-form';
 import { Link } from 'react-router';
-import { setLedetekster, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
+import { setLedetekster, SoknadOppsummering, VaerKlarOverAt } from '@navikt/digisyfo-npm';
 import { OppsummeringForm } from '../../../../js/components/sykepengesoknad-arbeidstaker/Oppsummering/OppsummeringSkjema';
 import ForskuttererArbeidsgiver from '../../../../js/components/sykepengesoknad-arbeidstaker/Oppsummering/ForskuttererArbeidsgiver';
 import { getSoknad } from '../../../mock/mockSykepengesoknader';

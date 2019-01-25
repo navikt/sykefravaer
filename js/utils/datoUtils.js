@@ -2,7 +2,7 @@ import {
     erGyldigDatoformat,
     tilLesbarDatoMedArstall,
     tilLesbarPeriodeMedArstall,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 
 export {
     tilLesbarDatoMedArstall,

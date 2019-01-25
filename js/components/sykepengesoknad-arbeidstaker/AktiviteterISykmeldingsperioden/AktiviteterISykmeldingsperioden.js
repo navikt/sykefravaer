@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, FieldArray } from 'redux-form';
-import { getLedetekst, senesteTom as finnSenesteTom } from 'digisyfo-npm';
+import { getLedetekst, senesteTom as finnSenesteTom } from '@navikt/digisyfo-npm';
 import SykepengerSkjema from '../SykepengerSkjema';
 import history from '../../../history';
 import setup from '../setup';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt, soknadMetaPt } from '../../../propTypes';

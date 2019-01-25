@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykmelding as sykmeldingPt, SykmeldingUtdrag } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt, SykmeldingUtdrag } from '@navikt/digisyfo-npm';
 import { childEllerChildren, soknad as soknadPt } from '../../propTypes';
 import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
 import Stegindikator, { frilanserOgSelvstendigUrler } from '../sykepengesoknad-felles/Stegindikator';

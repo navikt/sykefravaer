@@ -1,5 +1,5 @@
 import React from 'react';
-import { sykmeldingstatuser } from 'digisyfo-npm';
+import { sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import { Sykmeldingstatus, SendtDato, Arbeidsgiver, Orgnummer } from './SykmeldingStatuspanelOpplysning';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import GjenaapneSykmeldingContainer from '../../containers/sykmelding/GjenaapneSykmeldingContainer';

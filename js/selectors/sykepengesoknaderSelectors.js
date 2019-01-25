@@ -1,4 +1,4 @@
-import { sykepengesoknadstatuser } from 'digisyfo-npm';
+import { sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 
 export const erForsteSykepengesoknad = (state) => {
     return state.sykepengesoknader.data

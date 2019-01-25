@@ -1,5 +1,5 @@
 import React from 'react';
-import { toDatePrettyPrint, getLedetekst, Bjorn } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, Bjorn } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import PropTypes from 'prop-types';
 import getContextRoot from '../../../utils/getContextRoot';

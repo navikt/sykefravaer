@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BekreftetKorrektInformasjon, scrollTo, SoknadOppsummering, sykepengesoknadstatuser, Utvidbar, VaerKlarOverAt } from 'digisyfo-npm';
+import { BekreftetKorrektInformasjon, scrollTo, SoknadOppsummering, sykepengesoknadstatuser, Utvidbar, VaerKlarOverAt } from '@navikt/digisyfo-npm';
 import Knapp from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
 import Soknadstatuspanel from './Soknadstatuspanel';

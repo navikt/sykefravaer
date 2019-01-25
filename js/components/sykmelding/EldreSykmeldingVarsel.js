@@ -2,7 +2,7 @@ import React from 'react';
 import Alertstripe from 'nav-frontend-alertstriper';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getSykmelding, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser } from 'digisyfo-npm';
+import { getLedetekst, getSykmelding, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 
 const { NY } = sykmeldingstatuser;

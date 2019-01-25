@@ -10,7 +10,7 @@ import {
     sykmeldingstatuser,
     arbeidssituasjoner,
     sykepengesoknad as sykepengesoknadPt,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import Side from './Side';
 import Sykmeldingkvittering, { kvitteringtyper } from '../components/sykmeldingkvittering/Sykmeldingkvittering';
 import AppSpinner from '../components/AppSpinner';

@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import { getParsetSoknad, getSoknad } from '../../mock/mockSykepengesoknader';
 import { NAV, ARBEIDSGIVER_OG_NAV, ARBEIDSGIVER } from '../../../js/enums/soknadmottakertyper';
 import {

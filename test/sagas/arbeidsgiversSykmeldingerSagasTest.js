@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { get } from 'digisyfo-npm';
+import { get } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { hentArbeidsgiversSykmeldinger } from '../../js/sagas/arbeidsgiversSykmeldingerSagas';
 import * as actiontyper from '../../js/actions/actiontyper';

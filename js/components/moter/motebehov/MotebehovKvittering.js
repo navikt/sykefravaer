@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import {
     getLedetekst,
     Utvidbar,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import { motebehovPt } from '../../../propTypes';
 import { FELTER } from './SvarMotebehovSkjema';
 import { tilLesbarDatoMedArstallOgUkedag } from '../../../utils/datoUtils';

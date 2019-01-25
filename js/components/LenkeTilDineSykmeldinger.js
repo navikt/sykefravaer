@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 
 const LenkeTilDineSykmeldinger = () => {
     return (<p className="ikke-print blokk navigasjonsstripe">

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import deepFreeze from 'deep-freeze';
-import { inntektskildetyper } from 'digisyfo-npm';
+import { inntektskildetyper } from '@navikt/digisyfo-npm';
 import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import { mapStateToPropsMedInitialValues, mapStateToProps, mapToInitialValues, andreInntektskilderDefault } from '../../../js/components/sykepengesoknad-arbeidstaker/setup';
 import { getParsetSoknad, getSoknad } from '../../mock/mockSykepengesoknader';

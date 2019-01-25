@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import { getLedetekst, Bjorn, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
+import { getLedetekst, Bjorn, sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';

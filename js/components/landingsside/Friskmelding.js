@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Bjorn, getHtmlLedetekst, getLedetekst, log } from 'digisyfo-npm';
+import { Bjorn, getHtmlLedetekst, getLedetekst, log } from '@navikt/digisyfo-npm';
 import { Knapp } from 'nav-frontend-knapper';
 import { Vis } from '../../utils';
 import Lightbox from '../Lightbox';

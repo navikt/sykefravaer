@@ -1,4 +1,4 @@
-import { senesteTom, tidligsteFom } from 'digisyfo-npm';
+import { senesteTom, tidligsteFom } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import Friskmelding from '../../components/landingsside/Friskmelding';
 

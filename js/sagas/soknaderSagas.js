@@ -1,5 +1,5 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
-import { log } from 'digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
 import { initialize } from 'redux-form';
 import { get, hentApiUrl, post } from '../gateway-api';

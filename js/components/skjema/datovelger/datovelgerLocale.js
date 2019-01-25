@@ -1,5 +1,5 @@
 import { LocaleUtils } from 'react-day-picker';
-import { tilLesbarDatoMedArstall } from 'digisyfo-npm';
+import { tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 
 export const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
 export const WEEKDAYS_LONG = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];

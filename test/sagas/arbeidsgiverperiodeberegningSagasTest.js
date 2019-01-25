@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { post } from 'digisyfo-npm';
+import { post } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { hentArbeidsgiverperiodeberegning } from '../../js/sagas/beregnArbeidsgiverperiodeSagas';
 import * as actions from '../../js/actions/arbeidsgiverperiodeberegning_actions';

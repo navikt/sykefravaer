@@ -3,7 +3,7 @@ import {
     getLedetekst,
     getHtmlLedetekst,
     Utvidbar,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import {
     motePt,
     moteplanleggerDeltakertypePt,

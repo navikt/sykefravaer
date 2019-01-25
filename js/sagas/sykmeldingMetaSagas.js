@@ -1,5 +1,5 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { post, log } from 'digisyfo-npm';
+import { post, log } from '@navikt/digisyfo-npm';
 import * as actions from '../actions/sykmeldingMeta_actions';
 import { HENT_VENTETID_FORESPURT } from '../actions/actiontyper';
 

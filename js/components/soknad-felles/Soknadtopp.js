@@ -1,5 +1,5 @@
 import React from 'react';
-import { sykmelding as sykmeldingPt } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import { soknad as soknadPt } from '../../propTypes';
 import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
 import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { getLedetekst, getHtmlLedetekst, forskutterersvar } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, forskutterersvar } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Feilomrade from '../../skjema/Feilomrade';
 import SporsmalMedTillegg from '../../skjema/SporsmalMedTillegg';

@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { arbeidssituasjoner, feilaktigeOpplysninger } from 'digisyfo-npm';
+import { arbeidssituasjoner, feilaktigeOpplysninger } from '@navikt/digisyfo-npm';
 import validerSykmeldingskjema from '../../../js/components/sykmeldingskjema/validerSykmeldingskjema';
 
 const expect = chai.expect;

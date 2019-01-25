@@ -1,7 +1,7 @@
 import chai from 'chai';
 import React from 'react';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster, arbeidssituasjoner } from 'digisyfo-npm';
+import { setLedetekster, arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import getSykmelding from '../../mock/mockSykmeldinger';
 import SykmeldingUtdragForSelvstendige from '../../../js/components/sykepengesoknad-selvstendig/SykmeldingUtdragForSelvstendige';
 import mountWithStore from '../../mountWithStore';

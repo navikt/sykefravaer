@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getLedetekst, hentToggles, keyValue, togglesPt } from 'digisyfo-npm';
+import { getLedetekst, hentToggles, keyValue, togglesPt } from '@navikt/digisyfo-npm';
 import getContextRoot from '../utils/getContextRoot';
 import history from '../history';
 import Side from './Side';

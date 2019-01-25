@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import Kvittering from '../../../js/components/sykepengesoknad-arbeidstaker/Kvittering';

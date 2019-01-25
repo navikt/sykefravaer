@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import { getTidligsteSendtDato, sorterEtterSendtDato } from '../../utils/sykepengesoknadUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';

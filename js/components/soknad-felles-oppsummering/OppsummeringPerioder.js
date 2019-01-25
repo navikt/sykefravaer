@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint } from '@navikt/digisyfo-npm';
 import { getKey } from './Oppsummeringsvisning';
 import OppsummeringSporsmalscontainer from './OppsummeringSporsmalscontainer';
 import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';

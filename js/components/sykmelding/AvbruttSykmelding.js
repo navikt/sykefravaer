@@ -1,5 +1,5 @@
 import React from 'react';
-import { DineSykmeldingOpplysninger, Utvidbar, getLedetekst } from 'digisyfo-npm';
+import { DineSykmeldingOpplysninger, Utvidbar, getLedetekst } from '@navikt/digisyfo-npm';
 import SykmeldingStatuspanel from '../sykmeldingstatuspanel/SykmeldingStatuspanel';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, getFormValues } from 'redux-form';
-import { getLedetekst, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import { Radio } from 'nav-frontend-skjema';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';

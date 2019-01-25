@@ -1,5 +1,5 @@
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { getHtmlLedetekst, getLedetekst, Utvidbar } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
 import React from 'react';
 
 const AapRad = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Bjorn } from 'digisyfo-npm';
+import { Bjorn } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag } from './fieldUtils';
 import { JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT } from '../../enums/tagtyper';
 import { soknad as soknadPt } from '../../propTypes';

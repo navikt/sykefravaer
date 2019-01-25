@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import { destroy } from 'redux-form';
 import FoerDuBegynner from '../../components/sykepengesoknad-arbeidstaker/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';

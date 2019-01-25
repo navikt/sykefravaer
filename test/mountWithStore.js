@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
-import { timeout } from 'digisyfo-npm';
+import { timeout } from '@navikt/digisyfo-npm';
 import createSagaMiddleware from 'redux-saga';
 import dineSykmeldinger from '../js/reducers/dineSykmeldinger';
 import brukerinfo from '../js/reducers/brukerinfo';

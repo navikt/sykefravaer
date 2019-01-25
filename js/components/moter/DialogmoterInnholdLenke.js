@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 
 const DialogmoterInnholdLenke = () => {
     return (<div className="dialogmoterInnholdLenke blokk--l">

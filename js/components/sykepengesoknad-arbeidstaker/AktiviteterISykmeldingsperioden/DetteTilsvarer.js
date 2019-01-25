@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getHtmlLedetekst } from 'digisyfo-npm';
+import { getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import { antallVirkedagerIPeriode, antallVirkedagerIPerioder } from '../../../utils/periodeUtils';
 
 const tilInt = (streng) => {

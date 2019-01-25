@@ -7,7 +7,7 @@ import {
     TidslinjeVelgArbeidssituasjon,
     setHendelseData as setHendelseDataAction,
     hentTidslinjer as hentTidslinjerAction,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import history from '../history';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';

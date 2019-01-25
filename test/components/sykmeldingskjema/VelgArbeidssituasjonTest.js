@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Field } from 'redux-form';
 import chaiEnzyme from 'chai-enzyme';
-import { arbeidssituasjoner, setLedetekster } from 'digisyfo-npm';
+import { arbeidssituasjoner, setLedetekster } from '@navikt/digisyfo-npm';
 import VelgArbeidssituasjon, { getAlternativer, RendreVelgArbeidssituasjon, Velg, visTillegg } from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
 import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
 import Radioknapper from '../../../js/components/skjema/Radioknapper';

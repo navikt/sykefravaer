@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Bjorn, getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
+import { Bjorn, getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import Feilstripe from '../../Feilstripe';
 
 export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }) => {

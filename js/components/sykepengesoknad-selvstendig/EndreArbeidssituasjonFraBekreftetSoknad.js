@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
-import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import { connectAngreArbeidssituasjon } from '../../containers/sykmelding/AngreBekreftSykmeldingContainer';
 import Lightbox from '../Lightbox';
 import Feilstripe from '../Feilstripe';

@@ -3,7 +3,7 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import {
     getLedetekst,
     getHtmlLedetekst,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import Svarskjema from './Svarskjema';
 import {
     motePt,

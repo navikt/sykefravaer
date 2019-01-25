@@ -3,7 +3,7 @@ import { FieldArray } from 'redux-form';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { Utvidbar } from 'digisyfo-npm';
+import { Utvidbar } from '@navikt/digisyfo-npm';
 import { Skjema, validate, getData } from '../../../../js/components/moter/moteplanlegger/Svarskjema';
 import BesvarteTidspunkter from '../../../../js/components/moter/moteplanlegger/BesvarteTidspunkter';
 import Alternativer from '../../../../js/components/moter/moteplanlegger/Alternativer';

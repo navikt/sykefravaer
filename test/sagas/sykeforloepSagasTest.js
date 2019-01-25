@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { get } from 'digisyfo-npm';
+import { get } from '@navikt/digisyfo-npm';
 import { put, call, select } from 'redux-saga/effects';
 import { hentSykeforloep } from '../../js/sagas/sykeforloepSagas';
 import * as actions from '../../js/actions/sykeforloep_actions';

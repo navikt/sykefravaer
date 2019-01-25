@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { get } from 'digisyfo-npm';
+import { get } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { oppdaterDineSykmeldinger } from '../../js/sagas/dineSykmeldingerSagas';
 import * as actiontyper from '../../js/actions/actiontyper';

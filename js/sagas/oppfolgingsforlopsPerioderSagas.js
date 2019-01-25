@@ -7,7 +7,7 @@ import {
 import {
     get,
     log,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import * as actions from '../actions/oppfolgingsforlopsPerioder_actions';
 import { HENT_OPPFOLGINGSFORLOPSPERIODER_FORESPURT } from '../actions/actiontyper';
 

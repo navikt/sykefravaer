@@ -7,7 +7,7 @@ import {
     Tidslinje,
     TIDSLINJE_TYPER,
     setLedetekster,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import ledetekster from '../mock/mockLedetekster';
 import {
     Container,

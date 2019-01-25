@@ -5,7 +5,7 @@ import {
     tilLesbarDatoMedArstall,
     SykmeldingUtdrag,
     Utvidbar,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import Oppsummeringsvisning from '../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';

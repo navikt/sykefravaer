@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import Feilstripe from '../Feilstripe';
 
 const AvbrytSoknadUtvidet = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, sender }) => {

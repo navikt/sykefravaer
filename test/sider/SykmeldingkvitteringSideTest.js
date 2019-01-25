@@ -6,7 +6,7 @@ import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import sinon from 'sinon';
 import { Provider } from 'react-redux';
-import { setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import SykmeldingKvitteringContainer, { mapStateToProps } from '../../js/sider/SykmeldingkvitteringSide';
 import StandardSykmeldingKvittering from '../../js/components/sykmeldingkvittering/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../js/components/sykmeldingkvittering/FrilanserMedPapirsoknadKvittering';

@@ -3,7 +3,7 @@ import {
     erGyldigDatoformat,
     tilLesbarPeriodeMedArstall,
     tilLesbarDatoMedArstall,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import { erGyldigDato } from '../../../utils/datoUtils';
 
 export const validerPeriode = (input, alternativer) => {

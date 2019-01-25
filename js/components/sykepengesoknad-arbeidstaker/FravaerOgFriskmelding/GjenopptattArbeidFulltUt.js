@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';
+import { getLedetekst, tidligsteFom, senesteTom } from '@navikt/digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import Datovelger from '../../skjema/datovelger/Datovelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';

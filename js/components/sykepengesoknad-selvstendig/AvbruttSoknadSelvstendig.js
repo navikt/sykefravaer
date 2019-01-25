@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getLedetekst, sykmelding as sykmeldingPt, tilLesbarDatoMedArstall } from 'digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import { soknad as soknadPt } from '../../propTypes';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 import Soknadtopp from '../soknad-felles/Soknadtopp';

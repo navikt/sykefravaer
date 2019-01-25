@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag } from './fieldUtils';
 import { BETALER_ARBEIDSGIVER, EGENMELDINGER, FERIE_PERMISJON_UTLAND } from '../../enums/tagtyper';
 

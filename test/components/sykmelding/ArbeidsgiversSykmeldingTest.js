@@ -1,7 +1,7 @@
 import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Utvidbar, ArbeidsgiversSykmeldingOpplysninger, setLedetekster } from 'digisyfo-npm';
+import { Utvidbar, ArbeidsgiversSykmeldingOpplysninger, setLedetekster } from '@navikt/digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from '../../mock/mockLedetekster';
 import getSykmelding from '../../mock/mockSykmeldinger';

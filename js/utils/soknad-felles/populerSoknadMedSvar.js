@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from 'digisyfo-npm';
+import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
 import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT } from '../../enums/svartyper';
 
 const fraJSDatoTilBackendDato = (jsDato) => {

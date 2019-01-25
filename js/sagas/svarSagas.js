@@ -1,5 +1,5 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { log } from 'digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
 import * as actions from '../actions/moter_actions';
 import {
     API_NAVN,

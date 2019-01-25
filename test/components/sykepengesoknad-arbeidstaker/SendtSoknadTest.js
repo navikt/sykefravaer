@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, setLedetekster } from 'digisyfo-npm';
+import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, setLedetekster } from '@navikt/digisyfo-npm';
 import sinon from 'sinon';
 import SendtSoknad, { Knapperad, ConnectedKnapperad } from '../../../js/components/sykepengesoknad-arbeidstaker/SendtSoknad';
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';

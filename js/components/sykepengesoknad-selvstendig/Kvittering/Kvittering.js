@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import Sidetopp from '../../Sidetopp';
 import { IllustrertInnholdGronnHake } from '../../IllustrertInnhold';

@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import { Fields } from 'redux-form';
 import Aktiviteter, { Aktivitet } from '../../../../js/components/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperioden/Aktiviteter';
 import AngiTid from '../../../../js/components/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperioden/AngiTid';

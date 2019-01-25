@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import cn from 'classnames';
 import { getHtmlLedetekst, getLedetekst, tilDatePeriode } from 'digisyfo-npm';
 import { Field, getFormValues } from 'redux-form';
+import PropTypes from 'prop-types';
 import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Radioknapper from '../../skjema/Radioknapper';
 import { datoErHelgedag, erGyldigPeriode, tilDager } from '../../../utils/periodeUtils';
@@ -9,6 +11,32 @@ import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 
 const tilTimestamp = (dato) => {
     return dato.getTime();
+};
+
+const Presisering = ({ nokkel, className }) => {
+    const classNames = cn('presisering js-presisering', className);
+    return (<div className={classNames}>
+        <div
+            className="redaksjonelt-innhold"
+            dangerouslySetInnerHTML={getHtmlLedetekst(nokkel)} />
+    </div>);
+};
+
+Presisering.propTypes = {
+    nokkel: PropTypes.string,
+    className: PropTypes.string,
+};
+
+const PresiseringJa = () => {
+    return (<Presisering
+        className="blokk--s js-presisering-ja"
+        nokkel="sykepengesoknad.ferie-permisjon-utenlandsopphold.ja-presisering-sykepenger-utlandet" />);
+};
+
+const PresiseringNei = () => {
+    return (<Presisering
+        className="js-presisering-nei"
+        nokkel="sykepengesoknad.ferie-permisjon-utenlandsopphold.nei-presisering-sykepenger-utlandet" />);
 };
 
 export const visSoktOmSykepengerUtenlandsoppholdsporsmal = (values) => {
@@ -24,28 +52,32 @@ export const visSoktOmSykepengerUtenlandsoppholdsporsmal = (values) => {
 };
 
 export const Sporsmal = ({ vis }) => {
-    return vis && (<div className="utenlandsoppholdsporsmal">
-        <Field
-            spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal')}
-            name="utenlandsopphold.soektOmSykepengerIPerioden"
-            component={Radioknapper}
-            Overskrift="h5"
-            parse={parseJaEllerNei}>
-            {
-                jaEllerNeiAlternativer.map((alt, index) => {
-                    return (<i {...alt} key={index}>
-                        {
-                            alt.value === true ? null : (<div className="presisering js-presisering">
-                                <div
-                                    className="redaksjonelt-innhold"
-                                    dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet')} />
-                            </div>)
-                        }
-                    </i>);
-                })
-            }
-        </Field>
-    </div>);
+    return vis
+        ? (<div className="utenlandsoppholdsporsmal">
+            <Field
+                spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal')}
+                name="utenlandsopphold.soektOmSykepengerIPerioden"
+                component={Radioknapper}
+                Overskrift="h5"
+                parse={parseJaEllerNei}>
+                {
+                    jaEllerNeiAlternativer.map((alt, index) => {
+                        return (<i {...alt} key={index}>
+                            {
+                                alt.value === true
+                                    ? <PresiseringJa />
+                                    : <PresiseringNei />
+                            }
+                        </i>);
+                    })
+                }
+            </Field>
+        </div>)
+        : null;
+};
+
+Sporsmal.propTypes = {
+    vis: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {

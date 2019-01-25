@@ -37,13 +37,6 @@ describe('SoktOmSykepenger', () => {
         expect(nei.prop('value')).to.equal(false);
     });
 
-    it('Skal inneholde ja uten presisering og nei med presisering', () => {
-        const ja = f.find('i').at(0);
-        const nei = f.find('i').at(1);
-        expect(ja.find('.js-presisering')).to.have.length(0);
-        expect(nei.find('.js-presisering')).to.have.length(1);
-    });
-
     describe('visSoktOmSykepengerUtenlandsoppholdsporsmal', () => {
         it('Skal funke hvis periodene ikke er komplette', () => {
             const values = {

@@ -1,4 +1,4 @@
-import { toDatePrettyPrint, tidligsteFom, fraInputdatoTilJSDato } from 'digisyfo-npm';
+import { toDatePrettyPrint, tidligsteFom, fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import * as valideringUtils from './valideringUtils';
 import { getTomDato } from '../../../utils/sykepengesoknadUtils';

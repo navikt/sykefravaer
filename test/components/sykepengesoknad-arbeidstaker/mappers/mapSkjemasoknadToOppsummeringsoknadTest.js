@@ -1,6 +1,6 @@
 import chai from 'chai';
 import deepFreeze from 'deep-freeze';
-import { inntektskildetyper as inntektskildetyper_, setLedetekster, sporsmalstyper } from 'digisyfo-npm';
+import { inntektskildetyper as inntektskildetyper_, setLedetekster, sporsmalstyper } from '@navikt/digisyfo-npm';
 
 import { getSoknad } from '../../../mock/mockSykepengesoknader';
 import mapSkjemasoknadToOppsummeringSoknad from '../../../../js/components/sykepengesoknad-arbeidstaker/mappers/mapSkjemasoknadToOppsummeringsoknad';

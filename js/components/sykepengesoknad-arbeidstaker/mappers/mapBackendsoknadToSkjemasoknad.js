@@ -1,5 +1,5 @@
 
-import { toDatePrettyPrint, inntektskildetyper as inntektskildetyper_ } from 'digisyfo-npm';
+import { toDatePrettyPrint, inntektskildetyper as inntektskildetyper_ } from '@navikt/digisyfo-npm';
 import { mapAktiviteter } from '../../../utils/sykepengesoknadUtils';
 import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 

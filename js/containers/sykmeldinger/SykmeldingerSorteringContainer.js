@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import Dropdown from '../../components/skjema/Dropdown';
 import * as actionCreators from '../../actions/dineSykmeldinger_actions';
 

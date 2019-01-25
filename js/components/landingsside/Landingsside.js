@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes';
 import DineOppgaverContainer from '../../containers/landingsside/DineOppgaverContainer';

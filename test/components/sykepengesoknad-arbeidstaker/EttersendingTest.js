@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import Knapp from 'nav-frontend-knapper';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import { Ettersending, EttersendLightbox, EttersendDialogConnected, EttersendKvittering } from '../../../js/components/sykepengesoknad-arbeidstaker/Ettersending';
 import { getSoknad } from '../../mock/mockSykepengesoknader';
 

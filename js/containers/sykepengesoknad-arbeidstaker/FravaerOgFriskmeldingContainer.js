@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykepengesoknadstatuser } from 'digisyfo-npm';
+import { sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import FravaerOgFriskmelding from '../../components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/FravaerOgFriskmelding';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';

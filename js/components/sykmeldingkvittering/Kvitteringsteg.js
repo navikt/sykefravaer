@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 

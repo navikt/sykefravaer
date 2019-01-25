@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from 'digisyfo-npm';
+import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
 import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 import { filtrerAktuelleAktiviteter } from '../../../utils/sykepengesoknadUtils';

@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import SykepengesoknadTeaser from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
 import SoknaderTeasere from '../../../js/components/sykepengesoknader/SoknaderTeasere';
 import { getSoknad } from '../../mock/mockSykepengesoknader';

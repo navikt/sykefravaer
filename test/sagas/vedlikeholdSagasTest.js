@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { get } from 'digisyfo-npm';
+import { get } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { hentVedlikehold } from '../../js/sagas/vedlikeholdSagas';
 import * as actiontyper from '../../js/actions/actiontyper';

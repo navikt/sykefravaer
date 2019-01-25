@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Vis } from '../../../utils';

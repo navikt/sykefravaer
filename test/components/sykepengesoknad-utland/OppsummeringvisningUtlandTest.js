@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import Oppsummeringsvisning from '../../../js/components/soknad-felles-oppsummering/Oppsummeringsvisning';
 import populerSoknadMedSvar from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
 import { getSoknadUtland } from '../../mock/mockSoknadUtland';

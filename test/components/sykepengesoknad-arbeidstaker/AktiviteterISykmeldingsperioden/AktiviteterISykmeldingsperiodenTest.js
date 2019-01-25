@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { Field, FieldArray } from 'redux-form';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import {
     AktiviteterISykmeldingsperiodenSkjema,
     UtdanningStartDato,

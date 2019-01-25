@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, FieldArray } from 'redux-form';
-import { getLedetekst, inntektskildetyper as inntektskildetypeEnums } from 'digisyfo-npm';
+import { getLedetekst, inntektskildetyper as inntektskildetypeEnums } from '@navikt/digisyfo-npm';
 import Checkbox from '../../skjema/Checkbox';
 import { parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';

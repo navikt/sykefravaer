@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { parseSykmelding } from 'digisyfo-npm';
+import { parseSykmelding } from '@navikt/digisyfo-npm';
 import soknader from '../../../js/reducers/soknader';
 import dineSykmeldinger from '../../../js/reducers/dineSykmeldinger';
 import unleashToggles from '../../../js/reducers/unleashToggles';

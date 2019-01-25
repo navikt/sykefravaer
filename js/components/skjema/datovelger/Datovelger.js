@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, change, touch, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint } from '@navikt/digisyfo-npm';
 import cn from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import Feilmelding from '../Feilmelding';

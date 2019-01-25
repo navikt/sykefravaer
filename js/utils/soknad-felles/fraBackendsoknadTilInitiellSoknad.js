@@ -1,4 +1,4 @@
-import { toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint } from '@navikt/digisyfo-npm';
 import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE } from '../../enums/svartyper';
 import { genererParseForEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
 

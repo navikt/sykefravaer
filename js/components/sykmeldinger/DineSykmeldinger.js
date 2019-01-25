@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import SykmeldingTeasere from './SykmeldingTeasere';
 import SykmeldingerSorteringContainer from '../../containers/sykmeldinger/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';

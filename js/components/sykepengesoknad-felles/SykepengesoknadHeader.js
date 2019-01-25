@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import * as proptypes from '../../propTypes';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 
 const BekreftAnsvar = () => {

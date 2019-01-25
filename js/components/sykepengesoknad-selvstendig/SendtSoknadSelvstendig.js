@@ -7,7 +7,7 @@ import {
     SykmeldingNokkelOpplysning,
     tilLesbarDatoMedArstall,
     Utvidbar,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SykmeldingUtdragForSelvstendige from './SykmeldingUtdragForSelvstendige';

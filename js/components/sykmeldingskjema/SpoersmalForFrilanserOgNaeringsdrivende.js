@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../sykepengesoknad-arbeidstaker/JaEllerNei';
 import Periodevelger from '../skjema/datovelger/Periodevelger';

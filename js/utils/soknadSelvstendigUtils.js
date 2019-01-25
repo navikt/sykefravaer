@@ -1,4 +1,4 @@
-import { tidligsteFom, senesteTom } from 'digisyfo-npm';
+import { tidligsteFom, senesteTom } from '@navikt/digisyfo-npm';
 
 export const settErOppdelt = (soknad, sykmelding) => {
     if (!sykmelding) {

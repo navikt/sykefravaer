@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { call, put } from 'redux-saga/effects';
-import { arbeidssituasjoner, post } from 'digisyfo-npm';
+import { arbeidssituasjoner, post } from '@navikt/digisyfo-npm';
 import {
     avbrytSykmelding,
     bekreftSykmelding,

@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import { mount } from 'enzyme/build/index';
 import { Provider } from 'react-redux';
 import { Link } from 'react-router';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import { KORRIGERT } from '../../../js/enums/soknadstatuser';
 import getSykmelding from '../../mock/mockSykmeldinger';
 import RelaterteSoknaderContainer from '../../../js/containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';

@@ -1,4 +1,4 @@
-import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
 import { ANNEN_ARBEIDSGIVER_ORGNUMMER, sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';
 import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import * as sykmeldingSelectors from '../../selectors/sykmeldingMetaSelectors';

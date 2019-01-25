@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, autofill as autofillAction } from 'redux-form';
 import { Radio } from 'nav-frontend-skjema';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import cn from 'classnames';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import Sporsmalstekst from './Sporsmalstekst';

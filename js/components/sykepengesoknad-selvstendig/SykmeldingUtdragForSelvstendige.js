@@ -8,7 +8,7 @@ import {
     SykmeldingPerioder,
     tilLesbarDatoMedArstall,
     Utvidbar,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import { SykmeldingopplysningForsikring, SykmeldingopplysningFravaersperioder } from '../sykmeldingstatuspanel/SykmeldingStatuspanelOpplysning';
 import EndreArbeidssituasjonFraBekreftetSoknad from './EndreArbeidssituasjonFraBekreftetSoknad';
 

@@ -5,7 +5,7 @@ import React from 'react';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { forlengInnloggetSesjon, hentLedetekster, setPerformOnHttpCalls, sjekkInnloggingssesjon } from 'digisyfo-npm';
+import { forlengInnloggetSesjon, hentLedetekster, setPerformOnHttpCalls, sjekkInnloggingssesjon } from '@navikt/digisyfo-npm';
 import AppRouter from './routers/AppRouter';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
 import history from './history';

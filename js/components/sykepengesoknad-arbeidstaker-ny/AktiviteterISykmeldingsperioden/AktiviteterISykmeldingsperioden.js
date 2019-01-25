@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykmelding as sykmeldingPt, getLedetekst } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt, getLedetekst } from '@navikt/digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
 import { KnapperadTilbake } from '../../skjema/Knapperad';

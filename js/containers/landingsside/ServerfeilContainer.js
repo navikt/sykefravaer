@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { log } from 'digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
 import Serverfeilmelding from '../../components/landingsside/Serverfeilmelding';
 
 const mapStateToProps = (state) => {

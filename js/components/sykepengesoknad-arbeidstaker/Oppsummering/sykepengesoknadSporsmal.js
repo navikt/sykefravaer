@@ -1,4 +1,4 @@
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 import { tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from '../../../utils/datoUtils';

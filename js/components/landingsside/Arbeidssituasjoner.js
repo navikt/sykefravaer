@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, arbeidssituasjoner as situasjoner } from 'digisyfo-npm';
+import { getLedetekst, arbeidssituasjoner as situasjoner } from '@navikt/digisyfo-npm';
 import classNames from 'classnames';
 import Arbeidssituasjon from '../../components/landingsside/Arbeidssituasjon';
 import NaermesteLederContainer from '../../containers/landingsside/NaermesteLederContainer';

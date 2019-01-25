@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { getLedetekst, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
 import { Field, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 import Checkbox from '../skjema/Checkbox';

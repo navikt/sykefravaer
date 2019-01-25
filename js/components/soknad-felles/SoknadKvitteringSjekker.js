@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import KvitteringArbeidstakere from '../../components/sykepengesoknad-arbeidstaker-ny/Kvittering/Kvittering';
 import KvitteringSelvstendige from '../../components/sykepengesoknad-selvstendig/Kvittering/Kvittering';

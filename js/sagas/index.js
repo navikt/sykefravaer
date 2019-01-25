@@ -4,7 +4,7 @@ import {
     tidslinjerSagas,
     togglesSagas,
     sykeforlopsPerioderSagas,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
 import dineArbeidsgivereSagas from './arbeidsgivereSagas';

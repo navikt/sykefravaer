@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, scrollTo } from 'digisyfo-npm';
+import { getLedetekst, scrollTo } from '@navikt/digisyfo-npm';
 import AvbrytSoknadUtvidet from '../sykepengesoknad-felles/AvbrytSoknadUtvidet';
 import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 

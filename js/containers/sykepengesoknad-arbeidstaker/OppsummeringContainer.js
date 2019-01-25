@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, sykepengesoknadstatuser, forskutterersvar } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser, forskutterersvar } from '@navikt/digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad-arbeidstaker/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';

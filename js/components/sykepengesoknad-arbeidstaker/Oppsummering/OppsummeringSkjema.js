@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link } from 'react-router';
-import { getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
+import { getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from '@navikt/digisyfo-npm';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';

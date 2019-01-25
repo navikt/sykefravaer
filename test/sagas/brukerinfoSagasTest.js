@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { get, getAjax } from 'digisyfo-npm';
+import { get, getAjax } from '@navikt/digisyfo-npm';
 import { put, call, select } from 'redux-saga/effects';
 import { hentBrukerinfo, sjekkInnlogging } from '../../js/sagas/brukerinfoSagas';
 import { skalHenteBrukerinfoSelector } from '../../js/selectors/brukerinfoSelectors';

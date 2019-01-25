@@ -5,7 +5,7 @@ import {
     takeEvery,
     select,
 } from 'redux-saga/effects';
-import { log } from 'digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
 import * as actions from '../actions/moter_actions';
 import { skalHenteMote } from '../selectors/moteSelectors';
 import {

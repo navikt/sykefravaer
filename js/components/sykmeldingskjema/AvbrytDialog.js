@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, scrollTo } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, scrollTo } from '@navikt/digisyfo-npm';
 import { Vis } from '../../utils';
 
 export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {

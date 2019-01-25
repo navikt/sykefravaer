@@ -11,7 +11,7 @@ import {
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
     toDatePrettyPrint,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';

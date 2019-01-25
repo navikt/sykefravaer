@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, scrollTo, erSynligIViewport } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, scrollTo, erSynligIViewport } from '@navikt/digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';

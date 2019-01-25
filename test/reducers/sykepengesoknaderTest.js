@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { parseSykepengesoknad } from 'digisyfo-npm';
+import { parseSykepengesoknad } from '@navikt/digisyfo-npm';
 import * as actiontyper from '../../js/actions/actiontyper';
 import sykepengesoknader, {
     finnSoknad,

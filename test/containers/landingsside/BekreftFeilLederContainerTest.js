@@ -3,7 +3,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Container, mapStateToProps } from '../../../js/containers/landingsside/BekreftFeilLederContainer';
 import BekreftFeil, { LederAvkreftet } from '../../../js/components/landingsside/BekreftFeilLeder';

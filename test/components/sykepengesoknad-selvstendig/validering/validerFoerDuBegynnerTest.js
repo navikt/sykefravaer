@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';
 import { genererParseForCheckbox } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import validerFoerDuBegynner from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerFoerDuBegynner';

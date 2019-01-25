@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Bjorn } from 'digisyfo-npm';
+import { Bjorn } from '@navikt/digisyfo-npm';
 import { motebehovSvarReducerPt } from '../../../propTypes';
 import SvarMotebehovSkjema from './SvarMotebehovSkjema';
 import MotebehovInfoForSvar from './MotebehovInfoForSvar';

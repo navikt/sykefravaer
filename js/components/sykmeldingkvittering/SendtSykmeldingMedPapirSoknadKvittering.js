@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, Bjorn } from 'digisyfo-npm';
+import { getLedetekst, Bjorn } from '@navikt/digisyfo-npm';
 import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from './Kvitteringsteg';
 
 const SendtSykmeldingMedPapirSoknadKvittering = () => {

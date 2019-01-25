@@ -1,4 +1,4 @@
-import { tilLesbarDatoMedArstall, fraInputdatoTilJSDato, inntektskildetyper, senesteTom } from 'digisyfo-npm';
+import { tilLesbarDatoMedArstall, fraInputdatoTilJSDato, inntektskildetyper, senesteTom } from '@navikt/digisyfo-npm';
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import {

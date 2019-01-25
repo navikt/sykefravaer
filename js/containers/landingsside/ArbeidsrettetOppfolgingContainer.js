@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import * as PT from 'prop-types';
 import IllustrertInnhold from '../../components/IllustrertInnhold';

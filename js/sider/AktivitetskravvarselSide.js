@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, keyValue, scrollTo, tilLesbarDatoMedArstall } from 'digisyfo-npm';
+import { getLedetekst, keyValue, scrollTo, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';

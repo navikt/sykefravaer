@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getTidligsteSendtDato } from '../../utils/sykepengesoknadUtils';

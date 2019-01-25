@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
 import validerAktiviteterISykmeldingsperioden from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerAktiviteterISykmeldingsperioden';
 import { getNySoknadSelvstendig } from '../../../mock/mockSoknadSelvstendig';

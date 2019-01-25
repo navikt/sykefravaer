@@ -1,5 +1,5 @@
 import React from 'react';
-import { senesteTom, sykmeldingstatuser, arbeidssituasjoner } from 'digisyfo-npm';
+import { senesteTom, sykmeldingstatuser, arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from '../../components/landingsside/TidslinjeUtdrag';

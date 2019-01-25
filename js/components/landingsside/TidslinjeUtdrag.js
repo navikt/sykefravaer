@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import FriskmeldingContainer from '../../containers/landingsside/FriskmeldingContainer';
 import { Vis } from '../../utils';

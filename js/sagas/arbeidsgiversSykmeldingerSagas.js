@@ -1,4 +1,4 @@
-import { get, log } from 'digisyfo-npm';
+import { get, log } from '@navikt/digisyfo-npm';
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import * as actiontyper from '../actions/actiontyper';
 import * as actions from '../actions/arbeidsgiversSykmeldinger_actions';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { sykmelding as sykmeldingPt, getLedetekst } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt, getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { skjemasvar as skjemasvarPt, soknadmottakerPt, soknad as soknadPt } from '../../../propTypes';

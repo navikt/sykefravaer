@@ -1,5 +1,5 @@
 import React from 'react';
-import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import getContextRoot from '../../utils/getContextRoot';
 import { sykmelding as sykmeldingPt } from '../../propTypes';

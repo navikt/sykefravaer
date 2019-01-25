@@ -1,4 +1,4 @@
-import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
 import { validerPerioder } from '../sykepengesoknad-arbeidstaker/validering/valideringUtils';
 import { harValgtArbeidsgiverMedNaermesteLeder } from './VelgArbeidssituasjon';
 

@@ -1,6 +1,6 @@
 import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
-import { post, log, arbeidssituasjoner } from 'digisyfo-npm';
+import { post, log, arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import * as actions from '../actions/dinSykmelding_actions';
 import { skalOppretteSoknadHentet } from '../actions/sykmeldingMeta_actions';
 import * as actiontyper from '../actions/actiontyper';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import { getHtmlLedetekst, getLedetekst, tilDatePeriode } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, tilDatePeriode } from '@navikt/digisyfo-npm';
 import { Field, getFormValues } from 'redux-form';
 import PropTypes from 'prop-types';
 import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';

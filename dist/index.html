@@ -164,5 +164,12 @@
                 document.body.appendChild(script);
             })();
 </script>
+<script type="application/javascript">
+    window.frontendlogger = { info: function(){}, warn: function(){}, error: function(){}, event: function(){}};
+    window.frontendlogger.appname = 'sykefravaer';
+</script>
+{{#isProd}}
+<script type="application/javascript" src="/frontendlogger/logger.js"></script>
+{{/isProd}}
 </body>
 </html>

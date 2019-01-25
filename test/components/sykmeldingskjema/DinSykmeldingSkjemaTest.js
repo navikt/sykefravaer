@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
 import deepFreeze from 'deep-freeze';
 import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, mapStateToProps } from '../../../js/components/sykmeldingskjema/DinSykmeldingSkjema';
 import StrengtFortroligInfo from '../../../js/components/sykmeldingskjema/StrengtFortroligInfo';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 import Feilstripe from '../Feilstripe';
 

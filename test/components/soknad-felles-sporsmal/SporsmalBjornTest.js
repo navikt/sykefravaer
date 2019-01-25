@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react';
-import { Bjorn } from 'digisyfo-npm';
+import { Bjorn } from '@navikt/digisyfo-npm';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import SporsmalBjorn from '../../../js/components/soknad-felles-sporsmal/SporsmalBjorn';

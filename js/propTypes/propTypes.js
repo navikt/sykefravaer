@@ -19,7 +19,7 @@ export {
     sykmelding,
     tidslinjehendelse,
     oppsummeringsoknad,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 
 export * from './dialogmoteProptypes';
 

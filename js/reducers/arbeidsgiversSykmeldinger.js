@@ -1,4 +1,4 @@
-import { parseSykmelding, sykmeldingstatuser } from 'digisyfo-npm';
+import { parseSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 
 const { SENDT, BEKREFTET } = sykmeldingstatuser;

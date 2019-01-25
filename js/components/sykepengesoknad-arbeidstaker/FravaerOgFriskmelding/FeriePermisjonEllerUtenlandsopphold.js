@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { getLedetekst, Bjorn } from 'digisyfo-npm';
+import { getLedetekst, Bjorn } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/datovelger/Periodevelger';

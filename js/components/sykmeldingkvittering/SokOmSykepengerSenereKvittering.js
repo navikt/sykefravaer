@@ -6,7 +6,7 @@ import {
     filmer,
     Bjorn,
     tilLesbarDatoMedArstall,
-} from 'digisyfo-npm';
+} from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from './Soknadsdatoliste';

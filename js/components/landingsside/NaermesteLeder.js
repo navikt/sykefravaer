@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import classNames from 'classnames';
 import Lightbox from '../Lightbox';

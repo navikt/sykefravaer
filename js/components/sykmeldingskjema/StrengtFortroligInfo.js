@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import getContextRoot from '../../utils/getContextRoot';
 
 const StrengtFortroligInfo = ({ sykmeldingId }) => {

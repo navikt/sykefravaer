@@ -1,6 +1,6 @@
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import React from 'react';
 
 const HarAlleredeOppfolgingAlertstripe = () => {

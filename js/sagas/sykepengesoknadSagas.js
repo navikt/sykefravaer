@@ -1,5 +1,5 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
-import { get, log, post } from 'digisyfo-npm';
+import { get, log, post } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
 import * as actions from '../actions/sykepengesoknader_actions';
 import * as actiontyper from '../actions/actiontyper';

@@ -1,4 +1,4 @@
-import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, senesteTom, tilDatePeriode } from 'digisyfo-npm';
+import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, senesteTom, tilDatePeriode } from '@navikt/digisyfo-npm';
 import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
 import { PERIODEUTLAND } from '../enums/tagtyper';
 import { SENDT, NY } from '../enums/soknadstatuser';

@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import DetteHarSkjedd from '../../../js/components/landingsside/DetteHarSkjedd';
 
 chai.use(chaiEnzyme());

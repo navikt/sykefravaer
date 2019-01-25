@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Bjorn, getLedetekst } from 'digisyfo-npm';
+import { Bjorn, getLedetekst } from '@navikt/digisyfo-npm';
 import { formValueSelector } from 'redux-form';
 import { SYKMELDINGSGRAD, FERIE } from '../../enums/tagtyper';
 import { formaterEnkeltverdi } from './fieldUtils';

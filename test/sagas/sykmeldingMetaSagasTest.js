@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { post } from 'digisyfo-npm';
+import { post } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { hentVentetid } from '../../js/sagas/sykmeldingMetaSagas';
 import * as actions from '../../js/actions/sykmeldingMeta_actions';

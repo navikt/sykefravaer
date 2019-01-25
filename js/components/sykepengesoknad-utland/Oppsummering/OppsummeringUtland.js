@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';

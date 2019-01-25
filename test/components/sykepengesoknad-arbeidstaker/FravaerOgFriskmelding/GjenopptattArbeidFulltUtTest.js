@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import GjenopptattArbeidFulltUt from '../../../../js/components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/GjenopptattArbeidFulltUt';
 import Datovelger from '../../../../js/components/skjema/datovelger/Datovelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad-arbeidstaker/JaEllerNei';

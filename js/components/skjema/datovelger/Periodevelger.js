@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Fields } from 'redux-form';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import DatovelgerPeriode from './DatovelgerPeriode';
 import Feilomrade from '../Feilomrade';
 import { harOverlappendePerioder } from '../../../utils/periodeUtils';

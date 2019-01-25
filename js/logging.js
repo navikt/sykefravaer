@@ -1,10 +1,16 @@
-import Logger from 'nav-logger';
-import { getCookie } from 'digisyfo-npm';
+const Logger = function () {
+    this.error = (...args) => {
+        return window.frontendlogger.info(...args);
+    };
+    this.info = (...args) => {
+        return window.frontendlogger.error(...args);
+    };
+    this.warn = (...args) => {
+        return window.frontendlogger.warn(...args);
+    };
+    this.event = (...args) => {
+        return window.frontendlogger.event(...args);
+    };
+};
 
-export default new Logger({
-    url: `${process.env.REACT_APP_SYFOREST_ROOT}/logging`,
-    fetchConfig: (config) => {
-        config.headers.set('NAV_CSRF_PROTECTION', getCookie('NAV_CSRF_PROTECTION'));
-        return { ...config, credentials: 'include' };
-    },
-});
+export default new Logger();

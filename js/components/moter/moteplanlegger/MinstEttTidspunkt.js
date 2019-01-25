@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
 import Alertstripe from 'nav-frontend-alertstriper';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { SVARSKJEMANAVN } from '../../../utils/moteUtils';
 
 const Component = ({ visVarsel }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import TekstfeltMedEnhet from '../skjema/TekstfeltMedEnhet';
 import Sporsmalstekst from './Sporsmalstekst';
 import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';

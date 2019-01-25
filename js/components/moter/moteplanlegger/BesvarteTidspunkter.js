@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { BRUKER, ARBEIDSGIVER, NAV_VEILEDER } from '../../../enums/moteplanleggerDeltakerTyper';
 import {
     motePt,

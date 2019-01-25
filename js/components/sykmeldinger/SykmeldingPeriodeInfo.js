@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getDuration, getLedetekst, toDate } from 'digisyfo-npm';
+import { getDuration, getLedetekst, toDate } from '@navikt/digisyfo-npm';
 import { sykmeldingperiode } from '../../propTypes';
 
 const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p' }) => {

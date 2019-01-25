@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 import Header from '../SykepengesoknadUtlandHeader';
 import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';

@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import chaiEnzyme from 'chai-enzyme';
 import { shallow } from 'enzyme';
-import { Bjorn } from 'digisyfo-npm';
+import { Bjorn } from '@navikt/digisyfo-npm';
 import { mapStateToProps, SporsmalBjornComponent } from '../../../js/components/soknad-felles-sporsmal/SporsmalBjornKondisjonell';
 import { genererParseForEnkeltverdi } from '../../../js/components/soknad-felles-sporsmal/fieldUtils';
 import { JA, NEI } from '../../../js/enums/svarEnums';

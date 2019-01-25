@@ -1,4 +1,4 @@
-import { setLedetekster, sykepengesoknadstatuser as statuser } from 'digisyfo-npm';
+import { setLedetekster, sykepengesoknadstatuser as statuser } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import chai from 'chai';
 import React from 'react';

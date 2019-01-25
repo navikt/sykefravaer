@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldArray } from 'redux-form';
-import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
 import JaEllerNei from '../sykepengesoknad-arbeidstaker/JaEllerNei';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 

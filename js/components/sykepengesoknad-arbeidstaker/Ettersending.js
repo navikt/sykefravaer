@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import Knapp, { Hovedknapp } from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
 import Lightbox from '../Lightbox';

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as PT from 'prop-types';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import history from '../../history';
 import { bekreftMerVeiledning } from '../../actions/merVeiledning_actions';
 import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';

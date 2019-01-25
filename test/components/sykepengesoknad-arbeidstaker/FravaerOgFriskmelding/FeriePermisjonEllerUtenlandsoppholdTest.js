@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { Field, FieldArray } from 'redux-form';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import {
     FeriePermisjonEllerUtenlandsoppholdComp,
     RendreFeriePermisjonEllerUtenlandsopphold,

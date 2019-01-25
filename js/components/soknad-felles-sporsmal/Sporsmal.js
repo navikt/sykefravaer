@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { bindActionCreators } from 'redux';
 import JaEllerNei from './JaEllerNei';
 import { sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';

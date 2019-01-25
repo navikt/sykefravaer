@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
 import SykmeldingSoknadstatuspanel from '../../components/sykmelding/SykmeldingSoknadstatuspanel';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
 import { skalHenteSykepengesoknader as skalHenteSykepengesoknaderSelector } from '../../selectors/sykepengesoknaderSelectors';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bjorn, DineSykmeldingOpplysninger, getLedetekst, scrollTo } from 'digisyfo-npm';
+import { Bjorn, DineSykmeldingOpplysninger, getLedetekst, scrollTo } from '@navikt/digisyfo-npm';
 import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../Sidetopp';
 import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';

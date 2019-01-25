@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSykmelding } from 'digisyfo-npm';
+import { getSykmelding } from '@navikt/digisyfo-npm';
 import ArbeidsgiversSykmelding from '../../components/sykmelding/ArbeidsgiversSykmelding';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { hentArbeidsgiversSykmeldinger as hentArbeidsgiversSykmeldingerAction } from '../../actions/arbeidsgiversSykmeldinger_actions';

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
-import { inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser, toDatePrettyPrint } from 'digisyfo-npm';
+import { inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser, toDatePrettyPrint } from '@navikt/digisyfo-npm';
 import history from '../../history';
 import { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
 import { getTidligsteSendtDato, mapAktiviteter } from '../../utils/sykepengesoknadUtils';

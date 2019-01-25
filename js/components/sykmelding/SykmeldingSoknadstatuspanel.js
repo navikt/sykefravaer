@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykepengesoknad as sykepengesoknadPt, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import {
     FlereSoknader,
     KommendeSoknad,

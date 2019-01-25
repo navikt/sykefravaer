@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
 import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';

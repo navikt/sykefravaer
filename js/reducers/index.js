@@ -1,4 +1,4 @@
-import { ledetekster, sykeforlopsPerioder, tidslinjer, timeout, toggles } from 'digisyfo-npm';
+import { ledetekster, sykeforlopsPerioder, tidslinjer, timeout, toggles } from '@navikt/digisyfo-npm';
 import { reducer as formReducer } from 'redux-form';
 import oppfolgingsdialoger from '../oppfolgingsdialogNpm/oppfolgingsdialoger';
 import arbeidsgivere from './arbeidsgivere';

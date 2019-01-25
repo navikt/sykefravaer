@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from '@navikt/digisyfo-npm';
 import { genererValiderTall } from '../../../js/components/soknad-felles-sporsmal/Tall';
 import { genererParseForEnkeltverdi } from '../../../js/components/soknad-felles-sporsmal/fieldUtils';
 

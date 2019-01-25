@@ -1,4 +1,4 @@
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag, formaterEnkeltverdi } from '../components/soknad-felles-sporsmal/fieldUtils';
 import { CHECKED } from '../enums/svarEnums';
 import { CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT } from '../enums/svartyper';

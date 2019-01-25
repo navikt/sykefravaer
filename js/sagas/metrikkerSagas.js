@@ -1,5 +1,5 @@
 import { fork, select, takeEvery } from 'redux-saga/effects';
-import { log } from 'digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
 import { SOKNAD_SENDT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
 import { hentMetrikk } from '../selectors/metrikkerSelectors';
 

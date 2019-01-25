@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';

@@ -299,6 +299,11 @@ describe('populerSoknadMedSvar', () => {
             verdi: '10',
         }]);
         expect(populertUndersporsmalProsentJobbet.svar).to.deep.equal([]);
+
+        expect(populertUndersporsmalSvarIProsent.svar).to.deep.equal([]);
+        expect(populertUndersporsmalSvarITimer.svar).to.deep.equal([{
+            verdi: CHECKED,
+        }]);
     });
 
     describe('populerSoknadMedSvarUtenKonvertertePerioder', () => {

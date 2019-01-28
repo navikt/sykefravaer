@@ -65,8 +65,14 @@ export function* hentSykmeldtinfodata() {
             yield put(actions.sykmeldtInfodataHentet(data));
         } catch (e) {
             if (e.message === MANGLER_OIDC_TOKEN) {
+                /* eslint disable */
+                console.log('INFODATA feilet pga OIDC-token mangler');
+                /* eslint ensable */
                 yield put(actions.henterSykmeldtinfodata());
             } else {
+                /* eslint disable */
+                console.log('INFODATA feilet pga noe annet. Her er E:', e);
+                /* eslint ensable */
                 logger.error(`Kunne ikke hente infodata om sykmeldt. URL: ${window.location.href} - ${e.message}`);
                 log(e);
                 yield put(actions.hentSykmeldtinfodataFeilet());

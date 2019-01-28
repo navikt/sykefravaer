@@ -1,5 +1,6 @@
 import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
-import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT } from '../../enums/svartyper';
+import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT } from '../../enums/svartyper';
+import { CHECKED } from '../../enums/svarEnums';
 
 const fraJSDatoTilBackendDato = (jsDato) => {
     return jsDato.toJSON().substr(0, 10);
@@ -56,8 +57,17 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
             case RADIO_GRUPPE_TIMER_PROSENT: {
                 return [];
             }
+            case RADIO: {
+                return svarFraSkjema
+                    ? svarFraSkjema.svarverdier.filter((svarverdi) => {
+                        return svarverdi.verdi === CHECKED;
+                    })
+                    : [];
+            }
             default: {
-                return svarFraSkjema ? svarFraSkjema.svarverdier : [];
+                return svarFraSkjema
+                    ? svarFraSkjema.svarverdier
+                    : [];
             }
         }
     })();

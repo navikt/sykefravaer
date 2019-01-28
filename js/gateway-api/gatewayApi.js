@@ -1,5 +1,6 @@
 import { log } from '@navikt/digisyfo-npm';
 import ponyfill from 'fetch-ponyfill';
+import { MANGLER_OIDC_TOKEN } from '../enums/exceptionMessages';
 
 const ponyfills = ponyfill();
 export const REDIRECT_ETTER_LOGIN = 'REDIRECT_ETTER_LOGIN';
@@ -47,7 +48,7 @@ export function get(url) {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
                 window.location.href = `${hentLoginUrl()}?redirect=${window.location.origin}/sykefravaer`;
-                throw new Error('MANGLER_OIDC_TOKEN');
+                throw new Error(MANGLER_OIDC_TOKEN);
             } else if (res.status === 404) {
                 log(res);
                 throw new Error('404');

@@ -30,6 +30,7 @@ import getContextRoot from '../utils/getContextRoot';
 import { soknadUtland1 } from '../../test/mock/mockSoknadUtland';
 import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import { toggleNyArbeidstakerSoknad } from '../selectors/unleashTogglesSelectors';
+import { MANGLER_OIDC_TOKEN } from '../enums/exceptionMessages';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknadId}/kvittering`);
@@ -42,11 +43,12 @@ export function* oppdaterSoknader() {
         yield put(actions.soknaderHentet(data));
     } catch (e) {
         log(e);
-        if (e.message === 'MANGLER_OIDC_TOKEN') {
+        if (e.message === MANGLER_OIDC_TOKEN) {
             yield put(actions.henterSoknader());
         } else if (toggleBrukMockDataSelvstendigSoknad()) {
             yield put(actions.soknaderHentet(soknadrespons));
         } else {
+            logger.error(`Kunne ikke hente soknader fra syfosoknad. URL: ${window.location.href} - ${e.message}`);
             yield put(actions.hentSoknaderFeilet());
         }
     }

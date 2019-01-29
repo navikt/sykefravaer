@@ -47,9 +47,8 @@ export function get(url, headers = null) {
         headers: headers || new CustomHeaders(),
     })
         .then((res) => {
-            if (url === process.env.REACT_APP_VEILARBREG_REST_URL) {
-                console.log('Statuskode for ' + process.env.REACT_APP_VEILARBREG_REST_URL, res.status);
-            }
+            console.log('Statuskode for ' + url, res.status);
+
             if (res.status === 401) {
                 log(res, 'Redirect til login');
                 window.location.href = `${hentLoginUrl()}?redirect=${window.location.origin}/sykefravaer`;
@@ -67,6 +66,7 @@ export function get(url, headers = null) {
             return res.json();
         })
         .catch((err) => {
+            console.log('Error for ' + url, err)
             log(err);
             throw err;
         });

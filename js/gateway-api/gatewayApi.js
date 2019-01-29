@@ -66,7 +66,7 @@ export function get(url, headers = null) {
             return res.json();
         })
         .catch((err) => {
-            console.log('Error for ' + url, err)
+            console.log('Error for ' + url, err);
             log(err);
             throw err;
         });

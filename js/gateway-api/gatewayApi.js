@@ -46,6 +46,7 @@ export function get(url) {
     })
         .then((res) => {
             console.log('Statuskode for ' + url, res.status);
+            console.log('RES for ' + url, res);
 
             if (res.status === 401) {
                 log(res, 'Redirect til login');

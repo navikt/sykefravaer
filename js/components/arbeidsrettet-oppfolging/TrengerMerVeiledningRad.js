@@ -10,6 +10,7 @@ import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';
 import { hentHendelser } from '../../actions/hendelser_actions';
 import Feilstripe from '../Feilstripe';
 import { getHtmlLedetekst } from '@navikt/digisyfo-npm/lib/index';
+import { toggleCVTekstArbeidsrettetOppfolging } from '../../selectors/unleashTogglesSelectors';
 
 class TrengerMerVeiledningRad extends Component {
     constructor(props) {
@@ -46,15 +47,20 @@ class TrengerMerVeiledningRad extends Component {
     }
 
     render() {
-        const { bekrefter, bekreftingFeilet } = this.props;
+        const { bekrefter, bekreftingFeilet, toggleCVTekstArbeidsrettetOppfolging } = this.props;
         return (
             <div className="infoside-fo__rad infoside-fo__rad--graa">
                 <div className="begrensning">
                     <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
                     <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>
-                    <div
-                        dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst_cv')}
-                    />
+                    {
+                        toggleCVTekstArbeidsrettetOppfolging
+                            ? <div
+                                dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst_cv')}
+                            />
+                            : null
+                    }
+
                     <Feilstripe vis={bekreftingFeilet} className="blokk-s" />
                     <div className="infoside-fo__knapperad">
                         <Knapp onClick={this.handleNeiBtnClicked} disabled={bekrefter}>
@@ -76,6 +82,7 @@ TrengerMerVeiledningRad.propTypes = {
     bekrefter: PT.bool,
     bekreftingFeilet: PT.bool,
     merVeiledningHendelseIder: PT.arrayOf(PT.number),
+    toggleCVTekstArbeidsrettetOppfolging: PT.bool,
 };
 
 const mapStateToProps = (state) => {
@@ -83,6 +90,7 @@ const mapStateToProps = (state) => {
         merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
         bekrefter: state.merVeiledning.bekrefter,
         bekreftingFeilet: state.merVeiledning.bekreftingFeilet,
+        toggleCVTekstArbeidsrettetOppfolging: toggleCVTekstArbeidsrettetOppfolging(state),
     };
 };
 

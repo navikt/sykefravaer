@@ -24,12 +24,6 @@ class TrengerMerVeiledningRad extends Component {
 
     componentDidMount() {
         this.props.doHentHendelser();
-
-        document.addEventListener('click', (e) => {
-            if(e.target.classList.contains('til-cv-lenke')) {
-                logger.event('syfo.cv.lenke.klikk', {}, {})
-            }
-        })
     }
 
     bekreftAlleMerVeiledninghendelser(callback) {
@@ -53,6 +47,12 @@ class TrengerMerVeiledningRad extends Component {
         });
     }
 
+    loggGrafanaCvLenkeClick (e, logger){
+        if (e.target.className === 'lenke') {
+            logger.event('syfo.cv.lenke.klikk', {}, {});
+        }
+    }
+
     render() {
         const { bekrefter, bekreftingFeilet, toggleCVTekstArbeidsrettetOppfolging } = this.props;
         return (
@@ -63,6 +63,7 @@ class TrengerMerVeiledningRad extends Component {
                     {
                         toggleCVTekstArbeidsrettetOppfolging
                             ? <div
+                                onClick={() => this.loggGrafanaCvLenkeClick(e, logger)}
                                 dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst_cv')}
                             />
                             : null

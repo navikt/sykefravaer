@@ -9,6 +9,7 @@ import { bekreftMerVeiledning } from '../../actions/merVeiledning_actions';
 import { selectAlleHarMerVeiledningIder } from '../../reducers/hendelser';
 import { hentHendelser } from '../../actions/hendelser_actions';
 import Feilstripe from '../Feilstripe';
+import { getHtmlLedetekst } from '@navikt/digisyfo-npm/lib/index';
 
 class TrengerMerVeiledningRad extends Component {
     constructor(props) {
@@ -51,6 +52,9 @@ class TrengerMerVeiledningRad extends Component {
                 <div className="begrensning">
                     <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
                     <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>
+                    <div
+                        dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst_cv')}
+                    />
                     <Feilstripe vis={bekreftingFeilet} className="blokk-s" />
                     <div className="infoside-fo__knapperad">
                         <Knapp onClick={this.handleNeiBtnClicked} disabled={bekrefter}>

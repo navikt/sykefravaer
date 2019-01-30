@@ -1,6 +1,6 @@
 import { call, put, fork, takeEvery, all, select } from 'redux-saga/effects';
 import { get, getAjax, log } from '@navikt/digisyfo-npm';
-import { get as gatewayGet } from '../gateway-api';
+import { get as gatewayGet, getHeaders } from '../gateway-api';
 import * as actions from '../actions/brukerinfo_actions';
 import * as actiontyper from '../actions/actiontyper';
 import logger from '../logging';
@@ -40,9 +40,13 @@ export function* sjekkInnlogging() {
 export function* hentOppfolging() {
     const skalHente = yield select(skalHenteOppfolgingSelector);
     if (skalHente) {
+        const CustomHeaders = getHeaders();
+        const headers = new CustomHeaders({
+            'Nav-Consumer-Id': 'sykefravaer',
+        });
         yield put(actions.henterOppfolging());
         try {
-            const data = yield call(gatewayGet, process.env.REACT_APP_OPPFOLGING_REST_URL);
+            const data = yield call(gatewayGet, process.env.REACT_APP_OPPFOLGING_REST_URL, headers);
             yield put(actions.oppfolgingHentet(data));
         } catch (e) {
             if (e.message === MANGLER_OIDC_TOKEN) {
@@ -59,9 +63,13 @@ export function* hentOppfolging() {
 export function* hentSykmeldtinfodata() {
     const skalHente = yield select(skalHenteSykmeldtinfodata);
     if (skalHente) {
+        const CustomHeaders = getHeaders();
+        const headers = new CustomHeaders({
+            'Nav-Consumer-Id': 'sykefravaer',
+        });
         yield put(actions.henterSykmeldtinfodata());
         try {
-            const data = yield call(gatewayGet, process.env.REACT_APP_VEILARBREG_REST_URL);
+            const data = yield call(gatewayGet, process.env.REACT_APP_VEILARBREG_REST_URL, headers);
             yield put(actions.sykmeldtInfodataHentet(data));
         } catch (e) {
             if (e.message === MANGLER_OIDC_TOKEN) {

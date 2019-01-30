@@ -18,7 +18,7 @@ const getFetch = () => {
 };
 
 
-const getHeaders = () => {
+export const getHeaders = () => {
     // Gjør dette slik fordi enhetstester vil feile dersom Headers overskrives
     if (isEdge()) {
         return ponyfills.Headers;
@@ -39,10 +39,12 @@ export const hentLoginUrl = () => {
     return 'https://loginservice-q.nav.no/login';
 };
 
-export function get(url) {
+export function get(url, headers = null) {
+    const CustomHeaders = getHeaders();
     const customFetch = getFetch();
     return customFetch(url, {
         credentials: 'include',
+        headers: headers || new CustomHeaders(),
     })
         .then((res) => {
             if (res.status === 401) {

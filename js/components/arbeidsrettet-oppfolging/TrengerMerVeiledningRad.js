@@ -11,6 +11,7 @@ import { hentHendelser } from '../../actions/hendelser_actions';
 import Feilstripe from '../Feilstripe';
 import { getHtmlLedetekst } from '@navikt/digisyfo-npm/lib/index';
 import { toggleCVTekstArbeidsrettetOppfolging } from '../../selectors/unleashTogglesSelectors';
+import logger from '../../logging';
 
 class TrengerMerVeiledningRad extends Component {
     constructor(props) {
@@ -23,6 +24,12 @@ class TrengerMerVeiledningRad extends Component {
 
     componentDidMount() {
         this.props.doHentHendelser();
+
+        document.addEventListener('click', (e) => {
+            if(e.target.classList.contains('til-cv-lenke')) {
+                logger.event('syfo.cv.lenke.klikk', {}, {})
+            }
+        })
     }
 
     bekreftAlleMerVeiledninghendelser(callback) {

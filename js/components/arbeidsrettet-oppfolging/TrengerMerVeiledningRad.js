@@ -57,8 +57,9 @@ class TrengerMerVeiledningRad extends Component {
                         toggleCVTekstAO
                             ? (
                                 <div // eslint-disable-line
+                                    className="cv-info"
                                     onClick={(e) => {
-                                        if (e.target.className === 'lenke') {
+                                        if (e.target.tagName === 'A') {
                                             logger.event('syfo.cv.lenke.klikk', {}, {});
                                         }
                                     }}

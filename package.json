@@ -29,10 +29,10 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
+    "@navikt/digisyfo-npm": "16.0.0",
     "babel-loader": "7.1.5",
     "babel-polyfill": "6.26.0",
     "classnames": "2.2.5",
-    "@navikt/digisyfo-npm": "16.0.0",
     "dotenv": "4.0.0",
     "enzyme": "3.7.0",
     "enzyme-adapter-react-16": "1.7.0",
@@ -90,7 +90,7 @@
     "request": "2.88.0",
     "scroll-behavior": "0.3.2",
     "simple-ajax": "2.6.0",
-    "source-map-explorer": "1.5.0",
+    "source-map-explorer": "1.6.0",
     "whatwg-fetch": "0.11.0"
   },
   "devDependencies": {
@@ -98,8 +98,6 @@
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.1",
-    "babel-istanbul": "0.12.2",
-    "babel-plugin-istanbul": "4.1.5",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",

@@ -1,6 +1,6 @@
 import { call, put, fork, takeEvery, all, select } from 'redux-saga/effects';
 import { get, getAjax, log } from '@navikt/digisyfo-npm';
-import { get as gatewayGet } from '../gateway-api';
+import { get as gatewayGet, getHeaders } from '../gateway-api';
 import * as actions from '../actions/brukerinfo_actions';
 import * as actiontyper from '../actions/actiontyper';
 import logger from '../logging';
@@ -10,6 +10,13 @@ import {
     skalHenteSykmeldtinfodata,
 } from '../selectors/brukerinfoSelectors';
 import { MANGLER_OIDC_TOKEN } from '../enums/exceptionMessages';
+
+const getConsumerIdHeaders = () => {
+    const CustomHeaders = getHeaders();
+    return new CustomHeaders({
+        'Nav-Consumer-Id': 'sykefravaer',
+    });
+};
 
 export function* hentBrukerinfo() {
     const skalHente = yield select(skalHenteBrukerinfoSelector);
@@ -42,15 +49,13 @@ export function* hentOppfolging() {
     if (skalHente) {
         yield put(actions.henterOppfolging());
         try {
-            const data = yield call(gatewayGet, process.env.REACT_APP_OPPFOLGING_REST_URL);
+            const data = yield call(gatewayGet, process.env.REACT_APP_OPPFOLGING_REST_URL, getConsumerIdHeaders());
             yield put(actions.oppfolgingHentet(data));
         } catch (e) {
             if (e.message === MANGLER_OIDC_TOKEN) {
                 yield put(actions.henterOppfolging());
             } else {
-                // Fjerner logging da det p.t. fører til loggspam pga feil statuskode fra REACT_APP_OPPFOLGING_REST_URL
-                // når bruker ikke er innlogget
-                // logger.error(`Kunne ikke hente oppfølging. URL: ${window.location.href} - ${e.message}`);
+                logger.error(`Kunne ikke hente oppfølging. URL: ${window.location.href} - ${e.message}`);
                 log(e);
                 yield put(actions.hentOppfolgingFeilet());
             }
@@ -63,15 +68,13 @@ export function* hentSykmeldtinfodata() {
     if (skalHente) {
         yield put(actions.henterSykmeldtinfodata());
         try {
-            const data = yield call(gatewayGet, process.env.REACT_APP_VEILARBREG_REST_URL);
+            const data = yield call(gatewayGet, process.env.REACT_APP_VEILARBREG_REST_URL, getConsumerIdHeaders());
             yield put(actions.sykmeldtInfodataHentet(data));
         } catch (e) {
             if (e.message === MANGLER_OIDC_TOKEN) {
                 yield put(actions.henterSykmeldtinfodata());
             } else {
-                // Fjerner logging da det p.t. fører til loggspam pga feil statuskode fra REACT_APP_VEILARBREG_REST_URL
-                // når bruker ikke er innlogget
-                // logger.error(`Kunne ikke hente infodata om sykmeldt. URL: ${window.location.href} - ${e.message}`);
+                logger.error(`Kunne ikke hente infodata om sykmeldt. URL: ${window.location.href} - ${e.message}`);
                 log(e);
                 yield put(actions.hentSykmeldtinfodataFeilet());
             }

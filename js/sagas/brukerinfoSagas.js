@@ -48,7 +48,9 @@ export function* hentOppfolging() {
             if (e.message === MANGLER_OIDC_TOKEN) {
                 yield put(actions.henterOppfolging());
             } else {
-                logger.error(`Kunne ikke hente oppfølging. URL: ${window.location.href} - ${e.message}`);
+                // Fjerner logging da det p.t. fører til loggspam pga feil statuskode fra REACT_APP_OPPFOLGING_REST_URL
+                // når bruker ikke er innlogget
+                // logger.error(`Kunne ikke hente oppfølging. URL: ${window.location.href} - ${e.message}`);
                 log(e);
                 yield put(actions.hentOppfolgingFeilet());
             }
@@ -67,7 +69,9 @@ export function* hentSykmeldtinfodata() {
             if (e.message === MANGLER_OIDC_TOKEN) {
                 yield put(actions.henterSykmeldtinfodata());
             } else {
-                logger.error(`Kunne ikke hente infodata om sykmeldt. URL: ${window.location.href} - ${e.message}`);
+                // Fjerner logging da det p.t. fører til loggspam pga feil statuskode fra REACT_APP_VEILARBREG_REST_URL
+                // når bruker ikke er innlogget
+                // logger.error(`Kunne ikke hente infodata om sykmeldt. URL: ${window.location.href} - ${e.message}`);
                 log(e);
                 yield put(actions.hentSykmeldtinfodataFeilet());
             }

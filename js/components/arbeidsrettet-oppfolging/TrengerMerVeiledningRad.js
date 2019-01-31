@@ -63,7 +63,7 @@ class TrengerMerVeiledningRad extends Component {
                                             logger.event('syfo.cv.lenke.klikk', {}, {});
                                         }
                                     }}
-                                    dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst_cv')}
+                                    dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst-cv')}
                                 />
                             )
                             : null

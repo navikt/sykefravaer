@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
-import { soknad as soknadPt, skjemasvar as skjemasvarPt, soknadMetaPt } from '../../../propTypes';
+import { skjemasvar as skjemasvarPt, soknad as soknadPt, soknadMetaPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
@@ -76,7 +76,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
                 name={bekreftOpplysningerSpm.tag}
                 soknad={soknad} />
         </div>
-        { !betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} sykmelding={sykmelding} /> }
+        { !betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} mottakernavn={sykmelding.arbeidsgiver} /> }
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link

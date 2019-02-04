@@ -236,7 +236,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
                                     dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`,
                                         { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
                                 <p className="blokk">
-                                    <Link className="lenkeTilTidslinje" to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}>
+                                    <Link className="lenke lenke--tilTidslinje" to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}>
                                         {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}
                                     </Link>
                                 </p>

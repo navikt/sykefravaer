@@ -4,7 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { reducer as formReducer } from 'redux-form';
-import SoknadSide, { Container, mapStateToProps, } from '../../js/sider/SoknadSide';
+import SoknadSide, { Container, mapStateToProps } from '../../js/sider/SoknadSide';
 import AppSpinner from '../../js/components/AppSpinner';
 import sykepengesoknader from '../../js/reducers/sykepengesoknader';
 import soknader from '../../js/reducers/soknader';

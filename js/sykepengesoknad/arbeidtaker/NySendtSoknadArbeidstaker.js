@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, sykmelding as sykmeldingPt, SykmeldingUtdrag, tilLesbarDatoMedArstall, Utvidbar, } from '@navikt/digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt, SykmeldingUtdrag, tilLesbarDatoMedArstall, Utvidbar } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import Oppsummeringsvisning from '../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';

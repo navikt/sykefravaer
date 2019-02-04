@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykmelding as sykmeldingPt, getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import history from '../../../history';
-import Soknadskjema from '../../soknad-felles/Soknadskjema';
-import { KnapperadTilbake } from '../../skjema/Knapperad';
+import Soknadskjema from '../../../components/soknad-felles/Soknadskjema';
+import { KnapperadTilbake } from '../../../components/skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { EGENMELDINGER, JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT, TILBAKE_I_ARBEID } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
-import Sporsmalsliste from '../../soknad-felles-sporsmal/Sporsmalsliste';
+import Sporsmalsliste from '../../../components/soknad-felles-sporsmal/Sporsmalsliste';
 
 export const hentSporsmalForFravaerOgFriskmelding = (soknad) => {
     return soknad.sporsmal.filter((sporsmal) => {

@@ -13,7 +13,7 @@ import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger, NyArbeid
 import beregnBrodsmulesti from '../utils/soknad-felles/beregnBrodsmulesti';
 import SoknadSelvstendigNaeringsdrivende from '../components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
 import SykepengesoknadArbeidstaker from '../components/sykepengesoknad-arbeidstaker/SykepengesoknadArbeidstaker';
-import NySoknadArbeidstaker from '../components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
+import NySoknadArbeidstaker from '../sykepengesoknad/arbeidtaker/NySoknadArbeidstaker';
 
 export class Container extends Component {
     componentDidMount() {

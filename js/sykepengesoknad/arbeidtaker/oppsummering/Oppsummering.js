@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst, sykmelding as sykmeldingPt, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Soknadskjema from '../../soknad-felles/Soknadskjema';
+import Soknadskjema from '../../../components/soknad-felles/Soknadskjema';
 import { skjemasvar as skjemasvarPt, soknad as soknadPt, soknadMetaPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
-import Knapperad from '../../skjema/Knapperad';
+import Knapperad from '../../../components/skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
-import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
+import Oppsummeringsvisning from '../../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
 import { BEKREFT_OPPLYSNINGER, BETALER_ARBEIDSGIVER, VAER_KLAR_OVER_AT } from '../../../enums/tagtyper';
-import OppsummeringUndertekst from '../../soknad-felles-oppsummering/OppsummeringUndertekst';
-import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
+import OppsummeringUndertekst from '../../../components/soknad-felles-oppsummering/OppsummeringUndertekst';
+import Sporsmal from '../../../components/soknad-felles-sporsmal/Sporsmal';
 import SoknadMottaker from './SoknadMottaker';
 
 const OppsummeringUtvidbar = ({ soknad }) => {

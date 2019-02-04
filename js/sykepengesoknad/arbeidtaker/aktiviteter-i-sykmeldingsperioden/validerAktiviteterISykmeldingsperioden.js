@@ -1,6 +1,6 @@
-import { hentSporsmalForAktiviteterISykmeldingsperioden } from '../AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
+import { hentSporsmalForAktiviteterISykmeldingsperioden } from './AktiviteterISykmeldingsperioden';
 import validerSporsmal from '../../../validering/validerSporsmal';
-import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
+import validerFravaerOgFriskmelding from '../fravar-og-friskmelding/validerFravaerOgFriskmelding';
 
 export default (values, props) => {
     const sporsmal = hentSporsmalForAktiviteterISykmeldingsperioden(props.soknad);

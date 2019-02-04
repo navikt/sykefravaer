@@ -1,7 +1,7 @@
 import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { IllustrertInnholdGronnHake } from '../../IllustrertInnhold';
-import Sidetopp from '../../Sidetopp';
+import { IllustrertInnholdGronnHake } from '../../components/IllustrertInnhold';
+import Sidetopp from '../../components/Sidetopp';
 
 const Kvittering = () => {
     return (<div>

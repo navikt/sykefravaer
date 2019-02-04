@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { hentSporsmalForFravaerOgFriskmelding } from '../../../../js/components/sykepengesoknad-arbeidstaker-ny/FravaerOgFriskmelding/FravaerOgFriskmelding';
+import { hentSporsmalForFravaerOgFriskmelding } from '../../../../js/sykepengesoknad/arbeidtaker/fravar-og-friskmelding/FravaerOgFriskmelding';
 import mockNySoknadArbeidstaker from '../../../mock/mockNySoknadArbeidstaker';
 
 const expect = chai.expect;

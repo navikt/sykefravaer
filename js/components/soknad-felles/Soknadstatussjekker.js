@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { SENDT } from '../../enums/soknadstatuser';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import KvitteringSelvstendig from '../sykepengesoknad-selvstendig/Kvittering/Kvittering';
-import KvitteringArbeidstaker from '../sykepengesoknad-arbeidstaker-ny/Kvittering/Kvittering';
+import KvitteringArbeidstaker from '../../sykepengesoknad/arbeidtaker/Kvittering';
 import StartIgjen from '../sykepengesoknad-felles/StartIgjen';
 import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';

@@ -52,31 +52,41 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
 
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
 
-    const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => { return s.tag === VAER_KLAR_OVER_AT; });
-    const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => { return s.tag === BEKREFT_OPPLYSNINGER; });
-    const betalerArbeidsgiverSpm = soknad.sporsmal.find((s) => { return s.tag === BETALER_ARBEIDSGIVER; });
+    const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => {
+        return s.tag === VAER_KLAR_OVER_AT;
+    });
+    const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => {
+        return s.tag === BEKREFT_OPPLYSNINGER;
+    });
+    const betalerArbeidsgiverSpm = soknad.sporsmal.find((s) => {
+        return s.tag === BETALER_ARBEIDSGIVER;
+    });
 
     const onSubmit = () => {
         actions.sendSoknad(populertSoknad);
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
-        { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
+        {skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} />}
         <div className="panel blokk">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
-        <div className="panel blokk">
-            <Sporsmal
-                sporsmal={betalerArbeidsgiverSpm}
-                name={betalerArbeidsgiverSpm.tag}
-                soknad={soknad} />
-        </div>
+        {
+            betalerArbeidsgiverSpm ?
+                (<div className="panel blokk">
+                    <Sporsmal
+                        sporsmal={betalerArbeidsgiverSpm}
+                        name={betalerArbeidsgiverSpm.tag}
+                        soknad={soknad} />
+                </div>)
+                : null
+        }
         <div className="bekreftet-container blokk">
             <Sporsmal
                 sporsmal={bekreftOpplysningerSpm}
                 name={bekreftOpplysningerSpm.tag}
                 soknad={soknad} />
         </div>
-        { !betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} mottakernavn={sykmelding.arbeidsgiver} /> }
+        {!betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} mottakernavn={sykmelding.mottakendeArbeidsgiver.navn} />}
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link

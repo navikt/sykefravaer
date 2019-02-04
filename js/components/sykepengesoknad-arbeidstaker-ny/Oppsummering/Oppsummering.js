@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Soknadskjema from '../../soknad-felles/Soknadskjema';
-import { soknad as soknadPt, skjemasvar as skjemasvarPt, soknadMetaPt } from '../../../propTypes';
+import { skjemasvar as skjemasvarPt, soknad as soknadPt, soknadMetaPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
@@ -52,31 +52,41 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
 
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
 
-    const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => { return s.tag === VAER_KLAR_OVER_AT; });
-    const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => { return s.tag === BEKREFT_OPPLYSNINGER; });
-    const betalerArbeidsgiverSpm = soknad.sporsmal.find((s) => { return s.tag === BETALER_ARBEIDSGIVER; });
+    const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => {
+        return s.tag === VAER_KLAR_OVER_AT;
+    });
+    const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => {
+        return s.tag === BEKREFT_OPPLYSNINGER;
+    });
+    const betalerArbeidsgiverSpm = soknad.sporsmal.find((s) => {
+        return s.tag === BETALER_ARBEIDSGIVER;
+    });
 
     const onSubmit = () => {
         actions.sendSoknad(populertSoknad);
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
-        { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
+        {skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} />}
         <div className="panel blokk">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
-        <div className="panel blokk">
-            <Sporsmal
-                sporsmal={betalerArbeidsgiverSpm}
-                name={betalerArbeidsgiverSpm.tag}
-                soknad={soknad} />
-        </div>
+        {
+            betalerArbeidsgiverSpm ?
+                (<div className="panel blokk">
+                    <Sporsmal
+                        sporsmal={betalerArbeidsgiverSpm}
+                        name={betalerArbeidsgiverSpm.tag}
+                        soknad={soknad} />
+                </div>)
+                : null
+        }
         <div className="bekreftet-container blokk">
             <Sporsmal
                 sporsmal={bekreftOpplysningerSpm}
                 name={bekreftOpplysningerSpm.tag}
                 soknad={soknad} />
         </div>
-        { !betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} sykmelding={sykmelding} /> }
+        {!betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} mottakernavn={sykmelding.mottakendeArbeidsgiver.navn} />}
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link

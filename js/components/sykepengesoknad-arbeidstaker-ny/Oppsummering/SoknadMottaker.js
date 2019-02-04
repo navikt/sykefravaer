@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import { sykmelding as sykmeldingPt, getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { skjemasvar as skjemasvarPt, soknadmottakerPt, soknad as soknadPt } from '../../../propTypes';
+import { skjemasvar as skjemasvarPt, soknad as soknadPt, soknadmottakerPt } from '../../../propTypes';
 import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../../enums/soknadmottakertyper';
 import { hentSoknadMottaker } from '../../../actions/soknadMeta_actions';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import { soknadMottakerSelector } from '../../../selectors/soknadMetaSelectors';
 
-const mottakerTekst = (sendesTil, sykmelding) => {
+const mottakerTekst = (sendesTil, mottakernavn) => {
     switch (sendesTil) {
         case NAV: {
             return getLedetekst('sykepengesoknad.oppsummering.nav-som-mottaker');
         }
         case ARBEIDSGIVER: {
-            return getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykmelding.mottakendeArbeidsgiver.navn });
+            return getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': mottakernavn });
         }
         case ARBEIDSGIVER_OG_NAV: {
-            return getLedetekst('sykepengesoknad.oppsummering.nav-og-arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykmelding.mottakendeArbeidsgiver.navn });
+            return getLedetekst('sykepengesoknad.oppsummering.nav-og-arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': mottakernavn });
         }
         default: {
             return null;
@@ -45,26 +45,25 @@ class SoknadMottaker extends Component {
         return this.props.hentingfeilet
             ? null
             : (<p className="js-mottaker sykepengerskjema__sendesTil">
-                {mottakerTekst(this.props.mottaker, this.props.sykmelding)}
+                {mottakerTekst(this.props.mottaker, this.props.mottakernavn)}
             </p>);
     }
 }
 
 SoknadMottaker.propTypes = {
-    mottaker: soknadmottakerPt,
     skjemasvar: skjemasvarPt,
     soknad: soknadPt,
+    mottakernavn: PropTypes.string,
     hentSoknadMottaker: PropTypes.func,
+    mottaker: soknadmottakerPt,
     hentingfeilet: PropTypes.bool,
-    sykmelding: sykmeldingPt,
 };
 
 const mapStateToProps = (state, ownProps) => {
     const soknadMeta = state.soknadMeta[ownProps.soknad.id];
     return {
         mottaker: soknadMottakerSelector(state, ownProps.soknad.id),
-        hentingfeilet: soknadMeta
-            && soknadMeta.hentingFeilet,
+        hentingfeilet: soknadMeta && soknadMeta.hentingFeilet,
     };
 };
 

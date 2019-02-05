@@ -1,7 +1,7 @@
 import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
-import KvitteringArbeidstakere from '../../components/sykepengesoknad-arbeidstaker-ny/Kvittering/Kvittering';
+import KvitteringArbeidstakere from '../../sykepengesoknad/arbeidtaker/Kvittering';
 import KvitteringSelvstendige from '../../components/sykepengesoknad-selvstendig/Kvittering/Kvittering';
 import { KORRIGERT, NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import Feilmelding from '../../components/Feilmelding';

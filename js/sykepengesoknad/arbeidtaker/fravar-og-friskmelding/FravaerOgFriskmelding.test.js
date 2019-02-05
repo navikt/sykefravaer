@@ -1,6 +1,6 @@
 import chai from 'chai';
-import { hentSporsmalForFravaerOgFriskmelding } from '../../../../js/components/sykepengesoknad-arbeidstaker-ny/FravaerOgFriskmelding/FravaerOgFriskmelding';
-import mockNySoknadArbeidstaker from '../../../mock/mockNySoknadArbeidstaker';
+import { hentSporsmalForFravaerOgFriskmelding } from './FravaerOgFriskmelding';
+import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
 
 const expect = chai.expect;
 

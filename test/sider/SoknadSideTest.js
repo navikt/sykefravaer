@@ -4,10 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { reducer as formReducer } from 'redux-form';
-import SoknadSide, {
-    mapStateToProps,
-    Container,
-} from '../../js/sider/SoknadSide';
+import SoknadSide, { Container, mapStateToProps } from '../../js/sider/SoknadSide';
 import AppSpinner from '../../js/components/AppSpinner';
 import sykepengesoknader from '../../js/reducers/sykepengesoknader';
 import soknader from '../../js/reducers/soknader';
@@ -18,13 +15,13 @@ import FravaerOgFriskmeldingContainer from '../../js/containers/sykepengesoknad-
 import AktiviteterISykmeldingsperiodenContainer from '../../js/containers/sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../../js/containers/sykepengesoknad-selvstendig/OppsummeringContainer';
 import mountWithStore from '../mountWithStore';
-import { getSendtSoknadSelvstendig, getNySoknadSelvstendig } from '../mock/mockSoknadSelvstendig';
+import { getNySoknadSelvstendig, getSendtSoknadSelvstendig } from '../mock/mockSoknadSelvstendig';
 import reduxFormMeta from '../../js/reducers/reduxFormMeta';
 import mockNySoknadArbeidstaker from '../mock/mockNySoknadArbeidstaker';
 import { SykepengeskjemaForSelvstendige } from '../../js/components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
-import NySoknadArbeidstaker from '../../js/components/sykepengesoknad-arbeidstaker-ny/NySoknadArbeidstaker';
-import NyFoerDuBegynnerArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFoerDuBegynnerArbeidstakerContainer';
-import NyFravaerOgFriskmeldingArbeidstakerContainer from '../../js/containers/sykepengesoknad-arbeidstaker-ny/NyFravaerOgFriskmeldingArbeidstakerContainer';
+import NySoknadArbeidstaker from '../../js/sykepengesoknad/arbeidtaker/NySoknadArbeidstaker';
+import NyFoerDuBegynnerArbeidstakerContainer from '../../js/sykepengesoknad/arbeidtaker/for-du-begynner/NyFoerDuBegynnerArbeidstakerContainer';
+import NyFravaerOgFriskmeldingArbeidstakerContainer from '../../js/sykepengesoknad/arbeidtaker/fravar-og-friskmelding/NyFravaerOgFriskmeldingArbeidstakerContainer';
 import SoknadKvitteringSjekker from '../../js/components/soknad-felles/SoknadKvitteringSjekker';
 import soknadMeta from '../../js/reducers/soknadMeta';
 

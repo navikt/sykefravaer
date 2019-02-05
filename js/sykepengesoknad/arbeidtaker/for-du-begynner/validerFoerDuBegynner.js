@@ -1,4 +1,4 @@
-import { hentSporsmalForDuBegynner } from '../FoerDuBegynner/FoerDuBegynner';
+import { hentSporsmalForDuBegynner } from './FoerDuBegynner';
 import validerSporsmal from '../../../validering/validerSporsmal';
 
 const validerFoerDuBegynner = (values, { soknad }) => {

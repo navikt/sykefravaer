@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import history from '../../../history';
-import Soknadskjema from '../../soknad-felles/Soknadskjema';
+import Soknadskjema from '../../../components/soknad-felles/Soknadskjema';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
-import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
+import Sporsmal from '../../../components/soknad-felles-sporsmal/Sporsmal';
 import { soknad as soknadPt } from '../../../propTypes';
-import ForsteSoknadIntro from '../../sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
-import SoknadIntro from '../../sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';
+import ForsteSoknadIntro from '../../../components/sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
+import SoknadIntro from '../../../components/sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';
 
 export const hentSporsmalForDuBegynner = (soknad) => {
     return soknad.sporsmal.filter((s) => {

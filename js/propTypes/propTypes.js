@@ -121,6 +121,8 @@ export const soknad = PropTypes.shape({
     tom: PropTypes.instanceOf(Date),
     opprettetDato: PropTypes.instanceOf(Date),
     innsendtDato: PropTypes.instanceOf(Date),
+    sendtTilNAVDato: PropTypes.instanceOf(Date),
+    sendtTilArbeidsgiverDato: PropTypes.instanceOf(Date),
     sporsmal: PropTypes.arrayOf(sporsmal),
 });
 

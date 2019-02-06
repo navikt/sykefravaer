@@ -346,6 +346,9 @@ export const soknadSelvstendig1 = {
     status: 'NY',
     sykmeldingId: '14e78e84-50a5-45bb-9919-191c54f99691',
     tom: '2018-05-28',
+    sendtTilNAVDato: null,
+    sendtTilArbeidsgiverDato: null,
+    innsendtDato: null,
 };
 
 const sendtSoknadSelvstendig1 = {
@@ -354,6 +357,8 @@ const sendtSoknadSelvstendig1 = {
     opprettetDato: '2018-05-29',
     soknadstype: 'SELVSTENDIGE_OG_FRILANSERE',
     innsendtDato: '2018-05-30',
+    sendtTilNAVDato: '2018-05-30',
+    sendtTilArbeidsgiverDato: null,
     sporsmal: [
         {
             id: '1',
@@ -1038,7 +1043,9 @@ const parsetSoknad1 = {
             undertekst: null,
         },
     ],
-    innsendtDato: undefined,
+    innsendtDato: null,
+    sendtTilNAVDato: null,
+    sendtTilArbeidsgiverDato: null,
     status: 'NY',
     sykmeldingId: '14e78e84-50a5-45bb-9919-191c54f99691',
     tom: new Date('2018-05-28'),

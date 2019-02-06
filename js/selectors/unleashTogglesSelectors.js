@@ -9,12 +9,7 @@ export const toggleSelvstendigSoknad = (state) => {
 
 */
 
-import { SELVSTENDIG_KORRIGER, SYKMELDING_ARBEIDSSITUASJON, NY_ARBEIDSTAKERSOKNAD, CV_TEKST_ARBEIDSRETTET_OPPFOLGING } from '../enums/unleashToggles';
-
-export const toggleKorrigerSelvstendigSoknad = (state) => {
-    return !state.unleashToggles.hentingFeilet
-        && state.unleashToggles.data[SELVSTENDIG_KORRIGER] === true;
-};
+import { SYKMELDING_ARBEIDSSITUASJON, NY_ARBEIDSTAKERSOKNAD, CV_TEKST_ARBEIDSRETTET_OPPFOLGING } from '../enums/unleashToggles';
 
 export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
     return !state.unleashToggles.hentingFeilet

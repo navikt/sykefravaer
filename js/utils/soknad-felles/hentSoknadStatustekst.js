@@ -3,8 +3,8 @@ import { formaterOrgnr } from '../index';
 import { KORRIGERT } from '../../enums/soknadstatuser';
 
 const hentStatustekst = (soknad) => {
-    const soknadSendtTilNav = soknad.sendtNav !== null || soknad.innsendtDato !== null;
-    const soknadSendtTilArbeidsgiver = soknad.sendtArbeidsgiver !== null;
+    const soknadSendtTilNav = soknad.sendtTilNAVDato !== null || soknad.innsendtDato !== null;
+    const soknadSendtTilArbeidsgiver = soknad.sendtTilArbeidsgiverDato !== null;
     const nokkel = soknad.status === KORRIGERT
         ? 'sykepengesoknad.status-2.KORRIGERT'
         : soknadSendtTilNav && soknadSendtTilArbeidsgiver
@@ -19,8 +19,8 @@ const hentStatustekst = (soknad) => {
                 ? soknad.arbeidsgiver
                 : null,
         '%ORGNR%': soknad.arbeidsgiver && soknad.arbeidsgiver.orgnummer ? formaterOrgnr(soknad.arbeidsgiver.orgnummer) : null,
-        '%SENDTTILARBEIDSGIVERDATO%': soknadSendtTilArbeidsgiver ? tilLesbarDatoMedArstall(soknad.sendtArbeidsgiver) : null,
-        '%SENDTTILNAVDATO%': soknadSendtTilNav ? tilLesbarDatoMedArstall(soknad.sendtNav || soknad.innsendtDato) : null,
+        '%SENDTTILARBEIDSGIVERDATO%': soknadSendtTilArbeidsgiver ? tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato) : null,
+        '%SENDTTILNAVDATO%': soknadSendtTilNav ? tilLesbarDatoMedArstall(soknad.sendtTilNAVDato || soknad.innsendtDato) : null,
     };
     return getLedetekst(nokkel, args);
 };

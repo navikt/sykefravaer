@@ -34,9 +34,9 @@ describe('SykepengesoknadStatuspanel', () => {
 
     it('Skal vise status når søknad er bare sendt til arbeidsgiver', () => {
         const soknad = getSendtSoknadArbeidstaker({
-            sendtNav: null,
+            sendtTilNAVDato: null,
             innsendtDato: null,
-            sendtArbeidsgiver: new Date('2019-01-16'),
+            sendtTilArbeidsgiverDato: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
                 orgnummer: '123456789',
@@ -50,8 +50,8 @@ describe('SykepengesoknadStatuspanel', () => {
     it('Skal vise status når søknad er bare sendt til NAV', () => {
         const soknad = getSendtSoknadArbeidstaker({
             innsendtDato: new Date('2019-01-16'),
-            sendtArbeidsgiver: null,
-            sendtNav: new Date('2019-01-16'),
+            sendtTilArbeidsgiverDato: null,
+            sendtTilNAVDato: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
                 orgnummer: '123456789',
@@ -64,8 +64,8 @@ describe('SykepengesoknadStatuspanel', () => {
 
     it('Skal vise status når søknad er sendt til både NAV og arbeidsgiver', () => {
         const soknad = getSendtSoknadArbeidstaker({
-            sendtNav: new Date('2019-01-16'),
-            sendtArbeidsgiver: new Date('2019-01-16'),
+            sendtTilNAVDato: new Date('2019-01-16'),
+            sendtTilArbeidsgiverDato: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
                 orgnummer: '123456789',
@@ -79,8 +79,8 @@ describe('SykepengesoknadStatuspanel', () => {
     it('Skal vise status når søknad er korrigert', () => {
         const soknad = getSendtSoknadArbeidstaker({
             innsendtDato: new Date('2019-01-16'),
-            sendtArbeidsgiver: null,
-            sendtNav: new Date('2019-01-16'),
+            sendtTilArbeidsgiverDato: null,
+            sendtTilNAVDato: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
                 orgnummer: '123456789',

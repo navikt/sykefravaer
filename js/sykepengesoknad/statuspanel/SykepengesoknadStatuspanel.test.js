@@ -3,14 +3,15 @@ import React from 'react';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from '@navikt/digisyfo-npm';
 import { getSendtSoknadArbeidstaker } from '../../../test/mock/mockSendtSoknadArbeidstaker';
-import SykepengesoknadStatuspanel from '../statuspanel/SykepengesoknadStatuspanel';
+import SykepengesoknadStatuspanel from './SykepengesoknadStatuspanel';
 import mountWithStore from '../../../test/mountWithStore';
 import soknader from '../../reducers/soknader';
+import { KORRIGERT } from '../../enums/soknadstatuser';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe('NySendtSoknadArbeidstaker', () => {
+describe('SykepengesoknadStatuspanel', () => {
     let state;
 
     beforeEach(() => {
@@ -61,7 +62,6 @@ describe('NySendtSoknadArbeidstaker', () => {
         expect(component.text()).to.contain('Sykepenger utbetales etter at NAV har innvilget søknaden.');
     });
 
-
     it('Skal vise status når søknad er sendt til både NAV og arbeidsgiver', () => {
         const soknad = getSendtSoknadArbeidstaker({
             sendtNav: new Date('2019-01-16'),
@@ -74,5 +74,21 @@ describe('NySendtSoknadArbeidstaker', () => {
         const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
         expect(component.text()).to.contain('Sendt til NAV og Testbedrift (org. nr. 123 456 789): 16. januar 2019');
         expect(component.text()).to.contain('Les om sykepenger og saksbehandlingstider');
+    });
+
+    it('Skal vise status når søknad er korrigert', () => {
+        const soknad = getSendtSoknadArbeidstaker({
+            innsendtDato: new Date('2019-01-16'),
+            sendtArbeidsgiver: null,
+            sendtNav: new Date('2019-01-16'),
+            arbeidsgiver: {
+                navn: 'Testbedrift',
+                orgnr: '123456789',
+            },
+            status: KORRIGERT,
+        });
+        const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
+        expect(component.text()).to.contain('Status');
+        expect(component.text()).to.contain('Korrigert');
     });
 });

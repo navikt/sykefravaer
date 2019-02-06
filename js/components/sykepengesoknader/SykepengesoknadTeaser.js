@@ -10,6 +10,18 @@ import { FREMTIDIG } from '../../enums/soknadstatuser';
 
 const { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } = sykepengesoknadstatuser;
 
+const finnArbeidsgivernavn = (soknad) => {
+    return soknad.arbeidsgiver
+    && soknad.arbeidsgiver.navn
+        ? soknad.arbeidsgiver.navn
+        : soknad.arbeidsgiver
+            ? soknad.arbeidsgiver
+            : soknad.sykmelding
+            && soknad.sykmelding.innsendtArbeidsgivernavn
+                ? soknad.sykmelding.innsendtArbeidsgivernavn
+                : null;
+};
+
 export const SendtUlikt = ({ soknad }) => {
     return (<span>
         {
@@ -65,28 +77,6 @@ const beregnUndertekst = (soknad) => {
                 })
                 : null;
         }
-        case ARBEIDSTAKERE: {
-            switch (soknad.status) {
-                case UTKAST_TIL_KORRIGERING:
-                case NY: {
-                    const arbeidsgiver = soknad.arbeidsgiver && soknad.arbeidsgiver.navn
-                        ? soknad.arbeidsgiver.navn
-                        : soknad.arbeidsgiver
-                            ? soknad.arbeidsgiver
-                            : soknad.sykmelding
-                                ? soknad.sykmelding.innsendtArbeidsgivernavn
-                                : null;
-                    return arbeidsgiver
-                        ? getLedetekst('soknad.teaser.undertekst', {
-                            '%ARBEIDSGIVER%': arbeidsgiver,
-                        })
-                        : null;
-                }
-                default: {
-                    return null;
-                }
-            }
-        }
         default: {
             switch (soknad.status) {
                 case SENDT:
@@ -95,13 +85,13 @@ const beregnUndertekst = (soknad) => {
                         ? <SendtUlikt soknad={soknad} />
                         : getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
                             '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
-                            '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,
+                            '%ARBEIDSGIVER%': finnArbeidsgivernavn(soknad),
                         });
                 }
                 case NY:
                 case UTKAST_TIL_KORRIGERING: {
                     return getLedetekst('soknad.teaser.undertekst', {
-                        '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
+                        '%ARBEIDSGIVER%': finnArbeidsgivernavn(soknad),
                     });
                 }
                 default: {

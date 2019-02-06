@@ -1,5 +1,12 @@
 import React from 'react';
-import { getLedetekst, sykmelding as sykmeldingPt, SykmeldingUtdrag, tilLesbarDatoMedArstall, Utvidbar } from '@navikt/digisyfo-npm';
+import {
+    getLedetekst,
+    getHtmlLedetekst,
+    sykmelding as sykmeldingPt,
+    SykmeldingUtdrag,
+    tilLesbarDatoMedArstall,
+    Utvidbar,
+} from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import Oppsummeringsvisning from '../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';
@@ -7,15 +14,42 @@ import Soknadtopp from '../../components/soknad-felles/Soknadtopp';
 import { finnSykmelding } from '../../utils/soknad-felles/soknadSetup';
 import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../../components/Statuspanel';
+import { formaterOrgnr } from '../../utils';
+
+const hentStatustekst = (soknad) => {
+    const soknadSendtTilNav = soknad.sendtNav !== null;
+    const soknadSendtTilArbeidsgiver = soknad.sendtArbeidsgiver !== null;
+    const nokkel = soknadSendtTilNav && soknadSendtTilArbeidsgiver
+        ? 'sykepengesoknad.status-2.SENDT.til-arbeidsgiver-og-nav'
+        : soknadSendtTilNav && !soknadSendtTilArbeidsgiver
+            ? 'sykepengesoknad.status-2.SENDT.til-nav'
+            : 'sykepengesoknad.status-2.SENDT.til-arbeidsgiver';
+    const args = {
+        '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,
+        '%ORGNR%': soknad.arbeidsgiver ? formaterOrgnr(soknad.arbeidsgiver.orgnr) : null,
+        '%SENDTTILARBEIDSGIVERDATO%': soknadSendtTilArbeidsgiver ? tilLesbarDatoMedArstall(soknad.sendtArbeidsgiver) : null,
+        '%SENDTTILNAVDATO%': soknadSendtTilNav ? tilLesbarDatoMedArstall(soknad.sendtNav) : null,
+    };
+    return getLedetekst(nokkel, args);
+};
+
+const hentSykepengetekst = (soknad) => {
+    const nokkel = soknad.sendtNav && soknad.sendtArbeidsgiver
+        ? 'sykepengesoknad.sykepengeinfo.til-arbeidsgiver-og-nav'
+        : soknad.sendtNav
+            ? 'sykepengesoknad.sykepengeinfo.til-nav'
+            : 'sykepengesoknad.sykepengeinfo.til-arbeidsgiver';
+    return getHtmlLedetekst(nokkel);
+};
 
 export const SendtSoknadArbeidstakerStatuspanel = ({ soknad }) => {
-    return (<Statuspanel>
+    return (<Statuspanel enKolonne>
         <Statusopplysninger>
             <StatusNokkelopplysning tittel={getLedetekst('statuspanel.status')}>
-                <p>{soknad.status}</p>
+                <p>{hentStatustekst(soknad)}</p>
             </StatusNokkelopplysning>
-            <StatusNokkelopplysning tittel={getLedetekst('statuspanel.dato.innsendt')}>
-                <p>{tilLesbarDatoMedArstall(soknad.innsendtDato)}</p>
+            <StatusNokkelopplysning tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel')}>
+                <p dangerouslySetInnerHTML={hentSykepengetekst(soknad)} />
             </StatusNokkelopplysning>
         </Statusopplysninger>
     </Statuspanel>);

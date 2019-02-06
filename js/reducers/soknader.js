@@ -76,7 +76,9 @@ export const parseSoknad = (soknad) => {
         fom: new Date(soknad.fom),
         tom: new Date(soknad.tom),
         opprettetDato: new Date(soknad.opprettetDato),
-        innsendtDato: soknad.innsendtDato ? new Date(soknad.innsendtDato) : undefined,
+        innsendtDato: soknad.innsendtDato ? new Date(soknad.innsendtDato) : null,
+        sendtNav: soknad.sendtNav ? new Date(soknad.sendtNav) : null,
+        sendtArbeidsgiver: soknad.sendtArbeidsgiver ? new Date(soknad.sendtArbeidsgiver) : null,
         sporsmal: [...soknad.sporsmal].map(parseSporsmal),
     };
 };

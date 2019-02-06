@@ -39,7 +39,7 @@ describe('SykepengesoknadStatuspanel', () => {
             sendtArbeidsgiver: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
-                orgnr: '123456789',
+                orgnummer: '123456789',
             },
         });
         const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
@@ -54,7 +54,7 @@ describe('SykepengesoknadStatuspanel', () => {
             sendtNav: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
-                orgnr: '123456789',
+                orgnummer: '123456789',
             },
         });
         const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
@@ -68,7 +68,7 @@ describe('SykepengesoknadStatuspanel', () => {
             sendtArbeidsgiver: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
-                orgnr: '123456789',
+                orgnummer: '123456789',
             },
         });
         const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
@@ -83,7 +83,7 @@ describe('SykepengesoknadStatuspanel', () => {
             sendtNav: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
-                orgnr: '123456789',
+                orgnummer: '123456789',
             },
             status: KORRIGERT,
         });

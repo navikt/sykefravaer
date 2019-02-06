@@ -18,7 +18,7 @@ const soknad = {
     startSykeforlop: '2019-01-01',
     sykmeldingUtskrevet: '2019-01-01',
     arbeidsgiver: {
-        orgnr: '123456789',
+        orgnummer: '123456789',
         navn: 'Testbedrift AS',
     },
     korrigerer: null,

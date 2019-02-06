@@ -69,11 +69,13 @@ const beregnUndertekst = (soknad) => {
             switch (soknad.status) {
                 case UTKAST_TIL_KORRIGERING:
                 case NY: {
-                    const arbeidsgiver = soknad.arbeidsgiver
+                    const arbeidsgiver = soknad.arbeidsgiver && soknad.arbeidsgiver.navn
                         ? soknad.arbeidsgiver.navn
-                        : soknad.sykmelding
-                            ? soknad.sykmelding.innsendtArbeidsgivernavn
-                            : null;
+                        : soknad.arbeidsgiver
+                            ? soknad.arbeidsgiver
+                            : soknad.sykmelding
+                                ? soknad.sykmelding.innsendtArbeidsgivernavn
+                                : null;
                     return arbeidsgiver
                         ? getLedetekst('soknad.teaser.undertekst', {
                             '%ARBEIDSGIVER%': arbeidsgiver,

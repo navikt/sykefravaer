@@ -13,8 +13,12 @@ const hentStatustekst = (soknad) => {
                 ? 'sykepengesoknad.status-2.SENDT.til-nav'
                 : 'sykepengesoknad.status-2.SENDT.til-arbeidsgiver';
     const args = {
-        '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,
-        '%ORGNR%': soknad.arbeidsgiver ? formaterOrgnr(soknad.arbeidsgiver.orgnr) : null,
+        '%ARBEIDSGIVER%': soknad.arbeidsgiver && soknad.arbeidsgiver.navn
+            ? soknad.arbeidsgiver.navn
+            : soknad.arbeidsgiver
+                ? soknad.arbeidsgiver
+                : null,
+        '%ORGNR%': soknad.arbeidsgiver && soknad.arbeidsgiver.orgnummer ? formaterOrgnr(soknad.arbeidsgiver.orgnummer) : null,
         '%SENDTTILARBEIDSGIVERDATO%': soknadSendtTilArbeidsgiver ? tilLesbarDatoMedArstall(soknad.sendtArbeidsgiver) : null,
         '%SENDTTILNAVDATO%': soknadSendtTilNav ? tilLesbarDatoMedArstall(soknad.sendtNav || soknad.innsendtDato) : null,
     };

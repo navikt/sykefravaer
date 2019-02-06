@@ -4,12 +4,13 @@ import { PERIODEUTLAND } from '../enums/tagtyper';
 import { SENDT, NY } from '../enums/soknadstatuser';
 
 export const getTidligsteSendtDato = (soknad) => {
-    if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
-        return soknad.sendtTilNAVDato > soknad.sendtTilArbeidsgiverDato
+    const sendtTilNAVDato = soknad.innsendtDato || soknad.sendtTilNAVDato;
+    if (sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
+        return sendtTilNAVDato > soknad.sendtTilArbeidsgiverDato
             ? soknad.sendtTilArbeidsgiverDato
-            : soknad.sendtTilNAVDato;
+            : sendtTilNAVDato;
     }
-    return soknad.sendtTilNAVDato
+    return sendtTilNAVDato
         || soknad.sendtTilArbeidsgiverDato;
 };
 

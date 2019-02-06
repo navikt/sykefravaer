@@ -2,14 +2,17 @@ import chai from 'chai';
 import React from 'react';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from '@navikt/digisyfo-npm';
-import { mount } from 'enzyme';
 import { getSendtSoknadArbeidstaker } from '../../../test/mock/mockSendtSoknadArbeidstaker';
-import { SendtSoknadArbeidstakerStatuspanel } from './NySendtSoknadArbeidstaker';
+import SykepengesoknadStatuspanel from '../statuspanel/SykepengesoknadStatuspanel';
+import mountWithStore from '../../../test/mountWithStore';
+import soknader from '../../reducers/soknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('NySendtSoknadArbeidstaker', () => {
+    let state;
+
     beforeEach(() => {
         setLedetekster({
             'statuspanel.status': 'Status',
@@ -23,24 +26,29 @@ describe('NySendtSoknadArbeidstaker', () => {
                 '<a href="link" target="_blank">Les om sykepenger og saksbehandlingstider.</a>',
             'sykepengesoknad.sykepengeinfo.til-arbeidsgiver-og-nav': '<a href="link" target="_blank">Les om sykepenger og saksbehandlingstider.</a>',
         });
+        state = {
+            soknader: soknader(),
+        };
     });
 
     it('Skal vise status når søknad er bare sendt til arbeidsgiver', () => {
         const soknad = getSendtSoknadArbeidstaker({
             sendtNav: null,
+            innsendtDato: null,
             sendtArbeidsgiver: new Date('2019-01-16'),
             arbeidsgiver: {
                 navn: 'Testbedrift',
                 orgnr: '123456789',
             },
         });
-        const component = mount(<SendtSoknadArbeidstakerStatuspanel soknad={soknad} />);
+        const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
         expect(component.text()).to.contain('Sendt til Testbedrift (org. nr. 123 456 789): 16. januar 2019');
         expect(component.text()).to.contain('Du får sykepengene utbetalt fra arbeidsgiveren din.');
     });
 
     it('Skal vise status når søknad er bare sendt til NAV', () => {
         const soknad = getSendtSoknadArbeidstaker({
+            innsendtDato: new Date('2019-01-16'),
             sendtArbeidsgiver: null,
             sendtNav: new Date('2019-01-16'),
             arbeidsgiver: {
@@ -48,7 +56,7 @@ describe('NySendtSoknadArbeidstaker', () => {
                 orgnr: '123456789',
             },
         });
-        const component = mount(<SendtSoknadArbeidstakerStatuspanel soknad={soknad} />);
+        const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
         expect(component.text()).to.contain('Sendt til NAV: 16. januar 2019');
         expect(component.text()).to.contain('Sykepenger utbetales etter at NAV har innvilget søknaden.');
     });
@@ -63,7 +71,7 @@ describe('NySendtSoknadArbeidstaker', () => {
                 orgnr: '123456789',
             },
         });
-        const component = mount(<SendtSoknadArbeidstakerStatuspanel soknad={soknad} />);
+        const component = mountWithStore(<SykepengesoknadStatuspanel soknad={soknad} />, state);
         expect(component.text()).to.contain('Sendt til NAV og Testbedrift (org. nr. 123 456 789): 16. januar 2019');
         expect(component.text()).to.contain('Les om sykepenger og saksbehandlingstider');
     });

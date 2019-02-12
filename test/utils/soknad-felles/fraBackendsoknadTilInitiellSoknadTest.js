@@ -121,4 +121,110 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
             }],
         });
     });
+
+    it('Skal mappe underspørsmål til RADIO_GRUPPE_TIMER_PROSENT', () => {
+        const soknad = {
+            sporsmal: [{
+                id: '59320',
+                tag: 'JOBBET_DU_100_PROSENT_0',
+                sporsmalstekst: 'I perioden 2. - 21. januar 2019 var du 100 % sykmeldt fra TESTBEDRIFT. Jobbet du noe i denne perioden?',
+                undertekst: null,
+                svartype: 'JA_NEI',
+                min: null,
+                max: null,
+                pavirkerAndreSporsmal: false,
+                kriterieForVisningAvUndersporsmal: 'JA',
+                svar: [],
+                undersporsmal: [
+                    {
+                        id: '59321',
+                        tag: 'HVOR_MANGE_TIMER_PER_UKE_0',
+                        sporsmalstekst: 'Hvor mange timer jobbet du per uke før du ble sykmeldt?',
+                        undertekst: 'timer per uke',
+                        svartype: 'TALL',
+                        min: '1',
+                        max: '150',
+                        pavirkerAndreSporsmal: false,
+                        kriterieForVisningAvUndersporsmal: null,
+                        svar: [],
+                        undersporsmal: [],
+                    },
+                    {
+                        id: '59322',
+                        tag: 'HVOR_MYE_HAR_DU_JOBBET_0',
+                        sporsmalstekst: 'Hvor mye jobbet du totalt 2. - 21. januar 2019 hos Min arbeidsgiver?',
+                        undertekst: null,
+                        svartype: 'RADIO_GRUPPE_TIMER_PROSENT',
+                        min: null,
+                        max: null,
+                        pavirkerAndreSporsmal: false,
+                        kriterieForVisningAvUndersporsmal: null,
+                        svar: [],
+                        undersporsmal: [
+                            {
+                                id: '59323',
+                                tag: 'HVOR_MYE_PROSENT_0',
+                                sporsmalstekst: 'prosent',
+                                undertekst: null,
+                                svartype: 'RADIO',
+                                min: null,
+                                max: null,
+                                pavirkerAndreSporsmal: false,
+                                kriterieForVisningAvUndersporsmal: 'CHECKED',
+                                svar: [
+                                    {
+                                        verdi: 'CHECKED',
+                                    },
+                                ],
+                                undersporsmal: [
+                                    {
+                                        id: '59324',
+                                        tag: 'HVOR_MYE_PROSENT_VERDI_0',
+                                        sporsmalstekst: null,
+                                        undertekst: 'prosent',
+                                        svartype: 'TALL',
+                                        min: '1',
+                                        max: '99',
+                                        pavirkerAndreSporsmal: false,
+                                        kriterieForVisningAvUndersporsmal: null,
+                                        svar: [],
+                                        undersporsmal: [],
+                                    },
+                                ],
+                            },
+                            {
+                                id: '59325',
+                                tag: 'HVOR_MYE_TIMER_0',
+                                sporsmalstekst: 'timer',
+                                undertekst: null,
+                                svartype: 'RADIO',
+                                min: null,
+                                max: null,
+                                pavirkerAndreSporsmal: false,
+                                kriterieForVisningAvUndersporsmal: 'CHECKED',
+                                svar: [],
+                                undersporsmal: [
+                                    {
+                                        id: '59326',
+                                        tag: 'HVOR_MYE_TIMER_VERDI_0',
+                                        sporsmalstekst: null,
+                                        undertekst: 'timer totalt',
+                                        svartype: 'TALL',
+                                        min: '1',
+                                        max: '429',
+                                        pavirkerAndreSporsmal: false,
+                                        kriterieForVisningAvUndersporsmal: null,
+                                        svar: [],
+                                        undersporsmal: [],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            }],
+        };
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad);
+        expect(initiellSoknad.HVOR_MYE_HAR_DU_JOBBET_0.svarverdier).to.deep.equal([{ verdi: 'prosent' }]);
+    });
 });

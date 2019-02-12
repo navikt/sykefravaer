@@ -1,8 +1,9 @@
 import { toDatePrettyPrint } from '@navikt/digisyfo-npm';
-import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE } from '../../enums/svartyper';
+import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT, RADIO } from '../../enums/svartyper';
 import { genererParseForEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
+import { CHECKED } from '../../enums/svarEnums';
 
-const tilInitielleSvarverder = ({ svar, svartype, id }) => {
+const tilInitielleSvarverder = ({ svar, svartype, id, undersporsmal }) => {
     const parse = genererParseForEnkeltverdi(id);
     switch (svartype) {
         case DATO:
@@ -27,7 +28,14 @@ const tilInitielleSvarverder = ({ svar, svartype, id }) => {
         case FRITEKST:
         case TALL:
         case RADIO_GRUPPE:
+        case RADIO:
             return parse(svar[0].verdi);
+        case RADIO_GRUPPE_TIMER_PROSENT: {
+            const aktivtUndersporsmal = undersporsmal.find((uspm) => {
+                return uspm.svar[0].verdi === CHECKED;
+            });
+            return parse(aktivtUndersporsmal.sporsmalstekst);
+        }
         default: {
             return null;
         }
@@ -43,10 +51,12 @@ export default (soknad) => {
 
     const alleSporsmal = soknad.sporsmal
         .map((sporsmal) => { return flatten(sporsmal); })
-        .flatten();
+        .flatten()
+        .filter((spm) => {
+            return spm.svar.length > 0 || spm.svartype === RADIO_GRUPPE_TIMER_PROSENT;
+        });
 
     return alleSporsmal
-        .filter((spm) => { return spm.svar.length > 0; })
         .reduce((acc, sporsmal) => {
             acc[sporsmal.tag] = tilInitielleSvarverder(sporsmal);
             return acc;

@@ -80,13 +80,17 @@ VilHaMoteSvarKnapper.propTypes = {
 export const MotebehovSkjemaTekstomraade = (
     {
         felt,
+        harMotebehov,
     }) => {
+    const sporsmaalTekst = harMotebehov === 'true'
+        ? `${felt.spoersmaal}(valgfritt)`
+        : felt.spoersmaal;
     return (<div className="skjema_element motebehovSkjemaTekstomraade">
         <h3
             className="skjemaelement__sporsmal"
             id={felt.navn}
         >
-            {felt.spoersmaal}
+            {sporsmaalTekst}
         </h3>
         <TekstSensitiv />
         <Field
@@ -102,6 +106,7 @@ export const MotebehovSkjemaTekstomraade = (
 };
 MotebehovSkjemaTekstomraade.propTypes = {
     felt: felterPt,
+    harMotebehov: PropTypes.string,
 };
 
 export const TekstSensitiv = () => {
@@ -180,9 +185,10 @@ export class SvarMotebehovSkjemaKomponent extends Component {
                     felt={FELTER.harMotebehov}
                     handleOptionChange={this.setHarBehovSvar}
                 />
-                { harMotebehov === 'false' &&
-                    <MotebehovSkjemaTekstomraade felt={FELTER.forklaring} />
-                }
+                <MotebehovSkjemaTekstomraade
+                    felt={FELTER.forklaring}
+                    harMotebehov={harMotebehov}
+                />
             </div>
 
             <TekstOpplysning />
@@ -208,11 +214,14 @@ const validate = (values) => {
         feilmeldinger.harMotebehov = 'Velg alternativ';
     }
 
-    if (!values.forklaring || values.forklaring.trim().length === 0) {
-        feilmeldinger.forklaring = 'Fyll inn tekst';
-    } else if (values.forklaring.match(tekstfeltRegex)) {
-        feilmeldinger.forklaring = 'Ugyldig spesialtegn er oppgitt';
+    if (values.harMotebehov === 'false') {
+        if ((!values.forklaring || values.forklaring.trim().length === 0)) {
+            feilmeldinger.forklaring = 'Fyll inn tekst';
+        } else if (values.forklaring.match(tekstfeltRegex)) {
+            feilmeldinger.forklaring = 'Ugyldig spesialtegn er oppgitt';
+        }
     }
+
     const forklaringLengde = values.forklaring ? values.forklaring.length : 0;
     if (forklaringLengde > maksTekstLengde) {
         feilmeldinger.forklaring = `Maks ${maksTekstLengde} tegn tillatt`;

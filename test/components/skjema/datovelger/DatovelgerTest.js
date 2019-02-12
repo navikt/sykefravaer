@@ -4,7 +4,7 @@ import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Field } from 'redux-form';
-import Datovelger, { DatoField, genererValidate, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../../js/components/skjema/datovelger/Datovelger';
+import Datovelger, { DatoField, genererValidateForDato, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../../js/components/skjema/datovelger/Datovelger';
 import DaypickerComponent from '../../../../js/components/skjema/datovelger/DayPicker';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 
@@ -120,7 +120,7 @@ describe('Datovelger', () => {
             let parse;
 
             beforeEach(() => {
-                validate = genererValidate({
+                validate = genererValidateForDato({
                     tidligsteFom: new Date('2018-01-01'),
                     senesteTom: new Date('2018-01-05'),
                 });
@@ -149,7 +149,7 @@ describe('Datovelger', () => {
             describe('Når det finnes format', () => {
                 beforeEach(() => {
                     parse = genererParseForEnkeltverdi('1');
-                    validate = genererValidate({
+                    validate = genererValidateForDato({
                         tidligsteFom: new Date('2018-01-01'),
                         senesteTom: new Date('2018-01-05'),
                         format: formaterEnkeltverdi,

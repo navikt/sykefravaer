@@ -37,32 +37,56 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
 
     switch (sporsmal.svartype) {
         case DATO: {
-            return (<Dato {...sporsmal} name={name} soknad={soknad}>
+            return (<Dato
+                {...sporsmal}
+                name={name}
+                soknad={soknad}
+                actions={actions}>
                 { undersporsmalsliste }
             </Dato>);
         }
         case TIMER: {
-            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.timer-totalt')} soknad={soknad}>
+            return (<Tall
+                {...sporsmal}
+                name={name}
+                label={getLedetekst('soknad.timer-totalt')}
+                soknad={soknad}>
                 { undersporsmalsliste }
             </Tall>);
         }
         case PROSENT: {
-            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.prosent')} soknad={soknad}>
+            return (<Tall
+                {...sporsmal}
+                name={name}
+                label={getLedetekst('soknad.prosent')}
+                soknad={soknad}>
                 { undersporsmalsliste }
             </Tall>);
         }
         case TALL: {
-            return (<Tall {...sporsmal} name={name} label={sporsmal.undertekst} soknad={soknad}>
+            return (<Tall
+                {...sporsmal}
+                name={name}
+                label={sporsmal.undertekst}
+                soknad={soknad}>
                 { undersporsmalsliste }
             </Tall>);
         }
         case CHECKBOX: {
-            return (<Checkbox {...sporsmal} name={name} soknad={soknad}>
+            return (<Checkbox
+                {...sporsmal}
+                name={name}
+                soknad={soknad}>
                 { undersporsmalsliste }
             </Checkbox>);
         }
         case PERIODER: {
-            return (<Perioder {...sporsmal} {...ekstraProps} name={name} soknad={soknad}>
+            return (<Perioder
+                {...sporsmal}
+                {...ekstraProps}
+                name={name}
+                soknad={soknad}
+                actions={actions}>
                 { undersporsmalsliste }
             </Perioder>);
         }

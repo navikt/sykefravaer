@@ -167,7 +167,6 @@ export class SvarMotebehovSkjemaKomponent extends Component {
 
     render() {
         const {
-            harMotebehov,
             motebehovSvarReducerListe,
             handleSubmit,
         } = this.props;
@@ -180,9 +179,7 @@ export class SvarMotebehovSkjemaKomponent extends Component {
                     felt={FELTER.harMotebehov}
                     handleOptionChange={this.setHarBehovSvar}
                 />
-                { harMotebehov === 'false' &&
-                    <MotebehovSkjemaTekstomraade felt={FELTER.forklaring} />
-                }
+                <MotebehovSkjemaTekstomraade felt={FELTER.forklaring} />
             </div>
 
             <TekstOpplysning />
@@ -193,7 +190,6 @@ export class SvarMotebehovSkjemaKomponent extends Component {
 }
 
 SvarMotebehovSkjemaKomponent.propTypes = {
-    harMotebehov: PropTypes.string,
     handleSubmit: PropTypes.func,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),

@@ -19,6 +19,7 @@ export const getOnChangeForDato = (props) => {
                 tidligsteFom: props.min,
                 senesteTom: props.max,
             });
+            console.log('Validerer', validate(verdi));
             if (validate(verdi) === undefined) {
                 getOnChange(props)(event, newValue);
             }

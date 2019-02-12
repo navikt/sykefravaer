@@ -29,7 +29,7 @@ const SoknadKvitteringSjekker = ({ soknad }) => {
         case TIL_SENDING: {
             return soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
                 ? <KvitteringSelvstendige />
-                : <KvitteringArbeidstakere />;
+                : <KvitteringArbeidstakere soknad={soknad} />;
         }
         default: {
             return <Feilmelding melding="feil status" />;

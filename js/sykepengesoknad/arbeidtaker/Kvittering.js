@@ -1,18 +1,13 @@
 import React from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
-import { IllustrertInnholdGronnHake } from '../../components/IllustrertInnhold';
-import Sidetopp from '../../components/Sidetopp';
+import { soknad as soknadPt } from '../../propTypes';
+import KvitteringArbeidstakersoknad from '../../components/sykepengesoknad-arbeidstaker/Kvittering';
 
-const Kvittering = () => {
-    return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad-selvstendig.kvittering.sendt.tittel')} />
-        <div className="panel">
-            <IllustrertInnholdGronnHake>
-                <h2 className="panel__tittel">Søknaden er sendt!</h2>
-                <p>Dette er en plassholder for kvittering.</p>
-            </IllustrertInnholdGronnHake>
-        </div>
-    </div>);
+const Kvittering = ({ soknad }) => {
+    return (<KvitteringArbeidstakersoknad sykepengesoknad={soknad} />);
+};
+
+Kvittering.propTypes = {
+    soknad: soknadPt,
 };
 
 export default Kvittering;

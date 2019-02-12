@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import { soknad as sykepengesoknadPt } from '../../propTypes';
+import { getTidligsteSendtDato } from '../../utils/sykepengesoknadUtils';
 
 export const RelaterteSoknader = ({ relaterteSoknader }) => {
     if (relaterteSoknader.length === 0) {
@@ -15,13 +16,13 @@ export const RelaterteSoknader = ({ relaterteSoknader }) => {
             {
                 relaterteSoknader
                     .sort((s1, s2) => {
-                        return s2.innsendtDato - s1.innsendtDato;
+                        return getTidligsteSendtDato(s2) - getTidligsteSendtDato(s1);
                     })
                     .map((s, index) => {
                         return (<li key={index}>
                             <Link
                                 to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${s.id}`}>
-                                {getLedetekst('relaterte-soknader.sendt')} {tilLesbarDatoMedArstall(s.innsendtDato)}
+                                {getLedetekst('relaterte-soknader.sendt')} {tilLesbarDatoMedArstall(getTidligsteSendtDato(s))}
                             </Link>
                         </li>);
                     })

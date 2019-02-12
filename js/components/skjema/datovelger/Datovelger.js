@@ -110,10 +110,12 @@ export class DatoField extends Component {
                                 const verdi = this.parseVerdi(jsDato);
                                 this.props.change(meta.form, this.props.input.name, verdi);
                                 this.props.touch(meta.form, this.props.input.name);
+                                /*
                                 const onChange = getOnChangeForDato(this.props);
                                 if (typeof onChange === 'function') {
                                     onChange(event, verdi);
                                 }
+                                */
                                 this.lukk();
                             }}
                             onKeyUp={(e) => {

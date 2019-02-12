@@ -9,6 +9,7 @@ import Feilmelding from '../Feilmelding';
 import DayPickerComponent from './DayPicker';
 import { validerDatoField } from './validering';
 import { fieldPropTypes } from '../../../propTypes';
+import { getOnChangeForDato } from '../../../utils/soknad-felles/getOnChange';
 
 export class DatoField extends Component {
     constructor(props) {
@@ -109,6 +110,10 @@ export class DatoField extends Component {
                                 const verdi = this.parseVerdi(jsDato);
                                 this.props.change(meta.form, this.props.input.name, verdi);
                                 this.props.touch(meta.form, this.props.input.name);
+                                const onChange = getOnChangeForDato(this.props);
+                                if (typeof onChange === 'function') {
+                                    onChange(event, verdi);
+                                }
                                 this.lukk();
                             }}
                             onKeyUp={(e) => {
@@ -148,7 +153,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const ConnectedDatoField = connect(mapStateToProps, { change, touch })(DatoField);
 
-export const genererValidate = (props) => {
+export const genererValidateForDato = (props) => {
     return (verdi) => {
         const formatertVerdi = props.format
             ? props.format(verdi)
@@ -161,7 +166,7 @@ export const genererValidate = (props) => {
 };
 
 const Datovelger = (props) => {
-    const validate = genererValidate(props);
+    const validate = genererValidateForDato(props);
     return (<Field
         component={ConnectedDatoField}
         validate={validate}

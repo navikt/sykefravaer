@@ -564,7 +564,7 @@
             "svartype": "DATO",
             "min": "2019-02-03",
             "max": "2019-02-11",
-            "pavirkerAndreSporsmal": false,
+            "pavirkerAndreSporsmal": true,
             "kriterieForVisningAvUndersporsmal": null,
             "svar": [],
             "undersporsmal": []

@@ -9,7 +9,6 @@ import Feilmelding from '../Feilmelding';
 import DayPickerComponent from './DayPicker';
 import { validerDatoField } from './validering';
 import { fieldPropTypes } from '../../../propTypes';
-import { getOnChangeForDato } from '../../../utils/soknad-felles/getOnChange';
 
 export class DatoField extends Component {
     constructor(props) {

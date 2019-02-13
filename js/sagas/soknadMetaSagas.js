@@ -1,7 +1,7 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { post, log } from '@navikt/digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
 import { henterSoknadMottaker, hentSoknadMottakerFeilet, soknadMottakerHentet } from '../actions/soknadMeta_actions';
-import { hentApiUrl } from '../gateway-api';
+import { hentApiUrl, post } from '../gateway-api';
 import { HENT_SOKNAD_MOTTAKER_FORESPURT } from '../actions/actiontyper';
 
 export function* hentMottaker(action) {

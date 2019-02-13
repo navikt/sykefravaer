@@ -5,8 +5,8 @@ import Sporsmalstekst from './Sporsmalstekst';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import Tekstfelt from '../skjema/Tekstfelt';
 
-const Tekstinput = ({ sporsmalstekst, name, id, max }) => {
-    const parse = genererParseForEnkeltverdi(id);
+const Tekstinput = ({ sporsmalstekst, name, max }) => {
+    const parse = genererParseForEnkeltverdi();
     return (<div>
         <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
         <Field
@@ -26,7 +26,6 @@ const Tekstinput = ({ sporsmalstekst, name, id, max }) => {
 Tekstinput.propTypes = {
     sporsmalstekst: PropTypes.string,
     name: PropTypes.string,
-    id: PropTypes.string,
     max: PropTypes.string,
 };
 

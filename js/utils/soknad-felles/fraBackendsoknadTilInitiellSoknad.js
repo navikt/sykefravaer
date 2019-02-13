@@ -3,8 +3,8 @@ import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TI
 import { genererParseForEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
 import { CHECKED } from '../../enums/svarEnums';
 
-const tilInitielleSvarverder = ({ svar, svartype, id, undersporsmal }) => {
-    const parse = genererParseForEnkeltverdi(id);
+const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
+    const parse = genererParseForEnkeltverdi();
     switch (svartype) {
         case DATO:
             return parse(toDatePrettyPrint(new Date(svar[0].verdi)));

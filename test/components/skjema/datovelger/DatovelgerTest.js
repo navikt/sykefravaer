@@ -148,7 +148,7 @@ describe('Datovelger', () => {
 
             describe('Når det finnes format', () => {
                 beforeEach(() => {
-                    parse = genererParseForEnkeltverdi('1');
+                    parse = genererParseForEnkeltverdi();
                     validate = genererValidate({
                         tidligsteFom: new Date('2018-01-01'),
                         senesteTom: new Date('2018-01-05'),

@@ -163,11 +163,10 @@ export const genererValidate = (props) => {
         const formatertVerdi = props.format
             ? props.format(verdi)
             : verdi;
-        const feilmelding = validerDatoField(formatertVerdi, {
+        return validerDatoField(formatertVerdi, {
             fra: props.tidligsteFom,
             til: props.senesteTom,
         });
-        return feilmelding;
     };
 };
 

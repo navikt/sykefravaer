@@ -68,6 +68,8 @@ export default (validate, Component, initialize = false) => {
             validate,
             destroyOnUnmount: false,
             forceUnregisterOnUnmount: true,
+            enableReinitialize: true,
+            keepDirtyOnReinitialize: true,
             onSubmitFail: (errors, dispatch, submitError, props) => {
                 onSubmitFail(errors, dispatch, getSoknadSkjemanavn(props.soknad.id));
             },

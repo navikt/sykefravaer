@@ -37,7 +37,7 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
 
     switch (sporsmal.svartype) {
         case DATO: {
-            return (<Dato {...sporsmal} name={name} soknad={soknad}>
+            return (<Dato {...sporsmal} name={name} soknad={soknad} actions={actions}>
                 { undersporsmalsliste }
             </Dato>);
         }

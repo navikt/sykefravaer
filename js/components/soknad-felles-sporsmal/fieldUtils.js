@@ -1,10 +1,9 @@
 import { CHECKED, UNCHECKED } from '../../enums/svarEnums';
 
-export const genererParseForEnkeltverdi = (sporsmalsid) => {
+export const genererParseForEnkeltverdi = () => {
     return (verdi) => {
         return verdi || verdi === ''
             ? {
-                sporsmalsid,
                 svarverdier: [{
                     verdi,
                 }],
@@ -13,8 +12,8 @@ export const genererParseForEnkeltverdi = (sporsmalsid) => {
     };
 };
 
-export const genererParseForCheckbox = (sporsmalsId) => {
-    const parse = genererParseForEnkeltverdi(sporsmalsId);
+export const genererParseForCheckbox = () => {
+    const parse = genererParseForEnkeltverdi();
     return (value) => {
         const checkedVerdi = value ? CHECKED : UNCHECKED;
         return parse(checkedVerdi);

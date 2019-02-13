@@ -231,8 +231,24 @@ function mockForOpplaeringsmiljo(server) {
         }));
     });
 
+    const genererId = () => {
+        return Math.round(Math.random() * 100000)
+    };
+
+    const tilNyId = (sporsmal) => {
+        return {
+            ...sporsmal,
+            id: genererId(),
+            undersporsmal: sporsmal.undersporsmal.map(tilNyId),
+        };
+    };
+
     server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
         const soknad = req.body;
+        const soknadMedNyeSporsmalIder = {
+            ...soknad,
+            sporsmal: soknad.sporsmal.map(tilNyId),
+        };
 
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(soknad));

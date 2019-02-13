@@ -12,7 +12,7 @@ describe('Tall', () => {
     let parse;
 
     beforeEach(() => {
-        parse = genererParseForEnkeltverdi('1');
+        parse = genererParseForEnkeltverdi();
         valider = genererValiderTall(1, 20, 'Husk å fylle ut dette');
         setLedetekster({
             'soknad.feilmelding.tall-min-max': 'Vennligst fyll ut et tall mellom %MIN% og %MAX%',

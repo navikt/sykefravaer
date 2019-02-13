@@ -112,8 +112,6 @@ export const mapStateToProps = (state, ownProps) => {
         || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
 
-    console.log(state.form);
-
     return {
         soknadId,
         erSelvstendigNaeringsdrivendeSoknad,

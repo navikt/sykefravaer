@@ -72,7 +72,7 @@ const JaEllerNei = (props) => {
             onChange={getOnChange(props)}
             key={`${props.id}-field`}
             format={formaterEnkeltverdi}
-            parse={genererParseForEnkeltverdi(props.id)}
+            parse={genererParseForEnkeltverdi()}
             component={RendreJaEllerNei}
             {...props} />,
         <SporsmalBjornKondisjonell

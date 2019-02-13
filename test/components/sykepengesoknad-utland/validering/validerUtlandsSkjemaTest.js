@@ -24,8 +24,8 @@ describe('validerUtlandsSkjema', () => {
     let soknad;
 
     beforeEach(() => {
-        parse = genererParseForCheckbox('1');
-        enkeltverdi = genererParseForEnkeltverdi('1');
+        parse = genererParseForCheckbox();
+        enkeltverdi = genererParseForEnkeltverdi();
         soknad = getSoknadUtland();
         setLedetekster(ledeteksterUtland);
     });

@@ -138,7 +138,7 @@
     "redux-mock-store": "1.5.3",
     "rimraf": "2.6.2",
     "run-sequence": "2.2.1",
-    "sinon": "5.0.10",
+    "sinon": "7.2.3",
     "style-loader": "0.23.0",
     "svg-url-loader": "2.3.2",
     "vinyl-source-stream": "2.0.0",

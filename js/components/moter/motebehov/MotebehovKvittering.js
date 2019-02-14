@@ -35,7 +35,9 @@ export const MotebehovKvitteringUtvidbar = (
 
             { motebehovSvar.forklaring &&
                 <Fragment>
-                    <h5 className="skjemaelement__sporsmal">{FELTER.forklaring.spoersmaal}</h5>
+                    <h5 className="skjemaelement__sporsmal">
+                        {FELTER.forklaring.spoersmaal}
+                    </h5>
                     <p>{motebehovSvar.forklaring}</p>
                 </Fragment>
             }

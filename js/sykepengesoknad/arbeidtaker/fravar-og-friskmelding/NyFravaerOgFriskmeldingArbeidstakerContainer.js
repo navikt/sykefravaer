@@ -9,4 +9,4 @@ const FravaerOgFriskmeldingContainer = (props) => {
     return <Soknadstatussjekker {...props} Component={FravaerOgFriskmelding} valider={validerFoerDuBegynner} />;
 };
 
-export default setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingContainer);
+export default setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingContainer, true);

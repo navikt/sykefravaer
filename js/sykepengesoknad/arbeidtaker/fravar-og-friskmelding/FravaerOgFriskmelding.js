@@ -20,9 +20,10 @@ export const hentSporsmalForFravaerOgFriskmelding = (soknad) => {
 };
 
 const FravaerOgFriskmeldingSkjema = (props) => {
-    const { handleSubmit, soknad } = props;
+    const { handleSubmit, soknad, actions } = props;
     const sporsmalsliste = hentSporsmalForFravaerOgFriskmelding(soknad);
     const onSubmit = () => {
+        actions.lagreSoknad(soknad);
         history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
     return (<form className="soknadskjema" id="fravaer-og-friskmeldnig-skjema" onSubmit={handleSubmit(onSubmit)}>
@@ -35,16 +36,19 @@ const FravaerOgFriskmeldingSkjema = (props) => {
 FravaerOgFriskmeldingSkjema.propTypes = {
     handleSubmit: PropTypes.func,
     soknad: soknadPt,
+    actions: PropTypes.shape({
+        lagreSoknad: PropTypes.func,
+    }),
 };
 
 const FravaerOgFriskmelding = (props) => {
-    const { sykmelding, soknad, handleSubmit } = props;
+    const { sykmelding, soknad, handleSubmit, actions } = props;
     return (<Soknadskjema
         aktivtSteg="2"
         tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
         sykmelding={sykmelding}
         soknad={soknad}>
-        <FravaerOgFriskmeldingSkjema soknad={soknad} handleSubmit={handleSubmit} />
+        <FravaerOgFriskmeldingSkjema soknad={soknad} handleSubmit={handleSubmit} actions={actions} />
     </Soknadskjema>);
 };
 
@@ -52,6 +56,9 @@ FravaerOgFriskmelding.propTypes = {
     sykmelding: sykmeldingPt,
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
+    actions: PropTypes.shape({
+        lagreSoknad: PropTypes.func,
+    }),
 };
 
 export default FravaerOgFriskmelding;

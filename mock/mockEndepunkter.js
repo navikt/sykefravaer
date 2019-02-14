@@ -231,29 +231,6 @@ function mockForOpplaeringsmiljo(server) {
         }));
     });
 
-    const genererId = () => {
-        return Math.round(Math.random() * 100000)
-    };
-
-    const tilNyId = (sporsmal) => {
-        return {
-            ...sporsmal,
-            id: genererId(),
-            undersporsmal: sporsmal.undersporsmal.map(tilNyId),
-        };
-    };
-
-    server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
-        const soknad = req.body;
-        const soknadMedNyeSporsmalIder = {
-            ...soknad,
-            sporsmal: soknad.sporsmal.map(tilNyId),
-        };
-
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(soknad));
-    });
-
     server.get('/syforest/sykmeldinger?type=arbeidsgiver', (req, res) => {
         res.send(JSON.stringify(mockData[ARBEIDSGIVERS_SYKMELDINGER]));
     });
@@ -499,6 +476,41 @@ function mockUnleashLokal(server) {
     });
 }
 
+function mockOppdaterSporsmalOpplaeringsmiljo(server) {
+    server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
+        const soknad = req.body;
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(soknad));
+    });
+}
+
+function mockOppdaterSporsmalLokal(server) {
+    const tilNyId = (sporsmal) => {
+        return {
+            ...sporsmal,
+            id: Math.round(Math.random() * 100000) + '',
+            undersporsmal: sporsmal.undersporsmal.map(tilNyId),
+        };
+    };
+
+    server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
+        const soknad = req.body;
+        const soknadMedNyeSporsmalIder = {
+            ...soknad,
+            sporsmal: soknad.sporsmal.map(tilNyId),
+        };
+
+        mockData[SOKNADER] = mockData[SOKNADER].map((s) => {
+            return s.id === soknad.id
+                ? soknad
+                : s;
+        });
+
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(soknadMedNyeSporsmalIder));
+    });
+}
+
 module.exports = {
     mockForOpplaeringsmiljo,
     mockEndepunkterSomEndrerState,
@@ -506,4 +518,6 @@ module.exports = {
     mockUnleashLokal,
     mockPilotEndepunkterForOpplaeringsmiljo,
     mockPilotEndepunkterForLokalmiljo,
+    mockOppdaterSporsmalLokal,
+    mockOppdaterSporsmalOpplaeringsmiljo,
 };

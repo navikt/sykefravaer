@@ -92,6 +92,7 @@ const startServer = (html) => {
         require('./mock/mockEndepunkter').mockForOpplaeringsmiljo(server);
         require('./mock/mockEndepunkter').mockPilotEndepunkterForOpplaeringsmiljo(server);
         require('./mock/mockEndepunkter').mockUnleashOpplaeringsmiljo(server);
+        require('./mock/mockEndepunkter').mockOppdaterSporsmalOpplaeringsmiljo(server);
     }
 
     if (env === 'local') {
@@ -99,6 +100,7 @@ const startServer = (html) => {
         require('./mock/mockEndepunkter').mockEndepunkterSomEndrerState(server);
         require('./mock/mockEndepunkter').mockPilotEndepunkterForLokalmiljo(server);
         require('./mock/mockEndepunkter').mockUnleashLokal(server);
+        require('./mock/mockEndepunkter').mockOppdaterSporsmalLokal(server);
     }
 
     const port = process.env.PORT || 8080;

@@ -19,7 +19,7 @@ describe('validerFravaerOgFriskmelding', () => {
             [beregnFeilmeldingnokkelFraTag(JOBBET_DU_GRADERT)]: 'Vennligst svar på om du jobbet mer enn sykmeldingen tilsier',
             [beregnFeilmeldingnokkelFraTag(JOBBET_DU_100_PROSENT)]: 'Vennligst svar på om du jobbet mer enn sykmeldingen tilsier',
         });
-        const parseCheckbox = genererParseForCheckbox('1');
+        const parseCheckbox = genererParseForCheckbox();
         const ansvarserklaeringVerdi = parseCheckbox(true);
         values = {
             [ANSVARSERKLARING]: ansvarserklaeringVerdi,
@@ -41,7 +41,7 @@ describe('validerFravaerOgFriskmelding', () => {
 
     it('Skal klage hvis bruker har svart på om han var tilbake i fullt arbeid, men ikke fylt ut hvilken dato', () => {
         const soknad = getNySoknadSelvstendig();
-        const parse = genererParseForEnkeltverdi('1');
+        const parse = genererParseForEnkeltverdi();
         const parsetSvar = parse(JA);
         values[TILBAKE_I_ARBEID] = parsetSvar;
         const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
@@ -51,7 +51,7 @@ describe('validerFravaerOgFriskmelding', () => {
 
     it('Skal ikke klage om bruker har svart på alt som er påkrevd', () => {
         const soknad = getNySoknadSelvstendig();
-        const parse = genererParseForEnkeltverdi('1');
+        const parse = genererParseForEnkeltverdi();
         const parsetSvar = parse(NEI);
         values[TILBAKE_I_ARBEID] = parsetSvar;
         values.JOBBET_DU_GRADERT_1 = parsetSvar;
@@ -69,7 +69,7 @@ describe('validerFravaerOgFriskmelding', () => {
         });
 
         it('Skal klage hvis bruker har svart på den ene perioden', () => {
-            const parse = genererParseForEnkeltverdi('1');
+            const parse = genererParseForEnkeltverdi();
             const soknad = getNySoknadSelvstendig();
             const verdi = parse(JA);
             values.JOBBET_DU_100_PROSENT_0 = verdi;
@@ -79,7 +79,7 @@ describe('validerFravaerOgFriskmelding', () => {
         });
 
         it('Skal ikke klage på ja/nei-spørsmål hvis bruker har svart på begge periodene', () => {
-            const parse = genererParseForEnkeltverdi('1');
+            const parse = genererParseForEnkeltverdi();
             const soknad = getNySoknadSelvstendig();
             const verdi = parse(JA);
             const verdi2 = parse(NEI);

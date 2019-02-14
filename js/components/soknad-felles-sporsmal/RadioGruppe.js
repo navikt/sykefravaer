@@ -81,10 +81,10 @@ const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, svartype, undersporsm
                         onChange={() => {
                             undersporsmal.forEach((_underspm) => {
                                 const value = _underspm.tag === sporsmal.tag ? CHECKED : '';
-                                autofill(getSkjemanavnFraSoknad(soknad), _underspm.tag, genererParseForEnkeltverdi(_underspm.id)(value));
+                                autofill(getSkjemanavnFraSoknad(soknad), _underspm.tag, genererParseForEnkeltverdi()(value));
                             });
                         }}
-                        parse={genererParseForEnkeltverdi(sporsmal.id)}
+                        parse={genererParseForEnkeltverdi()}
                         format={formaterEnkeltverdi}>
                         <Infotekst
                             tag={sporsmal.tag}

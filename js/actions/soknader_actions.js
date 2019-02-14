@@ -25,7 +25,7 @@ import {
     OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     UTKAST_TIL_KORRIGERING_OPPRETTET,
     OPPRETTER_UTKAST_TIL_KORRIGERING,
-    OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
+    OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT, LAGRE_SOKNAD_FORESPURT, SOKNAD_LAGRET,
 } from './actiontyper';
 
 export const soknaderHentet = (soknader) => {
@@ -203,5 +203,19 @@ export const soknadGjenapnet = (soknad) => {
 export const gjenapneSoknadFeilet = () => {
     return {
         type: GJENAPNE_SOKNAD_FEILET,
+    };
+};
+
+export const lagreSoknad = (soknad) => {
+    return {
+        type: LAGRE_SOKNAD_FORESPURT,
+        soknad,
+    };
+};
+
+export const soknadLagret = (soknad) => {
+    return {
+        type: SOKNAD_LAGRET,
+        soknad,
     };
 };

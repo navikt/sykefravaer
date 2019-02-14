@@ -9,4 +9,4 @@ const AktiviteterISykmeldingsperiodenContainer = (props) => {
     return <Soknadstatussjekker {...props} Component={AktiviteterISykmeldingsperioden} valider={validerFravaerOgFriskmelding} />;
 };
 
-export default setup(validerAktiviteterISykmeldingsperioden, AktiviteterISykmeldingsperiodenContainer);
+export default setup(validerAktiviteterISykmeldingsperioden, AktiviteterISykmeldingsperiodenContainer, true);

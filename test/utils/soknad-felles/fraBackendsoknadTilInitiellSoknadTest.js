@@ -75,7 +75,6 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe fritekst', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad());
         expect(initiellSoknad[LAND]).to.deep.equal({
-            sporsmalsid: '56',
             svarverdier: [{
                 verdi: 'Oslo',
             }],
@@ -85,7 +84,6 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe JA_NEI', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad());
         expect(initiellSoknad[ARBEIDSGIVER]).to.deep.equal({
-            sporsmalsid: '57',
             svarverdier: [{
                 verdi: 'JA',
             }],
@@ -95,7 +93,6 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe CHECKBOX_PANEL', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad());
         expect(initiellSoknad[BEKREFT_OPPLYSNINGER_UTLAND]).to.deep.equal({
-            sporsmalsid: '61',
             svarverdier: [{
                 verdi: 'CHECKED',
             }],
@@ -105,7 +102,6 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe underspørsmål', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad());
         expect(initiellSoknad[SYKMELDINGSGRAD]).to.deep.equal({
-            sporsmalsid: '58',
             svarverdier: [{
                 verdi: 'JA',
             }],
@@ -115,7 +111,6 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe RADIO_GRUPPE', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockSoknadArbeidstakerUtfylt());
         expect(initiellSoknad.HVOR_MYE_HAR_DU_JOBBET_1).to.deep.equal({
-            sporsmalsid: '66',
             svarverdier: [{
                 verdi: 'PROSENT',
             }],

@@ -18,6 +18,14 @@ export class DatoField extends Component {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        const currentValue = this.props.input.value;
+        const forrigeValue = prevProps.input.value;
+        if (currentValue !== forrigeValue && this.props.oppdaterSporsmal) {
+            this.props.oppdaterSporsmal(null, this.props.inputValue);
+        }
+    }
+
     onKeyUp(e) {
         const ESCAPE_KEYCODE = 27;
         if (e.which === ESCAPE_KEYCODE) {
@@ -131,9 +139,11 @@ DatoField.propTypes = {
     input: fieldPropTypes.input,
     touch: PropTypes.func.isRequired,
     change: PropTypes.func.isRequired,
+    oppdaterSporsmal: PropTypes.func,
     parseVerdi: PropTypes.func,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    inputValue: PropTypes.oneOfType([PropTypes.shape(), PropTypes.string]),
 };
 
 const mapStateToProps = (state, ownProps) => {

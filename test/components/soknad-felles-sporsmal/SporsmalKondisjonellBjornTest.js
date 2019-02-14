@@ -15,7 +15,7 @@ const expect = chai.expect;
 
 describe('SporsmalBjorn', () => {
     let state;
-    const parse = genererParseForEnkeltverdi('1');
+    const parse = genererParseForEnkeltverdi();
 
     beforeEach(() => {
         state = {

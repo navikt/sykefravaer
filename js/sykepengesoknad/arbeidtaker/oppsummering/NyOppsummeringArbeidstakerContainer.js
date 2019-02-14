@@ -9,4 +9,4 @@ const OppsummeringContainer = (props) => {
     return <Soknadstatussjekker {...props} Component={Oppsummering} valider={validerAktiviteterISykmeldingsperioden} />;
 };
 
-export default setup(validerOppsummering, OppsummeringContainer);
+export default setup(validerOppsummering, OppsummeringContainer, true);

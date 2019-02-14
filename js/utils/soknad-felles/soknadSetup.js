@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
 import { bindActionCreators, compose } from 'redux';
 import { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
-import { sendSoknad } from '../../actions/soknader_actions';
+import { sendSoknad, lagreSoknad } from '../../actions/soknader_actions';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 import { erForsteSoknad } from '../../selectors/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
@@ -50,6 +50,7 @@ const mapDispatchToProps = (dispatch) => {
     const actions = bindActionCreators({
         sendSoknad,
         utfyllingStartet,
+        lagreSoknad,
     }, dispatch);
 
     return {
@@ -68,6 +69,8 @@ export default (validate, Component, initialize = false) => {
             validate,
             destroyOnUnmount: false,
             forceUnregisterOnUnmount: true,
+            enableReinitialize: true,
+            keepDirtyOnReinitialize: true,
             onSubmitFail: (errors, dispatch, submitError, props) => {
                 onSubmitFail(errors, dispatch, getSoknadSkjemanavn(props.soknad.id));
             },

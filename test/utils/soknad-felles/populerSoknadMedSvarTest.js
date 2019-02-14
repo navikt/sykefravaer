@@ -24,19 +24,19 @@ const expect = chai.expect;
 describe('populerSoknadMedSvar', () => {
     let soknad;
     let values;
+    let parseEnkeltverdi;
+    let parseCheckbox;
 
     beforeEach(() => {
         soknad = getNySoknadSelvstendig();
         values = {
             id: soknad.id,
         };
+        parseEnkeltverdi = genererParseForEnkeltverdi();
+        parseCheckbox = genererParseForCheckbox();
     });
 
     it('Skal populere checkbox-svar på nivå 1', () => {
-        const sporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === ANSVARSERKLARING;
-        });
-        const parseCheckbox = genererParseForCheckbox(sporsmal.id);
         const jaSvar = parseCheckbox(true);
         values[ANSVARSERKLARING] = jaSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
@@ -48,11 +48,7 @@ describe('populerSoknadMedSvar', () => {
     });
 
     it('Skal populere JA/NEI-svar på nivå 1', () => {
-        const sporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === TILBAKE_I_ARBEID;
-        });
-        const parse = genererParseForEnkeltverdi(sporsmal.id);
-        const jaSvar = parse(JA);
+        const jaSvar = parseEnkeltverdi(JA);
         values[TILBAKE_I_ARBEID] = jaSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         expect(populertSoknad.sporsmal[1].svar).to.deep.equal([
@@ -63,13 +59,8 @@ describe('populerSoknadMedSvar', () => {
     });
 
     it('Når man har svart JA på et toppnivå-spørsmål, skal underspørsmål også populeres', () => {
-        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === TILBAKE_I_ARBEID;
-        });
-        const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-        const toppnivaaSvar = parseToppnivasporsmal(JA);
-        const parseUndersporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].id);
-        const undersporsmalSvar = parseUndersporsmal('25.03.2018');
+        const toppnivaaSvar = parseEnkeltverdi(JA);
+        const undersporsmalSvar = parseEnkeltverdi('25.03.2018');
         values[TILBAKE_I_ARBEID] = toppnivaaSvar;
         values[TILBAKE_NAR] = undersporsmalSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
@@ -81,13 +72,8 @@ describe('populerSoknadMedSvar', () => {
     });
 
     it('Når man har svart NEI på et toppnivå-spørsmål, skal underspørsmål ikke populeres selv om de er besvart', () => {
-        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === TILBAKE_I_ARBEID;
-        });
-        const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-        const toppnivaaSvar = parseToppnivasporsmal(NEI);
-        const parseUndersporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].id);
-        const undersporsmalSvar = parseUndersporsmal('25.03.2018');
+        const toppnivaaSvar = parseEnkeltverdi(NEI);
+        const undersporsmalSvar = parseEnkeltverdi('25.03.2018');
         values[TILBAKE_I_ARBEID] = toppnivaaSvar;
         values[TILBAKE_NAR] = undersporsmalSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
@@ -98,13 +84,9 @@ describe('populerSoknadMedSvar', () => {
         const sporsmalForDenneTesten = (s) => {
             return s.tag === `${JOBBET_DU_GRADERT}_1`;
         };
-        const toppnivaSporsmal = soknad.sporsmal.find(sporsmalForDenneTesten);
-        const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-        const toppnivaaSvar = parseToppnivasporsmal(JA);
-        const parseUndersporsmal1 = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].id);
-        const parseUndersporsmal2 = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[1].id);
-        const undersporsmalSvar1 = parseUndersporsmal1('20');
-        const undersporsmalSvar2 = parseUndersporsmal2('65');
+        const toppnivaaSvar = parseEnkeltverdi(JA);
+        const undersporsmalSvar1 = parseEnkeltverdi('20');
+        const undersporsmalSvar2 = parseEnkeltverdi('65');
         values[`${JOBBET_DU_GRADERT}_1`] = toppnivaaSvar;
         values[`${HVOR_MANGE_TIMER}_1`] = undersporsmalSvar1;
         values[`${HVOR_MYE_HAR_DU_JOBBET}_1`] = undersporsmalSvar2;
@@ -123,11 +105,7 @@ describe('populerSoknadMedSvar', () => {
     });
 
     it('Skal populere perioder', () => {
-        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === UTLAND;
-        });
-        const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-        const toppnivaaSvar = parseToppnivasporsmal(JA);
+        const toppnivaaSvar = parseEnkeltverdi(JA);
         const undersporsmalSvar = [{
             fom: '20.03.2018',
             tom: '21.03.2018',
@@ -155,13 +133,9 @@ describe('populerSoknadMedSvar', () => {
     });
 
     it('Skal populere CHECKBOX_GRUPPE', () => {
-        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === ANDRE_INNTEKTSKILDER;
-        });
-        const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-        const toppnivaaSvar = parseToppnivaasporsmal(JA);
-        const inntektskildeArbeidsforholdSvar = genererParseForCheckbox(toppnivaSporsmal.undersporsmal[0].id)(true);
-        const sykmeldtFraArbeidsforholdSvar = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].undersporsmal[0].id)(NEI);
+        const toppnivaaSvar = parseEnkeltverdi(JA);
+        const inntektskildeArbeidsforholdSvar = parseCheckbox(true);
+        const sykmeldtFraArbeidsforholdSvar = parseEnkeltverdi(NEI);
         values[ANDRE_INNTEKTSKILDER] = toppnivaaSvar;
         values[INNTEKTSKILDE_ARBEIDSFORHOLD] = inntektskildeArbeidsforholdSvar;
         values[INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT] = sykmeldtFraArbeidsforholdSvar;
@@ -187,13 +161,8 @@ describe('populerSoknadMedSvar', () => {
     });
 
     it('Skal populere DATO', () => {
-        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === TILBAKE_I_ARBEID;
-        });
-        const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-        const toppnivaaSvar = parseToppnivaasporsmal(JA);
-        const tilbakeNarSporsmal = toppnivaSporsmal.undersporsmal[0];
-        const tilBakeNarSvar = genererParseForEnkeltverdi(tilbakeNarSporsmal.id)('23.05.2018');
+        const toppnivaaSvar = parseEnkeltverdi(JA);
+        const tilBakeNarSvar = genererParseForEnkeltverdi()('23.05.2018');
         values[TILBAKE_I_ARBEID] = toppnivaaSvar;
         values[TILBAKE_NAR] = tilBakeNarSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
@@ -209,13 +178,8 @@ describe('populerSoknadMedSvar', () => {
     });
 
     it('Skal konvertere datoformater i MIN/MAX', () => {
-        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === TILBAKE_I_ARBEID;
-        });
-        const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-        const toppnivaaSvar = parseToppnivaasporsmal(JA);
-        const tilbakeNarSporsmal = toppnivaSporsmal.undersporsmal[0];
-        const tilBakeNarSvar = genererParseForEnkeltverdi(tilbakeNarSporsmal.id)('23.05.2018');
+        const toppnivaaSvar = parseEnkeltverdi(JA);
+        const tilBakeNarSvar = parseEnkeltverdi('23.05.2018');
         values[TILBAKE_I_ARBEID] = toppnivaaSvar;
         values[TILBAKE_NAR] = tilBakeNarSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
@@ -254,33 +218,26 @@ describe('populerSoknadMedSvar', () => {
             });
         };
         const toppnivaSporsmal = hentSporsmal(arbeidstakersoknad.sporsmal, 'JOBBET_DU_100_PROSENT_0');
-        const parseToppnivaSporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
 
         const undersporsmalHvorMangeTimerPerUkeNormalt = hentSporsmal(toppnivaSporsmal.undersporsmal, 'HVOR_MANGE_TIMER_PER_UKE_0');
-        const parseUnderspormsalHvorMangeTimerPerUkeNormalt = genererParseForEnkeltverdi(undersporsmalHvorMangeTimerPerUkeNormalt.id);
 
         const underspormalHvorMyeHarDuJobbet = hentSporsmal(toppnivaSporsmal.undersporsmal, 'HVOR_MYE_HAR_DU_JOBBET_0');
-        const parseUndersporsmalHvorMyeHarDuJobbet = genererParseForEnkeltverdi(underspormalHvorMyeHarDuJobbet.id);
 
         const undersporsmalHvorMyeTimer = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_TIMER_0');
-        const parseUndersporsmalHvorMyeTimer = genererParseForEnkeltverdi(undersporsmalHvorMyeTimer.id);
 
         const undersporsmalHvorMyeProsent = hentSporsmal(underspormalHvorMyeHarDuJobbet.undersporsmal, 'HVOR_MYE_PROSENT_0');
-        const parseUndersporsmalHvorMyeProsent = genererParseForEnkeltverdi(undersporsmalHvorMyeProsent.id);
 
         const undersporsmalAntallTimerJobbet = hentSporsmal(undersporsmalHvorMyeTimer.undersporsmal, 'HVOR_MYE_TIMER_VERDI_0');
-        const parseAntallTimerJobbet = genererParseForEnkeltverdi(undersporsmalAntallTimerJobbet.id);
 
         const undersporsmalProsentJobbet = hentSporsmal(undersporsmalHvorMyeProsent.undersporsmal, 'HVOR_MYE_PROSENT_VERDI_0');
-        const parseUndersporsmalProsentJobbet = genererParseForEnkeltverdi(undersporsmalProsentJobbet.id);
 
-        values[toppnivaSporsmal.tag] = parseToppnivaSporsmal(JA);
-        values[undersporsmalHvorMangeTimerPerUkeNormalt.tag] = parseUnderspormsalHvorMangeTimerPerUkeNormalt('37,5');
-        values[underspormalHvorMyeHarDuJobbet.tag] = parseUndersporsmalHvorMyeHarDuJobbet('timer');
-        values[undersporsmalHvorMyeTimer.tag] = parseUndersporsmalHvorMyeTimer('CHECKED');
-        values[undersporsmalHvorMyeProsent.tag] = parseUndersporsmalHvorMyeProsent('');
-        values[undersporsmalAntallTimerJobbet.tag] = parseAntallTimerJobbet('10');
-        values[undersporsmalProsentJobbet.tag] = parseUndersporsmalProsentJobbet('35');
+        values[toppnivaSporsmal.tag] = parseEnkeltverdi(JA);
+        values[undersporsmalHvorMangeTimerPerUkeNormalt.tag] = parseEnkeltverdi('37,5');
+        values[underspormalHvorMyeHarDuJobbet.tag] = parseEnkeltverdi('timer');
+        values[undersporsmalHvorMyeTimer.tag] = parseEnkeltverdi('CHECKED');
+        values[undersporsmalHvorMyeProsent.tag] = parseEnkeltverdi('');
+        values[undersporsmalAntallTimerJobbet.tag] = parseEnkeltverdi('10');
+        values[undersporsmalProsentJobbet.tag] = parseEnkeltverdi('35');
 
         const populertSoknad = populerSoknadMedSvar(arbeidstakersoknad, values);
         const parsetHovedsporsmal = hentSporsmal(populertSoknad.sporsmal, 'JOBBET_DU_100_PROSENT_0');
@@ -308,11 +265,7 @@ describe('populerSoknadMedSvar', () => {
 
     describe('populerSoknadMedSvarUtenKonvertertePerioder', () => {
         it('Skal populere perioder', () => {
-            const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-                return s.tag === UTLAND;
-            });
-            const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-            const toppnivaaSvar = parseToppnivasporsmal(JA);
+            const toppnivaaSvar = parseEnkeltverdi(JA);
             const undersporsmalSvar = [{
                 fom: '20.03.2018',
                 tom: '21.03.2018',
@@ -340,11 +293,7 @@ describe('populerSoknadMedSvar', () => {
         });
 
         it('Skal populere perioder når det bare er fylt ut fom', () => {
-            const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-                return s.tag === UTLAND;
-            });
-            const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
-            const toppnivaaSvar = parseToppnivasporsmal(JA);
+            const toppnivaaSvar = parseEnkeltverdi(JA);
             const undersporsmalSvar = [{
                 fom: '20.03.2018',
             }];

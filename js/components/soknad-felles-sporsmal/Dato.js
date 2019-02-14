@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import Datovelger from '../skjema/datovelger/Datovelger';
 import Sporsmalstekst from './Sporsmalstekst';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
+import { getOnChangeForDato } from '../../utils/soknad-felles/getOnChange';
 
-const Dato = ({ sporsmalstekst, min, max, name, id }) => {
-    const parse = genererParseForEnkeltverdi(id);
+const Dato = (props) => {
+    const { sporsmalstekst, min, max, name } = props;
+    const parse = genererParseForEnkeltverdi();
+    const onChange = getOnChangeForDato(props);
     return (<div>
         <Sporsmalstekst tekst={sporsmalstekst} Tag="label" htmlFor={name} />
         <Datovelger
+            onChange={onChange}
+            oppdaterSporsmal={onChange}
             format={formaterEnkeltverdi}
             parse={parse}
             parseVerdi={parse}
@@ -24,7 +29,6 @@ Dato.propTypes = {
     min: PropTypes.instanceOf(Date),
     max: PropTypes.instanceOf(Date),
     name: PropTypes.string,
-    id: PropTypes.string,
 };
 
 export default Dato;

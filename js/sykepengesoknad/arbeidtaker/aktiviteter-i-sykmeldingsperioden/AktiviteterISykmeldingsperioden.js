@@ -19,9 +19,10 @@ export const hentSporsmalForAktiviteterISykmeldingsperioden = (soknad) => {
 };
 
 const AktiviteterISykmeldingsperiodenSkjema = (props) => {
-    const { handleSubmit, soknad } = props;
+    const { handleSubmit, soknad, actions } = props;
     const sporsmalsliste = hentSporsmalForAktiviteterISykmeldingsperioden(soknad);
     const onSubmit = () => {
+        actions.lagreSoknad(soknad);
         history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/oppsummering`);
     };
     return (<form className="soknadskjema" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
@@ -34,16 +35,19 @@ const AktiviteterISykmeldingsperiodenSkjema = (props) => {
 AktiviteterISykmeldingsperiodenSkjema.propTypes = {
     handleSubmit: PropTypes.func,
     soknad: soknadPt,
+    actions: PropTypes.shape({
+        lagreSoknad: PropTypes.func,
+    }),
 };
 
 const AktiviteterISykmeldingsperioden = (props) => {
-    const { sykmelding, soknad, handleSubmit } = props;
+    const { sykmelding, soknad, handleSubmit, actions } = props;
     return (<Soknadskjema
         aktivtSteg="3"
         tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
         sykmelding={sykmelding}
         soknad={soknad}>
-        <AktiviteterISykmeldingsperiodenSkjema soknad={soknad} handleSubmit={handleSubmit} />
+        <AktiviteterISykmeldingsperiodenSkjema soknad={soknad} handleSubmit={handleSubmit} actions={actions} />
     </Soknadskjema>);
 };
 
@@ -51,6 +55,9 @@ AktiviteterISykmeldingsperioden.propTypes = {
     sykmelding: sykmeldingPt,
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
+    actions: PropTypes.shape({
+        lagreSoknad: PropTypes.func,
+    }),
 };
 
 export default AktiviteterISykmeldingsperioden;

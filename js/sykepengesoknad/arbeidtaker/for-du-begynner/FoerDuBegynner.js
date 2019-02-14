@@ -28,8 +28,9 @@ export class FoerDuBegynnerSkjema extends Component {
     }
 
     render() {
-        const { handleSubmit, soknad } = this.props;
+        const { handleSubmit, soknad, actions } = this.props;
         const onSubmit = () => {
+            actions.lagreSoknad(soknad);
             history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/fravaer-og-friskmelding`);
         };
 

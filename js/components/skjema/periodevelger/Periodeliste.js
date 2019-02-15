@@ -1,39 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { FieldArray, Fields } from 'redux-form';
-import { connect } from 'react-redux';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import DatovelgerPeriode from './DatovelgerPeriode';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Feilomrade from '../Feilomrade';
-import { harOverlappendePerioder } from '../../../utils/periodeUtils';
 import { fieldPropTypes, fields as fieldsPt } from '../../../propTypes';
+import Periode from './Periode';
 
-export const Periode = (props) => {
-    const { name, index, onRemoveHandler, tidligsteFom, senesteTom, skjemanavn, initiellDato } = props;
-    const fomName = `${name}.fom`;
-    const tomName = `${name}.tom`;
-    return (<Fields
-        names={[fomName, tomName]}
-        skjemanavn={skjemanavn}
-        tidligsteFom={tidligsteFom}
-        senesteTom={senesteTom}
-        component={DatovelgerPeriode}
-        onRemoveHandler={onRemoveHandler}
-        initiellDato={initiellDato}
-        periodeIndex={index} />);
-};
-
-Periode.propTypes = {
-    index: PropTypes.number,
-    onRemoveHandler: PropTypes.func,
-    tidligsteFom: PropTypes.instanceOf(Date),
-    senesteTom: PropTypes.instanceOf(Date),
-    initiellDato: PropTypes.instanceOf(Date),
-    name: PropTypes.string.isRequired,
-    skjemanavn: PropTypes.string,
-};
-
-export class PeriodevelgerComponent extends Component {
+export class PeriodelisteComponent extends Component {
     componentWillMount() {
         if (this.props.fields.length === 0) {
             this.props.fields.push({});
@@ -78,7 +51,7 @@ export class PeriodevelgerComponent extends Component {
     }
 }
 
-PeriodevelgerComponent.propTypes = {
+PeriodelisteComponent.propTypes = {
     fields: fieldsPt,
     namePrefix: PropTypes.string,
     spoersmal: PropTypes.string,
@@ -89,37 +62,11 @@ PeriodevelgerComponent.propTypes = {
     initiellDato: PropTypes.instanceOf(Date),
 };
 
-PeriodevelgerComponent.defaultProps = {
+PeriodelisteComponent.defaultProps = {
     Overskrift: 'h4',
 };
 
-export const StateConnectedPeriodevelger = connect()(PeriodevelgerComponent);
+const Periodeliste = connect()(PeriodelisteComponent);
 
-const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3', initiellDato }) => {
-    return (<FieldArray
-        validate={(value) => {
-            return harOverlappendePerioder(value)
-                ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
-                : undefined;
-        }}
-        Overskrift={Overskrift}
-        component={StateConnectedPeriodevelger}
-        name={name}
-        namePrefix={name}
-        spoersmal={spoersmal}
-        tidligsteFom={tidligsteFom}
-        senesteTom={senesteTom}
-        initiellDato={initiellDato}
-    />);
-};
+export default Periodeliste;
 
-PeriodevelgerField.propTypes = {
-    name: PropTypes.string,
-    spoersmal: PropTypes.string,
-    tidligsteFom: PropTypes.instanceOf(Date),
-    senesteTom: PropTypes.instanceOf(Date),
-    initiellDato: PropTypes.instanceOf(Date),
-    Overskrift: PropTypes.string,
-};
-
-export default PeriodevelgerField;

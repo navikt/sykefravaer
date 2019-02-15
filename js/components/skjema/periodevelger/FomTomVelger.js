@@ -3,14 +3,14 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Vis } from '../../../utils';
-import { validerDatoField } from './validering';
+import validerDatoField from '../datovelger/validerDatoField';
 import DayPickerPeriode from './DayPickerPeriode';
 import FomField from './PeriodeFom';
-import TomField from './PeriodeTom';
+import PeriodeTom from './PeriodeTom';
 
 let lukk;
 
-class Periodevelger extends Component {
+class FomTomVelger extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,7 +94,7 @@ class Periodevelger extends Component {
                     <div className="periodevelger__tom">
                         <label className="skjemaelement__label" htmlFor={names[1]}>{getLedetekst('sykepengesoknad.periodevelger.tom')}</label>
                         <Field
-                            component={TomField}
+                            component={PeriodeTom}
                             name={names[1]}
                             id={names[1]}
                             buttonId={buttonId}
@@ -130,7 +130,7 @@ class Periodevelger extends Component {
     }
 }
 
-Periodevelger.propTypes = {
+FomTomVelger.propTypes = {
     names: PropTypes.arrayOf(PropTypes.string),
     visVerktoy: PropTypes.bool,
     onRemoveHandler: PropTypes.func,
@@ -140,5 +140,5 @@ Periodevelger.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-export default Periodevelger;
+export default FomTomVelger;
 

@@ -4,7 +4,7 @@ import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import PropTypes from 'prop-types';
 import getContextRoot from '../../../utils/getContextRoot';
 import JaEllerNei from '../JaEllerNei';
-import Periodevelger from '../../skjema/datovelger/Periodevelger';
+import Periodevelger from '../../skjema/periodevelger/Periodevelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 import { getEgenmeldingsdagerSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';

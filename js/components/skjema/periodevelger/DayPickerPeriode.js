@@ -4,10 +4,10 @@ import { autofill, touch, formValueSelector } from 'redux-form';
 import { toDatePrettyPrint, fraInputdatoTilJSDato, scrollTo, tilLesbarDatoUtenAarstall } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from './datovelgerLocale';
-import Caption from './DayPickerCaption';
-import NavBar from './DayPickerNavBar';
-import { leggTilNullForan } from './DayPicker';
+import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from '../daypicker/daypickerLocale';
+import Caption from '../daypicker/DayPickerCaption';
+import NavBar from '../daypicker/DayPickerNavBar';
+import { leggTilNullForan } from '../datovelger/DayPickerDato';
 import { erGyldigDato } from '../../../utils/datoUtils';
 
 const Style = () => {

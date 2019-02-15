@@ -6,8 +6,8 @@ import { toDatePrettyPrint } from '@navikt/digisyfo-npm';
 import cn from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import Feilmelding from '../Feilmelding';
-import DayPickerComponent from './DayPicker';
-import { validerDatoField } from './validering';
+import DayPickerComponent from './DayPickerDato';
+import { validerDatoField } from './validerDatoField';
 import { fieldPropTypes } from '../../../propTypes';
 
 export class DatoField extends Component {

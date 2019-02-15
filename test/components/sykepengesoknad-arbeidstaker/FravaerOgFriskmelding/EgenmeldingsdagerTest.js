@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from '@navikt/digisyfo-npm';
 import Egenmeldingsdager from '../../../../js/components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/Egenmeldingsdager';
-import Periodevelger from '../../../../js/components/skjema/datovelger/Periodevelger';
+import Periodevelger from '../../../../js/components/skjema/periodevelger/Periodevelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad-arbeidstaker/JaEllerNei';
 import { getSoknad } from '../../../mock/mockSykepengesoknader';
 import ledetekster from '../../../mock/mockLedetekster';

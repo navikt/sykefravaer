@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Field } from 'redux-form';
 import Datovelger, { DatoField, genererValidate, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../../js/components/skjema/datovelger/Datovelger';
-import DaypickerComponent from '../../../../js/components/skjema/datovelger/DayPicker';
+import DaypickerComponent from '../../../../js/components/skjema/datovelger/DayPickerDato';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
 
 chai.use(chaiEnzyme());

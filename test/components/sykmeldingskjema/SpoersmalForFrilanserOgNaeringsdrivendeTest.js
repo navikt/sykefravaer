@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { Field } from 'redux-form';
 import { setLedetekster } from '@navikt/digisyfo-npm';
 import JaEllerNei from '../../../js/components/sykepengesoknad-arbeidstaker/JaEllerNei';
-import Periodevelger from '../../../js/components/skjema/datovelger/Periodevelger';
+import Periodevelger from '../../../js/components/skjema/periodevelger/Periodevelger';
 import { Spoersmal, Egenmeldingssporsmal, Forsikringssporsmal } from '../../../js/components/sykmeldingskjema/SpoersmalForFrilanserOgNaeringsdrivende';
 
 chai.use(chaiEnzyme());
@@ -34,7 +34,7 @@ describe('SpoersmalForFrilanserOgNaeringsdrivende', () => {
             expect(component.find(JaEllerNei).prop('name')).to.equal('harAnnetFravaer');
         });
 
-        it('Skal inneholde en Periodevelger med riktige props', () => {
+        it('Skal inneholde en FomTomVelger med riktige props', () => {
             setLedetekster({
                 'din-sykmelding.egenmeldingsperioder.perioder.sporsmal': 'Hvilke dager var du borte fra jobb før %DATO%?',
             });

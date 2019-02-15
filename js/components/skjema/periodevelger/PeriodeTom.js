@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { fieldPropTypes } from '../../../propTypes';
+import { fieldPropTypes } from '../../../propTypes/index';
 import Feilmelding from '../Feilmelding';
-import { Datoinput } from './PeriodeFom';
-import { Vis } from '../../../utils';
+import PeriodeDatoinput from './PeriodeDatoinput';
+import { Vis } from '../../../utils/index';
 
-class TomField extends Component {
+class PeriodeTom extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.erApen && !this.props.erApen) {
             this.toggle.focus();
@@ -26,7 +26,7 @@ class TomField extends Component {
                     }
                 }}>
                 <div className="datovelger__inputContainer">
-                    <Datoinput meta={meta} id={id} input={input} onDoubleClick={onDoubleClick} />
+                    <PeriodeDatoinput meta={meta} id={id} input={input} onDoubleClick={onDoubleClick} />
                     <button
                         type="button"
                         className="js-toggle datovelger__toggleDayPicker"
@@ -53,7 +53,7 @@ class TomField extends Component {
     }
 }
 
-TomField.propTypes = {
+PeriodeTom.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string.isRequired,
     buttonId: PropTypes.string,
@@ -63,4 +63,4 @@ TomField.propTypes = {
     onDoubleClick: PropTypes.func,
 };
 
-export default TomField;
+export default PeriodeTom;

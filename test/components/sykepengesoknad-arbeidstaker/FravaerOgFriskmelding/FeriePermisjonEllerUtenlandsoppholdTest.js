@@ -13,7 +13,7 @@ import JaEllerNei from '../../../../js/components/sykepengesoknad-arbeidstaker/J
 import { getSoknad } from '../../../mock/mockSykepengesoknader';
 import { ledetekster } from '../../../mock/mockLedetekster';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
-import Periodevelger from '../../../../js/components/skjema/datovelger/Periodevelger';
+import Periodevelger from '../../../../js/components/skjema/periodevelger/Periodevelger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -202,7 +202,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
             }
         });
 
-        it('Skal inneholde Periodevelger med riktig name, tidligsteFom og senesteTom', () => {
+        it('Skal inneholde FomTomVelger med riktig name, tidligsteFom og senesteTom', () => {
             const ferieCheckbox = component.find(Field).at(0);
             const permisjonCheckbox = component.find(Field).at(1);
             expect(ferieCheckbox.find(Periodevelger).prop('name')).to.equal('ferie');

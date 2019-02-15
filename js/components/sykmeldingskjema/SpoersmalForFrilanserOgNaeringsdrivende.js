@@ -5,7 +5,7 @@ import { Field } from 'redux-form';
 import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../sykepengesoknad-arbeidstaker/JaEllerNei';
-import Periodevelger from '../skjema/datovelger/Periodevelger';
+import Periodevelger from '../skjema/periodevelger/Periodevelger';
 import { getOppfolgingstilfelleStartdato } from '../../utils/sykeforloepUtils';
 
 export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {

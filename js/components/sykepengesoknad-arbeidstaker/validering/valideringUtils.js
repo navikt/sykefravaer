@@ -1,5 +1,5 @@
 import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
-import { validerPeriode } from '../../skjema/datovelger/validering';
+import validerPeriode from '../../skjema/periodevelger/validerPeriode';
 
 export const erIFortiden = (dato) => {
     const oppgittDato = fraInputdatoTilJSDato(dato);

@@ -4,12 +4,23 @@ import { fieldPropTypes } from '../../../propTypes';
 import Feilmelding from '../Feilmelding';
 import PeriodeDatoinput from './PeriodeDatoinput';
 import { Vis } from '../../../utils';
+import { PeriodevelgerContext } from './Periodevelger';
 
-class PeriodeTom extends Component {
+export const onDatoChange = (props, prevProps) => {
+    const value = props.input.value;
+    const prevValue = prevProps.input.value;
+    if (typeof props.onChange === 'function'
+        && value !== prevValue) {
+        props.onChange(props.input.name, value);
+    }
+};
+
+class PeriodeTomComponent extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.erApen && !this.props.erApen) {
             this.toggle.focus();
         }
+        onDatoChange(this.props, prevProps);
     }
 
     render() {
@@ -53,7 +64,7 @@ class PeriodeTom extends Component {
     }
 }
 
-PeriodeTom.propTypes = {
+PeriodeTomComponent.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string.isRequired,
     buttonId: PropTypes.string,
@@ -61,6 +72,16 @@ PeriodeTom.propTypes = {
     erApen: PropTypes.bool,
     toggle: PropTypes.func,
     onDoubleClick: PropTypes.func,
+};
+
+const PeriodeTom = (props) => {
+    return (<PeriodevelgerContext.Consumer>
+        {
+            ({ onChange }) => {
+                return <PeriodeTomComponent {...props} onChange={onChange} />;
+            }
+        }
+    </PeriodevelgerContext.Consumer>);
 };
 
 export default PeriodeTom;

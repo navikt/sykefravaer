@@ -3,6 +3,12 @@ import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TI
 import { genererParseForEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
 import { CHECKED } from '../../enums/svarEnums';
 
+const tilPeriodedato = (datoEllerStreng) => {
+    return datoEllerStreng.split('.').length === 3
+        ? datoEllerStreng
+        : toDatePrettyPrint(datoEllerStreng);
+};
+
 const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
     const parse = genererParseForEnkeltverdi();
     switch (svartype) {
@@ -11,12 +17,14 @@ const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
         case PERIODER: {
             return svar.map((s) => {
                 const periode = JSON.parse(s.verdi);
-                return periode && periode.fom && periode.tom
-                    ? {
-                        fom: periode.fom.split('.').length === 3 ? periode.fom : toDatePrettyPrint(periode.fom),
-                        tom: periode.tom.split('.').length === 3 ? periode.tom : toDatePrettyPrint(periode.tom),
-                    }
-                    : {};
+                const returPeriode = {};
+                if (periode.fom) {
+                    returPeriode.fom = tilPeriodedato(periode.fom);
+                }
+                if (periode.tom) {
+                    returPeriode.tom = tilPeriodedato(periode.tom);
+                }
+                return returPeriode;
             });
         }
         case CHECKBOX:

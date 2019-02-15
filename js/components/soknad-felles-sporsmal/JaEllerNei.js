@@ -70,19 +70,18 @@ const JaEllerNei = (props) => {
     return ([
         <Field
             onChange={getOnChange(props)}
-            key={`${props.id}-field`}
+            key={`${props.tag}-field`}
             format={formaterEnkeltverdi}
             parse={genererParseForEnkeltverdi()}
             component={RendreJaEllerNei}
             {...props} />,
         <SporsmalBjornKondisjonell
             soknad={props.soknad}
-            key={`${props.id}-sporsmalbjorn`}
+            key={`${props.tag}-sporsmalbjorn`}
             tag={props.tag} />]);
 };
 
 JaEllerNei.propTypes = {
-    id: PropTypes.string,
     tag: PropTypes.string,
     soknad: soknadPt.isRequired,
 };

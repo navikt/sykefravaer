@@ -7,6 +7,7 @@ import validerDatoField from '../datovelger/validerDatoField';
 import DayPickerPeriode from './DayPickerPeriode';
 import FomField from './PeriodeFom';
 import PeriodeTom from './PeriodeTom';
+import { PeriodevelgerContext } from './Periodevelger';
 
 let lukk;
 
@@ -140,5 +141,15 @@ FomTomVelger.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-export default FomTomVelger;
+const FomTomVelgerConsumer = (props) => {
+    return (<PeriodevelgerContext.Consumer>
+        {
+            (contextProps) => {
+                return <FomTomVelger {...props} {...contextProps} />;
+            }
+        }
+    </PeriodevelgerContext.Consumer>);
+};
+
+export default FomTomVelgerConsumer;
 

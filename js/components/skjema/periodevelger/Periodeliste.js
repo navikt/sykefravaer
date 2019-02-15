@@ -14,7 +14,7 @@ export class PeriodelisteComponent extends Component {
     }
 
     render() {
-        const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom, initiellDato } = this.props;
+        const { fields, namePrefix, spoersmal, meta, Overskrift } = this.props;
 
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
@@ -29,9 +29,6 @@ export class PeriodelisteComponent extends Component {
                                     name={`${namePrefix}[${index}]`}
                                     key={index}
                                     index={index}
-                                    tidligsteFom={tidligsteFom}
-                                    senesteTom={senesteTom}
-                                    initiellDato={initiellDato}
                                     onRemoveHandler={() => {
                                         fields.remove(index);
                                     }} />);
@@ -57,9 +54,6 @@ PeriodelisteComponent.propTypes = {
     spoersmal: PropTypes.string,
     meta: fieldPropTypes.meta,
     Overskrift: PropTypes.string,
-    tidligsteFom: PropTypes.instanceOf(Date),
-    senesteTom: PropTypes.instanceOf(Date),
-    initiellDato: PropTypes.instanceOf(Date),
 };
 
 PeriodelisteComponent.defaultProps = {

@@ -13,6 +13,13 @@ export class PeriodelisteComponent extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.fields.length !== prevProps.fields.length
+            && typeof this.props.onChange === 'function') {
+            this.props.onChange();
+        }
+    }
+
     render() {
         const { fields, namePrefix, spoersmal, meta, Overskrift } = this.props;
 
@@ -54,6 +61,7 @@ PeriodelisteComponent.propTypes = {
     spoersmal: PropTypes.string,
     meta: fieldPropTypes.meta,
     Overskrift: PropTypes.string,
+    onChange: PropTypes.func,
 };
 
 PeriodelisteComponent.defaultProps = {

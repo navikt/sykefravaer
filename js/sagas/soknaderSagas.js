@@ -1,7 +1,7 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
-import { initialize } from 'redux-form';
+import { initialize, change } from 'redux-form';
 import { get, hentApiUrl, post } from '../gateway-api';
 import * as actions from '../actions/soknader_actions';
 import {
@@ -22,7 +22,6 @@ import logger from '../logging';
 import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import { hentSoknad, skalHenteSoknader } from '../selectors/soknaderSelectors';
 import { populerSoknadMedSvarUtenKonvertertePerioder } from '../utils/soknad-felles/populerSoknadMedSvar';
-import populerSkjemaverdier from '../utils/soknad-felles/populerSkjemaverdier';
 import fraBackendsoknadTilInitiellSoknad from '../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
 import { hentSkjemaVerdier } from '../selectors/reduxFormSelectors';
 import { getSkjemanavnFraSoknad } from '../utils/soknad-felles/getSkjemanavnFraSoknad';
@@ -113,9 +112,10 @@ export function* gjenapneSoknad(action) {
 export function* oppdaterSporsmal(action) {
     const soknad = yield select(hentSoknad, action.soknad);
     const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
-    const gamleVerdierISkjema = yield select(hentSkjemaVerdier, skjemanavn);
-    const nyeVerdierISkjema = populerSkjemaverdier(gamleVerdierISkjema, action.feltnavn, action.nyVerdi);
-    const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, nyeVerdierISkjema);
+    yield put(change(skjemanavn, action.feltnavn, action.nyVerdi));
+    const nyeverdierISkjema = yield select(hentSkjemaVerdier, skjemanavn);
+    const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, nyeverdierISkjema);
+
     try {
         const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
         yield put(actions.soknadOppdatert(oppdatertSoknad));
@@ -132,6 +132,7 @@ export function* lagreSoknad(action) {
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
     const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, verdier);
     try {
+        // TODO: Endre URL for endepunkt i Syfosoknad
         const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
         yield put(actions.soknadOppdatert(oppdatertSoknad));
         yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));

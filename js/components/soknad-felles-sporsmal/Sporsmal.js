@@ -27,7 +27,7 @@ import CheckboxGruppe from './CheckboxGruppe';
 import Tekstinput from './Tekstinput';
 import IkkeRelevant from './IkkeRelevant';
 import Checkboxpanel from './Checkboxpanel';
-import { soknadEndret } from '../../actions/soknader_actions';
+import { lagreSoknad, soknadEndret } from '../../actions/soknader_actions';
 import UkjentSporsmal from './UkjentSporsmal';
 import Undersporsmalsliste from './Undersporsmalsliste';
 import RadioGruppe from './RadioGruppe';
@@ -62,7 +62,7 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
             </Checkbox>);
         }
         case PERIODER: {
-            return (<Perioder {...sporsmal} {...ekstraProps} name={name} soknad={soknad}>
+            return (<Perioder {...sporsmal} {...ekstraProps} name={name} soknad={soknad} actions={actions}>
                 { undersporsmalsliste }
             </Perioder>);
         }
@@ -108,7 +108,10 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ soknadEndret }, dispatch),
+        actions: bindActionCreators({
+            soknadEndret,
+            lagreSoknad,
+        }, dispatch),
     };
 }
 

@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Periodevelger from '../skjema/periodevelger/Periodevelger';
 import Sporsmalstekst from './Sporsmalstekst';
+import { getOnChangeForPerioder } from '../../utils/soknad-felles/getOnChange';
 
-const Perioder = ({ min, max, name, sporsmalstekst, initiellDato }) => {
+const Perioder = (props) => {
+    const { min, max, name, sporsmalstekst, initiellDato } = props;
     return (
         <div>
             <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
             <Periodevelger
+                onChange={getOnChangeForPerioder(props)}
                 initiellDato={initiellDato}
                 name={name}
                 tidligsteFom={min}

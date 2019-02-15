@@ -6,15 +6,17 @@ import Periodeliste from './Periodeliste';
 
 export const PeriodevelgerContext = React.createContext();
 
-const Periodevelger = ({ name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3', initiellDato }) => {
+const Periodevelger = ({ name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3', initiellDato, onChange = null }) => {
     return (<PeriodevelgerContext.Provider value={{
         namePrefix: name,
         name,
         tidligsteFom,
         senesteTom,
         initiellDato,
+        onChange,
     }}>
         <FieldArray
+            onChange={onChange}
             validate={(value) => {
                 return harOverlappendePerioder(value)
                     ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
@@ -36,6 +38,7 @@ Periodevelger.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
     initiellDato: PropTypes.instanceOf(Date),
     Overskrift: PropTypes.string,
+    onChange: PropTypes.func,
 };
 
 export default Periodevelger;

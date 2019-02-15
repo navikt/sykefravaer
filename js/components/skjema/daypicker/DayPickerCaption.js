@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MONTHS } from './datovelgerLocale';
+import { MONTHS } from './daypickerLocale';
 
 const Caption = ({ date }) => {
     return (<div className="DayPicker-Caption" role="heading" aria-live="assertive" aria-atomic="true">

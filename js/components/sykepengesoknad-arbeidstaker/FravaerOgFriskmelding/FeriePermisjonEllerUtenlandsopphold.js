@@ -4,7 +4,7 @@ import { FieldArray, Field } from 'redux-form';
 import { getLedetekst, Bjorn } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import JaEllerNei from '../JaEllerNei';
-import Periodevelger from '../../skjema/datovelger/Periodevelger';
+import Periodevelger from '../../skjema/periodevelger/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
 import Feilomrade from '../../skjema/Feilomrade';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';

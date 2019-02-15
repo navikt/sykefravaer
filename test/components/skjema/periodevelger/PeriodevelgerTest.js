@@ -3,13 +3,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { PeriodevelgerComponent, Periode } from '../../../../js/components/skjema/datovelger/Periodevelger';
+import PeriodeFields from '../../../../js/components/skjema/periodevelger/PeriodeFields';
+import { PeriodelisteComponent } from '../../../../js/components/skjema/periodevelger/Periodeliste';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-
-describe('Periodevelger', () => {
+describe('PeriodelisteComponent', () => {
     let fields;
 
     beforeEach(() => {
@@ -20,7 +20,7 @@ describe('Periodevelger', () => {
         const push = sinon.spy();
         fields.push = push;
 
-        shallow(<PeriodevelgerComponent fields={fields} meta={{ form: 'testskjema ' }} />);
+        shallow(<PeriodelisteComponent fields={fields} meta={{ form: 'testskjema ' }} />);
         expect(push.calledOnce).to.equal(true);
         expect(push.calledWith({})).to.equal(true);
     });
@@ -30,14 +30,14 @@ describe('Periodevelger', () => {
         const push = sinon.spy();
         fields.push = push;
 
-        shallow(<PeriodevelgerComponent fields={fields} meta={{ form: 'testskjema ' }} />);
+        shallow(<PeriodelisteComponent fields={fields} meta={{ form: 'testskjema ' }} />);
         expect(push.calledOnce).to.equal(false);
         expect(push.calledWith({})).to.equal(false);
     });
 
-    it('Skal inneholde en Periode per periode ', () => {
+    it('Skal inneholde en PeriodeFields per periode ', () => {
         fields = [{}, {}];
-        const compo = shallow(<PeriodevelgerComponent fields={fields} meta={{ form: 'testskjema ' }} />);
-        expect(compo.find(Periode)).to.have.length(2);
+        const compo = shallow(<PeriodelisteComponent fields={fields} meta={{ form: 'testskjema ' }} />);
+        expect(compo.find(PeriodeFields)).to.have.length(2);
     });
 });

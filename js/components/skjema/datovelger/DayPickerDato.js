@@ -4,9 +4,9 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import { erGyldigDatoformat, scrollTo } from '@navikt/digisyfo-npm';
 import { fieldPropTypes } from '../../../propTypes';
 import { erGyldigDato } from '../../../utils/datoUtils';
-import NavBar from './DayPickerNavBar';
-import Caption from './DayPickerCaption';
-import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from './datovelgerLocale';
+import NavBar from '../daypicker/DayPickerNavBar';
+import Caption from '../daypicker/DayPickerCaption';
+import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from '../daypicker/daypickerLocale';
 
 export const leggTilNullForan = (nr) => {
     return nr > 9 || nr.length > 1 ? nr : `0${nr}`;

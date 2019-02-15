@@ -4,7 +4,7 @@ const ledetekster = {
     'tidslinje.med-arbeidsgiver.aktivitetskrav.budskap': '<p>NAV har som oppgave å vurdere om du fyller kravene til aktivitet og om du fortsatt har rett til sykepenger. Den som har sykmeldt deg skal gi NAV informasjon hvis medisinske forhold gjør at du ikke kan være i aktivitet.  Ved alvorlig sykdom er det unntak fra aktivitetsplikten. Du vil motta et brev fra NAV hvis vi er usikre på om du fyller aktivitetskravet. </p><p>Ved 8 uker vurderer NAV <a href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/Sykepenger+til+arbeidstakere#chapter-2">aktivitetskravet</a>.</p>',
     'tidslinje.introtekst': 'Oppgavene på tidslinjen er generell informasjon om aktiviteter og milepæler. Aktiviteter kan skje på andre tidspunkter hvis det er behov for det. Hvis du er for syk til å delta i aktivitet, er det unntak fra oppgavene.',
     'sykmelding.teaser.tekst.avventende.en-dag.uten-arbeidsgiver': 'Du er avventende sykmeldt i %DAGER% dag',
-    'din-sykmelding.periode.tittel': 'Periode',
+    'din-sykmelding.periode.tittel': 'PeriodeFields',
     'sykmelding.teaser.tekst.ingen-grad': 'Du er sykmeldt fra %ARBEIDSGIVER% i %DAGER% dager',
     'tidslinje.uten-arbeidsgiver.dialog.meta': '8 uker',
     'din-sykmelding.tilbakedatering.tittel': 'Tilbakedatering',

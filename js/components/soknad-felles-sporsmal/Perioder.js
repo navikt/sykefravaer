@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Periodevelger from '../skjema/datovelger/Periodevelger';
+import Periodevelger from '../skjema/periodevelger/Periodevelger';
 import Sporsmalstekst from './Sporsmalstekst';
 
 const Perioder = ({ min, max, name, sporsmalstekst, initiellDato }) => {

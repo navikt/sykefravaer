@@ -11,7 +11,7 @@ import { PeriodevelgerContext } from './Periodevelger';
 
 let lukk;
 
-class FomTomVelger extends Component {
+class PeriodevelgerInputComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -131,7 +131,7 @@ class FomTomVelger extends Component {
     }
 }
 
-FomTomVelger.propTypes = {
+PeriodevelgerInputComponent.propTypes = {
     names: PropTypes.arrayOf(PropTypes.string),
     visVerktoy: PropTypes.bool,
     onRemoveHandler: PropTypes.func,
@@ -141,15 +141,15 @@ FomTomVelger.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-const FomTomVelgerConsumer = (props) => {
+const PeriodevelgerInput = (props) => {
     return (<PeriodevelgerContext.Consumer>
         {
             (contextProps) => {
-                return <FomTomVelger {...props} {...contextProps} />;
+                return <PeriodevelgerInputComponent {...props} {...contextProps} />;
             }
         }
     </PeriodevelgerContext.Consumer>);
 };
 
-export default FomTomVelgerConsumer;
+export default PeriodevelgerInput;
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import FomTomVelger from './FomTomVelger';
+import FomTomVelger from './PeriodevelgerInput';
 
-const Periode = (props) => {
+const PeriodeFields = (props) => {
     const { name, index, onRemoveHandler, skjemanavn } = props;
     const fomName = `${name}.fom`;
     const tomName = `${name}.tom`;
@@ -15,11 +15,11 @@ const Periode = (props) => {
         periodeIndex={index} />);
 };
 
-Periode.propTypes = {
+PeriodeFields.propTypes = {
     index: PropTypes.number,
     onRemoveHandler: PropTypes.func,
     name: PropTypes.string.isRequired,
     skjemanavn: PropTypes.string,
 };
 
-export default Periode;
+export default PeriodeFields;

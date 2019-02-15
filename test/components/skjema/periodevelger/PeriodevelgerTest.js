@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import Periode from '../../../../js/components/skjema/periodevelger/Periode';
+import PeriodeFields from '../../../../js/components/skjema/periodevelger/PeriodeFields';
 import { PeriodelisteComponent } from '../../../../js/components/skjema/periodevelger/Periodeliste';
 
 chai.use(chaiEnzyme());
@@ -35,9 +35,9 @@ describe('PeriodelisteComponent', () => {
         expect(push.calledWith({})).to.equal(false);
     });
 
-    it('Skal inneholde en Periode per periode ', () => {
+    it('Skal inneholde en PeriodeFields per periode ', () => {
         fields = [{}, {}];
         const compo = shallow(<PeriodelisteComponent fields={fields} meta={{ form: 'testskjema ' }} />);
-        expect(compo.find(Periode)).to.have.length(2);
+        expect(compo.find(PeriodeFields)).to.have.length(2);
     });
 });

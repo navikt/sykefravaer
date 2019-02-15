@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Feilomrade from '../Feilomrade';
 import { fieldPropTypes, fields as fieldsPt } from '../../../propTypes';
-import Periode from './Periode';
+import PeriodeFields from './PeriodeFields';
 
 export class PeriodelisteComponent extends Component {
     componentWillMount() {
@@ -23,7 +23,7 @@ export class PeriodelisteComponent extends Component {
                     <div className="periodevelger__perioder">
                         {
                             fields.map((field, index) => {
-                                return (<Periode
+                                return (<PeriodeFields
                                     Overskrift={Overskrift}
                                     skjemanavn={meta.form}
                                     name={`${namePrefix}[${index}]`}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 import {
@@ -8,31 +8,33 @@ import {
     INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT,
     INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT,
     INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT,
-    INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT,
+    INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT, UTLANDSOPPHOLD_SOKT_SYKEPENGER,
 } from '../../enums/tagtyper';
-import { JA } from '../../enums/svarEnums';
+import { JA, NEI } from '../../enums/svarEnums';
 import { fjernIndexFraTag } from './fieldUtils';
 import { soknad as soknadPt } from '../../propTypes';
 
 const visPresisering = (tag, value, soknadstype) => {
     const tagsMedPresisering = {
         [ARBEIDSTAKERE]: {
-            [INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT]: JA,
-            [INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT]: JA,
-            [INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT]: JA,
-            [INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT]: JA,
-            [INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT]: JA,
-            [INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT]: JA,
+            [INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT]: [JA],
+            [INNTEKTSKILDE_SELVSTENDIG_DAGMAMMA_ER_DU_SYKMELDT]: [JA],
+            [INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT]: [JA],
+            [INNTEKTSKILDE_SELVSTENDIG_ER_DU_SYKMELDT]: [JA],
+            [INNTEKTSKILDE_JORDBRUKER_ER_DU_SYKMELDT]: [JA],
+            [INNTEKTSKILDE_FRILANSER_ER_DU_SYKMELDT]: [JA],
+            [UTLANDSOPPHOLD_SOKT_SYKEPENGER]: [JA, NEI],
         },
     };
     return tagsMedPresisering[soknadstype]
-        && tagsMedPresisering[soknadstype][fjernIndexFraTag(tag)] === value;
+        && tagsMedPresisering[soknadstype][fjernIndexFraTag(tag)]
+        && tagsMedPresisering[soknadstype][fjernIndexFraTag(tag)].indexOf(value) > -1;
 };
 
 const JaEllerNeiPresisering = ({ tag, value, soknad }) => {
     return visPresisering(tag, value, soknad.soknadstype)
         ? <div className="presisering blokk">
-            <p className="sist">{getLedetekst(`soknad.infotekst.${fjernIndexFraTag(tag).toLowerCase()}`)}</p>
+            <p className="sist" dangerouslySetInnerHTML={getHtmlLedetekst(`soknad.infotekst.${fjernIndexFraTag(tag).toLowerCase()}`)} />
         </div>
         : null;
 };

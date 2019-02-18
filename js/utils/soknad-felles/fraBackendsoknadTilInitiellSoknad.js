@@ -15,17 +15,19 @@ const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
         case DATO:
             return parse(toDatePrettyPrint(new Date(svar[0].verdi)));
         case PERIODER: {
-            return svar.map((s) => {
-                const periode = JSON.parse(s.verdi);
-                const returPeriode = {};
-                if (periode.fom) {
-                    returPeriode.fom = tilPeriodedato(periode.fom);
-                }
-                if (periode.tom) {
-                    returPeriode.tom = tilPeriodedato(periode.tom);
-                }
-                return returPeriode;
-            });
+            return svar.length === 0
+                ? [{}]
+                : svar.map((s) => {
+                    const periode = JSON.parse(s.verdi);
+                    const returPeriode = {};
+                    if (periode.fom) {
+                        returPeriode.fom = tilPeriodedato(periode.fom);
+                    }
+                    if (periode.tom) {
+                        returPeriode.tom = tilPeriodedato(periode.tom);
+                    }
+                    return returPeriode;
+                });
         }
         case CHECKBOX:
             return parse(svar.map((_svar) => { return (_svar.verdi ? 'CHECKED' : 'UNCHECKED'); })[0]);
@@ -61,7 +63,9 @@ export default (soknad) => {
         .map((sporsmal) => { return flatten(sporsmal); })
         .flatten()
         .filter((spm) => {
-            return spm.svar.length > 0 || spm.svartype === RADIO_GRUPPE_TIMER_PROSENT;
+            return spm.svar.length > 0
+                || spm.svartype === RADIO_GRUPPE_TIMER_PROSENT
+                || spm.svartype === PERIODER;
         });
 
     return alleSporsmal

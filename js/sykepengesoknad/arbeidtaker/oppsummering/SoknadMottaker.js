@@ -30,12 +30,6 @@ class SoknadMottaker extends Component {
         this.hentMottaker();
     }
 
-    componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps.skjemasvar) !== JSON.stringify(this.props.skjemasvar)) {
-            this.hentMottaker();
-        }
-    }
-
     hentMottaker() {
         const populertSoknad = populerSoknadMedSvar(this.props.soknad, this.props.skjemasvar);
         this.props.hentSoknadMottaker(populertSoknad);

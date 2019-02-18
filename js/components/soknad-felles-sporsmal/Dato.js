@@ -12,7 +12,6 @@ const Dato = (props) => {
     return (<div>
         <Sporsmalstekst tekst={sporsmalstekst} Tag="label" htmlFor={name} />
         <Datovelger
-            onChange={onChange}
             oppdaterSporsmal={onChange}
             format={formaterEnkeltverdi}
             parse={parse}

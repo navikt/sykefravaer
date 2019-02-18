@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import JaEllerNeiPresisering from '../../../js/components/soknad-felles-sporsmal/JaEllerNeiPresisering';
 import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import mockNySoknadArbeidstaker from '../../mock/mockNySoknadArbeidstaker';
-import { INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT } from '../../../js/enums/tagtyper';
+import { INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT, UTLANDSOPPHOLD_SOKT_SYKEPENGER } from '../../../js/enums/tagtyper';
 import { JA, NEI } from '../../../js/enums/svarEnums';
 
 chai.use(chaiEnzyme());
@@ -42,5 +42,21 @@ describe('JaEllerNeiPresisering', () => {
             soknad={getNySoknadSelvstendig()}
             value={JA} />);
         expect(component.html()).to.equal(null);
+    });
+
+    it("Skal vise html når tag = UTLANDSOPPHOLD_SOKT_SYKEPENGER og søknadstype = ARBEIDSTAKERE og value = JA", () => {
+        const component = shallow(<JaEllerNeiPresisering
+            tag={UTLANDSOPPHOLD_SOKT_SYKEPENGER}
+            soknad={mockNySoknadArbeidstaker()}
+            value={JA} />);
+        expect(component.html()).not.to.equal(null);
+    });
+
+    it("Skal vise html når tag = UTLANDSOPPHOLD_SOKT_SYKEPENGER og søknadstype = ARBEIDSTAKERE og value = NEI", () => {
+        const component = shallow(<JaEllerNeiPresisering
+            tag={UTLANDSOPPHOLD_SOKT_SYKEPENGER}
+            soknad={mockNySoknadArbeidstaker()}
+            value={NEI} />);
+        expect(component.html()).not.to.equal(null);
     });
 });

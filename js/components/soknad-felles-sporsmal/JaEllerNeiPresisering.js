@@ -34,7 +34,9 @@ const visPresisering = (tag, value, soknadstype) => {
 const JaEllerNeiPresisering = ({ tag, value, soknad }) => {
     return visPresisering(tag, value, soknad.soknadstype)
         ? <div className="presisering blokk">
-            <p className="sist" dangerouslySetInnerHTML={getHtmlLedetekst(`soknad.infotekst.${fjernIndexFraTag(tag).toLowerCase()}`)} />
+            <p
+                className="sist"
+                dangerouslySetInnerHTML={getHtmlLedetekst(`soknad.infotekst.${fjernIndexFraTag(tag).toLowerCase()}.${value.toLowerCase()}.infotekst`)} />
         </div>
         : null;
 };

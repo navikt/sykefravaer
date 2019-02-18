@@ -44,7 +44,7 @@ describe('JaEllerNeiPresisering', () => {
         expect(component.html()).to.equal(null);
     });
 
-    it("Skal vise html når tag = UTLANDSOPPHOLD_SOKT_SYKEPENGER og søknadstype = ARBEIDSTAKERE og value = JA", () => {
+    it('Skal vise html når tag = UTLANDSOPPHOLD_SOKT_SYKEPENGER og søknadstype = ARBEIDSTAKERE og value = JA', () => {
         const component = shallow(<JaEllerNeiPresisering
             tag={UTLANDSOPPHOLD_SOKT_SYKEPENGER}
             soknad={mockNySoknadArbeidstaker()}
@@ -52,7 +52,7 @@ describe('JaEllerNeiPresisering', () => {
         expect(component.html()).not.to.equal(null);
     });
 
-    it("Skal vise html når tag = UTLANDSOPPHOLD_SOKT_SYKEPENGER og søknadstype = ARBEIDSTAKERE og value = NEI", () => {
+    it('Skal vise html når tag = UTLANDSOPPHOLD_SOKT_SYKEPENGER og søknadstype = ARBEIDSTAKERE og value = NEI', () => {
         const component = shallow(<JaEllerNeiPresisering
             tag={UTLANDSOPPHOLD_SOKT_SYKEPENGER}
             soknad={mockNySoknadArbeidstaker()}

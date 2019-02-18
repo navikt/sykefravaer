@@ -27,7 +27,7 @@ const mottakerTekst = (sendesTil, mottakernavn) => {
 };
 
 const soknadHarForskutteringssporsmal = (soknad) => {
-    return soknad.sporsmal.find((spm) => {
+    return soknad.sporsmal.filter((spm) => {
         return spm.tag === BETALER_ARBEIDSGIVER;
     }).length > 0;
 };

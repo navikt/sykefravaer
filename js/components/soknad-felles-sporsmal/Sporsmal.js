@@ -57,7 +57,7 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
             </Tall>);
         }
         case CHECKBOX: {
-            return (<Checkbox {...sporsmal} name={name} soknad={soknad}>
+            return (<Checkbox {...sporsmal} name={name} soknad={soknad} actions={actions}>
                 { undersporsmalsliste }
             </Checkbox>);
         }
@@ -77,7 +77,7 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
             </JaEllerNei>);
         }
         case CHECKBOX_GRUPPE: {
-            return (<CheckboxGruppe {...sporsmal} name={name} soknad={soknad}>
+            return (<CheckboxGruppe {...sporsmal} name={name} soknad={soknad} actions={actions}>
                 { undersporsmalsliste }
             </CheckboxGruppe>);
         }

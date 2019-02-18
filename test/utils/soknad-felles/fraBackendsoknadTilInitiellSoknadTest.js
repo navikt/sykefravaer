@@ -72,6 +72,24 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
         }]);
     });
 
+    it('Skal opprette en tom periode når det ikke finnes perioder', () => {
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad({
+            sporsmal: [{
+                id: '55',
+                tag: 'PERIODEUTLAND',
+                sporsmalstekst: 'Når skal du være utenfor Norge?',
+                undertekst: null,
+                svartype: 'PERIODER',
+                min: '2018-06-03',
+                max: '2019-03-03',
+                kriterieForVisningAvUndersporsmal: null,
+                svar: [],
+                undersporsmal: [],
+            }],
+        }));
+        expect(initiellSoknad[PERIODEUTLAND]).to.deep.equal([{}]);
+    });
+
     it('Skal mappe fritekst', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad());
         expect(initiellSoknad[LAND]).to.deep.equal({

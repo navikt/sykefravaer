@@ -10,13 +10,15 @@ import SykepengesoknadStatuspanel from '../statuspanel/SykepengesoknadStatuspane
 import { KORRIGERT, SENDT } from '../../enums/soknadstatuser';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
+import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
 
 const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {
+    const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
     return (<div>
         <Soknadtopp soknad={soknad} />
         { soknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={soknad} /> }
         <SykepengesoknadStatuspanel soknad={soknad} />
-        {sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} />}
+        {sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} sykepengesoknad={{ _erOppdelt }} />}
         <Utvidbar
             tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')}
             className="blokk js-soknad-oppsummering"

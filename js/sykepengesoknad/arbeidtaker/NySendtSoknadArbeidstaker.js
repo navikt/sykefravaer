@@ -7,12 +7,14 @@ import Soknadtopp from '../../components/soknad-felles/Soknadtopp';
 import { finnSykmelding } from '../../utils/soknad-felles/soknadSetup';
 import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import SykepengesoknadStatuspanel from '../statuspanel/SykepengesoknadStatuspanel';
-import { SENDT } from '../../enums/soknadstatuser';
+import { KORRIGERT, SENDT } from '../../enums/soknadstatuser';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
+import KorrigertAvContainer from '../../containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
 
 const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {
     return (<div>
         <Soknadtopp soknad={soknad} />
+        { soknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={soknad} /> }
         <SykepengesoknadStatuspanel soknad={soknad} />
         {sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} />}
         <Utvidbar
@@ -27,7 +29,7 @@ const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {
                     }),
                 }} />
         </Utvidbar>
-        <div className="panel js-vaer-klar-over-at">
+        <div className="panel js-vaer-klar-over-at blokk">
             <Oppsummeringsvisning
                 soknad={{
                     ...soknad,

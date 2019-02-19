@@ -13,7 +13,7 @@ import TidligSoknad from './TidligSoknad';
 
 const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmelding, intro = null }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
-
+    
     return (<div>
         <Soknadtopp
             soknad={soknad}
@@ -34,7 +34,7 @@ const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmeld
             rootUrl="/sykefravaer"
             sykmelding={sykmelding}
             erApen={aktivtSteg === '1'}
-            erOppdelt={_erOppdelt} />}
+            sykepengesoknad={{ _erOppdelt }} />}
         {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
         {children}
     </div>);

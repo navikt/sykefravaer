@@ -13,7 +13,7 @@ import TidligSoknad from './TidligSoknad';
 
 const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmelding, intro = null }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
-    
+
     return (<div>
         <Soknadtopp
             soknad={soknad}

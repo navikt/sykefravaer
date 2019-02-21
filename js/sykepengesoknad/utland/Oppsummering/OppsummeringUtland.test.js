@@ -3,9 +3,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from '@navikt/digisyfo-npm';
-import Oppsummeringsvisning from '../../../js/components/soknad-felles-oppsummering/Oppsummeringsvisning';
-import populerSoknadMedSvar from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
-import { getSoknadUtland } from '../../mock/mockSoknadUtland';
+import Oppsummeringsvisning from '../../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
+import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
+import { getSoknadUtland } from '../../../../test/mock/mockSoknadUtland';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

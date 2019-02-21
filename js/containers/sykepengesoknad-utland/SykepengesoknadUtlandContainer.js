@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import SideStrippet from '../../sider/SideStrippet';
-import { FoerDuBegynner } from '../../components/sykepengesoknad-utland/FoerDuBegynner/FoerDuBegynner';
+import { FoerDuBegynner } from '../../sykepengesoknad/utland/FoerDuBegynner/FoerDuBegynner';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { opprettSoknadUtland } from '../../actions/soknader_actions';
 
 export const Container = ({ henter, hentingFeilet, opprettSoknad, opprettFeilet, oppretterSoknad }) => {
-    return (<SideStrippet tittel={getLedetekst('sykepengesoknad-utland.sidetittel')} laster={henter}>
+    return (<SideStrippet tittel={getLedetekst('utland.sidetittel')} laster={henter}>
         {(() => {
             if (henter) {
                 return <AppSpinner />;

@@ -6,20 +6,20 @@ import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
-import Header from '../SykepengesoknadUtlandHeader';
-import Sporsmal from '../../soknad-felles-sporsmal/Sporsmal';
-import { soknad as soknadPt } from '../../../propTypes';
+import Header from '../HeaderUtland';
+import Sporsmal from '../../../components/soknad-felles-sporsmal/Sporsmal';
+import { soknad as soknadPt } from '../../../propTypes/index';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
-import validate from '../validering/validerUtlandsSkjema';
+import validate from '../validering/validerSoknadUtland';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/skjema/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
 import { PERIODEUTLAND } from '../../../enums/tagtyper';
 import fraBackendsoknadTilInitiellSoknad from '../../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
-import Feilstripe from '../../Feilstripe';
+import Feilstripe from '../../../components/Feilstripe';
 import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
 
-export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, harFerie, avbrytSoknadFeilet, sendingFeilet }) => {
+export const SoknadUtlandSkjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, harFerie, avbrytSoknadFeilet, sendingFeilet }) => {
     const sporsmallisteSkjema = () => {
         return harFerie ? soknad.sporsmal.filter((sporsmal) => {
             return IKKE_RELEVANT !== sporsmal.svartype;
@@ -75,7 +75,7 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
     </form>);
 };
 
-Utlandsskjema.propTypes = {
+SoknadUtlandSkjema.propTypes = {
     soknad: soknadPt,
     harFerie: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
@@ -104,4 +104,4 @@ export default compose(
             onSubmitFail(errors, dispatch, OPPHOLD_UTLAND_SKJEMA);
         },
     }),
-)(Utlandsskjema);
+)(SoknadUtlandSkjema);

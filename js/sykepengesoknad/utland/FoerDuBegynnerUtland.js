@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Bjorn, getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
-import Feilstripe from '../../Feilstripe';
+import Feilstripe from '../../components/Feilstripe';
 
-export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }) => {
+export const FoerDuBegynnerUtland = ({ opprettSoknad, opprettFeilet, oppretterSoknad }) => {
     return (<div>
         <div className="sidebanner sidebanner--utenramme">
             <div className="sidebanner__innhold blokk--xl">
@@ -47,7 +47,7 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
     </div>);
 };
 
-FoerDuBegynner.propTypes = {
+FoerDuBegynnerUtland.propTypes = {
     opprettSoknad: PropTypes.func,
     opprettFeilet: PropTypes.bool,
     oppretterSoknad: PropTypes.bool,

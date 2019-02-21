@@ -2,8 +2,8 @@ import React from 'react';
 import {
     getLedetekst,
 } from '@navikt/digisyfo-npm';
-import { soknad as soknadPt } from '../../propTypes';
-import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
+import { soknad as soknadPt } from '../../propTypes/index';
+import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../../components/Statuspanel';
 import hentStatustekst from '../../utils/soknad-felles/hentSoknadStatustekst';
 
 const StatuspanelUtland = ({ soknad }) => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Bjorn, getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
-import Header from '../SykepengesoknadUtlandHeader';
-import { IllustrertInnholdGronnHake } from '../../IllustrertInnhold';
+import Header from './HeaderUtland';
+import { IllustrertInnholdGronnHake } from '../../components/IllustrertInnhold';
 
-const Kvittering = () => {
+const KvitteringUtland = () => {
     return (<div>
         <Header />
         <div className="panel blokk">
@@ -30,4 +30,4 @@ const Kvittering = () => {
     </div>);
 };
 
-export default Kvittering;
+export default KvitteringUtland;

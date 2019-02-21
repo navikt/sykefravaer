@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
+import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes/index';
 import Feilstripe from '../../../components/Feilstripe';
-import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
-import StatuspanelUtland from '../SoknadstatuspanelUtland';
-import Sidetopp from '../../Sidetopp';
+import Oppsummeringsvisning from '../../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
+import StatuspanelUtland from '../StatuspanelUtland';
+import Sidetopp from '../../../components/Sidetopp';
 
 const OppsummeringPanel = ({ soknad }) => {
     return (<div className="panel blokk">

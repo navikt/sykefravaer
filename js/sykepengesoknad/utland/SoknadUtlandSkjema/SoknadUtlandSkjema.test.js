@@ -5,9 +5,9 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 
-import { getSoknadUtland } from '../../mock/mockSoknadUtland';
-import { Utlandsskjema } from '../../../js/components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
-import Sporsmal from '../../../js/components/soknad-felles-sporsmal/Sporsmal';
+import { getSoknadUtland } from '../../../../test/mock/mockSoknadUtland';
+import { SoknadUtlandSkjema } from './SoknadUtlandSkjema';
+import Sporsmal from '../../../components/soknad-felles-sporsmal/Sporsmal';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -17,7 +17,7 @@ describe('Test at riktig knapp og antall sporsmal blir rendret', () => {
     const soknad = getSoknadUtland();
     const sender = false;
     let ferie = true;
-    const componentMedFerieTrue = shallow(<Utlandsskjema
+    const componentMedFerieTrue = shallow(<SoknadUtlandSkjema
         handleSubmit={sinon.spy()}
         soknad={soknad}
         sendSoknad={sinon.spy()}
@@ -25,7 +25,7 @@ describe('Test at riktig knapp og antall sporsmal blir rendret', () => {
         harFerie={ferie}
     />);
     ferie = false;
-    const componentMedFerieFalse = shallow(<Utlandsskjema
+    const componentMedFerieFalse = shallow(<SoknadUtlandSkjema
         handleSubmit={sinon.spy()}
         soknad={soknad}
         sendSoknad={sinon.spy()}

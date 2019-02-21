@@ -9,7 +9,7 @@ import * as actions from '../../actions/sykepengesoknader_actions';
 import ConnectedEttersending from './Ettersending';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad-arbeidstaker/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
-import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';
+import SykepengesoknadHeader from '../soknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 
 const { KORRIGERT, SENDT, TIL_SENDING } = sykepengesoknadstatuser;

@@ -10,8 +10,8 @@ import Side from './Side';
 import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import SykepengesoknadUtlandSkjemaContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger, NyArbeidstakerSoknadHotjarTrigger, SykepengerUtlandSoknadTrigger } from '../components/HotjarTrigger';
-import beregnBrodsmulesti from '../utils/soknad-felles/beregnBrodsmulesti';
-import SoknadSelvstendigNaeringsdrivende from '../components/sykepengesoknad-selvstendig/SoknadSelvstendigNaeringsdrivende';
+import beregnBrodsmulesti from '../sykepengesoknad/utils/beregnBrodsmulesti';
+import SoknadSelvstendigNaeringsdrivende from '../sykepengesoknad/selvstendig-frilanser/SoknadSelvstendigNaeringsdrivende';
 import SykepengesoknadArbeidstaker from '../components/sykepengesoknad-arbeidstaker/SykepengesoknadArbeidstaker';
 import NySoknadArbeidstaker from '../sykepengesoknad/arbeidtaker/NySoknadArbeidstaker';
 

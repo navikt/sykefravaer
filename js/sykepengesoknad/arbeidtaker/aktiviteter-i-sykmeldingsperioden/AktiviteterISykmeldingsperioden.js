@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import history from '../../../history';
-import Soknadskjema from '../../../components/soknad-felles/Soknadskjema';
+import Soknadskjema from '../../felles/Soknadskjema';
 import { KnapperadTilbake } from '../../../components/skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { ANDRE_INNTEKTSKILDER, FERIE_PERMISJON_UTLAND, UTDANNING } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
-import Sporsmalsliste from '../../../components/soknad-felles-sporsmal/Sporsmalsliste';
+import Sporsmalsliste from '../../felles/sporsmal/Sporsmalsliste';
 
 export const hentSporsmalForAktiviteterISykmeldingsperioden = (soknad) => {
     return soknad.sporsmal.filter((sporsmal) => {

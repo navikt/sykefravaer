@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes/index';
 import Feilstripe from '../../../components/Feilstripe';
-import Oppsummeringsvisning from '../../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
+import Oppsummeringsvisning from '../../felles/oppsummering/Oppsummeringsvisning';
 import StatuspanelUtland from '../StatuspanelUtland';
 import Sidetopp from '../../../components/Sidetopp';
 

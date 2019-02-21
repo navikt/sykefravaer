@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { skjemasvar as skjemasvarPt, soknad as soknadPt, soknadmottakerPt } from '../../../propTypes';
 import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../../enums/soknadmottakertyper';
 import { hentSoknadMottaker } from '../../../actions/soknadMeta_actions';
-import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
+import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { soknadMottakerSelector } from '../../../selectors/soknadMetaSelectors';
 import { BETALER_ARBEIDSGIVER } from '../../../enums/tagtyper';
 

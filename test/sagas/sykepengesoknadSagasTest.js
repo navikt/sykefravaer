@@ -126,7 +126,7 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
-        it('skal dernest sende sykepengesoknad-felles-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker', () => {
+        it('skal dernest sende søknad til NAV', () => {
             const nextCall = call(post, '/syforest/soknader/1/actions/send-til-nav');
             expect(generator.next().value).to.deep.equal(nextCall);
         });

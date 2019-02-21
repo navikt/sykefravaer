@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, sykepengesoknadstatuser, forskutterersvar } from '@navikt/digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad-arbeidstaker/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
-import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';
+import StartIgjen from '../../components/soknad-felles/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad-arbeidstaker/Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad-arbeidstaker/mappers/mapSkjemasoknadToBackendsoknad';

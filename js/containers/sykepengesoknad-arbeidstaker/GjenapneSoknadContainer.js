@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import GjenapneSoknad from '../../components/sykepengesoknad-felles/GjenapneSoknad';
+import GjenapneSoknad from '../../components/soknad-felles/GjenapneSoknad';
 import { gjenapneSoknad } from '../../actions/sykepengesoknader_actions';
 
 export const soknadKanGjenapnes = (opprettetDato) => {

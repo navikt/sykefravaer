@@ -1,4 +1,4 @@
-import fraBackendsoknadTilInitiellSoknad from '../../../js/utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
+import fraBackendsoknadTilInitiellSoknad from '../../../js/sykepengesoknad/utils/fraBackendsoknadTilInitiellSoknad';
 import mockLagretSoknad from '../../mock/mockLagretSoknad';
 import expect from '../../expect';
 import {

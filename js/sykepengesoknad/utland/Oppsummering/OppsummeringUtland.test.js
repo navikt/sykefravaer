@@ -3,8 +3,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from '@navikt/digisyfo-npm';
-import Oppsummeringsvisning from '../../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
-import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
+import Oppsummeringsvisning from '../../felles/oppsummering/Oppsummeringsvisning';
+import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { getSoknadUtland } from '../../../../test/mock/mockSoknadUtland';
 
 chai.use(chaiEnzyme());

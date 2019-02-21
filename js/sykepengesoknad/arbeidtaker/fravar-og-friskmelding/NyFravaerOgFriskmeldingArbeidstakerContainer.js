@@ -1,9 +1,9 @@
 import React from 'react';
-import setup from '../../../utils/soknad-felles/soknadSetup';
+import setup from '../../utils/soknadSetup';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import validerFoerDuBegynner from '../for-du-begynner/validerFoerDuBegynner';
 import FravaerOgFriskmelding from './FravaerOgFriskmelding';
-import Soknadstatussjekker from '../../../components/soknad-felles/Soknadstatussjekker';
+import Soknadstatussjekker from '../../felles/Soknadstatussjekker';
 
 const FravaerOgFriskmeldingContainer = (props) => {
     return <Soknadstatussjekker {...props} Component={FravaerOgFriskmelding} valider={validerFoerDuBegynner} />;

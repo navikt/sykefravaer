@@ -7,7 +7,7 @@ import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 
 import { getSoknadUtland } from '../../../../test/mock/mockSoknadUtland';
 import { SoknadUtlandSkjema } from './SoknadUtlandSkjema';
-import Sporsmal from '../../../components/soknad-felles-sporsmal/Sporsmal';
+import Sporsmal from '../../felles/sporsmal/Sporsmal';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

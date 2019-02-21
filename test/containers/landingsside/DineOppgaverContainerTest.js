@@ -265,7 +265,7 @@ describe('DineOppgaverContainer', () => {
                 expect(component.find('.js-tittel')).to.contain('Oppgaver som venter på deg');
             });
 
-            it('Skal vise en lenke til din sykepengesoknad-felles-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker hvis det er én søknad', () => {
+            it('Skal vise en lenke til din utils-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker hvis det er én søknad', () => {
                 component = mount(<DineOppgaver
                     sykmeldingerHentet
                     oppfolgingsdialogerHentet

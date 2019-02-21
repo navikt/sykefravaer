@@ -7,17 +7,17 @@ import { reduxForm } from 'redux-form';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 import Header from '../HeaderUtland';
-import Sporsmal from '../../../components/soknad-felles-sporsmal/Sporsmal';
+import Sporsmal from '../../felles/sporsmal/Sporsmal';
 import { soknad as soknadPt } from '../../../propTypes/index';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerSoknadUtland';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/skjema/FeiloppsummeringContainer';
-import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
+import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
 import { PERIODEUTLAND } from '../../../enums/tagtyper';
-import fraBackendsoknadTilInitiellSoknad from '../../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
+import fraBackendsoknadTilInitiellSoknad from '../../utils/fraBackendsoknadTilInitiellSoknad';
 import Feilstripe from '../../../components/Feilstripe';
-import AvbrytSoknadContainer from '../../../containers/soknad-felles/AvbrytSoknadContainer';
+import AvbrytSoknadContainer from '../../felles/avbryt-soknad/AvbrytSoknadContainer';
 
 export const SoknadUtlandSkjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, harFerie, avbrytSoknadFeilet, sendingFeilet }) => {
     const sporsmallisteSkjema = () => {

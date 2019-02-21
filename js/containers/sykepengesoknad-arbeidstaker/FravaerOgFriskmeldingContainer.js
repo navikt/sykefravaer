@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import FravaerOgFriskmelding from '../../components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/FravaerOgFriskmelding';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
-import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';
+import StartIgjen from '../../components/soknad-felles/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad-arbeidstaker/Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 

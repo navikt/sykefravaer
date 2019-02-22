@@ -42,7 +42,7 @@ const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
             return parse(svar[0].verdi);
         case RADIO_GRUPPE_TIMER_PROSENT: {
             const aktivtUndersporsmal = undersporsmal.find((uspm) => {
-                return uspm.svar[0].verdi === CHECKED;
+                return uspm.svar[0] && uspm.svar[0].verdi === CHECKED;
             });
             return parse(aktivtUndersporsmal.sporsmalstekst);
         }

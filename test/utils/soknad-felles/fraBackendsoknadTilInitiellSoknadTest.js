@@ -240,4 +240,104 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad);
         expect(initiellSoknad.HVOR_MYE_HAR_DU_JOBBET_0.svarverdier).to.deep.equal([{ verdi: 'prosent' }]);
     });
+
+    it('Skal mappe RADIO_GRUPPE_TIMER_PROSENT når underspørsmål er besvart med svar nr. 2', () => {
+        const soknad = {
+            sporsmal: [{
+                id: '90601',
+                tag: 'JOBBET_DU_100_PROSENT_0',
+                sporsmalstekst: 'I perioden 13. - 14. februar 2019 var du 100 % sykmeldt fra VANN- OG AVLØPSETATEN. Jobbet du noe i denne perioden?',
+                undertekst: null,
+                svartype: 'JA_NEI',
+                min: null,
+                max: null,
+                pavirkerAndreSporsmal: false,
+                kriterieForVisningAvUndersporsmal: 'JA',
+                svar: [{
+                    verdi: 'JA',
+                }],
+                undersporsmal: [{
+                    id: '90602',
+                    tag: 'HVOR_MANGE_TIMER_PER_UKE_0',
+                    sporsmalstekst: 'Hvor mange timer jobbet du per uke før du ble sykmeldt?',
+                    undertekst: 'timer per uke',
+                    svartype: 'TALL',
+                    min: '1',
+                    max: '150',
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [{
+                        verdi: '37',
+                    }],
+                    undersporsmal: [],
+                }, {
+                    id: '90603',
+                    tag: 'HVOR_MYE_HAR_DU_JOBBET_0',
+                    sporsmalstekst: 'Hvor mye jobbet du totalt 13. - 14. februar 2019 hos VANN- OG AVLØPSETATEN?',
+                    undertekst: null,
+                    svartype: 'RADIO_GRUPPE_TIMER_PROSENT',
+                    min: null,
+                    max: null,
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [],
+                    undersporsmal: [{
+                        id: '90604',
+                        tag: 'HVOR_MYE_PROSENT_0',
+                        sporsmalstekst: 'prosent',
+                        undertekst: null,
+                        svartype: 'RADIO',
+                        min: null,
+                        max: null,
+                        pavirkerAndreSporsmal: false,
+                        kriterieForVisningAvUndersporsmal: 'CHECKED',
+                        svar: [],
+                        undersporsmal: [{
+                            id: '90605',
+                            tag: 'HVOR_MYE_PROSENT_VERDI_0',
+                            sporsmalstekst: null,
+                            undertekst: 'prosent',
+                            svartype: 'TALL',
+                            min: '1',
+                            max: '99',
+                            pavirkerAndreSporsmal: false,
+                            kriterieForVisningAvUndersporsmal: null,
+                            svar: [],
+                            undersporsmal: [],
+                        }],
+                    }, {
+                        id: '90606',
+                        tag: 'HVOR_MYE_TIMER_0',
+                        sporsmalstekst: 'timer',
+                        undertekst: null,
+                        svartype: 'RADIO',
+                        min: null,
+                        max: null,
+                        pavirkerAndreSporsmal: false,
+                        kriterieForVisningAvUndersporsmal: 'CHECKED',
+                        svar: [{
+                            verdi: 'CHECKED',
+                        }],
+                        undersporsmal: [{
+                            id: '90607',
+                            tag: 'HVOR_MYE_TIMER_VERDI_0',
+                            sporsmalstekst: null,
+                            undertekst: 'timer totalt',
+                            svartype: 'TALL',
+                            min: '1',
+                            max: '43',
+                            pavirkerAndreSporsmal: false,
+                            kriterieForVisningAvUndersporsmal: null,
+                            svar: [{
+                                verdi: '3',
+                            }],
+                            undersporsmal: [],
+                        }],
+                    }],
+                }],
+            }],
+        };
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad);
+        expect(initiellSoknad.HVOR_MYE_HAR_DU_JOBBET_0.svarverdier).to.deep.equal([{ verdi: 'timer' }]);
+    });
 });

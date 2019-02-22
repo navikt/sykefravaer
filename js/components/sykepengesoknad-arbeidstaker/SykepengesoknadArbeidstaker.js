@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, KVITTERING, OPPSUMMERING } from '../../utils/soknad-felles/beregnSteg';
+import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, KVITTERING, OPPSUMMERING } from '../../sykepengesoknad/utils/beregnSteg';
 import Feilmelding from '../Feilmelding';
 import FoerDuBegynnerContainer from '../../containers/sykepengesoknad-arbeidstaker/FoerDuBegynnerContainer';
 import FravaerOgFriskmeldingContainer from '../../containers/sykepengesoknad-arbeidstaker/FravaerOgFriskmeldingContainer';

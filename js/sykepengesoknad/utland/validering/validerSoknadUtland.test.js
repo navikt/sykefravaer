@@ -3,7 +3,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from '@navikt/digisyfo-npm';
 import { getSoknadUtland } from '../../../../test/mock/mockSoknadUtland';
 import { ledeteksterUtland } from '../../../../test/mock/mockLedetekster';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../components/soknad-felles-sporsmal/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../felles/sporsmal/fieldUtils';
 import validerSoknadUtland from './validerSoknadUtland';
 import {
     ARBEIDSGIVER,

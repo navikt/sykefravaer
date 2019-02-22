@@ -8,7 +8,7 @@ import UtlandsSkjema from '../../sykepengesoknad/utland/SoknadUtlandSkjema/Sokna
 import Feilmelding from '../../components/Feilmelding';
 import { sendSoknad as sendSoknadAction, avbrytSoknad as avbrytSoknadAction } from '../../actions/soknader_actions';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
-import { formaterEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
+import { formaterEnkeltverdi } from '../../sykepengesoknad/felles/sporsmal/fieldUtils';
 import { JA } from '../../enums/svarEnums';
 import OppsummeringUtland from '../../sykepengesoknad/utland/Oppsummering/OppsummeringUtland';
 import KvitteringUtland from '../../sykepengesoknad/utland/KvitteringUtland';

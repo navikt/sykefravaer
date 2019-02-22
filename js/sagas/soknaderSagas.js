@@ -21,10 +21,10 @@ import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '.
 import logger from '../logging';
 import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import { hentSoknad, skalHenteSoknader } from '../selectors/soknaderSelectors';
-import { populerSoknadMedSvarUtenKonvertertePerioder } from '../utils/soknad-felles/populerSoknadMedSvar';
-import fraBackendsoknadTilInitiellSoknad from '../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
+import { populerSoknadMedSvarUtenKonvertertePerioder } from '../sykepengesoknad/utils/populerSoknadMedSvar';
+import fraBackendsoknadTilInitiellSoknad from '../sykepengesoknad/utils/fraBackendsoknadTilInitiellSoknad';
 import { hentSkjemaVerdier } from '../selectors/reduxFormSelectors';
-import { getSkjemanavnFraSoknad } from '../utils/soknad-felles/getSkjemanavnFraSoknad';
+import { getSkjemanavnFraSoknad } from '../sykepengesoknad/utils/getSkjemanavnFraSoknad';
 import getContextRoot from '../utils/getContextRoot';
 import { soknadUtland1 } from '../../test/mock/mockSoknadUtland';
 import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';

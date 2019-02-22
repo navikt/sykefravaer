@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import populerSoknadMedSvar, { populerSoknadMedSvarUtenKonvertertePerioder } from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
+import populerSoknadMedSvar, { populerSoknadMedSvarUtenKonvertertePerioder } from '../../../js/sykepengesoknad/utils/populerSoknadMedSvar';
 import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import {
     ANDRE_INNTEKTSKILDER,
@@ -12,7 +12,7 @@ import {
     TILBAKE_NAR,
     UTLAND,
 } from '../../../js/enums/tagtyper';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles-sporsmal/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/sykepengesoknad/felles/sporsmal/fieldUtils';
 import { CHECKED, JA, NEI } from '../../../js/enums/svarEnums';
 import { PERIODER } from '../../../js/enums/svartyper';
 import { getSoknadUtland } from '../../mock/mockSoknadUtland';

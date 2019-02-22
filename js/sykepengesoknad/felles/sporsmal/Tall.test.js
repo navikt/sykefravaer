@@ -1,0 +1,47 @@
+import chai from 'chai';
+import chaiEnzyme from 'chai-enzyme';
+import { setLedetekster } from '@navikt/digisyfo-npm';
+import { genererValiderTall } from './Tall';
+import { genererParseForEnkeltverdi } from './fieldUtils';
+
+chai.use(chaiEnzyme());
+const expect = chai.expect;
+
+describe('Tall', () => {
+    let valider;
+    let parse;
+
+    beforeEach(() => {
+        parse = genererParseForEnkeltverdi();
+        valider = genererValiderTall(1, 20, 'Husk å fylle ut dette');
+        setLedetekster({
+            'soknad.feilmelding.tall-min-max': 'Vennligst fyll ut et tall mellom %MIN% og %MAX%',
+        });
+    });
+
+    describe('validerTall', () => {
+        it('Skal klage hvis et felt ikke er fylt ut', () => {
+            const verdi = parse();
+            const feilmelding = valider(verdi);
+            expect(feilmelding).to.equal('Husk å fylle ut dette');
+        });
+
+        it('Skal klage hvis tallet er for høyt', () => {
+            const verdi = parse('21');
+            const feilmelding = valider(verdi);
+            expect(feilmelding).to.equal('Vennligst fyll ut et tall mellom 1 og 20');
+        });
+
+        it('Skal klage hvis tallet er for lavt', () => {
+            const verdi = parse('0');
+            const feilmelding = valider(verdi);
+            expect(feilmelding).to.equal('Vennligst fyll ut et tall mellom 1 og 20');
+        });
+
+        it('Skal ikke klage hvis tallet er gyldig og et number', () => {
+            const verdi = parse('3');
+            const okmelding = valider(verdi);
+            expect(okmelding).to.equal(undefined);
+        });
+    });
+});

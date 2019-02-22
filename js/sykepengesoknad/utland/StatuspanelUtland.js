@@ -4,13 +4,13 @@ import {
 } from '@navikt/digisyfo-npm';
 import { soknad as soknadPt } from '../../propTypes/index';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../../components/Statuspanel';
-import hentStatustekst from '../../utils/soknad-felles/hentSoknadStatustekst';
+import hentSoknadStatustekst from '../utils/hentSoknadStatustekst';
 
 const StatuspanelUtland = ({ soknad }) => {
     return (<Statuspanel>
         <Statusopplysninger>
             <StatusNokkelopplysning tittel={getLedetekst('statuspanel.status')}>
-                <p>{hentStatustekst(soknad)}</p>
+                <p>{hentSoknadStatustekst(soknad)}</p>
             </StatusNokkelopplysning>
         </Statusopplysninger>
     </Statuspanel>);

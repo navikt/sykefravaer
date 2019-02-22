@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import { Field } from 'redux-form';
 import Datovelger, { DatoField, genererValidate, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../../js/components/skjema/datovelger/Datovelger';
 import DaypickerComponent from '../../../../js/components/skjema/datovelger/DayPickerDato';
-import { formaterEnkeltverdi, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles-sporsmal/fieldUtils';
+import { formaterEnkeltverdi, genererParseForEnkeltverdi } from '../../../../js/sykepengesoknad/felles/sporsmal/fieldUtils';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

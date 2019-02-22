@@ -1,14 +1,14 @@
-import fraBackendsoknadTilInitiellSoknad from '../../../js/sykepengesoknad/utils/fraBackendsoknadTilInitiellSoknad';
-import mockLagretSoknad from '../../mock/mockLagretSoknad';
-import expect from '../../expect';
+import fraBackendsoknadTilInitiellSoknad from './fraBackendsoknadTilInitiellSoknad';
+import mockLagretSoknad from '../../../test/mock/mockLagretSoknad';
+import expect from '../../../test/expect';
 import {
     ARBEIDSGIVER,
     BEKREFT_OPPLYSNINGER_UTLAND,
     LAND,
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
-} from '../../../js/enums/tagtyper';
-import mockSoknadArbeidstakerUtfylt from '../../mock/mockNySoknadArbeidstakerUtfylt';
+} from '../../enums/tagtyper';
+import mockSoknadArbeidstakerUtfylt from '../../../test/mock/mockNySoknadArbeidstakerUtfylt';
 
 describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe perioder på norsk format', () => {

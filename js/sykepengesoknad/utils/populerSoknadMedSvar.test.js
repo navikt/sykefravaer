@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import populerSoknadMedSvar, { populerSoknadMedSvarUtenKonvertertePerioder } from '../../../js/sykepengesoknad/utils/populerSoknadMedSvar';
-import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
+import populerSoknadMedSvar, { populerSoknadMedSvarUtenKonvertertePerioder } from './populerSoknadMedSvar';
+import { getNySoknadSelvstendig } from '../../../test/mock/mockSoknadSelvstendig';
 import {
     ANDRE_INNTEKTSKILDER,
     ANSVARSERKLARING,
@@ -11,12 +11,12 @@ import {
     TILBAKE_I_ARBEID,
     TILBAKE_NAR,
     UTLAND,
-} from '../../../js/enums/tagtyper';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/sykepengesoknad/felles/sporsmal/fieldUtils';
-import { CHECKED, JA, NEI } from '../../../js/enums/svarEnums';
-import { PERIODER } from '../../../js/enums/svartyper';
-import { getSoknadUtland } from '../../mock/mockSoknadUtland';
-import mockNySoknadArbeidstaker from '../../mock/mockNySoknadArbeidstaker';
+} from '../../enums/tagtyper';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../felles/sporsmal/fieldUtils';
+import { CHECKED, JA, NEI } from '../../enums/svarEnums';
+import { PERIODER } from '../../enums/svartyper';
+import { getSoknadUtland } from '../../../test/mock/mockSoknadUtland';
+import mockNySoknadArbeidstaker from '../../../test/mock/mockNySoknadArbeidstaker';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

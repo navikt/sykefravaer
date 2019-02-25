@@ -42,6 +42,7 @@ class AvbrytSoknad extends Component {
                 <p className="avbrytDialog__trigger">
                     <a
                         role="button"
+                        href="#"
                         tabIndex="0"
                         aria-pressed={this.state.erApen}
                         ref={(c) => {

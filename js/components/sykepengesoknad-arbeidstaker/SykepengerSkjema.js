@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Stegindikator from '../sykepengesoknad-felles/Stegindikator';
+import Stegindikator from '../soknad-felles/Stegindikator';
 import { sykepengesoknad as sykepengesoknadPt, childEllerChildren } from '../../propTypes';
-import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';
+import SykepengesoknadHeader from '../soknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 
 const SykepengerSkjema = ({ children, aktivtSteg, tittel, sykepengesoknad }) => {

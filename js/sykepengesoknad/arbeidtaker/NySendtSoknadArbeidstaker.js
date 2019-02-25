@@ -1,20 +1,24 @@
 import React from 'react';
 import { getLedetekst, sykmelding as sykmeldingPt, SykmeldingUtdrag, Utvidbar } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
-import Oppsummeringsvisning from '../../components/soknad-felles-oppsummering/Oppsummeringsvisning';
+import Oppsummeringsvisning from '../felles/oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';
-import Soknadtopp from '../../components/soknad-felles/Soknadtopp';
-import { finnSykmelding } from '../../utils/soknad-felles/soknadSetup';
+import Soknadtopp from '../felles/Soknadtopp';
+import { finnSykmelding } from '../utils/soknadSetup';
 import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
-import SykepengesoknadStatuspanel from '../statuspanel/SykepengesoknadStatuspanel';
-import { SENDT } from '../../enums/soknadstatuser';
-import RelaterteSoknaderContainer from '../../containers/sykepengesoknad-selvstendig/RelaterteSoknaderContainer';
+import SykepengesoknadStatuspanel from '../felles/statuspanel/SykepengesoknadStatuspanel';
+import { KORRIGERT, SENDT } from '../../enums/soknadstatuser';
+import RelaterteSoknaderContainer from '../felles/relaterte-soknader/RelaterteSoknaderContainer';
+import KorrigertAvContainer from '../../containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
+import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
 
 const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {
+    const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
     return (<div>
         <Soknadtopp soknad={soknad} />
+        { soknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={soknad} /> }
         <SykepengesoknadStatuspanel soknad={soknad} />
-        {sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} />}
+        {sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} sykepengesoknad={{ _erOppdelt }} />}
         <Utvidbar
             tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')}
             className="blokk js-soknad-oppsummering"
@@ -27,7 +31,7 @@ const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {
                     }),
                 }} />
         </Utvidbar>
-        <div className="panel js-vaer-klar-over-at">
+        <div className="panel js-vaer-klar-over-at blokk">
             <Oppsummeringsvisning
                 soknad={{
                     ...soknad,

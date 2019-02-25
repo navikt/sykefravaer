@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import { skjemasvar as skjemasvarPt, soknad as soknadPt, soknadmottakerPt } from '../../../propTypes';
 import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../../enums/soknadmottakertyper';
 import { hentSoknadMottaker } from '../../../actions/soknadMeta_actions';
-import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
+import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { soknadMottakerSelector } from '../../../selectors/soknadMetaSelectors';
+import { BETALER_ARBEIDSGIVER } from '../../../enums/tagtyper';
 
 const mottakerTekst = (sendesTil, mottakernavn) => {
     switch (sendesTil) {
@@ -25,13 +26,20 @@ const mottakerTekst = (sendesTil, mottakernavn) => {
     }
 };
 
-class SoknadMottaker extends Component {
+const soknadHarForskutteringssporsmal = (soknad) => {
+    return soknad.sporsmal.filter((spm) => {
+        return spm.tag === BETALER_ARBEIDSGIVER;
+    }).length > 0;
+};
+
+class SoknadMottakerComponent extends Component {
     componentDidMount() {
         this.hentMottaker();
     }
 
     componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps.skjemasvar) !== JSON.stringify(this.props.skjemasvar)) {
+        if (JSON.stringify(prevProps.skjemasvar) !== JSON.stringify(this.props.skjemasvar)
+            && soknadHarForskutteringssporsmal(this.props.soknad)) {
             this.hentMottaker();
         }
     }
@@ -50,7 +58,7 @@ class SoknadMottaker extends Component {
     }
 }
 
-SoknadMottaker.propTypes = {
+SoknadMottakerComponent.propTypes = {
     skjemasvar: skjemasvarPt,
     soknad: soknadPt,
     mottakernavn: PropTypes.string,
@@ -67,4 +75,6 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps, { hentSoknadMottaker })(SoknadMottaker);
+const SoknadMottaker = connect(mapStateToProps, { hentSoknadMottaker })(SoknadMottakerComponent);
+
+export default SoknadMottaker;

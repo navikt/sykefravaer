@@ -5,8 +5,8 @@ import { Field } from 'redux-form';
 import { Vis } from '../../../utils';
 import validerDatoField from '../datovelger/validerDatoField';
 import DayPickerPeriode from './DayPickerPeriode';
-import FomField from './PeriodeFom';
-import PeriodeTom from './PeriodeTom';
+import FomFieldComponent from './PeriodeFom';
+import PeriodeTomComponent from './PeriodeTom';
 import { PeriodevelgerContext } from './Periodevelger';
 
 let lukk;
@@ -84,7 +84,7 @@ class PeriodevelgerInputComponent extends Component {
                         <label className="skjemaelement__label" htmlFor={names[0]}>{getLedetekst('sykepengesoknad.periodevelger.fom')}</label>
                         <Field
                             periodeIndex={periodeIndex}
-                            component={FomField}
+                            component={FomFieldComponent}
                             name={names[0]}
                             id={names[0]}
                             onDoubleClick={this.apne}
@@ -95,7 +95,7 @@ class PeriodevelgerInputComponent extends Component {
                     <div className="periodevelger__tom">
                         <label className="skjemaelement__label" htmlFor={names[1]}>{getLedetekst('sykepengesoknad.periodevelger.tom')}</label>
                         <Field
-                            component={PeriodeTom}
+                            component={PeriodeTomComponent}
                             name={names[1]}
                             id={names[1]}
                             buttonId={buttonId}

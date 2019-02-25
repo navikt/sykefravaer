@@ -25,7 +25,10 @@ KorrigertAv.propTypes = {
 
 export const mapStateToProps = (state, ownProps) => {
     const id = ownProps.sykepengesoknad.id;
-    const sykepengesoknader = state.sykepengesoknader.data;
+    const sykepengesoknader = [
+        ...state.sykepengesoknader.data,
+        ...state.soknader.data,
+    ];
     let korrigertAvSoknad = { id };
 
     sykepengesoknader.forEach(() => {

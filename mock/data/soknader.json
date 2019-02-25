@@ -552,7 +552,7 @@
         "svartype": "JA_NEI",
         "min": null,
         "max": null,
-        "pavirkerAndreSporsmal": false,
+        "pavirkerAndreSporsmal": true,
         "kriterieForVisningAvUndersporsmal": "JA",
         "svar": [],
         "undersporsmal": [
@@ -678,7 +678,7 @@
         "svartype": "JA_NEI",
         "min": null,
         "max": null,
-        "pavirkerAndreSporsmal": false,
+        "pavirkerAndreSporsmal": true,
         "kriterieForVisningAvUndersporsmal": "JA",
         "svar": [],
         "undersporsmal": [
@@ -690,7 +690,7 @@
             "svartype": "CHECKBOX_GRUPPE",
             "min": null,
             "max": null,
-            "pavirkerAndreSporsmal": false,
+            "pavirkerAndreSporsmal": true,
             "kriterieForVisningAvUndersporsmal": null,
             "svar": [],
             "undersporsmal": [
@@ -702,7 +702,7 @@
                 "svartype": "CHECKBOX",
                 "min": null,
                 "max": null,
-                "pavirkerAndreSporsmal": false,
+                "pavirkerAndreSporsmal": true,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
                 "svar": [],
                 "undersporsmal": [
@@ -714,7 +714,7 @@
                     "svartype": "PERIODER",
                     "min": "2019-02-03",
                     "max": "2019-02-11",
-                    "pavirkerAndreSporsmal": false,
+                    "pavirkerAndreSporsmal": true,
                     "kriterieForVisningAvUndersporsmal": null,
                     "svar": [],
                     "undersporsmal": []
@@ -756,7 +756,7 @@
                 "svartype": "CHECKBOX",
                 "min": null,
                 "max": null,
-                "pavirkerAndreSporsmal": false,
+                "pavirkerAndreSporsmal": true,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
                 "svar": [],
                 "undersporsmal": [
@@ -768,7 +768,7 @@
                     "svartype": "PERIODER",
                     "min": "2019-02-03",
                     "max": "2019-02-11",
-                    "pavirkerAndreSporsmal": false,
+                    "pavirkerAndreSporsmal": true,
                     "kriterieForVisningAvUndersporsmal": null,
                     "svar": [],
                     "undersporsmal": []
@@ -1164,7 +1164,7 @@
             "svartype": "JA_NEI",
             "min": null,
             "max": null,
-            "pavirkerAndreSporsmal": false,
+            "pavirkerAndreSporsmal": true,
             "kriterieForVisningAvUndersporsmal": null,
             "svar": [],
             "undersporsmal": []

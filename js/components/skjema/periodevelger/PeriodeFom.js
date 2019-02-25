@@ -4,12 +4,12 @@ import { fieldPropTypes } from '../../../propTypes';
 import Feilmelding from '../Feilmelding';
 import { Vis } from '../../../utils';
 import PeriodeDatoinput from './PeriodeDatoinput';
+import { PeriodevelgerContext } from './Periodevelger';
+import { onDatoChange } from './PeriodeTom';
 
-class FomField extends Component {
-    componentDidMount() {
-        if (this.props.periodeIndex !== 0) {
-            this.input.focus();
-        }
+class PeriodeTomComponent extends Component {
+    componentDidUpdate(prevProps) {
+        onDatoChange(this.props, prevProps);
     }
 
     render() {
@@ -37,7 +37,7 @@ class FomField extends Component {
     }
 }
 
-FomField.propTypes = {
+PeriodeTomComponent.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string.isRequired,
     input: fieldPropTypes.input,
@@ -46,4 +46,12 @@ FomField.propTypes = {
     periodeIndex: PropTypes.number,
 };
 
-export default FomField;
+const PeriodeFom = (props) => {
+    return (<PeriodevelgerContext.Consumer>
+        {({ onChange }) => {
+            return <PeriodeTomComponent {...props} onChange={onChange} />;
+        }}
+    </PeriodevelgerContext.Consumer>);
+};
+
+export default PeriodeFom;

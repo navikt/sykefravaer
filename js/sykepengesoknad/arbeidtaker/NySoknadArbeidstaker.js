@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, KVITTERING, OPPSUMMERING } from '../../utils/soknad-felles/beregnSteg';
+import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, KVITTERING, OPPSUMMERING } from '../utils/beregnSteg';
 import NyFoerDuBegynnerArbeidstakerContainer from './for-du-begynner/NyFoerDuBegynnerArbeidstakerContainer';
 import NyFravaerOgFriskmeldingArbeidstakerContainer from './fravar-og-friskmelding/NyFravaerOgFriskmeldingArbeidstakerContainer';
 import NyAktiviteterISykmeldingsperiodenArbeidstakerContainer from './aktiviteter-i-sykmeldingsperioden/NyAktiviteterISykmeldingsperiodenArbeidstakerContainer';
 import NyOppsummeringArbeidstakerContainer from './oppsummering/NyOppsummeringArbeidstakerContainer';
-import SoknadKvitteringSjekker from '../../components/soknad-felles/SoknadKvitteringSjekker';
+import SoknadKvitteringSjekker from '../felles/SoknadKvitteringSjekker';
 import { soknad as soknadPt } from '../../propTypes';
 import { KORRIGERT, NY, SENDT, UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import NySendtSoknadArbeidstaker from './NySendtSoknadArbeidstaker';

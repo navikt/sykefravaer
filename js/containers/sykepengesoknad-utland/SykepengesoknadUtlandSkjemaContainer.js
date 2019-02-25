@@ -4,14 +4,14 @@ import { formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { soknad as soknadPt } from '../../propTypes';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
-import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
+import UtlandsSkjema from '../../sykepengesoknad/utland/SoknadUtlandSkjema/SoknadUtlandSkjema';
 import Feilmelding from '../../components/Feilmelding';
 import { sendSoknad as sendSoknadAction, avbrytSoknad as avbrytSoknadAction } from '../../actions/soknader_actions';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
-import { formaterEnkeltverdi } from '../../components/soknad-felles-sporsmal/fieldUtils';
+import { formaterEnkeltverdi } from '../../sykepengesoknad/felles/sporsmal/fieldUtils';
 import { JA } from '../../enums/svarEnums';
-import OppsummeringUtland from '../../components/sykepengesoknad-utland/Oppsummering/OppsummeringUtland';
-import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
+import OppsummeringUtland from '../../sykepengesoknad/utland/Oppsummering/OppsummeringUtland';
+import KvitteringUtland from '../../sykepengesoknad/utland/KvitteringUtland';
 import { FERIE } from '../../enums/tagtyper';
 
 
@@ -31,7 +31,7 @@ export const UtlandSkjemaContainer = (props) => {
     }
     if (soknad && [SENDT, TIL_SENDING].indexOf(soknad.status) > -1) {
         if (sti.indexOf('kvittering') > -1) {
-            return <Kvittering />;
+            return <KvitteringUtland />;
         }
         return <OppsummeringUtland {...props} />;
     }

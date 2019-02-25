@@ -193,6 +193,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         render={() => {
                             return (<p className="blokk">
                                 <a
+                                    href="#"
                                     role="button"
                                     tabIndex="0"
                                     aria-pressed={this.state.visAvbrytDialog}

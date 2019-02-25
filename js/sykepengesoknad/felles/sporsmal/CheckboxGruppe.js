@@ -7,8 +7,9 @@ import Checkbox from './Checkbox';
 import { sporsmal as sporsmalPt, fieldPropTypes, soknad as soknadPt } from '../../../propTypes/index';
 import Undertekst from './Undertekst';
 
-const rendreCheckboxGruppe = ({ fields, meta, soknad, actions }) => {
-    return (<Feilomrade {...meta}>
+const rendreCheckboxGruppe = (props) => {
+    const { fields, meta, tag, soknad, actions } = props;
+    return (<Feilomrade {...meta} id={tag}>
         {
             fields.map((field) => {
                 return <Checkbox {...field} name={field.tag} key={field.tag} soknad={soknad} actions={actions} />;
@@ -24,13 +25,14 @@ rendreCheckboxGruppe.propTypes = {
     actions: PropTypes.shape({
         soknadEndret: PropTypes.func,
     }),
+    tag: PropTypes.string,
 };
 
 const CheckboxGruppe = ({ sporsmalstekst, undertekst, name, undersporsmal, soknad, actions }) => {
     return (<div>
         <Sporsmalstekst tekst={sporsmalstekst} />
         <Undertekst tekst={undertekst} />
-        <FieldArray component={rendreCheckboxGruppe} name={name} fields={undersporsmal} soknad={soknad} actions={actions} />
+        <FieldArray component={rendreCheckboxGruppe} tag={name} name={name} fields={undersporsmal} soknad={soknad} actions={actions} />
     </div>);
 };
 

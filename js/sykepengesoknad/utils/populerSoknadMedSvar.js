@@ -1,6 +1,7 @@
 import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
 import { CHECKBOX, CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT } from '../../enums/svartyper';
 import { CHECKED } from '../../enums/svarEnums';
+import { HVOR_MYE_PROSENT, HVOR_MYE_TIMER } from '../../enums/tagtyper';
 
 const fraJSDatoTilBackendDato = (jsDato) => {
     return jsDato.toJSON().substr(0, 10);
@@ -114,18 +115,32 @@ const settMinMax = (sporsmal) => {
     }
 };
 
+const whipeSvar = (sporsmalsliste) => {
+    return sporsmalsliste.map((sporsmal) => {
+        const svar = sporsmal.tag.indexOf(HVOR_MYE_PROSENT) > -1
+            || HVOR_MYE_TIMER > -1
+            ? sporsmal.svar
+            : [];
+        return {
+            ...settMinMax(sporsmal),
+            svar,
+            undersporsmal: whipeSvar(sporsmal.undersporsmal),
+        };
+    });
+};
+
 const populerSporsmalsliste = (sporsmalsliste, values, options) => {
     return sporsmalsliste.map((sporsmal) => {
         const svarValue = values[sporsmal.tag];
         const undersporsmalErStilt = erUndersporsmalStilt(sporsmal, values);
         const populertSporsmal = populerSporsmalMedSvar(sporsmal, svarValue, options);
-        if (undersporsmalErStilt) {
-            return {
-                ...populertSporsmal,
-                undersporsmal: populerSporsmalsliste(populertSporsmal.undersporsmal, values, options, svarValue),
-            };
-        }
-        return settMinMax(populertSporsmal);
+        const populertSporsmalMinMax = settMinMax(populertSporsmal);
+        return {
+            ...populertSporsmalMinMax,
+            undersporsmal: undersporsmalErStilt
+                ? populerSporsmalsliste(populertSporsmal.undersporsmal, values, options, svarValue)
+                : whipeSvar(sporsmal.undersporsmal),
+        };
     });
 };
 

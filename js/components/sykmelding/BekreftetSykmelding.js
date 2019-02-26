@@ -5,7 +5,6 @@ import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Vis } from '../../utils';
 import BekreftetSykmeldingStatuspanel from '../sykmeldingstatuspanel/BekreftetSykmeldingStatuspanel';
-import BekreftetSykmeldingSoknadstatusContainer from '../../containers/sykmelding/BekreftetSykmeldingSoknadstatusContainer';
 
 const BekreftetSykmelding = ({ dinSykmelding }) => {
     return (
@@ -30,7 +29,6 @@ const BekreftetSykmelding = ({ dinSykmelding }) => {
                         <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
                     </div>);
                 }} />
-            <BekreftetSykmeldingSoknadstatusContainer sykmelding={dinSykmelding} />
         </div>
     );
 };

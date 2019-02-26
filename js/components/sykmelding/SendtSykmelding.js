@@ -4,7 +4,6 @@ import SykmeldingStatuspanel from '../sykmeldingstatuspanel/SykmeldingStatuspane
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
-import SendtSykmeldingSoknadstatusContainer from '../../containers/sykmelding/SendtSykmeldingSoknadstatusContainer';
 
 const SendtSykmelding = ({ dinSykmelding }) => {
     return (<div>
@@ -24,7 +23,6 @@ const SendtSykmelding = ({ dinSykmelding }) => {
         <div className="blokk--l">
             <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
         </div>
-        <SendtSykmeldingSoknadstatusContainer sykmelding={dinSykmelding} />
     </div>);
 };
 

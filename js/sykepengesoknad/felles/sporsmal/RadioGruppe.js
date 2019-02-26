@@ -50,10 +50,10 @@ export const erHorisontal = (svartype) => {
     return svartype === RADIO_GRUPPE_TIMER_PROSENT;
 };
 
-const Radioknapp = ({ input, label, children }) => {
+const Radioknapp = ({ input, label, children, id }) => {
     const checked = input.value === label;
     return (<div>
-        <Radio {...input} label={label} value={label} checked={checked} />
+        <Radio {...input} label={label} value={label} checked={checked} id={id} />
         { checked && children }
     </div>);
 };
@@ -62,6 +62,7 @@ Radioknapp.propTypes = {
     input: fieldPropTypes.input,
     label: PropTypes.string,
     children: PropTypes.node,
+    id: PropTypes.string,
 };
 
 const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, svartype, undersporsmal, autofill, soknad, verdi }) => {
@@ -77,6 +78,7 @@ const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, svartype, undersporsm
                         component={Radioknapp}
                         key={sporsmal.sporsmalstekst}
                         label={sporsmal.sporsmalstekst}
+                        id={sporsmal.tag}
                         name={tag}
                         onChange={() => {
                             undersporsmal.forEach((_underspm) => {

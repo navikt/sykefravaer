@@ -37,14 +37,16 @@ const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
         case PROSENT:
         case FRITEKST:
         case TALL:
-        case RADIO_GRUPPE:
         case RADIO:
             return parse(svar[0].verdi);
+        case RADIO_GRUPPE:
         case RADIO_GRUPPE_TIMER_PROSENT: {
             const aktivtUndersporsmal = undersporsmal.find((uspm) => {
                 return uspm.svar[0] && uspm.svar[0].verdi === CHECKED;
             });
-            return parse(aktivtUndersporsmal.sporsmalstekst);
+            return aktivtUndersporsmal
+                ? parse(aktivtUndersporsmal.sporsmalstekst)
+                : null;
         }
         default: {
             return null;
@@ -64,6 +66,7 @@ const fraBackendsoknadTilInitiellSoknad = (soknad) => {
         .flatten()
         .filter((spm) => {
             return spm.svar.length > 0
+                || spm.svartype === RADIO_GRUPPE
                 || spm.svartype === RADIO_GRUPPE_TIMER_PROSENT
                 || spm.svartype === PERIODER;
         });

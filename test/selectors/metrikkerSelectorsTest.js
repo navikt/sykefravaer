@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { UTFYLLING_STARTET } from '../../js/enums/metrikkerEnums';
 import { hentEvent, hentEvents, hentMetrikk } from '../../js/selectors/metrikkerSelectors';
-import { soknadSendt } from '../../js/actions/soknader_actions';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
+import { soknadSendt } from '../../js/sykepengesoknad/data/soknader/soknaderActions';
+import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/sykepengesoknad/enums/soknadtyper';
 
 describe('metrikkerSelectors', () => {
     let state;
@@ -60,12 +60,12 @@ describe('metrikkerSelectors', () => {
         };
         event5 = {
             type: 'UTFYLLING_STARTET',
-            ressursId: 'min-selvstendig-soknad-id',
+            ressursId: 'min-selvstendig-soknadPt-id',
             tid: tid5,
         };
         event6 = {
             type: 'SOKNAD_SENDT',
-            ressursId: 'min-selvstendig-soknad-id',
+            ressursId: 'min-selvstendig-soknadPt-id',
             tid: tid6,
         };
 
@@ -100,7 +100,7 @@ describe('metrikkerSelectors', () => {
     describe('hentMetrikk', () => {
         it('Skal returnere riktig metrikk ved SOKNAD_SENDT når søknaden er for selvstendig næringsdrivende', () => {
             const action = soknadSendt({
-                id: 'min-selvstendig-soknad-id',
+                id: 'min-selvstendig-soknadPt-id',
                 soknadstype: SELVSTENDIGE_OG_FRILANSERE,
             });
             const metrikk = hentMetrikk(state, action);
@@ -114,7 +114,7 @@ describe('metrikkerSelectors', () => {
 
         it('Skal ikke tryne hvis søknadstypen er av ukjent type', () => {
             const action = soknadSendt({
-                id: 'min-selvstendig-soknad-id-ukjent',
+                id: 'min-selvstendig-soknadPt-id-ukjent',
                 soknadstype: 'UKJENT-TYPE',
             });
             const metrikk = hentMetrikk(state, action);

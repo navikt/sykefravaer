@@ -17,7 +17,7 @@ import oppfolgingsforlopsPerioder from './oppfolgingsforlopsPerioder';
 import sykeforloep from './sykeforloep';
 import sykeforloepMetadata from './sykeforloepMetadata';
 import sykmeldingMeta from './sykmeldingMeta';
-import soknader from './soknader';
+import soknader from '../sykepengesoknad/data/soknader/soknader';
 import unleashToggles from './unleashToggles';
 import metrikker from './metrikker';
 import mote from './mote';
@@ -25,7 +25,7 @@ import svar from './svar';
 import motebehov from './motebehov';
 import motebehovSvar from './motebehovSvar';
 import history from '../history';
-import soknadMeta from './soknadMeta';
+import soknadMeta from '../sykepengesoknad/data/soknadMeta/soknadMeta';
 import merVeiledning from './merVeiledning';
 
 const reducers = {

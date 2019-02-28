@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { parseSoknad } from '../../js/reducers/soknader';
+import { parseSoknad } from '../../js/sykepengesoknad/data/soknader/soknader';
 
 const lagretSoknad = {
     id: '8a8f9811-9b3d-41ad-9f9b-0d07cbc41030',

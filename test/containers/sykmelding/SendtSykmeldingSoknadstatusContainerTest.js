@@ -98,7 +98,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'NY',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -109,11 +109,11 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'NY',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             }), getSoknad({
                 status: 'FREMTIDIG',
                 sykmeldingId: '1',
-                id: 'min-fremtidige-soknad-id',
+                id: 'min-fremtidige-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -124,7 +124,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'SENDT',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -135,7 +135,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'FREMTIDIG',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -146,11 +146,11 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'FREMTIDIG',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             }), getSoknad({
                 status: 'SENDT',
                 sykmeldingId: '1',
-                id: 'min-nye-soknad-id',
+                id: 'min-nye-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -161,7 +161,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'AVBRUTT',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -172,7 +172,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'UTGAATT',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -183,11 +183,11 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'AVBRUTT',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             }), getSoknad({
                 status: 'SENDT',
                 sykmeldingId: '1',
-                id: 'min-nye-soknad-id',
+                id: 'min-nye-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -198,12 +198,12 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: 'NY',
                 sykmeldingId: '1',
-                id: 'min-nye-soknad-id',
+                id: 'min-nye-soknadPt-id',
                 korrigerer: '123',
             }), getSoknad({
                 status: 'SENDT',
                 sykmeldingId: '1',
-                id: 'min-nye-soknad-id',
+                id: 'min-nye-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);

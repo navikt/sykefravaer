@@ -1,7 +1,7 @@
 import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, senesteTom, tilDatePeriode } from '@navikt/digisyfo-npm';
-import { OPPHOLD_UTLAND } from '../enums/soknadtyper';
-import { PERIODEUTLAND } from '../enums/tagtyper';
-import { SENDT, NY } from '../enums/soknadstatuser';
+import { OPPHOLD_UTLAND } from '../sykepengesoknad/enums/soknadtyper';
+import { PERIODEUTLAND } from '../sykepengesoknad/enums/tagtyper';
+import { SENDT, NY } from '../sykepengesoknad/enums/soknadstatuser';
 
 export const getTidligsteSendtDato = (soknad) => {
     const sendtTilNAVDato = soknad.innsendtDato || soknad.sendtTilNAVDato;

@@ -24,11 +24,11 @@ import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
 import sykeforloepMetadataSagas from './sykeforloepMetadataSagas';
-import soknaderSagas from './soknaderSagas';
+import soknaderSagas from '../sykepengesoknad/data/soknader/soknaderSagas';
 import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
-import soknadMetaSagas from './soknadMetaSagas';
+import soknadMetaSagas from '../sykepengesoknad/data/soknadMeta/soknadMetaSagas';
 import merVeiledningSagas from './merVeiledningSagas';
 
 export default function* rootSaga() {

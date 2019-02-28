@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
-import { soknad as soknadPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { soknadPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Lightbox from '../Lightbox';
 
 const SoknadLightbox = ({ soknad, onClose }) => {

@@ -4,7 +4,7 @@ import { getLedetekst, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
-import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, soknadPt } from '../../propTypes';
 import { sorterEtterPerioder, sorterEtterOpprettetDato } from '../../utils/sykepengesoknadUtils';
 import FremtidigSoknadTeaser from './FremtidigSoknadTeaser';
 import UtbetalingerLenke from './UtbetalingerLenke';

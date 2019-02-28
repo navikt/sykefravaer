@@ -2,8 +2,8 @@ import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import IllustrertInnhold from '../IllustrertInnhold';
-import { soknad as soknadPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
-import { NY } from '../../enums/soknadstatuser';
+import { soknadPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
+import { NY } from '../../sykepengesoknad/enums/soknadstatuser';
 
 const TidligSoknad = ({ soknad }) => {
     const now = new Date();

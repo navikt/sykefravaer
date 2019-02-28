@@ -1,6 +1,6 @@
 import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import { formaterOrgnr } from '../../utils/index';
-import { KORRIGERT } from '../../enums/soknadstatuser';
+import { KORRIGERT } from '../enums/soknadstatuser';
 
 const hentSoknadStatustekst = (soknad) => {
     const soknadSendtTilNav = soknad.sendtTilNAVDato !== null || soknad.innsendtDato !== null;

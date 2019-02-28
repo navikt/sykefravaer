@@ -12,8 +12,8 @@ import MotebehovContainer from '../sider/MotebehovSide';
 import DialogmoteSide from '../sider/DialogmoteSide';
 import SoknaderSide from '../sider/SoknaderSide';
 import AktivitetskravvarselSide from '../sider/AktivitetskravvarselSide';
-import SykepengesoknadContainer from '../sider/SoknadSide';
-import SykepengesoknadUtlandContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandContainer';
+import SykepengesoknadContainer from '../sykepengesoknad/sider/SoknadSide';
+import SykepengesoknadUtlandContainer from '../sykepengesoknad/soknad-utland/for-du-begynner/FoerDuBegynnerUtlandContainer';
 import InfoSideFO from '../sider/InfoSideFO';
 
 const AppRouter = ({ history }) => {

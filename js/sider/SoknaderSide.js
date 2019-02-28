@@ -7,14 +7,14 @@ import Soknader from '../components/sykepengesoknader/Soknader';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknadPt } from '../propTypes';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
-import { hentSoknader } from '../actions/soknader_actions';
+import { hentSoknader } from '../sykepengesoknad/data/soknader/soknaderActions';
 import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
-import { skalHenteSoknader } from '../selectors/soknaderSelectors';
+import { skalHenteSoknader } from '../sykepengesoknad/data/soknader/soknaderSelectors';
 import { selectSkalHenteDineSykmeldinger } from '../selectors/dineSykmeldingerSelectors';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
-import { ARBEIDSTAKERE } from '../enums/soknadtyper';
+import { ARBEIDSTAKERE } from '../sykepengesoknad/enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../selectors/unleashTogglesSelectors';
 
 export class Container extends Component {

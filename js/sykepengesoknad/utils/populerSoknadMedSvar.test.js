@@ -11,10 +11,10 @@ import {
     TILBAKE_I_ARBEID,
     TILBAKE_NAR,
     UTLAND,
-} from '../../enums/tagtyper';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../felles/sporsmal/fieldUtils';
-import { CHECKED, JA, NEI } from '../../enums/svarEnums';
-import { PERIODER } from '../../enums/svartyper';
+} from '../enums/tagtyper';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
+import { CHECKED, JA, NEI } from '../enums/svarEnums';
+import { PERIODER } from '../enums/svartyper';
 import { getSoknadUtland } from '../../../test/mock/mockSoknadUtland';
 import mockNySoknadArbeidstaker from '../../../test/mock/mockNySoknadArbeidstaker';
 

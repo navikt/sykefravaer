@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, soknadPt } from '../../propTypes';
 
 const StartIgjen = ({ soknad }) => {
     return (<div className="panel">

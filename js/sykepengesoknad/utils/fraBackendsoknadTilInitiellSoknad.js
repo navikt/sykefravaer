@@ -1,7 +1,7 @@
 import { toDatePrettyPrint } from '@navikt/digisyfo-npm';
-import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT, RADIO } from '../../enums/svartyper';
-import { genererParseForEnkeltverdi } from '../felles/sporsmal/fieldUtils';
-import { CHECKED } from '../../enums/svarEnums';
+import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT, RADIO } from '../enums/svartyper';
+import { genererParseForEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
+import { CHECKED } from '../enums/svarEnums';
 
 const tilPeriodedato = (datoEllerStreng) => {
     return datoEllerStreng.split('.').length === 3

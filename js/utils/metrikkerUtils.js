@@ -1,6 +1,7 @@
 import { TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER, TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG, TID_INNSENDING_SYKMELDING, UTFYLLING_STARTET } from '../enums/metrikkerEnums';
-import { SOKNAD_SENDT, SYKEPENGESOKNAD_SENDT, SYKMELDING_SENDT } from '../actions/actiontyper';
+import { SYKEPENGESOKNAD_SENDT, SYKMELDING_SENDT } from '../actions/actiontyper';
 import { hentEvent } from '../selectors/metrikkerSelectors';
+import { SOKNAD_SENDT } from '../sykepengesoknad/data/soknader/soknaderActiontyper';
 
 const beregnMillisekunder = (start, slutt) => {
     return (slutt

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import * as hendelsetyper from '../enums/hendelsetyper';
-import * as svartyper from '../enums/svartyper';
-import * as soknadmottakertyper from '../enums/soknadmottakertyper';
+import { svar } from '../sykepengesoknad/prop-types/svarProptype';
 
 export {
     arbeidssituasjon,
@@ -68,63 +67,7 @@ export const sykeforloepPt = PropTypes.shape({
     hentingFeilet: PropTypes.bool,
 });
 
-export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
-
-export const svar = PropTypes.arrayOf(PropTypes.shape({
-    verdi: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-}));
-
-export const svaralternativ = PropTypes.shape({
-    verdi: PropTypes.string.isRequired,
-    svartekst: PropTypes.string.isRequired,
-});
-
-export const svaralternativer = PropTypes.arrayOf(svaralternativ);
-
-const sporsmalShape = {
-    id: PropTypes.string,
-    kriterieForVisningAvUndersporsmal: PropTypes.string,
-    max: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number, PropTypes.string]),
-    min: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number, PropTypes.string]),
-    sporsmalstekst: PropTypes.string,
-    svar,
-    svartype: svartypePt,
-    tag: PropTypes.string,
-    undertekst: PropTypes.string,
-    pavirkerAndreSporsmal: PropTypes.bool,
-    svaralternativer,
-};
-
-sporsmalShape.undersporsmal = PropTypes.arrayOf(PropTypes.shape(sporsmalShape));
-
-export const soknadmottakerPt = PropTypes.oneOf(Object.values(soknadmottakertyper));
-
-export const soknadMetaPt = PropTypes.shape({
-    henter: PropTypes.bool,
-    hentingFeilet: PropTypes.bool,
-    hentet: PropTypes.bool,
-    data: PropTypes.shape({
-        mottaker: soknadmottakerPt,
-    }),
-});
-
-export const sporsmal = PropTypes.shape(sporsmalShape);
-
 export const skjemasvar = PropTypes.shape({});
-
-export const soknad = PropTypes.shape({
-    id: PropTypes.string,
-    sykmeldingId: PropTypes.string,
-    soknadstype: PropTypes.string,
-    status: PropTypes.string,
-    fom: PropTypes.instanceOf(Date),
-    tom: PropTypes.instanceOf(Date),
-    opprettetDato: PropTypes.instanceOf(Date),
-    innsendtDato: PropTypes.instanceOf(Date),
-    sendtTilNAVDato: PropTypes.instanceOf(Date),
-    sendtTilArbeidsgiverDato: PropTypes.instanceOf(Date),
-    sporsmal: PropTypes.arrayOf(sporsmal),
-});
 
 export const sykmeldtInfo = PropTypes.shape({
     henter: PropTypes.bool,

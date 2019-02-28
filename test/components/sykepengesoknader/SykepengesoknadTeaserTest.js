@@ -113,7 +113,7 @@ describe('SykepengesoknadTeaser', () => {
     });
 
     describe('TeaserStatus', () => {
-        it('viser ikke status om soknad er ny', () => {
+        it('viser ikke status om soknadPt er ny', () => {
             const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
             const component = shallow(<TeaserStatus soknad={_soknad} />);
             expect(component.text()).to.be.length(0);
@@ -133,7 +133,7 @@ describe('SykepengesoknadTeaser', () => {
     });
 
     describe('TeaserUndertekst', () => {
-        it('viser navn på arbeidsgiver soknad er ny', () => {
+        it('viser navn på arbeidsgiver soknadPt er ny', () => {
             const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
             const component = shallow(<TeaserUndertekst soknad={_soknad} />);
             expect(component.find('.js-undertekst').text()).to.equal('Arbeidsgiver AS');
@@ -217,14 +217,14 @@ describe('SykepengesoknadTeaser', () => {
             expect(component.text()).to.contain('Sendt til NAV 18. mai 2018');
         });
 
-        it('viser ikke status om soknad er NY', () => {
+        it('viser ikke status om soknadPt er NY', () => {
             const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
             const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
             expect(component.find('.js-status')).to.be.length(0);
             expect(component.find(TeaserUndertekst)).to.be.length(1);
         });
 
-        it('viser undertekst om soknad er sendt', () => {
+        it('viser undertekst om soknadPt er sendt', () => {
             const _soknad = Object.assign({}, sykepengesoknad, { status: 'SENDT' });
             const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
             expect(component.find(TeaserUndertekst)).to.be.length(1);
@@ -244,7 +244,7 @@ describe('SykepengesoknadTeaser', () => {
             expect(sendtUlikt.text()).to.contain('Sendt til NAV 18.05.2017');
         });
 
-        it('viser arbeidsgivernavn om soknad er UTKAST_TIL_KORRIGERING', () => {
+        it('viser arbeidsgivernavn om soknadPt er UTKAST_TIL_KORRIGERING', () => {
             const _soknad = Object.assign({}, sykepengesoknad, { status: 'UTKAST_TIL_KORRIGERING' });
             const component = shallow(<TeaserUndertekst soknad={_soknad} />);
             expect(component.text()).to.equal('Arbeidsgiver AS');

@@ -19,7 +19,7 @@ describe('validerFravaerOgFriskmelding', () => {
         };
         clock = sinon.useFakeTimers(1484210369692); // Setter dagens dato til 12. januar 2017
         sykepengesoknad = getSoknad({
-            id: 'min-soknad-id',
+            id: 'min-soknadPt-id',
         });
         sendTilFoerDuBegynner = sinon.spy();
     });

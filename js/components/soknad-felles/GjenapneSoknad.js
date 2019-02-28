@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
 import { getLedetekst, sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
-import { soknad as soknadPt } from '../../propTypes';
+import { soknadPt } from '../../propTypes';
 
 const GjenapneSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet, tekst = getLedetekst('sykepengesoknad.gjenapne.knapp'), vis }) => {
     return vis ? (<div>

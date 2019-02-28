@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint, sykepengesoknadstatuser, tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
 import getContextRoot from '../../utils/getContextRoot';
-import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, soknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
-import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
-import { FREMTIDIG } from '../../enums/soknadstatuser';
+import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad/enums/soknadtyper';
+import { FREMTIDIG } from '../../sykepengesoknad/enums/soknadstatuser';
 
 const { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } = sykepengesoknadstatuser;
 

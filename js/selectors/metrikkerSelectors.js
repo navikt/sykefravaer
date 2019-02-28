@@ -1,7 +1,8 @@
-import { SOKNAD_SENDT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
+import { SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
 import { beregnVarighet } from '../utils/metrikkerUtils';
 import { TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER, TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG, TID_INNSENDING_SYKMELDING } from '../enums/metrikkerEnums';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
+import { SELVSTENDIGE_OG_FRILANSERE } from '../sykepengesoknad/enums/soknadtyper';
+import { SOKNAD_SENDT } from '../sykepengesoknad/data/soknader/soknaderActiontyper';
 
 export const hentEvents = (state, ressursId) => {
     return [...state.metrikker.data]

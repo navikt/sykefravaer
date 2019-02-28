@@ -17,7 +17,7 @@ import getSykmelding from '../mock/mockSykmeldinger';
 import { getParsetSoknad } from '../mock/mockSykepengesoknader';
 import FrilanserSoekDigitaltNaa from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltSenere';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
+import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/sykepengesoknad/enums/soknadtyper';
 import AnnetArbeidsledigKvittering from '../../js/components/sykmeldingkvittering/AnnetArbeidsledigKvittering';
 import arbeidsgivere from '../../js/reducers/arbeidsgivere';
 import { aktuelleArbeidsgivereHentet } from '../../js/actions/dineArbeidsgivere_actions';

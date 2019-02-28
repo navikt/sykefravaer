@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Router } from 'react-router';
 import DineSykmeldingerContainer from '../sider/SykmeldingerSide';
-import LandingssideSide from '../sider/LandingssideSide';
+import LandingssideSide from '../landingsside/sider/LandingssideSide';
 import DinSykmeldingContainer from '../sider/SykmeldingSide';
 import SykmeldingSkrivUtSide from '../sider/SykmeldingSkrivUtSide';
 import TidslinjeSide from '../sider/TidslinjeSide';

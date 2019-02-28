@@ -11,7 +11,7 @@ import TrengerMerVeiledningRad from './TrengerMerVeiledningRad';
 
 const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
     const brodsmuler = [{
-        tittel: getLedetekst('landingsside.sidetittel'),
+        tittel: getLedetekst('containers.sidetittel'),
         sti: '/',
         erKlikkbar: true,
     }, {

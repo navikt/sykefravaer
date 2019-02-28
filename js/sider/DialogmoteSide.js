@@ -138,7 +138,7 @@ export function mapStateToProps(state) {
         sender: state.svar.sender,
         sendingFeilet: state.svar.sendingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel'),
+            tittel: getLedetekst('containers.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

@@ -15,7 +15,7 @@ describe('aktivitetskravSagas', () => {
     });
 
     it('Skal dernest poste', () => {
-        const nextCall = call(post, '/syforest/sykefravaersoppfoelging/actions/bekreft-komponenter');
+        const nextCall = call(post, '/syforest/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

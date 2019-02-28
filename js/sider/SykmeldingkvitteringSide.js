@@ -48,7 +48,7 @@ export class KvitteringSide extends Component {
             soknader,
         } = this.props;
         const brodsmuler = [{
-            tittel: getLedetekst('landingsside.sidetittel'),
+            tittel: getLedetekst('containers.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

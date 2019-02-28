@@ -58,12 +58,12 @@ describe('metrikkerUtils', () => {
         };
         event5 = {
             type: 'UTFYLLING_STARTET',
-            ressursId: 'min-selvstendig-soknad-id',
+            ressursId: 'min-selvstendig-soknadPt-id',
             tid: tid5,
         };
         event6 = {
             type: 'SOKNAD_SENDT',
-            ressursId: 'min-selvstendig-soknad-id',
+            ressursId: 'min-selvstendig-soknadPt-id',
             tid: tid6,
         };
 
@@ -98,7 +98,7 @@ describe('metrikkerUtils', () => {
         it('Skal returnere riktig tid for innsending av søknad for selvstendig næringsdrivende', () => {
             const tid = beregnVarighet(deepFreeze(state), {
                 type: TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG,
-                ressursId: 'min-selvstendig-soknad-id',
+                ressursId: 'min-selvstendig-soknadPt-id',
             });
             expect(tid).to.equal(tid6.getTime() - tid5.getTime());
         });

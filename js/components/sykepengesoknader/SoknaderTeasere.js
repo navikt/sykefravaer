@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SykepengesoknadTeaser from './SykepengesoknadTeaser';
-import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, soknadPt } from '../../propTypes';
 
 const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id, Child = SykepengesoknadTeaser }) => {
     return (<div className="blokk--l">

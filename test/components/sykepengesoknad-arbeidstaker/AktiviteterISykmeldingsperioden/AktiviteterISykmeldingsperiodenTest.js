@@ -22,7 +22,7 @@ const expect = chai.expect;
 
 describe('AktiviteterISykmeldingsperioden', () => {
     const sykepengesoknad = getSoknad({
-        id: 'min-soknad',
+        id: 'min-soknadPt',
     });
     let handleSubmit;
     let component;

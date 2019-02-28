@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { sykmeldingstatuser, arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import SykmeldingSoknadstatuspanel from '../../components/sykmelding/SykmeldingSoknadstatuspanel';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
-import * as soknaderActions from '../../actions/soknader_actions';
-import { skalHenteSoknader as skalHenteSoknaderSelector } from '../../selectors/soknaderSelectors';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import * as soknaderActions from '../../sykepengesoknad/data/soknader/soknaderActions';
+import { skalHenteSoknader as skalHenteSoknaderSelector } from '../../sykepengesoknad/data/soknader/soknaderSelectors';
+import { SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad/enums/soknadtyper';
 import { PapirsoknadMelding } from '../../components/sykmelding/SykmeldingSoknadstatus';
 import AppSpinner from '../../components/AppSpinner';
-import { soknad as soknadPt } from '../../propTypes';
+import { soknadPt } from '../../propTypes';
 
 const Soknadstatus = ({ soknader, erSelvstendigEllerFrilanserSykmelding }) => {
     if (!erSelvstendigEllerFrilanserSykmelding) {

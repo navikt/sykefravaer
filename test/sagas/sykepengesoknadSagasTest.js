@@ -74,7 +74,7 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('skal overskrive overskrive soknad med soknad fra rest-tjenesten hvis den svarer med en søknad', () => {
+        it('skal overskrive overskrive soknadPt med soknadPt fra rest-tjenesten hvis den svarer med en søknad', () => {
             const nextPut = put({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
@@ -104,7 +104,7 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('skal overskrive soknad med soknad fra rest-tjenesten', () => {
+        it('skal overskrive soknadPt med soknadPt fra rest-tjenesten', () => {
             const action = actions.sykepengesoknadSendtTilArbeidsgiver('1', {
                 id: '1',
                 testdata: 'testdata',
@@ -131,7 +131,7 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('skal overskrive overskrive soknad med soknad fra rest-tjenesten', () => {
+        it('skal overskrive overskrive soknadPt med soknadPt fra rest-tjenesten', () => {
             const action = actions.sykepengesoknadSendtTilNAV('1', {
                 id: '1',
                 testdata: 'testdata',
@@ -163,7 +163,7 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it('skal overskrive overskrive soknad med soknad fra rest-tjenesten hvis den svarer med en søknad', () => {
+        it('skal overskrive overskrive soknadPt med soknadPt fra rest-tjenesten hvis den svarer med en søknad', () => {
             const nextPut = put({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',

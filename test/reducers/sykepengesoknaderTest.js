@@ -766,13 +766,13 @@ describe('sykepengesoknader', () => {
     describe('finnSoknad', () => {
         const state = {
             sykepengesoknader: {
-                data: [{ id: '1', en: 'en' }, { id: '2', innhold: 'innhold i soknad 2' }, { id: '3', tre: 'tre' }],
+                data: [{ id: '1', en: 'en' }, { id: '2', innhold: 'innhold i soknadPt 2' }, { id: '3', tre: 'tre' }],
             },
         };
 
-        it('finner soknad', () => {
+        it('finner soknadPt', () => {
             const s = finnSoknad(state, '2');
-            expect(s.innhold).to.be.equal('innhold i soknad 2');
+            expect(s.innhold).to.be.equal('innhold i soknadPt 2');
         });
 
         it('returnerer tomt om søknaden ikke finnes', () => {

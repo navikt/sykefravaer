@@ -1,7 +1,7 @@
 import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
-import { CHECKBOX, CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT } from '../../enums/svartyper';
-import { CHECKED } from '../../enums/svarEnums';
-import { HVOR_MYE_PROSENT, HVOR_MYE_TIMER } from '../../enums/tagtyper';
+import { CHECKBOX, CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER, RADIO, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT } from '../enums/svartyper';
+import { CHECKED } from '../enums/svarEnums';
+import { HVOR_MYE_PROSENT, HVOR_MYE_TIMER } from '../enums/tagtyper';
 
 const fraJSDatoTilBackendDato = (jsDato) => {
     return jsDato.toJSON().substr(0, 10);

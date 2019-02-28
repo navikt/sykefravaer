@@ -7,7 +7,7 @@ import {
     LAND,
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
-} from '../../enums/tagtyper';
+} from '../enums/tagtyper';
 
 describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe perioder på norsk format', () => {

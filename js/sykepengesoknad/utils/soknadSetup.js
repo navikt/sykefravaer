@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
 import { bindActionCreators, compose } from 'redux';
 import { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
-import { sendSoknad, lagreSoknad } from '../../actions/soknader_actions';
+import { sendSoknad, lagreSoknad } from '../data/soknader/soknaderActions';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
-import { erForsteSoknad } from '../../selectors/soknaderSelectors';
+import { erForsteSoknad } from '../data/soknader/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
 import fraBackendsoknadTilInitiellSoknad from './fraBackendsoknadTilInitiellSoknad';
 

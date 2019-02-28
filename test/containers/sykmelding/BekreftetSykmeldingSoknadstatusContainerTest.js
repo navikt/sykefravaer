@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import { getNySoknadSelvstendig } from '../../mock/mockSoknadSelvstendig';
 import { Container, mapStateToProps } from '../../../js/containers/sykmelding/BekreftetSykmeldingSoknadstatusContainer';
 import getSykmelding from '../../mock/mockSykmeldinger';
-import { NY } from '../../../js/enums/soknadstatuser';
+import { NY } from '../../../js/sykepengesoknad/enums/soknadstatuser';
 import {
     FlereSoknader,
     KommendeSoknad,
@@ -103,7 +103,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.soknader.data = [getNySoknadSelvstendig({
                 status: 'FREMTIDIG',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -114,7 +114,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.soknader.data = [getNySoknadSelvstendig({
                 status: NY,
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -125,11 +125,11 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.soknader.data = [getNySoknadSelvstendig({
                 status: 'FREMTIDIG',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             }), getNySoknadSelvstendig({
                 status: 'SENDT',
                 sykmeldingId: '1',
-                id: 'min-nye-soknad-id',
+                id: 'min-nye-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -140,7 +140,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.soknader.data = [getNySoknadSelvstendig({
                 status: 'SENDT',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -151,7 +151,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.soknader.data = [getNySoknadSelvstendig({
                 status: 'UTGAATT',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -162,7 +162,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             state.soknader.data = [getNySoknadSelvstendig({
                 status: 'AVBRUTT',
                 sykmeldingId: '1',
-                id: 'min-soknad-id',
+                id: 'min-soknadPt-id',
             })];
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);

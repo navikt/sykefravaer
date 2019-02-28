@@ -234,10 +234,10 @@ describe('setup', () => {
 
             beforeEach(() => {
                 korrigerendeSoknad = getParsetSoknad({
-                    id: 'soknad-id-korrigerer',
+                    id: 'soknadPt-id-korrigerer',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
-                    korrigerer: 'soknad-id-2',
+                    korrigerer: 'soknadPt-id-2',
                     status: 'UTKAST_TIL_KORRIGERING',
                     sendtTilArbeidsgiverDato: new Date('2018-01-15'),
                     egenmeldingsperioder: [],
@@ -245,21 +245,21 @@ describe('setup', () => {
                 });
 
                 sykepengesoknader = [{
-                    id: 'soknad-id',
+                    id: 'soknadPt-id',
                     sykmeldingId: 'sykmelding-id-0',
                     identdato: identdato3,
                     egenmeldingsperioder: [],
                     status: 'NY',
                     arbeidsgiver,
                 }, {
-                    id: 'soknad-id-3',
+                    id: 'soknadPt-id-3',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
                     egenmeldingsperioder: [],
                     status: 'NY',
                     arbeidsgiver,
                 }, {
-                    id: 'soknad-id-2',
+                    id: 'soknadPt-id-2',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
                     sendtTilArbeidsgiverDato: new Date('2018-01-12'),
@@ -282,7 +282,7 @@ describe('setup', () => {
             });
 
             it('Skal ikke forhåndsutfylle når det ikke er oppgitt utdanning i forrige sendte søknad', () => {
-                values.id = 'soknad-id-3';
+                values.id = 'soknadPt-id-3';
                 values.identdato = identdato1;
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                 expect(res.utdanning).to.deep.equal({});
@@ -290,7 +290,7 @@ describe('setup', () => {
             });
 
             it('Skal forhåndsutfylle når det er oppgitt utdanning i forrige sendte søknad', () => {
-                values.id = 'soknad-id-3';
+                values.id = 'soknadPt-id-3';
                 values.identdato = identdato1;
                 sykepengesoknader[2].utdanning = {
                     utdanningStartdato: new Date('2017-04-02'),
@@ -314,10 +314,10 @@ describe('setup', () => {
 
             beforeEach(() => {
                 korrigerendeSoknad = getParsetSoknad({
-                    id: 'soknad-id-korrigerer',
+                    id: 'soknadPt-id-korrigerer',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
-                    korrigerer: 'soknad-id-2',
+                    korrigerer: 'soknadPt-id-2',
                     status: 'UTKAST_TIL_KORRIGERING',
                     sendtTilArbeidsgiverDato: new Date('2018-01-15'),
                     egenmeldingsperioder: [],
@@ -325,21 +325,21 @@ describe('setup', () => {
                 });
 
                 sykepengesoknader = [{
-                    id: 'soknad-id',
+                    id: 'soknadPt-id',
                     sykmeldingId: 'sykmelding-id-0',
                     identdato: identdato3,
                     egenmeldingsperioder: [],
                     status: 'NY',
                     arbeidsgiver,
                 }, {
-                    id: 'soknad-id-3',
+                    id: 'soknadPt-id-3',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
                     egenmeldingsperioder: [],
                     status: 'NY',
                     arbeidsgiver,
                 }, {
-                    id: 'soknad-id-2',
+                    id: 'soknadPt-id-2',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
                     sendtTilArbeidsgiverDato: new Date('2018-01-12'),
@@ -358,7 +358,7 @@ describe('setup', () => {
             });
 
             it('Skal forhåndsutfylle når det ikke er oppgitt inntektskilder i forrige sendte søknad', () => {
-                values.id = 'soknad-id-3';
+                values.id = 'soknadPt-id-3';
                 values.identdato = identdato1;
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                 expect(res.andreInntektskilder).to.deep.equal(andreInntektskilderDefault);
@@ -367,7 +367,7 @@ describe('setup', () => {
             });
 
             it('Skal forhåndsutfylle når det er oppgitt inntektskilder i forrige sendte søknad', () => {
-                values.id = 'soknad-id-3';
+                values.id = 'soknadPt-id-3';
                 values.identdato = identdato1;
                 sykepengesoknader[2].andreInntektskilder = [{
                     sykmeldt: false,
@@ -389,10 +389,10 @@ describe('setup', () => {
             const identdato3 = new Date('1985-01-01');
             let sykepengesoknader;
             let korrigerendeSoknad = {
-                id: 'soknad-id-korrigerer',
+                id: 'soknadPt-id-korrigerer',
                 sykmeldingId: 'lang-sykmelding-id',
                 identdato: identdato1,
-                korrigerer: 'soknad-id-2',
+                korrigerer: 'soknadPt-id-2',
                 status: 'UTKAST_TIL_KORRIGERING',
                 sendtTilArbeidsgiverDato: new Date('2018-01-15'),
                 egenmeldingsperioder: [],
@@ -401,10 +401,10 @@ describe('setup', () => {
 
             beforeEach(() => {
                 korrigerendeSoknad = {
-                    id: 'soknad-id-korrigerer',
+                    id: 'soknadPt-id-korrigerer',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
-                    korrigerer: 'soknad-id-2',
+                    korrigerer: 'soknadPt-id-2',
                     status: 'UTKAST_TIL_KORRIGERING',
                     sendtTilArbeidsgiverDato: new Date('2018-01-15'),
                     egenmeldingsperioder: [],
@@ -412,21 +412,21 @@ describe('setup', () => {
                 };
 
                 sykepengesoknader = [{
-                    id: 'soknad-id',
+                    id: 'soknadPt-id',
                     sykmeldingId: 'sykmelding-id-0',
                     identdato: identdato3,
                     egenmeldingsperioder: [],
                     status: 'NY',
                     arbeidsgiver,
                 }, {
-                    id: 'soknad-id-3',
+                    id: 'soknadPt-id-3',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
                     egenmeldingsperioder: [],
                     status: 'NY',
                     arbeidsgiver,
                 }, {
-                    id: 'soknad-id-2',
+                    id: 'soknadPt-id-2',
                     sykmeldingId: 'lang-sykmelding-id',
                     identdato: identdato1,
                     sendtTilArbeidsgiverDato: new Date('2018-01-12'),
@@ -456,7 +456,7 @@ describe('setup', () => {
 
             describe('Dersom det finnes andre søknader som er SENDT og har samme identdato', () => {
                 it('Skal forhåndsutfylle når det ikke er oppgitt egenmeldingsperioder i forrige sendte søknad', () => {
-                    values.id = 'soknad-id-3';
+                    values.id = 'soknadPt-id-3';
                     values.identdato = identdato1;
                     const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                     expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.equal(false);
@@ -466,7 +466,7 @@ describe('setup', () => {
                 describe('Dersom det finnes en tidligere sendt søknad', () => {
                     beforeEach(() => {
                         sykepengesoknader.push(getParsetSoknad({
-                            id: 'soknad-id-1',
+                            id: 'soknadPt-id-1',
                             sykmeldingId: 'lang-sykmelding-id',
                             identdato: identdato1,
                             status: 'SENDT',
@@ -495,7 +495,7 @@ describe('setup', () => {
                     });
 
                     it('Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer når det er oppgitt egenmeldingsperioder i forrige søknad', () => {
-                        values.id = 'soknad-id-3';
+                        values.id = 'soknadPt-id-3';
                         values.identdato = identdato1;
                         const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                         expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.equal(true);
@@ -512,7 +512,7 @@ describe('setup', () => {
                     it('Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer med info fra forrige søknad for denne arbeidsgiveren', () => {
                         const soknad = sykepengesoknader.pop();
                         sykepengesoknader.push({
-                            id: 'soknad-id-annen-arbeidsgiver',
+                            id: 'soknadPt-id-annen-arbeidsgiver',
                             sykmeldingId: 'lang-sykmelding-id',
                             identdato: identdato1,
                             arbeidsgiver: {
@@ -530,7 +530,7 @@ describe('setup', () => {
                             }],
                         });
                         sykepengesoknader.push(soknad);
-                        values.id = 'soknad-id-3';
+                        values.id = 'soknadPt-id-3';
                         values.identdato = identdato1;
                         const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                         expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.equal(true);

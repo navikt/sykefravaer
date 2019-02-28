@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import * as proptypes from '../../propTypes';
 import Sidetopp from '../Sidetopp';
+import { soknadPt } from '../../sykepengesoknad/prop-types/soknadProptype';
 
 const SykepengesoknadHeader = ({ sykepengesoknad }) => {
     return !sykepengesoknad._erOppdelt
@@ -24,7 +25,7 @@ const SykepengesoknadHeader = ({ sykepengesoknad }) => {
 SykepengesoknadHeader.propTypes = {
     sykepengesoknad: PropTypes.oneOfType([
         proptypes.sykepengesoknad,
-        proptypes.soknad,
+        soknadPt,
     ]),
 };
 

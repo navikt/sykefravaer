@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { avbrytSoknad } from '../../actions/sykepengesoknader_actions';
-import AvbrytSoknad from '../../sykepengesoknad/felles/avbryt-soknad/AvbrytSoknad';
+import AvbrytSoknad from '../../sykepengesoknad/felleskomponenter/avbryt-soknad/AvbrytSoknad';
 
 const mapStateToProps = (state) => {
     return {

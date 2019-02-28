@@ -20,38 +20,38 @@ describe('GenerellArbeidstakersoknadContainer', () => {
         forrigeSykeforloepTom = new Date('1984-08-02');
 
         state.form = {
-            [getSoknadSkjemanavn('soknad-id')]: {
+            [getSoknadSkjemanavn('soknadPt-id')]: {
                 values: {
-                    id: 'soknad-id',
+                    id: 'soknadPt-id',
                 },
             },
         };
         state.sykepengesoknader = {
             data: [{
-                id: 'soknad-id',
+                id: 'soknadPt-id',
                 sykmeldingId: 'sykmelding-id-0',
                 forrigeSykeforloepTom,
                 identdato: identdato3,
                 egenmeldingsperioder: [],
                 status: 'NY',
             }, {
-                id: 'soknad-id-3',
+                id: 'soknadPt-id-3',
                 sykmeldingId: 'lang-sykmelding-id',
                 identdato: identdato1,
                 egenmeldingsperioder: [],
                 status: 'NY',
             }, {
-                id: 'soknad-id-2',
+                id: 'soknadPt-id-2',
                 sykmeldingId: 'lang-sykmelding-id',
                 identdato: identdato1,
                 sendtTilArbeidsgiverDato: new Date('2018-01-12'),
                 egenmeldingsperioder: [],
                 status: 'SENDT',
             }, {
-                id: 'soknad-id-korrigerer',
+                id: 'soknadPt-id-korrigerer',
                 sykmeldingId: 'lang-sykmelding-id',
                 identdato: identdato1,
-                korrigerer: 'soknad-id-2',
+                korrigerer: 'soknadPt-id-2',
                 status: 'UTKAST_TIL_KORRIGERING',
                 sendtTilArbeidsgiverDato: new Date('2018-01-15'),
                 egenmeldingsperioder: [],
@@ -64,7 +64,7 @@ describe('GenerellArbeidstakersoknadContainer', () => {
 
         ownProps = {
             params: {
-                sykepengesoknadId: 'soknad-id',
+                sykepengesoknadId: 'soknadPt-id',
             },
         };
     });
@@ -79,7 +79,7 @@ describe('GenerellArbeidstakersoknadContainer', () => {
         state.sykepengesoknader.data = [];
         const props = mapStateToProps(deepFreeze(state), ownProps);
         expect(props.skjemasoknad).to.deep.equal({
-            id: 'soknad-id',
+            id: 'soknadPt-id',
         });
     });
 

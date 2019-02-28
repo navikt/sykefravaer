@@ -1,4 +1,4 @@
-import { formaterEnkeltverdi } from '../felles/sporsmal/fieldUtils';
+import { formaterEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 import { erGyldigDato } from '../../utils/datoUtils';
 
 export const getOnChange = (props) => {

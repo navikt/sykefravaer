@@ -229,7 +229,7 @@ describe('OppsummeringContainer', () => {
                 expect(res).to.equal(null);
             });
 
-            it('Skal returnere null hvis utils-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker ikke er NY', () => {
+            it('Skal returnere null hvis utils-felleskomponenter-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker ikke er NY', () => {
                 thisArg.props.sykepengesoknad.status = 'AVBRUTT';
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader',
@@ -238,7 +238,7 @@ describe('OppsummeringContainer', () => {
                 expect(res).to.equal(null);
             });
 
-            it('Skal returnere streng hvis utils-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker er UTKAST_TIL_KORRIGERING', () => {
+            it('Skal returnere streng hvis utils-felleskomponenter-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker er UTKAST_TIL_KORRIGERING', () => {
                 thisArg.props.sykepengesoknad.status = 'UTKAST_TIL_KORRIGERING';
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader',

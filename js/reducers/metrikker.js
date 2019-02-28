@@ -1,4 +1,5 @@
-import { EVENT_REGISTRERT, SOKNAD_SENDT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
+import { EVENT_REGISTRERT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
+import { SOKNAD_SENDT } from '../sykepengesoknad/data/soknader/soknaderActiontyper';
 
 const initiellState = {
     data: [],

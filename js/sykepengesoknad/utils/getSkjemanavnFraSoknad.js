@@ -1,4 +1,4 @@
-import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE, ARBEIDSTAKERE } from '../../enums/soknadtyper';
+import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE, ARBEIDSTAKERE } from '../enums/soknadtyper';
 import { getSoknadSkjemanavn, OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
 
 export const getSkjemanavnFraSoknad = (soknad) => {

@@ -2,7 +2,7 @@ import chai from 'chai';
 import deepFreeze from 'deep-freeze';
 import * as utils from '../../js/utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../js/utils/sykmeldingUtils';
-import { parseSoknad } from '../../js/reducers/soknader';
+import { parseSoknad } from '../../js/sykepengesoknad/data/soknader/soknader';
 
 const expect = chai.expect;
 

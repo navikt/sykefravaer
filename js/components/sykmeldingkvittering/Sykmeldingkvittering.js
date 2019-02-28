@@ -19,7 +19,7 @@ import FrilanserSoekDigitaltFeil from './FrilanserSoekDigitaltFeil';
 import SendtSykmeldingMedPapirSoknadKvittering from './SendtSykmeldingMedPapirSoknadKvittering';
 import AnnetArbeidsledigKvittering from './AnnetArbeidsledigKvittering';
 import Feilmelding from '../Feilmelding';
-import { soknad as soknadPt } from '../../propTypes';
+import { soknadPt } from '../../propTypes';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ',

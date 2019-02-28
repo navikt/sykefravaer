@@ -22,7 +22,7 @@ import { hentMotebehov } from '../actions/motebehov_actions';
 import { hentSykeforloep, hentSykeforloepMetadata } from '../actions/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../utils/sykmeldingUtils';
 import { skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
-import { hentSoknader } from '../actions/soknader_actions';
+import { hentSoknader } from '../sykepengesoknad/data/soknader/soknaderActions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import { hentSykmeldtinfodata, hentOppfolging } from '../actions/brukerinfo_actions';
 import {

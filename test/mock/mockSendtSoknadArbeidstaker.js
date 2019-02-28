@@ -1,4 +1,4 @@
-import { parseSoknad } from '../../js/reducers/soknader';
+import { parseSoknad } from '../../js/sykepengesoknad/data/soknader/soknader';
 
 /* eslint-disable max-len */
 

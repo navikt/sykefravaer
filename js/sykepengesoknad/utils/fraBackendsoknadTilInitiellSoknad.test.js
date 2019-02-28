@@ -8,7 +8,6 @@ import {
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
 } from '../../enums/tagtyper';
-import mockSoknadArbeidstakerUtfylt from '../../../test/mock/mockNySoknadArbeidstakerUtfylt';
 
 describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe perioder på norsk format', () => {
@@ -127,11 +126,62 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
     });
 
     it('Skal mappe RADIO_GRUPPE', () => {
-        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockSoknadArbeidstakerUtfylt());
-        expect(initiellSoknad.HVOR_MYE_HAR_DU_JOBBET_1).to.deep.equal({
-            svarverdier: [{
-                verdi: 'PROSENT',
+        const soknad = {
+            sporsmal: [{
+                id: '114690',
+                tag: 'BETALER_ARBEIDSGIVER',
+                sporsmalstekst: 'Betaler arbeidsgiveren lønnen din når du er syk?',
+                undertekst: null,
+                svartype: 'RADIO_GRUPPE',
+                min: null,
+                max: null,
+                pavirkerAndreSporsmal: false,
+                kriterieForVisningAvUndersporsmal: null,
+                svar: [],
+                undersporsmal: [{
+                    id: '114691',
+                    tag: 'BETALER_ARBEIDSGIVER_JA',
+                    sporsmalstekst: 'Ja',
+                    undertekst: 'Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.',
+                    svartype: 'RADIO',
+                    min: null,
+                    max: null,
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [{
+                        verdi: 'CHECKED',
+                    }],
+                    undersporsmal: [],
+                }, {
+                    id: '114692',
+                    tag: 'BETALER_ARBEIDSGIVER_NEI',
+                    sporsmalstekst: 'Nei',
+                    undertekst: 'Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.',
+                    svartype: 'RADIO',
+                    min: null,
+                    max: null,
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [],
+                    undersporsmal: [],
+                }, {
+                    id: '114693',
+                    tag: 'BETALER_ARBEIDSGIVER_VET_IKKE',
+                    sporsmalstekst: 'Vet ikke',
+                    undertekst: 'Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV.',
+                    svartype: 'RADIO',
+                    min: null,
+                    max: null,
+                    pavirkerAndreSporsmal: false,
+                    kriterieForVisningAvUndersporsmal: null,
+                    svar: [],
+                    undersporsmal: [],
+                }],
             }],
+        };
+        const res = fraBackendsoknadTilInitiellSoknad(soknad);
+        expect(res.BETALER_ARBEIDSGIVER).to.deep.equal({
+            svarverdier: [{ verdi: 'Ja' }],
         });
     });
 

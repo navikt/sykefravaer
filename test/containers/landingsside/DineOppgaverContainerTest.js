@@ -13,7 +13,7 @@ import {
     moteBesvartAlleAlternativer,
     moteBesvartMedNyeAlternativerBesvart,
     moteBesvartMedNyeAlternativerIkkeBesvart } from '../../mock/mockMote';
-import { varselHendelse1, varselHendelse2, bekreftetHendelse1, bekreftetHendelse2, bekreftetHendelse3, ukjentHendelse } from '../../sider/AktivitetskravvarselSideTest';
+import { varselHendelse1, varselHendelse2, bekreftetHendelse1, bekreftetHendelse2, bekreftetHendelse3, ukjentHendelse } from '../../../js/aktivitetskrav/sider/AktivitetskravvarselSide.test';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -140,7 +140,7 @@ describe('DineOppgaverContainer', () => {
             expect(res.visAktivitetskrav).to.equal(false);
         });
 
-        it('Skal returnere visAktivitetskrav === true dersom det kun finnes aktivitetskrav (dvs. ingen sykmeldinger/søknader)', () => {
+        it('Skal returnere visAktivitetskrav === true dersom det kun finnes komponenter (dvs. ingen sykmeldinger/søknader)', () => {
             const hendelser = [
                 {
                     id: 71529,
@@ -349,7 +349,7 @@ describe('DineOppgaverContainer', () => {
                 expect(component.find(Link).at(0).text()).to.equal('Du har 1 ny forspørsel om behov for dialogmøte');
             });
 
-            it("Skal vise lenke til aktivitetskrav hvis det er kommet et nytt varsel'", () => {
+            it("Skal vise lenke til komponenter hvis det er kommet et nytt varsel'", () => {
                 component = mount(<DineOppgaver
                     sykmeldingerHentet
                     oppfolgingsdialogerHentet

@@ -1,4 +1,4 @@
-import * as actiontyper from './actiontyper';
+import * as actiontyper from '../../../actions/actiontyper';
 
 export function bekreftAktivitetskrav() {
     return {

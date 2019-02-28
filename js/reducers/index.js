@@ -11,7 +11,7 @@ import ledere from './ledere';
 import sykepengesoknader from './sykepengesoknader';
 import vedlikehold from './vedlikehold';
 import hendelser from './hendelser';
-import aktivitetskrav from './aktivitetskrav';
+import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav/aktivitetskrav';
 import reduxFormMeta from './reduxFormMeta';
 import oppfolgingsforlopsPerioder from './oppfolgingsforlopsPerioder';
 import sykeforloep from './sykeforloep';

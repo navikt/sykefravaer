@@ -17,7 +17,7 @@ import moteSagas from './moteSagas';
 import motebehovSagas from './motebehovSagas';
 import svarSagas from './svarSagas';
 import hendelserSagas from './hendelserSagas';
-import aktivitetskravSagas from './aktivitetskravSagas';
+import aktivitetskravSagas from '../aktivitetskrav/data/aktivitetskrav/aktivitetskravSagas';
 import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsPerioderSagas';

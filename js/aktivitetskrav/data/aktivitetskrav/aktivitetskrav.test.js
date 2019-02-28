@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
-import * as actions from '../../js/actions/aktivitetskrav_actions';
+import * as actions from './aktivitetskravActions';
 
-import aktivitetskrav from '../../js/reducers/aktivitetskrav';
+import aktivitetskrav from './aktivitetskrav';
 
 describe('aktivitetskrav', () => {
     it('Har en initiell state', () => {

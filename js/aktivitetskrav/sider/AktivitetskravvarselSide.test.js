@@ -1,12 +1,12 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import * as hendelsetyper from '../../js/enums/hendelsetyper';
+import * as hendelsetyper from '../../enums/hendelsetyper';
 import {
     mapStateToProps,
     getAktivitetskravvisning,
     INGEN_AKTIVITETSKRAVVARSEL,
     NYTT_AKTIVITETSKRAVVARSEL,
-    AKTIVITETSVARSELKVITTERING } from '../../js/sider/AktivitetskravvarselSide';
+    AKTIVITETSVARSELKVITTERING } from './AktivitetskravvarselSide';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst, keyValue, scrollTo, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
-import Side from './Side';
-import AppSpinner from '../components/AppSpinner';
-import Feilmelding from '../components/Feilmelding';
-import Artikkel from '../components/aktivitetskrav/AktivitetskravArtikkel';
-import BekreftAktivitetskravSkjema from '../components/aktivitetskrav/BekreftAktivitetskravSkjema';
-import { AKTIVITETSKRAV_BEKREFTET, AKTIVITETSKRAV_VARSEL } from '../enums/hendelsetyper';
-import { hentHendelser } from '../actions/hendelser_actions';
-import { Vis } from '../utils';
-import { selectLedeteksterData } from '../selectors/ledeteksterSelectors';
+import Side from '../../sider/Side';
+import AppSpinner from '../../components/AppSpinner';
+import Feilmelding from '../../components/Feilmelding';
+import Artikkel from '../komponenter/AktivitetskravArtikkel';
+import BekreftAktivitetskravSkjema from '../komponenter/BekreftAktivitetskravSkjema';
+import { AKTIVITETSKRAV_BEKREFTET, AKTIVITETSKRAV_VARSEL } from '../../enums/hendelsetyper';
+import { hentHendelser } from '../../actions/hendelser_actions';
+import { Vis } from '../../utils/index';
+import { selectLedeteksterData } from '../../selectors/ledeteksterSelectors';
 
 export const INGEN_AKTIVITETSKRAVVARSEL = 'INGEN_AKTIVITETSKRAVVARSEL';
 export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';
@@ -19,7 +19,7 @@ export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING';
 
 const Kvittering = ({ bekreftetdato, ledetekster }) => {
     return (<Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
-        <p className="sist">{getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
+        <p className="sist">{getLedetekst('komponenter-varsel.kvittering', ledetekster, {
             '%DATO%': tilLesbarDatoMedArstall(bekreftetdato),
         })}</p>
     </Alertstripe>);
@@ -54,7 +54,7 @@ class Container extends Component {
             tittel: 'Ditt sykefravær',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('aktivitetskrav-varsel.tittel', ledetekster),
+            tittel: getLedetekst('komponenter-varsel.tittel', ledetekster),
         }];
         return (<Side tittel="Aktivitetskrav" brodsmuler={brodsmuler} laster={henter || !hendelserHentet}>
             {
@@ -67,8 +67,8 @@ class Container extends Component {
                     }
                     if (visning === INGEN_AKTIVITETSKRAVVARSEL) {
                         return (<Feilmelding
-                            tittel={getLedetekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
-                            melding={getLedetekst('aktivitetskrav-varsel.ingen-varsel.melding')} />);
+                            tittel={getLedetekst('komponenter-varsel.ingen-varsel.tittel')}
+                            melding={getLedetekst('komponenter-varsel.ingen-varsel.melding')} />);
                     }
                     return (<div>
                         <div

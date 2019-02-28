@@ -23,7 +23,7 @@ const teksterMedArbeidsgiver = [{
 }, {
     fom: 43,
     tom: 56,
-    nokkel: 'tidslinje.utdrag.aktivitetskrav-med-arbeidsgiver',
+    nokkel: 'tidslinje.utdrag.komponenter-med-arbeidsgiver',
     bilde: 'aktivitetsplikt.svg',
 }, {
     fom: 57,

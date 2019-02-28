@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
-import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
-import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';
-import Feilstripe from '../Feilstripe';
+import CheckboxSelvstendig from '../../components/skjema/CheckboxSelvstendig';
+import { bekreftAktivitetskrav } from '../data/aktivitetskrav/aktivitetskravActions';
+import Feilstripe from '../../components/Feilstripe';
 import { selectLedeteksterData } from '../../selectors/ledeteksterSelectors';
 
 const Aktivitetskrav = (props) => {

@@ -161,7 +161,7 @@ export function mapStateToProps(state) {
         virksomhetsnrListe,
         virksomhetnrMedMotebehovListe,
         brodsmuler: [{
-            tittel: getLedetekst('containers.sidetittel'),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

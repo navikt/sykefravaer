@@ -9,7 +9,7 @@ describe('aktivitetskravSagas', () => {
 
     const generator = bekreftAktivitetskrav(action);
 
-    it('Skal dispatche bekrefter komponenter', () => {
+    it('Skal dispatche bekrefterAktivitetskrav()', () => {
         const nextPut = put(actions.bekrefterAktivitetskrav());
         expect(generator.next().value).to.deep.equal(nextPut);
     });

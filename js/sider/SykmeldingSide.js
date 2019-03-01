@@ -31,7 +31,7 @@ export class Container extends Component {
         } = this.props;
 
         const brodsmuler = [{
-            tittel: getLedetekst('containers.sidetittel'),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

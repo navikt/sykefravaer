@@ -115,7 +115,7 @@ describe('motebehovUtils', () => {
     });
 
     describe('hentMoteLandingssideUrl', () => {
-        it('Skal returnere url til containers for dialogmoter om skalViseMotebehov=true ', () => {
+        it('Skal returnere url til landingsside for dialogmoter om skalViseMotebehov=true ', () => {
             const exp = '/sykefravaer/dialogmoter';
             const res = hentMoteLandingssideUrl(true);
             expect(res).to.equal(exp);

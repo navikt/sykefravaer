@@ -97,7 +97,7 @@ export class Container extends Component {
         const Sidetype = hentingFeilet ? Side : SideStrippet;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
 
-        return (<Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('containers.sidetittel')} laster={henter || skalHenteNoe}>
+        return (<Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || skalHenteNoe}>
             {
                 (() => {
                     if (henter) {
@@ -203,7 +203,7 @@ export function mapStateToProps(state) {
         oppfolgingsforlopsPerioderReducerListe,
         virksomhetsnrListe,
         brodsmuler: [{
-            tittel: getLedetekst('containers.sidetittel'),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
     };

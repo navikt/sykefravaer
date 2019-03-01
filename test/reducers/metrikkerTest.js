@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import metrikker from '../../js/reducers/metrikker';
 import { utfyllingStartet } from '../../js/actions/metrikker_actions';
 import { UTFYLLING_STARTET } from '../../js/enums/metrikkerEnums';
-import { sykmeldingBekreftet, sykmeldingSendt } from '../../js/actions/dinSykmelding_actions';
+import { sykmeldingBekreftet, sykmeldingSendt } from '../../js/sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 import { soknadSendt } from '../../js/sykepengesoknad/data/soknader/soknaderActions';
 
 describe('metrikker', () => {

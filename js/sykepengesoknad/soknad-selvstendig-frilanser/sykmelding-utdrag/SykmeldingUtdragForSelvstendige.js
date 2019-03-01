@@ -9,7 +9,7 @@ import {
     tilLesbarDatoMedArstall,
     Utvidbar,
 } from '@navikt/digisyfo-npm';
-import { SykmeldingopplysningForsikring, SykmeldingopplysningFravaersperioder } from '../../../components/sykmeldingstatuspanel/SykmeldingStatuspanelOpplysning';
+import { SykmeldingopplysningForsikring, SykmeldingopplysningFravaersperioder } from '../../../sykmeldinger/statuspanel/SykmeldingStatuspanelOpplysning';
 import EndreArbeidssituasjon from '../endre-arbeidssituasjon/EndreArbeidssituasjon';
 
 const SykmeldingUtdragForSelvstendige = ({ erApen, sykmelding, erOppdelt }) => {

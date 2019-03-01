@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { senesteTom, sykmeldingstatuser as statuser, arbeidssituasjoner as situasjoner } from '@navikt/digisyfo-npm';
 import DinSituasjon from './DinSituasjon';
-import { selectDineSykmeldingerData } from '../../selectors/dineSykmeldingerSelectors';
-import { selectLedereData } from '../../selectors/ledereSelectors';
+import { selectDineSykmeldingerData } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSelectors';
+import { selectLedereData } from '../data/ledere/ledereSelectors';
 
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 const { ARBEIDSTAKER } = situasjoner;

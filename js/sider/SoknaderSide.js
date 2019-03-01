@@ -12,8 +12,8 @@ import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../sykepengesoknad/data/soknader/soknaderActions';
 import { skalHenteSykepengesoknader } from '../selectors/sykepengesoknaderSelectors';
 import { skalHenteSoknader } from '../sykepengesoknad/data/soknader/soknaderSelectors';
-import { selectSkalHenteDineSykmeldinger } from '../selectors/dineSykmeldingerSelectors';
-import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
+import { selectSkalHenteDineSykmeldinger } from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSelectors';
+import { hentDineSykmeldinger } from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { ARBEIDSTAKERE } from '../sykepengesoknad/enums/soknadtyper';
 import { toggleNyArbeidstakerSoknad } from '../selectors/unleashTogglesSelectors';
 

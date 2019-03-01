@@ -5,7 +5,7 @@ import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from '@navikt
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';
-import Standardkvittering from '../../components/sykmeldingkvittering/StandardSykmeldingkvittering';
+import Standardkvittering from '../../sykmeldinger/sykmelding-ny/sykmelding-skjema/kvittering/varianter/StandardSykmeldingkvittering';
 
 const { AVBRUTT, SLETTET_UTKAST } = sykepengesoknadstatuser;
 

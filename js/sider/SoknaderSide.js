@@ -106,7 +106,7 @@ export function mapStateToProps(state) {
             return s;
         }),
         brodsmuler: [{
-            tittel: getLedetekst('containers.sidetittel'),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

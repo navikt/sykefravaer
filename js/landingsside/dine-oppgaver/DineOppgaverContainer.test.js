@@ -147,7 +147,7 @@ describe('DineOppgaverComponent', () => {
             expect(res.visAktivitetskrav).to.equal(false);
         });
 
-        it('Skal returnere visAktivitetskrav === true dersom det kun finnes komponenter (dvs. ingen sykmeldinger/søknader)', () => {
+        it('Skal returnere visAktivitetskrav === true dersom det kun finnes aktivitetskrav (dvs. ingen sykmeldinger/søknader)', () => {
             const hendelser = [
                 {
                     id: 71529,
@@ -356,7 +356,7 @@ describe('DineOppgaverComponent', () => {
                 expect(component.find(Link).at(0).text()).to.equal('Du har 1 ny forspørsel om behov for dialogmøte');
             });
 
-            it("Skal vise lenke til komponenter hvis det er kommet et nytt varsel'", () => {
+            it("Skal vise lenke til aktivitetskrav hvis det er kommet et nytt varsel'", () => {
                 component = mount(<DineOppgaverComponent
                     sykmeldingerHentet
                     oppfolgingsdialogerHentet

@@ -19,7 +19,7 @@ export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING';
 
 const Kvittering = ({ bekreftetdato, ledetekster }) => {
     return (<Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
-        <p className="sist">{getLedetekst('komponenter-varsel.kvittering', ledetekster, {
+        <p className="sist">{getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
             '%DATO%': tilLesbarDatoMedArstall(bekreftetdato),
         })}</p>
     </Alertstripe>);
@@ -54,7 +54,7 @@ class Container extends Component {
             tittel: 'Ditt sykefravær',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('komponenter-varsel.tittel', ledetekster),
+            tittel: getLedetekst('aktivitetskrav-varsel.tittel', ledetekster),
         }];
         return (<Side tittel="Aktivitetskrav" brodsmuler={brodsmuler} laster={henter || !hendelserHentet}>
             {
@@ -67,8 +67,8 @@ class Container extends Component {
                     }
                     if (visning === INGEN_AKTIVITETSKRAVVARSEL) {
                         return (<Feilmelding
-                            tittel={getLedetekst('komponenter-varsel.ingen-varsel.tittel')}
-                            melding={getLedetekst('komponenter-varsel.ingen-varsel.melding')} />);
+                            tittel={getLedetekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
+                            melding={getLedetekst('aktivitetskrav-varsel.ingen-varsel.melding')} />);
                     }
                     return (<div>
                         <div

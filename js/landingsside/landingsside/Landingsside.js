@@ -18,7 +18,7 @@ import { toggleErPaaHeroku } from '../../toggles';
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
         <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/veileder.svg`} ikonAlt="NAV-veileder">
-            <p className="sist">{getLedetekst('containers.ingen-sykmelding')}</p>
+            <p className="sist">{getLedetekst('landingsside.ingen-sykmelding')}</p>
         </IllustrertInnhold>
     </div>);
 };
@@ -96,7 +96,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
             <ArbeidsrettetOppfolging />
             <DetteHarSkjeddContainer />
             <div className="panel blokk-xl">
-                <p className="sist">{getLedetekst('containers.gdpr.personopplysninger')}</p>
+                <p className="sist">{getLedetekst('landingsside.gdpr.personopplysninger')}</p>
             </div>
         </div>
     </div>);

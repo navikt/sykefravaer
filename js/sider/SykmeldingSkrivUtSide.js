@@ -66,7 +66,7 @@ export const mapStateToProps = (state, ownProps) => {
         hentet: state.arbeidsgiversSykmeldinger.hentet,
         hentingFeilet: state.ledetekster.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel'),
+            tittel: getLedetekst('containers.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

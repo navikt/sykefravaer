@@ -51,7 +51,7 @@ export function mapStateToProps(state) {
         henter: state.ledetekster.henter || state.dineSykmeldinger.henter || !state.dineSykmeldinger.hentet,
         hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel'),
+            tittel: getLedetekst('containers.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

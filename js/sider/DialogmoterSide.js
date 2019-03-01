@@ -11,7 +11,7 @@ import Feilmelding from '../components/Feilmelding';
 import DialogmoterInnhold from '../components/moter/DialogmoterInnhold';
 import { brodsmule as brodsmulePt, motebehovReducerPt } from '../propTypes';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
-import { hentLedere } from '../actions/ledere_actions';
+import { hentLedere } from '../landingsside/data/ledere/ledereActions';
 import { hentMote } from '../actions/moter_actions';
 import { hentMotebehov } from '../actions/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
@@ -190,7 +190,7 @@ export function mapStateToProps(state) {
         virksomhetsnrListe,
         virksomhetnrMedMotebehovListe,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel'),
+            tittel: getLedetekst('containers.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {

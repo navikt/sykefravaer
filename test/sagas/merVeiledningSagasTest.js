@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { all, call, put } from 'redux-saga/effects';
 import * as actions from '../../js/actions/merVeiledning_actions';
-import * as hendelseActions from '../../js/actions/hendelser_actions';
+import * as hendelseActions from '../../js/landingsside/data/hendelser/hendelserActions';
 import { bekreftMerVeiledning, lagUrl } from '../../js/sagas/merVeiledningSagas';
 import { post } from '../../js/gateway-api';
 

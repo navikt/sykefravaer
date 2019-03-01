@@ -2,7 +2,7 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { BEKREFT_MER_VEILEDNING_FORESPURT, bekrefterMerVeiledning, bekreftMerVeiledningFeilet, merVeiledningBekreftet } from '../actions/merVeiledning_actions';
 import { API_NAVN, hentSyfoApiUrl, post } from '../gateway-api';
-import { hentHendelser } from '../actions/hendelser_actions';
+import { hentHendelser } from '../landingsside/data/hendelser/hendelserActions';
 
 export const lagUrl = (id) => { return `${hentSyfoApiUrl(API_NAVN.SYFOSERVICESTRANGLER)}/hendelse/${id}/bekreft`; };
 

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import * as actions from '../../js/actions/hendelser_actions';
-import * as actiontyper from '../../js/actions/actiontyper';
+import * as actions from './hendelserActions';
+import * as actiontyper from '../../../actions/actiontyper';
 
 describe('hendelser', () => {
     let hendelse;

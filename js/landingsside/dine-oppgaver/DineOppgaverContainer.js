@@ -7,7 +7,7 @@ import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingPropty
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
 import { soknadPt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes/index';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
-import { hentHendelser } from '../../actions/hendelser_actions';
+import { hentHendelser } from '../data/hendelser/hendelserActions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../aktivitetskrav/sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../sykepengesoknad/enums/soknadstatuser';
@@ -16,7 +16,7 @@ import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelect
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { toggleErPaaHeroku } from '../../toggles';
-import { selectHarMerVeiledningHendelse } from '../../reducers/hendelser';
+import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 
 const Li = ({ tekst, url }) => {
     return (<li>

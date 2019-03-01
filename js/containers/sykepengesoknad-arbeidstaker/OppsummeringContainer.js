@@ -9,7 +9,7 @@ import Kvittering from '../../components/sykepengesoknad-arbeidstaker/Kvittering
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad-arbeidstaker/mappers/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
-import { hentLedere } from '../../actions/ledere_actions';
+import { hentLedere } from '../../landingsside/data/ledere/ledereActions';
 import AppSpinner from '../../components/AppSpinner';
 import mapSkjemasoknadToOppsummeringsoknad from '../../components/sykepengesoknad-arbeidstaker/mappers/mapSkjemasoknadToOppsummeringsoknad';
 import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../enums/soknadmottakertyper';

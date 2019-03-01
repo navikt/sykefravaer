@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
-import ledere from '../../js/reducers/ledere';
+import ledere from './ledere';
 import {
     hentLedereFeilet,
     ledereHentet,
@@ -8,7 +8,7 @@ import {
     avkreftLederFeilet,
     lederAvkreftet,
     avkrefterLeder,
-} from '../../js/actions/ledere_actions';
+} from './ledereActions';
 
 describe('ledere', () => {
     it('Returnerer { data: [] } ved initializering', () => {

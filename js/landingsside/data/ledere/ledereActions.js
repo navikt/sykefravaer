@@ -1,4 +1,4 @@
-import * as actiontyper from './actiontyper';
+import * as actiontyper from '../../../actions/actiontyper';
 
 export const hentLedere = () => {
     return {

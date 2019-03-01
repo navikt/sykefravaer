@@ -12,8 +12,8 @@ import {
     selectAktuelleArbeidssituasjoner,
     selectArbeidsgivereTilDinSituasjon,
 } from './DinSituasjonContainer';
-import ledere from '../../reducers/ledere';
-import { ledereHentet } from '../../actions/ledere_actions';
+import ledere from '../data/ledere/ledere';
+import { ledereHentet } from '../data/ledere/ledereActions';
 
 const { ARBEIDSTAKER, FRILANSER } = situasjoner;
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
-import * as hendelserActions from '../../js/actions/hendelser_actions';
-import hendelser from '../../js/reducers/hendelser';
+import * as hendelserActions from './hendelserActions';
+import hendelser from './hendelser';
 
 describe('hendelser', () => {
     let state;

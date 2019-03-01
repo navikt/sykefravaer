@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/ledere_actions';
+import * as actions from '../data/ledere/ledereActions';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes/index';
 import BekreftFeilLeder, { LederAvkreftet } from './BekreftFeilLeder';
 

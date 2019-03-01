@@ -9,7 +9,7 @@ import Feilmelding from '../../components/Feilmelding';
 import Artikkel from '../komponenter/AktivitetskravArtikkel';
 import BekreftAktivitetskravSkjema from '../komponenter/BekreftAktivitetskravSkjema';
 import { AKTIVITETSKRAV_BEKREFTET, AKTIVITETSKRAV_VARSEL } from '../../enums/hendelsetyper';
-import { hentHendelser } from '../../actions/hendelser_actions';
+import { hentHendelser } from '../../landingsside/data/hendelser/hendelserActions';
 import { Vis } from '../../utils/index';
 import { selectLedeteksterData } from '../../selectors/ledeteksterSelectors';
 

@@ -17,7 +17,7 @@ import Feilmelding from '../../components/Feilmelding';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
-import { hentLedere } from '../../actions/ledere_actions';
+import { hentLedere } from '../data/ledere/ledereActions';
 import { hentMotebehov } from '../../actions/motebehov_actions';
 import { hentSykeforloep, hentSykeforloepMetadata } from '../../actions/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';

@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 
-import * as actiontyper from '../actions/actiontyper';
-import { createReducer } from './createReducer';
+import * as actiontyper from '../../../actions/actiontyper';
+import { createReducer } from '../../../reducers/createReducer';
 
 const MER_VEILEDNING = 'MER_VEILEDNING';
 

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { get, post } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
-import { hentLedere, avkreftLeder } from '../../js/sagas/ledereSagas';
-import * as actions from '../../js/actions/ledere_actions';
-import * as actiontyper from '../../js/actions/actiontyper';
+import { hentLedere, avkreftLeder } from './ledereSagas';
+import * as actions from './ledereActions';
+import * as actiontyper from '../../../actions/actiontyper';
 
 describe('ledereSagas', () => {
     describe('hentLedere', () => {

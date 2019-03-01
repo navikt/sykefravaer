@@ -10,7 +10,7 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { forsoektHentetDineSykmeldinger, forsoektHentetToggles, henterEllerHarHentetLedere, henterEllerHarHentetToggles } from '../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
-import { hentLedere } from '../actions/ledere_actions';
+import { hentLedere } from '../landingsside/data/ledere/ledereActions';
 import { hentMotebehov, svarMotebehov } from '../actions/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
 import {

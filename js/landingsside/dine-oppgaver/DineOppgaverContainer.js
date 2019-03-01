@@ -6,7 +6,7 @@ import { getLedetekst, sykepengesoknadstatuser, sykmeldingstatuser } from '@navi
 import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingProptypes';
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
 import { soknadPt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes/index';
-import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
+import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentHendelser } from '../data/hendelser/hendelserActions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../aktivitetskrav/sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';

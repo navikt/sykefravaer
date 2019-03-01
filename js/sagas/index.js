@@ -5,11 +5,11 @@ import {
     togglesSagas,
     sykeforlopsPerioderSagas,
 } from '@navikt/digisyfo-npm';
-import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
+import arbeidsgiversSykmeldingerSagas from '../sykmeldinger/data/arbeidsgivers-sykmeldinger/arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
-import dineArbeidsgivereSagas from './arbeidsgivereSagas';
-import dineSykmeldingerSagas from './dineSykmeldingerSagas';
-import dinSykmeldingSagas from './dinSykmeldingSagas';
+import dineArbeidsgivereSagas from '../sykmeldinger/data/arbeidsgivere/arbeidsgivereSagas';
+import dineSykmeldingerSagas from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSagas';
+import dinSykmeldingSagas from '../sykmeldinger/data/din-sykmelding/dinSykmeldingSagas';
 import sykepengesoknadSagas from './sykepengesoknadSagas';
 import ledereSagas from '../landingsside/data/ledere/ledereSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
@@ -22,7 +22,7 @@ import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloepSagas';
-import sykmeldingMetaSagas from './sykmeldingMetaSagas';
+import sykmeldingMetaSagas from '../sykmeldinger/data/sykmelding-meta/sykmeldingMetaSagas';
 import sykeforloepMetadataSagas from './sykeforloepMetadataSagas';
 import soknaderSagas from '../sykepengesoknad/data/soknader/soknaderSagas';
 import unleashTogglesSagas from './unleashTogglesSagas';

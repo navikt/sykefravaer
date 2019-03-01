@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../data/soknader/soknaderActions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
-import * as dineSykmeldingerActions from '../../actions/dineSykmeldinger_actions';
+import * as dineSykmeldingerActions from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import Feilmelding from '../../components/Feilmelding';
 import Side from '../../sider/Side';
 import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';

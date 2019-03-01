@@ -1,4 +1,4 @@
-import { BEKREFT_MER_VEILEDNING_FEILET, BEKREFTER_MER_VEILEDNING, MER_VEILEDNING_BEKREFTET } from '../actions/merVeiledning_actions';
+import { BEKREFT_MER_VEILEDNING_FEILET, BEKREFTER_MER_VEILEDNING, MER_VEILEDNING_BEKREFTET } from './merVeiledningActions';
 
 const initiellState = {
     bekreftingFeilet: false,

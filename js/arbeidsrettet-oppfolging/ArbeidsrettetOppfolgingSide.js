@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
-import ArbeidsrettetOppfolging from '../components/arbeidsrettet-oppfolging/ArbeidsrettetOppfolging';
-import SideStrippet from './SideStrippet';
+import ArbeidsrettetOppfolging from './ArbeidsrettetOppfolging';
+import SideStrippet from '../sider/SideStrippet';
 import { hentLoginInfo, hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
 import { selectLedeteksterHenter, selectLedeteksterHentingFeilet } from '../selectors/ledeteksterSelectors';
 import {
@@ -20,7 +20,7 @@ import {
     selectSykmeldtinfodataMaksdatoString,
 } from '../reducers/brukerinfo';
 
-class InfoSideFO extends Component {
+class ArbeidsrettetOppfolgingSide extends Component {
     componentDidMount() {
         this.props.doHentOppfolging();
         this.props.doHentSykmeldtinfodata();
@@ -52,7 +52,7 @@ class InfoSideFO extends Component {
     }
 }
 
-InfoSideFO.propTypes = {
+ArbeidsrettetOppfolgingSide.propTypes = {
     doHentOppfolging: PropTypes.func,
     doHentSykmeldtinfodata: PropTypes.func,
     doHentLoginInfo: PropTypes.func,
@@ -85,4 +85,4 @@ const actionCreators = {
     doHentLoginInfo: hentLoginInfo,
 };
 
-export default connect(mapStateToProps, actionCreators)(InfoSideFO);
+export default connect(mapStateToProps, actionCreators)(ArbeidsrettetOppfolgingSide);

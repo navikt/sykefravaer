@@ -3,7 +3,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hentFornavn } from '../../utils';
+import { hentFornavn } from '../utils/index';
 
 const VeilederRad = ({ brukerNavn, maksDato }) => {
     const veilederpanelKompakt = window.matchMedia('(min-width: 768px)').matches;

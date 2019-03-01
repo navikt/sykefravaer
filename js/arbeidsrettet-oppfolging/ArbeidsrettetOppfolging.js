@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import Sidetopp from '../Sidetopp';
-import Brodsmuler from '../Brodsmuler';
+import Sidetopp from '../components/Sidetopp';
+import Brodsmuler from '../components/Brodsmuler';
 import HarAlleredeOppfolgingAlertstripe from './HarAlleredeOppfolgingAlertstripe';
 import VeilederRad from './VeilederRad';
 import KommunikasjonRad from './KommunikasjonRad';

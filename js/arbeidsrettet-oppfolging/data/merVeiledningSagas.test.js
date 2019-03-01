@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { all, call, put } from 'redux-saga/effects';
-import * as actions from '../../js/actions/merVeiledning_actions';
-import * as hendelseActions from '../../js/landingsside/data/hendelser/hendelserActions';
-import { bekreftMerVeiledning, lagUrl } from '../../js/sagas/merVeiledningSagas';
-import { post } from '../../js/gateway-api';
+import * as actions from './merVeiledningActions';
+import * as hendelseActions from '../../landingsside/data/hendelser/hendelserActions';
+import { bekreftMerVeiledning, lagUrl } from './merVeiledningSagas';
+import { post } from '../../gateway-api/index';
 
 describe('merVeiledning', () => {
     const callback = () => {};

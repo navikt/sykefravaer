@@ -29,7 +29,7 @@ import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
 import soknadMetaSagas from '../sykepengesoknad/data/soknadMeta/soknadMetaSagas';
-import merVeiledningSagas from './merVeiledningSagas';
+import merVeiledningSagas from '../arbeidsrettet-oppfolging/data/merVeiledningSagas';
 
 export default function* rootSaga() {
     yield all([

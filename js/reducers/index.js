@@ -26,7 +26,7 @@ import motebehov from './motebehov';
 import motebehovSvar from './motebehovSvar';
 import history from '../history';
 import soknadMeta from '../sykepengesoknad/data/soknadMeta/soknadMeta';
-import merVeiledning from './merVeiledning';
+import merVeiledning from '../arbeidsrettet-oppfolging/data/merVeiledning';
 
 const reducers = {
     arbeidsgivere,

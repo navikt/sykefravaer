@@ -4,13 +4,13 @@ import * as PT from 'prop-types';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
-import history from '../../history';
-import { bekreftMerVeiledning } from '../../actions/merVeiledning_actions';
-import { selectAlleHarMerVeiledningIder } from '../../landingsside/data/hendelser/hendelser';
-import { hentHendelser } from '../../landingsside/data/hendelser/hendelserActions';
-import Feilstripe from '../Feilstripe';
-import { toggleCVTekstArbeidsrettetOppfolging } from '../../selectors/unleashTogglesSelectors';
-import logger from '../../logging';
+import history from '../history';
+import { bekreftMerVeiledning } from './data/merVeiledningActions';
+import { selectAlleHarMerVeiledningIder } from '../landingsside/data/hendelser/hendelser';
+import { hentHendelser } from '../landingsside/data/hendelser/hendelserActions';
+import Feilstripe from '../components/Feilstripe';
+import { toggleCVTekstArbeidsrettetOppfolging } from '../selectors/unleashTogglesSelectors';
+import logger from '../logging';
 
 class TrengerMerVeiledningRad extends Component {
     constructor(props) {

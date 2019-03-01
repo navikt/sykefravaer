@@ -14,7 +14,7 @@ import SoknaderSide from '../sider/SoknaderSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
 import SykepengesoknadContainer from '../sykepengesoknad/sider/SoknadSide';
 import SykepengesoknadUtlandContainer from '../sykepengesoknad/soknad-utland/for-du-begynner/FoerDuBegynnerUtlandContainer';
-import InfoSideFO from '../sider/InfoSideFO';
+import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

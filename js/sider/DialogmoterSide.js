@@ -10,7 +10,7 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import DialogmoterInnhold from '../components/moter/DialogmoterInnhold';
 import { brodsmule as brodsmulePt, motebehovReducerPt } from '../propTypes';
-import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
+import { hentDineSykmeldinger } from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../landingsside/data/ledere/ledereActions';
 import { hentMote } from '../actions/moter_actions';
 import { hentMotebehov } from '../actions/motebehov_actions';

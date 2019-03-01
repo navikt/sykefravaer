@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Router } from 'react-router';
-import DineSykmeldingerContainer from '../sider/SykmeldingerSide';
+import DineSykmeldingerContainer from '../sykmeldinger/sider/sykmeldinger-side/SykmeldingerSide';
 import LandingssideSide from '../landingsside/sider/LandingssideSide';
-import DinSykmeldingContainer from '../sider/SykmeldingSide';
-import SykmeldingSkrivUtSide from '../sider/SykmeldingSkrivUtSide';
+import DinSykmeldingContainer from '../sykmeldinger/sider/sykmelding-side/SykmeldingSide';
+import SykmeldingSkrivUtSide from '../sykmeldinger/sider/SykmeldingSkrivUtSide';
 import TidslinjeSide from '../sider/TidslinjeSide';
-import SykmeldingKvitteringContainer from '../sider/SykmeldingkvitteringSide';
+import SykmeldingKvitteringContainer from '../sykmeldinger/sider/kvittering-side/SykmeldingkvitteringSide';
 import DialogmoterContainer from '../sider/DialogmoterSide';
 import MotebehovContainer from '../sider/MotebehovSide';
 import DialogmoteSide from '../sider/DialogmoteSide';

@@ -12,7 +12,7 @@ import LenkeTilDineSykmeldinger from '../../../components/LenkeTilDineSykmelding
 import Feilmelding from '../../../components/Feilmelding';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
 import { sykmelding as sykmeldingPt } from '../../../propTypes';
-import SykmeldingContext from '../../sykmelding-ny/SykmeldingContext';
+import SykmeldingContext from '../../contexts/SykmeldingContext';
 
 const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatuser;
 

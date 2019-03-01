@@ -20,7 +20,7 @@ import { sykmelding as sykmeldingPt } from '../../../../propTypes';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../../containers/skjema/FeiloppsummeringContainer';
 import validate from './validerSykmeldingskjema';
 import * as sykmeldingActions from '../../../data/din-sykmelding/dinSykmeldingActions';
-import { sykmeldingskjemamodi as modi } from '../../../../enums/sykmeldingskjemaenums';
+import { sykmeldingskjemamodi as modi } from '../../../enums/sykmeldingskjemaenums';
 import { getSkjemaModus } from './sykmeldingSkjemaUtils';
 import SpoersmalForFrilanserOgNaeringsdrivende from '../sporsmal-for-frilansere/SpoersmalForFrilanserOgNaeringsdrivende';
 import { Vis } from '../../../../utils/index';

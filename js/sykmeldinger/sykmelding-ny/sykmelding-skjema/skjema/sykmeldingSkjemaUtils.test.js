@@ -1,7 +1,7 @@
 import chai from 'chai';
 import { arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import { getSkjemaModus, skalViseFrilansersporsmal } from './sykmeldingSkjemaUtils';
-import { sykmeldingskjemamodi as modi } from '../../../../enums/sykmeldingskjemaenums';
+import { sykmeldingskjemamodi as modi } from '../../../enums/sykmeldingskjemaenums';
 import getSykmelding from '../../../../../test/mock/mockSykmeldinger';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 import { getFeilaktigeOpplysninger } from './DinSykmeldingSkjema';

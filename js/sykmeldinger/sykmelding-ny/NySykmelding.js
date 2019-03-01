@@ -3,7 +3,7 @@ import { Bjorn, DineSykmeldingOpplysninger, getLedetekst, scrollTo } from '@navi
 import DinSykmeldingSkjemaContainer from './sykmelding-skjema/skjema/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../../components/Sidetopp';
 import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
-import SykmeldingContext from './SykmeldingContext';
+import SykmeldingContext from '../contexts/SykmeldingContext';
 import EldreSykmeldingVarsel from '../eldre-sykmelding-varsel/EldreSykmeldingVarsel';
 
 class NySykmelding extends Component {

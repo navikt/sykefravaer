@@ -9,7 +9,7 @@ import Radioknapper from '../../../../components/skjema/Radioknapper';
 import { formaterOrgnr } from '../../../../utils/index';
 import ErLederRiktig from '../er-leder-riktig/ErLederRiktig';
 import SkrivUtSykmeldingDialog from '../skriv-ut/SkrivUtSykmeldingDialog';
-import { ANNEN_ARBEIDSGIVER_ORGNUMMER, ANNEN_ARBEIDSSITUASJON } from '../../../../enums/sykmeldingskjemaenums';
+import { ANNEN_ARBEIDSGIVER_ORGNUMMER, ANNEN_ARBEIDSSITUASJON } from '../../../enums/sykmeldingskjemaenums';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = arbeidssituasjonerEnums;
 

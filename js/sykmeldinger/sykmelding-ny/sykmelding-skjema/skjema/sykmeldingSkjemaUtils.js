@@ -1,5 +1,5 @@
 import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
-import { ANNEN_ARBEIDSGIVER_ORGNUMMER, sykmeldingskjemamodi as modi } from '../../../../enums/sykmeldingskjemaenums';
+import { ANNEN_ARBEIDSGIVER_ORGNUMMER, sykmeldingskjemamodi as modi } from '../../../enums/sykmeldingskjemaenums';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 import * as sykmeldingSelectors from '../../../data/sykmelding-meta/sykmeldingMetaSelectors';
 import { hentSkjemaVerdier } from '../../../../selectors/reduxFormSelectors';

@@ -3,7 +3,7 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremse } from '../felles/Soknadsdatoliste';
-import { soknadPt } from '../../../../../propTypes';
+import { soknadPt } from '../../../propTypes/index';
 import { FrilanserSelvstendigKvitteringstegEn } from './FrilanserSoekDigitaltNaa';
 
 const FrilanserSoekDigitaltSenere = ({ soknader }) => {

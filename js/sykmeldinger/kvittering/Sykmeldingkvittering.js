@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
-import LenkeTilDineSykmeldinger from '../../../../components/LenkeTilDineSykmeldinger';
-import Sidetopp from '../../../../components/Sidetopp';
+import LenkeTilDineSykmeldinger from '../../components/LenkeTilDineSykmeldinger';
+import Sidetopp from '../../components/Sidetopp';
 import StandardSykmeldingkvittering from './varianter/StandardSykmeldingkvittering';
 import {
     SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding,
@@ -18,8 +18,8 @@ import FrilanserSoekDigitaltSenere from './varianter/FrilanserSoekDigitaltSenere
 import FrilanserSoekDigitaltFeil from './varianter/FrilanserSoekDigitaltFeil';
 import SendtSykmeldingMedPapirSoknadKvittering from './varianter/SendtSykmeldingMedPapirSoknadKvittering';
 import AnnetArbeidsledigKvittering from './varianter/AnnetArbeidsledigKvittering';
-import Feilmelding from '../../../../components/Feilmelding';
-import { soknadPt } from '../../../../propTypes';
+import Feilmelding from '../../components/Feilmelding';
+import { soknadPt } from '../../propTypes/index';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ',

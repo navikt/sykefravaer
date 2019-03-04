@@ -8,19 +8,21 @@ import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import { setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import SykmeldingKvitteringContainer, { mapStateToProps } from './SykmeldingkvitteringSide';
-import StandardSykmeldingKvittering from '../../sykmelding-ny/sykmelding-skjema/kvittering/varianter/StandardSykmeldingkvittering';
-import FrilanserMedPapirsoknadKvittering from '../../sykmelding-ny/sykmelding-skjema/kvittering/varianter/FrilanserMedPapirsoknadKvittering';
-import FrilanserUtenSoknadKvittering from '../../sykmelding-ny/sykmelding-skjema/kvittering/varianter/FrilanserUtenSoknadKvittering';
-import SendtSykmeldingMedPapirSoknadKvittering from '../../sykmelding-ny/sykmelding-skjema/kvittering/varianter/SendtSykmeldingMedPapirSoknadKvittering';
+import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSykmeldingkvittering';
+import FrilanserMedPapirsoknadKvittering from '../../kvittering/varianter/FrilanserMedPapirsoknadKvittering';
+import FrilanserUtenSoknadKvittering from '../../kvittering/varianter/FrilanserUtenSoknadKvittering';
+import SendtSykmeldingMedPapirSoknadKvittering from '../../kvittering/varianter/SendtSykmeldingMedPapirSoknadKvittering';
 
 import getSykmelding from '../../../../test/mock/mockSykmeldinger';
 import { getParsetSoknad } from '../../../../test/mock/mockSykepengesoknader';
-import FrilanserSoekDigitaltNaa from '../../sykmelding-ny/sykmelding-skjema/kvittering/varianter/FrilanserSoekDigitaltNaa';
-import FrilanserSoekDigitaltSenere from '../../sykmelding-ny/sykmelding-skjema/kvittering/varianter/FrilanserSoekDigitaltSenere';
+import FrilanserSoekDigitaltNaa from '../../kvittering/varianter/FrilanserSoekDigitaltNaa';
+import FrilanserSoekDigitaltSenere from '../../kvittering/varianter/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../sykepengesoknad/enums/soknadtyper';
-import AnnetArbeidsledigKvittering from '../../sykmelding-ny/sykmelding-skjema/kvittering/varianter/AnnetArbeidsledigKvittering';
+import AnnetArbeidsledigKvittering from '../../kvittering/varianter/AnnetArbeidsledigKvittering';
 import arbeidsgivere from '../../data/arbeidsgivere/arbeidsgivere';
 import { aktuelleArbeidsgivereHentet } from '../../data/arbeidsgivere/arbeidsgivereActions';
+import { FREMTIDIG } from '../../../sykepengesoknad/enums/soknadstatuser';
+import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -34,6 +36,8 @@ describe('SykmeldingkvitteringSide', () => {
     let nySoknad4;
     let fremtidigSoknad1;
     let fremtidigSoknad2;
+    let fremtidigSoknadNyPlattform1;
+    let fremtidigSoknadNyPlattform2;
     let sykmeldinger;
     let ledetekster;
     const sagaMiddleware = createSagaMiddleware();
@@ -167,6 +171,16 @@ describe('SykmeldingkvitteringSide', () => {
         fremtidigSoknad2 = getParsetSoknad({
             sykmeldingId: '1',
             status: sykepengesoknadstatuser.FREMTIDIG,
+        });
+
+        fremtidigSoknadNyPlattform1 = mockNySoknadArbeidstaker({
+            sykmeldingId: '1',
+            status: FREMTIDIG,
+        });
+
+        fremtidigSoknadNyPlattform2 = mockNySoknadArbeidstaker({
+            sykmeldingId: '1',
+            status: FREMTIDIG,
         });
 
         state.dineSykmeldinger = {
@@ -409,6 +423,30 @@ describe('SykmeldingkvitteringSide', () => {
                 .contain('<strong>25. januar 2017</strong> får du en melding');
         });
 
+        it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad på ny plattform som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [];
+            state.soknader.data = [mockNySoknadArbeidstaker({
+                sykmeldingId: sykmelding.id,
+                status: FREMTIDIG,
+                tom: new Date('2019-02-18'),
+            })];
+
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.kort-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain('<strong>18. februar 2019</strong> får du en melding');
+        });
+
         it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [fremtidigSoknad1, fremtidigSoknad2];
@@ -427,9 +465,43 @@ describe('SykmeldingkvitteringSide', () => {
                 .contain('Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.');
         });
 
+        it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [];
+            state.soknader.data = [fremtidigSoknadNyPlattform1, fremtidigSoknadNyPlattform2];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.lang-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.lang-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.lang-sykmelding.tittel']);
+            expect(component.text())
+                .to
+                .contain('Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.');
+        });
+
         it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [nySoknad4];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tittel-2']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tekst-2']);
+        });
+
+        it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [];
+            state.soknader.data = [mockNySoknadArbeidstaker({
+                sykmeldingId: sykmelding.id,
+            })];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to
@@ -502,6 +574,25 @@ describe('SykmeldingkvitteringSide', () => {
                 .contain('<strong>25. januar 2017</strong> får du en melding');
         });
 
+        it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad på ny plattform som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [];
+            state.soknader.data = [fremtidigSoknadNyPlattform1];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain('<strong>11. februar 2019</strong> får du en melding');
+        });
+
         it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [fremtidigSoknad1, fremtidigSoknad2];
@@ -520,9 +611,44 @@ describe('SykmeldingkvitteringSide', () => {
                 .contain('Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.');
         });
 
+        it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [];
+            state.soknader.data = [fremtidigSoknadNyPlattform1, fremtidigSoknadNyPlattform2];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.undertekst']);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel']);
+            expect(component.html())
+                .to
+                .contain('Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.');
+        });
+
         it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [nySoknad4];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tittel-2']);
+            expect(component.html())
+                .to
+                .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tekst-2']);
+        });
+
+
+        it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykepengesoknader.data = [];
+            state.soknader.data = [mockNySoknadArbeidstaker({
+                sykmeldingId: sykmelding.id,
+            })];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to

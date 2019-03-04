@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { FieldArray } from 'redux-form';
 import ErOpplysningeneRiktige, { feilaktigeOpplysninger } from './ErOpplysningeneRiktige';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
-import JaEllerNei from '../../../../components/sykepengesoknad-arbeidstaker/JaEllerNei';
+import JaEllerNei from '../../../../components/skjema/JaEllerNei';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import GjenapneSoknad from '../../../components/soknad-felles/GjenapneSoknad';
-import { soknadKanGjenapnes } from '../../../containers/sykepengesoknad-arbeidstaker/GjenapneSoknadContainer';
+import { soknadKanGjenapnes } from '../../../sykepengesoknad-gammel-plattform/soknad/soknad-avbrutt/GjenapneSoknadContainer';
 import { gjenapneSoknad } from '../../data/soknader/soknaderActions';
 
 const mapStateToProps = (state, ownProps) => {

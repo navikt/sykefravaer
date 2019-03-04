@@ -6,8 +6,8 @@ import Soknadskjema from '../../felleskomponenter/Soknadskjema';
 import { ANSVARSERKLARING } from '../../enums/tagtyper';
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import { soknadPt } from '../../../propTypes';
-import ForsteSoknadIntro from '../../../components/sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
-import SoknadIntro from '../../../components/sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';
+import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
+import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
 
 export const hentSporsmalForDuBegynner = (soknad) => {
     return soknad.sporsmal.filter((s) => {

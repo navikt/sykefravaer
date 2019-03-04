@@ -7,8 +7,8 @@ import sykepengesoknader, {
     finnSoknad,
     sorterAktiviteterEldsteFoerst,
     settErOppdelt,
-} from '../../js/reducers/sykepengesoknader';
-import * as actions from '../../js/actions/sykepengesoknader_actions';
+} from '../../js/sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader';
+import * as actions from '../../js/sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
 
 const getSoknad = () => {
     return {

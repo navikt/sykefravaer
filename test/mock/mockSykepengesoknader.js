@@ -1,5 +1,5 @@
-import * as actions from '../../js/actions/sykepengesoknader_actions';
-import sykepengesoknader from '../../js/reducers/sykepengesoknader';
+import * as actions from '../../js/sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
+import sykepengesoknader from '../../js/sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader';
 
 export const soknader = [{
     id: '9997ab30-ce08-443c-87fe-e953c8a07cca',

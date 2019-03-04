@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import { reducer as formReducer } from 'redux-form';
 import SoknadSide, { Container, mapStateToProps } from './SoknadSide';
 import AppSpinner from '../../components/AppSpinner';
-import sykepengesoknader from '../../reducers/sykepengesoknader';
+import sykepengesoknader from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader';
 import soknader from '../data/soknader/soknader';
 import dineSykmeldinger from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldinger';
 import SendtSoknadSelvstendig from '../soknad-selvstendig-frilanser/SendtSoknadSelvstendig';

@@ -2,7 +2,7 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag, formaterEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 import { CHECKED } from '../enums/svarEnums';
 import { CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT } from '../enums/svartyper';
-import { validerPerioder } from '../../components/sykepengesoknad-arbeidstaker/validering/valideringUtils';
+import { validerPerioder } from '../../sykepengesoknad-gammel-plattform/utils/valideringUtils';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste

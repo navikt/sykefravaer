@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../../../components/sykepengesoknad-arbeidstaker/JaEllerNei';
+import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../../../components/skjema/JaEllerNei';
 import Periodevelger from '../../../../components/skjema/periodevelger/Periodevelger';
 import { getOppfolgingstilfelleStartdato } from '../../../../utils/sykeforloepUtils';
 

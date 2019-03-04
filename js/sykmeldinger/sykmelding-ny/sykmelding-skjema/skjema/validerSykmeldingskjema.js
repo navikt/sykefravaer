@@ -1,5 +1,5 @@
 import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
-import { validerPerioder } from '../../../../components/sykepengesoknad-arbeidstaker/validering/valideringUtils';
+import { validerPerioder } from '../../../../sykepengesoknad-gammel-plattform/utils/valideringUtils';
 import { harValgtArbeidsgiverMedNaermesteLeder } from '../velg-arbeidssituasjon/VelgArbeidssituasjon';
 
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;

@@ -2,13 +2,13 @@ import { ledetekster, sykeforlopsPerioder, tidslinjer, timeout, toggles } from '
 import { reducer as formReducer } from 'redux-form';
 import oppfolgingsdialoger from '../oppfolgingsdialogNpm/oppfolgingsdialoger';
 import arbeidsgivere from '../sykmeldinger/data/arbeidsgivere/arbeidsgivere';
-import arbeidsgiverperiodeberegning from './arbeidsgiverperiodeberegning';
+import arbeidsgiverperiodeberegning from '../sykepengesoknad-gammel-plattform/data/arbeidsgiverperiodeberegning/arbeidsgiverperiodeberegning';
 import arbeidsgiversSykmeldinger from '../sykmeldinger/data/arbeidsgivers-sykmeldinger/arbeidsgiversSykmeldinger';
 import brukerinfo from './brukerinfo';
 import dineSykmeldinger from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldinger';
-import forskutteringssporsmal from './forskutteringssporsmal';
+import forskutteringssporsmal from '../sykepengesoknad-gammel-plattform/data/forskutteringssporsmal/forskutteringssporsmal';
 import ledere from '../landingsside/data/ledere/ledere';
-import sykepengesoknader from './sykepengesoknader';
+import sykepengesoknader from '../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader';
 import vedlikehold from './vedlikehold';
 import hendelser from '../landingsside/data/hendelser/hendelser';
 import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav/aktivitetskrav';

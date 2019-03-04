@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
 import SykmeldingSoknadsinfo from '../soknadsinfo/SykmeldingSoknadsinfo';
-import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
+import * as sykepengesoknaderActions from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
 import { skalHenteSykepengesoknader as skalHenteSykepengesoknaderSelector } from '../../selectors/sykepengesoknaderSelectors';
 
 export class Container extends Component {

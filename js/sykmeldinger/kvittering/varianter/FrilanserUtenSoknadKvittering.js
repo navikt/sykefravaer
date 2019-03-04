@@ -1,6 +1,6 @@
 import React from 'react';
 import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
-import { IllustrertInnholdGronnHake } from '../../../../../components/IllustrertInnhold';
+import { IllustrertInnholdGronnHake } from '../../../components/IllustrertInnhold';
 
 export default () => {
     return (<div className="panel blokk js-kvittering s-kvittering--standard">

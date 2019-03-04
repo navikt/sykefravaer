@@ -10,8 +10,10 @@ import {
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from '../felles/Soknadsdatoliste';
+import { soknadPt } from '../../../sykepengesoknad/prop-types/soknadProptype';
 
-const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer' }) => {
+const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, soknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer' }) => {
+    const soknaderOgSykepengesoknader = [...sykepengesoknader, ...soknader];
     return (<div className="js-kvittering js-kvittering--sok-senere">
         <div className="panel blokk">
             <StegvisKvittering>
@@ -29,8 +31,8 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, sykmeldingstype = 
                     <HtmlAvsnitt
                         nokkel={`sykmelding.kvittering.sok-senere.steg-2.${forskutteringstype}.${sykmeldingstype}-sykmelding.undertekst`}
                         replacements={{
-                            '%DATO%': tilLesbarDatoMedArstall(sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)[0].tom),
-                            '%DATOER%': soknadsdatoremseUtenForsteDato(sykepengesoknader),
+                            '%DATO%': tilLesbarDatoMedArstall(sorterSoknaderEtterDatoTilgjengelig(soknaderOgSykepengesoknader)[0].tom),
+                            '%DATOER%': soknadsdatoremseUtenForsteDato(soknaderOgSykepengesoknader),
                         }} />
                 </Kvitteringsteg>
             </StegvisKvittering>
@@ -49,38 +51,55 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, sykmeldingstype = 
 
 SokOmSykepengerSenereKvittering.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
     sykmeldingstype: PropTypes.oneOf(['lang', 'kort']),
     forskutteringstype: PropTypes.oneOf(['arbeidsgiver-forskutterer', 'arbeidsgiver-forskutterer-ikke']),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding = ({ sykepengesoknader }) => {
-    return <SokOmSykepengerSenereKvittering sykepengesoknader={sykepengesoknader} />;
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding = ({ sykepengesoknader, soknader }) => {
+    return (<SokOmSykepengerSenereKvittering
+        soknader={soknader}
+        sykepengesoknader={sykepengesoknader} />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding = ({ sykepengesoknader }) => {
-    return <SokOmSykepengerSenereKvittering sykepengesoknader={sykepengesoknader} sykmeldingstype="kort" />;
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding = ({ sykepengesoknader, soknader }) => {
+    return (<SokOmSykepengerSenereKvittering
+        soknader={soknader}
+        sykepengesoknader={sykepengesoknader}
+        sykmeldingstype="kort" />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding = ({ sykepengesoknader }) => {
-    return <SokOmSykepengerSenereKvittering sykepengesoknader={sykepengesoknader} forskutteringstype="arbeidsgiver-forskutterer-ikke" />;
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding = ({ sykepengesoknader, soknader }) => {
+    return (<SokOmSykepengerSenereKvittering
+        sykepengesoknader={sykepengesoknader}
+        soknader={soknader}
+        forskutteringstype="arbeidsgiver-forskutterer-ikke" />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding = ({ sykepengesoknader }) => {
-    return <SokOmSykepengerSenereKvittering sykepengesoknader={sykepengesoknader} sykmeldingstype="kort" forskutteringstype="arbeidsgiver-forskutterer-ikke" />;
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding = ({ sykepengesoknader, soknader }) => {
+    return (<SokOmSykepengerSenereKvittering
+        sykepengesoknader={sykepengesoknader}
+        soknader={soknader}
+        sykmeldingstype="kort"
+        forskutteringstype="arbeidsgiver-forskutterer-ikke" />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
 };

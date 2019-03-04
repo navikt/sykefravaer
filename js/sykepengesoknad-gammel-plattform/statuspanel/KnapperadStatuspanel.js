@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../data/sykepengesoknader/sykepengesoknader_actions';
-import ConnectedEttersending from './Ettersending';
+import ConnectedEttersending from '../ettersending/Ettersending';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 
 const getSistSendtDato = (s) => {
@@ -30,6 +30,7 @@ export const KnapperadComponent = (props) => {
             {
                 sendtDato.getTime() >= frist.getTime() && <div className="verktoylinje__element">
                     <Knapp
+                        type="standard"
                         mini
                         onClick={(e) => {
                             e.preventDefault();

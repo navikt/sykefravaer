@@ -22,7 +22,7 @@ const Lightbox = ({ onClose, children, bredde }) => {
 };
 
 Lightbox.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+    children: PropTypes.node,
     onClose: PropTypes.func,
     bredde: PropTypes.oneOf([m]),
 };

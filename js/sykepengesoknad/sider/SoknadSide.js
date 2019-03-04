@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../data/soknader/soknaderActions';
-import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
+import * as sykepengesoknaderActions from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
 import * as dineSykmeldingerActions from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import Feilmelding from '../../components/Feilmelding';
 import Side from '../../sider/Side';
@@ -12,7 +12,7 @@ import SykepengesoknadUtlandSkjemaContainer from '../soknad-utland/skjema/Soknad
 import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger, NyArbeidstakerSoknadHotjarTrigger, SykepengerUtlandSoknadTrigger } from '../../components/HotjarTrigger';
 import beregnBrodsmulesti from '../utils/beregnBrodsmulesti';
 import SoknadSelvstendigNaeringsdrivende from '../soknad-selvstendig-frilanser/SoknadSelvstendigNaeringsdrivende';
-import SykepengesoknadArbeidstaker from '../../components/sykepengesoknad-arbeidstaker/SykepengesoknadArbeidstaker';
+import SoknadController from '../../sykepengesoknad-gammel-plattform/soknad/SoknadController';
 import NySoknadArbeidstaker from '../soknad-arbeidstaker/NySoknadArbeidstaker';
 
 export class Container extends Component {
@@ -45,7 +45,7 @@ export class Container extends Component {
                 }
                 if (erArbeidstakersoknad) {
                     return (<ArbeidstakerSoknadHotjarTrigger>
-                        <SykepengesoknadArbeidstaker {...this.props} />
+                        <SoknadController {...this.props} />
                     </ArbeidstakerSoknadHotjarTrigger>);
                 } else if (erSelvstendigNaeringsdrivendeSoknad) {
                     return (<FrilanserSoknadHotjarTrigger>

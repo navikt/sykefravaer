@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import { soknadPt as sykepengesoknadPt } from '../../../propTypes';
-import { getTidligsteSendtDato } from '../../../utils/sykepengesoknadUtils';
+import { getTidligsteSendtDato } from '../../../sykepengesoknad-gammel-plattform/utils/sorterSoknader';
 
 export const RelaterteSoknader = ({ relaterteSoknader }) => {
     if (relaterteSoknader.length === 0) {

@@ -10,11 +10,11 @@ import SykmeldingKvitteringContainer from '../sykmeldinger/sider/kvittering-side
 import DialogmoterContainer from '../sider/DialogmoterSide';
 import MotebehovContainer from '../sider/MotebehovSide';
 import DialogmoteSide from '../sider/DialogmoteSide';
-import SoknaderSide from '../sider/SoknaderSide';
+import SoknaderSide from '../sykepengesoknad-gammel-plattform/sider/SoknaderSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
 import SykepengesoknadContainer from '../sykepengesoknad/sider/SoknadSide';
 import SykepengesoknadUtlandContainer from '../sykepengesoknad/soknad-utland/for-du-begynner/FoerDuBegynnerUtlandContainer';
-import InfoSideFO from '../sider/InfoSideFO';
+import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

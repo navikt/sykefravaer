@@ -9,7 +9,7 @@ import { VAER_KLAR_OVER_AT } from '../enums/tagtyper';
 import SykepengesoknadStatuspanel from '../felleskomponenter/statuspanel/SykepengesoknadStatuspanel';
 import { KORRIGERT, SENDT } from '../enums/soknadstatuser';
 import RelaterteSoknaderContainer from '../felleskomponenter/relaterte-soknader/RelaterteSoknaderContainer';
-import KorrigertAvContainer from '../../containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
+import KorrigertAvContainer from '../../sykepengesoknad-gammel-plattform/soknad/soknad-sendt/KorrigertAvContainer';
 import { settErOppdelt } from '../utils/settErOppdelt';
 
 const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {

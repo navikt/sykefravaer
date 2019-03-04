@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import * as soknadmottakertyper from '../../enums/soknadmottakertyper';
+import * as soknadmottakertyper from '../enums/soknadmottakertyper';
 
 export const soknadmottakerPt = PropTypes.oneOf(Object.values(soknadmottakertyper));
 

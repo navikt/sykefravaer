@@ -3,7 +3,7 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { skjemasvar as skjemasvarPt, soknadPt, soknadmottakerPt } from '../../../propTypes';
-import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../../enums/soknadmottakertyper';
+import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../enums/soknadmottakertyper';
 import { hentSoknadMottaker } from '../../data/soknadMeta/soknadMetaActions';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { soknadMottakerSelector } from '../../data/soknadMeta/soknadMetaSelectors';

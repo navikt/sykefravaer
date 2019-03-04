@@ -10,7 +10,7 @@ import brukerinfoSagas from './brukerinfoSagas';
 import dineArbeidsgivereSagas from '../sykmeldinger/data/arbeidsgivere/arbeidsgivereSagas';
 import dineSykmeldingerSagas from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSagas';
 import dinSykmeldingSagas from '../sykmeldinger/data/din-sykmelding/dinSykmeldingSagas';
-import sykepengesoknadSagas from './sykepengesoknadSagas';
+import sykepengesoknadSagas from '../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknadSagas';
 import ledereSagas from '../landingsside/data/ledere/ledereSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
 import moteSagas from './moteSagas';
@@ -18,8 +18,8 @@ import motebehovSagas from './motebehovSagas';
 import svarSagas from './svarSagas';
 import hendelserSagas from '../landingsside/data/hendelser/hendelserSagas';
 import aktivitetskravSagas from '../aktivitetskrav/data/aktivitetskrav/aktivitetskravSagas';
-import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
-import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
+import beregnArbeidsgiverperiodeSagas from '../sykepengesoknad-gammel-plattform/data/arbeidsgiverperiodeberegning/beregnArbeidsgiverperiodeSagas';
+import forskutteringssporsmalSagas from '../sykepengesoknad-gammel-plattform/data/forskutteringssporsmal/forskutteringssporsmalSagas';
 import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from '../sykmeldinger/data/sykmelding-meta/sykmeldingMetaSagas';
@@ -29,7 +29,7 @@ import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
 import soknadMetaSagas from '../sykepengesoknad/data/soknadMeta/soknadMetaSagas';
-import merVeiledningSagas from './merVeiledningSagas';
+import merVeiledningSagas from '../arbeidsrettet-oppfolging/data/merVeiledningSagas';
 
 export default function* rootSaga() {
     yield all([

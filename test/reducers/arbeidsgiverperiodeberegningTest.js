@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
-import * as actions from '../../js/actions/arbeidsgiverperiodeberegning_actions';
-import arbeidsgiverperiodeberegning from '../../js/reducers/arbeidsgiverperiodeberegning';
+import * as actions from '../../js/sykepengesoknad-gammel-plattform/data/arbeidsgiverperiodeberegning/arbeidsgiverperiodeberegning_actions';
+import arbeidsgiverperiodeberegning from '../../js/sykepengesoknad-gammel-plattform/data/arbeidsgiverperiodeberegning/arbeidsgiverperiodeberegning';
 
 describe('arbeidsgiverperiodeberegning', () => {
     let state = arbeidsgiverperiodeberegning();

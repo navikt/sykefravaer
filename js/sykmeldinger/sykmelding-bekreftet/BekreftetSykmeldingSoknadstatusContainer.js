@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sykmeldingstatuser, arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import SykmeldingSoknadsinfo from '../soknadsinfo/SykmeldingSoknadsinfo';
-import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
+import * as sykepengesoknaderActions from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
 import * as soknaderActions from '../../sykepengesoknad/data/soknader/soknaderActions';
 import { skalHenteSoknader as skalHenteSoknaderSelector } from '../../sykepengesoknad/data/soknader/soknaderSelectors';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad/enums/soknadtyper';

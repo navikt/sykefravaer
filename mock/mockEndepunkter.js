@@ -211,6 +211,23 @@ function mockEndepunkterSomEndrerState(server) {
         });
         res.send(JSON.stringify({}));
     });
+
+    server.post('/syforest/soknader/:id/actions/send-til-nav', (req, res) => {
+        const { id } = req.params;
+        mockData.sykepengesoknader = mockData.sykepengesoknader.map((sykpengesoknad) => {
+            return sykpengesoknad.id === id
+                ? {
+                    ...sykpengesoknad,
+                    sendtTilNAVDato: new Date(),
+                }
+                : sykpengesoknad;
+        });
+        const sykepengesoknad = mockData.sykepengesoknader.find((s) => {
+            return s.id === id;
+        });
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(sykepengesoknad));
+    });
 }
 
 function mockForOpplaeringsmiljo(server) {

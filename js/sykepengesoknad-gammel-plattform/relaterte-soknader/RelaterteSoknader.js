@@ -2,9 +2,8 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
-import { getTidligsteSendtDato } from '../utils/sorterSoknader';
+import { getTidligsteSendtDato, sorterEtterSendtDato } from '../utils/sorterSoknader';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { sorterEtterSendtDato } from '../utils/sorterSoknader';
 
 const RelaterteSoknader = ({ relaterteSoknader }) => {
     if (relaterteSoknader.length === 0) {

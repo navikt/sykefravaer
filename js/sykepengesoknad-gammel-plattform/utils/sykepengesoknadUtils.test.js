@@ -2,7 +2,6 @@ import chai from 'chai';
 import deepFreeze from 'deep-freeze';
 import * as utils from './sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../utils/sykmeldingUtils';
-import { parseSoknad } from '../../sykepengesoknad/data/soknader/soknader';
 import { getTidligsteSendtDato } from './sorterSoknader';
 
 const expect = chai.expect;
@@ -10,13 +9,8 @@ const expect = chai.expect;
 describe('sykepengesoknadUtils', () => {
     let soknad1;
     let soknad2;
-    let soknad3;
     let soknad4;
     let soknad5;
-    let sendtSoknadUtland;
-    let ikkeSendtSoknadUtland;
-    let sendtSoknadUtlandMedFlerePerioder;
-    let data;
 
     beforeEach(() => {
         soknad1 = {
@@ -38,17 +32,6 @@ describe('sykepengesoknadUtils', () => {
             tom: new Date('2017-04-20'),
         };
 
-        soknad3 = {
-            id: '3',
-            korrigerer: '1',
-            status: 'KORRIGERT',
-            sendtTilNAVDato: new Date('2017-02-05'),
-            sendtTilArbeidsgiverDato: new Date('2017-02-10'),
-            opprettetDato: new Date('2017-07-01'),
-            fom: new Date('2017-10-01'),
-            tom: new Date('2017-10-12'),
-        };
-
         soknad4 = {
             id: '4',
             korrigerer: '3',
@@ -68,78 +51,6 @@ describe('sykepengesoknadUtils', () => {
             fom: new Date('2017-05-01'),
             tom: new Date('2017-06-10'),
         };
-
-        sendtSoknadUtland = parseSoknad({
-            status: 'SENDT',
-            soknadstype: 'OPPHOLD_UTLAND',
-            sporsmal: [
-                {
-                    id: '24869',
-                    tag: 'PERIODEUTLAND',
-                    sporsmalstekst: 'Når skal du være utenfor Norge?',
-                    undertekst: null,
-                    svartype: 'PERIODER',
-                    min: '2018-07-22',
-                    max: '2019-04-22',
-                    pavirkerAndreSporsmal: false,
-                    kriterieForVisningAvUndersporsmal: null,
-                    svar: [
-                        {
-                            verdi: '{"fom":"2015-08-01","tom":"2017-10-10"}',
-                        },
-                    ],
-                    undersporsmal: [],
-                },
-            ],
-        });
-
-        sendtSoknadUtlandMedFlerePerioder = parseSoknad({
-            status: 'SENDT',
-            soknadstype: 'OPPHOLD_UTLAND',
-            sporsmal: [
-                {
-                    id: '24869',
-                    tag: 'PERIODEUTLAND',
-                    sporsmalstekst: 'Når skal du være utenfor Norge?',
-                    undertekst: null,
-                    svartype: 'PERIODER',
-                    min: '2018-07-22',
-                    max: '2019-04-22',
-                    pavirkerAndreSporsmal: false,
-                    kriterieForVisningAvUndersporsmal: null,
-                    svar: [
-                        {
-                            verdi: '{"fom":"2013-01-01","tom":"2013-01-02"}',
-                        },
-                        {
-                            verdi: '{"fom":"2015-08-01","tom":"2017-10-10"}',
-                        },
-                    ],
-                    undersporsmal: [],
-                },
-            ],
-        });
-
-        ikkeSendtSoknadUtland = parseSoknad({
-            status: 'NY',
-            soknadstype: 'OPPHOLD_UTLAND',
-            opprettetDato: '2017-10-09',
-            sporsmal: [
-                {
-                    id: '24869',
-                    tag: 'PERIODEUTLAND',
-                    sporsmalstekst: 'Når skal du være utenfor Norge?',
-                    undertekst: null,
-                    svartype: 'PERIODER',
-                    min: '2018-07-22',
-                    max: '2019-04-22',
-                    pavirkerAndreSporsmal: false,
-                    kriterieForVisningAvUndersporsmal: null,
-                    svar: [],
-                    undersporsmal: [],
-                },
-            ],
-        });
     });
 
     describe('getTidligsteSendtDato', () => {

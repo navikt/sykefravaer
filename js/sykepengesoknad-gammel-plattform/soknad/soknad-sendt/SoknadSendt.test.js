@@ -141,7 +141,9 @@ describe('SoknadSendt', () => {
         it('Skal starte endring når man klikker på endre', () => {
             const startEndringForespurt = sinon.spy();
             const preventDefault = sinon.spy();
-            component = shallow(<KnapperadComponent sykepengesoknad={getSoknad({ id: '88', sendtTilNAVDato: new Date('2016-10-16') })} startEndringForespurt={startEndringForespurt} />);
+            component = shallow(<KnapperadComponent
+                sykepengesoknad={getSoknad({ id: '88', sendtTilNAVDato: new Date('2016-10-16') })}
+                startEndringForespurt={startEndringForespurt} />);
             component.find('.js-endre').simulate('click', { preventDefault });
             expect(startEndringForespurt.called).to.equal(true);
             expect(startEndringForespurt.calledWith('88')).to.equal(true);

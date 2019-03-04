@@ -147,10 +147,8 @@ export class Ettersending extends Component {
         return (<div className="verktoylinje__element">
             {
                 !sykepengesoknad[manglendeDato] && <Knapp
+                    type="standard"
                     mini
-                    withRef={(c) => {
-                        this.triggEttersending = c;
-                    }}
                     onClick={(e) => {
                         e.preventDefault();
                         this.setState({

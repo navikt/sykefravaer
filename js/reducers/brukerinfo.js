@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as actiontyper from '../actions/actiontyper';
 import { createReducer } from './createReducer';
-import { lagJsDate, visKortDato } from '../utils/datoUtils';
+import { lagJsDate, tilLesbarDatoMedArstall } from '../utils/datoUtils';
 
 const {
     BRUKERINFO_HENTET,
@@ -123,7 +123,7 @@ export const selectSykmeldtinfodataHentingFeilet = (state) => {
 export const selectSykmeldtinfodataMaksdatoString = (state) => {
     const datostring = selectSykmeldtinfodataSlice(state).data.maksDato;
     if (datostring !== undefined) {
-        return visKortDato(lagJsDate(datostring));
+        return tilLesbarDatoMedArstall(lagJsDate(datostring));
     }
     return '';
 };

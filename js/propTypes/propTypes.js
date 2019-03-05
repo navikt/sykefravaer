@@ -86,14 +86,6 @@ export const oppfolging = PropTypes.shape({
     }),
 });
 
-export const loginInfo = PropTypes.shape({
-    henter: PropTypes.bool,
-    hentingFeilet: PropTypes.bool,
-    data: PropTypes.shape({
-        name: PropTypes.string,
-    }),
-});
-
 export const oppsummeringSporsmal = {
     svar,
     sporsmalstekst: PropTypes.string,

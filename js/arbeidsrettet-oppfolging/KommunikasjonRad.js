@@ -8,12 +8,12 @@ const KommunikasjonRad = () => {
             <div className="begrensning infoside-fo__info-bokser">
                 <div className="infoside-fo__info-boks">
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/kontakt-arbeidsgiver.svg`} alt="" className="info-boks__illustrasjon" />
-                    <Undertittel className="blokk-s">{getLedetekst('infoside-fo.kontakt.overskrift')}</Undertittel>
+                    <Undertittel className="blokk-xxs">{getLedetekst('infoside-fo.kontakt.overskrift')}</Undertittel>
                     <Normaltekst>{getLedetekst('infoside-fo.kontakt.tekst')}</Normaltekst>
                 </div>
                 <div className="infoside-fo__info-boks">
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/infoside-fo/mer-veiledning.svg`} alt="" className="info-boks__illustrasjon" />
-                    <Undertittel className="blokk-s">{getLedetekst('infoside-fo.aktivitetsplan.overskrift')}</Undertittel>
+                    <Undertittel className="blokk-xxs">{getLedetekst('infoside-fo.aktivitetsplan.overskrift')}</Undertittel>
                     <Normaltekst>{getLedetekst('infoside-fo.aktivitetsplan.tekst')}</Normaltekst>
                 </div>
             </div>

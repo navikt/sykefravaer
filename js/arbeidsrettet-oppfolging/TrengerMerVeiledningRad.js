@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as PT from 'prop-types';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import history from '../history';
@@ -9,7 +9,6 @@ import { bekreftMerVeiledning } from './data/merVeiledningActions';
 import { selectAlleHarMerVeiledningIder } from '../landingsside/data/hendelser/hendelser';
 import { hentHendelser } from '../landingsside/data/hendelser/hendelserActions';
 import Feilstripe from '../components/Feilstripe';
-import { toggleCVTekstArbeidsrettetOppfolging } from '../selectors/unleashTogglesSelectors';
 import logger from '../logging';
 
 class TrengerMerVeiledningRad extends Component {
@@ -47,28 +46,22 @@ class TrengerMerVeiledningRad extends Component {
     }
 
     render() {
-        const { bekrefter, bekreftingFeilet, toggleCVTekstAO } = this.props;
+        const { bekrefter, bekreftingFeilet } = this.props;
         return (
+            /* eslint-disable jsx-a11y/no-static-element-interactions */
             <div className="infoside-fo__rad infoside-fo__rad--graa">
                 <div className="begrensning">
-                    <Undertittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Undertittel>
-                    <Normaltekst className="blokk-xs">{getLedetekst('infoside-fo.veiledning.tekst')}</Normaltekst>
-                    {
-                        toggleCVTekstAO
-                            ? (
-                                <div // eslint-disable-line
-                                    className="cv-info"
-                                    onClick={(e) => {
-                                        if (e.target.tagName === 'A') {
-                                            logger.event('syfo.cv.lenke.klikk', {}, {});
-                                        }
-                                    }}
-                                    dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst-cv')}
-                                />
-                            )
-                            : null
-                    }
-
+                    <Systemtittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Systemtittel>
+                    <div className="redaksjonelt-innhold">{getLedetekst('infoside-fo.veiledning.tekst')}</div>
+                    <div
+                        className="redaksjonelt-innhold blokk"
+                        onClick={(e) => {
+                            if (e.target.tagName === 'A') {
+                                logger.event('syfo.cv.lenke.klikk', {}, {});
+                            }
+                        }}
+                        dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst-cv')}
+                    />
                     <Feilstripe vis={bekreftingFeilet} className="blokk-s" />
                     <div className="infoside-fo__knapperad">
                         <Knapp onClick={this.handleNeiBtnClicked} disabled={bekrefter}>
@@ -80,6 +73,7 @@ class TrengerMerVeiledningRad extends Component {
                     </div>
                 </div>
             </div>
+            /* eslint-enable jsx-a11y/no-static-element-interactions */
         );
     }
 }
@@ -90,7 +84,6 @@ TrengerMerVeiledningRad.propTypes = {
     bekrefter: PT.bool,
     bekreftingFeilet: PT.bool,
     merVeiledningHendelseIder: PT.arrayOf(PT.number),
-    toggleCVTekstAO: PT.bool,
 };
 
 const mapStateToProps = (state) => {
@@ -98,7 +91,6 @@ const mapStateToProps = (state) => {
         merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
         bekrefter: state.merVeiledning.bekrefter,
         bekreftingFeilet: state.merVeiledning.bekreftingFeilet,
-        toggleCVTekstAO: toggleCVTekstArbeidsrettetOppfolging(state),
     };
 };
 

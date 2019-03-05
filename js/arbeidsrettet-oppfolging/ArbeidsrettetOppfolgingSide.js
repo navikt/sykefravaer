@@ -6,12 +6,9 @@ import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from './ArbeidsrettetOppfolging';
 import SideStrippet from '../sider/SideStrippet';
-import { hentLoginInfo, hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
+import { hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
 import { selectLedeteksterHenter, selectLedeteksterHentingFeilet } from '../selectors/ledeteksterSelectors';
 import {
-    selectLoginInfoHenter,
-    selectLoginInfoHentingFeilet,
-    selectLoginInfoNavn,
     selectOppfolgingErUnderOppfolging,
     selectOppfolgingHenter,
     selectOppfolgingHentingFeilet,
@@ -24,11 +21,10 @@ class ArbeidsrettetOppfolgingSide extends Component {
     componentDidMount() {
         this.props.doHentOppfolging();
         this.props.doHentSykmeldtinfodata();
-        this.props.doHentLoginInfo();
     }
 
     render() {
-        const { henter, hentingFeilet, underOppfolging, maksDatoString, brukernavn } = this.props;
+        const { henter, hentingFeilet, underOppfolging, maksDatoString } = this.props;
         return (
             <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={henter}>
                 {
@@ -40,7 +36,6 @@ class ArbeidsrettetOppfolgingSide extends Component {
                         }
                         return (
                             <ArbeidsrettetOppfolging
-                                brukerNavn={brukernavn}
                                 underOppfolging={underOppfolging}
                                 maksDato={maksDatoString}
                             />
@@ -55,34 +50,28 @@ class ArbeidsrettetOppfolgingSide extends Component {
 ArbeidsrettetOppfolgingSide.propTypes = {
     doHentOppfolging: PropTypes.func,
     doHentSykmeldtinfodata: PropTypes.func,
-    doHentLoginInfo: PropTypes.func,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     underOppfolging: PropTypes.bool,
     maksDatoString: PropTypes.string,
-    brukernavn: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
     return {
         henter: selectLedeteksterHenter(state)
             || selectOppfolgingHenter(state)
-            || selectSykmeldtinfodataHenter(state)
-            || selectLoginInfoHenter(state),
+            || selectSykmeldtinfodataHenter(state),
         hentingFeilet: selectLedeteksterHentingFeilet(state)
             || selectOppfolgingHentingFeilet(state)
-            || selectSykmeldtinfodataHentingFeilet(state)
-            || selectLoginInfoHentingFeilet(state),
+            || selectSykmeldtinfodataHentingFeilet(state),
         underOppfolging: selectOppfolgingErUnderOppfolging(state),
         maksDatoString: selectSykmeldtinfodataMaksdatoString(state),
-        brukernavn: selectLoginInfoNavn(state),
     };
 };
 
 const actionCreators = {
     doHentOppfolging: hentOppfolging,
     doHentSykmeldtinfodata: hentSykmeldtinfodata,
-    doHentLoginInfo: hentLoginInfo,
 };
 
 export default connect(mapStateToProps, actionCreators)(ArbeidsrettetOppfolgingSide);

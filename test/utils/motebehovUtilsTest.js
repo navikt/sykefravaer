@@ -1,7 +1,6 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import {
-    erMotebehovATToggletPaa,
     erMotebehovToggletPaa,
     finnNyesteMotebehovForVirksomhetListe,
     skalViseMotebehovKvittering,
@@ -156,47 +155,23 @@ describe('motebehovUtils', () => {
     });
 
     describe('toggles', () => {
-        const toggleMotebehov = (erMotebehovTogglePaa, erMotebehovATPaa) => {
+        const toggleMotebehov = (erMotebehovTogglePaa) => {
             return {
                 data: {
                     'syfotoggles.dialogmote.motebehov.vis': erMotebehovTogglePaa ? 'true' : 'false',
-                    'syfotoggles.enable.motebehov.at': erMotebehovATPaa ? 'true' : 'false',
                 },
             };
         };
 
-        describe('erMotebehovATToggletPaa', () => {
-            it('skal returnere false', () => {
-                const exp = false;
-                const res = erMotebehovATToggletPaa(toggleMotebehov(false, false));
-                expect(res).to.equal(exp);
-            });
-            it('skal returnere true', () => {
-                const exp = true;
-                const res = erMotebehovATToggletPaa(toggleMotebehov(false, true));
-                expect(res).to.equal(exp);
-            });
-        });
-
         describe('erMotebehovToggletPaa', () => {
             it('skal returnere false', () => {
                 const exp = false;
-                const res = erMotebehovToggletPaa(toggleMotebehov(false, false));
-                expect(res).to.equal(exp);
-            });
-            it('skal returnere false', () => {
-                const exp = false;
-                const res = erMotebehovToggletPaa(toggleMotebehov(true, false));
-                expect(res).to.equal(exp);
-            });
-            it('skal returnere false', () => {
-                const exp = false;
-                const res = erMotebehovToggletPaa(toggleMotebehov(false, true));
+                const res = erMotebehovToggletPaa(toggleMotebehov(false));
                 expect(res).to.equal(exp);
             });
             it('skal returnere true', () => {
                 const exp = true;
-                const res = erMotebehovToggletPaa(toggleMotebehov(true, true));
+                const res = erMotebehovToggletPaa(toggleMotebehov(true));
                 expect(res).to.equal(exp);
             });
         });
@@ -292,7 +267,6 @@ describe('motebehovUtils', () => {
             togglesPaa = {
                 data: {
                     'syfotoggles.dialogmote.motebehov.vis': 'true',
-                    'syfotoggles.enable.motebehov.at': 'true',
                 },
             };
             togglesAv = { data: {} };
@@ -395,7 +369,6 @@ describe('motebehovUtils', () => {
             togglesPaa = {
                 data: {
                     'syfotoggles.dialogmote.motebehov.vis': 'true',
-                    'syfotoggles.enable.motebehov.at': 'true',
                 },
             };
             togglesAv = { data: {} };

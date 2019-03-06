@@ -113,14 +113,9 @@ export const erOppfolgingstilfelleSluttDatoPassert = (sluttOppfolgingsdato) => {
     return dagensDato > oppfolgingstilfelleSluttDato;
 };
 
-export const erMotebehovATToggletPaa = (togglesReducer) => {
-    return togglesReducer.data && togglesReducer.data['syfotoggles.enable.motebehov.at'] === 'true';
-};
-
 export const erMotebehovToggletPaa = (togglesReducer) => {
     return togglesReducer.data
-        && togglesReducer.data['syfotoggles.dialogmote.motebehov.vis'] === 'true'
-        && erMotebehovATToggletPaa(togglesReducer);
+        && togglesReducer.data['syfotoggles.dialogmote.motebehov.vis'] === 'true';
 };
 
 export const hentOppfolgingsforlopStartdato = (oppfolgingsforlopsPeriodeData) => {

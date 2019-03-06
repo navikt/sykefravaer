@@ -200,12 +200,14 @@ export const mapStateToProps = (state) => {
             moteRes = 'TRENGER_SVAR';
         }
     }
+    const harNyttMotebehov = erMotebehovUbesvart(state);
     const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const visOppgaver = sykmeldinger.length > 0 ||
         sykepengesoknader.length > 0 ||
         soknader.length > 0 ||
         moteRes !== null ||
+        harNyttMotebehov ||
         _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 ||
         _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 ||
         visAktivitetskrav;
@@ -222,7 +224,7 @@ export const mapStateToProps = (state) => {
         visMerVeiledingHendelse: selectHarMerVeiledningHendelse(state),
         avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
-        harNyttMotebehov: erMotebehovUbesvart(state),
+        harNyttMotebehov,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav,

@@ -88,19 +88,8 @@ const startServer = (html) => {
         res.sendStatus(200);
     });
 
-    if (env === 'opplaering') {
-        require('./mock/mockEndepunkter').mockForOpplaeringsmiljo(server);
-        require('./mock/mockEndepunkter').mockPilotEndepunkterForOpplaeringsmiljo(server);
-        require('./mock/mockEndepunkter').mockUnleashOpplaeringsmiljo(server);
-        require('./mock/mockEndepunkter').mockOppdaterSporsmalOpplaeringsmiljo(server);
-    }
-
-    if (env === 'local') {
-        require('./mock/mockEndepunkter').mockForOpplaeringsmiljo(server);
-        require('./mock/mockEndepunkter').mockEndepunkterSomEndrerState(server);
-        require('./mock/mockEndepunkter').mockPilotEndepunkterForLokalmiljo(server);
-        require('./mock/mockEndepunkter').mockUnleashLokal(server);
-        require('./mock/mockEndepunkter').mockOppdaterSporsmalLokal(server);
+    if (env === 'opplaering' || env === 'local') {
+        require('./mock/mockEndepunkter')(server, env === 'local');
     }
 
     const port = process.env.PORT || 8080;

@@ -14,8 +14,8 @@ const sporsmalMedBjorn = {
 };
 
 const ledetekstNokler = {
-    [SYKMELDINGSGRAD]: 'sykepengesoknad-soknadPt-utland.skjema.bjorn',
-    [FERIE]: 'sykepengesoknad-soknadPt-utland.skjema.ferie-sporsmal-bjorn',
+    [SYKMELDINGSGRAD]: 'sykepengesoknad-utland.skjema.bjorn',
+    [FERIE]: 'sykepengesoknad-utland.skjema.ferie-sporsmal-bjorn',
 };
 
 export const SporsmalBjornComponent = ({ vis, tag }) => {

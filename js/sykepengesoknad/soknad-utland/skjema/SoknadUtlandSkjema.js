@@ -57,7 +57,7 @@ export const SoknadUtlandSkjema = ({ soknad, handleSubmit, sender, sendSoknad, a
                 onClick={(event) => {
                     avbrytSoknad(soknad);
                     event.preventDefault();
-                }}>{getLedetekst('sykepengesoknad.avbryt-soknadPt')}</Fareknapp>)
+                }}>{getLedetekst('sykepengesoknad.avbryt-soknad')}</Fareknapp>)
             : <Hovedknapp type="submit" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>;
     };
 

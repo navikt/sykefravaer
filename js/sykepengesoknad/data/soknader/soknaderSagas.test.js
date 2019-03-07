@@ -61,7 +61,7 @@ describe('soknaderSagas', () => {
         });
     });
 
-    describe('Oppretting av søknad soknadPt-utland', () => {
+    describe('Oppretting av søknad soknad-utland', () => {
         const generator = opprettSoknadUtland();
         const soknadData = { test: 'data' };
 

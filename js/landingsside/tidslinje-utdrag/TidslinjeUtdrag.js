@@ -230,7 +230,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
                             this.innhold = c;
                         }}>
                         {
-                            this.state.visInnhold && (<div>
+                            this.state.visInnhold && (<article>
                                 <div
                                     className="redaksjonelt-innhold blokk"
                                     dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`,
@@ -240,13 +240,13 @@ export default class TidslinjeUtdrag extends Utvidbar {
                                         {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}
                                     </Link>
                                 </p>
-                            </div>)
+                            </article>)
                         }
                     </div>
                 </div>
                 <div className="tidslinjeutdrag__toggle">
                     <button
-                        aria-pressed={this.state.erApen}
+                        aria-expanded={this.state.erApen}
                         ref={(c) => {
                             this['js-toggle'] = c;
                         }}

@@ -23,6 +23,12 @@ import arbeidsgivere from '../../data/arbeidsgivere/arbeidsgivere';
 import { aktuelleArbeidsgivereHentet } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { FREMTIDIG } from '../../../sykepengesoknad/enums/soknadstatuser';
 import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
+import dineSykmeldinger from '../../data/dine-sykmeldinger/dineSykmeldinger';
+import { setDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
+import sykepengesoknader from '../../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader';
+import { sykepengesoknaderHentet } from '../../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
+import soknader from '../../../sykepengesoknad/data/soknader/soknader';
+import { soknaderHentet } from '../../../sykepengesoknad/data/soknader/soknaderActions';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -575,9 +581,9 @@ describe('SykmeldingkvitteringSide', () => {
         });
 
         it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad på ny plattform som tilhører denne sykmeldingen', () => {
-            state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [];
-            state.soknader.data = [fremtidigSoknadNyPlattform1];
+            state.dineSykmeldinger = dineSykmeldinger(dineSykmeldinger(), setDineSykmeldinger([sykmelding]));
+            state.sykepengesoknader = sykepengesoknader(sykepengesoknader(), sykepengesoknaderHentet([]));
+            state.soknader = soknader(soknader(), soknaderHentet([fremtidigSoknadNyPlattform1]));
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to

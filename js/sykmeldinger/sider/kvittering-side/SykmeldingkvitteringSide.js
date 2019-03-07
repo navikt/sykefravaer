@@ -173,6 +173,11 @@ const getKvitteringtype = (state, sykmeldingId) => {
         ? mottakendeArbeidsgiver.naermesteLeder.arbeidsgiverForskuttererLoenn !== false
         : true;
 
+    /* eslint-disable */
+    console.log("MottakendeArbeidsgiver", mottakendeArbeidsgiver);
+    console.log("Forskutterer arbeidsgiver?", forskuttererArbeidsgiver);
+    /* eslint-enable */
+
     switch (sykmelding.status) {
         case AVBRUTT: {
             return kvitteringtyper.AVBRUTT_SYKMELDING;

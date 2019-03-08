@@ -68,19 +68,21 @@ export const mapStateToProps = (state, ownProps) => {
     const reduxForm = state.form[skjemanavn];
     const feltnavnMedFeil = reduxForm ? getNestedKeys(reduxForm.syncErrors) : [];
 
-    const feilmeldinger = feltnavnMedFeil.filter((feltnavn) => {
-        try {
-            return getObjectValueByString(reduxForm.fields, feltnavn).touched;
-        } catch (e) {
-            return false;
-        }
-    }).map((feltnavn) => {
-        const feilmelding = getObjectValueByString(reduxForm.syncErrors, feltnavn);
-        return {
-            feltnavn,
-            feilmelding: feilmelding._error || feilmelding,
-        };
-    });
+    const feilmeldinger = feltnavnMedFeil
+        .filter((feltnavn) => {
+            try {
+                return getObjectValueByString(reduxForm.fields, feltnavn).touched;
+            } catch (e) {
+                return false;
+            }
+        })
+        .map((feltnavn) => {
+            const feilmelding = getObjectValueByString(reduxForm.syncErrors, feltnavn);
+            return {
+                feltnavn,
+                feilmelding: feilmelding._error || feilmelding,
+            };
+        });
 
     return {
         skjemanavn,

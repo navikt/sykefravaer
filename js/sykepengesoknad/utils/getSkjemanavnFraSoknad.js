@@ -1,10 +1,10 @@
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE, ARBEIDSTAKERE } from '../enums/soknadtyper';
-import { getSoknadSkjemanavn, OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
+import { getSoknadSkjemanavn, SKJEMANAVN_OPPHOLD_UTLAND } from '../../enums/skjemanavn';
 
 export const getSkjemanavnFraSoknad = (soknad) => {
     switch (soknad.soknadstype) {
         case OPPHOLD_UTLAND: {
-            return OPPHOLD_UTLAND_SKJEMA;
+            return SKJEMANAVN_OPPHOLD_UTLAND;
         }
         case ARBEIDSTAKERE:
         case SELVSTENDIGE_OG_FRILANSERE: {

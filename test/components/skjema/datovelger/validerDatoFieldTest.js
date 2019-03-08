@@ -6,7 +6,7 @@ const expect = chai.expect;
 describe('validerDatoField', () => {
     it('Skal returnere feilmelding hvis dato ikke er sendt inn', () => {
         const res = validerDatoField();
-        expect(res).to.equal('Vennligst fyll ut dato');
+        expect(res).to.equal('Du må fylle ut en dato');
     });
 
     it('Skal returnere Datoen må være på formatet dd.mm.åååå hvis dato er på feil format', () => {

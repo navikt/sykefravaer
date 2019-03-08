@@ -9,7 +9,7 @@ import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 import Header from '../HeaderUtland';
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import { soknadPt } from '../../../propTypes/index';
-import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
+import { SKJEMANAVN_OPPHOLD_UTLAND } from '../../../enums/skjemanavn';
 import validate from '../validering/validerSoknadUtland';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/skjema/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
@@ -63,7 +63,7 @@ export const SoknadUtlandSkjema = ({ soknad, handleSubmit, sender, sendSoknad, a
 
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />
-        <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
+        <FeiloppsummeringContainer skjemanavn={SKJEMANAVN_OPPHOLD_UTLAND} />
         <div className={sendingFeilet || avbrytSoknadFeilet ? 'blokk' : null}>
             {sporsmalsliste}
         </div>
@@ -96,12 +96,12 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
     connect(mapStateToProps),
     reduxForm({
-        form: OPPHOLD_UTLAND_SKJEMA,
+        form: SKJEMANAVN_OPPHOLD_UTLAND,
         validate,
         enableReinitialize: true,
         keepDirtyOnReinitialize: true,
         onSubmitFail: (errors, dispatch) => {
-            onSubmitFail(errors, dispatch, OPPHOLD_UTLAND_SKJEMA);
+            onSubmitFail(errors, dispatch, SKJEMANAVN_OPPHOLD_UTLAND);
         },
     }),
 )(SoknadUtlandSkjema);

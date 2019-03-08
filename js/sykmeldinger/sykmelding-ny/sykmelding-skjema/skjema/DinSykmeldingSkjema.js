@@ -73,6 +73,18 @@ export class DinSykmeldingSkjemaComponent extends Component {
             : brukersSvarverdier.fravaersperioder.map(tilDatePeriode);
     }
 
+    hentFeiloppsummeringtittel() {
+        switch (this.props.modus) {
+            case modi.SEND:
+            case modi.SEND_MED_NAERMESTE_LEDER:
+                return 'Sykmeldingen inneholder %ANTALLFEIL% feil som du må rette opp før du kan sende den';
+            case modi.BEKREFT:
+                return 'Sykmeldingen inneholder %ANTALLFEIL% feil som du må rette opp før du kan bekrefte den';
+            default:
+                return 'Sykmeldingen inneholder %ANTALLFEIL% feil som du må rette opp før du kan gå videre';
+        }
+    }
+
     erFrilanser() {
         const { brukersSvarverdier } = this.props;
         return [NAERINGSDRIVENDE, FRILANSER].indexOf(brukersSvarverdier.valgtArbeidssituasjon) > -1;
@@ -141,7 +153,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
             onSubmit={handleSubmit((v) => {
                 this.handleSubmit(v);
             })}>
-            <FeiloppsummeringContainer skjemanavn={getSykmeldingSkjemanavn(sykmelding.id)} />
+            <FeiloppsummeringContainer
+                tittel={this.hentFeiloppsummeringtittel()}
+                skjemanavn={getSykmeldingSkjemanavn(sykmelding.id)} />
             <h3 className="typo-innholdstittel blokk--xxs">{getLedetekst('starte-sykmelding.tittel')}</h3>
             <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
             <ErOpplysningeneRiktige untouch={untouch} sykmelding={sykmelding} />

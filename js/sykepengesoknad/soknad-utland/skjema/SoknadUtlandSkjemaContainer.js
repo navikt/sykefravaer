@@ -7,7 +7,7 @@ import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from './SoknadUtlandSkjema';
 import Feilmelding from '../../../components/Feilmelding';
 import { sendSoknad as sendSoknadAction, avbrytSoknad as avbrytSoknadAction } from '../../data/soknader/soknaderActions';
-import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
+import { SKJEMANAVN_OPPHOLD_UTLAND } from '../../../enums/skjemanavn';
 import { formaterEnkeltverdi } from '../../felleskomponenter/sporsmal/fieldUtils';
 import { JA } from '../../enums/svarEnums';
 import OppsummeringUtland from '../oppsummering/OppsummeringUtland';
@@ -63,7 +63,7 @@ export const finnSoknad = (state, ownProps) => {
 
 export function mapStateToProps(state, ownProps) {
     const soknad = finnSoknad(state, ownProps);
-    const selector = formValueSelector(OPPHOLD_UTLAND_SKJEMA);
+    const selector = formValueSelector(SKJEMANAVN_OPPHOLD_UTLAND);
     const feltVerdi = selector(state, FERIE);
     const harFerie = JA === formaterEnkeltverdi(feltVerdi);
     return {

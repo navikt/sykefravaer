@@ -83,9 +83,8 @@ export const hentMoteLandingssideUrl = (skalViseMotebehov) => {
 
 export const erOppfoelgingsdatoNyereEnn132DagerForProdsetting = (oppfoelgingsdato) => {
     const antallDagerMellomGrensedatoOgProddato = 132;
-    // TODO: fyll i dato for prodsetting her
     // Dato for prodsetting av motebehov
-    const motebehovPilotProdDato = new Date('2018-11-26');
+    const motebehovPilotProdDato = new Date('2019-03-11');
     // Dato hvor alle tidligere oppfoelgingsdatoer ikke skal vises motebehov for
     const grenseDato = leggTilDagerPaaDato(motebehovPilotProdDato, -antallDagerMellomGrensedatoOgProddato);
 

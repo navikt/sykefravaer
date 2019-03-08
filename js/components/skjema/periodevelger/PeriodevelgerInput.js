@@ -88,9 +88,7 @@ class PeriodevelgerInputComponent extends Component {
                             name={names[0]}
                             id={names[0]}
                             onDoubleClick={this.apne}
-                            onKeyUp={() => {
-                                console.log('heh');
-                            }}
+                            onKeyUp={this.lukk}
                             validate={this.validerDatoField}
                             kalenderVises={this.state.erApen} />
                     </div>

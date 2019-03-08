@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import MaskedInput from 'react-maskedinput';
 import { fieldPropTypes } from '../../../propTypes';
 
-const PeriodeDatoinput = ({ meta, input, id, onDoubleClick, withRef }) => {
+const PeriodeDatoinput = ({ meta, input, id, onDoubleClick, onKeyUp, withRef }) => {
     const classNames = cn('skjemaelement__input datovelger__input', {
         'datovelger__input--fom': input.name.indexOf('fom') > -1,
         'datovelger__input--tom': input.name.indexOf('tom') > -1,
@@ -19,6 +19,7 @@ const PeriodeDatoinput = ({ meta, input, id, onDoubleClick, withRef }) => {
         placeholder="dd.mm.åååå"
         id={id}
         className={classNames}
+        onKeyUp={onKeyUp}
         onDoubleClick={onDoubleClick}
         {...input} />);
 };
@@ -29,6 +30,7 @@ PeriodeDatoinput.propTypes = {
     id: PropTypes.string,
     withRef: PropTypes.func,
     onDoubleClick: PropTypes.func,
+    onKeyUp: PropTypes.func,
 };
 
 export default PeriodeDatoinput;

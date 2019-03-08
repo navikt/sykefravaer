@@ -20,7 +20,7 @@ const Datoer = ({ fom, tom }) => {
     const tekst = fom && tom
         ? `Fra <strong>${tilLesbarDatoUtenAarstall(fom)}</strong> til <strong>${tilLesbarDatoUtenAarstall(tom)}</strong>`
         : fom
-            ? `Fra <strong>${tilLesbarDatoUtenAarstall(fom)}</strong>`
+            ? `Startdato: <strong>${tilLesbarDatoUtenAarstall(fom)}</strong>`
             : '&nbsp;';
     return <p className="periodekalender__datoer" aria-live="polite" dangerouslySetInnerHTML={{ __html: tekst }} />;
 };

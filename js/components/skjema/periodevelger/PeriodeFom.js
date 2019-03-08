@@ -13,7 +13,7 @@ class PeriodeTomComponent extends Component {
     }
 
     render() {
-        const { meta, input, id, kalenderVises, onDoubleClick } = this.props;
+        const { meta, input, id, kalenderVises, onDoubleClick, onKeyUp } = this.props;
 
         return (<div className="datovelger">
             <div className="datovelger__inner">
@@ -25,6 +25,7 @@ class PeriodeTomComponent extends Component {
                         meta={meta}
                         id={id}
                         input={input}
+                        onKeyUp={onKeyUp}
                         onDoubleClick={onDoubleClick} />
                 </div>
                 <Vis
@@ -43,6 +44,7 @@ PeriodeTomComponent.propTypes = {
     input: fieldPropTypes.input,
     kalenderVises: PropTypes.bool,
     onDoubleClick: PropTypes.func,
+    onKeyUp: PropTypes.func,
     periodeIndex: PropTypes.number,
 };
 

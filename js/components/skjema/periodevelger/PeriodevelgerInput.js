@@ -83,11 +83,12 @@ class PeriodevelgerInputComponent extends Component {
                     <div className="periodevelger__fom">
                         <label className="skjemaelement__label" htmlFor={names[0]}>{getLedetekst('sykepengesoknad.periodevelger.fom')}</label>
                         <Field
-                            periodeIndex={periodeIndex}
                             component={FomFieldComponent}
+                            periodeIndex={periodeIndex}
                             name={names[0]}
                             id={names[0]}
                             onDoubleClick={this.apne}
+                            onKeyUp={this.lukk}
                             validate={this.validerDatoField}
                             kalenderVises={this.state.erApen} />
                     </div>
@@ -101,6 +102,7 @@ class PeriodevelgerInputComponent extends Component {
                             buttonId={buttonId}
                             toggle={this.toggle}
                             onDoubleClick={this.apne}
+                            onKeyUp={this.lukk}
                             validate={this.validerDatoField}
                             erApen={this.state.erApen} />
                     </div>

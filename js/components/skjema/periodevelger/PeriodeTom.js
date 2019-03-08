@@ -24,7 +24,7 @@ class PeriodeTomComponent extends Component {
     }
 
     render() {
-        const { meta, input, id, buttonId, onDoubleClick } = this.props;
+        const { meta, input, id, buttonId, onDoubleClick, onKeyUp } = this.props;
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (<div className="datovelger">
             <div
@@ -37,7 +37,7 @@ class PeriodeTomComponent extends Component {
                     }
                 }}>
                 <div className="datovelger__inputContainer">
-                    <PeriodeDatoinput meta={meta} id={id} input={input} onDoubleClick={onDoubleClick} />
+                    <PeriodeDatoinput meta={meta} id={id} input={input} onDoubleClick={onDoubleClick} onKeyUp={onKeyUp} />
                     <button
                         type="button"
                         className="js-toggle datovelger__toggleDayPicker"
@@ -72,6 +72,7 @@ PeriodeTomComponent.propTypes = {
     erApen: PropTypes.bool,
     toggle: PropTypes.func,
     onDoubleClick: PropTypes.func,
+    onKeyUp: PropTypes.func,
 };
 
 const PeriodeTom = (props) => {

@@ -86,6 +86,11 @@ export class DatoField extends Component {
                         autoComplete="off"
                         placeholder="dd.mm.åååå"
                         id={id}
+                        onKeyUp={() => {
+                            this.setState({
+                                erApen: false,
+                            });
+                        }}
                         className={classNameMaskedInput}
                         {...input} />
                     <button

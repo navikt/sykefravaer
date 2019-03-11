@@ -65,7 +65,7 @@ const MotebehovKvittering = (
                 </h2>
             </div>
 
-            <p>{getLedetekst('mote.moteBehovKvittering.tekst')}</p>
+            <p>{getLedetekst('sykefravaer.motebehovKvittering.tekst')}</p>
 
             <MotebehovKvitteringUtvidbar motebehov={motebehov} />
         </div>

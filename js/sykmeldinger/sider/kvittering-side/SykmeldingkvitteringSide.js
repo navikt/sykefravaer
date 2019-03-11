@@ -12,11 +12,11 @@ import {
     sykepengesoknad as sykepengesoknadPt,
 } from '@navikt/digisyfo-npm';
 import Side from '../../../sider/Side';
-import Sykmeldingkvittering, { kvitteringtyper } from '../../sykmelding-ny/sykmelding-skjema/kvittering/Sykmeldingkvittering';
+import Sykmeldingkvittering, { kvitteringtyper } from '../../kvittering/Sykmeldingkvittering';
 import AppSpinner from '../../../components/AppSpinner';
 import Feilmelding from '../../../components/Feilmelding';
 import { soknadPt, sykmelding as sykmeldingPt } from '../../../propTypes';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../../../sykepengesoknad/enums/soknadtyper';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../sykepengesoknad/enums/soknadtyper';
 import { harStrengtFortroligAdresseSelector } from '../../../selectors/brukerinfoSelectors';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentSykepengesoknader } from '../../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
@@ -141,7 +141,13 @@ const getKvitteringtype = (state, sykmeldingId) => {
     if (!sykmelding) {
         return null;
     }
-    const denneSykmeldingensSykepengesoknader = state.sykepengesoknader.data.filter((s) => {
+    const arbeidstakersoknader = state.soknader.data.filter((s) => {
+        return s.soknadstype === ARBEIDSTAKERE;
+    });
+    const denneSykmeldingensSykepengesoknader = [
+        ...state.sykepengesoknader.data,
+        ...arbeidstakersoknader,
+    ].filter((s) => {
         return s.sykmeldingId === sykmeldingId;
     });
     const nyeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter((s) => {

@@ -55,16 +55,6 @@ Vis.propTypes = {
     children: childEllerChildren,
 };
 
-export const hentFornavn = (navn) => {
-    if (!navn) {
-        return '';
-    }
-
-    const fornavn = navn.split(' ')[0];
-
-    return fornavn.charAt(0).toUpperCase() + fornavn.slice(1).toLowerCase();
-};
-
 export const formaterOrgnr = (orgnr) => {
     return orgnr.replace(/(...)(...)(...)/g, '$1 $2 $3');
 };

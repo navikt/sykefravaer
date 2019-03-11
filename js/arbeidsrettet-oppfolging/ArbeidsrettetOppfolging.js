@@ -6,7 +6,7 @@ import Brodsmuler from '../components/Brodsmuler';
 import HarAlleredeOppfolgingAlertstripe from './HarAlleredeOppfolgingAlertstripe';
 import VeilederRad from './VeilederRad';
 import KommunikasjonRad from './KommunikasjonRad';
-import AapRad from './AapRad';
+import DinOkonomiRad from './DinOkonomiRad';
 import TrengerMerVeiledningRad from './TrengerMerVeiledningRad';
 
 const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
@@ -28,7 +28,7 @@ const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
             <VeilederRad brukerNavn={brukerNavn} maksDato={maksDato} />
             <KommunikasjonRad />
             { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
-            <AapRad />
+            <DinOkonomiRad />
         </React.Fragment>
     );
 };

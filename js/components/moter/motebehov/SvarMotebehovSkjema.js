@@ -83,7 +83,7 @@ export const MotebehovSkjemaTekstomraade = (
         harMotebehov,
     }) => {
     const sporsmaalTekst = harMotebehov === 'true'
-        ? `${felt.spoersmaal}(valgfritt)`
+        ? `${felt.spoersmaal} (valgfritt)`
         : felt.spoersmaal;
     return (<div className="skjema_element motebehovSkjemaTekstomraade">
         <h3

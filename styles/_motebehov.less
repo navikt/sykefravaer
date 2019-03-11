@@ -13,7 +13,8 @@
   border-radius: 0.5em;
   margin-top: 5em;
   .tekstInformasjon__bilde {
-    left: 50% - @bildeBredde;
+    left: 50%;
+    transform: translateX(-50%);
     top: -@halvBildeBredde;
     position: absolute;
     display: flex;
@@ -25,7 +26,7 @@
     border-radius: 50%;
   }
   .tekstInformasjon__innhold {
-    margin-top: 1em;
+    margin-top: 1.5em;
   }
   .tekstInformasjon__tittel {
     display: block;
@@ -41,8 +42,8 @@
   }
 }
 
-.svarMotebehovSkjema__tekstOpplysning {
-  margin-left: 2em;
+.svarMotebehovSkjema__tekstOpplysning p {
+  text-align: center;
 }
 
 .folketrygdlovenTekst {

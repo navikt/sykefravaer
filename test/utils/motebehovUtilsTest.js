@@ -25,7 +25,7 @@ const expect = chai.expect;
 describe('motebehovUtils', () => {
     let clock;
     beforeEach(() => {
-        const dagensDato = new Date('2019-02-23');
+        const dagensDato = new Date('2019-06-11');
         clock = sinon.useFakeTimers(dagensDato.getTime());
     });
 
@@ -489,14 +489,14 @@ describe('motebehovUtils', () => {
         let oppfoelgingsdato;
 
         it('skal returnere false dersom oppfoelgingsdato ikke er nyere enn 132 dager for prodsetting av motebehov ', () => {
-            oppfoelgingsdato = new Date('2018-07-17');
+            oppfoelgingsdato = new Date('2018-10-30');
             const resultat = erOppfoelgingsdatoNyereEnn132DagerForProdsetting(oppfoelgingsdato);
             const forventet = false;
             expect(resultat).to.equal(forventet);
         });
 
         it('skal returnere true dersom oppfoelgingsdato er nyere enn 132 dager for prodsetting av motebehov ', () => {
-            oppfoelgingsdato = new Date('2018-07-18');
+            oppfoelgingsdato = new Date('2018-10-31');
             const resultat = erOppfoelgingsdatoNyereEnn132DagerForProdsetting(oppfoelgingsdato);
             const forventet = true;
             expect(resultat).to.equal(forventet);

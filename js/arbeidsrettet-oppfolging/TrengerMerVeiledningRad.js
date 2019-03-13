@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import * as PT from 'prop-types';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import history from '../history';
 import { bekreftMerVeiledning } from './data/merVeiledningActions';
 import { selectAlleHarMerVeiledningIder } from '../landingsside/data/hendelser/hendelser';
 import { hentHendelser } from '../landingsside/data/hendelser/hendelserActions';
 import Feilstripe from '../components/Feilstripe';
-import logger from '../logging';
 
 class TrengerMerVeiledningRad extends Component {
     constructor(props) {
@@ -52,16 +51,7 @@ class TrengerMerVeiledningRad extends Component {
             <div className="infoside-fo__rad infoside-fo__rad--graa">
                 <div className="begrensning">
                     <Systemtittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Systemtittel>
-                    <div className="redaksjonelt-innhold">{getLedetekst('infoside-fo.veiledning.tekst')}</div>
-                    <div
-                        className="redaksjonelt-innhold blokk"
-                        onClick={(e) => {
-                            if (e.target.tagName === 'A') {
-                                logger.event('syfo.cv.lenke.klikk', {}, {});
-                            }
-                        }}
-                        dangerouslySetInnerHTML={getHtmlLedetekst('infoside-fo.veiledning.tekst-cv')}
-                    />
+                    <div className="redaksjonelt-innhold blokk">{getLedetekst('infoside-fo.veiledning.tekst')}</div>
                     <Feilstripe vis={bekreftingFeilet} className="blokk-s" />
                     <div className="infoside-fo__knapperad">
                         <Knapp onClick={this.handleNeiBtnClicked} disabled={bekrefter}>

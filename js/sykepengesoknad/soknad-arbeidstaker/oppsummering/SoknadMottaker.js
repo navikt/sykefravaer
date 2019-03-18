@@ -7,7 +7,6 @@ import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../enums/soknadmottak
 import { hentSoknadMottaker } from '../../data/soknadMeta/soknadMetaActions';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { soknadMottakerSelector } from '../../data/soknadMeta/soknadMetaSelectors';
-import { BETALER_ARBEIDSGIVER } from '../../enums/tagtyper';
 
 const mottakerTekst = (sendesTil, mottakernavn) => {
     switch (sendesTil) {
@@ -26,11 +25,6 @@ const mottakerTekst = (sendesTil, mottakernavn) => {
     }
 };
 
-const soknadHarForskutteringssporsmal = (soknad) => {
-    return soknad.sporsmal.filter((spm) => {
-        return spm.tag === BETALER_ARBEIDSGIVER;
-    }).length > 0;
-};
 
 class SoknadMottakerComponent extends Component {
     componentDidMount() {
@@ -38,8 +32,7 @@ class SoknadMottakerComponent extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps.skjemasvar) !== JSON.stringify(this.props.skjemasvar)
-            && soknadHarForskutteringssporsmal(this.props.soknad)) {
+        if (JSON.stringify(prevProps.skjemasvar) !== JSON.stringify(this.props.skjemasvar)) {
             this.hentMottaker();
         }
     }

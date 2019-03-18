@@ -9,7 +9,7 @@ import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../../components/skjema/Knapperad';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../felleskomponenter/oppsummering/Oppsummeringsvisning';
-import { BEKREFT_OPPLYSNINGER, BETALER_ARBEIDSGIVER, VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
+import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import OppsummeringUndertekst from '../../felleskomponenter/oppsummering/OppsummeringUndertekst';
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import SoknadMottaker from './SoknadMottaker';
@@ -34,8 +34,7 @@ OppsummeringUtvidbar.propTypes = {
 export const hentSporsmalForOppsummering = (soknad) => {
     return soknad.sporsmal.filter((s) => {
         return s.tag === VAER_KLAR_OVER_AT
-            || s.tag === BEKREFT_OPPLYSNINGER
-            || s.tag === BETALER_ARBEIDSGIVER;
+            || s.tag === BEKREFT_OPPLYSNINGER;
     });
 };
 
@@ -58,9 +57,6 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
     const bekreftOpplysningerSpm = soknad.sporsmal.find((s) => {
         return s.tag === BEKREFT_OPPLYSNINGER;
     });
-    const betalerArbeidsgiverSpm = soknad.sporsmal.find((s) => {
-        return s.tag === BETALER_ARBEIDSGIVER;
-    });
 
     const onSubmit = () => {
         actions.sendSoknad(populertSoknad);
@@ -70,23 +66,13 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
         <div className="panel blokk">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
-        {
-            betalerArbeidsgiverSpm ?
-                (<div className="panel blokk">
-                    <Sporsmal
-                        sporsmal={betalerArbeidsgiverSpm}
-                        name={betalerArbeidsgiverSpm.tag}
-                        soknad={soknad} />
-                </div>)
-                : null
-        }
         <div className="bekreftet-container blokk">
             <Sporsmal
                 sporsmal={bekreftOpplysningerSpm}
                 name={bekreftOpplysningerSpm.tag}
                 soknad={soknad} />
         </div>
-        {!betalerArbeidsgiverSpm && <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} mottakernavn={sykmelding.mottakendeArbeidsgiver.navn} />}
+        <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} mottakernavn={sykmelding.mottakendeArbeidsgiver.navn} />
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link

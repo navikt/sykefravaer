@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag } from './fieldUtils';
-import { BETALER_ARBEIDSGIVER, EGENMELDINGER, FERIE_PERMISJON_UTLAND } from '../../enums/tagtyper';
+import { EGENMELDINGER, FERIE_PERMISJON_UTLAND } from '../../enums/tagtyper';
 
 const tagsMedHjelpetekst = [
     EGENMELDINGER,
     FERIE_PERMISJON_UTLAND,
-    BETALER_ARBEIDSGIVER,
 ];
 
 const harHjelpetekst = (tag) => {

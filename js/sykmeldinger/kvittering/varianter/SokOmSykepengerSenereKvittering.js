@@ -3,7 +3,6 @@ import {
     sykepengesoknad as sykepengesoknadPt,
     getLedetekst,
     Video,
-    filmer,
     Bjorn,
     tilLesbarDatoMedArstall,
 } from '@navikt/digisyfo-npm';
@@ -11,6 +10,7 @@ import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from '../felles/Soknadsdatoliste';
 import { soknadPt } from '../../../sykepengesoknad/prop-types/soknadProptype';
+import { SOKNAD_SYKEPENGER } from '../../../enums/filmer';
 
 const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, soknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer' }) => {
     const soknaderOgSykepengesoknader = [...sykepengesoknader, ...soknader];
@@ -44,7 +44,7 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, soknader, sykmeldi
             nokkel="sykmelding.kvittering.sok-senere.bjorn" />
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
-            <Video film={filmer.SOKNAD_SYKEPENGER} />
+            <Video film={SOKNAD_SYKEPENGER} />
         </div>
     </div>);
 };

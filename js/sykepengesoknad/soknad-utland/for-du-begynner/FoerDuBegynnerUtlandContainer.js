@@ -9,7 +9,7 @@ import Feilmelding from '../../../components/Feilmelding';
 import { opprettSoknadUtland } from '../../data/soknader/soknaderActions';
 
 export const Container = ({ henter, hentingFeilet, opprettSoknad, opprettFeilet, oppretterSoknad }) => {
-    return (<SideStrippet tittel={getLedetekst('soknad-utland.sidetittel')} laster={henter}>
+    return (<SideStrippet tittel={getLedetekst('sykepengesoknad-utland.sidetittel')} laster={henter}>
         {(() => {
             if (henter) {
                 return <AppSpinner />;

@@ -78,7 +78,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
             <Link
                 to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
-            <Hovedknapp className="js-send" spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
+            <Hovedknapp className="js-send" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
         </Knapperad>
     </form>);
 };

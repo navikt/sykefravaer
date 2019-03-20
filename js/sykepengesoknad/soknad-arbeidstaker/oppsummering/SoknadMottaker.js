@@ -7,6 +7,7 @@ import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../enums/soknadmottak
 import { hentSoknadMottaker } from '../../data/soknadMeta/soknadMetaActions';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { soknadMottakerSelector } from '../../data/soknadMeta/soknadMetaSelectors';
+import AppSpinner from '../../../components/AppSpinner';
 
 const mottakerTekst = (sendesTil, mottakernavn) => {
     switch (sendesTil) {
@@ -31,12 +32,6 @@ class SoknadMottakerComponent extends Component {
         this.hentMottaker();
     }
 
-    componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps.skjemasvar) !== JSON.stringify(this.props.skjemasvar)) {
-            this.hentMottaker();
-        }
-    }
-
     hentMottaker() {
         const populertSoknad = populerSoknadMedSvar(this.props.soknad, this.props.skjemasvar);
         this.props.hentSoknadMottaker(populertSoknad);
@@ -45,8 +40,12 @@ class SoknadMottakerComponent extends Component {
     render() {
         return this.props.hentingfeilet
             ? null
-            : (<p className="js-mottaker sykepengerskjema__sendesTil">
-                {mottakerTekst(this.props.mottaker, this.props.mottakernavn)}
+            : (<p className="js-mottaker sykepengerskjema__sendesTil" aria-busy={this.props.henter}>
+                {
+                    this.props.henter
+                        ? 'Vent litt, mens vi henter litt informasjon om søknaden din...'
+                        : mottakerTekst(this.props.mottaker, this.props.mottakernavn)
+                }
             </p>);
     }
 }
@@ -58,16 +57,18 @@ SoknadMottakerComponent.propTypes = {
     hentSoknadMottaker: PropTypes.func,
     mottaker: soknadmottakerPt,
     hentingfeilet: PropTypes.bool,
+    henter: PropTypes.bool,
 };
 
-const mapStateToProps = (state, ownProps) => {
+export const mapStateToSoknadMottakerProps = (state, ownProps) => {
     const soknadMeta = state.soknadMeta[ownProps.soknad.id];
     return {
         mottaker: soknadMottakerSelector(state, ownProps.soknad.id),
         hentingfeilet: soknadMeta && soknadMeta.hentingFeilet,
+        henter: soknadMeta && soknadMeta.henter,
     };
 };
 
-const SoknadMottaker = connect(mapStateToProps, { hentSoknadMottaker })(SoknadMottakerComponent);
+const SoknadMottaker = connect(mapStateToSoknadMottakerProps, { hentSoknadMottaker })(SoknadMottakerComponent);
 
 export default SoknadMottaker;

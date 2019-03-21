@@ -160,9 +160,11 @@ function mockSyfosoknadOpplaringsmiljoOgLokalt(server) {
 
     server.post('/syfoapi/syfosoknad/api/soknader/:id/mottaker', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({
-            mottaker: 'ARBEIDSGIVER_OG_NAV',
-        }));
+        setTimeout((function() {
+            res.send(JSON.stringify({
+                mottaker: 'ARBEIDSGIVER_OG_NAV',
+            }));
+        }), 5000);
     });
 }
 

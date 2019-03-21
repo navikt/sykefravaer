@@ -1,8 +1,9 @@
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag, formaterEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 import { CHECKED } from '../enums/svarEnums';
-import { CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT } from '../enums/svartyper';
+import { CHECKBOX_GRUPPE, FRITEKST, IKKE_RELEVANT, PERIODER, TALL } from '../enums/svartyper';
 import { validerPerioder } from '../../sykepengesoknad-gammel-plattform/utils/valideringUtils';
+import validerTall from './validerTall';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste
@@ -67,11 +68,20 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
                         }
                         break;
                     }
+                    case TALL: {
+                        const feilmelding = validerTall(undersporsmal.min, undersporsmal.max, undersporsmal.tag, values[undersporsmal.tag]);
+                        if (feilmelding) {
+                            feilmeldinger[undersporsmal.tag] = feilmelding;
+                        }
+                        feilmeldinger = validerUndersporsmalsliste(undersporsmal.undersporsmal, values, feilmeldinger);
+                        break;
+                    }
                     default: {
                         const verdi = formaterEnkeltverdi(values[undersporsmal.tag]);
                         if (verdiErTom(verdi)) {
                             feilmeldinger[undersporsmal.tag] = beregnFeilmeldingstekstFraTag(undersporsmal.tag);
                         }
+                        feilmeldinger = validerUndersporsmalsliste(undersporsmal.undersporsmal, values, feilmeldinger);
                         break;
                     }
                 }
@@ -81,7 +91,7 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
     return feilmeldinger;
 };
 
-export default (sporsmal = [], values = {}) => {
+export default function validerSporsmal(sporsmal = [], values = {}) {
     const feilmeldinger = {};
     sporsmal
         .filter((s) => {
@@ -117,4 +127,4 @@ export default (sporsmal = [], values = {}) => {
             }
         });
     return validerUndersporsmalsliste(sporsmal, values, feilmeldinger);
-};
+}

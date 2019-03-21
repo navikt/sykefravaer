@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import { getLedetekst, sykmelding as sykmeldingPt, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Soknadskjema from '../../felleskomponenter/Soknadskjema';
@@ -12,7 +13,21 @@ import Oppsummeringsvisning from '../../felleskomponenter/oppsummering/Oppsummer
 import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import OppsummeringUndertekst from '../../felleskomponenter/oppsummering/OppsummeringUndertekst';
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
-import SoknadMottaker from './SoknadMottaker';
+import SoknadMottaker, { mapStateToSoknadMottakerProps } from './SoknadMottaker';
+
+const Sendknapp = ({ sender, henter }) => {
+    return (<Hovedknapp
+        className="js-send"
+        disabled={sender || henter}
+        spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>);
+};
+
+Sendknapp.propTypes = {
+    sender: PropTypes.bool,
+    henter: PropTypes.bool,
+};
+
+const ConnectedSendknapp = connect(mapStateToSoknadMottakerProps)(Sendknapp);
 
 const OppsummeringUtvidbar = ({ soknad }) => {
     const _soknad = {
@@ -72,13 +87,16 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
                 name={bekreftOpplysningerSpm.tag}
                 soknad={soknad} />
         </div>
-        <SoknadMottaker soknad={soknad} skjemasvar={skjemasvar} mottakernavn={sykmelding.mottakendeArbeidsgiver.navn} />
+        <SoknadMottaker
+            soknad={soknad}
+            skjemasvar={skjemasvar}
+            mottakernavn={sykmelding ? sykmelding.mottakendeArbeidsgiver.navn : null} />
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
                 to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
-            <Hovedknapp className="js-send" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
+            <ConnectedSendknapp className="js-send" sender={sender} soknad={soknad} />
         </Knapperad>
     </form>);
 };

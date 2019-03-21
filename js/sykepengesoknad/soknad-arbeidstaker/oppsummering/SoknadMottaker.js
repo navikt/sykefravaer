@@ -31,12 +31,6 @@ class SoknadMottakerComponent extends Component {
         this.hentMottaker();
     }
 
-    componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps.skjemasvar) !== JSON.stringify(this.props.skjemasvar)) {
-            this.hentMottaker();
-        }
-    }
-
     hentMottaker() {
         const populertSoknad = populerSoknadMedSvar(this.props.soknad, this.props.skjemasvar);
         this.props.hentSoknadMottaker(populertSoknad);
@@ -45,8 +39,12 @@ class SoknadMottakerComponent extends Component {
     render() {
         return this.props.hentingfeilet
             ? null
-            : (<p className="js-mottaker sykepengerskjema__sendesTil">
-                {mottakerTekst(this.props.mottaker, this.props.mottakernavn)}
+            : (<p className="js-mottaker sykepengerskjema__sendesTil" aria-busy={this.props.henter}>
+                {
+                    this.props.henter
+                        ? getLedetekst('soknad.mottaker.henter')
+                        : mottakerTekst(this.props.mottaker, this.props.mottakernavn)
+                }
             </p>);
     }
 }
@@ -58,16 +56,18 @@ SoknadMottakerComponent.propTypes = {
     hentSoknadMottaker: PropTypes.func,
     mottaker: soknadmottakerPt,
     hentingfeilet: PropTypes.bool,
+    henter: PropTypes.bool,
 };
 
-const mapStateToProps = (state, ownProps) => {
+export const mapStateToSoknadMottakerProps = (state, ownProps) => {
     const soknadMeta = state.soknadMeta[ownProps.soknad.id];
     return {
         mottaker: soknadMottakerSelector(state, ownProps.soknad.id),
         hentingfeilet: soknadMeta && soknadMeta.hentingFeilet,
+        henter: soknadMeta && soknadMeta.henter,
     };
 };
 
-const SoknadMottaker = connect(mapStateToProps, { hentSoknadMottaker })(SoknadMottakerComponent);
+const SoknadMottaker = connect(mapStateToSoknadMottakerProps, { hentSoknadMottaker })(SoknadMottakerComponent);
 
 export default SoknadMottaker;

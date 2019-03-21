@@ -15,7 +15,7 @@ import OppsummeringUndertekst from '../../felleskomponenter/oppsummering/Oppsumm
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import SoknadMottaker, { mapStateToSoknadMottakerProps } from './SoknadMottaker';
 
-const Sendknapp = ({ sender, henter }) => {
+const Sendknapp = ({ sender, henter }) => {
     return (<Hovedknapp
         className="js-send"
         disabled={sender || henter}

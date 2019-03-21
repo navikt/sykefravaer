@@ -7,7 +7,6 @@ import { ARBEIDSGIVER, ARBEIDSGIVER_OG_NAV, NAV } from '../../enums/soknadmottak
 import { hentSoknadMottaker } from '../../data/soknadMeta/soknadMetaActions';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
 import { soknadMottakerSelector } from '../../data/soknadMeta/soknadMetaSelectors';
-import AppSpinner from '../../../components/AppSpinner';
 
 const mottakerTekst = (sendesTil, mottakernavn) => {
     switch (sendesTil) {
@@ -43,7 +42,7 @@ class SoknadMottakerComponent extends Component {
             : (<p className="js-mottaker sykepengerskjema__sendesTil" aria-busy={this.props.henter}>
                 {
                     this.props.henter
-                        ? 'Vent litt, mens vi henter litt informasjon om søknaden din...'
+                        ? getLedetekst('soknad.mottaker.henter')
                         : mottakerTekst(this.props.mottaker, this.props.mottakernavn)
                 }
             </p>);

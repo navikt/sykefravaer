@@ -15,8 +15,8 @@ export class PeriodelisteComponent extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.fields.length !== prevProps.fields.length
-            && typeof this.props.onChange === 'function') {
-            this.props.onChange();
+            && typeof this.props.onAddRemove === 'function') {
+            this.props.onAddRemove(this.props.namePrefix, this.props.fields.getAll());
         }
     }
 
@@ -38,6 +38,7 @@ export class PeriodelisteComponent extends Component {
                                     index={index}
                                     onRemoveHandler={() => {
                                         fields.remove(index);
+                                        this.props.onChange();
                                     }} />);
                             })
                         }
@@ -62,6 +63,7 @@ PeriodelisteComponent.propTypes = {
     meta: fieldPropTypes.meta,
     Overskrift: PropTypes.string,
     onChange: PropTypes.func,
+    onAddRemove: PropTypes.func,
 };
 
 PeriodelisteComponent.defaultProps = {

@@ -33,6 +33,9 @@ import {
     SOKNAD_ENDRET,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
+import { PERIODER } from '../../enums/svartyper';
+import { getObjectValueByString } from '../../../utils';
+import { erGyldigPeriode } from '../../../utils/periodeUtils';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknadId}/kvittering`);
@@ -118,14 +121,23 @@ export function* oppdaterSporsmal(action) {
     yield put(change(skjemanavn, action.feltnavn, action.nyVerdi));
     const nyeverdierISkjema = yield select(hentSkjemaVerdier, skjemanavn);
     const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, nyeverdierISkjema);
+    const skalOppdatereSporsmal = action.svartype === PERIODER
+        ? (() => {
+            const feltnavn = action.feltnavn.split('.')[0];
+            const verdi = getObjectValueByString(nyeverdierISkjema, feltnavn);
+            return erGyldigPeriode(verdi);
+        })()
+        : true;
 
-    try {
-        const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
-        yield put(actions.soknadOppdatert(oppdatertSoknad));
-        yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
-    } catch (e) {
-        log(e);
-        yield put(actions.oppdaterSoknadFeilet());
+    if (skalOppdatereSporsmal) {
+        try {
+            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
+            yield put(actions.soknadOppdatert(oppdatertSoknad));
+            yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
+        } catch (e) {
+            log(e);
+            yield put(actions.oppdaterSoknadFeilet());
+        }
     }
 }
 

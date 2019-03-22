@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Periodevelger from '../../../components/skjema/periodevelger/Periodevelger';
 import Sporsmalstekst from './Sporsmalstekst';
-import { getOnChangeForPerioder } from '../../utils/getOnChange';
+import { getOnChange, getOnChangeForPerioder } from '../../utils/getOnChange';
 
 const Perioder = (props) => {
     const { min, max, name, sporsmalstekst, initiellDato } = props;
@@ -10,6 +10,7 @@ const Perioder = (props) => {
         <div>
             <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
             <Periodevelger
+                onAddRemove={getOnChange(props)}
                 onChange={getOnChangeForPerioder(props)}
                 initiellDato={initiellDato}
                 name={name}

@@ -132,12 +132,13 @@ export function avbrytSoknadFeilet() {
     };
 }
 
-export const soknadEndret = (soknad, feltnavn, nyVerdi) => {
+export const soknadEndret = (soknad, feltnavn, nyVerdi, svartype) => {
     return {
         type: SOKNAD_ENDRET,
         soknad,
         feltnavn,
         nyVerdi,
+        svartype,
     };
 };
 

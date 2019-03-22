@@ -1,7 +1,7 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
-import { initialize, change, formValueSelector } from 'redux-form';
+import { initialize, change } from 'redux-form';
 import { get, hentApiUrl, post } from '../../../gateway-api';
 import * as actions from './soknaderActions';
 import {

@@ -26,7 +26,7 @@ export const getOnChangeForPerioder = (props) => {
     if (props.pavirkerAndreSporsmal) {
         return (name, newValue) => {
             if (erGyldigDato(newValue)) {
-                props.actions.soknadEndret(props.soknad, name, newValue);
+                props.actions.soknadEndret(props.soknad, name, newValue, props.svartype);
             }
         };
     }

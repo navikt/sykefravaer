@@ -4,6 +4,7 @@ import { parseSoknad } from '../../js/sykepengesoknad/data/soknader/soknader';
 export const soknadSelvstendig1 = {
     fom: '2018-05-20',
     id: 'e062a444-5171-4147-84a3-19c8b4ba3c39',
+    oppdateringnr: 0,
     opprettetDato: '2018-05-29',
     soknadstype: 'SELVSTENDIGE_OG_FRILANSERE',
     sporsmal: [
@@ -706,6 +707,7 @@ const parsetSoknad1 = {
     id: 'e062a444-5171-4147-84a3-19c8b4ba3c39',
     opprettetDato: new Date('2018-05-29'),
     soknadstype: 'SELVSTENDIGE_OG_FRILANSERE',
+    oppdateringnr: 0,
     sporsmal: [
         {
             id: '1',

@@ -7,6 +7,7 @@ const utfyltSoknadArbeidstaker = {
     aktorId: 'aktorId-745463060',
     sykmeldingId: '289148ba-4c3c-4b3f-b7a3-385b7e7c927d',
     soknadstype: 'ARBEIDSTAKERE',
+    oppdateringnr: 0,
     status: 'NY',
     fom: '2018-10-06',
     tom: '2018-10-15',

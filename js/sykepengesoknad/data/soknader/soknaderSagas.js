@@ -30,7 +30,7 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SOKNAD_ENDRET,
+    SOKNAD_ENDRET, SOKNAD_OPPDATERT,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
 import { PERIODER } from '../../enums/svartyper';
@@ -131,13 +131,25 @@ export function* oppdaterSporsmal(action) {
 
     if (skalOppdatereSporsmal) {
         try {
-            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
+            yield put(actions.oppdatererSoknad(soknad));
+            const soknadMedOppdatertOppdateringnr = yield select(hentSoknad, action.soknad);
+            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, {
+                ...populertSoknad,
+                oppdateringnr: soknadMedOppdatertOppdateringnr.oppdateringnr,
+            });
             yield put(actions.soknadOppdatert(oppdatertSoknad));
-            yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
         } catch (e) {
             log(e);
             yield put(actions.oppdaterSoknadFeilet());
         }
+    }
+}
+
+export function* initializeSoknad(action) {
+    const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
+    const soknadIState = yield select(hentSoknad, action.soknad);
+    if (soknadIState.oppdateringnr === action.soknad.oppdateringnr) {
+        yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(action.soknad)));
     }
 }
 
@@ -148,9 +160,13 @@ export function* lagreSoknad(action) {
     const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, verdier);
     try {
         // TODO: Endre URL for endepunkt i Syfosoknad
-        const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
+        yield put(actions.oppdatererSoknad(soknad));
+        const soknadMedOppdatertOppdateringnr = yield select(hentSoknad, action.soknad);
+        const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, {
+            ...populertSoknad,
+            oppdateringnr: soknadMedOppdatertOppdateringnr.oppdateringnr,
+        });
         yield put(actions.soknadOppdatert(oppdatertSoknad));
-        yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
     } catch (e) {
         log(e);
         yield put(actions.oppdaterSoknadFeilet());
@@ -205,6 +221,10 @@ function* watchOppdaterSoknader() {
     ], oppdaterSoknader);
 }
 
+function* watchSoknadOppdatert() {
+    yield takeEvery(SOKNAD_OPPDATERT, initializeSoknad);
+}
+
 function* watchSendSoknad() {
     yield takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
 }
@@ -244,5 +264,6 @@ export default function* soknaderSagas() {
         fork(watchGjenapneSoknad),
         fork(watchOpprettUtkastTilKorrigering),
         fork(watchLagreSoknad),
+        fork(watchSoknadOppdatert),
     ]);
 }

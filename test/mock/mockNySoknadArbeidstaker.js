@@ -6,6 +6,7 @@ export const nySoknadArbeidstaker = {
     aktorId: '1328256131648',
     sykmeldingId: '6f4c99ed-7202-4ac0-8abe-879874feed05',
     soknadstype: 'ARBEIDSTAKERE',
+    oppdateringnr: 0,
     status: 'NY',
     fom: '2019-02-03',
     tom: '2019-02-11',

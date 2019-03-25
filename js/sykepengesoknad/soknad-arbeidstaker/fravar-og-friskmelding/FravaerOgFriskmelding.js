@@ -9,6 +9,7 @@ import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { EGENMELDINGER, JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT, TILBAKE_I_ARBEID } from '../../enums/tagtyper';
 import { soknadPt } from '../../../propTypes';
 import Sporsmalsliste from '../../felleskomponenter/sporsmal/Sporsmalsliste';
+import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 
 export const hentSporsmalForFravaerOgFriskmelding = (soknad) => {
     return soknad.sporsmal.filter((sporsmal) => {
@@ -30,6 +31,7 @@ const FravaerOgFriskmeldingSkjema = (props) => {
         <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
         <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
         <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}`} />
+        <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };
 

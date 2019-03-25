@@ -34,6 +34,7 @@ function mockOppdaterSporsmalLokal(server) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(soknadMedNyeSporsmalIder));
     });
+
 }
 
 function mockOppdaterSporsmalOpplaeringsmiljo(server) {
@@ -56,8 +57,11 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify(mockData[enums.NY_SOKNAD_UTLAND]));
     });
 
-    server.post('/syfoapi/syfosoknad/api/avbrytSoknad', (req, res) => {
-        const soknad = req.body;
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
+        const soknadId = req.params.id;
+        const soknad = mockData[enums.SOKNADER].find((s) => {
+            return s.id === soknadId;
+        });
         if (soknad.soknadstype === 'OPPHOLD_UTLAND' || soknad.status === 'UTKAST_TIL_KORRIGERING') {
             mockData[enums.SOKNADER] = mockData[enums.SOKNADER].filter((s) => {
                 return s.id !== soknad.id;
@@ -77,10 +81,10 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify({}));
     });
 
-    server.post('/syfoapi/syfosoknad/api/gjenapneSoknad', (req, res) => {
-        const soknad = req.body;
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/gjenapne', (req, res) => {
+        const soknadId = req.params.id;
         mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
-            return s.id === soknad.id
+            return s.id === soknadId
                 ? {
                     ...s,
                     avbruttDato: null,
@@ -88,7 +92,6 @@ function mockSyfosoknadLokalt(server) {
                 }
                 : s;
         });
-
         res.send(JSON.stringify({}));
     });
 
@@ -142,13 +145,6 @@ function mockSyfosoknadLokalt(server) {
         }
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(utkast));
-    });
-
-    server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
-        mockData[enums.SOKNADER] = mockData[enums.SOKNADER].filter((soknad) => {
-            return soknad.id !== req.params.id;
-        });
-        res.send(JSON.stringify({}));
     });
 }
 

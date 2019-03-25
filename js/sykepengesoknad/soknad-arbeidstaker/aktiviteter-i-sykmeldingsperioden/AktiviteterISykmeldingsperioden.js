@@ -9,6 +9,7 @@ import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { ANDRE_INNTEKTSKILDER, FERIE_PERMISJON_UTLAND, UTDANNING } from '../../enums/tagtyper';
 import { soknadPt } from '../../../propTypes';
 import Sporsmalsliste from '../../felleskomponenter/sporsmal/Sporsmalsliste';
+import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 
 export const hentSporsmalForAktiviteterISykmeldingsperioden = (soknad) => {
     return soknad.sporsmal.filter((sporsmal) => {
@@ -29,6 +30,7 @@ const AktiviteterISykmeldingsperiodenSkjema = (props) => {
         <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
         <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
         <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/fravaer-og-friskmelding`} />
+        <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };
 

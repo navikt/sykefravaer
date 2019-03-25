@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import soknader from './soknader';
 import * as actions from './soknaderActions';
 import mockSoknader, { getNySoknadSelvstendig, soknadrespons } from '../../../../test/mock/mockSoknadSelvstendig';
-import { ANSVARSERKLARING } from '../../enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 import { AVBRUTT, NY, SENDT, FREMTIDIG, UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
@@ -141,20 +140,38 @@ describe('soknader', () => {
         expect(state.avbrytSoknadFeilet).to.equal(true);
     });
 
-    it('Håndterer soknadOppdatert', () => {
+    it('Håndterer soknadOppdatert når oppdateringnr i respons er lik oppdateringnr i state', () => {
+        const initState = getStateMedDataHentet();
+        const soknadSomEndres = initState.data[0];
+        const oppdatererAction = actions.oppdatererSoknad(soknadSomEndres);
+        const mellomState = soknader(deepFreeze(initState), oppdatererAction);
+        const oppdatertAction = actions.soknadOppdatert({
+            ...soknadSomEndres,
+            oppdateringnr: 1,
+        });
+        const nyState = soknader(deepFreeze(mellomState), oppdatertAction);
+        expect(nyState.data).to.deep.equal([{
+            ...soknadSomEndres,
+            oppdateringnr: 1,
+        }]);
+    });
+
+    it('Håndterer ikke soknadOppdatert når oppdateringnr i respons ikke er lik oppdateringnr i state', () => {
         const initState = getStateMedDataHentet();
         const soknadSomEndres = initState.data[0];
         const endretSoknad = {
             ...soknadSomEndres,
-            sporsmal: [
-                ...soknadSomEndres.sporsmal.filter((s) => {
-                    return s.tag === ANSVARSERKLARING;
-                }),
-            ],
         };
-        const action = actions.soknadOppdatert(endretSoknad);
-        const state = soknader(deepFreeze(initState), action);
-        expect(state.data).to.deep.equal([endretSoknad]);
+        const oppdatererAction = actions.oppdatererSoknad(endretSoknad);
+        const state = soknader(deepFreeze(initState), oppdatererAction);
+        const finalState = soknader(deepFreeze(state), actions.soknadOppdatert({
+            ...endretSoknad,
+            oppdateringnr: 40,
+        }));
+        expect(finalState.data).to.deep.equal([{
+            ...endretSoknad,
+            oppdateringnr: endretSoknad.oppdateringnr + 1,
+        }]);
     });
 
     it('Fjerner NYE søknader ved bekreftSykmeldingAngret()', () => {

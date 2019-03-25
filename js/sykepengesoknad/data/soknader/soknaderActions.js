@@ -27,7 +27,7 @@ import {
     SOKNADER_HENTET,
     SYKEPENGESOKNADUTLAND_OPPRETTET,
     UTKAST_TIL_KORRIGERING_OPPRETTET,
-    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, OPPDATERER_SOKNAD,
 } from './soknaderActiontyper';
 
 export const soknaderHentet = (soknader) => {
@@ -152,6 +152,13 @@ export const soknadOppdatert = (soknad) => {
 export const oppdaterSoknadFeilet = (soknad) => {
     return {
         type: OPPDATER_SOKNAD_FEILET,
+        soknad,
+    };
+};
+
+export const oppdatererSoknad = (soknad) => {
+    return {
+        type: OPPDATERER_SOKNAD,
         soknad,
     };
 };

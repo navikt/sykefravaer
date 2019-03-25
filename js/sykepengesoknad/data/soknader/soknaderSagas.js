@@ -1,4 +1,4 @@
-import { call, fork, put, select, takeEvery, all, takeLatest } from 'redux-saga/effects';
+import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
 import { initialize, change } from 'redux-form';
@@ -133,7 +133,12 @@ export function* oppdaterSporsmal(action) {
 
     if (skalOppdatereSporsmal) {
         try {
-            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
+            yield put(actions.oppdatererSoknad(soknad));
+            const soknadMedOppdatertOppdateringnr = yield select(hentSoknad, action.soknad);
+            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, {
+                ...populertSoknad,
+                oppdateringnr: soknadMedOppdatertOppdateringnr.oppdateringnr,
+            });
             yield put(actions.soknadOppdatert(oppdatertSoknad));
         } catch (e) {
             log(e);
@@ -144,9 +149,12 @@ export function* oppdaterSporsmal(action) {
 
 export function* populerSoknadsskjema(action) {
     const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
-    const verdier = yield select(hentSkjemaVerdier, skjemanavn);
-    const soknadPopulertMedVerdier = populerSoknadMedSvar(action.soknad, verdier);
-    yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(soknadPopulertMedVerdier)));
+    const soknadIState = yield select(hentSoknad, action.soknad);
+    if (soknadIState.oppdateringnr === action.soknad.oppdateringnr) {
+        const verdier = yield select(hentSkjemaVerdier, skjemanavn);
+        const soknadPopulertMedVerdier = populerSoknadMedSvar(action.soknad, verdier);
+        yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(soknadPopulertMedVerdier)));
+    }
 }
 
 export function* lagreSoknad(action) {
@@ -155,7 +163,13 @@ export function* lagreSoknad(action) {
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
     const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, verdier);
     try {
-        const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
+        // TODO: Endre URL for endepunkt i Syfosoknad
+        yield put(actions.oppdatererSoknad(soknad));
+        const soknadMedOppdatertOppdateringnr = yield select(hentSoknad, action.soknad);
+        const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, {
+            ...populertSoknad,
+            oppdateringnr: soknadMedOppdatertOppdateringnr.oppdateringnr,
+        });
         yield put(actions.soknadOppdatert(oppdatertSoknad));
     } catch (e) {
         log(e);
@@ -232,7 +246,7 @@ function* watchOpprettSoknadUtland() {
 }
 
 function* watchEndringSoknad() {
-    yield takeLatest(SOKNAD_ENDRET, oppdaterSporsmal);
+    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
 }
 
 function* watchLagreSoknad() {

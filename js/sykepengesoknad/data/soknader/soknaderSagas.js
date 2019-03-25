@@ -1,4 +1,4 @@
-import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
+import { call, fork, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
 import { initialize, change } from 'redux-form';
@@ -222,7 +222,7 @@ function* watchOpprettSoknadUtland() {
 }
 
 function* watchEndringSoknad() {
-    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
+    yield takeLatest(SOKNAD_ENDRET, oppdaterSporsmal);
 }
 
 function* watchLagreSoknad() {

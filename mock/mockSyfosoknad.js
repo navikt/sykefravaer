@@ -22,17 +22,26 @@ function mockOppdaterSporsmalLokal(server) {
         const soknad = req.body;
         const soknadMedNyeSporsmalIder = {
             ...soknad,
-            sporsmal: soknad.sporsmal.map(tilNyId),
+            sporsmal: [...soknad.sporsmal].map(tilNyId),
         };
-
-        mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
-            return s.id === soknad.id
-                ? soknad
-                : s;
+        const gammelSoknad = mockData[enums.SOKNADER].find((s) => {
+            return s.id === soknad.id;
         });
+        const erISynk = gammelSoknad.sporsmal[0].id === soknad.sporsmal[0].id;
 
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(soknadMedNyeSporsmalIder));
+
+        if (erISynk) {
+            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+                return s.id === soknad.id
+                    ? soknadMedNyeSporsmalIder
+                    : s;
+            });
+            res.send(JSON.stringify(soknadMedNyeSporsmalIder));
+        } else {
+            res.status(409);
+            res.send(gammelSoknad);
+        }
     });
 
 }

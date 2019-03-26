@@ -1,4 +1,4 @@
-import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
+import { call, fork, put, select, takeEvery, all, throttle } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
 import { initialize, change } from 'redux-form';
@@ -30,7 +30,7 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SOKNAD_ENDRET,
+    SOKNAD_ENDRET, SOKNAD_OPPDATERT,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
 import { PERIODER } from '../../enums/svartyper';
@@ -133,12 +133,16 @@ export function* oppdaterSporsmal(action) {
         try {
             const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
             yield put(actions.soknadOppdatert(oppdatertSoknad));
-            yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
         } catch (e) {
             log(e);
             yield put(actions.oppdaterSoknadFeilet());
         }
     }
+}
+
+export function* populerSoknadsskjema(action) {
+    const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
+    yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(action.soknad)));
 }
 
 export function* lagreSoknad(action) {
@@ -147,10 +151,8 @@ export function* lagreSoknad(action) {
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
     const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, verdier);
     try {
-        // TODO: Endre URL for endepunkt i Syfosoknad
         const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
         yield put(actions.soknadOppdatert(oppdatertSoknad));
-        yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
     } catch (e) {
         log(e);
         yield put(actions.oppdaterSoknadFeilet());
@@ -205,6 +207,10 @@ function* watchOppdaterSoknader() {
     ], oppdaterSoknader);
 }
 
+function* watchSoknadOppdatert() {
+    yield takeEvery(SOKNAD_OPPDATERT, populerSoknadsskjema);
+}
+
 function* watchSendSoknad() {
     yield takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
 }
@@ -222,7 +228,7 @@ function* watchOpprettSoknadUtland() {
 }
 
 function* watchEndringSoknad() {
-    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
+    yield throttle(2000, SOKNAD_ENDRET, oppdaterSporsmal);
 }
 
 function* watchLagreSoknad() {
@@ -244,5 +250,6 @@ export default function* soknaderSagas() {
         fork(watchGjenapneSoknad),
         fork(watchOpprettUtkastTilKorrigering),
         fork(watchLagreSoknad),
+        fork(watchSoknadOppdatert),
     ]);
 }

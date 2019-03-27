@@ -14,6 +14,7 @@ import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import OppsummeringUndertekst from '../../felleskomponenter/oppsummering/OppsummeringUndertekst';
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import SoknadMottaker, { mapStateToSoknadMottakerProps } from './SoknadMottaker';
+import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 
 const Sendknapp = ({ sender, henter }) => {
     return (<Hovedknapp
@@ -92,12 +93,13 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
             skjemasvar={skjemasvar}
             mottakernavn={sykmelding ? sykmelding.mottakendeArbeidsgiver.navn : null} />
         <Feilstripe vis={sendingFeilet} />
-        <Knapperad variant="knapperad--forrigeNeste">
+        <Knapperad variant="knapperad--forrigeNeste blokk">
             <Link
                 to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
             <ConnectedSendknapp className="js-send" sender={sender} soknad={soknad} />
         </Knapperad>
+        <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };
 

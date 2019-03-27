@@ -7,9 +7,10 @@ import NyAktiviteterISykmeldingsperiodenArbeidstakerContainer from './aktivitete
 import NyOppsummeringArbeidstakerContainer from './oppsummering/NyOppsummeringArbeidstakerContainer';
 import SoknadKvitteringSjekker from '../felleskomponenter/SoknadKvitteringSjekker';
 import { soknadPt } from '../../propTypes';
-import { KORRIGERT, NY, SENDT, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
+import { AVBRUTT, KORRIGERT, NY, SENDT, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import NySendtSoknadArbeidstaker from './NySendtSoknadArbeidstaker';
 import Feilmelding from '../../components/Feilmelding';
+import AvbruttSoknadArbeidstaker from './AvbruttSoknadArbeidstaker';
 
 const NySoknadArbeidstakerSkjema = (props) => {
     const { sti } = props;
@@ -54,6 +55,9 @@ const NySoknadArbeidstaker = (props) => {
                 return <SoknadKvitteringSjekker {...props} />;
             }
             return <NySendtSoknadArbeidstaker {...props} />;
+        }
+        case AVBRUTT: {
+            return <AvbruttSoknadArbeidstaker {...props} />;
         }
         default: {
             return <Feilmelding melding="Søknaden har ukjent status" />;

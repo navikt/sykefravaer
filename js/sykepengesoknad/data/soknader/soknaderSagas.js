@@ -87,7 +87,8 @@ export function* sendSoknad(action) {
 
 export function* avbrytSoknad(action) {
     if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
-        || action.soknad.soknadstype === OPPHOLD_UTLAND) {
+        || action.soknad.soknadstype === OPPHOLD_UTLAND
+        || action.soknad.soknadstype === ARBEIDSTAKERE) {
         try {
             yield put(actions.avbryterSoknad());
             yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/avbryt`);
@@ -103,7 +104,8 @@ export function* avbrytSoknad(action) {
 }
 
 export function* gjenapneSoknad(action) {
-    if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) {
+    if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
+    || action.soknad.soknadstype === ARBEIDSTAKERE) {
         try {
             yield put(actions.gjenapnerSoknad(action.soknad));
             yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/gjenapne`);

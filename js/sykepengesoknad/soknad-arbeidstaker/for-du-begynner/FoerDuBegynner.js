@@ -8,6 +8,7 @@ import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import { soknadPt } from '../../../propTypes';
 import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
 import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
+import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 
 export const hentSporsmalForDuBegynner = (soknad) => {
     return soknad.sporsmal.filter((s) => {
@@ -44,6 +45,7 @@ export class FoerDuBegynnerSkjema extends Component {
             <div className="knapperad blokk">
                 <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
             </div>
+            <AvbrytSoknadContainer sykepengesoknad={soknad} />
         </form>);
     }
 }

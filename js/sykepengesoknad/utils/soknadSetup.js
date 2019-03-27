@@ -27,6 +27,7 @@ const mapStateToProps = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
     return {
         soknad,
+        oppdaterer: state.soknader.oppdaterer,
         soknadMeta: state.soknadMeta[soknad.id] || {},
         sykmelding: finnSykmelding(state, ownProps),
         skjemasvar: getFormValues(getSoknadSkjemanavn(ownProps.params.sykepengesoknadId))(state),

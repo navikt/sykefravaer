@@ -4,37 +4,42 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import Sidetopp from '../components/Sidetopp';
 import Brodsmuler from '../components/Brodsmuler';
 import HarAlleredeOppfolgingAlertstripe from './HarAlleredeOppfolgingAlertstripe';
-import VeilederRad from './VeilederRad';
-import KommunikasjonRad from './KommunikasjonRad';
-import DinOkonomiRad from './DinOkonomiRad';
-import TrengerMerVeiledningRad from './TrengerMerVeiledningRad';
+import Veileder from './Veileder';
+import MerVeiledning from './MerVeiledning';
+import DinOkonomi from './DinOkonomi';
+import KanDuBytteJobb from './KanDuBytteJobb';
+import Forsikring from './Forsikring';
+import HvaKanDuGjoreNa from './HvaKanDuGjoreNa';
 
-const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
+const ArbeidsrettetOppfolging = ({ underOppfolging, maksDato }) => {
     const brodsmuler = [{
         tittel: getLedetekst('landingsside.sidetittel'),
         sti: '/',
         erKlikkbar: true,
     }, {
-        tittel: getLedetekst('infoside-fo.sidetittel'),
+        tittel: getLedetekst('ao.sidetittel'),
     }];
 
     return (
-        <React.Fragment>
-            <div className="infoside-fo__brodsmuler--wrapper begrensning">
+        <div className="begrensning">
+            <div className="brodsmulerWrapper">
                 <Brodsmuler brodsmuler={brodsmuler} />
             </div>
             { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
-            <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
-            <VeilederRad brukerNavn={brukerNavn} maksDato={maksDato} />
-            <KommunikasjonRad />
-            { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
-            <DinOkonomiRad />
-        </React.Fragment>
+            <div className="blokk--xl">
+                <Sidetopp tittel={getLedetekst('ao.sidetittel')} />
+            </div>
+            <Veileder maksDato={maksDato} />
+            <HvaKanDuGjoreNa />
+            { !underOppfolging ? <MerVeiledning /> : null }
+            <DinOkonomi />
+            <KanDuBytteJobb />
+            <Forsikring />
+        </div>
     );
 };
 
 ArbeidsrettetOppfolging.propTypes = {
-    brukerNavn: PropTypes.string,
     underOppfolging: PropTypes.bool,
     maksDato: PropTypes.string,
 };

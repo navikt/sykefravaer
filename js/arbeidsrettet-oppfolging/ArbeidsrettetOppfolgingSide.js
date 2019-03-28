@@ -5,7 +5,7 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from './ArbeidsrettetOppfolging';
-import SideStrippet from '../sider/SideStrippet';
+import Side from '../sider/SideStrippet';
 import { hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
 import { selectLedeteksterHenter, selectLedeteksterHentingFeilet } from '../selectors/ledeteksterSelectors';
 import {
@@ -26,7 +26,7 @@ class ArbeidsrettetOppfolgingSide extends Component {
     render() {
         const { henter, hentingFeilet, underOppfolging, maksDatoString } = this.props;
         return (
-            <SideStrippet tittel={getLedetekst('infoside-fo.sidetittel')} laster={henter}>
+            <Side tittel={getLedetekst('infoside-fo.sidetittel')} laster={henter} className="side--hvit">
                 {
                     (() => {
                         if (henter) {
@@ -42,7 +42,7 @@ class ArbeidsrettetOppfolgingSide extends Component {
                         );
                     })()
                 }
-            </SideStrippet>
+            </Side>
         );
     }
 }

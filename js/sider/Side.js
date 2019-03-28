@@ -85,9 +85,9 @@ export class SideComponent extends Component {
     }
 
     render() {
-        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget } = this.props;
+        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, className } = this.props;
         const sideClassNames = getClassNames(laster, erInnlogget);
-        const innholdClassNames = cn('side__innhold', {
+        const innholdClassNames = cn('side__innhold', className, {
             'side__innhold--begrenset js-begrensning': (begrenset || !erInnlogget || !toggleHeleAppen()),
         });
         setAppClass(laster, erInnlogget);
@@ -117,6 +117,7 @@ SideComponent.defaultProps = {
     laster: false,
     erInnlogget: true,
     fullBredde: true,
+    className: '',
 };
 
 SideComponent.propTypes = {
@@ -127,6 +128,7 @@ SideComponent.propTypes = {
     begrenset: PropTypes.bool,
     erInnlogget: PropTypes.bool,
     sjekkInnlogging: PropTypes.func,
+    className: PropTypes.string,
 };
 
 export const mapStateToProps = (state) => {

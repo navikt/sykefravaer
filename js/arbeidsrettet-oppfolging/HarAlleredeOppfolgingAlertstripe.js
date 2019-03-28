@@ -5,7 +5,7 @@ import React from 'react';
 
 const HarAlleredeOppfolgingAlertstripe = () => {
     return (
-        <div className="begrensning infoside-fo__alertstripe">
+        <div className="infoside-fo__alertstripe">
             <Alertstripe type="suksess">
                 <div className="infoside-fo__alertstripe--innhold">
                     <Normaltekst className="infoside-fo__alertstripe--tekst">{getLedetekst('infoside-fo.alertstripe.tekst')}</Normaltekst>

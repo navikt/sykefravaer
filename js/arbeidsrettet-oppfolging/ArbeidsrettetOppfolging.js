@@ -5,9 +5,10 @@ import Sidetopp from '../components/Sidetopp';
 import Brodsmuler from '../components/Brodsmuler';
 import HarAlleredeOppfolgingAlertstripe from './HarAlleredeOppfolgingAlertstripe';
 import VeilederRad from './VeilederRad';
-import KommunikasjonRad from './KommunikasjonRad';
-import DinOkonomiRad from './DinOkonomiRad';
-import TrengerMerVeiledningRad from './TrengerMerVeiledningRad';
+import DinOkonomi from './DinOkonomi';
+import TrengerMerVeiledningRad from './MerVeiledning';
+import HvaKanDuGjoreNa from './HvaKanDuGjoreNa';
+import ArbeidsrettetOppfolgingRad from './ArbeidsrettetOppfolgingrad';
 
 const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
     const brodsmuler = [{
@@ -15,21 +16,27 @@ const ArbeidsrettetOppfolging = ({ brukerNavn, underOppfolging, maksDato }) => {
         sti: '/',
         erKlikkbar: true,
     }, {
-        tittel: getLedetekst('infoside-fo.sidetittel'),
+        tittel: 'Snart slutt på sykepengene',
     }];
 
     return (
-        <React.Fragment>
-            <div className="infoside-fo__brodsmuler--wrapper begrensning">
+        <div className="begrensning">
+            <div className="brodsmulerWrapper">
                 <Brodsmuler brodsmuler={brodsmuler} />
             </div>
             { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
-            <Sidetopp tittel={getLedetekst('infoside-fo.sidetittel')} />
+            <div className="blokk--xl">
+                <Sidetopp tittel="Snart slutt på sykepengene" />
+            </div>
             <VeilederRad brukerNavn={brukerNavn} maksDato={maksDato} />
-            <KommunikasjonRad />
+            <HvaKanDuGjoreNa />
             { !underOppfolging ? <TrengerMerVeiledningRad /> : null }
-            <DinOkonomiRad />
-        </React.Fragment>
+            <DinOkonomi />
+            <ArbeidsrettetOppfolgingRad tittel="Forsikrings- og pensjonsavtale">
+                <p>Du bør undersøke hvilke rettigheter du har hos forsikringsselskapet eller pensjonskassen du er medlem i. Det er
+                ikke NAV som administrerer slike ordninger.</p>
+            </ArbeidsrettetOppfolgingRad>
+        </div>
     );
 };
 

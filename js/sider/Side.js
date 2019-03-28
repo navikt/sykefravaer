@@ -117,6 +117,7 @@ SideComponent.defaultProps = {
     laster: false,
     erInnlogget: true,
     fullBredde: true,
+    className: '',
 };
 
 SideComponent.propTypes = {

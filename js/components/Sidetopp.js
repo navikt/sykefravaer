@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import { Vis } from '../utils';
 
-const Sidetopp = ({ tittel, htmlTekst = null }) => {
-    return (<header className="sidetopp">
+const Sidetopp = ({ tittel, htmlTekst = null, className }) => {
+    const classNames = cn('sidetopp', className);
+    return (<header className={classNames}>
         <h1 className="sidetopp__tittel">
             {tittel}
         </h1>
@@ -22,6 +24,7 @@ Sidetopp.propTypes = {
     htmlTekst: PropTypes.shape({
         __html: PropTypes.string,
     }),
+    className: PropTypes.string,
 };
 
 export default Sidetopp;

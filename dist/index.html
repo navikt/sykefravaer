@@ -35,8 +35,15 @@
             transform: translateZ(0);
             -webkit-animation: rotering 800ms infinite linear;
             animation: rotering 800ms infinite linear;
-            margin: 8rem auto;
+            margin-left: auto;
+            margin-right: auto;
+
         }
+        .app-spinner--side {
+            margin-top: 8em;
+            margin-bottom: 8em;
+        }
+
         @-webkit-keyframes rotering {
             from {
                 -webkit-transform: rotate(0deg);
@@ -63,7 +70,7 @@
 {{{NAV_SKIPLINKS}}}
 {{{NAV_HEADING}}}
 <div id="maincontent" class="app app--laster" tabindex="-1">
-    <div class="app-spinner" aria-label="Vent litt mens siden laster"></div>
+    <div class="app-spinner app-spinner--side" aria-label="Vent litt mens siden laster"></div>
 </div>
 {{{NAV_FOOTER}}}
 

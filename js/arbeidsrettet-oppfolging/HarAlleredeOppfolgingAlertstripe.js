@@ -5,16 +5,14 @@ import React from 'react';
 
 const HarAlleredeOppfolgingAlertstripe = () => {
     return (
-        <div className="begrensning infoside-fo__alertstripe">
-            <Alertstripe type="suksess">
-                <div className="infoside-fo__alertstripe--innhold">
-                    <Normaltekst className="infoside-fo__alertstripe--tekst">{getLedetekst('infoside-fo.alertstripe.tekst')}</Normaltekst>
-                    <a className="knapp knapp--hoved infoside-fo__alertstripe--knapp" href="/veientilarbeid">
-                        {getLedetekst('infoside-fo.alertstripe.knapp-tekst')}
-                    </a>
-                </div>
-            </Alertstripe>
-        </div>
+        <Alertstripe type="suksess" className="alleredeOppfolging blokk">
+            <div className="alleredeOppfolging__innhold">
+                <Normaltekst className="alleredeOppfolging__tekst">{getLedetekst('infoside-fo.alertstripe.tekst')}</Normaltekst>
+                <a className="lenke" href="/veientilarbeid">
+                    {getLedetekst('infoside-fo.alertstripe.knapp-tekst')}
+                </a>
+            </div>
+        </Alertstripe>
     );
 };
 

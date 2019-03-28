@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import * as PT from 'prop-types';
-import { Systemtittel } from 'nav-frontend-typografi';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { Undertittel } from 'nav-frontend-typografi';
+import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper';
 import history from '../history';
 import { bekreftMerVeiledning } from './data/merVeiledningActions';
 import { selectAlleHarMerVeiledningIder } from '../landingsside/data/hendelser/hendelser';
 import { hentHendelser } from '../landingsside/data/hendelser/hendelserActions';
 import Feilstripe from '../components/Feilstripe';
+import hentArbeidsrettetOppfolgingBilde from './hentArbeidsrettetOppfolgingBilde';
+import AppSpinner from '../components/AppSpinner';
 
-class TrengerMerVeiledningRad extends Component {
+class MerVeiledning extends Component {
     constructor(props) {
         super(props);
 
@@ -48,19 +50,35 @@ class TrengerMerVeiledningRad extends Component {
         const { bekrefter, bekreftingFeilet } = this.props;
         return (
             /* eslint-disable jsx-a11y/no-static-element-interactions */
-            <div className="infoside-fo__rad infoside-fo__rad--graa">
-                <div className="begrensning">
-                    <Systemtittel className="blokk-s">{getLedetekst('infoside-fo.veiledning.overskrift')}</Systemtittel>
-                    <div className="redaksjonelt-innhold blokk">{getLedetekst('infoside-fo.veiledning.tekst')}</div>
-                    <Feilstripe vis={bekreftingFeilet} className="blokk-s" />
-                    <div className="infoside-fo__knapperad">
-                        <Knapp onClick={this.handleNeiBtnClicked} disabled={bekrefter}>
-                            {getLedetekst('infoside-fo.knapp-nei')}
-                        </Knapp>
-                        <Hovedknapp onClick={this.handleJaBtnClicked} spinner={bekrefter} disabled={bekrefter}>
-                            {getLedetekst('infoside-fo.knapp-ja')}
-                        </Hovedknapp>
-                    </div>
+            <div className="panel panel--merVeiledning blokk">
+                <div className="illustrertTittel">
+                    <img className="illustrertTittel__img" src={hentArbeidsrettetOppfolgingBilde('veien-videre.svg')} alt="Veien videre" />
+                    <h2 className="illustrertTittel__tittel illustrertTittel__tittel--innholdstittel">
+                        {getLedetekst('ao.mer-veiledning.tittel')}
+                    </h2>
+                </div>
+                <div
+                    className="redaksjonelt-innhold blokk"
+                    dangerouslySetInnerHTML={getHtmlLedetekst('ao.mer-veiledning.tekst')} />
+                <Feilstripe vis={bekreftingFeilet} className="blokk" />
+                <div className="merVeiledning__knapper">
+                    <Undertittel tag="h3" className="blokk">{getLedetekst('ao.mer-veiledning.sporsmal')}</Undertittel>
+                    {
+                        !bekrefter
+                            ? (<React.Fragment>
+                                <p className="blokk--xxs">
+                                    <Hovedknapp onClick={this.handleJaBtnClicked}>
+                                        {getLedetekst('ao.mer-veiledning.ja')}
+                                    </Hovedknapp>
+                                </p>
+                                <p className="blokk--xxs">
+                                    <Flatknapp onClick={this.handleNeiBtnClicked}>
+                                        {getLedetekst('ao.mer-veiledning.nei')}
+                                    </Flatknapp>
+                                </p>
+                            </React.Fragment>)
+                            : <AppSpinner className="app-spinner--inline" />
+                    }
                 </div>
             </div>
             /* eslint-enable jsx-a11y/no-static-element-interactions */
@@ -68,7 +86,7 @@ class TrengerMerVeiledningRad extends Component {
     }
 }
 
-TrengerMerVeiledningRad.propTypes = {
+MerVeiledning.propTypes = {
     doBekreftMerVeiledning: PT.func,
     doHentHendelser: PT.func,
     bekrefter: PT.bool,
@@ -92,4 +110,4 @@ const actionCreators = {
 export default connect(
     mapStateToProps,
     actionCreators,
-)(TrengerMerVeiledningRad);
+)(MerVeiledning);

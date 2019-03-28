@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>dialog</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="32" cy="32" r="32"></circle>
+    </defs>
+    <g id="dialog" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6-Copy">
+            <g id="spotlight/-gjenstand--copy">
+                <g id="spotlight/-element">
+                    <g id="-80/-Blå">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Mask"></g>
+                        <g id="V⚙️/STYLING/farge/-Lys-blå/-60" mask="url(#mask-2)" fill="#C2EAF7">
+                            <g id="⚙️/farge/-Blå/-60-Copy-6">
+                                <polygon id="Fill-32" points="0 64 64 64 64 0 0 0"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <g id="snakkeboble-/-dialog" transform="translate(9.000000, 19.000000)">
+                <path d="M22.5424986,0.0678690647 L44.6934842,0.0678690647 C45.4013547,0.0678690647 45.9760237,0.742480576 45.9760237,1.57287626 L45.9760237,14.7539266 C45.9760237,15.586459 45.4013547,16.2602935 44.6934842,16.2602935 L36.9042612,16.2602935 L36.9042612,22.4831137 L30.0820309,16.2602935 L22.5424986,16.2602935 C21.8339662,16.2602935 21.259959,15.586459 21.259959,14.7539266 L21.259959,1.57287626 C21.259959,0.742480576 21.8339662,0.0678690647 22.5424986,0.0678690647" id="Fill-11" fill="#FFFFFF"></path>
+                <path d="M23.4412525,4.02247554 L1.20670576,4.02247554 C0.56237482,4.02247554 0.0394971223,4.57141079 0.0394971223,5.24874173 L0.0394971223,19.8262165 C0.0394971223,20.5037417 0.56237482,21.0515115 1.20670576,21.0515115 L8.2352741,21.0515115 L8.2352741,26.1189647 L14.4416338,21.0515115 L23.4412525,21.0515115 C24.0862453,21.0515115 24.6087921,20.5037417 24.6087921,19.8262165 L24.6087921,5.24874173 C24.6087921,4.57141079 24.0862453,4.02247554 23.4412525,4.02247554" id="Fill-13" fill="#624B7F"></path>
+            </g>
+        </g>
+    </g>
+</svg>

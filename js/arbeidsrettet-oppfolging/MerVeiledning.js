@@ -62,18 +62,18 @@ class MerVeiledning extends Component {
                     dangerouslySetInnerHTML={getHtmlLedetekst('ao.mer-veiledning.tekst')} />
                 <Feilstripe vis={bekreftingFeilet} className="blokk" />
                 <div className="merVeiledning__knapper">
-                    <Undertittel tag="h3" className="blokk">{getLedetekst('ao.med-veiledning.sporsmal')}</Undertittel>
+                    <Undertittel tag="h3" className="blokk">{getLedetekst('ao.mer-veiledning.sporsmal')}</Undertittel>
                     {
                         !bekrefter
                             ? (<React.Fragment>
                                 <p className="blokk--xxs">
                                     <Hovedknapp onClick={this.handleJaBtnClicked}>
-                                        {getLedetekst('ao.med-veiledning.ja')}
+                                        {getLedetekst('ao.mer-veiledning.ja')}
                                     </Hovedknapp>
                                 </p>
                                 <p className="blokk--xxs">
                                     <Flatknapp onClick={this.handleNeiBtnClicked}>
-                                        {getLedetekst('ao.med-veiledning.nei')}
+                                        {getLedetekst('ao.mer-veiledning.nei')}
                                     </Flatknapp>
                                 </p>
                             </React.Fragment>)

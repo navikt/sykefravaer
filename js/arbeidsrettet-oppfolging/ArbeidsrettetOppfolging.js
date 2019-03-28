@@ -26,7 +26,7 @@ const ArbeidsrettetOppfolging = ({ underOppfolging, maksDato }) => {
                 <Brodsmuler brodsmuler={brodsmuler} />
             </div>
             { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
-            <div className="blokk">
+            <div className="blokk--xl">
                 <Sidetopp tittel={getLedetekst('ao.sidetittel')} />
             </div>
             <Veileder maksDato={maksDato} />

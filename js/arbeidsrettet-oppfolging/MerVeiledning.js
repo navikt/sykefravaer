@@ -49,7 +49,6 @@ class MerVeiledning extends Component {
     render() {
         const { bekrefter, bekreftingFeilet } = this.props;
         return (
-            /* eslint-disable jsx-a11y/no-static-element-interactions */
             <div className="panel panel--merVeiledning blokk">
                 <div className="illustrertTittel">
                     <img className="illustrertTittel__img" src={hentArbeidsrettetOppfolgingBilde('veien-videre.svg')} alt="Veien videre" />
@@ -81,7 +80,6 @@ class MerVeiledning extends Component {
                     }
                 </div>
             </div>
-            /* eslint-enable jsx-a11y/no-static-element-interactions */
         );
     }
 }

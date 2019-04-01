@@ -54,7 +54,7 @@ const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
     }
 };
 
-const fraBackendsoknadTilInitiellSoknad = (soknad) => {
+const fraBackendsoknadTilInitiellSoknad = (soknad, frontendverdier = {}) => {
     const flatten = (sporsmal, accumulator = []) => {
         accumulator.push(sporsmal);
         sporsmal.undersporsmal.forEach((undersporsmal) => { return flatten(undersporsmal, accumulator); });
@@ -73,7 +73,12 @@ const fraBackendsoknadTilInitiellSoknad = (soknad) => {
 
     return alleSporsmal
         .reduce((acc, sporsmal) => {
-            acc[sporsmal.tag] = tilInitielleSvarverder(sporsmal);
+            const initielleSvarverdier = tilInitielleSvarverder(sporsmal);
+            const tagSvar = (initielleSvarverdier && initielleSvarverdier.length === 0)
+            || JSON.stringify(initielleSvarverdier) === '[{}]'
+                ? initielleSvarverdier
+                : frontendverdier[sporsmal.tag] || initielleSvarverdier;
+            acc[sporsmal.tag] = tagSvar;
             return acc;
         }, {});
 };

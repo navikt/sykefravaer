@@ -11,9 +11,12 @@ const uuid = () => {
 
 function mockOppdaterSporsmalLokal(server) {
     const tilNyId = (sporsmal) => {
+        const id = sporsmal.tag === 'TILBAKE_NAR'
+            ? sporsmal.id
+            : Math.round(Math.random() * 100000) + '';
         return {
             ...sporsmal,
-            id: Math.round(Math.random() * 100000) + '',
+            id,
             undersporsmal: sporsmal.undersporsmal.map(tilNyId),
         };
     };

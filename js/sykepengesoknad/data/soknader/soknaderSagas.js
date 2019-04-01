@@ -1,7 +1,7 @@
 import { call, fork, put, select, takeEvery, all, throttle } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
-import { initialize, change } from 'redux-form';
+import { initialize, change, formValueSelector } from 'redux-form';
 import { get, hentApiUrl, post } from '../../../gateway-api';
 import * as actions from './soknaderActions';
 import {
@@ -144,7 +144,8 @@ export function* oppdaterSporsmal(action) {
 
 export function* populerSoknadsskjema(action) {
     const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
-    yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(action.soknad)));
+    const verdier = yield select(hentSkjemaVerdier, skjemanavn);
+    yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(action.soknad, verdier)));
 }
 
 export function* lagreSoknad(action) {

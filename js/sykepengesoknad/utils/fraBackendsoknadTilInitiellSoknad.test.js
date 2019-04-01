@@ -21,6 +21,31 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
         }]);
     });
 
+    it('Skal beholde eksisterende perioder i frontend dersom det finnes', () => {
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad(), {
+            [PERIODEUTLAND]: [{
+                fom: '01.09.2018',
+                tom: '01.10.2018',
+            }],
+        });
+        expect(initiellSoknad[PERIODEUTLAND]).to.deep.equal([{
+            fom: '01.09.2018',
+            tom: '01.10.2018',
+        }]);
+    });
+
+    it.only('Skal fjerne eksisterende perioder i frontend dersom det kommer blankt svar fra backend', () => {
+        const soknad = mockLagretSoknad();
+        soknad.sporsmal[0].svar = [];
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad, {
+            [PERIODEUTLAND]: [{
+                fom: '01.09.2018',
+                tom: '01.10.2018',
+            }],
+        });
+        expect(initiellSoknad[PERIODEUTLAND]).to.deep.equal([{}]);
+    });
+
     it('Skal mappe perioder på ISO-format', () => {
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad({
             sporsmal: [{

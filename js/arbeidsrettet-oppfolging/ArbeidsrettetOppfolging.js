@@ -34,8 +34,8 @@ const ArbeidsrettetOppfolging = ({ underOppfolging, maksDato }) => {
                     <Veileder maksDato={maksDato} />
                     <HvaKanDuGjoreNa />
                     { !underOppfolging ? <MerVeiledning /> : null }
-                    <DinOkonomi />
                     <KanDuBytteJobb />
+                    <DinOkonomi />
                     <Forsikring />
                 </div>
             </div>

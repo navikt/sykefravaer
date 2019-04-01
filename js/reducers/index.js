@@ -27,6 +27,8 @@ import motebehovSvar from './motebehovSvar';
 import history from '../history';
 import soknadMeta from '../sykepengesoknad/data/soknadMeta/soknadMeta';
 import merVeiledning from '../arbeidsrettet-oppfolging/data/merVeiledning';
+import ettersendingNav from '../sykepengesoknad/data/ettersending/ettersendingNav';
+import ettersendingArbeidsgiver from '../sykepengesoknad/data/ettersending/ettersendingArbeidsgiver';
 
 const reducers = {
     arbeidsgivere,
@@ -62,6 +64,8 @@ const reducers = {
     metrikker,
     oppfolgingsdialoger,
     soknadMeta,
+    ettersendingNav,
+    ettersendingArbeidsgiver,
 };
 
 export default reducers;

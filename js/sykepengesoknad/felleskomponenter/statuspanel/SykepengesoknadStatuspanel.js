@@ -5,6 +5,7 @@ import hentSoknadStatustekst from '../../utils/hentSoknadStatustekst';
 import hentSykepengetekst from '../../utils/hentSykepengetekst';
 import { soknadPt } from '../../../propTypes/index';
 import EndreSoknadContainer from '../endre-soknad/EndreSoknadContainer';
+import ConnectedEttersending from '../ettersending/Ettersending';
 
 const StatusOgSykepengeopplysninger = ({ soknad }) => {
     return (<Statusopplysninger>
@@ -28,6 +29,14 @@ const SykepengesoknadStatuspanel = ({ soknad }) => {
             soknad.status === sykepengesoknadstatuser.SENDT
                 && <EndreSoknadContainer soknad={soknad} />
         }
+        <ConnectedEttersending
+            manglendeDato="sendtTilNAVDato"
+            ledetekstKeySuffix="send-til-nav"
+            sykepengesoknad={soknad} />
+        <ConnectedEttersending
+            manglendeDato="sendtTilArbeidsgiverDato"
+            ledetekstKeySuffix="send-til-arbeidsgiver"
+            sykepengesoknad={soknad} />
     </Statuspanel>);
 };
 

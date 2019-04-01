@@ -81,6 +81,52 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify({}));
     });
 
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/ettersendTilNav', (req, res) => {
+        const soknadId = req.params.id;
+        const soknad = mockData[enums.SOKNADER].find((s) => {
+            return s.id === soknadId;
+        });
+        if (soknad.soknadstype === 'ARBEIDSTAKERE' || soknad.status === 'SENDT') {
+            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].filter((s) => {
+                return s.id !== soknad.id;
+            });
+        } else {
+            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+                return s.id === soknad.id
+                    ? {
+                        ...s,
+                        sendtTilNAVDato: new Date(),
+                    }
+                    : s;
+            });
+        }
+
+        res.send(JSON.stringify({}));
+    });
+
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/ettersendTilArbeidsgiver', (req, res) => {
+        const soknadId = req.params.id;
+        const soknad = mockData[enums.SOKNADER].find((s) => {
+            return s.id === soknadId;
+        });
+        if (soknad.soknadstype === 'ARBEIDSTAKERE' || soknad.status === 'SENDT') {
+            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].filter((s) => {
+                return s.id !== soknad.id;
+            });
+        } else {
+            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+                return s.id === soknad.id
+                    ? {
+                        ...s,
+                        sendtTilArbeidsgiverDato: new Date(),
+                    }
+                    : s;
+            });
+        }
+
+        res.send(JSON.stringify({}));
+    });
+
     server.post('/syfoapi/syfosoknad/api/soknader/:id/gjenapne', (req, res) => {
         const soknadId = req.params.id;
         mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
@@ -109,6 +155,10 @@ function mockSyfosoknadLokalt(server) {
                 _soknad.status = 'SENDT';
                 _soknad.sporsmal = sporsmal;
                 _soknad.innsendtDato = new Date().toJSON()
+                    .substr(0, 10);
+                _soknad.sendtTilArbeidsgiverDato = new Date().toJSON()
+                    .substr(0, 10);
+                _soknad.sendtTilNAVDato = new Date().toJSON()
                     .substr(0, 10);
             }
 

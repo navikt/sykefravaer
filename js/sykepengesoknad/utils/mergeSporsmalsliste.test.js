@@ -2,14 +2,14 @@ import mergeSporsmalsliste, { finnSporsmal } from './mergeSporsmalsliste';
 import expect from '../../../test/expect';
 import mockNySoknadArbeidstakerUtfylt from '../../../test/mock/mockNySoknadArbeidstakerUtfylt';
 
-describe("mergeSporsmalsliste", () => {
-    it("finnSporsmal skal returnere spørsmål basert på ID", () => {
+describe('mergeSporsmalsliste', () => {
+    it('finnSporsmal skal returnere spørsmål basert på ID', () => {
         const sporsmalsliste = mockNySoknadArbeidstakerUtfylt().sporsmal;
         const spm = finnSporsmal(sporsmalsliste, '56');
         expect(spm).to.deep.equal(sporsmalsliste[1]);
     });
 
-    it("finnSporsmal skal returnere spørsmål basert på ID rekursivt", () => {
+    it('finnSporsmal skal returnere spørsmål basert på ID rekursivt', () => {
         const sporsmalsliste = mockNySoknadArbeidstakerUtfylt().sporsmal;
         const spm = finnSporsmal(sporsmalsliste, '63');
         expect(spm).to.deep.equal({
@@ -32,7 +32,7 @@ describe("mergeSporsmalsliste", () => {
         });
     });
 
-    it("Skal la frontend overstyre dersom det finnes svar både i frontend og backend", () => {
+    it('Skal la frontend overstyre dersom det finnes svar både i frontend og backend', () => {
         const sporsmalsliste = [{
             id: '56',
             tag: 'EGENMELDINGER',
@@ -111,7 +111,7 @@ describe("mergeSporsmalsliste", () => {
         expect(resultat).to.deep.equal(sporsmalsliste);
     });
 
-    it("Skal bruke svar fra backend når spørsmål har fått ny ID (1)", () => {
+    it('Skal bruke svar fra backend når spørsmål har fått ny ID (1)', () => {
         const sporsmalsliste = [{
             id: '56',
             tag: 'EGENMELDINGER',
@@ -190,7 +190,7 @@ describe("mergeSporsmalsliste", () => {
         expect(resultat).to.deep.equal(sporsmalslisteNy);
     });
 
-    it("Skal bruke svar fra backend når spørsmål har fått ny ID (2)", () => {
+    it('Skal bruke svar fra backend når spørsmål har fått ny ID (2)', () => {
         const sporsmalsliste = [{
             id: '56',
             tag: 'EGENMELDINGER',

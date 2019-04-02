@@ -8,6 +8,7 @@ import { soknadPt } from '../../../propTypes/index';
 import { ettersendSoknadTilNav } from '../../data/ettersending/ettersendingNav';
 import { ettersendSoknadTilArbeidsgiver } from '../../data/ettersending/ettersendingArbeidsgiver';
 import Feilstripe from '../../../components/Feilstripe';
+import { ETTERSEND_SOKNAD_FEILET, ETTERSEND_SOKNAD_SENDER, selectEttersendSoknadStatus } from '../../data/ettersending/ettersendingSelectors';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';
 const sendtTilArbeidsgiverDato = 'sendtTilArbeidsgiverDato';
@@ -18,18 +19,18 @@ export const EttersendingDialog = (props) => {
     const {
         onClose,
         sykepengesoknad,
-        sender,
-        sendingFeilet,
+        status,
         ledetekstKeySuffix,
         manglendeDato,
         doEttersendSoknadTilNav,
         doEttersendSoknadTilArbeidsgiver,
     } = props;
 
+    const sender = status === ETTERSEND_SOKNAD_SENDER;
     return (<div className="ettersending">
         <h3 className="modal__tittel">{getLedetekst(`sykepengesoknad.ettersending.info.tittel.${ledetekstKeySuffix}`)}</h3>
         <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.ettersending.info.tekst.${ledetekstKeySuffix}`)} />
-        <Feilstripe vis={sendingFeilet} />
+        <Feilstripe vis={status === ETTERSEND_SOKNAD_FEILET} />
         <div className="knapperad">
             <Hovedknapp
                 disabled={sender}
@@ -61,8 +62,7 @@ export const EttersendingDialog = (props) => {
 EttersendingDialog.propTypes = {
     onClose: PropTypes.func,
     sykepengesoknad: soknadPt,
-    sender: PropTypes.bool,
-    sendingFeilet: PropTypes.bool,
+    status: PropTypes.string,
     ledetekstKeySuffix: ledetekstKeySuffixPt,
     manglendeDato: manglendeDatoPt,
     doEttersendSoknadTilNav: PropTypes.func,
@@ -70,8 +70,7 @@ EttersendingDialog.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    sendingFeilet: state.sykepengesoknader.sendingFeilet,
-    sender: state.sykepengesoknader.sender,
+    status: selectEttersendSoknadStatus(state),
 });
 
 const actionCreators = {

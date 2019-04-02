@@ -44,7 +44,6 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
     const skjemanavn = getSoknadSkjemanavn(soknad.id);
     const verdierISkjema = hentSkjemaVerdier(state, skjemanavn);
-    console.log('verdierISkjema', verdierISkjema);
     return {
         initialValues: fraBackendsoknadTilInitiellSoknad(soknad, verdierISkjema),
         erForsteSoknad: erForsteSoknad(state),

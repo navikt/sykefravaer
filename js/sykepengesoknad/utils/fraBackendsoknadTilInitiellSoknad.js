@@ -83,7 +83,6 @@ const fraBackendsoknadTilInitiellSoknad = (soknad, frontendverdier = {}) => {
                 || (sporsmal.svartype === PERIODER && frontendSvar)
                 ? frontendSvar
                 : backendSvar;
-            console.log(sporsmal.tag, frontendSvar, backendSvar, frontendverdier);
             acc[sporsmal.tag] = svar;
             return acc;
         }, {});

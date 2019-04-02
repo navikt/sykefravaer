@@ -143,7 +143,7 @@ export function* oppdaterSporsmal(action) {
 }
 
 export function* populerSoknadsskjema(action) {
-    const skjemanavn = getSkjemanavnFraSoknad(action.soknad.id);
+    const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
     yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(action.soknad, verdier)));
 }

@@ -4,7 +4,6 @@ import {
     ettersendSoknadNav, ettersendSoknadArbeidsgiver,
 } from './ettersendingSagas';
 import { post } from '../../../gateway-api/index';
-import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 import { ettersenderSoknadTilNav, ettersendSoknadTilNav, soknadEttersendtTilNav } from './ettersendingNav';
 import { ettersenderSoknadTilArbeidsgiver, ettersendSoknadTilArbeidsgiver, soknadEttersendtTilArbeidsgiver } from './ettersendingArbeidsgiver';
 

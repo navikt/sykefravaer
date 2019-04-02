@@ -86,22 +86,17 @@ function mockSyfosoknadLokalt(server) {
         const soknad = mockData[enums.SOKNADER].find((s) => {
             return s.id === soknadId;
         });
-        if (soknad.soknadstype === 'ARBEIDSTAKERE' || soknad.status === 'SENDT') {
-            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].filter((s) => {
-                return s.id !== soknad.id;
-            });
-        } else {
-            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
-                return s.id === soknad.id
-                    ? {
-                        ...s,
-                        sendtTilNAVDato: new Date(),
-                    }
-                    : s;
-            });
-        }
 
-        res.send(JSON.stringify({}));
+        mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+            return s.id === soknad.id
+                ? {
+                    ...s,
+                    sendtTilNAVDato: new Date(),
+                }
+                : s;
+        });
+
+        res.send(200);
     });
 
     server.post('/syfoapi/syfosoknad/api/soknader/:id/ettersendTilArbeidsgiver', (req, res) => {
@@ -109,22 +104,17 @@ function mockSyfosoknadLokalt(server) {
         const soknad = mockData[enums.SOKNADER].find((s) => {
             return s.id === soknadId;
         });
-        if (soknad.soknadstype === 'ARBEIDSTAKERE' || soknad.status === 'SENDT') {
-            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].filter((s) => {
-                return s.id !== soknad.id;
-            });
-        } else {
-            mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
-                return s.id === soknad.id
-                    ? {
-                        ...s,
-                        sendtTilArbeidsgiverDato: new Date(),
-                    }
-                    : s;
-            });
-        }
 
-        res.send(JSON.stringify({}));
+        mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+            return s.id === soknad.id
+                ? {
+                    ...s,
+                    sendtTilArbeidsgiverDato: new Date(),
+                }
+                : s;
+        });
+
+        res.send(200);
     });
 
     server.post('/syfoapi/syfosoknad/api/soknader/:id/gjenapne', (req, res) => {

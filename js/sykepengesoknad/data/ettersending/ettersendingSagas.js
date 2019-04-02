@@ -15,8 +15,8 @@ import {
 
 export function* ettersendSoknadNav(action) {
     try {
-        yield put(ettersenderSoknadTilNav(action.soknad.id));
-        yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/ettersendTilNav`);
+        yield put(ettersenderSoknadTilNav(action.soknadId));
+        yield call(post, `${hentApiUrl()}/soknader/${action.soknadId}/ettersendTilNav`);
         yield put(soknadEttersendtTilNav());
     } catch (e) {
         log(e);
@@ -26,8 +26,8 @@ export function* ettersendSoknadNav(action) {
 
 export function* ettersendSoknadArbeidsgiver(action) {
     try {
-        yield put(ettersenderSoknadTilArbeidsgiver(action.soknad.id));
-        yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/ettersendTilArbeidsgiver`);
+        yield put(ettersenderSoknadTilArbeidsgiver(action.soknadId));
+        yield call(post, `${hentApiUrl()}/soknader/${action.soknadId}/ettersendTilArbeidsgiver`);
         yield put(soknadEttersendtTilArbeidsgiver());
     } catch (e) {
         log(e);
@@ -40,7 +40,7 @@ function* watchEttersendSoknadNav() {
 }
 
 function* watchEttersendSoknadArbeidsgiver() {
-    yield takeEvery(ETTERSEND_SOKNAD_ARBG_FORESPURT, ettersendSoknadArbeidsgiver());
+    yield takeEvery(ETTERSEND_SOKNAD_ARBG_FORESPURT, ettersendSoknadArbeidsgiver);
 }
 
 export default function* ettersendingSagas() {

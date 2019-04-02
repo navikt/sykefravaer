@@ -5,21 +5,14 @@ export const ETTERSEND_SOKNAD_ARBG_FEILET = 'ETTERSEND_SOKNAD_ARBG_FEILET';
 export const SOKNAD_ETTERSENDT_ARBG = 'SOKNAD_ETTERSENDT_ARBG';
 
 const initiellState = {
-    data: [],
-    henter: false,
-    hentingFeilet: false,
-    hentet: false,
     sender: false,
+    sendt: false,
     sendingFeilet: false,
-    oppretterSoknad: false,
-    opprettFeilet: false,
-    avbryter: false,
-    avbrytSoknadFeilet: false,
 };
 
-export const ettersendSoknadTilArbeidsgiver = soknad => ({
+export const ettersendSoknadTilArbeidsgiver = soknadId => ({
     type: ETTERSEND_SOKNAD_ARBG_FORESPURT,
-    soknad,
+    soknadId,
 });
 
 export const ettersenderSoknadTilArbeidsgiver = () => ({
@@ -41,6 +34,7 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: true,
                 sendingFeilet: false,
+                sendt: false,
             };
         }
         case SOKNAD_ETTERSENDT_ARBG: {
@@ -48,6 +42,7 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: false,
                 sendingFeilet: false,
+                sendt: true,
             };
         }
         case ETTERSEND_SOKNAD_ARBG_FEILET: {
@@ -55,6 +50,7 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: false,
                 sendingFeilet: true,
+                sendt: false,
             };
         }
         default: {

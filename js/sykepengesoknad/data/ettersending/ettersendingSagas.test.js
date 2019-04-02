@@ -10,8 +10,8 @@ import { ettersenderSoknadTilArbeidsgiver, ettersendSoknadTilArbeidsgiver, sokna
 
 describe('ettersendingSagas', () => {
     describe('Ettersending av søknad til NAV', () => {
-        const soknadData = { id: 1, test: 'data', soknadstype: ARBEIDSTAKERE };
-        const action = ettersendSoknadTilNav(soknadData);
+        const soknadId = 1;
+        const action = ettersendSoknadTilNav(soknadId);
         const generator = ettersendSoknadNav(action);
 
         it('Skal dispatche ETTERSENDER_SOKNAD_NAV', () => {
@@ -31,8 +31,8 @@ describe('ettersendingSagas', () => {
     });
 
     describe('Ettersending av søknad til arbeidsgiver', () => {
-        const soknadData = { id: 1, test: 'data', soknadstype: ARBEIDSTAKERE };
-        const action = ettersendSoknadTilArbeidsgiver(soknadData);
+        const soknadId = 1;
+        const action = ettersendSoknadTilArbeidsgiver(soknadId);
         const generator = ettersendSoknadArbeidsgiver(action);
 
         it('Skal dispatche ETTERSENDER_SOKNAD_ARBG', () => {

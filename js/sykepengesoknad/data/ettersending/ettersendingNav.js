@@ -5,21 +5,14 @@ export const ETTERSEND_SOKNAD_NAV_FEILET = 'ETTERSEND_SOKNAD_NAV_FEILET';
 export const SOKNAD_ETTERSENDT_NAV = 'SOKNAD_ETTERSENDT_NAV';
 
 const initiellState = {
-    data: [],
-    henter: false,
-    hentingFeilet: false,
-    hentet: false,
     sender: false,
+    sendt: false,
     sendingFeilet: false,
-    oppretterSoknad: false,
-    opprettFeilet: false,
-    avbryter: false,
-    avbrytSoknadFeilet: false,
 };
 
-export const ettersendSoknadTilNav = soknad => ({
+export const ettersendSoknadTilNav = soknadId => ({
     type: ETTERSEND_SOKNAD_NAV_FORESPURT,
-    soknad,
+    soknadId,
 });
 
 export const ettersenderSoknadTilNav = () => ({
@@ -41,6 +34,7 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: true,
                 sendingFeilet: false,
+                sendt: false,
             };
         }
         case SOKNAD_ETTERSENDT_NAV: {
@@ -48,6 +42,7 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: false,
                 sendingFeilet: false,
+                sendt: true,
             };
         }
         case ETTERSEND_SOKNAD_NAV_FEILET: {
@@ -55,6 +50,7 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: false,
                 sendingFeilet: true,
+                sendt: false,
             };
         }
         default: {

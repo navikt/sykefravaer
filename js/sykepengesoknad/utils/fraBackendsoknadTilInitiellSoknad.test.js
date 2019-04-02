@@ -49,9 +49,8 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
         });
     });
 
-    it('Skal fjerne svar i frontend dersom det kommer annet svar fra backend med ny spørsmålsid', () => {
+    it('Skal bruke svar fra backend dersom det kommer annet svar fra backend med ny spørsmålsid', () => {
         const soknad = mockLagretSoknad();
-        soknad.sporsmal[0].svar = [];
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad, {
             [LAND]: genererParseForEnkeltverdi('856')('England'),
         });

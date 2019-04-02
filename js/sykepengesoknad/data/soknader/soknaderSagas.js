@@ -1,4 +1,4 @@
-import { call, fork, put, select, takeEvery, all, throttle } from 'redux-saga/effects';
+import { call, fork, put, select, takeEvery, all, takeLatest } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
 import { initialize, change } from 'redux-form';
@@ -143,7 +143,7 @@ export function* oppdaterSporsmal(action) {
 }
 
 export function* populerSoknadsskjema(action) {
-    const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
+    const skjemanavn = getSkjemanavnFraSoknad(action.soknad.id);
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
     yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(action.soknad, verdier)));
 }
@@ -231,7 +231,7 @@ function* watchOpprettSoknadUtland() {
 }
 
 function* watchEndringSoknad() {
-    yield throttle(2000, SOKNAD_ENDRET, oppdaterSporsmal);
+    yield takeLatest(SOKNAD_ENDRET, oppdaterSporsmal);
 }
 
 function* watchLagreSoknad() {

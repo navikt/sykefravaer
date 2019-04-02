@@ -74,16 +74,16 @@ const fraBackendsoknadTilInitiellSoknad = (soknad, frontendverdier = {}) => {
 
     return alleSporsmal
         .reduce((acc, sporsmal) => {
-            const initielleSvarverdier = tilInitielleSvarverder(sporsmal);
-            const gammeltSvar = frontendverdier[sporsmal.tag];
-            const tagSvar = (gammeltSvar
-                && gammeltSvar.id
-                && initielleSvarverdier
-                && initielleSvarverdier.id === gammeltSvar.id)
-                || (sporsmal.svartype === PERIODER && gammeltSvar)
-                ? gammeltSvar
-                : initielleSvarverdier;
-            acc[sporsmal.tag] = tagSvar;
+            const backendSvar = tilInitielleSvarverder(sporsmal);
+            const frontendSvar = frontendverdier[sporsmal.tag];
+            const svar = (frontendSvar
+                && frontendSvar.id
+                && backendSvar
+                && backendSvar.id === frontendSvar.id)
+                || (sporsmal.svartype === PERIODER && frontendSvar)
+                ? frontendSvar
+                : backendSvar;
+            acc[sporsmal.tag] = svar;
             return acc;
         }, {});
 };

@@ -7,6 +7,7 @@ import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 import { erForsteSoknad } from '../data/soknader/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
 import fraBackendsoknadTilInitiellSoknad from './fraBackendsoknadTilInitiellSoknad';
+import { hentSkjemaVerdier } from '../../selectors/reduxFormSelectors';
 
 export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
@@ -41,8 +42,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
+    const skjemanavn = getSoknadSkjemanavn(soknad.id);
+    const verdierISkjema = hentSkjemaVerdier(state, skjemanavn);
+    console.log('verdierISkjema', verdierISkjema);
     return {
-        initialValues: fraBackendsoknadTilInitiellSoknad(soknad),
+        initialValues: fraBackendsoknadTilInitiellSoknad(soknad, verdierISkjema),
         erForsteSoknad: erForsteSoknad(state),
         ...mapStateToProps(state, ownProps),
     };

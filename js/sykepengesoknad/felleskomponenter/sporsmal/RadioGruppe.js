@@ -32,7 +32,7 @@ Radioknapp.propTypes = {
     id: PropTypes.string,
 };
 
-const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, svartype, undersporsmal, autofill, soknad, verdi }) => {
+const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, svartype, undersporsmal, autofill, soknad, verdi, id }) => {
     const sporsmalMedUndersporsmal = undersporsmal.find((s) => {
         return s.sporsmalstekst === verdi;
     });
@@ -51,10 +51,10 @@ const RadiogruppeComponent = ({ meta, tag, sporsmalstekst, svartype, undersporsm
                             onChange={() => {
                                 undersporsmal.forEach((_underspm) => {
                                     const value = _underspm.tag === sporsmal.tag ? CHECKED : '';
-                                    autofill(getSkjemanavnFraSoknad(soknad), _underspm.tag, genererParseForEnkeltverdi()(value));
+                                    autofill(getSkjemanavnFraSoknad(soknad), _underspm.tag, genererParseForEnkeltverdi(_underspm.id)(value));
                                 });
                             }}
-                            parse={genererParseForEnkeltverdi()}
+                            parse={genererParseForEnkeltverdi(id)}
                             format={formaterEnkeltverdi} />);
                 })
             }
@@ -75,6 +75,7 @@ RadiogruppeComponent.propTypes = {
     soknad: soknadPt,
     verdi: PropTypes.string,
     svartype: svartypePt,
+    id: PropTypes.string,
 };
 
 const RadioGruppe = (props) => {

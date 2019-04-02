@@ -6,8 +6,8 @@ import Sporsmalstekst from './Sporsmalstekst';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { lagDesimaltall } from '../../../utils/index';
 
-const Tall = ({ sporsmalstekst, name, label }) => {
-    const parse = genererParseForEnkeltverdi();
+const Tall = ({ sporsmalstekst, name, label, id }) => {
+    const parse = genererParseForEnkeltverdi(id);
     return (<div>
         <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
         <Field
@@ -27,6 +27,7 @@ Tall.propTypes = {
     sporsmalstekst: PropTypes.string,
     name: PropTypes.string,
     label: PropTypes.string,
+    id: PropTypes.string,
 };
 
 export default Tall;

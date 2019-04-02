@@ -25,6 +25,7 @@ export const finnSykmelding = (state, ownProps) => {
 
 const mapStateToProps = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
+
     return {
         soknad,
         oppdaterer: state.soknader.oppdaterer,

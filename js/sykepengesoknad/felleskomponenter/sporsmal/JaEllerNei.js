@@ -72,7 +72,7 @@ const JaEllerNei = (props) => {
             onChange={getOnChange(props)}
             key={`${props.tag}-field`}
             format={formaterEnkeltverdi}
-            parse={genererParseForEnkeltverdi()}
+            parse={genererParseForEnkeltverdi(props.id)}
             component={RendreJaEllerNei}
             {...props} />,
         <SporsmalBjornKondisjonell
@@ -84,6 +84,7 @@ const JaEllerNei = (props) => {
 JaEllerNei.propTypes = {
     tag: PropTypes.string,
     soknad: soknadPt.isRequired,
+    id: PropTypes.string,
 };
 
 export default JaEllerNei;

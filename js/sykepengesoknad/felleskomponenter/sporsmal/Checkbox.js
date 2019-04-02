@@ -16,8 +16,8 @@ rendreCheckbox.propTypes = {
 };
 
 const Checkbox = (props) => {
-    const { sporsmalstekst, undersporsmal, name, renderComponent = rendreCheckbox, soknad } = props;
-    const parse = genererParseForCheckbox();
+    const { sporsmalstekst, undersporsmal, name, renderComponent = rendreCheckbox, soknad, id } = props;
+    const parse = genererParseForCheckbox(id);
     return (<Field
         onChange={getOnChange(props)}
         parse={parse}
@@ -40,6 +40,7 @@ Checkbox.propTypes = {
     name: PropTypes.string,
     renderComponent: PropTypes.func,
     soknad: soknadPt.isRequired,
+    id: PropTypes.string,
 };
 
 export default Checkbox;

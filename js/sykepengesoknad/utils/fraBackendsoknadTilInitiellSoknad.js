@@ -9,8 +9,8 @@ const tilPeriodedato = (datoEllerStreng) => {
         : toDatePrettyPrint(datoEllerStreng);
 };
 
-const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
-    const parse = genererParseForEnkeltverdi();
+const tilInitielleSvarverder = ({ svar, svartype, undersporsmal, id }) => {
+    const parse = genererParseForEnkeltverdi(id);
     switch (svartype) {
         case DATO:
             return parse(toDatePrettyPrint(new Date(svar[0].verdi)));
@@ -42,7 +42,8 @@ const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
         case RADIO_GRUPPE:
         case RADIO_GRUPPE_TIMER_PROSENT: {
             const aktivtUndersporsmal = undersporsmal.find((uspm) => {
-                return uspm.svar[0] && uspm.svar[0].verdi === CHECKED;
+                return uspm.svar[0]
+                    && uspm.svar[0].verdi === CHECKED;
             });
             return aktivtUndersporsmal
                 ? parse(aktivtUndersporsmal.sporsmalstekst)
@@ -74,10 +75,14 @@ const fraBackendsoknadTilInitiellSoknad = (soknad, frontendverdier = {}) => {
     return alleSporsmal
         .reduce((acc, sporsmal) => {
             const initielleSvarverdier = tilInitielleSvarverder(sporsmal);
-            const tagSvar = (initielleSvarverdier && initielleSvarverdier.length === 0)
-            || JSON.stringify(initielleSvarverdier) === '[{}]'
-                ? initielleSvarverdier
-                : frontendverdier[sporsmal.tag] || initielleSvarverdier;
+            const gammeltSvar = frontendverdier[sporsmal.tag];
+            const tagSvar = (gammeltSvar
+                && gammeltSvar.id
+                && initielleSvarverdier
+                && initielleSvarverdier.id === gammeltSvar.id)
+                || (sporsmal.svartype === PERIODER && gammeltSvar)
+                ? gammeltSvar
+                : initielleSvarverdier;
             acc[sporsmal.tag] = tagSvar;
             return acc;
         }, {});

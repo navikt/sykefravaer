@@ -6,8 +6,8 @@ import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { getOnChangeForDato } from '../../utils/getOnChange';
 
 const Dato = (props) => {
-    const { sporsmalstekst, min, max, name } = props;
-    const parse = genererParseForEnkeltverdi();
+    const { sporsmalstekst, min, max, name, id } = props;
+    const parse = genererParseForEnkeltverdi(id);
     const onChange = getOnChangeForDato(props);
     return (<div>
         <Sporsmalstekst tekst={sporsmalstekst} Tag="label" htmlFor={name} />
@@ -28,6 +28,7 @@ Dato.propTypes = {
     min: PropTypes.instanceOf(Date),
     max: PropTypes.instanceOf(Date),
     name: PropTypes.string,
+    id: PropTypes.string,
 };
 
 export default Dato;

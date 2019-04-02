@@ -8,6 +8,7 @@ import {
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
 } from '../enums/tagtyper';
+import { genererParseForEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 
 describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe perioder på norsk format', () => {
@@ -34,16 +35,32 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
         }]);
     });
 
-    it.only('Skal fjerne eksisterende perioder i frontend dersom det kommer blankt svar fra backend', () => {
+    it('Skal beholde svar i frontend dersom det kommer annet svar fra backend med samme spørsmålsid', () => {
         const soknad = mockLagretSoknad();
         soknad.sporsmal[0].svar = [];
         const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad, {
-            [PERIODEUTLAND]: [{
-                fom: '01.09.2018',
-                tom: '01.10.2018',
-            }],
+            [LAND]: genererParseForEnkeltverdi('56')('England'),
         });
-        expect(initiellSoknad[PERIODEUTLAND]).to.deep.equal([{}]);
+        expect(initiellSoknad[LAND]).to.deep.equal({
+            svarverdier: [{
+                verdi: 'England',
+            }],
+            id: '56',
+        });
+    });
+
+    it('Skal fjerne svar i frontend dersom det kommer annet svar fra backend med ny spørsmålsid', () => {
+        const soknad = mockLagretSoknad();
+        soknad.sporsmal[0].svar = [];
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad, {
+            [LAND]: genererParseForEnkeltverdi('856')('England'),
+        });
+        expect(initiellSoknad[LAND]).to.deep.equal({
+            svarverdier: [{
+                verdi: 'Oslo',
+            }],
+            id: '56',
+        });
     });
 
     it('Skal mappe perioder på ISO-format', () => {
@@ -120,6 +137,7 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
             svarverdier: [{
                 verdi: 'Oslo',
             }],
+            id: '56',
         });
     });
 
@@ -129,6 +147,7 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
             svarverdier: [{
                 verdi: 'JA',
             }],
+            id: '57',
         });
     });
 
@@ -138,6 +157,7 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
             svarverdier: [{
                 verdi: 'CHECKED',
             }],
+            id: '61',
         });
     });
 
@@ -147,6 +167,7 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
             svarverdier: [{
                 verdi: 'JA',
             }],
+            id: '58',
         });
     });
 

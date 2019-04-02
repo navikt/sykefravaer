@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst, scrollTo } from '@navikt/digisyfo-npm';
 import Knapp from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
 import Lightbox from '../../../components/Lightbox';
@@ -32,7 +32,7 @@ EttersendKvittering.propTypes = {
 };
 
 export const EttersendLightbox = (props) => {
-    const { visKvittering } = props;
+    const { visKvittering, ledetekstKeySuffix, manglendeDato } = props;
     const onClose = () => {
         if (visKvittering) {
             props.scrollTilTopp();
@@ -40,8 +40,14 @@ export const EttersendLightbox = (props) => {
         props.onClose();
     };
     return (<Lightbox onClose={onClose} bredde="m">
-        {!visKvittering && <EttersendDialogConnected {...props} onClose={onClose} />}
-        {visKvittering && <EttersendKvittering {...props} onClose={onClose} />}
+        {!visKvittering &&
+        <EttersendDialogConnected
+            sykepengesoknad={props.sykepengesoknad}
+            onClose={onClose}
+            ledetekstKeySuffix={ledetekstKeySuffix}
+            manglendeDato={manglendeDato}
+        />}
+        {visKvittering && <EttersendKvittering {...props} onClose={onClose} ledetekstKeySuffix={ledetekstKeySuffix} />}
     </Lightbox>);
 };
 
@@ -49,6 +55,9 @@ EttersendLightbox.propTypes = {
     scrollTilTopp: PropTypes.func,
     onClose: PropTypes.func,
     visKvittering: PropTypes.bool,
+    sykepengesoknad: soknadPt,
+    ledetekstKeySuffix: PropTypes.string,
+    manglendeDato: PropTypes.string,
 };
 
 export class Ettersending extends Component {
@@ -75,42 +84,51 @@ export class Ettersending extends Component {
         return true;
     }
 
+    scrollTilTopp() {
+        scrollTo(this.sendtSoknad, 300);
+    }
+
     render() {
-        const { sykepengesoknad, scrollTilTopp, manglendeDato, ledetekstKeySuffix } = this.props;
+        const { sykepengesoknad, manglendeDato, ledetekstKeySuffix } = this.props;
+
         if (sykepengesoknad[manglendeDato] && !this.state.visKvittering) {
             return null;
         }
-        return (<div className="verktoylinje__element">
-            {
-                !sykepengesoknad[manglendeDato] && <Knapp
-                    type="standard"
-                    mini
-                    onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({
-                            visLightbox: true,
-                        });
-                    }}
-                    className="js-trigger">
-                    {getLedetekst(`sykepengesoknad.ettersending.knapp.${ledetekstKeySuffix}`)}
-                </Knapp>
-            }
-            {
-                this.state.visLightbox && <EttersendLightbox
-                    {...this.props}
-                    scrollTilTopp={scrollTilTopp}
-                    visKvittering={this.state.visKvittering}
-                    onClose={() => {
-                        if (this.triggEttersending) {
-                            this.triggEttersending.focus();
-                        }
-                        this.setState({
-                            visLightbox: false,
-                            visKvittering: false,
-                        });
-                    }} />
-            }
-        </div>);
+        return (
+            <div className="verktoylinje__element">
+                {
+                    !sykepengesoknad[manglendeDato] && <Knapp
+                        type="standard"
+                        mini
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.setState({
+                                visLightbox: true,
+                            });
+                        }}
+                        className="js-trigger">
+                        {getLedetekst(`sykepengesoknad.ettersending.knapp.${ledetekstKeySuffix}`)}
+                    </Knapp>
+                }
+                {
+                    this.state.visLightbox && <EttersendLightbox
+                        sykepengesoknad={sykepengesoknad}
+                        ledetekstKeySuffix={ledetekstKeySuffix}
+                        manglendeDato={manglendeDato}
+                        scrollTilTopp={this.scrollTilTopp}
+                        visKvittering={this.state.visKvittering}
+                        onClose={() => {
+                            if (this.triggEttersending) {
+                                this.triggEttersending.focus();
+                            }
+                            this.setState({
+                                visLightbox: false,
+                                visKvittering: false,
+                            });
+                        }} />
+                }
+            </div>
+        );
     }
 }
 
@@ -118,8 +136,6 @@ Ettersending.propTypes = {
     manglendeDato: manglendeDatoPt,
     ledetekstKeySuffix: ledetekstKeySuffixPt,
     sykepengesoknad: soknadPt,
-    scrollTilTopp: PropTypes.func,
-    dispatch: PropTypes.func,
 };
 
 const ConnectedEttersending = connect()(Ettersending);

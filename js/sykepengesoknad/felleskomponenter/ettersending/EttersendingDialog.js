@@ -7,7 +7,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { soknadPt } from '../../../propTypes/index';
 import { ettersendSoknadTilNav } from '../../data/ettersending/ettersendingNav';
 import { ettersendSoknadTilArbeidsgiver } from '../../data/ettersending/ettersendingArbeidsgiver';
-import Feilstripe from './Ettersending';
+import Feilstripe from '../../../components/Feilstripe';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';
 const sendtTilArbeidsgiverDato = 'sendtTilArbeidsgiverDato';

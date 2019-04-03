@@ -10,7 +10,7 @@ const SykepengerSkjema = ({ children, aktivtSteg, tittel, sykepengesoknad }) => 
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         <Stegindikator aktivtSteg={aktivtSteg} soknadId={sykepengesoknad.id} />
         <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} />
-        <h2 className="soknad__stegtittel">{tittel}</h2>
+        { tittel && <h2 className="soknad__stegtittel">{tittel}</h2> }
         {children}
     </div>);
 };

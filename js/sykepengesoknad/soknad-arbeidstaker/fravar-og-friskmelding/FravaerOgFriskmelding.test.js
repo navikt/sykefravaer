@@ -4,8 +4,8 @@ import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidst
 
 const expect = chai.expect;
 
-describe('FravaerOgFriskmelding', () => {
-    describe('hentSporsmalForFravaerOgFriskmelding', () => {
+describe('EttSporsmalPerSide', () => {
+    describe('hentSporsmalForDenneSiden', () => {
         it("Skal returnere spørsmål med tag = 'EGENMELDINGER'", () => {
             const soknad = mockNySoknadArbeidstaker();
             const sporsmal = hentSporsmalForFravaerOgFriskmelding(soknad);

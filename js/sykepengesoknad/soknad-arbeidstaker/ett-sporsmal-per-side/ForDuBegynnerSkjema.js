@@ -7,7 +7,7 @@ import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import KnapperadEttSporsmalPerSide from './KnapperadEttSporsmalPerSide';
 import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
-import { hentSporsmalForDenneSiden } from './EttSporsmalPerSide';
+import { hentSporsmalForDenneSiden } from './ettSporsmalPerSideUtils';
 
 export const ForDuBegynnerSkjema = (props) => {
     const { handleSubmit, soknad, actions, sidenummer } = props;

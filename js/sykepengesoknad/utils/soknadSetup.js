@@ -33,7 +33,9 @@ const mapStateToProps = (state, ownProps) => {
         skjemasvar: getFormValues(getSoknadSkjemanavn(ownProps.params.sykepengesoknadId))(state),
         sender: state.soknader.sender,
         sendingFeilet: state.soknader.sendingFeilet,
-        key: soknad.id,
+        key: ownProps.sidenummer
+            ? `${soknad.id}-side-${ownProps.sidenummer}`
+            : soknad.id,
         form: getSoknadSkjemanavn(soknad.id),
     };
 };

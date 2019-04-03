@@ -4,8 +4,8 @@ import { getNySoknadSelvstendig } from '../../../../test/mock/mockSoknadSelvsten
 
 const expect = chai.expect;
 
-describe('FravaerOgFriskmelding', () => {
-    describe('hentSporsmalForFravaerOgFriskmelding', () => {
+describe('EttSporsmalPerSide', () => {
+    describe('hentSporsmalForDenneSiden', () => {
         it("Skal returnere spørsmål med tag = 'TILBAKE_I_ARBEID' (1)", () => {
             const soknad = getNySoknadSelvstendig();
             const sporsmal = hentSporsmalForFravaerOgFriskmelding(soknad);

@@ -96,6 +96,7 @@ export function mapDispatchToProps(dispatch) {
 
 export const mapStateToProps = (state, ownProps) => {
     const soknadId = ownProps.params.sykepengesoknadId;
+    const sidenummer = parseInt(ownProps.params.sidenummer, 10);
     const finnSoknad = (s) => {
         return s.id === soknadId;
     };
@@ -123,6 +124,7 @@ export const mapStateToProps = (state, ownProps) => {
         sti: ownProps.location.pathname,
         soknad,
         sykepengesoknad,
+        sidenummer,
     };
 };
 

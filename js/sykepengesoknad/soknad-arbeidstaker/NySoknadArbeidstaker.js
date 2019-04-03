@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, KVITTERING, OPPSUMMERING } from '../utils/beregnSteg';
+import beregnSteg, { AKTIVITETER_I_SYKMELDINGSPERIODEN, ETT_SPORSMAL_PER_SIDE, FOER_DU_BEGYNNER, FRAVAER_OG_FRISKMELDING, KVITTERING, OPPSUMMERING } from '../utils/beregnSteg';
 import NyFoerDuBegynnerArbeidstakerContainer from './for-du-begynner/NyFoerDuBegynnerArbeidstakerContainer';
 import NyFravaerOgFriskmeldingArbeidstakerContainer from './fravar-og-friskmelding/NyFravaerOgFriskmeldingArbeidstakerContainer';
 import NyAktiviteterISykmeldingsperiodenArbeidstakerContainer from './aktiviteter-i-sykmeldingsperioden/NyAktiviteterISykmeldingsperiodenArbeidstakerContainer';
@@ -11,6 +11,7 @@ import { AVBRUTT, KORRIGERT, NY, SENDT, UTKAST_TIL_KORRIGERING } from '../enums/
 import NySendtSoknadArbeidstaker from './NySendtSoknadArbeidstaker';
 import Feilmelding from '../../components/Feilmelding';
 import AvbruttSoknadArbeidstaker from './AvbruttSoknadArbeidstaker';
+import EttSporsmalPerSideContainer from './ett-sporsmal-per-side/EttSporsmalPerSideContainer';
 
 const NySoknadArbeidstakerSkjema = (props) => {
     const { sti } = props;
@@ -30,6 +31,9 @@ const NySoknadArbeidstakerSkjema = (props) => {
         }
         case KVITTERING: {
             return <SoknadKvitteringSjekker soknad={props.soknad} />;
+        }
+        case ETT_SPORSMAL_PER_SIDE: {
+            return <EttSporsmalPerSideContainer {...props} />;
         }
         default: {
             return null;

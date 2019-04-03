@@ -316,6 +316,7 @@ describe('populerSoknadMedSvar', () => {
         }]);
     });
 
+    /* eslint-disable max-len */
     it('Feil i Q1', () => {
         const soknader = [
             {
@@ -890,6 +891,7 @@ describe('populerSoknadMedSvar', () => {
         const ansvarserklaringSporsmal = finnSporsmal(resultat.sporsmal, ANSVARSERKLARING)[0];
         expect(ansvarserklaringSporsmal.svar).to.deep.equal([{ verdi: CHECKED }]);
     });
+    /* eslint-enable max-len */
 
     describe('populerSoknadMedSvarUtenKonvertertePerioder', () => {
         it('Skal populere perioder', () => {

@@ -1033,59 +1033,6 @@
         "kriterieForVisningAvUndersporsmal": null,
         "svar": [],
         "undersporsmal": []
-      },
-      {
-        "id": "59698",
-        "tag": "BETALER_ARBEIDSGIVER",
-        "sporsmalstekst": "Betaler arbeidsgiveren lønnen din når du er syk?",
-        "undertekst": null,
-        "svartype": "RADIO_GRUPPE",
-        "min": null,
-        "max": null,
-        "pavirkerAndreSporsmal": false,
-        "kriterieForVisningAvUndersporsmal": null,
-        "svar": [],
-        "undersporsmal": [
-          {
-            "id": "59699",
-            "tag": "BETALER_ARBEIDSGIVER_JA",
-            "sporsmalstekst": "Ja",
-            "undertekst": "Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.",
-            "svartype": "RADIO",
-            "min": null,
-            "max": null,
-            "pavirkerAndreSporsmal": false,
-            "kriterieForVisningAvUndersporsmal": null,
-            "svar": [],
-            "undersporsmal": []
-          },
-          {
-            "id": "59700",
-            "tag": "BETALER_ARBEIDSGIVER_NEI",
-            "sporsmalstekst": "Nei",
-            "undertekst": "Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.",
-            "svartype": "RADIO",
-            "min": null,
-            "max": null,
-            "pavirkerAndreSporsmal": false,
-            "kriterieForVisningAvUndersporsmal": null,
-            "svar": [],
-            "undersporsmal": []
-          },
-          {
-            "id": "59701",
-            "tag": "BETALER_ARBEIDSGIVER_VET_IKKE",
-            "sporsmalstekst": "Vet ikke",
-            "undertekst": "Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV.",
-            "svartype": "RADIO",
-            "min": null,
-            "max": null,
-            "pavirkerAndreSporsmal": false,
-            "kriterieForVisningAvUndersporsmal": null,
-            "svar": [],
-            "undersporsmal": []
-          }
-        ]
       }
     ]
   },

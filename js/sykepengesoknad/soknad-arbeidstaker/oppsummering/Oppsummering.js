@@ -30,7 +30,7 @@ Sendknapp.propTypes = {
 
 const ConnectedSendknapp = connect(mapStateToSoknadMottakerProps)(Sendknapp);
 
-const OppsummeringUtvidbar = ({ soknad }) => {
+export const OppsummeringUtvidbar = ({ soknad }) => {
     const _soknad = {
         ...soknad,
         sporsmal: soknad.sporsmal.filter((s) => {
@@ -63,6 +63,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
         sender,
         sendingFeilet,
         sykmelding,
+        sidenummer,
     } = props;
 
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
@@ -77,6 +78,11 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
     const onSubmit = () => {
         actions.sendSoknad(populertSoknad);
     };
+
+    const forrigeUrl = sidenummer
+        ? `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/side/${sidenummer - 1}`
+        : `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`;
+
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         {skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} />}
         <div className="panel blokk">
@@ -95,7 +101,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste blokk">
             <Link
-                to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
+                to={forrigeUrl}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
             <ConnectedSendknapp className="js-send" sender={sender} soknad={soknad} />
         </Knapperad>
@@ -113,6 +119,7 @@ SykepengesoknadArbeidstakerOppsummeringSkjema.propTypes = {
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     sykmelding: sykmeldingPt,
+    sidenummer: PropTypes.number,
 };
 
 const Oppsummering = (props) => {

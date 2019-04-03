@@ -146,10 +146,6 @@ function mockSyfosoknadLokalt(server) {
                 _soknad.sporsmal = sporsmal;
                 _soknad.innsendtDato = new Date().toJSON()
                     .substr(0, 10);
-                _soknad.sendtTilArbeidsgiverDato = new Date().toJSON()
-                    .substr(0, 10);
-                _soknad.sendtTilNAVDato = new Date().toJSON()
-                    .substr(0, 10);
             }
 
             if (soknad.id === soknadTilInnsending.korrigerer) {

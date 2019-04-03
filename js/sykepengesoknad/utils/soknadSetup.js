@@ -8,6 +8,7 @@ import { erForsteSoknad } from '../data/soknader/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
 import fraBackendsoknadTilInitiellSoknad from './fraBackendsoknadTilInitiellSoknad';
 import { hentSkjemaVerdier } from '../../selectors/reduxFormSelectors';
+import populerSoknadMedSvar from './populerSoknadMedSvar';
 
 export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
@@ -44,8 +45,9 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
     const skjemanavn = getSoknadSkjemanavn(ownProps.params.sykepengesoknadId);
     const verdierISkjema = hentSkjemaVerdier(state, skjemanavn);
+    const populertSoknad = populerSoknadMedSvar(soknad, verdierISkjema);
     return {
-        initialValues: fraBackendsoknadTilInitiellSoknad(soknad, verdierISkjema),
+        initialValues: fraBackendsoknadTilInitiellSoknad(populertSoknad),
         erForsteSoknad: erForsteSoknad(state),
         ...mapStateToProps(state, ownProps),
     };

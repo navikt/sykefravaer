@@ -10,7 +10,6 @@ export default (values, props) => {
         ...feilmeldinger,
         ...feilmeldingerForrigeSide,
     };
-    // slint-disable-next-line
     console.log(alleFeilmeldinger);
     return alleFeilmeldinger;
 };

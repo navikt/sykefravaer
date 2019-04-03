@@ -8,7 +8,6 @@ import {
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
 } from '../enums/tagtyper';
-import { genererParseForEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 
 describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe perioder på norsk format', () => {
@@ -20,46 +19,6 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
             fom: '12.08.207_',
             tom: '12.08.2017',
         }]);
-    });
-
-    it('Skal beholde eksisterende perioder i frontend dersom det finnes', () => {
-        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(mockLagretSoknad(), {
-            [PERIODEUTLAND]: [{
-                fom: '01.09.2018',
-                tom: '01.10.2018',
-            }],
-        });
-        expect(initiellSoknad[PERIODEUTLAND]).to.deep.equal([{
-            fom: '01.09.2018',
-            tom: '01.10.2018',
-        }]);
-    });
-
-    it('Skal beholde svar i frontend dersom det kommer annet svar fra backend med samme spørsmålsid', () => {
-        const soknad = mockLagretSoknad();
-        soknad.sporsmal[0].svar = [];
-        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad, {
-            [LAND]: genererParseForEnkeltverdi('56')('England'),
-        });
-        expect(initiellSoknad[LAND]).to.deep.equal({
-            svarverdier: [{
-                verdi: 'England',
-            }],
-            sporsmalsid: '56',
-        });
-    });
-
-    it('Skal bruke svar fra backend dersom det kommer annet svar fra backend med ny spørsmålsid', () => {
-        const soknad = mockLagretSoknad();
-        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(soknad, {
-            [LAND]: genererParseForEnkeltverdi('856')('England'),
-        });
-        expect(initiellSoknad[LAND]).to.deep.equal({
-            svarverdier: [{
-                verdi: 'Oslo',
-            }],
-            sporsmalsid: '56',
-        });
     });
 
     it('Skal mappe perioder på ISO-format', () => {

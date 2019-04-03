@@ -13,7 +13,7 @@ import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '.
 import logger from '../../../logging';
 import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import { hentSoknad, skalHenteSoknader } from './soknaderSelectors';
-import { populerSoknadMedSvarUtenKonvertertePerioder } from '../../utils/populerSoknadMedSvar';
+import populerSoknadMedSvar, { populerSoknadMedSvarUtenKonvertertePerioder } from '../../utils/populerSoknadMedSvar';
 import fraBackendsoknadTilInitiellSoknad from '../../utils/fraBackendsoknadTilInitiellSoknad';
 import { hentSkjemaVerdier } from '../../../selectors/reduxFormSelectors';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
@@ -145,7 +145,8 @@ export function* oppdaterSporsmal(action) {
 export function* populerSoknadsskjema(action) {
     const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
-    yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(action.soknad, verdier)));
+    const soknadPopulertMedVerdier = populerSoknadMedSvar(action.soknad, verdier);
+    yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(soknadPopulertMedVerdier)));
 }
 
 export function* lagreSoknad(action) {

@@ -24,7 +24,7 @@ describe('Oppsummeringvisning', () => {
 
         values = {
             ARBEIDSGIVER: {
-                sporsmalsid: '1',
+                sporsmalsid: '102',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -32,7 +32,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             LAND: {
-                sporsmalsid: '2',
+                sporsmalsid: '101',
                 svarverdier: [
                     {
                         verdi: 'Italia',
@@ -40,7 +40,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             SYKMELDINGSGRAD: {
-                sporsmalid: '4',
+                sporsmalsid: '103',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -48,7 +48,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             BEKREFT_OPPLYSNINGER_UTLAND: {
-                sporsmalsid: '3',
+                sporsmalsid: '106',
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
@@ -66,7 +66,7 @@ describe('Oppsummeringvisning', () => {
                 },
             ],
             FERIE: {
-                sporsmalid: '5',
+                sporsmalsid: '104',
                 svarverdier: [
                     {
                         verdi: 'NEI',

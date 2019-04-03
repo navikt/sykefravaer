@@ -77,9 +77,9 @@ const fraBackendsoknadTilInitiellSoknad = (soknad, frontendverdier = {}) => {
             const backendSvar = tilInitielleSvarverder(sporsmal);
             const frontendSvar = frontendverdier[sporsmal.tag];
             const svar = (frontendSvar
-                && frontendSvar.id
+                && frontendSvar.sporsmalsid
                 && backendSvar
-                && backendSvar.id === frontendSvar.id)
+                && backendSvar.sporsmalsid === frontendSvar.sporsmalsid)
                 || (sporsmal.svartype === PERIODER && frontendSvar)
                 ? frontendSvar
                 : backendSvar;

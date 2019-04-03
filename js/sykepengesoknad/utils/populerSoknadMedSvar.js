@@ -73,12 +73,15 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
             }
         }
     })();
+    const riktigSvar = (svarFraSkjema && svarFraSkjema.sporsmalsid === sporsmal.id) || sporsmal.svartype === PERIODER
+        ? svar
+        : [];
 
     return {
         ...sporsmal,
         min: tilBackendMinMax(sporsmal.min),
         max: tilBackendMinMax(sporsmal.max),
-        svar,
+        svar: riktigSvar,
     };
 };
 

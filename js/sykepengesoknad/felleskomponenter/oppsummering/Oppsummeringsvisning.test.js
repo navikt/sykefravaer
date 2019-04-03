@@ -66,7 +66,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             JOBBET_DU_GRADERT_1: {
-                sporsmalsid: '7',
+                sporsmalsid: '30',
                 svarverdier: [
                     {
                         verdi: 'NEI',
@@ -74,7 +74,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MANGE_TIMER_1: {
-                sporsmalsid: '8',
+                sporsmalsid: '31',
                 svarverdier: [
                     {
                         verdi: '',
@@ -90,7 +90,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             ANDRE_INNTEKTSKILDER: {
-                sporsmalsid: '10',
+                sporsmalsid: '7',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -98,7 +98,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             INNTEKTSKILDE_ARBEIDSFORHOLD: {
-                sporsmalsid: '12',
+                sporsmalsid: '9',
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
@@ -106,7 +106,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT: {
-                sporsmalsid: '13',
+                sporsmalsid: '10',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -114,7 +114,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             UTLAND: {
-                sporsmalsid: '20',
+                sporsmalsid: '17',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -128,13 +128,13 @@ describe('Oppsummeringvisning', () => {
                 },
             ],
             UTLANDSOPPHOLD_SOKT_SYKEPENGER: {
-                sporsmalsid: '22',
+                sporsmalsid: '19',
                 svarverdier: [{
                     verdi: 'NEI',
                 }],
             },
             UTDANNING: {
-                sporsmalsid: '23',
+                sporsmalsid: '20',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -142,7 +142,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             UTDANNING_START: {
-                sporsmalsid: '24',
+                sporsmalsid: '21',
                 svarverdier: [
                     {
                         verdi: '22.03.2014',
@@ -150,7 +150,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             FULLTIDSSTUDIUM: {
-                sporsmalsid: '25',
+                sporsmalsid: '22',
                 svarverdier: [
                     {
                         verdi: 'NEI',
@@ -169,7 +169,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             ANSVARSERKLARING: {
-                sporsmalsid: '55',
+                sporsmalsid: '59659',
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
@@ -177,7 +177,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             EGENMELDINGER: {
-                sporsmalsid: '56',
+                sporsmalsid: '59660',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -185,7 +185,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             TILBAKE_I_ARBEID: {
-                sporsmalsid: '58',
+                sporsmalsid: '59662',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -199,7 +199,7 @@ describe('Oppsummeringvisning', () => {
                 },
             ],
             TILBAKE_NAR: {
-                sporsmalsid: '59',
+                sporsmalsid: '59663',
                 svarverdier: [
                     {
                         verdi: '10.10.2018',
@@ -207,7 +207,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             JOBBET_DU_100_PROSENT_0: {
-                sporsmalsid: '60',
+                sporsmalsid: '59664',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -215,7 +215,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MANGE_TIMER_PER_UKE_0: {
-                sporsmalsid: '61',
+                sporsmalsid: '59665',
                 svarverdier: [
                     {
                         verdi: '25',
@@ -223,7 +223,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_PROSENT_0: {
-                sporsmalsid: '63',
+                sporsmalsid: '59667',
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
@@ -231,7 +231,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_TIMER_0: {
-                sporsmalsid: '65',
+                sporsmalsid: '59669',
                 svarverdier: [
                     {
                         verdi: '',
@@ -239,7 +239,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_HAR_DU_JOBBET_0: {
-                sporsmalsid: '63',
+                sporsmalsid: '59666',
                 svarverdier: [
                     {
                         verdi: 'prosent',
@@ -247,7 +247,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_PROSENT_VERDI_0: {
-                sporsmalsid: '64',
+                sporsmalsid: '59668',
                 svarverdier: [
                     {
                         verdi: '10',
@@ -255,7 +255,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             JOBBET_DU_GRADERT_1: {
-                sporsmalsid: '67',
+                sporsmalsid: '59664',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -263,7 +263,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MANGE_TIMER_PER_UKE_1: {
-                sporsmalsid: '68',
+                sporsmalsid: '59665',
                 svarverdier: [
                     {
                         verdi: '37,5',
@@ -271,7 +271,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_PROSENT_1: {
-                sporsmalsid: '70',
+                sporsmalsid: '59667',
                 svarverdier: [
                     {
                         verdi: '',
@@ -279,7 +279,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_TIMER_1: {
-                sporsmalsid: '72',
+                sporsmalsid: '59669',
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
@@ -287,7 +287,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_HAR_DU_JOBBET_1: {
-                sporsmalsid: '72',
+                sporsmalsid: '59666',
                 svarverdier: [
                     {
                         verdi: 'timer',
@@ -295,7 +295,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             HVOR_MYE_TIMER_VERDI_1: {
-                sporsmalsid: '73',
+                sporsmalsid: '59670',
                 svarverdier: [
                     {
                         verdi: '20',
@@ -303,7 +303,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             FERIE_PERMISJON_UTLAND: {
-                sporsmalsid: '68',
+                sporsmalsid: '59671',
                 svarverdier: [
                     {
                         verdi: 'NEI',
@@ -311,7 +311,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             ANDRE_INNTEKTSKILDER: {
-                sporsmalsid: '76',
+                sporsmalsid: '59680',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -319,7 +319,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD: {
-                sporsmalsid: '78',
+                sporsmalsid: '59682',
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
@@ -327,7 +327,7 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             INNTEKTSKILDE_ANDRE_ARBEIDSFORHOLD_ER_DU_SYKMELDT: {
-                sporsmalsid: '79',
+                sporsmalsid: '59683',
                 svarverdier: [
                     {
                         verdi: 'JA',
@@ -335,31 +335,15 @@ describe('Oppsummeringvisning', () => {
                 ],
             },
             UTDANNING: {
-                sporsmalsid: '89',
+                sporsmalsid: '59693',
                 svarverdier: [
                     {
                         verdi: 'NEI',
                     },
                 ],
             },
-            BETALER_ARBEIDSGIVER_JA: {
-                sporsmalsid: '106',
-                svarverdier: [],
-            },
-            BETALER_ARBEIDSGIVER_NEI: {
-                sporsmalsid: '107',
-                svarverdier: [
-                    {
-                        verdi: '',
-                    },
-                ],
-            },
-            BETALER_ARBEIDSGIVER: {
-                sporsmalsid: '106',
-                svarverdier: [],
-            },
             BEKREFT_OPPLYSNINGER: {
-                sporsmalsid: '93',
+                sporsmalsid: '59697',
                 svarverdier: [
                     {
                         verdi: 'CHECKED',

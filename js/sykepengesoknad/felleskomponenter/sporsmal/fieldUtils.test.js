@@ -16,7 +16,7 @@ describe('fieldUtils', () => {
         it('Skal returnere svar på riktig format når svaret er JA', () => {
             const svar = parse('JA');
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: 'JA',
                 }],
@@ -26,7 +26,7 @@ describe('fieldUtils', () => {
         it('Skal returnere svar på riktig format når svaret er NEI', () => {
             const svar = parse('NEI');
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: 'NEI',
                 }],
@@ -41,7 +41,7 @@ describe('fieldUtils', () => {
         it('Skal returnere svar på riktig format når svaret er tom streng', () => {
             const svar = parse('');
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '',
                 }],
@@ -51,7 +51,7 @@ describe('fieldUtils', () => {
         it('Skal returnere svar på riktig format når svaret er en dato', () => {
             const svar = parse('22.02.2018');
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '22.02.2018',
                 }],
@@ -62,7 +62,7 @@ describe('fieldUtils', () => {
             const parseTimer = genererParseForEnkeltverdi('1');
             const svar = parseTimer('40');
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '40',
                 }],
@@ -73,7 +73,7 @@ describe('fieldUtils', () => {
             const parseFom = genererParseForEnkeltverdi('1');
             const svar = parseFom('40');
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '40',
                 }],
@@ -84,7 +84,7 @@ describe('fieldUtils', () => {
             const parseTom = genererParseForEnkeltverdi('1');
             const svar = parseTom('');
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '',
                 }],
@@ -103,7 +103,7 @@ describe('fieldUtils', () => {
             const parseCheckbox = genererParseForCheckbox('1');
             const svar = parseCheckbox(true);
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: CHECKED,
                 }],
@@ -114,7 +114,7 @@ describe('fieldUtils', () => {
             const parseCheckbox = genererParseForCheckbox('1');
             const svar = parseCheckbox(false);
             expect(svar).to.deep.equal({
-                id: '1',
+                sporsmalsid: '1',
                 svarverdier: [{
                     verdi: UNCHECKED,
                 }],

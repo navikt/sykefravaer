@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../../felleskomponenter/Soknadskjema';
@@ -68,4 +69,10 @@ EttSporsmalPerSide.propTypes = {
     oppdaterer: PropTypes.bool,
 };
 
-export default EttSporsmalPerSide;
+const mapStateToProps = (state) => {
+    return {
+        oppdaterer: state.soknader.oppdaterer,
+    };
+};
+
+export default connect(mapStateToProps)(EttSporsmalPerSide);

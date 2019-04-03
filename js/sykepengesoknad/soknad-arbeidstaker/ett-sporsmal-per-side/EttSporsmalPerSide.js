@@ -4,22 +4,12 @@ import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import Soknadskjema from '../../felleskomponenter/Soknadskjema';
 import { skjemasvar as skjemasvarPt, soknadMetaReducerPt, soknadPt } from '../../../propTypes';
 import AppSpinner from '../../../components/AppSpinner';
-import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../oppsummering/Oppsummering';
 import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
 import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
 import { ForDuBegynnerSkjema } from './ForDuBegynnerSkjema';
-
-export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
-    const sporsmal = soknad.sporsmal[sidenummer - 1];
-    return [sporsmal];
-};
-
-const erSisteSide = (soknad, sidenummer) => {
-    const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer);
-    return sporsmal[0].tag === VAER_KLAR_OVER_AT;
-};
+import { erSisteSide } from './ettSporsmalPerSideUtils';
 
 const EttSporsmalPerSide = (props) => {
     const { sykmelding, soknad, handleSubmit, actions, sidenummer, oppdaterer, skjemasvar, sendingFeilet, soknadMeta, sender } = props;

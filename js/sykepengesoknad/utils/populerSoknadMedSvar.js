@@ -73,9 +73,10 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
             }
         }
     })();
-    const riktigSvar = (svarFraSkjema && svarFraSkjema.sporsmalsid === sporsmal.id) || sporsmal.svartype === PERIODER
+    const riktigSvar = (svarFraSkjema && svarFraSkjema.sporsmalsid === sporsmal.id)
+        || (svarFraSkjema && sporsmal.svartype === PERIODER)
         ? svar
-        : [];
+        : sporsmal.svar;
 
     return {
         ...sporsmal,

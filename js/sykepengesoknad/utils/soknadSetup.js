@@ -46,8 +46,10 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const skjemanavn = getSoknadSkjemanavn(ownProps.params.sykepengesoknadId);
     const verdierISkjema = hentSkjemaVerdier(state, skjemanavn);
     const populertSoknad = populerSoknadMedSvar(soknad, verdierISkjema);
+    const initialValues = fraBackendsoknadTilInitiellSoknad(populertSoknad);
+
     return {
-        initialValues: fraBackendsoknadTilInitiellSoknad(populertSoknad),
+        initialValues,
         erForsteSoknad: erForsteSoknad(state),
         ...mapStateToProps(state, ownProps),
     };

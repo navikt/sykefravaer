@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../../felleskomponenter/Soknadskjema';
-import { KnapperadTilbake } from '../../../components/skjema/Knapperad';
 import { soknadPt } from '../../../propTypes';
 import Sporsmalsliste from '../../felleskomponenter/sporsmal/Sporsmalsliste';
 import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
 import AppSpinner from '../../../components/AppSpinner';
+import KnapperadEttSporsmalPerSide from './KnapperadEttSporsmalPerSide';
 
 export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
     return [soknad.sporsmal[sidenummer - 1]];
@@ -26,7 +26,7 @@ const EttSporsmalPerSideSkjema = (props) => {
     return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
         <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
-        <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/side/${sidenummer - 1}`} />
+        <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };

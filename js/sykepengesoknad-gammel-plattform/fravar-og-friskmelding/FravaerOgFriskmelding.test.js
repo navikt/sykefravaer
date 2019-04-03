@@ -11,7 +11,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 
-describe('FravaerOgFriskmelding', () => {
+describe('EttSporsmalPerSide', () => {
     let component;
     let sykepengesoknad;
 

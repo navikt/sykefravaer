@@ -1,25 +1,23 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
-import sinon from 'sinon';
 import * as actions from '../soknader/soknaderActions';
 import { getSendtSoknadArbeidstaker } from '../../../../test/mock/mockSendtSoknadArbeidstaker';
-import ettersendingArbeidsgiver, { ettersenderSoknadTilArbeidsgiver, ettersendSoknadTilArbeidsgiverFeilet, soknadEttersendtTilArbeidsgiver } from './ettersendingArbeidsgiver';
+import ettersendingArbeidsgiver, {
+    ettersenderSoknadTilArbeidsgiver,
+    ettersendSoknadTilArbeidsgiverFeilet,
+    ettersendSoknadTilArbeidsgiverNullstill,
+    soknadEttersendtTilArbeidsgiver,
+} from './ettersendingArbeidsgiver';
 
 describe('ettersending arbeidsgiver', () => {
     let getStateMedDataHentet;
-    let clock;
 
     beforeEach(() => {
-        clock = sinon.useFakeTimers(new Date('2018-03-15').getTime());
         getStateMedDataHentet = () => {
             const state = ettersendingArbeidsgiver();
             const action = actions.soknaderHentet(getSendtSoknadArbeidstaker());
             return ettersendingArbeidsgiver(deepFreeze(state), action);
         };
-    });
-
-    afterEach(() => {
-        clock.restore();
     });
 
     it('Håndterer ettersenderSoknadTilArbeidsgiver', () => {
@@ -49,5 +47,16 @@ describe('ettersending arbeidsgiver', () => {
         expect(nextState.sendingFeilet)
             .to
             .equal(true);
+    });
+
+    it('Håndterer ettersendSoknadTilArbeidsgiverNullstill', () => {
+        const initState = getStateMedDataHentet();
+        const action = ettersendSoknadTilArbeidsgiverFeilet();
+        const initState2 = ettersendingArbeidsgiver(deepFreeze(initState), action);
+        const action2 = ettersendSoknadTilArbeidsgiverNullstill();
+        const nextState = ettersendingArbeidsgiver(deepFreeze(initState2), action2);
+        expect(nextState.sendingFeilet)
+            .to
+            .equal(false);
     });
 });

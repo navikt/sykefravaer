@@ -1,25 +1,18 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
-import sinon from 'sinon';
 import * as actions from '../soknader/soknaderActions';
 import { getSendtSoknadArbeidstaker } from '../../../../test/mock/mockSendtSoknadArbeidstaker';
-import ettersendingNav, { ettersenderSoknadTilNav, ettersendSoknadTilNavFeilet, soknadEttersendtTilNav } from './ettersendingNav';
+import ettersendingNav, { ettersenderSoknadTilNav, ettersendSoknadTilNavFeilet, ettersendSoknadTilNavNullstill, soknadEttersendtTilNav } from './ettersendingNav';
 
 describe('ettersending NAV', () => {
     let getStateMedDataHentet;
-    let clock;
 
     beforeEach(() => {
-        clock = sinon.useFakeTimers(new Date('2018-03-15').getTime());
         getStateMedDataHentet = () => {
             const state = ettersendingNav();
             const action = actions.soknaderHentet(getSendtSoknadArbeidstaker());
             return ettersendingNav(deepFreeze(state), action);
         };
-    });
-
-    afterEach(() => {
-        clock.restore();
     });
 
     it('Håndterer ettersenderSoknadTilNav', () => {
@@ -49,5 +42,15 @@ describe('ettersending NAV', () => {
         expect(nextState.sendingFeilet)
             .to
             .equal(true);
+    });
+    it('Håndterer ettersendSoknadTilNavNullstill', () => {
+        const initState = getStateMedDataHentet();
+        const action = ettersendSoknadTilNavFeilet();
+        const initState2 = ettersendingNav(deepFreeze(initState), action);
+        const action2 = ettersendSoknadTilNavNullstill();
+        const nextState = ettersendingNav(deepFreeze(initState2), action2);
+        expect(nextState.sendingFeilet)
+            .to
+            .equal(false);
     });
 });

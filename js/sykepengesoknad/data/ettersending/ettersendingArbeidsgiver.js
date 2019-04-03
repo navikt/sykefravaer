@@ -3,6 +3,7 @@ export const ETTERSEND_SOKNAD_ARBG_FORESPURT = 'ETTERSEND_SOKNAD_ARBG_FORESPURT'
 export const ETTERSENDER_SOKNAD_ARBG = 'ETTERSENDER_SOKNAD_ARBG';
 export const ETTERSEND_SOKNAD_ARBG_FEILET = 'ETTERSEND_SOKNAD_ARBG_FEILET';
 export const SOKNAD_ETTERSENDT_ARBG = 'SOKNAD_ETTERSENDT_ARBG';
+export const ETTERSEND_SOKNAD_ARBG_NULLSTILL = 'ETTERSEND_SOKNAD_ARBG_NULLSTILL';
 
 const initiellState = {
     sender: false,
@@ -25,6 +26,10 @@ export const ettersendSoknadTilArbeidsgiverFeilet = () => ({
 
 export const soknadEttersendtTilArbeidsgiver = () => ({
     type: SOKNAD_ETTERSENDT_ARBG,
+});
+
+export const ettersendSoknadTilArbeidsgiverNullstill = () => ({
+    type: ETTERSEND_SOKNAD_ARBG_NULLSTILL,
 });
 
 export default (state = initiellState, action = {}) => {
@@ -50,6 +55,14 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: false,
                 sendingFeilet: true,
+                sendt: false,
+            };
+        }
+        case ETTERSEND_SOKNAD_ARBG_NULLSTILL: {
+            return {
+                ...state,
+                sender: false,
+                sendingFeilet: false,
                 sendt: false,
             };
         }

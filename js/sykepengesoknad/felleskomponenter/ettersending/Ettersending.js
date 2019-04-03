@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import Lightbox from '../../../components/Lightbox';
 import { soknadPt } from '../../../propTypes/index';
 import { EttersendDialogConnected } from './EttersendingDialog';
+import { ettersendSoknadTilNavNullstill } from '../../data/ettersending/ettersendingNav';
+import { ettersendSoknadTilArbeidsgiverNullstill } from '../../data/ettersending/ettersendingArbeidsgiver';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';
 const sendtTilArbeidsgiverDato = 'sendtTilArbeidsgiverDato';
@@ -32,11 +34,13 @@ EttersendKvittering.propTypes = {
 };
 
 export const EttersendLightbox = (props) => {
-    const { visKvittering, ledetekstKeySuffix, manglendeDato } = props;
+    const { visKvittering, ledetekstKeySuffix, manglendeDato, doEttersendSoknadTilNavNullstill, doEttersendSoknadTilArbeidsgiverNullstill } = props;
     const onClose = () => {
         if (visKvittering) {
             props.scrollTilTopp();
         }
+        doEttersendSoknadTilNavNullstill();
+        doEttersendSoknadTilArbeidsgiverNullstill();
         props.onClose();
     };
     return (<Lightbox onClose={onClose} bredde="m">
@@ -58,7 +62,16 @@ EttersendLightbox.propTypes = {
     sykepengesoknad: soknadPt,
     ledetekstKeySuffix: PropTypes.string,
     manglendeDato: PropTypes.string,
+    doEttersendSoknadTilNavNullstill: PropTypes.func,
+    doEttersendSoknadTilArbeidsgiverNullstill: PropTypes.func,
 };
+
+const actionCreators = {
+    doEttersendSoknadTilNavNullstill: ettersendSoknadTilNavNullstill,
+    doEttersendSoknadTilArbeidsgiverNullstill: ettersendSoknadTilArbeidsgiverNullstill,
+};
+
+const EttersendLightboxConnected = connect(null, actionCreators)(EttersendLightbox);
 
 export class Ettersending extends Component {
     constructor(props) {
@@ -111,7 +124,7 @@ export class Ettersending extends Component {
                     </Knapp>
                 }
                 {
-                    this.state.visLightbox && <EttersendLightbox
+                    this.state.visLightbox && <EttersendLightboxConnected
                         sykepengesoknad={sykepengesoknad}
                         ledetekstKeySuffix={ledetekstKeySuffix}
                         manglendeDato={manglendeDato}

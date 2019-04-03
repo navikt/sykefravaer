@@ -12,10 +12,11 @@ import AppSpinner from '../../../components/AppSpinner';
 import KnapperadEttSporsmalPerSide from './KnapperadEttSporsmalPerSide';
 
 export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
-    return [soknad.sporsmal[sidenummer - 1]];
+    const sporsmal = soknad.sporsmal[sidenummer - 1];
+    return [sporsmal];
 };
 
-const EttSporsmalPerSideSkjema = (props) => {
+const GenereltEttSporsmalPerSideSkjema = (props) => {
     const { handleSubmit, soknad, actions, sidenummer } = props;
     const sporsmalsliste = hentSporsmalForDenneSiden(soknad, sidenummer);
     const onSubmit = () => {
@@ -31,7 +32,7 @@ const EttSporsmalPerSideSkjema = (props) => {
     </form>);
 };
 
-EttSporsmalPerSideSkjema.propTypes = {
+GenereltEttSporsmalPerSideSkjema.propTypes = {
     handleSubmit: PropTypes.func,
     soknad: soknadPt,
     actions: PropTypes.shape({
@@ -43,12 +44,13 @@ EttSporsmalPerSideSkjema.propTypes = {
 const EttSporsmalPerSide = (props) => {
     const { sykmelding, soknad, handleSubmit, actions, sidenummer, oppdaterer } = props;
     return (<Soknadskjema
+        apentUtdrag={sidenummer === 1}
         sykmelding={sykmelding}
         soknad={soknad}>
         {
             oppdaterer
                 ? <AppSpinner />
-                : <EttSporsmalPerSideSkjema
+                : <GenereltEttSporsmalPerSideSkjema
                     soknad={soknad}
                     handleSubmit={handleSubmit}
                     actions={actions}

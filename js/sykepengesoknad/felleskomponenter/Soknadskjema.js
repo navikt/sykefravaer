@@ -33,7 +33,7 @@ const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding,
         && <SykmeldingUtdrag
             rootUrl="/sykefravaer"
             sykmelding={sykmelding}
-            erApen={aktivtSteg === '1' || apentUtdrag}
+            erApen={aktivtSteg === '1' || apentUtdrag}
             sykepengesoknad={{ _erOppdelt }} />}
         {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
         {children}

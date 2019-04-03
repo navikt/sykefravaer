@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
-import history from '../../../history';
+import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import Soknadskjema from '../../felleskomponenter/Soknadskjema';
 import { skjemasvar as skjemasvarPt, soknadMetaReducerPt, soknadPt } from '../../../propTypes';
-import Sporsmalsliste from '../../felleskomponenter/sporsmal/Sporsmalsliste';
-import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
-import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
-import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
 import AppSpinner from '../../../components/AppSpinner';
-import KnapperadEttSporsmalPerSide from './KnapperadEttSporsmalPerSide';
 import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../oppsummering/Oppsummering';
+import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
+import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
+import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
+import { ForDuBegynnerSkjema } from './ForDuBegynnerSkjema';
 
 export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
     const sporsmal = soknad.sporsmal[sidenummer - 1];
@@ -23,37 +21,23 @@ const erSisteSide = (soknad, sidenummer) => {
     return sporsmal[0].tag === VAER_KLAR_OVER_AT;
 };
 
-const GenereltEttSporsmalPerSideSkjema = (props) => {
-    const { handleSubmit, soknad, actions, sidenummer } = props;
-    const sporsmalsliste = hentSporsmalForDenneSiden(soknad, sidenummer);
-    const onSubmit = () => {
-        actions.lagreSoknad(soknad);
-        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/side/${sidenummer + 1}`);
-    };
-
-    return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>
-        <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
-        <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
-        <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
-        <AvbrytSoknadContainer sykepengesoknad={soknad} />
-    </form>);
-};
-
-GenereltEttSporsmalPerSideSkjema.propTypes = {
-    handleSubmit: PropTypes.func,
-    soknad: soknadPt,
-    actions: PropTypes.shape({
-        lagreSoknad: PropTypes.func,
-    }),
-    sidenummer: PropTypes.number,
-};
-
 const EttSporsmalPerSide = (props) => {
     const { sykmelding, soknad, handleSubmit, actions, sidenummer, oppdaterer, skjemasvar, sendingFeilet, soknadMeta, sender } = props;
-    const Komponent = erSisteSide(soknad, sidenummer) ? SykepengesoknadArbeidstakerOppsummeringSkjema : GenereltEttSporsmalPerSideSkjema;
+    const Komponent = erSisteSide(soknad, sidenummer)
+        ? SykepengesoknadArbeidstakerOppsummeringSkjema
+        : sidenummer === 1
+            ? ForDuBegynnerSkjema
+            : GenereltEttSporsmalPerSideSkjema;
+    const intro = sidenummer !== 1
+        ? null
+        : props.erForsteSoknad
+            ? <ForsteSoknadIntro />
+            : <SoknadIntro />;
     return (<Soknadskjema
         apentUtdrag={sidenummer === 1}
+        tittel={sidenummer === 1 ? getLedetekst('sykepengesoknad.for-du-begynner.tittel') : null}
         sykmelding={sykmelding}
+        intro={intro}
         soknad={soknad}>
         {
             oppdaterer
@@ -85,6 +69,7 @@ EttSporsmalPerSide.propTypes = {
     sendingFeilet: PropTypes.bool,
     sender: PropTypes.bool,
     soknadMeta: soknadMetaReducerPt,
+    erForsteSoknad: PropTypes.bool,
 };
 
 export default EttSporsmalPerSide;

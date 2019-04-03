@@ -6,8 +6,11 @@ export default (values, props) => {
     const sporsmal = hentSporsmalForAktiviteterISykmeldingsperioden(props.soknad);
     const feilmeldinger = validerSporsmal(sporsmal, values);
     const feilmeldingerForrigeSide = validerFravaerOgFriskmelding(values, props);
-    return {
+    const alleFeilmeldinger = {
         ...feilmeldinger,
         ...feilmeldingerForrigeSide,
     };
+    // slint-disable-next-line
+    console.log(alleFeilmeldinger);
+    return alleFeilmeldinger;
 };

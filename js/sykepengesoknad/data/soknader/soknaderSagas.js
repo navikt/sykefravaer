@@ -148,7 +148,7 @@ export function* lagreSoknad(action) {
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
     const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, verdier);
     try {
-        // TODO: Endre URL for endepunkt i Syfosoknad
+        yield put(actions.oppdatererSoknad(action.soknad));
         const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
         yield put(actions.soknadOppdatert(oppdatertSoknad));
         yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));

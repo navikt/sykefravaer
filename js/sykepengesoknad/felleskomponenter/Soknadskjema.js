@@ -11,7 +11,7 @@ import SykmeldingUtdragForSelvstendige from '../soknad-selvstendig-frilanser/syk
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import TidligSoknad from '../../components/soknad-felles/TidligSoknad';
 
-const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding, intro = null }) => {
+const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding, intro = null, apentUtdrag = false }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
 
     return (<div>
@@ -33,7 +33,7 @@ const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding,
         && <SykmeldingUtdrag
             rootUrl="/sykefravaer"
             sykmelding={sykmelding}
-            erApen={aktivtSteg === '1'}
+            erApen={aktivtSteg === '1' || apentUtdrag}
             sykepengesoknad={{ _erOppdelt }} />}
         {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
         {children}
@@ -47,6 +47,7 @@ Soknadskjema.propTypes = {
     soknad: soknadPt,
     sykmelding: sykmeldingPt,
     intro: PropTypes.node,
+    apentUtdrag: PropTypes.bool,
 };
 
 export default Soknadskjema;

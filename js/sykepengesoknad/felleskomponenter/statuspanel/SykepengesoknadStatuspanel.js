@@ -26,7 +26,7 @@ const SykepengesoknadStatuspanel = ({ soknad }) => {
         <StatusOgSykepengeopplysninger soknad={soknad} />
         {
             soknad.status === sykepengesoknadstatuser.SENDT
-                && <EndreSoknadContainer soknad={soknad} />
+            && <EndreSoknadContainer soknad={soknad} />
         }
     </Statuspanel>);
 };

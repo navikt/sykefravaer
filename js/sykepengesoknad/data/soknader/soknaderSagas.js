@@ -33,6 +33,12 @@ import {
     SOKNAD_ENDRET,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
+import {
+    SOKNAD_ETTERSENDT_NAV,
+} from '../ettersending/ettersendingNav';
+import {
+    SOKNAD_ETTERSENDT_ARBG,
+} from '../ettersending/ettersendingArbeidsgiver';
 import { PERIODER } from '../../enums/svartyper';
 import { getObjectValueByString } from '../../../utils';
 import { erGyldigPeriode } from '../../../utils/periodeUtils';
@@ -204,6 +210,8 @@ function* watchOppdaterSoknader() {
         SYKMELDING_BEKREFTET,
         SYKMELDING_SENDT,
         SOKNAD_SENDT,
+        SOKNAD_ETTERSENDT_NAV,
+        SOKNAD_ETTERSENDT_ARBG,
     ], oppdaterSoknader);
 }
 

@@ -30,6 +30,7 @@ import metrikkerSagas from './metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
 import soknadMetaSagas from '../sykepengesoknad/data/soknadMeta/soknadMetaSagas';
 import merVeiledningSagas from '../arbeidsrettet-oppfolging/data/merVeiledningSagas';
+import ettersendingSagas from '../sykepengesoknad/data/ettersending/ettersendingSagas';
 
 export default function* rootSaga() {
     yield all([
@@ -62,5 +63,6 @@ export default function* rootSaga() {
         oppfolgingsdialogerSagas(),
         soknadMetaSagas(),
         merVeiledningSagas(),
+        ettersendingSagas(),
     ]);
 }

@@ -81,6 +81,42 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify({}));
     });
 
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/ettersendTilNav', (req, res) => {
+        const soknadId = req.params.id;
+        const soknad = mockData[enums.SOKNADER].find((s) => {
+            return s.id === soknadId;
+        });
+
+        mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+            return s.id === soknad.id
+                ? {
+                    ...s,
+                    sendtTilNAVDato: new Date(),
+                }
+                : s;
+        });
+
+        res.send(200);
+    });
+
+    server.post('/syfoapi/syfosoknad/api/soknader/:id/ettersendTilArbeidsgiver', (req, res) => {
+        const soknadId = req.params.id;
+        const soknad = mockData[enums.SOKNADER].find((s) => {
+            return s.id === soknadId;
+        });
+
+        mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+            return s.id === soknad.id
+                ? {
+                    ...s,
+                    sendtTilArbeidsgiverDato: new Date(),
+                }
+                : s;
+        });
+
+        res.send(200);
+    });
+
     server.post('/syfoapi/syfosoknad/api/soknader/:id/gjenapne', (req, res) => {
         const soknadId = req.params.id;
         mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {

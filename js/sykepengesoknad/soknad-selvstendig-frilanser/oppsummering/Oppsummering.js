@@ -47,7 +47,7 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
-        <div className="panel blokk">
+        <div className="panel blokk redaksjonelt-innhold oppsummering__vaerKlarOverAt">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
         <div className="bekreftet-container blokk">
@@ -58,7 +58,7 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
             <Link
                 to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
-            <Hovedknapp className="js-send" spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
+            <Hovedknapp className="js-send" spinner={sender} disabled={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
         </Knapperad>
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

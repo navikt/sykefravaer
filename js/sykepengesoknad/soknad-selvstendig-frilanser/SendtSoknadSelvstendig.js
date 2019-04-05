@@ -28,7 +28,7 @@ const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
                     }),
                 }} />
         </Utvidbar>
-        <div className="panel js-vaer-klar-over-at">
+        <div className="panel js-vaer-klar-over-at redaksjonelt-innhold oppsummering__vaerKlarOverAt">
             <Oppsummeringsvisning
                 soknad={{
                     ...soknad,

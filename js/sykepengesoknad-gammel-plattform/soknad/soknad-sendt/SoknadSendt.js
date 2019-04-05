@@ -34,7 +34,9 @@ class SoknadSendt extends Component {
                 </div>
                 <BekreftetKorrektInformasjon oppsummeringsoknad={sykepengesoknad.oppsummering} />
             </Utvidbar>
-            <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
+            <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt">
+                <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
+            </div>
             {(sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) &&
             <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} />}
         </div>);

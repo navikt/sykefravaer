@@ -33,7 +33,7 @@ class NySykmelding extends Component {
                                             scrollTo(this.skjema);
                                             this.skjema.focus();
                                         }}
-                                        className="knapp knapp--mini">Gå til utfylling</button>
+                                        className="knapp knapp--mini">Gå til utfyllingen</button>
                                 </p>
                             </div>
                         </Bjorn>

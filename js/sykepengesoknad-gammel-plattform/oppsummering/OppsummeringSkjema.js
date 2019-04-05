@@ -57,7 +57,9 @@ export class OppsummeringForm extends Component {
             <Utvidbar tittel="Oppsummering" erApen={false} className="blokk">
                 <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
             </Utvidbar>
-            <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
+            <div className="redaksjonelt-innhold vaerKlarOverAt">
+                <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
+            </div>
             <div className="bekreftet-container blokk">
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>

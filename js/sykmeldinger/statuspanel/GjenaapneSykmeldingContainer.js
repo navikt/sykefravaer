@@ -23,7 +23,7 @@ function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmeldingConnect
                 </Knapp>
             </div>
             <div aria-live="polite">
-                { gjenaapneFeilet && <p className="skjemaelement__feilmelding">Beklager, sykmeldingen kunne ikke gjenåpnes</p> }
+                { gjenaapneFeilet && <p className="skjemaelement__feilmelding">Beklager, det oppstod en feil!</p> }
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../../.
 import hentSoknadStatustekst from '../../utils/hentSoknadStatustekst';
 import hentSykepengetekst from '../../utils/hentSykepengetekst';
 import { soknadPt } from '../../../propTypes/index';
-import EndreSoknadContainer from '../endre-soknad/EndreSoknadContainer';
+import VerktoylinjeContainer from '../verktoylinje/Verktoylinje';
 
 const StatusOgSykepengeopplysninger = ({ soknad }) => {
     return (<Statusopplysninger>
@@ -26,7 +26,7 @@ const SykepengesoknadStatuspanel = ({ soknad }) => {
         <StatusOgSykepengeopplysninger soknad={soknad} />
         {
             soknad.status === sykepengesoknadstatuser.SENDT
-            && <EndreSoknadContainer soknad={soknad} />
+            && <VerktoylinjeContainer soknad={soknad} />
         }
     </Statuspanel>);
 };

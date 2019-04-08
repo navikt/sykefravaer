@@ -144,7 +144,7 @@ function mockSyfosoknadLokalt(server) {
             if (soknad.id === id) {
                 _soknad.status = 'SENDT';
                 _soknad.sporsmal = sporsmal;
-                _soknad.innsendtDato = new Date().toJSON()
+                _soknad.sendtTilArbeidsgiverDato = new Date().toJSON()
                     .substr(0, 10);
             }
 
@@ -174,7 +174,7 @@ function mockSyfosoknadLokalt(server) {
                 status: 'UTKAST_TIL_KORRIGERING',
                 opprettetDato: new Date().toJSON()
                     .substr(0, 10),
-                innsendtDato: null,
+                sendtTilArbeidsgiverDato: null,
                 korrigerer: soknadSomKorrigeres.id,
             });
             mockData[enums.SOKNADER].push(utkast);

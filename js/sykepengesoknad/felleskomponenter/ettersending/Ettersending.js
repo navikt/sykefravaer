@@ -10,6 +10,7 @@ import { soknadPt } from '../../../propTypes/index';
 import { EttersendDialogConnected } from './EttersendingDialog';
 import { ettersendSoknadTilNavNullstill } from '../../data/ettersending/ettersendingNav';
 import { ettersendSoknadTilArbeidsgiverNullstill } from '../../data/ettersending/ettersendingArbeidsgiver';
+import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';
 const sendtTilArbeidsgiverDato = 'sendtTilArbeidsgiverDato';
@@ -103,8 +104,9 @@ export class Ettersending extends Component {
 
     render() {
         const { sykepengesoknad, manglendeDato, ledetekstKeySuffix } = this.props;
-
-        if (sykepengesoknad[manglendeDato] && !this.state.visKvittering) {
+        console.log(sykepengesoknad);
+        if (sykepengesoknad.soknadstype !== ARBEIDSTAKERE
+            || (sykepengesoknad[manglendeDato] && !this.state.visKvittering)) {
             return null;
         }
         return (

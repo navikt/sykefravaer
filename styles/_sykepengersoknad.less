@@ -167,15 +167,13 @@
 
 .verktoylinje {
     padding-top: 2rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-row-gap: 2rem;
 }
 
 .verktoylinje--liten {
     padding-top: 1rem;
-}
-
-.verktoylinje__element {
-    margin-right: 2rem;
 }
 
 .verktoylinje:empty {

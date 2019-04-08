@@ -6,7 +6,7 @@ import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
 import Sporsmalsliste from '../../felleskomponenter/sporsmal/Sporsmalsliste';
 import KnapperadEttSporsmalPerSide from './KnapperadEttSporsmalPerSide';
 import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
-import { soknadPt } from '../../../propTypes';
+import { soknadPt } from '../../../propTypes/index';
 import { hentSporsmalForDenneSiden } from './ettSporsmalPerSideUtils';
 
 export const GenereltEttSporsmalPerSideSkjema = (props) => {

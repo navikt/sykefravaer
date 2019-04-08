@@ -4,10 +4,10 @@ import history from '../../../history';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
-import KnapperadEttSporsmalPerSide from './KnapperadEttSporsmalPerSide';
+import KnapperadEttSporsmalPerSide from '../ett-sporsmal-per-side/KnapperadEttSporsmalPerSide';
 import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
-import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
-import { hentSporsmalForDenneSiden } from './ettSporsmalPerSideUtils';
+import { GenereltEttSporsmalPerSideSkjema } from '../ett-sporsmal-per-side/GenereltEttSporsmalPerSideSkjema';
+import { hentSporsmalForDenneSiden } from '../ett-sporsmal-per-side/ettSporsmalPerSideUtils';
 
 export const ForDuBegynnerSkjema = (props) => {
     const { handleSubmit, soknad, actions, sidenummer } = props;

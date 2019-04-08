@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import Soknadskjema from './Soknadskjema';
-import { skjemasvar as skjemasvarPt, soknadMetaReducerPt, soknadPt } from '../../../propTypes';
+import { skjemasvar as skjemasvarPt, soknadMetaReducerPt, soknadPt } from '../../../propTypes/index';
 import AppSpinner from '../../../components/AppSpinner';
 import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../oppsummering/Oppsummering';
 import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
 import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
-import { ForDuBegynnerSkjema } from './ForDuBegynnerSkjema';
+import { ForDuBegynnerSkjema } from '../for-du-begynner/ForDuBegynnerSkjema';
 import { erSisteSide } from './ettSporsmalPerSideUtils';
 
 const hentSporsmalsvisning = (soknad, sidenummer) => {

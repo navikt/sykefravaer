@@ -45,7 +45,7 @@ export const RendreJaEllerNei = (props) => {
     const hjelpetekst = <SporsmalHjelpetekst tag={props.tag} />;
     const Sporsmal = <JaEllerNeiRadioknapper {...props} hjelpetekst={hjelpetekst} />;
     return props.undersporsmal.length === 0
-        ? Sporsmal
+        ? (<div className={classNames}>{Sporsmal}</div>)
         : (<SporsmalMedTillegg
             {...props}
             Sporsmal={Sporsmal}

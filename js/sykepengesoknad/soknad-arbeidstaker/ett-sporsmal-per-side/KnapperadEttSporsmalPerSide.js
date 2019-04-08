@@ -12,7 +12,7 @@ const KnapperadEttSporsmalPerSide = ({ soknad, sidenummer }) => {
         {
             visForrige
             && (<Link
-                to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/side/${sidenummer - 1}`}
+                to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${sidenummer - 1}`}
                 className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>)
         }
         <button type="submit" className="knapp knapp--hoved js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>

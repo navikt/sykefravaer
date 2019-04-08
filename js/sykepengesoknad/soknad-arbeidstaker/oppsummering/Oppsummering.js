@@ -80,7 +80,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
     };
 
     const forrigeUrl = sidenummer
-        ? `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/side/${sidenummer - 1}`
+        ? `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${sidenummer - 1}`
         : `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`;
 
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>

@@ -13,7 +13,7 @@ const StegindikatorEttSporsmalPerSide = ({ soknad, sidenummer }) => {
         <Stegindikator
             kompakt
             onChange={(stegindex) => {
-                history.replace(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/side/${stegindex + 1}`);
+                history.replace(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${stegindex + 1}`);
             }}>
             {steg.map((s, index) => {
                 const erPassert = (parseFloat(sidenummer) - 1) > index;

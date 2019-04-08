@@ -14,7 +14,7 @@ export const ForDuBegynnerSkjema = (props) => {
     const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer)[0];
     const onSubmit = () => {
         actions.lagreSoknad(soknad);
-        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/side/${sidenummer + 1}`);
+        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${sidenummer + 1}`);
     };
 
     return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>

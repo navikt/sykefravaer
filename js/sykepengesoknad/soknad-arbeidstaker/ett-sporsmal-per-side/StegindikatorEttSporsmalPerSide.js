@@ -16,8 +16,8 @@ const StegindikatorEttSporsmalPerSide = ({ soknad, sidenummer }) => {
                 history.replace(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${stegindex + 1}`);
             }}>
             {steg.map((s, index) => {
-                const erPassert = (parseFloat(sidenummer) - 1) > index;
-                const erAktiv = (parseFloat(sidenummer) - 1) === index;
+                const erPassert = (sidenummer - 1) > index;
+                const erAktiv = (sidenummer - 1) === index;
 
                 return (<Stegindikator.Steg
                     label={`Side ${sidenummer}`}

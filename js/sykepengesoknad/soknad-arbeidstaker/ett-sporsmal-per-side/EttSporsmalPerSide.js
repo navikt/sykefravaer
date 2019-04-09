@@ -9,7 +9,8 @@ import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-
 import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
 import { ForDuBegynnerSkjema } from '../for-du-begynner/ForDuBegynnerSkjema';
-import { erSisteSide } from './ettSporsmalPerSideUtils';
+import { erSisteSide, hentSporsmalForDenneSiden } from './ettSporsmalPerSideUtils';
+import { fjernIndexFraTag } from '../../felleskomponenter/sporsmal/fieldUtils';
 
 const hentSporsmalsvisning = (soknad, sidenummer) => {
     return erSisteSide(soknad, sidenummer)
@@ -27,6 +28,16 @@ const hentIntro = (erForsteSoknad, sidenummer) => {
             : <SoknadIntro />;
 };
 
+const hentTittel = (soknad, sidenummer) => {
+    const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer)[0];
+    const nokkel = sidenummer === 1
+        ? 'sykepengesoknad.for-du-begynner.tittel'
+        : erSisteSide(soknad, sidenummer)
+            ? 'sykepengesoknad.til-slutt.tittel'
+            : `sykepengesoknad.${fjernIndexFraTag(sporsmal.tag).toLowerCase()}.tittel`;
+    return getLedetekst(nokkel);
+};
+
 const EttSporsmalPerSide = (props) => {
     const { sykmelding, soknad, handleSubmit, actions, sidenummer, oppdaterer, skjemasvar, sendingFeilet, soknadMeta, sender } = props;
 
@@ -35,7 +46,7 @@ const EttSporsmalPerSide = (props) => {
 
     return (<Soknadskjema
         sidenummer={sidenummer}
-        tittel={sidenummer === 1 ? getLedetekst('sykepengesoknad.for-du-begynner.tittel') : null}
+        tittel={hentTittel(soknad, sidenummer)}
         sykmelding={sykmelding}
         intro={intro}
         soknad={soknad}>

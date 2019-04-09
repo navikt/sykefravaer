@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
+import { sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import Soknadskjema from './Soknadskjema';
 import { skjemasvar as skjemasvarPt, soknadMetaReducerPt, soknadPt } from '../../../propTypes/index';
 import AppSpinner from '../../../components/AppSpinner';
+import { erSisteSide, hentTittel } from './ettSporsmalPerSideUtils';
 import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../oppsummering/Oppsummering';
+import { ForDuBegynnerSkjema } from '../for-du-begynner/ForDuBegynnerSkjema';
+import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
 import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
 import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
-import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
-import { ForDuBegynnerSkjema } from '../for-du-begynner/ForDuBegynnerSkjema';
-import { erSisteSide } from './ettSporsmalPerSideUtils';
 
-const hentSporsmalsvisning = (soknad, sidenummer) => {
+export const hentSporsmalsvisning = (soknad, sidenummer) => {
     return erSisteSide(soknad, sidenummer)
         ? SykepengesoknadArbeidstakerOppsummeringSkjema
         : sidenummer === 1
@@ -19,7 +19,7 @@ const hentSporsmalsvisning = (soknad, sidenummer) => {
             : GenereltEttSporsmalPerSideSkjema;
 };
 
-const hentIntro = (erForsteSoknad, sidenummer) => {
+export const hentIntro = (erForsteSoknad, sidenummer) => {
     return sidenummer !== 1
         ? null
         : erForsteSoknad
@@ -35,7 +35,7 @@ const EttSporsmalPerSide = (props) => {
 
     return (<Soknadskjema
         sidenummer={sidenummer}
-        tittel={sidenummer === 1 ? getLedetekst('sykepengesoknad.for-du-begynner.tittel') : null}
+        tittel={hentTittel(soknad, sidenummer)}
         sykmelding={sykmelding}
         intro={intro}
         soknad={soknad}>

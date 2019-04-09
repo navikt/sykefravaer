@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { sykmelding as sykmeldingPt, SykmeldingUtdrag } from '@navikt/digisyfo-npm';
+import { sykmelding as sykmeldingPt, SykmeldingUtdrag, scrollTo } from '@navikt/digisyfo-npm';
 import Soknadtopp from '../../felleskomponenter/Soknadtopp';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import { settErOppdelt } from '../../utils/settErOppdelt';
@@ -9,27 +9,41 @@ import TidligSoknad from '../../../components/soknad-felles/TidligSoknad';
 import { soknadPt } from '../../prop-types/soknadProptype';
 import StegindikatorEttSporsmalPerSide from './StegindikatorEttSporsmalPerSide';
 
-const Soknadskjema = ({ children, sidenummer = null, tittel, soknad, sykmelding, intro = null }) => {
-    const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
+class Soknadskjema extends Component {
+    componentDidMount() {
+        if (this.props.scroll) {
+            scrollTo(this.stegindikator, 0);
+        }
+    }
 
-    return (<div>
-        <Soknadtopp
-            soknad={soknad}
-            sykmelding={sykmelding} />
-        <StegindikatorEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
-        {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
-        <TidligSoknad soknad={soknad} />
-        {intro}
-        {sykmelding
-        && <SykmeldingUtdrag
-            rootUrl="/sykefravaer"
-            sykmelding={sykmelding}
-            erApen={sidenummer === 1}
-            sykepengesoknad={{ _erOppdelt }} />}
-        {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
-        {children}
-    </div>);
-};
+    render() {
+        const { children, sidenummer = null, tittel, soknad, sykmelding, intro = null } = this.props;
+        const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
+
+        return (<div>
+            <Soknadtopp
+                soknad={soknad}
+                sykmelding={sykmelding} />
+            <div
+                ref={(stegindikator) => {
+                    this.stegindikator = stegindikator;
+                }}>
+                <StegindikatorEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
+            </div>
+            {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
+            <TidligSoknad soknad={soknad} />
+            {intro}
+            {sykmelding
+            && <SykmeldingUtdrag
+                rootUrl="/sykefravaer"
+                sykmelding={sykmelding}
+                erApen={sidenummer === 1}
+                sykepengesoknad={{ _erOppdelt }} />}
+            {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
+            {children}
+        </div>);
+    }
+}
 
 Soknadskjema.propTypes = {
     children: PropTypes.node,
@@ -38,6 +52,11 @@ Soknadskjema.propTypes = {
     sykmelding: sykmeldingPt,
     intro: PropTypes.node,
     sidenummer: PropTypes.number,
+    scroll: PropTypes.bool,
+};
+
+Soknadskjema.defaultProps = {
+    scroll: true,
 };
 
 export default Soknadskjema;

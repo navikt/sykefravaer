@@ -32,8 +32,10 @@ const EttSporsmalPerSide = (props) => {
 
     const Sporsmalsvisning = hentSporsmalsvisning(soknad, sidenummer);
     const intro = hentIntro(props.erForsteSoknad, sidenummer);
+    const scroll = sidenummer !== 1 && !erSisteSide(soknad, sidenummer);
 
     return (<Soknadskjema
+        scroll={scroll}
         sidenummer={sidenummer}
         tittel={hentTittel(soknad, sidenummer)}
         sykmelding={sykmelding}

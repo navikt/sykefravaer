@@ -85,7 +85,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
 
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         {skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} />}
-        <div className="panel blokk">
+        <div className="panel blokk oppsummering__vaerKlarOverAt">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
         <div className="bekreftet-container blokk">

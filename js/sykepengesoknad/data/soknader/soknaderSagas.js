@@ -30,7 +30,6 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SOKNAD_ENDRET,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
 import {
@@ -239,11 +238,6 @@ function* watchOpprettUtkastTilKorrigering() {
     yield takeEvery(OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT, opprettUtkastTilKorrigering);
 }
 
-// Midlertidig
-function* watchEndringSoknad() {
-    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
-}
-
 export default function* soknaderSagas() {
     yield all([
         fork(watchHentSoknader),
@@ -254,6 +248,5 @@ export default function* soknaderSagas() {
         fork(watchGjenapneSoknad),
         fork(watchOpprettUtkastTilKorrigering),
         fork(watchLagreSoknad),
-        fork(watchEndringSoknad),
     ]);
 }

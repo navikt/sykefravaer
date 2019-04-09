@@ -11,14 +11,14 @@ import SykmeldingUtdragForSelvstendige from '../soknad-selvstendig-frilanser/syk
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import TidligSoknad from '../../components/soknad-felles/TidligSoknad';
 
-const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmelding, intro = null }) => {
+const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding, intro = null, apentUtdrag = false }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
 
     return (<div>
         <Soknadtopp
             soknad={soknad}
             sykmelding={sykmelding} />
-        <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
+        { aktivtSteg && <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} /> }
         {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
         <TidligSoknad soknad={soknad} />
         {intro}
@@ -33,20 +33,21 @@ const SoknadskjemaSelvstendig = ({ children, aktivtSteg, tittel, soknad, sykmeld
         && <SykmeldingUtdrag
             rootUrl="/sykefravaer"
             sykmelding={sykmelding}
-            erApen={aktivtSteg === '1'}
+            erApen={aktivtSteg === '1' || apentUtdrag}
             sykepengesoknad={{ _erOppdelt }} />}
         {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
         {children}
     </div>);
 };
 
-SoknadskjemaSelvstendig.propTypes = {
+Soknadskjema.propTypes = {
     children: childEllerChildren,
     aktivtSteg: PropTypes.string,
     tittel: PropTypes.string,
     soknad: soknadPt,
     sykmelding: sykmeldingPt,
     intro: PropTypes.node,
+    apentUtdrag: PropTypes.bool,
 };
 
-export default SoknadskjemaSelvstendig;
+export default Soknadskjema;

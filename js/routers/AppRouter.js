@@ -27,10 +27,7 @@ const AppRouter = ({ history }) => {
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId/kvittering`} component={SykmeldingKvitteringContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`} component={SoknaderSide} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId`} component={SykepengesoknadContainer} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId/fravaer-og-friskmelding`} component={SykepengesoknadContainer} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId/aktiviteter-i-sykmeldingsperioden`} component={SykepengesoknadContainer} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId/oppsummering`} component={SykepengesoknadContainer} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId/kvittering`} component={SykepengesoknadContainer} />
+        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId/:steg`} component={SykepengesoknadContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} component={DialogmoteSide} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter`} component={DialogmoterContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`} component={MotebehovContainer} />

@@ -13,8 +13,8 @@ const soknadErSendt = (soknad) => {
 };
 
 const Soknadstatussjekker = (props) => {
-    const { soknad, skjemasvar, valider, Component } = props;
-    const feilmeldinger = valider ? valider(skjemasvar, { soknad }) : {};
+    const { soknad, skjemasvar, valider, Component, sidenummer } = props;
+    const feilmeldinger = valider ? valider(skjemasvar, { soknad, sidenummer }) : {};
 
     if (soknadErSendt(soknad)
         && (soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE || soknad.soknadstype === ARBEIDSTAKERE)) {
@@ -33,6 +33,7 @@ Soknadstatussjekker.propTypes = {
     skjemasvar: skjemasvarPt,
     valider: PropTypes.func,
     Component: PropTypes.func,
+    sidenummer: PropTypes.number,
 };
 
 export default Soknadstatussjekker;

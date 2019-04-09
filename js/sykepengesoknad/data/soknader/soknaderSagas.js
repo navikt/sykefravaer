@@ -155,7 +155,7 @@ export function* lagreSoknad(action) {
     const verdier = yield select(hentSkjemaVerdier, skjemanavn);
     const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, verdier);
     try {
-        // TODO: Endre URL for endepunkt i Syfosoknad
+        yield put(actions.oppdatererSoknad(action.soknad));
         const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
         yield put(actions.soknadOppdatert(oppdatertSoknad));
         yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
@@ -231,16 +231,17 @@ function* watchOpprettSoknadUtland() {
     yield takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
 }
 
-function* watchEndringSoknad() {
-    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
-}
-
 function* watchLagreSoknad() {
     yield takeEvery(LAGRE_SOKNAD_FORESPURT, lagreSoknad);
 }
 
 function* watchOpprettUtkastTilKorrigering() {
     yield takeEvery(OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT, opprettUtkastTilKorrigering);
+}
+
+// Midlertidig
+function* watchEndringSoknad() {
+    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
 }
 
 export default function* soknaderSagas() {
@@ -250,9 +251,9 @@ export default function* soknaderSagas() {
         fork(watchOppdaterSoknader),
         fork(watchAvbrytSoknad),
         fork(watchOpprettSoknadUtland),
-        fork(watchEndringSoknad),
         fork(watchGjenapneSoknad),
         fork(watchOpprettUtkastTilKorrigering),
         fork(watchLagreSoknad),
+        fork(watchEndringSoknad),
     ]);
 }

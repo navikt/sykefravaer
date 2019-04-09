@@ -12,6 +12,7 @@ import {
     HENT_SOKNADER_FEILET,
     HENTER_SOKNADER,
     OPPDATER_SOKNAD_FEILET,
+    OPPDATERER_SOKNAD,
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
     OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
@@ -193,17 +194,25 @@ export default (state = initiellState, action = {}) => {
             return {
                 ...state,
                 oppdaterFeilet: true,
+                oppdaterer: false,
             };
         }
         case SOKNAD_OPPDATERT: {
             return {
                 ...state,
+                oppdaterer: false,
                 oppdaterFeilet: false,
                 data: state.data.map((s) => {
                     return s.id === action.soknad.id
                         ? parseSoknad(action.soknad)
                         : s;
                 }),
+            };
+        }
+        case OPPDATERER_SOKNAD: {
+            return {
+                ...state,
+                oppdaterer: true,
             };
         }
         case BEKREFT_SYKMELDING_ANGRET: {

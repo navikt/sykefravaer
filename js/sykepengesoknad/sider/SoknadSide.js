@@ -111,6 +111,14 @@ export const mapStateToProps = (state, ownProps) => {
         || state.ledetekster.henter
         || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
+    const sti = ownProps.location.pathname;
+    const stegSomNummer = parseInt(ownProps.params.steg, 10);
+    const sidenummer = erNyArbeidstakersoknad
+        ? (
+            isNaN(stegSomNummer)
+                ? 1
+                : stegSomNummer
+        ) : undefined;
 
     return {
         soknadId,
@@ -120,9 +128,10 @@ export const mapStateToProps = (state, ownProps) => {
         erNyArbeidstakersoknad,
         henter,
         hentingFeilet,
-        sti: ownProps.location.pathname,
+        sti,
         soknad,
         sykepengesoknad,
+        sidenummer,
     };
 };
 

@@ -21,7 +21,7 @@ const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBR
 export const Controller = (props) => {
     const { sykepengesoknad, vedlikehold } = props;
 
-    if (vedlikehold.datospennMedTid) {
+    if (vedlikehold && vedlikehold.datospennMedTid) {
         return (<Feilmelding
             tittel={getLedetekst('under-vedlikehold.varsel.tittel')}
             melding={getLedetekst('under-vedlikehold.varsel.tekst', {

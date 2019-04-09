@@ -31,7 +31,7 @@ const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {
                     }),
                 }} />
         </Utvidbar>
-        <div className="panel js-vaer-klar-over-at blokk">
+        <div className="panel oppsummering__vaerKlarOverAt js-vaer-klar-over-at blokk">
             <Oppsummeringsvisning
                 soknad={{
                     ...soknad,

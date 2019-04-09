@@ -9,18 +9,20 @@ function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmeldingConnect
     return (
         <div>
             <div className="verktoylinje">
-                <Knapp
-                    type="standard"
-                    htmlType="button"
-                    mini
-                    autoDisableVedSpinner
-                    className="js-gjenaapne-sykmelding"
-                    spinner={gjenaapner}
-                    onClick={() => {
-                        return gjenaapneSykmeldingConnected(sykmeldingId);
-                    }}>
-                    {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
-                </Knapp>
+                <div className="verktoylinje__element">
+                    <Knapp
+                        type="standard"
+                        htmlType="button"
+                        mini
+                        autoDisableVedSpinner
+                        className="js-gjenaapne-sykmelding"
+                        spinner={gjenaapner}
+                        onClick={() => {
+                            return gjenaapneSykmeldingConnected(sykmeldingId);
+                        }}>
+                        {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
+                    </Knapp>
+                </div>
             </div>
             <div aria-live="polite">
                 { gjenaapneFeilet && <p className="skjemaelement__feilmelding">Beklager, det oppstod en feil!</p> }

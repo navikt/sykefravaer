@@ -10,16 +10,18 @@ export const Container = ({ sykmelding, angreBekreftSykmelding, angreBekreftSykm
     return vis ? (
         <div>
             <div className="verktoylinje">
-                <Knapp
-                    mini
-                    autoDisableVedSpinner
-                    spinner={angrerBekreftSykmelding}
-                    htmlType="button"
-                    type="standard"
-                    className="js-gjenaapne-sykmelding"
-                    onClick={() => { return angreBekreftSykmelding(sykmelding.id); }}>
-                    {getLedetekst('din-sykmelding.godkjennt.angre')}
-                </Knapp>
+                <div className="verktoylinje__element">
+                    <Knapp
+                        mini
+                        autoDisableVedSpinner
+                        spinner={angrerBekreftSykmelding}
+                        htmlType="button"
+                        type="standard"
+                        className="js-angre-bekreft-sykmelding"
+                        onClick={() => { return angreBekreftSykmelding(sykmelding.id); }}>
+                        {getLedetekst('din-sykmelding.godkjennt.angre')}
+                    </Knapp>
+                </div>
             </div>
             <div aria-live="polite">
                 {

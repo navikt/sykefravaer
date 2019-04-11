@@ -5,7 +5,8 @@ import Feilstripe from '../../../components/Feilstripe';
 
 const Stripe = ({ oppdaterFeilet }) => {
     return (<Feilstripe
-        type="info"
+        className="press"
+        type="advarsel"
         vis={oppdaterFeilet}>Oi, der skjedde det en feil. Prøv igjen!</Feilstripe>);
 };
 

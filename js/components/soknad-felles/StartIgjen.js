@@ -7,10 +7,9 @@ import logger from '../../logging';
 class StartIgjen extends Component {
     componentDidMount() {
         const { soknad } = this.props;
-        const sporsmalsliste = JSON.stringify(soknad.sporsmal);
+        const type = soknad.soknadstype ? soknad.soknadstype : 'ARBEIDSTAKER_GAMMEL_PLATTFORM';
         logger.error({
-            message: `Ugyldig tilstand i søknad av typen ${soknad.soknadstype} med ID: ${soknad.id}`,
-            sporsmalsliste,
+            message: `Ugyldig tilstand i søknad av typen ${type} med ID: ${soknad.id}`,
         });
     }
 

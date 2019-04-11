@@ -19,7 +19,7 @@ export const GenereltEttSporsmalPerSideSkjema = (props) => {
     return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
         <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
-        <OppdaterFeiletFeilstripe />
+        <OppdaterFeiletFeilstripe soknad={soknad} />
         <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

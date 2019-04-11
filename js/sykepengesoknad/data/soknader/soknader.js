@@ -11,7 +11,7 @@ import {
     GJENAPNER_SOKNAD,
     HENT_SOKNADER_FEILET,
     HENTER_SOKNADER,
-    OPPDATER_SOKNAD_FEILET,
+    OPPDATER_SOKNAD_FEILET, OPPDATER_SOKNAD_FEILET_OK,
     OPPDATERER_SOKNAD,
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
     OPPRETT_UTKAST_TIL_KORRIGERING_FEILET,
@@ -195,6 +195,12 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 oppdaterFeilet: true,
                 oppdaterer: false,
+            };
+        }
+        case OPPDATER_SOKNAD_FEILET_OK: {
+            return {
+                ...state,
+                oppdaterFeilet: false,
             };
         }
         case SOKNAD_OPPDATERT: {

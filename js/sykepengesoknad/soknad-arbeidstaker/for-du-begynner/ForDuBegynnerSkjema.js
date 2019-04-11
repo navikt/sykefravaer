@@ -22,7 +22,7 @@ export const ForDuBegynnerSkjema = (props) => {
             <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
             <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
         </div>
-        <OppdaterFeiletFeilstripe />
+        <OppdaterFeiletFeilstripe soknad={soknad} />
         <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

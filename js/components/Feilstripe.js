@@ -9,7 +9,7 @@ const Feilstripe = ({ vis, className }) => {
     return (<div aria-live="polite" role="alert">
         {
             vis
-                ? (<Alertstripe type="advarsel" className={className}>
+                ? (<Alertstripe type="feil" className={className}>
                     <p className="sist">{tekst}</p>
                 </Alertstripe>)
                 : null

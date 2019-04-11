@@ -34,6 +34,12 @@ const localS = {
 
 global.HTMLElement = window.HTMLElement;
 global.localStorage = localS;
+window.frontendlogger = {
+    error: () => {},
+    info: () => {},
+    warn: () => {},
+    event: () => {},
+};
 global.XMLHttpRequest = window.XMLHttpRequest;
 
 global.window = window;

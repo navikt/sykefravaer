@@ -30,6 +30,7 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
+    SOKNAD_AVBRUTT,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
 import {
@@ -98,8 +99,11 @@ export function* avbrytSoknad(action) {
             yield put(actions.avbryterSoknad());
             yield call(post, `${hentApiUrl()}/soknader/${action.soknad.id}/avbryt`);
             yield put(actions.soknadAvbrutt(action.soknad));
-            if (action.soknad.soknadstype === OPPHOLD_UTLAND || action.soknad.status === UTKAST_TIL_KORRIGERING) {
+            if (action.soknad.soknadstype === OPPHOLD_UTLAND ||
+                action.soknad.status === UTKAST_TIL_KORRIGERING) {
                 browserHistory.push(`${getContextRoot()}/soknader`);
+            } else if (action.soknad.soknadstype === ARBEIDSTAKERE) {
+                browserHistory.push(`${getContextRoot()}/soknader/${action.soknad.id}`);
             }
         } catch (e) {
             log(e);
@@ -211,6 +215,7 @@ function* watchOppdaterSoknader() {
         SOKNAD_SENDT,
         SOKNAD_ETTERSENDT_NAV,
         SOKNAD_ETTERSENDT_ARBG,
+        SOKNAD_AVBRUTT,
     ], oppdaterSoknader);
 }
 

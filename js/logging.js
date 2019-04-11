@@ -1,9 +1,9 @@
 const Logger = function () {
     this.error = (...args) => {
-        return window.frontendlogger.info(...args);
+        return window.frontendlogger.error(...args);
     };
     this.info = (...args) => {
-        return window.frontendlogger.error(...args);
+        return window.frontendlogger.info(...args);
     };
     this.warn = (...args) => {
         return window.frontendlogger.warn(...args);

@@ -42,6 +42,7 @@ import {
 import { PERIODER } from '../../enums/svartyper';
 import { getObjectValueByString } from '../../../utils';
 import { erGyldigPeriode } from '../../../utils/periodeUtils';
+import history from '../../../history';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknadId}/kvittering`);
@@ -162,6 +163,7 @@ export function* lagreSoknad(action) {
         const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
         yield put(actions.soknadOppdatert(oppdatertSoknad));
         yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
+        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${action.sidenummer + 1}`);
     } catch (e) {
         log(e);
         yield put(actions.oppdaterSoknadFeilet());

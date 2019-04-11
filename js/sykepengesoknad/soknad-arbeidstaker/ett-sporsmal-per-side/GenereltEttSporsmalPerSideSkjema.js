@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import history from '../../../history';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
 import Sporsmalsliste from '../../felleskomponenter/sporsmal/Sporsmalsliste';
@@ -8,18 +7,19 @@ import KnapperadEttSporsmalPerSide from './KnapperadEttSporsmalPerSide';
 import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 import { soknadPt } from '../../../propTypes/index';
 import { hentSporsmalForDenneSiden } from './ettSporsmalPerSideUtils';
+import OppdaterFeiletFeilstripe from './OppdaterFeiletFeilstripe';
 
 export const GenereltEttSporsmalPerSideSkjema = (props) => {
     const { handleSubmit, soknad, actions, sidenummer } = props;
     const sporsmalsliste = hentSporsmalForDenneSiden(soknad, sidenummer);
     const onSubmit = () => {
-        actions.lagreSoknad(soknad);
-        history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${sidenummer + 1}`);
+        actions.lagreSoknad(soknad, sidenummer);
     };
 
     return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
         <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
+        <OppdaterFeiletFeilstripe />
         <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

@@ -217,10 +217,11 @@ export const gjenapneSoknadFeilet = () => {
     };
 };
 
-export const lagreSoknad = (soknad) => {
+export const lagreSoknad = (soknad, sidenummer) => {
     return {
         type: LAGRE_SOKNAD_FORESPURT,
         soknad,
+        sidenummer,
     };
 };
 

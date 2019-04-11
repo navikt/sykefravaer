@@ -29,7 +29,7 @@ import {
     LAGRE_SOKNAD_FORESPURT,
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
-    SEND_SOKNAD_FORESPURT,
+    SEND_SOKNAD_FORESPURT, SOKNAD_AVBRUTT,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
 import {
@@ -211,6 +211,7 @@ function* watchOppdaterSoknader() {
         SOKNAD_SENDT,
         SOKNAD_ETTERSENDT_NAV,
         SOKNAD_ETTERSENDT_ARBG,
+        SOKNAD_AVBRUTT,
     ], oppdaterSoknader);
 }
 

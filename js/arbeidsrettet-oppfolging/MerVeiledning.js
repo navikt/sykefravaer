@@ -11,6 +11,7 @@ import { hentHendelser } from '../landingsside/data/hendelser/hendelserActions';
 import Feilstripe from '../components/Feilstripe';
 import hentArbeidsrettetOppfolgingBilde from './hentArbeidsrettetOppfolgingBilde';
 import AppSpinner from '../components/AppSpinner';
+import { pushToDataAOLayer } from './pushToAODataLayer';
 
 class MerVeiledning extends Component {
     constructor(props) {
@@ -35,12 +36,14 @@ class MerVeiledning extends Component {
     }
 
     handleNeiBtnClicked() {
+        pushToDataAOLayer('KLIKK_NEI');
         this.bekreftAlleMerVeiledninghendelser(() => {
             return history.push('/sykefravaer');
         });
     }
 
     handleJaBtnClicked() {
+        pushToDataAOLayer('KLIKK_JA');
         this.bekreftAlleMerVeiledninghendelser(() => {
             return window.location.assign('/arbeidssokerregistrering/start?fraSykefravaer=true');
         });

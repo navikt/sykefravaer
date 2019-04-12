@@ -1,7 +1,12 @@
 import { SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
 import { beregnVarighet } from '../utils/metrikkerUtils';
-import { TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER, TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG, TID_INNSENDING_SYKMELDING } from '../enums/metrikkerEnums';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../sykepengesoknad/enums/soknadtyper';
+import {
+    TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER,
+    TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER_NY_PLATTFORM,
+    TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG,
+    TID_INNSENDING_SYKMELDING,
+} from '../enums/metrikkerEnums';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../sykepengesoknad/enums/soknadtyper';
 import { SOKNAD_SENDT } from '../sykepengesoknad/data/soknader/soknaderActiontyper';
 
 export const hentEvents = (state, ressursId) => {
@@ -49,6 +54,18 @@ export const hentMetrikk = (state, action) => {
                 });
                 return {
                     type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_SELVSTENDIG/FRILANSER`),
+                    data: {
+                        tid,
+                    },
+                };
+            }
+            if (action.soknad.soknadstype === ARBEIDSTAKERE) {
+                const tid = beregnVarighet(state, {
+                    ressursId: action.soknad.id,
+                    type: TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER_NY_PLATTFORM,
+                });
+                return {
+                    type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_ARBEIDSTAKER_NY_PLATTFORM`),
                     data: {
                         tid,
                     },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
@@ -9,23 +9,31 @@ import { GenereltEttSporsmalPerSideSkjema } from '../ett-sporsmal-per-side/Gener
 import { hentSporsmalForDenneSiden } from '../ett-sporsmal-per-side/ettSporsmalPerSideUtils';
 import OppdaterFeiletFeilstripe from '../ett-sporsmal-per-side/OppdaterFeiletFeilstripe';
 
-export const ForDuBegynnerSkjema = (props) => {
-    const { handleSubmit, soknad, actions, sidenummer } = props;
-    const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer)[0];
-    const onSubmit = () => {
-        actions.lagreSoknad(soknad, sidenummer);
-    };
+export class ForDuBegynnerSkjema extends Component {
+    componentDidMount() {
+        if (this.props.soknad) {
+            this.props.actions.utfyllingStartet(this.props.soknad.id);
+        }
+    }
 
-    return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>
-        <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
-        <div className="panel redaksjonelt-innhold">
-            <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
-            <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
-        </div>
-        <OppdaterFeiletFeilstripe soknad={soknad} />
-        <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
-        <AvbrytSoknadContainer sykepengesoknad={soknad} />
-    </form>);
-};
+    render() {
+        const { handleSubmit, soknad, actions, sidenummer } = this.props;
+        const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer)[0];
+        const onSubmit = () => {
+            actions.lagreSoknad(soknad, sidenummer);
+        };
+
+        return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>
+            <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
+            <div className="panel redaksjonelt-innhold">
+                <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
+                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
+            </div>
+            <OppdaterFeiletFeilstripe soknad={soknad} />
+            <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
+            <AvbrytSoknadContainer sykepengesoknad={soknad} />
+        </form>);
+    }
+}
 
 ForDuBegynnerSkjema.propTypes = GenereltEttSporsmalPerSideSkjema.propTypes;

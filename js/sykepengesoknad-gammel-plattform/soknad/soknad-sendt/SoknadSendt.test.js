@@ -32,7 +32,7 @@ describe('SoknadSendt', () => {
         component = shallow(<SoknadSendt sykepengesoknad={sykepengesoknad} />);
     });
 
-    it('Skal inneholde en SykepengesoknadHeader', () => {
+    it('Skal inneholde en SykepengesoknadBanner', () => {
         expect(component.contains(<SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />)).to.equal(true);
     });
 

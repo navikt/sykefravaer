@@ -4,7 +4,7 @@ import IllustrertInnhold from '../../../components/IllustrertInnhold';
 
 const SelvstendigFrilanserSoknadIntro = () => {
     return (
-        <div className="panel blokk">
+        <div className="blokk">
             <IllustrertInnhold
                 ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/foerste-soknad.svg`}
                 ikonAlt="Din første digitale søknad om sykepenger"

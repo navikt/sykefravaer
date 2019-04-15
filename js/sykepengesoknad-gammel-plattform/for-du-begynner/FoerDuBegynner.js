@@ -26,10 +26,8 @@ export const FoerDuBegynnerSkjema = (props) => {
         history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
     };
     return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <div className="panel">
-            <div className="redaksjonelt-innhold">
-                <BekreftAnsvar sykepengesoknad={sykepengesoknad} />
-            </div>
+        <div className="redaksjonelt-innhold">
+            <BekreftAnsvar sykepengesoknad={sykepengesoknad} />
         </div>
         <div className="knapperad">
             <p className="blokk--s">
@@ -56,7 +54,6 @@ class FoerDuBegynner extends Component {
     render() {
         const { sykepengesoknad, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId } = this.props;
         return (<div>
-            <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
             {
                 detFinnesEldreSoknader
                 && sykepengesoknad.status !== UTKAST_TIL_KORRIGERING

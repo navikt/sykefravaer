@@ -9,7 +9,7 @@ import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../compo
 import Datovelger from '../../components/skjema/datovelger/Datovelger';
 import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
-import { KnapperadTilbake } from '../../components/skjema/Knapperad';
+import { KnapperadSoknad } from '../../components/skjema/Knapperad';
 import validate from './validerAktiviteterISykmeldingsperioden';
 import connectGjenopptattArbeidFulltUtDato from '../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
@@ -90,7 +90,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                                 Overskrift="h4" />
                         </JaEllerNei>
             }
-            <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
+            <KnapperadSoknad forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
     }

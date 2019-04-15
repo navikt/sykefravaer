@@ -60,17 +60,13 @@ export class OppsummeringForm extends Component {
             <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt">
                 <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
             </div>
-            <div className="bekreftet-container blokk">
+            <div className="blokk">
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>
             { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
             <Feilstripe vis={sendingFeilet} className="blokk" />
             { !visForskutteringssporsmal && <p className="js-mottaker sykepengerskjema__sendesTil">{mottaker(sendesTil, sykepengesoknad)}</p> }
-            <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-                <Link
-                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
-                    className="knapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
-                </Link>
+            <Knapperad variant="knapperad--medAvbryt">
                 <Hovedknapp
                     className="js-send"
                     spinner={sender}

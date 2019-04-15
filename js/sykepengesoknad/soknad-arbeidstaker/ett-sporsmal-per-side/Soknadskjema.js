@@ -21,9 +21,6 @@ class Soknadskjema extends Component {
         const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
 
         return (<div>
-            <Soknadtopp
-                soknad={soknad}
-                sykmelding={sykmelding} />
             <div
                 ref={(stegindikator) => {
                     this.stegindikator = stegindikator;

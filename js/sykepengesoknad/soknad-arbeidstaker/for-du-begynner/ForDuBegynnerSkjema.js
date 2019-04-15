@@ -25,7 +25,7 @@ export class ForDuBegynnerSkjema extends Component {
 
         return (<form className="soknadskjema" id="ett-sporsmal-per-side" onSubmit={handleSubmit(onSubmit)}>
             <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
-            <div className="panel redaksjonelt-innhold">
+            <div className="redaksjonelt-innhold">
                 <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
                 <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
             </div>

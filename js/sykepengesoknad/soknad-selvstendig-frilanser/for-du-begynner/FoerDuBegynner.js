@@ -37,12 +37,12 @@ export class FoerDuBegynnerSkjema extends Component {
         const sporsmal = hentSporsmalForDuBegynner(soknad);
 
         return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
-            <div className="panel redaksjonelt-innhold">
+            <div className="redaksjonelt-innhold">
                 <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
                 <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} soknad={soknad} />
             </div>
             <div className="knapperad blokk">
-                <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+                <button type="submit" className="knapp knapp--hoved js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
             </div>
             <AvbrytSoknadContainer sykepengesoknad={soknad} />
         </form>);

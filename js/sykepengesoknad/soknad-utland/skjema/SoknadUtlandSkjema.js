@@ -6,7 +6,6 @@ import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
-import Header from '../HeaderUtland';
 import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
 import { soknadPt } from '../../../propTypes/index';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
@@ -27,7 +26,7 @@ export const SoknadUtlandSkjema = ({ soknad, handleSubmit, sender, sendSoknad, a
     };
 
     const sporsmalsliste = sporsmallisteSkjema().map((sporsmal) => {
-        const className = cn({ hovedsporsmal: sporsmal.svartype !== JA_NEI, 'blokk--xs': true });
+        const className = 'hovedsporsmal';
         const ekstraProps = sporsmal.tag === PERIODEUTLAND
             ? { initiellDato: new Date() }
             : {};
@@ -62,7 +61,6 @@ export const SoknadUtlandSkjema = ({ soknad, handleSubmit, sender, sendSoknad, a
     };
 
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <Header />
         <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
         <div className={sendingFeilet || avbrytSoknadFeilet ? 'blokk' : null}>
             {sporsmalsliste}

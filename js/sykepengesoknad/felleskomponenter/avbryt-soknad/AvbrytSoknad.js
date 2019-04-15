@@ -38,7 +38,7 @@ class AvbrytSoknad extends Component {
 
     render() {
         return (<div>
-            <div className="avbrytDialog">
+            <div className="avbrytDialog blokk--l">
                 <p className="avbrytDialog__trigger">
                     <a
                         role="button"

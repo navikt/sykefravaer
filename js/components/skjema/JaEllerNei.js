@@ -41,7 +41,7 @@ export const RendreJaEllerNei = (props) => {
     return (<SporsmalMedTillegg
         {...props}
         Sporsmal={Sporsmal}
-        className="hovedsporsmal blokk--xs"
+        className="hovedsporsmal"
         visTillegg={(_props) => {
             const { input, children, verdiMedTilleggssporsmal = true } = _props;
             return !!((input.value === verdiMedTilleggssporsmal) && children);

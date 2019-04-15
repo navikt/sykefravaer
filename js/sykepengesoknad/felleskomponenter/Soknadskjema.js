@@ -15,9 +15,6 @@ const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding,
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
 
     return (<div>
-        <Soknadtopp
-            soknad={soknad}
-            sykmelding={sykmelding} />
         { aktivtSteg && <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} /> }
         {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
         <TidligSoknad soknad={soknad} />

@@ -4,7 +4,7 @@ import { sykmelding as sykmeldingPt, getLedetekst } from '@navikt/digisyfo-npm';
 import { soknadPt } from '../../../propTypes/index';
 import history from '../../../history';
 import Soknadskjema from '../../felleskomponenter/Soknadskjema';
-import { KnapperadTilbake } from '../../../components/skjema/Knapperad';
+import { KnapperadSoknad } from '../../../components/skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSoknadSkjemanavn } from '../../../enums/skjemanavn';
 import { ANDRE_INNTEKTSKILDER, UTDANNING, UTLAND } from '../../enums/tagtyper';
@@ -24,7 +24,7 @@ const AktiviteterISykmeldingsperiodenSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Sporsmalsliste sporsmalsliste={hentSporsmalForAktiviteterISykmeldingsperioden(soknad)} soknad={soknad} />
-        <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/fravaer-og-friskmelding`} />
+        <KnapperadSoknad forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/fravaer-og-friskmelding`} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);
 };

@@ -50,7 +50,7 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
         <div className="panel blokk redaksjonelt-innhold oppsummering__vaerKlarOverAt">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
-        <div className="bekreftet-container blokk">
+        <div className="blokk">
             <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
         </div>
         <Feilstripe vis={sendingFeilet} />

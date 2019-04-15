@@ -3,7 +3,7 @@ import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import IllustrertInnhold from '../../../components/IllustrertInnhold';
 
 const ForsteSelvstendigFrilanserSoknadIntro = () => {
-    return (<div className="panel blokk">
+    return (<div className="blokk">
         <div className="blokk--s">
             <IllustrertInnhold
                 ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/foerste-soknad.svg`}

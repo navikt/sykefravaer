@@ -5,11 +5,31 @@ import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import history from '../../../history';
 import { soknadPt } from '../../prop-types/soknadProptype';
 
+const Fremdriftsbar = ({ aktivtSteg, antallSteg }) => {
+    const style = {
+        width: `${((100 / antallSteg) * aktivtSteg)}%`,
+    };
+
+    return (<div className="fremdriftsbar">
+        <span className="fremdriftsbar__tekst" style={style}>{`${aktivtSteg} av ${antallSteg}`}</span>
+        <div className="fremdriftsbar__fullbredde" />
+        <div
+            className="fremdriftsbar__fremdrift"
+            style={style}
+        />
+    </div>);
+};
+
+Fremdriftsbar.propTypes = {
+    antallSteg: PropTypes.number,
+    aktivtSteg: PropTypes.number,
+};
+
 const StegindikatorEttSporsmalPerSide = ({ soknad, sidenummer }) => {
     const steg = soknad.sporsmal.filter((s) => {
         return s.tag !== VAER_KLAR_OVER_AT;
     });
-    return (<div className="blokk--l" role="progressbar" aria-valuenow={sidenummer} aria-valuemin="1" aria-valuemax={steg.length}>
+    return (<div className="stegindikator-med-fremdriftsbar blokk--l" role="progressbar" aria-valuenow={sidenummer} aria-valuemin="1" aria-valuemax={steg.length}>
         <Stegindikator
             kompakt
             onChange={(stegindex) => {
@@ -28,6 +48,7 @@ const StegindikatorEttSporsmalPerSide = ({ soknad, sidenummer }) => {
                 </Stegindikator.Steg>);
             })}
         </Stegindikator>
+        <Fremdriftsbar aktivtSteg={sidenummer} antallSteg={steg.length} />
     </div>);
 };
 

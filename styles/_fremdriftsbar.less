@@ -1,0 +1,42 @@
+.fremdriftsbar {
+  margin: 2rem;
+  max-width: 100%;
+  position: relative;
+}
+
+.fremdriftsbar__fullbredde {
+  background-color: @navGra20;
+  border-radius: 10px;
+  height: 6px;
+}
+
+.fremdriftsbar__fremdrift {
+  background-color: @navDypBla;
+  border-radius: 10px;
+  height: 6px;
+  margin-top: -6px;
+}
+
+.fremdriftsbar__tekst {
+  position: relative;
+  display: block;
+  text-align: right;
+  .typo-normal-mixin();
+}
+
+.stegindikator-med-fremdriftsbar {
+  .stegindikator {
+    display: none;
+  }
+}
+
+
+@media (min-width: 40rem) {
+  .stegindikator-med-fremdriftsbar .stegindikator {
+    display: block;
+  }
+
+  .fremdriftsbar {
+    display: none;
+  }
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
@@ -12,7 +11,7 @@ import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerSoknadUtland';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/skjema/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
-import { IKKE_RELEVANT, JA_NEI } from '../../enums/svartyper';
+import { IKKE_RELEVANT } from '../../enums/svartyper';
 import { PERIODEUTLAND } from '../../enums/tagtyper';
 import fraBackendsoknadTilInitiellSoknad from '../../utils/fraBackendsoknadTilInitiellSoknad';
 import Feilstripe from '../../../components/Feilstripe';

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
 import * as soknaderActions from '../data/soknader/soknaderActions';
 import * as sykepengesoknaderActions from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
 import * as dineSykmeldingerActions from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
@@ -60,7 +61,7 @@ export class Container extends Component {
             henter,
             sti,
             soknad,
-            sykepengesoknad
+            sykepengesoknad,
         } = this.props;
 
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
@@ -111,6 +112,8 @@ Container.propTypes = {
     sti: PropTypes.string,
     henter: PropTypes.bool,
     soknadId: PropTypes.string,
+    soknad: soknadPt,
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 export function mapDispatchToProps(dispatch) {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Link } from 'react-router';
 import { getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from '@navikt/digisyfo-npm';
 import reduxFormSetup from '../utils/reduxFormSetup';
 import SykepengerSkjema from '../SykepengerSkjema';

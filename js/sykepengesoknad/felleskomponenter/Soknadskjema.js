@@ -6,7 +6,6 @@ import { settErOppdelt } from '../utils/settErOppdelt';
 import Stegindikator, { frilanserOgSelvstendigUrler } from '../../components/soknad-felles/Stegindikator';
 import KorrigerVarsel from '../../components/soknad-felles/KorrigerVarsel';
 import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
-import Soknadtopp from './Soknadtopp';
 import SykmeldingUtdragForSelvstendige from '../soknad-selvstendig-frilanser/sykmelding-utdrag/SykmeldingUtdragForSelvstendige';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import TidligSoknad from '../../components/soknad-felles/TidligSoknad';

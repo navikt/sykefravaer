@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { sykmelding as sykmeldingPt, SykmeldingUtdrag, scrollTo } from '@navikt/digisyfo-npm';
-import Soknadtopp from '../../felleskomponenter/Soknadtopp';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import { settErOppdelt } from '../../utils/settErOppdelt';
 import KorrigerVarsel from '../../../components/soknad-felles/KorrigerVarsel';

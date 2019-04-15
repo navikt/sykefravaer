@@ -8,7 +8,6 @@ import reduxFormSetup from '../utils/reduxFormSetup';
 import BekreftAnsvar from './BekreftAnsvar';
 import validate from './validerFoerDuBegynner';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
-import SykepengesoknadHeader from '../../components/soknad-felles/SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../avbryt-soknad/AvbrytSoknadContainer';
 import SykmeldingUtdragContainer from '../SykmeldingUtdragContainer';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';

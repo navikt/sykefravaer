@@ -137,6 +137,7 @@ SideComponent.propTypes = {
     begrenset: PropTypes.bool,
     erInnlogget: PropTypes.bool,
     sjekkInnlogging: PropTypes.func,
+    hvit: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {

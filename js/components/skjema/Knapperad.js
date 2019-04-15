@@ -1,6 +1,5 @@
 import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 
 const Knapperad = ({ children, variant }) => {

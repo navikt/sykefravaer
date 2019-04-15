@@ -11,7 +11,13 @@ const Fremdriftsbar = ({ aktivtSteg, antallSteg }) => {
     };
 
     return (<div className="fremdriftsbar">
-        <span className="fremdriftsbar__tekst" style={style}>{`${aktivtSteg} av ${antallSteg}`}</span>
+        <span
+            className="fremdriftsbar__tekst"
+            style={style}
+            dangerouslySetInnerHTML={{
+                __html: `${aktivtSteg}&nbsp;av&nbsp;${antallSteg}`,
+            }}
+        />
         <div className="fremdriftsbar__fullbredde" />
         <div
             className="fremdriftsbar__fremdrift"

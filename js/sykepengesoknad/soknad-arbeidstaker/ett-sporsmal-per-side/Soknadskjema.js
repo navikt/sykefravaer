@@ -22,14 +22,16 @@ class Soknadskjema extends Component {
         const forrigeUrl = `/sykefravaer/soknader/${soknad.id}/${(sidenummer - 1)}`;
 
         return (<div>
-            <div
-                ref={(stegindikator) => {
-                    this.stegindikator = stegindikator;
-                }}>
-                <StegindikatorEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
-            </div>
             {
-                sidenummer !== 1 && (<p>
+                sidenummer > 1 && (<div
+                    ref={(stegindikator) => {
+                        this.stegindikator = stegindikator;
+                    }}>
+                    <StegindikatorEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
+                </div>)
+            }
+            {
+                sidenummer > 1 && (<p>
                     <Link to={forrigeUrl} className="tilbakelenke">
                         Tilbake
                     </Link>

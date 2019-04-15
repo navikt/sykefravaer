@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Field } from 'redux-form';
-import { Link } from 'react-router';
 import { setLedetekster, SoknadOppsummering, VaerKlarOverAt } from '@navikt/digisyfo-npm';
 import { OppsummeringForm } from './OppsummeringSkjema';
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
@@ -61,10 +60,6 @@ describe('Oppsummering', () => {
         it('Skal inneholde en SoknadOppsummering med riktige props', () => {
             expect(component.contains(<SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />)).to.equal(true);
             expect(component.contains(<VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />)).to.equal(true);
-        });
-
-        it('Skal inneholde en Link til forrige side', () => {
-            expect(component.find(Link).prop('to')).to.equal('/sykefravaer/soknader/olsen/aktiviteter-i-sykmeldingsperioden');
         });
 
         it('Skal ikke vise en Feilstripe hvis sendingFeilet', () => {

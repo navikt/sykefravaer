@@ -15,9 +15,9 @@ import beregnBrodsmulesti from '../utils/beregnBrodsmulesti';
 import SoknadSelvstendigNaeringsdrivende from '../soknad-selvstendig-frilanser/SoknadSelvstendigNaeringsdrivende';
 import SoknadController from '../../sykepengesoknad-gammel-plattform/soknad/SoknadController';
 import NySoknadArbeidstaker from '../soknad-arbeidstaker/NySoknadArbeidstaker';
-import Soknadtopp from '../felleskomponenter/Soknadtopp';
 import { NY, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import SykepengesoknadBanner from '../../components/soknad-felles/SykepengersoknadBanner';
+import { soknadPt } from '../prop-types/soknadProptype';
 
 const soknadSkalUtfylles = (soknad) => {
     return soknad && (soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING);
@@ -27,11 +27,16 @@ const SoknadWrapper = ({ soknad, children }) => {
     return soknadSkalUtfylles(soknad)
         ? (<React.Fragment>
             <SykepengesoknadBanner soknad={soknad} />
-            <div className="begrensning">
+            <div className="begrensning begrensning--soknad">
                 {children}
             </div>
         </React.Fragment>)
         : children;
+};
+
+SoknadWrapper.propTypes = {
+    soknad: soknadPt,
+    children: PropTypes.node,
 };
 
 export class Container extends Component {

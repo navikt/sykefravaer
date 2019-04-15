@@ -29,7 +29,7 @@ const StegindikatorEttSporsmalPerSide = ({ soknad, sidenummer }) => {
     const steg = soknad.sporsmal.filter((s) => {
         return s.tag !== VAER_KLAR_OVER_AT;
     });
-    return (<div className="stegindikator-med-fremdriftsbar blokk--l" role="progressbar" aria-valuenow={sidenummer} aria-valuemin="1" aria-valuemax={steg.length}>
+    return (<div className="stegindikator-med-fremdriftsbar" role="progressbar" aria-valuenow={sidenummer} aria-valuemin="1" aria-valuemax={steg.length}>
         <Stegindikator
             kompakt
             onChange={(stegindex) => {

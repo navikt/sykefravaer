@@ -1,6 +1,6 @@
 .fremdriftsbar {
-  margin: 2rem;
-  max-width: 100%;
+  margin: 1rem auto 0 auto;
+  max-width: ~'calc(100vw - 5rem)';
   position: relative;
 }
 
@@ -25,13 +25,15 @@
 }
 
 .stegindikator-med-fremdriftsbar {
+  margin-bottom: 1rem;
+
   .stegindikator {
     display: none;
   }
 }
 
 
-@media (min-width: 40rem) {
+@media (min-width: 34rem) {
   .stegindikator-med-fremdriftsbar .stegindikator {
     display: block;
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { sykmelding as sykmeldingPt, SykmeldingUtdrag, scrollTo } from '@navikt/digisyfo-npm';
 import Soknadtopp from '../../felleskomponenter/Soknadtopp';
@@ -19,6 +20,7 @@ class Soknadskjema extends Component {
     render() {
         const { children, sidenummer = null, tittel, soknad, sykmelding, intro = null } = this.props;
         const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
+        const forrigeUrl = `/sykefravaer/soknader/${soknad.id}/${(sidenummer - 1)}`;
 
         return (<div>
             <div
@@ -27,6 +29,13 @@ class Soknadskjema extends Component {
                 }}>
                 <StegindikatorEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
             </div>
+            {
+                sidenummer !== 1 && (<p>
+                    <Link to={forrigeUrl} className="tilbakelenke">
+                        Tilbake
+                    </Link>
+                </p>)
+            }
             {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
             <TidligSoknad soknad={soknad} />
             {intro}

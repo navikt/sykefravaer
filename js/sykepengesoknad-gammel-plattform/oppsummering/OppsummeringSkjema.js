@@ -56,7 +56,7 @@ export class OppsummeringForm extends Component {
             <Utvidbar tittel="Oppsummering" erApen={false} className="blokk">
                 <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
             </Utvidbar>
-            <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt">
+            <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt blokk">
                 <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
             </div>
             <div className="blokk">

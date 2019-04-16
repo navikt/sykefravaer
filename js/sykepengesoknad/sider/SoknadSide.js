@@ -19,15 +19,16 @@ import NySoknadArbeidstaker from '../soknad-arbeidstaker/NySoknadArbeidstaker';
 import { NY, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import SykepengesoknadBanner from '../../components/soknad-felles/SykepengersoknadBanner';
 import { soknadPt } from '../prop-types/soknadProptype';
+import { brodsmule } from '../../propTypes';
 
 const soknadSkalUtfylles = (soknad) => {
     return soknad && (soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING);
 };
 
-const SoknadWrapper = ({ soknad, children }) => {
+const SoknadWrapper = ({ soknad, children, brodsmuler }) => {
     return soknadSkalUtfylles(soknad)
         ? (<React.Fragment>
-            <SykepengesoknadBanner soknad={soknad} />
+            <SykepengesoknadBanner soknad={soknad} brodsmuler={brodsmuler} />
             <div className="begrensning begrensning--soknad">
                 {children}
             </div>
@@ -38,6 +39,7 @@ const SoknadWrapper = ({ soknad, children }) => {
 SoknadWrapper.propTypes = {
     soknad: soknadPt,
     children: PropTypes.node,
+    brodsmuler: PropTypes.arrayOf(brodsmule),
 };
 
 export class Container extends Component {
@@ -67,7 +69,7 @@ export class Container extends Component {
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
         const SoknadSide = soknadSkalUtfylles(soknad || sykepengesoknad) ? SideHvit : Side;
         return (<SoknadSide brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykmeldinger || henter}>
-            <SoknadWrapper soknad={erArbeidstakersoknad ? sykepengesoknad : soknad}>
+            <SoknadWrapper soknad={erArbeidstakersoknad ? sykepengesoknad : soknad} brodsmuler={brodsmuler}>
                 {(() => {
                     if (henter) {
                         return <div />;

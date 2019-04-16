@@ -8,8 +8,9 @@ import { soknadPt } from '../../sykepengesoknad/prop-types/soknadProptype';
 import { OPPHOLD_UTLAND } from '../../sykepengesoknad/enums/soknadtyper';
 import { settErOppdelt as settErOppdeltGammel } from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader';
 import { settErOppdelt as settErOppdeltNy } from '../../sykepengesoknad/utils/settErOppdelt';
+import Brodsmuler from '../Brodsmuler';
 
-const SykepengesoknadBanner = ({ soknad, sykmelding, henter }) => {
+const SykepengesoknadBanner = ({ soknad, sykmelding, henter, brodsmuler }) => {
     const settErOppdelt = soknad && soknad.soknadstype
         ? settErOppdeltNy
         : settErOppdeltGammel;
@@ -22,6 +23,9 @@ const SykepengesoknadBanner = ({ soknad, sykmelding, henter }) => {
         ? null
         : (<React.Fragment>
             <header className="soknadtopp">
+                <div className="begrensning begrensning--soknad soknadtopp__brodsmuler">
+                    <Brodsmuler brodsmuler={brodsmuler} />
+                </div>
                 <h1 className="soknadtopp__tittel">{tittel}</h1>
                 {
                     _erOppdelt
@@ -47,6 +51,7 @@ SykepengesoknadBanner.propTypes = {
     ]),
     sykmelding: sykmeldingPt,
     henter: PropTypes.bool,
+    brodsmuler: PropTypes.arrayOf(proptypes.brodsmule),
 };
 
 const mapStateToProps = (state, ownProps) => {

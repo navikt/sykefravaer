@@ -25,7 +25,9 @@ const FravaerOgFriskmeldingSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="fravaer-og-friskmeldnig-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={getSoknadSkjemanavn(soknad.id)} />
-        <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
+        <div className="hovedsporsmalliste">
+            <Sporsmalsliste sporsmalsliste={sporsmalsliste} soknad={soknad} />
+        </div>
         <KnapperadSoknad forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/`} />
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
     </form>);

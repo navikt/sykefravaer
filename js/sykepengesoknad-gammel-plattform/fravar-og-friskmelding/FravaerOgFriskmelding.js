@@ -34,9 +34,11 @@ export class FravaerOgFriskmeldingSkjema extends Component {
             tabIndex="-1"
             id="fravaer-og-friskmelding-skjema"
             onSubmit={handleSubmit(onSubmit)}>
-            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erEgenmeldingsperioderPreutfylt={erEgenmeldingsperioderPreutfylt} />
-            <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
-            <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
+            <div className="hovedsporsmalliste">
+                <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erEgenmeldingsperioderPreutfylt={erEgenmeldingsperioderPreutfylt} />
+                <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
+                <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
+            </div>
             <KnapperadSoknad forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);

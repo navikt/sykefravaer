@@ -9,7 +9,17 @@
 }
 
 .hovedsporsmal {
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.hovedsporsmalliste .hovedsporsmal {
+    border-bottom: 4px solid @navLysGra;
+
+    &:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
 }
 
 .hovedsporsmal--hvit {

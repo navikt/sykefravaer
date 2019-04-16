@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import { sykmelding as sykmeldingPt, SykmeldingUtdrag } from '@navikt/digisyfo-npm';
 import { childEllerChildren, soknadPt } from '../../propTypes/index';
 import { settErOppdelt } from '../utils/settErOppdelt';
@@ -10,11 +11,26 @@ import SykmeldingUtdragForSelvstendige from '../soknad-selvstendig-frilanser/syk
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import TidligSoknad from '../../components/soknad-felles/TidligSoknad';
 
+const Tilbakelenke = ({ aktivtSteg, soknadId }) => {
+    const to = `/sykefravaer/soknader/${soknadId}/${frilanserOgSelvstendigUrler[aktivtSteg - 2]}`;
+    return aktivtSteg && aktivtSteg > 1
+        ? <p>
+            <Link className="tilbakelenke" to={to}>Forrige</Link>
+        </p>
+        : null;
+};
+
+Tilbakelenke.propTypes = {
+    aktivtSteg: PropTypes.number,
+    soknadId: PropTypes.string,
+};
+
 const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding, intro = null, apentUtdrag = false }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
 
     return (<div>
         { aktivtSteg && <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} /> }
+        <Tilbakelenke aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
         {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
         <TidligSoknad soknad={soknad} />
         {intro}

@@ -6,19 +6,17 @@ import { settErOppdelt } from '../utils/settErOppdelt';
 import Stegindikator, { frilanserOgSelvstendigUrler } from '../../components/soknad-felles/Stegindikator';
 import KorrigerVarsel from '../../components/soknad-felles/KorrigerVarsel';
 import { UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
-import Soknadtopp from './Soknadtopp';
 import SykmeldingUtdragForSelvstendige from '../soknad-selvstendig-frilanser/sykmelding-utdrag/SykmeldingUtdragForSelvstendige';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import TidligSoknad from '../../components/soknad-felles/TidligSoknad';
+import { TilbakelenkeSoknad } from './TilbakelenkeSoknad';
 
 const Soknadskjema = ({ children, aktivtSteg = null, tittel, soknad, sykmelding, intro = null, apentUtdrag = false }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
 
     return (<div>
-        <Soknadtopp
-            soknad={soknad}
-            sykmelding={sykmelding} />
         { aktivtSteg && <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} /> }
+        <TilbakelenkeSoknad aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
         {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
         <TidligSoknad soknad={soknad} />
         {intro}

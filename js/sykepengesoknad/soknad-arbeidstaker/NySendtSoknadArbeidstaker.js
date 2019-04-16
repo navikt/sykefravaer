@@ -3,7 +3,7 @@ import { getLedetekst, sykmelding as sykmeldingPt, SykmeldingUtdrag, Utvidbar } 
 import { connect } from 'react-redux';
 import Oppsummeringsvisning from '../felleskomponenter/oppsummering/Oppsummeringsvisning';
 import { soknadPt } from '../../propTypes';
-import Soknadtopp from '../felleskomponenter/Soknadtopp';
+import SoknadHeader from '../felleskomponenter/SoknadHeader';
 import { finnSykmelding } from '../utils/soknadSetup';
 import { VAER_KLAR_OVER_AT } from '../enums/tagtyper';
 import SykepengesoknadStatuspanel from '../felleskomponenter/statuspanel/SykepengesoknadStatuspanel';
@@ -15,7 +15,7 @@ import { settErOppdelt } from '../utils/settErOppdelt';
 const NySendtSoknadArbeidstaker = ({ sykmelding, soknad }) => {
     const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
     return (<div>
-        <Soknadtopp soknad={soknad} />
+        <SoknadHeader soknad={soknad} />
         { soknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={soknad} /> }
         <SykepengesoknadStatuspanel soknad={soknad} />
         {sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} sykepengesoknad={{ _erOppdelt }} />}

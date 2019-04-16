@@ -1,18 +1,19 @@
 import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 
 const Knapperad = ({ children, variant }) => {
     return (<div className={`knapperad ${variant}`}>
         {
-            children
-                .filter((child) => {
-                    return child;
-                })
-                .map((child, index) => {
-                    return <div key={index} className="knapperad__element">{child}</div>;
-                })
+            children.filter
+                ? children
+                    .filter((child) => {
+                        return child;
+                    })
+                    .map((child, index) => {
+                        return <div key={index} className="knapperad__element">{child}</div>;
+                    })
+                : children
         }
     </div>);
 };
@@ -22,15 +23,10 @@ Knapperad.propTypes = {
     variant: PropTypes.string,
 };
 
-export const KnapperadTilbake = ({ forrigeUrl }) => {
-    return (<Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-        <Link to={forrigeUrl} className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+export const KnapperadSoknad = () => {
+    return (<Knapperad variant="knapperad--medAvbryt">
         <button type="submit" className="knapp knapp--hoved js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
     </Knapperad>);
-};
-
-KnapperadTilbake.propTypes = {
-    forrigeUrl: PropTypes.string,
 };
 
 export default Knapperad;

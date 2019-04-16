@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Stegindikator from '../components/soknad-felles/Stegindikator';
+import Stegindikator, { arbeidstakerUrler } from '../components/soknad-felles/Stegindikator';
 import { sykepengesoknad as sykepengesoknadPt, childEllerChildren } from '../propTypes/index';
-import SykepengesoknadHeader from '../components/soknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from './SykmeldingUtdragContainer';
+import { TilbakelenkeSoknad } from '../sykepengesoknad/felleskomponenter/TilbakelenkeSoknad';
 
 const SykepengerSkjema = ({ children, aktivtSteg, tittel, sykepengesoknad }) => {
     return (<div>
-        <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         <Stegindikator aktivtSteg={aktivtSteg} soknadId={sykepengesoknad.id} />
+        <TilbakelenkeSoknad aktivtSteg={aktivtSteg} soknadId={sykepengesoknad.id} urler={arbeidstakerUrler} />
         <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} />
         { tittel && <h2 className="soknad__stegtittel">{tittel}</h2> }
         {children}

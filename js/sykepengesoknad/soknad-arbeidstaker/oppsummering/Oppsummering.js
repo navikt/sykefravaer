@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { getLedetekst, sykmelding as sykmeldingPt, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -63,7 +62,6 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
         sender,
         sendingFeilet,
         sykmelding,
-        sidenummer,
     } = props;
 
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
@@ -79,16 +77,12 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
         actions.sendSoknad(populertSoknad);
     };
 
-    const forrigeUrl = sidenummer
-        ? `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${sidenummer - 1}`
-        : `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`;
-
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         {skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} />}
-        <div className="panel blokk oppsummering__vaerKlarOverAt">
+        <div className="blokk oppsummering__vaerKlarOverAt">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
-        <div className="bekreftet-container blokk">
+        <div className="blokk">
             <Sporsmal
                 sporsmal={bekreftOpplysningerSpm}
                 name={bekreftOpplysningerSpm.tag}
@@ -99,10 +93,7 @@ export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
             skjemasvar={skjemasvar}
             mottakernavn={sykmelding ? sykmelding.mottakendeArbeidsgiver.navn : null} />
         <Feilstripe vis={sendingFeilet} />
-        <Knapperad variant="knapperad--forrigeNeste blokk">
-            <Link
-                to={forrigeUrl}
-                className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+        <Knapperad variant="blokk">
             <ConnectedSendknapp className="js-send" sender={sender} soknad={soknad} />
         </Knapperad>
         <AvbrytSoknadContainer sykepengesoknad={soknad} />

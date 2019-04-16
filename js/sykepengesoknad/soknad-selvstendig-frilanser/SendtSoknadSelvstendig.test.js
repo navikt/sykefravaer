@@ -9,7 +9,7 @@ import { getSendtSoknadSelvstendig } from '../../../test/mock/mockSoknadSelvsten
 import { KORRIGERT } from '../enums/soknadstatuser';
 import SykmeldingUtdragForSelvstendige
     from './sykmelding-utdrag/SykmeldingUtdragForSelvstendige';
-import Soknadtopp from '../felleskomponenter/Soknadtopp';
+import SoknadHeader from '../felleskomponenter/SoknadHeader';
 import SykepengesoknadStatuspanel from '../felleskomponenter/statuspanel/SykepengesoknadStatuspanel';
 import mountWithStore from '../../../test/mountWithStore';
 
@@ -45,7 +45,7 @@ describe('SendtSoknadSelvstendigTest', () => {
             sykmelding={getSykmelding({ id: 'sykmelding1' })}
             soknad={getSendtSoknadSelvstendig({ id: 'soknad1', sykmeldingId: 'sykmelding1' })}
             params={{ sykepengesoknadId: 'soknad1' }} />, state);
-        expect(component.find(Soknadtopp)).to.be.length(1);
+        expect(component.find(SoknadHeader)).to.be.length(1);
     });
 
     it('Skal ha et statuspanel', () => {

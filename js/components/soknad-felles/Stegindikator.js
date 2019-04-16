@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Stegindikator from 'nav-frontend-stegindikator';
 import history from '../../history';
 
-const arbeidstakerUrler = ['', 'fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', ''];
+export const arbeidstakerUrler = ['', 'fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', ''];
 export const frilanserOgSelvstendigUrler = ['', 'fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', ''];
 
 const Wrapper = ({ aktivtSteg, soknadId, urler = arbeidstakerUrler }) => {

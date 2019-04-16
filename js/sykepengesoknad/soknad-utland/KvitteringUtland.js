@@ -1,12 +1,10 @@
 import React from 'react';
 import { Bjorn, getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
-import Header from './HeaderUtland';
 import { IllustrertInnholdGronnHake } from '../../components/IllustrertInnhold';
 
 const KvitteringUtland = () => {
     return (<div>
-        <Header />
         <div className="panel blokk">
             <IllustrertInnholdGronnHake>
                 <h2 className="illustrertInnhold__tittel panel__tittel">

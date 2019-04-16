@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
 import * as soknaderActions from '../data/soknader/soknaderActions';
 import * as sykepengesoknaderActions from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
 import * as dineSykmeldingerActions from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import Feilmelding from '../../components/Feilmelding';
+import SideHvit from '../../sider/SideHvit';
 import Side from '../../sider/Side';
 import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import SykepengesoknadUtlandSkjemaContainer from '../soknad-utland/skjema/SoknadUtlandSkjemaContainer';
@@ -14,6 +16,31 @@ import beregnBrodsmulesti from '../utils/beregnBrodsmulesti';
 import SoknadSelvstendigNaeringsdrivende from '../soknad-selvstendig-frilanser/SoknadSelvstendigNaeringsdrivende';
 import SoknadController from '../../sykepengesoknad-gammel-plattform/soknad/SoknadController';
 import NySoknadArbeidstaker from '../soknad-arbeidstaker/NySoknadArbeidstaker';
+import { NY, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
+import SykepengesoknadBanner from '../../components/soknad-felles/SykepengersoknadBanner';
+import { soknadPt } from '../prop-types/soknadProptype';
+import { brodsmule } from '../../propTypes';
+
+const soknadSkalUtfylles = (soknad) => {
+    return soknad && (soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING);
+};
+
+const SoknadWrapper = ({ soknad, children, brodsmuler }) => {
+    return soknadSkalUtfylles(soknad)
+        ? (<React.Fragment>
+            <SykepengesoknadBanner soknad={soknad} brodsmuler={brodsmuler} />
+            <div className="begrensning begrensning--soknad">
+                {children}
+            </div>
+        </React.Fragment>)
+        : children;
+};
+
+SoknadWrapper.propTypes = {
+    soknad: soknadPt,
+    children: PropTypes.node,
+    brodsmuler: PropTypes.arrayOf(brodsmule),
+};
 
 export class Container extends Component {
     componentDidMount() {
@@ -35,34 +62,39 @@ export class Container extends Component {
             skalHenteSykmeldinger,
             henter,
             sti,
+            soknad,
+            sykepengesoknad,
         } = this.props;
 
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
-        return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykmeldinger || henter}>
-            {(() => {
-                if (henter) {
-                    return <div />;
-                }
-                if (erArbeidstakersoknad) {
-                    return (<ArbeidstakerSoknadHotjarTrigger>
-                        <SoknadController {...this.props} />
-                    </ArbeidstakerSoknadHotjarTrigger>);
-                } else if (erSelvstendigNaeringsdrivendeSoknad) {
-                    return (<FrilanserSoknadHotjarTrigger>
-                        <SoknadSelvstendigNaeringsdrivende {...this.props} />
-                    </FrilanserSoknadHotjarTrigger>);
-                } else if (erSoknadOmUtenlandsopphold) {
-                    return (<SykepengerUtlandSoknadTrigger>
-                        <SykepengesoknadUtlandSkjemaContainer {...this.props} />
-                    </SykepengerUtlandSoknadTrigger>);
-                } else if (erNyArbeidstakersoknad) {
-                    return (<NyArbeidstakerSoknadHotjarTrigger>
-                        <NySoknadArbeidstaker {...this.props} />
-                    </NyArbeidstakerSoknadHotjarTrigger>);
-                }
-                return <Feilmelding />;
-            })()}
-        </Side>);
+        const SoknadSide = soknadSkalUtfylles(soknad || sykepengesoknad) ? SideHvit : Side;
+        return (<SoknadSide brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykmeldinger || henter}>
+            <SoknadWrapper soknad={erArbeidstakersoknad ? sykepengesoknad : soknad} brodsmuler={brodsmuler}>
+                {(() => {
+                    if (henter) {
+                        return <div />;
+                    }
+                    if (erArbeidstakersoknad) {
+                        return (<ArbeidstakerSoknadHotjarTrigger>
+                            <SoknadController {...this.props} />
+                        </ArbeidstakerSoknadHotjarTrigger>);
+                    } else if (erSelvstendigNaeringsdrivendeSoknad) {
+                        return (<FrilanserSoknadHotjarTrigger>
+                            <SoknadSelvstendigNaeringsdrivende {...this.props} />
+                        </FrilanserSoknadHotjarTrigger>);
+                    } else if (erSoknadOmUtenlandsopphold) {
+                        return (<SykepengerUtlandSoknadTrigger>
+                            <SykepengesoknadUtlandSkjemaContainer {...this.props} />
+                        </SykepengerUtlandSoknadTrigger>);
+                    } else if (erNyArbeidstakersoknad) {
+                        return (<NyArbeidstakerSoknadHotjarTrigger>
+                            <NySoknadArbeidstaker {...this.props} />
+                        </NyArbeidstakerSoknadHotjarTrigger>);
+                    }
+                    return <Feilmelding />;
+                })()}
+            </SoknadWrapper>
+        </SoknadSide>);
     }
 }
 
@@ -82,6 +114,8 @@ Container.propTypes = {
     sti: PropTypes.string,
     henter: PropTypes.bool,
     soknadId: PropTypes.string,
+    soknad: soknadPt,
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 export function mapDispatchToProps(dispatch) {

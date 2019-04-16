@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Link } from 'react-router';
 import { getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from '@navikt/digisyfo-npm';
 import reduxFormSetup from '../utils/reduxFormSetup';
 import SykepengerSkjema from '../SykepengerSkjema';
@@ -57,20 +56,16 @@ export class OppsummeringForm extends Component {
             <Utvidbar tittel="Oppsummering" erApen={false} className="blokk">
                 <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
             </Utvidbar>
-            <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt">
+            <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt blokk">
                 <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
             </div>
-            <div className="bekreftet-container blokk">
+            <div className="blokk">
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>
             { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
             <Feilstripe vis={sendingFeilet} className="blokk" />
             { !visForskutteringssporsmal && <p className="js-mottaker sykepengerskjema__sendesTil">{mottaker(sendesTil, sykepengesoknad)}</p> }
-            <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-                <Link
-                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
-                    className="knapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
-                </Link>
+            <Knapperad variant="knapperad--medAvbryt">
                 <Hovedknapp
                     className="js-send"
                     spinner={sender}

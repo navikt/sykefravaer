@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { sykmelding as sykmeldingPt, SykmeldingUtdrag, scrollTo } from '@navikt/digisyfo-npm';
-import Soknadtopp from '../../felleskomponenter/Soknadtopp';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/soknadstatuser';
 import { settErOppdelt } from '../../utils/settErOppdelt';
 import KorrigerVarsel from '../../../components/soknad-felles/KorrigerVarsel';
@@ -19,17 +19,24 @@ class Soknadskjema extends Component {
     render() {
         const { children, sidenummer = null, tittel, soknad, sykmelding, intro = null } = this.props;
         const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
+        const forrigeUrl = `/sykefravaer/soknader/${soknad.id}/${(sidenummer - 1)}`;
 
         return (<div>
-            <Soknadtopp
-                soknad={soknad}
-                sykmelding={sykmelding} />
-            <div
-                ref={(stegindikator) => {
-                    this.stegindikator = stegindikator;
-                }}>
-                <StegindikatorEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
-            </div>
+            {
+                sidenummer > 1 && (<div
+                    ref={(stegindikator) => {
+                        this.stegindikator = stegindikator;
+                    }}>
+                    <StegindikatorEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />
+                </div>)
+            }
+            {
+                sidenummer > 1 && (<p>
+                    <Link to={forrigeUrl} className="tilbakelenke">
+                        Tilbake
+                    </Link>
+                </p>)
+            }
             {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
             <TidligSoknad soknad={soknad} />
             {intro}

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, scrollTo, erSynligIViewport } from '@navikt/digisyfo-npm';
+import { erSynligIViewport, getHtmlLedetekst, getLedetekst, scrollTo } from '@navikt/digisyfo-npm';
 import Sidetopp from '../../components/Sidetopp';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import { getSendtTilSuffix } from '../utils/sykepengesoknadUtils';
+import { LenkeTilSoknader } from '../../sykepengesoknad/felleskomponenter/LenkeTilSoknader';
 
 class Kvittering extends Component {
     componentDidMount() {
@@ -30,9 +30,7 @@ class Kvittering extends Component {
                 </div>
             </div>
             <p className="ikke-print blokk navigasjonsstripe">
-                <Link to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`} className="tilbakelenke">
-                    {getLedetekst('sykepengesoknad.navigasjon.gaa-til')}
-                </Link>
+                <LenkeTilSoknader />
             </p>
         </div>);
     }

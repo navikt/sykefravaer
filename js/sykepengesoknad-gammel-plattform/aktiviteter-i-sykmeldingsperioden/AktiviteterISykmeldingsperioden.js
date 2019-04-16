@@ -9,7 +9,7 @@ import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../compo
 import Datovelger from '../../components/skjema/datovelger/Datovelger';
 import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
-import { KnapperadTilbake } from '../../components/skjema/Knapperad';
+import { KnapperadSoknad } from '../../components/skjema/Knapperad';
 import validate from './validerAktiviteterISykmeldingsperioden';
 import connectGjenopptattArbeidFulltUtDato from '../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
@@ -58,39 +58,40 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
             tabIndex="-1"
             id="aktiviteter-i-sykmeldingsperioden-skjema"
             onSubmit={handleSubmit(onSubmit)}>
-            <FieldArray
-                sykepengesoknad={sykepengesoknad}
-                component={Aktiviteter}
-                fields={_aktiviteter}
-                autofill={autofill}
-                untouch={untouch}
-                name="aktiviteter" />
-
-            <JaEllerNei
-                informasjon={<PreutfyltBjorn vis={erInntektskilderPreutfylt} />}
-                name="harAndreInntektskilder"
-                spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
-                    '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
-                })}>
-                <AndreInntektskilder />
-            </JaEllerNei>
-            {
-                _aktiviteter.length > 0
-                    &&
-                        <JaEllerNei
-                            informasjon={<PreutfyltBjorn vis={erUtdanningPreutfylt} />}
-                            name="utdanning.underUtdanningISykmeldingsperioden"
-                            spoersmal={finnUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
-                            <UtdanningStartDato senesteTom={_senesteTom} />
-                            <Field
-                                component={JaEllerNeiRadioknapper}
-                                name="utdanning.erUtdanningFulltidsstudium"
-                                parse={parseJaEllerNei}
-                                spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
-                                Overskrift="h4" />
-                        </JaEllerNei>
-            }
-            <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
+            <div className="hovedsporsmalliste">
+                <FieldArray
+                    sykepengesoknad={sykepengesoknad}
+                    component={Aktiviteter}
+                    fields={_aktiviteter}
+                    autofill={autofill}
+                    untouch={untouch}
+                    name="aktiviteter" />
+                <JaEllerNei
+                    informasjon={<PreutfyltBjorn vis={erInntektskilderPreutfylt} />}
+                    name="harAndreInntektskilder"
+                    spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
+                        '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
+                    })}>
+                    <AndreInntektskilder />
+                </JaEllerNei>
+                {
+                    _aktiviteter.length > 0
+                        &&
+                            <JaEllerNei
+                                informasjon={<PreutfyltBjorn vis={erUtdanningPreutfylt} />}
+                                name="utdanning.underUtdanningISykmeldingsperioden"
+                                spoersmal={finnUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
+                                <UtdanningStartDato senesteTom={_senesteTom} />
+                                <Field
+                                    component={JaEllerNeiRadioknapper}
+                                    name="utdanning.erUtdanningFulltidsstudium"
+                                    parse={parseJaEllerNei}
+                                    spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
+                                    Overskrift="h4" />
+                            </JaEllerNei>
+                }
+            </div>
+            <KnapperadSoknad forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
     }

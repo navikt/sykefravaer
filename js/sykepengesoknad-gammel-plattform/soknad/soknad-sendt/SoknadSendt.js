@@ -34,7 +34,7 @@ class SoknadSendt extends Component {
                 </div>
                 <BekreftetKorrektInformasjon oppsummeringsoknad={sykepengesoknad.oppsummering} />
             </Utvidbar>
-            <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt">
+            <div className="redaksjonelt-innhold oppsummering__vaerKlarOverAt panel blokk">
                 <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
             </div>
             {(sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) &&

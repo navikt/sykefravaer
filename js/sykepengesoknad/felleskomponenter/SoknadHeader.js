@@ -4,14 +4,14 @@ import { soknadPt } from '../../propTypes/index';
 import { settErOppdelt } from '../utils/settErOppdelt';
 import SykepengesoknadHeader from '../../components/soknad-felles/SykepengesoknadHeader';
 
-const Soknadtopp = ({ soknad, sykmelding }) => {
+const SoknadHeader = ({ soknad, sykmelding }) => {
     const soknadParameter = settErOppdelt(soknad, sykmelding);
     return <SykepengesoknadHeader sykepengesoknad={soknadParameter} />;
 };
 
-Soknadtopp.propTypes = {
+SoknadHeader.propTypes = {
     soknad: soknadPt,
     sykmelding: sykmeldingPt,
 };
 
-export default Soknadtopp;
+export default SoknadHeader;

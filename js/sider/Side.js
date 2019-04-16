@@ -43,6 +43,12 @@ export const getClassNames = (laster, erInnlogget) => {
     });
 };
 
+const Hvitstyle = () => {
+    return (<style dangerouslySetInnerHTML={{ __html:
+            'body { background-color: #fff }',
+    }} />);
+};
+
 const Plakat = () => {
     return (<div className="panel press">
         <div className="hode hode--advarsel">
@@ -85,14 +91,17 @@ export class SideComponent extends Component {
     }
 
     render() {
-        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget } = this.props;
-        const sideClassNames = getClassNames(laster, erInnlogget);
+        const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget, hvit } = this.props;
+        const sideClassNames = cn(getClassNames(laster, erInnlogget));
         const innholdClassNames = cn('side__innhold', {
             'side__innhold--begrenset js-begrensning': (begrenset || !erInnlogget || !toggleHeleAppen()),
         });
         setAppClass(laster, erInnlogget);
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
             <div className={sideClassNames} aria-busy={laster}>
+                {
+                    hvit && <Hvitstyle />
+                }
                 <TimeoutBox />
                 {
                     this.state.visSpinnerIDom && (<div className="side__spinner">
@@ -128,6 +137,7 @@ SideComponent.propTypes = {
     begrenset: PropTypes.bool,
     erInnlogget: PropTypes.bool,
     sjekkInnlogging: PropTypes.func,
+    hvit: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {

@@ -7,7 +7,7 @@ import reduxFormSetup from '../utils/reduxFormSetup';
 import Egenmeldingsdager from './Egenmeldingsdager';
 import GjenopptattArbeidFulltUt from './GjenopptattArbeidFulltUt';
 import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandsopphold';
-import { KnapperadTilbake } from '../../components/skjema/Knapperad';
+import { KnapperadSoknad } from '../../components/skjema/Knapperad';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import AvbrytSoknadContainer from '../avbryt-soknad/AvbrytSoknadContainer';
@@ -34,10 +34,12 @@ export class FravaerOgFriskmeldingSkjema extends Component {
             tabIndex="-1"
             id="fravaer-og-friskmelding-skjema"
             onSubmit={handleSubmit(onSubmit)}>
-            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erEgenmeldingsperioderPreutfylt={erEgenmeldingsperioderPreutfylt} />
-            <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
-            <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
-            <KnapperadTilbake forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/`} />
+            <div className="hovedsporsmalliste">
+                <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erEgenmeldingsperioderPreutfylt={erEgenmeldingsperioderPreutfylt} />
+                <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
+                <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
+            </div>
+            <KnapperadSoknad forrigeUrl={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${sykepengesoknad.id}/`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
     }

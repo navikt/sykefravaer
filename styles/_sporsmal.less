@@ -1,4 +1,4 @@
-.hovedsporsmal, .presisering, .pekeboble {
+.presisering, .pekeboble {
     padding: 1rem;
     background-color: @white;
     position: relative;
@@ -8,8 +8,38 @@
     }
 }
 
+.hovedsporsmal {
+    margin-bottom: 3rem;
+}
+
+.hovedsporsmalliste > .hovedsporsmal {
+    border-bottom: 4px solid @navLysGra;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    &:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+}
+
+.hovedsporsmal--hvit {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: @white;
+
+    @media(min-width: @skjermMini) {
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hovedsporsmal__tilleggssporsmal {
+        padding-top: 2rem;
+    }
+}
+
 .hovedsporsmal__tilleggssporsmal {
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 
 .tilleggssporsmal {
@@ -51,7 +81,7 @@
     }
 }
 
-.presisering, .pekeboble {
+.presisering {
     margin-top: 2rem;
 
     &:after {
@@ -123,6 +153,14 @@
         top: 0;
         transform: translate(-50%, -50%) rotate(45deg) skew(5deg, 5deg);
     }
+}
+
+.pekeboble, .pekeboble:after {
+  background-color: @grayBackground;
+}
+
+.pekeboble {
+  margin-top: 2rem;
 }
 
 #cb-checkbox-utenlandsopphold .ekstrasporsmal, .ekstrasporsmal--sist {

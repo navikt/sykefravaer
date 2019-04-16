@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SykmeldingUtdragForSelvstendige from './sykmelding-utdrag/SykmeldingUtdragForSelvstendige';
 import Oppsummeringsvisning from '../felleskomponenter/oppsummering/Oppsummeringsvisning';
 import { soknadPt } from '../../propTypes/index';
-import Soknadtopp from '../felleskomponenter/Soknadtopp';
+import SoknadHeader from '../felleskomponenter/SoknadHeader';
 import { finnSykmelding } from '../utils/soknadSetup';
 import { VAER_KLAR_OVER_AT } from '../enums/tagtyper';
 import RelaterteSoknaderContainer from '../felleskomponenter/relaterte-soknader/RelaterteSoknaderContainer';
@@ -13,7 +13,7 @@ import SykepengesoknadStatuspanel from '../felleskomponenter/statuspanel/Sykepen
 
 const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
     return (<div>
-        <Soknadtopp soknad={soknad} />
+        <SoknadHeader soknad={soknad} />
         <SykepengesoknadStatuspanel soknad={soknad} />
         {sykmelding && <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} />}
         <Utvidbar

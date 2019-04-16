@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, sykmelding as sykmeldingPt, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 import { soknadPt } from '../../propTypes/index';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../../components/Statuspanel';
-import Soknadtopp from '../felleskomponenter/Soknadtopp';
+import SoknadHeader from '../felleskomponenter/SoknadHeader';
 import SykmeldingUtdragForSelvstendige from './sykmelding-utdrag/SykmeldingUtdragForSelvstendige';
 import GjenapneSoknad from '../felleskomponenter/gjenapne-soknad/GjenapneSoknadContainer';
 
@@ -29,7 +29,7 @@ AvbruttSoknadSelvstendigStatuspanel.propTypes = {
 
 const AvbruttSoknadSelvstendig = ({ soknad, sykmelding }) => {
     return (<div>
-        <Soknadtopp soknad={soknad} />
+        <SoknadHeader soknad={soknad} />
         <AvbruttSoknadSelvstendigStatuspanel soknad={soknad} />
         <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} erApen />
     </div>);

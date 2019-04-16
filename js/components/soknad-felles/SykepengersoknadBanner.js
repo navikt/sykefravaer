@@ -25,7 +25,7 @@ const SykepengesoknadBanner = ({ soknad, sykmelding, henter }) => {
                 <h1 className="soknadtopp__tittel">{tittel}</h1>
                 {
                     _erOppdelt
-                    && (<div className="medHjelpetekst sidetopp__meta begrensning">
+                    && (<div className="soknadtopp__meta begrensning begrensning--soknad">
                         <p>
                             {
                                 getLedetekst('sykepengesoknad.sidetittel.periode-2', {

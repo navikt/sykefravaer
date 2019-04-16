@@ -7,7 +7,7 @@ export const TilbakelenkeSoknad = ({ aktivtSteg, soknadId, urler = frilanserOgSe
     const to = `/sykefravaer/soknader/${soknadId}/${urler[aktivtSteg - 2]}`;
     return aktivtSteg && aktivtSteg > 1
         ? <p>
-            <Link className="tilbakelenke" to={to}>Forrige</Link>
+            <Link className="tilbakelenke" to={to}>Tilbake</Link>
         </p>
         : null;
 };

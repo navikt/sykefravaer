@@ -23,6 +23,7 @@ export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {
 
     return (<JaEllerNei
         name="harAnnetFravaer"
+        className="hovedsporsmal--hvit"
         spoersmal={getLedetekst('din-sykmelding.egenmeldingsperioder.janei.sporsmal', ledetekstparams)}
         hjelpetekst={hjelpetekst}>
         <Periodevelger

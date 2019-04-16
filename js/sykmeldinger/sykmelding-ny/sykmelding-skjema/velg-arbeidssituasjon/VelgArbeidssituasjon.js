@@ -89,7 +89,7 @@ export const Velg = (props) => {
             : null;
     const Sporsmal = <RendreVelgArbeidssituasjon {...props} />;
     return (<SporsmalMedTillegg
-        className="hovedsporsmal blokk--s"
+        className="hovedsporsmal hovedsporsmal--hvit blokk--s"
         {...props}
         Sporsmal={Sporsmal}
         visTillegg={visTillegg}>

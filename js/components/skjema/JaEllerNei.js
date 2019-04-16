@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import { Field } from 'redux-form';
 import Radioknapper from './Radioknapper';
 import SporsmalMedTillegg from './SporsmalMedTillegg';
@@ -38,10 +39,11 @@ JaEllerNeiRadioknapper.propTypes = {
 
 export const RendreJaEllerNei = (props) => {
     const Sporsmal = <JaEllerNeiRadioknapper {...props} />;
+    const className = cn('hovedsporsmal', props.className);
     return (<SporsmalMedTillegg
         {...props}
         Sporsmal={Sporsmal}
-        className="hovedsporsmal"
+        className={className}
         visTillegg={(_props) => {
             const { input, children, verdiMedTilleggssporsmal = true } = _props;
             return !!((input.value === verdiMedTilleggssporsmal) && children);
@@ -52,6 +54,7 @@ export const RendreJaEllerNei = (props) => {
 
 RendreJaEllerNei.propTypes = {
     children: childEllerChildren,
+    className: PropTypes.string,
 };
 
 export const parseJaEllerNei = (value) => {

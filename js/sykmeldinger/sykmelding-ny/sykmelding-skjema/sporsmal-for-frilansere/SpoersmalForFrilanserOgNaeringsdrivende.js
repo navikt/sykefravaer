@@ -40,7 +40,7 @@ Egenmeldingssporsmal.propTypes = {
 export const Forsikringssporsmal = () => {
     const hjelpetekst = (<Hjelpetekst
         id="forsikring-hjelpetekst">{getLedetekst('din-sykmelding.forsikring.hjelpetekst.tekst')}</Hjelpetekst>);
-    return (<div className="hovedsporsmal blokk--xs">
+    return (<div className="hovedsporsmal hovedsporsmal--hvit blokk--xs">
         <Field
             name="harForsikring"
             hjelpetekst={hjelpetekst}

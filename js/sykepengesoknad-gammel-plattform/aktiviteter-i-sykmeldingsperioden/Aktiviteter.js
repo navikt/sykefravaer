@@ -45,7 +45,7 @@ Aktivitet.propTypes = {
 };
 
 const Aktiviteter = ({ fields, sykepengesoknad, autofill, untouch }) => {
-    return (<div>
+    return (<React.Fragment>
         {
             fields.map((field, index) => {
                 return (<Aktivitet
@@ -57,7 +57,7 @@ const Aktiviteter = ({ fields, sykepengesoknad, autofill, untouch }) => {
                     untouch={untouch} />);
             })
         }
-    </div>);
+    </React.Fragment>);
 };
 
 Aktiviteter.propTypes = {

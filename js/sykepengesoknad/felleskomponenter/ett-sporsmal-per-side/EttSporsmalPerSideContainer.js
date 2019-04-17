@@ -1,6 +1,6 @@
 import React from 'react';
 import soknadSetup from '../../utils/soknadSetup';
-import Soknadstatussjekker from '../../felleskomponenter/Soknadstatussjekker';
+import Soknadstatussjekker from '../Soknadstatussjekker';
 import EttSporsmalPerSide from './EttSporsmalPerSide';
 import { validerDenneSiden, validerForegaendeSider } from './validerEttSporsmalPerSide';
 

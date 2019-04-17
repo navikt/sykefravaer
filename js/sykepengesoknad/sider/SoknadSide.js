@@ -13,7 +13,7 @@ import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../en
 import SykepengesoknadUtlandSkjemaContainer from '../soknad-utland/skjema/SoknadUtlandSkjemaContainer';
 import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger, NyArbeidstakerSoknadHotjarTrigger, SykepengerUtlandSoknadTrigger } from '../../components/HotjarTrigger';
 import beregnBrodsmulesti from '../utils/beregnBrodsmulesti';
-import SoknadSelvstendigNaeringsdrivende from '../soknad-selvstendig-frilanser/SoknadSelvstendigNaeringsdrivende';
+import SoknadSelvstendigNaeringsdrivendeSkjema from '../soknad-selvstendig-frilanser/SoknadSelvstendigNaeringsdrivende';
 import SoknadController from '../../sykepengesoknad-gammel-plattform/soknad/SoknadController';
 import NySoknadArbeidstaker from '../soknad-arbeidstaker/NySoknadArbeidstaker';
 import { NY, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
@@ -80,7 +80,7 @@ export class Container extends Component {
                         </ArbeidstakerSoknadHotjarTrigger>);
                     } else if (erSelvstendigNaeringsdrivendeSoknad) {
                         return (<FrilanserSoknadHotjarTrigger>
-                            <SoknadSelvstendigNaeringsdrivende {...this.props} />
+                            <SoknadSelvstendigNaeringsdrivendeSkjema {...this.props} />
                         </FrilanserSoknadHotjarTrigger>);
                     } else if (erSoknadOmUtenlandsopphold) {
                         return (<SykepengerUtlandSoknadTrigger>
@@ -147,7 +147,7 @@ export const mapStateToProps = (state, ownProps) => {
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
     const sti = ownProps.location.pathname;
     const stegSomNummer = parseInt(ownProps.params.steg, 10);
-    const sidenummer = erNyArbeidstakersoknad
+    const sidenummer = erNyArbeidstakersoknad || erSelvstendigNaeringsdrivendeSoknad
         ? (
             isNaN(stegSomNummer)
                 ? 1

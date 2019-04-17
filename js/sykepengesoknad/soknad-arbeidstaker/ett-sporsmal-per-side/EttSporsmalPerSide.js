@@ -10,10 +10,16 @@ import { ForDuBegynnerSkjema } from '../for-du-begynner/ForDuBegynnerSkjema';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
 import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
 import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
+import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
+import { SykepengesoknadSelvstendigOppsummeringSkjema } from '../../soknad-selvstendig-frilanser/oppsummering/SykepengesoknadSelvstendigOppsummeringSkjema';
 
 export const hentSporsmalsvisning = (soknad, sidenummer) => {
     return erSisteSide(soknad, sidenummer)
-        ? SykepengesoknadArbeidstakerOppsummeringSkjema
+        ? (
+            soknad.soknadstype === ARBEIDSTAKERE
+                ? SykepengesoknadArbeidstakerOppsummeringSkjema
+                : SykepengesoknadSelvstendigOppsummeringSkjema
+        )
         : sidenummer === 1
             ? ForDuBegynnerSkjema
             : GenereltEttSporsmalPerSideSkjema;

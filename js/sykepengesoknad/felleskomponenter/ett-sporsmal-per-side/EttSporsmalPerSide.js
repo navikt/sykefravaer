@@ -5,12 +5,12 @@ import Soknadskjema from './Soknadskjema';
 import { skjemasvar as skjemasvarPt, soknadMetaReducerPt, soknadPt } from '../../../propTypes/index';
 import AppSpinner from '../../../components/AppSpinner';
 import { erSisteSide, hentTittel } from './ettSporsmalPerSideUtils';
-import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../oppsummering/Oppsummering';
-import { ForDuBegynnerSkjema } from '../for-du-begynner/ForDuBegynnerSkjema';
+import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../../soknad-arbeidstaker/oppsummering/Oppsummering';
+import { ForDuBegynnerSkjema } from '../../soknad-arbeidstaker/for-du-begynner/ForDuBegynnerSkjema';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
 import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 import { SykepengesoknadSelvstendigOppsummeringSkjema } from '../../soknad-selvstendig-frilanser/oppsummering/SykepengesoknadSelvstendigOppsummeringSkjema';
-import SoknadIntro from '../../felleskomponenter/soknad-intro/SoknadIntro';
+import SoknadIntro from '../soknad-intro/SoknadIntro';
 
 export const hentSporsmalsvisning = (soknad, sidenummer) => {
     return erSisteSide(soknad, sidenummer)

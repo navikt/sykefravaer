@@ -7,7 +7,7 @@ import KorrigerVarsel from '../../../components/soknad-felles/KorrigerVarsel';
 import TidligSoknad from '../../../components/soknad-felles/TidligSoknad';
 import { soknadPt } from '../../prop-types/soknadProptype';
 import StegindikatorEttSporsmalPerSide from './StegindikatorEttSporsmalPerSide';
-import SykmeldingUtdrag from '../../felleskomponenter/sykmelding-utdrag/SykmeldingUtdrag';
+import SykmeldingUtdrag from '../sykmelding-utdrag/SykmeldingUtdrag';
 
 class Soknadskjema extends Component {
     componentDidMount() {

@@ -103,7 +103,8 @@ export function* avbrytSoknad(action) {
             if (action.soknad.soknadstype === OPPHOLD_UTLAND ||
                 action.soknad.status === UTKAST_TIL_KORRIGERING) {
                 browserHistory.push(`${getContextRoot()}/soknader`);
-            } else if (action.soknad.soknadstype === ARBEIDSTAKERE) {
+            } else if (action.soknad.soknadstype === ARBEIDSTAKERE
+                || action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) {
                 browserHistory.push(`${getContextRoot()}/soknader/${action.soknad.id}`);
             }
         } catch (e) {

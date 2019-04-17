@@ -10,6 +10,7 @@ const GjenopptattArbeidFulltUt = ({ sykepengesoknad }) => {
         return aktivitet.periode;
     });
     return (<JaEllerNei
+        hovedsporsmal
         spoersmal={finnGjenopptattArbeidFulltUtSporsmal(sykepengesoknad)}
         name="harGjenopptattArbeidFulltUt">
         <div>

@@ -48,6 +48,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsperioderPreutfylt })
     const informasjon = <PreutfyltBjorn vis={erEgenmeldingsperioderPreutfylt} />;
 
     return (<JaEllerNei
+        hovedsporsmal
         spoersmal={finnEgenmeldingsdagerSporsmal(sykepengesoknad)}
         name="bruktEgenmeldingsdagerFoerLegemeldtFravaer"
         hjelpetekst={hjelpetekst}

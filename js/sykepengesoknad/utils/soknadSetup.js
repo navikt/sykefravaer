@@ -4,7 +4,6 @@ import { bindActionCreators, compose } from 'redux';
 import { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
 import { sendSoknad, lagreSoknad } from '../data/soknader/soknaderActions';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
-import { erForsteSoknad } from '../data/soknader/soknaderSelectors';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
 import fraBackendsoknadTilInitiellSoknad from './fraBackendsoknadTilInitiellSoknad';
 
@@ -44,7 +43,6 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
     return {
         initialValues: fraBackendsoknadTilInitiellSoknad(soknad),
-        erForsteSoknad: erForsteSoknad(state),
         ...mapStateToProps(state, ownProps),
     };
 };

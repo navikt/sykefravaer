@@ -8,10 +8,9 @@ import { erSisteSide, hentTittel } from './ettSporsmalPerSideUtils';
 import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../oppsummering/Oppsummering';
 import { ForDuBegynnerSkjema } from '../for-du-begynner/ForDuBegynnerSkjema';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
-import ForsteSoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/ForsteSoknadIntro';
-import SoknadIntro from '../../../sykepengesoknad-gammel-plattform/for-du-begynner/SoknadIntro';
 import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 import { SykepengesoknadSelvstendigOppsummeringSkjema } from '../../soknad-selvstendig-frilanser/oppsummering/SykepengesoknadSelvstendigOppsummeringSkjema';
+import SoknadIntro from '../../felleskomponenter/soknad-intro/SoknadIntro';
 
 export const hentSporsmalsvisning = (soknad, sidenummer) => {
     return erSisteSide(soknad, sidenummer)
@@ -25,19 +24,11 @@ export const hentSporsmalsvisning = (soknad, sidenummer) => {
             : GenereltEttSporsmalPerSideSkjema;
 };
 
-export const hentIntro = (erForsteSoknad, sidenummer) => {
-    return sidenummer !== 1
-        ? null
-        : erForsteSoknad
-            ? <ForsteSoknadIntro />
-            : <SoknadIntro />;
-};
-
 const EttSporsmalPerSide = (props) => {
     const { sykmelding, soknad, handleSubmit, actions, sidenummer, oppdaterer, skjemasvar, sendingFeilet, soknadMeta, sender } = props;
 
     const Sporsmalsvisning = hentSporsmalsvisning(soknad, sidenummer);
-    const intro = hentIntro(props.erForsteSoknad, sidenummer);
+    const intro = sidenummer === 1 ? <SoknadIntro soknad={soknad} /> : null;
     const scroll = sidenummer !== 1 && !erSisteSide(soknad, sidenummer);
 
     return (<Soknadskjema
@@ -76,7 +67,6 @@ EttSporsmalPerSide.propTypes = {
     sendingFeilet: PropTypes.bool,
     sender: PropTypes.bool,
     soknadMeta: soknadMetaReducerPt,
-    erForsteSoknad: PropTypes.bool,
 };
 
 export default EttSporsmalPerSide;

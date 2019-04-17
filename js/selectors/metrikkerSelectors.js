@@ -53,7 +53,7 @@ export const hentMetrikk = (state, action) => {
                     type: TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG,
                 });
                 return {
-                    type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_SELVSTENDIG/FRILANSER`),
+                    type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_SELVSTENDIG/FRILANSER/1SPM-PER-SIDE`),
                     data: {
                         tid,
                     },

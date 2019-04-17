@@ -12,8 +12,9 @@ import SporsmalBjorn from './SporsmalBjorn';
 import { getOnChange } from '../../utils/getOnChange';
 import SporsmalHjelpetekst from './SporsmalHjelpetekst';
 import JaEllerNeiPresisering from './JaEllerNeiPresisering';
+import JaEllerNeiRadiopanelgruppe from './JaEllerNeiRadiopanelgruppe';
 
-const jaEllerNeiAlternativer = [JA, NEI];
+export const jaEllerNeiAlternativer = [JA, NEI];
 
 export const JaEllerNeiRadioknapper = (props) => {
     return (<Radioknapper {...props} name={props.input.name} spoersmal={props.sporsmalstekst}>
@@ -43,9 +44,13 @@ export const RendreJaEllerNei = (props) => {
     const classNames = props.hovedsporsmal ? 'hovedsporsmal' : null;
     const classNamesTilleggssporsmal = props.hovedsporsmal ? 'hovedsporsmal__tilleggssporsmal' : null;
     const hjelpetekst = <SporsmalHjelpetekst tag={props.tag} />;
-    const Sporsmal = (<JaEllerNeiRadioknapper
-        {...props}
-        hjelpetekst={hjelpetekst} />);
+    const Sporsmal = props.hovedsporsmal
+        ? (<JaEllerNeiRadiopanelgruppe
+            {...props}
+            hjelpetekst={hjelpetekst} />)
+        : (<JaEllerNeiRadioknapper
+            {...props}
+            hjelpetekst={hjelpetekst} />);
     return props.undersporsmal.length === 0
         ? (<div className={classNames}>{Sporsmal}</div>)
         : (<SporsmalMedTillegg

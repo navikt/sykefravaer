@@ -7,6 +7,13 @@ export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
     return [sporsmal];
 };
 
+export const hentSporsmalForOppsummering = (soknad) => {
+    return soknad.sporsmal.filter((s) => {
+        return s.tag === VAER_KLAR_OVER_AT
+            || s.tag === BEKREFT_OPPLYSNINGER;
+    });
+};
+
 export const erSisteSide = (soknad, sidenummer) => {
     const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer);
     const tag = sporsmal[0].tag;

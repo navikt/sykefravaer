@@ -44,14 +44,6 @@ OppsummeringUtvidbar.propTypes = {
     soknad: soknadPt,
 };
 
-
-export const hentSporsmalForOppsummering = (soknad) => {
-    return soknad.sporsmal.filter((s) => {
-        return s.tag === VAER_KLAR_OVER_AT
-            || s.tag === BEKREFT_OPPLYSNINGER;
-    });
-};
-
 export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
     const {
         handleSubmit,

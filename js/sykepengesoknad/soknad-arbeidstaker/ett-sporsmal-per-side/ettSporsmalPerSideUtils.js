@@ -1,5 +1,5 @@
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
+import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import { fjernIndexFraTag } from '../../felleskomponenter/sporsmal/fieldUtils';
 
 export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
@@ -9,7 +9,8 @@ export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
 
 export const erSisteSide = (soknad, sidenummer) => {
     const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer);
-    return sporsmal[0].tag === VAER_KLAR_OVER_AT;
+    const tag = sporsmal[0].tag;
+    return [VAER_KLAR_OVER_AT, BEKREFT_OPPLYSNINGER].indexOf(tag) > -1;
 };
 
 export const hentTittel = (soknad, sidenummer) => {

@@ -11,6 +11,7 @@ import KanDuBytteJobb from './KanDuBytteJobb';
 import Forsikring from './Forsikring';
 import HvaKanDuGjoreNa from './HvaKanDuGjoreNa';
 import { pushToDataAOLayer } from './pushToAODataLayer';
+import HotjarTrigger from '../components/HotjarTrigger';
 
 class ArbeidsrettetOppfolging extends Component {
     componentDidMount() {
@@ -29,9 +30,12 @@ class ArbeidsrettetOppfolging extends Component {
         }, {
             tittel: getLedetekst('ao.sidetittel'),
         }];
+        const hotjarTrigger = underOppfolging
+            ? 'ARBEIDSRETTET_OPPFOLGING_UNDER_OPPFOLGING'
+            : 'ARBEIDSRETTET_OPPFOLGING_IKKE_UNDER_OPPFOLGING';
 
         return (
-            <React.Fragment>
+            <HotjarTrigger hotjarTrigger={hotjarTrigger}>
                 <div className="begrensning begrensning--bred brodsmulerWrapper">
                     <Brodsmuler brodsmuler={brodsmuler} />
                 </div>
@@ -49,7 +53,7 @@ class ArbeidsrettetOppfolging extends Component {
                         <Forsikring />
                     </div>
                 </div>
-            </React.Fragment>
+            </HotjarTrigger>
         );
     }
 }

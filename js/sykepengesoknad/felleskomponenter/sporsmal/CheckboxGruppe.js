@@ -31,8 +31,8 @@ rendreCheckboxGruppe.propTypes = {
 const CheckboxGruppe = ({ sporsmalstekst, undertekst, name, undersporsmal, soknad, actions }) => {
     return (<div>
         <Sporsmalstekst tekst={sporsmalstekst} />
-        <Undertekst tekst={undertekst} />
         <FieldArray component={rendreCheckboxGruppe} tag={name} name={name} fields={undersporsmal} soknad={soknad} actions={actions} />
+        <Undertekst tekst={undertekst} />
     </div>);
 };
 

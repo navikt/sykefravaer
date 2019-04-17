@@ -22,7 +22,6 @@ export const inntektskildetyper = Object.keys(inntektskildetypeEnums).map((key) 
 export const VelgInntektskilder = ({ fields, meta }) => {
     return (<Feilomrade {...meta} id="andreInntektskilder">
         <h4 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.sporsmal')}</h4>
-        <p>{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.informasjon')}</p>
         {
             fields.map((field, index) => {
                 return (
@@ -49,6 +48,7 @@ export const VelgInntektskilder = ({ fields, meta }) => {
                     </Field>);
             })
         }
+        <p>{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.informasjon')}</p>
     </Feilomrade>);
 };
 

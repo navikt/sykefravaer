@@ -49,7 +49,7 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
         <div className="blokk">
-            <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
+            <Checkboxpanel {...sporsmal} name={sporsmal.tag} soknad={soknad} />
         </div>
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--medAvbryt">

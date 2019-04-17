@@ -82,7 +82,7 @@ AvbrytSoknad.propTypes = {
     avbryter: PropTypes.bool,
     sender: PropTypes.bool,
     avbrytSoknad: PropTypes.func,
-    sykepengesoknad: PropTypes.oneOfType(soknadPt, sykepengesoknadPt),
+    sykepengesoknad: PropTypes.oneOfType([soknadPt, sykepengesoknadPt]),
 };
 
 export default AvbrytSoknad;

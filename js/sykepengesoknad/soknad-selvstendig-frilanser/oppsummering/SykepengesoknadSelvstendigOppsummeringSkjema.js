@@ -74,34 +74,3 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
 };
-
-const Oppsummering = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender } = props;
-    return (<Soknadskjema
-        aktivtSteg="4"
-        sykmelding={sykmelding}
-        soknad={soknad}>
-        <SykepengesoknadSelvstendigOppsummeringSkjema
-            soknad={soknad}
-            handleSubmit={handleSubmit}
-            skjemasvar={skjemasvar}
-            sendingFeilet={sendingFeilet}
-            sender={sender}
-            actions={actions} />
-    </Soknadskjema>);
-};
-
-Oppsummering.propTypes = {
-    sykmelding: sykmeldingPt,
-    soknad: soknadPt,
-    handleSubmit: PropTypes.func,
-    skjemasvar: skjemasvarPt,
-    actions: PropTypes.shape({
-        sendSoknad: PropTypes.func,
-        utfyllingStartet: PropTypes.func,
-    }),
-    sendingFeilet: PropTypes.bool,
-    sender: PropTypes.bool,
-};
-
-export default Oppsummering;

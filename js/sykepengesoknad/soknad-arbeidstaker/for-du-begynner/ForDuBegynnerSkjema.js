@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
-import Sporsmal from '../../felleskomponenter/sporsmal/Sporsmal';
+import Checkboxpanel from '../../felleskomponenter/sporsmal/Checkboxpanel';
 import KnapperadEttSporsmalPerSide from '../ett-sporsmal-per-side/KnapperadEttSporsmalPerSide';
 import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
 import { GenereltEttSporsmalPerSideSkjema } from '../ett-sporsmal-per-side/GenereltEttSporsmalPerSideSkjema';
@@ -27,7 +27,7 @@ export class ForDuBegynnerSkjema extends Component {
             <FeiloppsummeringContainer skjemanavn={getSkjemanavnFraSoknad(soknad)} />
             <div className="redaksjonelt-innhold">
                 <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
-                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
+                <Checkboxpanel {...sporsmal} name={sporsmal.tag} soknad={soknad} />
             </div>
             <OppdaterFeiletFeilstripe soknad={soknad} />
             <KnapperadEttSporsmalPerSide soknad={soknad} sidenummer={sidenummer} />

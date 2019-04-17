@@ -10,16 +10,10 @@ import sykepengesoknader from '../../sykepengesoknad-gammel-plattform/data/sykep
 import soknader from '../data/soknader/soknader';
 import dineSykmeldinger from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldinger';
 import SendtSoknadSelvstendig from '../soknad-selvstendig-frilanser/SendtSoknadSelvstendig';
-import FoerDuBegynnerSelvstendigFrilans from '../soknad-selvstendig-frilanser/for-du-begynner/FoerDuBegynnerContainer';
-import FravaerOgFriskmeldingContainer from '../soknad-selvstendig-frilanser/fravar-og-friskmelding/FravaerOgFriskmeldingContainer';
-import AktiviteterISykmeldingsperiodenContainer
-    from '../soknad-selvstendig-frilanser/aktiviteter-i-sykmeldingsperioden/AktiviteterISykmeldingsperiodenContainer';
-import OppsummeringContainer from '../soknad-selvstendig-frilanser/oppsummering/OppsummeringContainer';
 import mountWithStore from '../../../test/mountWithStore';
-import { getNySoknadSelvstendig, getSendtSoknadSelvstendig } from '../../../test/mock/mockSoknadSelvstendig';
+import { getSendtSoknadSelvstendig } from '../../../test/mock/mockSoknadSelvstendig';
 import reduxFormMeta from '../../reducers/reduxFormMeta';
 import mockNySoknadArbeidstaker from '../../../test/mock/mockNySoknadArbeidstaker';
-import { SykepengeskjemaForSelvstendige } from '../soknad-selvstendig-frilanser/SoknadSelvstendigNaeringsdrivende';
 import NySoknadArbeidstaker from '../soknad-arbeidstaker/NySoknadArbeidstaker';
 import SoknadKvitteringSjekker from '../felleskomponenter/SoknadKvitteringSjekker';
 import soknadMeta from '../data/soknadMeta/soknadMeta';
@@ -154,7 +148,7 @@ describe('SoknadSideTest', () => {
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
-        describe('SoknadSelvstendigNaeringsdrivende', () => {
+        describe('SoknadSelvstendigNaeringsdrivendeSkjema', () => {
             describe('Når søknad er sendt', () => {
                 beforeEach(() => {
                     state.soknader.data = [getSendtSoknadSelvstendig({
@@ -178,47 +172,6 @@ describe('SoknadSideTest', () => {
                     ownProps.location.pathname = '/sykefravaer/soknader/min-soknad-id/';
                     const component = mountWithStore(<SoknadSide {...ownProps} />, state);
                     expect(component.find(SendtSoknadSelvstendig)).to.have.length(1);
-                });
-            });
-
-            describe('Når søknad er NY', () => {
-                beforeEach(() => {
-                    state.soknader.data = [getNySoknadSelvstendig({
-                        id: 'min-soknad-id',
-                    })];
-                    state.reduxFormMeta = reduxFormMeta();
-                    state.form = formReducer();
-                    state.soknadMeta = soknadMeta();
-                });
-
-                it('Skal vise FoerDuBegynnerContainer dersom man står på side 1', () => {
-                    ownProps.location.pathname = '/sykefravaer/soknader/min-soknad-id';
-                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
-                    expect(component.find(FoerDuBegynnerSelvstendigFrilans)).to.have.length(1);
-                });
-
-                it('Skal vise FravaerOgFriskmeldingContainer hvis man står på side 2', () => {
-                    ownProps.location.pathname = '/sykefravaer/soknader/min-soknad-id/fravaer-og-friskmelding/';
-                    ownProps.params.steg = 'fravaer-og-friskmelding';
-                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
-                    expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
-                    expect(component.find(FravaerOgFriskmeldingContainer)).to.have.length(1);
-                });
-
-                it('Skal vise AktiviteterISykmeldingsperiodenContainer hvis man står på side 3', () => {
-                    ownProps.location.pathname = '/sykefravaer/soknader/min-soknad-id/aktiviteter-i-sykmeldingsperioden/';
-                    ownProps.params.steg = 'aktiviteter-i-sykmeldingsperioden';
-                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
-                    expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
-                    expect(component.find(AktiviteterISykmeldingsperiodenContainer)).to.have.length(1);
-                });
-
-                it('Skal vise oppsummering hvis man står på side 4', () => {
-                    ownProps.location.pathname = '/sykefravaer/soknader/min-soknad-id/oppsummering/';
-                    ownProps.params.steg = 'oppsummering';
-                    const component = mountWithStore(<SoknadSide {...ownProps} />, state);
-                    expect(component.find(SykepengeskjemaForSelvstendige)).to.have.length(1);
-                    expect(component.find(OppsummeringContainer)).to.have.length(1);
                 });
             });
         });

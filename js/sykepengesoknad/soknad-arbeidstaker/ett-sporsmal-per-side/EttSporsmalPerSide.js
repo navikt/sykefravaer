@@ -44,7 +44,6 @@ const EttSporsmalPerSide = (props) => {
         scroll={scroll}
         sidenummer={sidenummer}
         tittel={hentTittel(soknad, sidenummer)}
-        sykmelding={sykmelding}
         intro={intro}
         soknad={soknad}>
         {

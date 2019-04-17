@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
+import { getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Soknadskjema from '../../felleskomponenter/Soknadskjema';
 import { soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes/index';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../../components/skjema/Knapperad';
@@ -54,10 +52,7 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
             <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
         </div>
         <Feilstripe vis={sendingFeilet} />
-        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-            <Link
-                to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
-                className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+        <Knapperad variant="knapperad--medAvbryt">
             <Hovedknapp className="js-send" spinner={sender} disabled={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
         </Knapperad>
         <AvbrytSoknadContainer sykepengesoknad={soknad} />

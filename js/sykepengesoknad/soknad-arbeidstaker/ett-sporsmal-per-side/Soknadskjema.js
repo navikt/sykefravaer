@@ -7,7 +7,7 @@ import KorrigerVarsel from '../../../components/soknad-felles/KorrigerVarsel';
 import TidligSoknad from '../../../components/soknad-felles/TidligSoknad';
 import { soknadPt } from '../../prop-types/soknadProptype';
 import StegindikatorEttSporsmalPerSide from './StegindikatorEttSporsmalPerSide';
-import SykmeldingUtdrag from '../../sykmeldingutdrag/SykmeldingUtdrag';
+import SykmeldingUtdrag from '../../felleskomponenter/sykmelding-utdrag/SykmeldingUtdrag';
 
 class Soknadskjema extends Component {
     componentDidMount() {
@@ -39,7 +39,7 @@ class Soknadskjema extends Component {
             {soknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel />}
             <TidligSoknad soknad={soknad} />
             {intro}
-            <SykmeldingUtdrag soknad={soknad} erApen={sidenummer !== 1} />
+            <SykmeldingUtdrag soknad={soknad} erApen={sidenummer === 1} />
             {tittel && <h2 className="soknad__stegtittel">{tittel}</h2>}
             {children}
         </div>);

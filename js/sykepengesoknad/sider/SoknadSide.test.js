@@ -18,7 +18,7 @@ import NySoknadArbeidstaker from '../soknad-arbeidstaker/NySoknadArbeidstaker';
 import SoknadKvitteringSjekker from '../felleskomponenter/SoknadKvitteringSjekker';
 import soknadMeta from '../data/soknadMeta/soknadMeta';
 import { ForDuBegynnerSkjema } from '../soknad-arbeidstaker/for-du-begynner/ForDuBegynnerSkjema';
-import EttSporsmalPerSideContainer from '../soknad-arbeidstaker/ett-sporsmal-per-side/EttSporsmalPerSideContainer';
+import EttSporsmalPerSideContainer from '../felleskomponenter/ett-sporsmal-per-side/EttSporsmalPerSideContainer';
 import { getParsetSoknad } from '../../../test/mock/mockSykepengesoknader';
 import FravaerOgFriskmeldingContainerGammelPlattform from '../../sykepengesoknad-gammel-plattform/fravar-og-friskmelding/FravaerOgFriskmeldingContainer';
 import FoerDuBegynnerGammelPlattform from '../../sykepengesoknad-gammel-plattform/for-du-begynner/FoerDuBegynnerContainer';

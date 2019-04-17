@@ -1,6 +1,6 @@
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
-import { fjernIndexFraTag } from '../../felleskomponenter/sporsmal/fieldUtils';
+import { fjernIndexFraTag } from '../sporsmal/fieldUtils';
 
 export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
     const sporsmal = soknad.sporsmal[sidenummer - 1];

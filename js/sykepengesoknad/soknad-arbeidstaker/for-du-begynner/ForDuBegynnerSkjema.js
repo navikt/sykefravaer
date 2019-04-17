@@ -3,11 +3,11 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
 import Checkboxpanel from '../../felleskomponenter/sporsmal/Checkboxpanel';
-import KnapperadEttSporsmalPerSide from '../ett-sporsmal-per-side/KnapperadEttSporsmalPerSide';
+import KnapperadEttSporsmalPerSide from '../../felleskomponenter/ett-sporsmal-per-side/KnapperadEttSporsmalPerSide';
 import AvbrytSoknadContainer from '../../felleskomponenter/avbryt-soknad/AvbrytSoknadContainer';
-import { GenereltEttSporsmalPerSideSkjema } from '../ett-sporsmal-per-side/GenereltEttSporsmalPerSideSkjema';
-import { hentSporsmalForDenneSiden } from '../ett-sporsmal-per-side/ettSporsmalPerSideUtils';
-import OppdaterFeiletFeilstripe from '../ett-sporsmal-per-side/OppdaterFeiletFeilstripe';
+import { GenereltEttSporsmalPerSideSkjema } from '../../felleskomponenter/ett-sporsmal-per-side/GenereltEttSporsmalPerSideSkjema';
+import { hentSporsmalForDenneSiden } from '../../felleskomponenter/ett-sporsmal-per-side/ettSporsmalPerSideUtils';
+import OppdaterFeiletFeilstripe from '../../felleskomponenter/ett-sporsmal-per-side/OppdaterFeiletFeilstripe';
 
 export class ForDuBegynnerSkjema extends Component {
     componentDidMount() {

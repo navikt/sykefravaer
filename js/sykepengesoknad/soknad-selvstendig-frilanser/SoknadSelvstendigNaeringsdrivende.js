@@ -5,7 +5,7 @@ import beregnSteg, {
 } from '../utils/beregnSteg';
 import { soknadPt } from '../../propTypes';
 import SoknadKvitteringSjekker from '../felleskomponenter/SoknadKvitteringSjekker';
-import EttSporsmalPerSideContainer from '../soknad-arbeidstaker/ett-sporsmal-per-side/EttSporsmalPerSideContainer';
+import EttSporsmalPerSideContainer from '../felleskomponenter/ett-sporsmal-per-side/EttSporsmalPerSideContainer';
 import { AVBRUTT, KORRIGERT, NY, SENDT, UTKAST_TIL_KORRIGERING } from '../enums/soknadstatuser';
 import Feilmelding from '../../components/Feilmelding';
 import SendtSoknadSelvstendig from './SendtSoknadSelvstendig';

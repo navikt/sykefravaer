@@ -1,15 +1,23 @@
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
-import { fjernIndexFraTag } from '../../felleskomponenter/sporsmal/fieldUtils';
+import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
+import { fjernIndexFraTag } from '../sporsmal/fieldUtils';
 
 export const hentSporsmalForDenneSiden = (soknad, sidenummer) => {
     const sporsmal = soknad.sporsmal[sidenummer - 1];
     return [sporsmal];
 };
 
+export const hentSporsmalForOppsummering = (soknad) => {
+    return soknad.sporsmal.filter((s) => {
+        return s.tag === VAER_KLAR_OVER_AT
+            || s.tag === BEKREFT_OPPLYSNINGER;
+    });
+};
+
 export const erSisteSide = (soknad, sidenummer) => {
     const sporsmal = hentSporsmalForDenneSiden(soknad, sidenummer);
-    return sporsmal[0].tag === VAER_KLAR_OVER_AT;
+    const tag = sporsmal[0].tag;
+    return [VAER_KLAR_OVER_AT, BEKREFT_OPPLYSNINGER].indexOf(tag) > -1;
 };
 
 export const hentTittel = (soknad, sidenummer) => {

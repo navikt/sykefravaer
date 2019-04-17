@@ -105,7 +105,7 @@ describe('metrikkerSelectors', () => {
             });
             const metrikk = hentMetrikk(state, action);
             expect(metrikk).to.deep.equal({
-                type: 'SYKEFRAVAER_METRIKK__SYKEPENGESOKNAD_SENDT_SELVSTENDIG/FRILANSER',
+                type: 'SYKEFRAVAER_METRIKK__SYKEPENGESOKNAD_SENDT_SELVSTENDIG/FRILANSER/1SPM-PER-SIDE',
                 data: {
                     tid: 1401,
                 },

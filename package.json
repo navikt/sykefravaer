@@ -30,7 +30,7 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "@navikt/digisyfo-npm": "17.0.0",
+    "@navikt/digisyfo-npm": "17.0.1",
     "babel-loader": "7.1.5",
     "babel-polyfill": "6.26.0",
     "classnames": "^2.2.5",

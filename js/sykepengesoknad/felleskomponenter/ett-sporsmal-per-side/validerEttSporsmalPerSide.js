@@ -1,6 +1,5 @@
 import validerSporsmal from '../../validering/validerSporsmal';
-import { erSisteSide } from './ettSporsmalPerSideUtils';
-import { hentSporsmalForOppsummering } from '../oppsummering/Oppsummering';
+import { erSisteSide, hentSporsmalForOppsummering } from './ettSporsmalPerSideUtils';
 
 export const validerDenneSiden = (values, props) => {
     const sporsmal = erSisteSide(props.soknad, props.sidenummer)

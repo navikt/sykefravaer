@@ -7,7 +7,7 @@ import { AVBRUTT, KORRIGERT, NY, SENDT, UTKAST_TIL_KORRIGERING } from '../enums/
 import NySendtSoknadArbeidstaker from './NySendtSoknadArbeidstaker';
 import Feilmelding from '../../components/Feilmelding';
 import AvbruttSoknadArbeidstaker from './AvbruttSoknadArbeidstaker';
-import EttSporsmalPerSideContainer from './ett-sporsmal-per-side/EttSporsmalPerSideContainer';
+import EttSporsmalPerSideContainer from '../felleskomponenter/ett-sporsmal-per-side/EttSporsmalPerSideContainer';
 
 const NySoknadArbeidstakerSkjema = (props) => {
     const { sti } = props;

@@ -67,6 +67,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                     untouch={untouch}
                     name="aktiviteter" />
                 <JaEllerNei
+                    hovedsporsmal
                     informasjon={<PreutfyltBjorn vis={erInntektskilderPreutfylt} />}
                     name="harAndreInntektskilder"
                     spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
@@ -78,6 +79,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                     _aktiviteter.length > 0
                         &&
                             <JaEllerNei
+                                hovedsporsmal
                                 informasjon={<PreutfyltBjorn vis={erUtdanningPreutfylt} />}
                                 name="utdanning.underUtdanningISykmeldingsperioden"
                                 spoersmal={finnUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>

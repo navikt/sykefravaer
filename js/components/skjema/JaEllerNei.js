@@ -4,8 +4,9 @@ import cn from 'classnames';
 import { Field } from 'redux-form';
 import Radioknapper from './Radioknapper';
 import SporsmalMedTillegg from './SporsmalMedTillegg';
-import { fieldPropTypes, childEllerChildren } from '../../propTypes/index';
-import { Vis } from '../../utils/index';
+import { fieldPropTypes, childEllerChildren } from '../../propTypes';
+import { Vis } from '../../utils';
+import JaEllerNeiRadiopanelgruppe from './JaEllerNeiRadiopanelgruppe';
 
 export const jaEllerNeiAlternativer = [{
     value: true,
@@ -38,7 +39,9 @@ JaEllerNeiRadioknapper.propTypes = {
 };
 
 export const RendreJaEllerNei = (props) => {
-    const Sporsmal = <JaEllerNeiRadioknapper {...props} />;
+    const Sporsmal = props.hovedsporsmal
+        ? <JaEllerNeiRadiopanelgruppe {...props} />
+        : <JaEllerNeiRadioknapper {...props} />;
     const className = cn('hovedsporsmal', props.className);
     return (<SporsmalMedTillegg
         {...props}
@@ -53,6 +56,7 @@ export const RendreJaEllerNei = (props) => {
 };
 
 RendreJaEllerNei.propTypes = {
+    hovedsporsmal: PropTypes.bool,
     children: childEllerChildren,
     className: PropTypes.string,
 };

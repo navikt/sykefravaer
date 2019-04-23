@@ -69,6 +69,7 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
         id="ferie-permisjon-hjelpetekst">{getLedetekst('sykepengesoknad.ferie.hjelpetekst.tekst')}</Hjelpetekst>);
 
     return (<JaEllerNei
+        hovedsporsmal
         spoersmal={finnFeriePermisjonEllerUtenlandsoppholdSporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}
         name="harHattFeriePermisjonEllerUtenlandsopphold"
         informasjon={feriebjorn}

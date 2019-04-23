@@ -14,6 +14,7 @@ export const Aktivitet = ({ field, index, autofill, untouch, sykepengesoknad }) 
         : null;
 
     return (<JaEllerNei
+        hovedsporsmal
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
         spoersmal={finnAktivitetssporsmal(field, sykepengesoknad.arbeidsgiver.navn)}
         hjelpetekst={hjelpetekst}>

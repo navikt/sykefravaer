@@ -6,7 +6,7 @@ import { skjemasvar as skjemasvarPt, soknadMetaReducerPt, soknadPt } from '../..
 import AppSpinner from '../../../components/AppSpinner';
 import { erSisteSide, hentTittel } from './ettSporsmalPerSideUtils';
 import { SykepengesoknadArbeidstakerOppsummeringSkjema } from '../../soknad-arbeidstaker/oppsummering/Oppsummering';
-import { ForDuBegynnerSkjema } from '../../soknad-arbeidstaker/for-du-begynner/ForDuBegynnerSkjema';
+import { ForDuBegynnerSkjema } from './ForDuBegynnerSkjema';
 import { GenereltEttSporsmalPerSideSkjema } from './GenereltEttSporsmalPerSideSkjema';
 import { ARBEIDSTAKERE } from '../../enums/soknadtyper';
 import { SykepengesoknadSelvstendigOppsummeringSkjema } from '../../soknad-selvstendig-frilanser/oppsummering/SykepengesoknadSelvstendigOppsummeringSkjema';

@@ -13,10 +13,17 @@ const RadioPanelGruppeComponent = (props) => {
         ? { feilmelding: props.meta.error }
         : undefined;
 
+    const legend = props.hjelpetekst
+        ? (<div className="medHjelpetekst">
+            <h3>{props.sporsmalstekst}</h3>
+            {props.hjelpetekst}
+        </div>)
+        : <h3>{props.sporsmalstekst}</h3>;
+
     return (<RadioPanelGruppe
         className="inputPanelGruppe--horisontal"
         name={props.input.name}
-        legend={props.sporsmalstekst}
+        legend={legend}
         radios={jaEllerNeiAlternativer.map((alternativ) => {
             return {
                 label: getLedetekst(`soknad.${alternativ.toLowerCase()}`),
@@ -39,6 +46,7 @@ RadioPanelGruppeComponent.propTypes = {
     input: fieldPropTypes.input,
     id: PropTypes.string,
     sporsmalstekst: PropTypes.string,
+    hjelpetekst: PropTypes.node,
 };
 
 const JaEllerNeiRadiopanelgruppe = connect(null, { doChange: changeAction })(RadioPanelGruppeComponent);

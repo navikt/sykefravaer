@@ -90,7 +90,7 @@ class FremtidigSoknadTeaser extends Component {
 }
 
 FremtidigSoknadTeaser.propTypes = {
-    soknad: PropTypes.oneOfType(sykepengesoknadPt, soknadPt),
+    soknad: PropTypes.oneOfType([sykepengesoknadPt, soknadPt]),
 };
 
 export default FremtidigSoknadTeaser;

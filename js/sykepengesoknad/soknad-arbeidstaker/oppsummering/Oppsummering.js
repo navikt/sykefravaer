@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst, sykmelding as sykmeldingPt, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Soknadskjema from '../../felleskomponenter/Soknadskjema';
-import { skjemasvar as skjemasvarPt, soknadPt, soknadMetaReducerPt } from '../../../propTypes';
+import { skjemasvar as skjemasvarPt, soknadPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../../components/skjema/Knapperad';
 import populerSoknadMedSvar from '../../utils/populerSoknadMedSvar';
@@ -43,14 +42,6 @@ export const OppsummeringUtvidbar = ({ soknad }) => {
 
 OppsummeringUtvidbar.propTypes = {
     soknad: soknadPt,
-};
-
-
-export const hentSporsmalForOppsummering = (soknad) => {
-    return soknad.sporsmal.filter((s) => {
-        return s.tag === VAER_KLAR_OVER_AT
-            || s.tag === BEKREFT_OPPLYSNINGER;
-    });
 };
 
 export const SykepengesoknadArbeidstakerOppsummeringSkjema = (props) => {
@@ -112,36 +103,3 @@ SykepengesoknadArbeidstakerOppsummeringSkjema.propTypes = {
     sykmelding: sykmeldingPt,
     sidenummer: PropTypes.number,
 };
-
-const Oppsummering = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender, soknadMeta } = props;
-    return (<Soknadskjema
-        aktivtSteg="4"
-        sykmelding={sykmelding}
-        soknad={soknad}>
-        <SykepengesoknadArbeidstakerOppsummeringSkjema
-            soknad={soknad}
-            sykmelding={sykmelding}
-            handleSubmit={handleSubmit}
-            skjemasvar={skjemasvar}
-            sendingFeilet={sendingFeilet || soknadMeta.hentingFeilet}
-            sender={sender}
-            actions={actions} />
-    </Soknadskjema>);
-};
-
-Oppsummering.propTypes = {
-    sykmelding: sykmeldingPt,
-    soknad: soknadPt,
-    handleSubmit: PropTypes.func,
-    skjemasvar: skjemasvarPt,
-    actions: PropTypes.shape({
-        sendSoknad: PropTypes.func,
-        utfyllingStartet: PropTypes.func,
-    }),
-    sendingFeilet: PropTypes.bool,
-    sender: PropTypes.bool,
-    soknadMeta: soknadMetaReducerPt,
-};
-
-export default Oppsummering;

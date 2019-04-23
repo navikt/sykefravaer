@@ -19,7 +19,7 @@ const Knapperad = ({ children, variant }) => {
 };
 
 Knapperad.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.element),
+    children: PropTypes.node,
     variant: PropTypes.string,
 };
 

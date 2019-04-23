@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
+import { getLedetekst, Utvidbar } from '@navikt/digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Soknadskjema from '../../felleskomponenter/Soknadskjema';
 import { soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes/index';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../../components/skjema/Knapperad';
@@ -51,13 +49,10 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
         <div className="blokk">
-            <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
+            <Checkboxpanel {...sporsmal} name={sporsmal.tag} soknad={soknad} />
         </div>
         <Feilstripe vis={sendingFeilet} />
-        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-            <Link
-                to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
-                className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+        <Knapperad variant="knapperad--medAvbryt">
             <Hovedknapp className="js-send" spinner={sender} disabled={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
         </Knapperad>
         <AvbrytSoknadContainer sykepengesoknad={soknad} />
@@ -74,34 +69,3 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
 };
-
-const Oppsummering = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender } = props;
-    return (<Soknadskjema
-        aktivtSteg="4"
-        sykmelding={sykmelding}
-        soknad={soknad}>
-        <SykepengesoknadSelvstendigOppsummeringSkjema
-            soknad={soknad}
-            handleSubmit={handleSubmit}
-            skjemasvar={skjemasvar}
-            sendingFeilet={sendingFeilet}
-            sender={sender}
-            actions={actions} />
-    </Soknadskjema>);
-};
-
-Oppsummering.propTypes = {
-    sykmelding: sykmeldingPt,
-    soknad: soknadPt,
-    handleSubmit: PropTypes.func,
-    skjemasvar: skjemasvarPt,
-    actions: PropTypes.shape({
-        sendSoknad: PropTypes.func,
-        utfyllingStartet: PropTypes.func,
-    }),
-    sendingFeilet: PropTypes.bool,
-    sender: PropTypes.bool,
-};
-
-export default Oppsummering;

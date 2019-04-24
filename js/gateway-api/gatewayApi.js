@@ -87,7 +87,7 @@ export const post = (url, body) => {
                 return null;
             } else if (res.status > 400) {
                 log(res);
-                throw new Error('Forespørsel feilet');
+                throw new Error(`Forespørsel feilet. Statuskode: ${res.status}`);
             } else {
                 const contentType = res.headers.get('Content-Type') || '';
                 if (contentType.includes('json')) {

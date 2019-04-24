@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <title>report-problem-circle</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Ferdige-AG" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
-        <g id="report-problem-circle" stroke="#C00712">
-            <g id="Group">
-                <path d="M31.3015652,15.7356522 C31.4476522,24.1878261 24.4521739,31.1596522 16,31.3071304 C7.54921739,31.4532174 0.844521739,24.7206957 0.698434783,16.2671304 C0.550956522,7.81773913 7.54921739,0.844521739 16,0.698434783 C24.4507826,0.550956522 31.1554783,7.28486957 31.3015652,15.7356522 Z M16,18.0869565 L16,8.34782609 L16,18.0869565 Z" id="Shape" stroke-linecap="round"></path>
-                <path d="M16.6956522,22.9565217 C16.6956522,23.3405217 16.384,23.6521739 16,23.6521739 C15.616,23.6521739 15.3043478,23.3405217 15.3043478,22.9565217 C15.3043478,22.5725217 15.616,22.2608696 16,22.2608696 C16.384,22.2608696 16.6956522,22.5725217 16.6956522,22.9565217 Z" id="Shape"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g stroke="#C00712" fill="none" fill-rule="evenodd" stroke-linejoin="round"><path d="M31.302 15.736c.146 8.452-6.85 15.424-15.302 15.571C7.55 31.453.845 24.721.698 16.267.551 7.817 7.55.845 16 .698c8.45-.147 15.155 6.587 15.302 15.038zM16 18.087v-9.74 9.74z" stroke-linecap="round"/><path d="M16.696 22.957a.696.696 0 1 1-1.392-.001.696.696 0 0 1 1.392 0z"/></g></svg>

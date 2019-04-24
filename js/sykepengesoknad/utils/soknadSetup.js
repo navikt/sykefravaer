@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
 import { bindActionCreators, compose } from 'redux';
 import { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
-import { sendSoknad, lagreSoknad } from '../data/soknader/soknaderActions';
+import { sendSoknad, lagreSoknad, oppdaterSoknader } from '../data/soknader/soknaderActions';
 import { getSoknadSkjemanavn } from '../../enums/skjemanavn';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
 import fraBackendsoknadTilInitiellSoknad from './fraBackendsoknadTilInitiellSoknad';
@@ -52,6 +52,7 @@ const mapDispatchToProps = (dispatch) => {
         sendSoknad,
         utfyllingStartet,
         lagreSoknad,
+        oppdaterSoknader,
     }, dispatch);
 
     return {

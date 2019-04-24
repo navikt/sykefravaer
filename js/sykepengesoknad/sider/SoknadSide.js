@@ -45,7 +45,7 @@ SoknadWrapper.propTypes = {
 export class Container extends Component {
     componentDidMount() {
         this.props.actions.hentSykepengesoknader();
-        this.props.actions.hentSoknader();
+        this.props.actions.oppdaterSoknader();
         this.props.actions.hentDineSykmeldinger();
     }
 
@@ -103,6 +103,7 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
+        oppdaterSoknader: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,

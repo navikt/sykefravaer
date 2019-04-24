@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import TekstfeltMedEnhet from '../../../components/skjema/TekstfeltMedEnhet';
 import Sporsmalstekst from './Sporsmalstekst';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
-import { lagDesimaltall } from '../../../utils/index';
+import { lagDesimaltall, lagHeltall } from '../../../utils/index';
 
-const Tall = ({ sporsmalstekst, name, label }) => {
+const Tall = ({ sporsmalstekst, name, label, undertekst }) => {
     const parse = genererParseForEnkeltverdi();
     return (<div>
         <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
@@ -16,9 +16,13 @@ const Tall = ({ sporsmalstekst, name, label }) => {
             name={name}
             id={name}
             parse={(verdi) => {
-                return parse(lagDesimaltall(verdi));
+                const parsetVerdi = undertekst === 'prosent'
+                    ? lagHeltall(verdi)
+                    : lagDesimaltall(verdi);
+                return parse(parsetVerdi);
             }}
             format={formaterEnkeltverdi}
+            undertekst={undertekst}
             className="input--s" />
     </div>);
 };
@@ -27,6 +31,7 @@ Tall.propTypes = {
     sporsmalstekst: PropTypes.string,
     name: PropTypes.string,
     label: PropTypes.string,
+    undertekst: PropTypes.string,
 };
 
 export default Tall;

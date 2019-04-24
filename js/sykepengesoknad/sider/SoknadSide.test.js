@@ -33,7 +33,7 @@ describe('SoknadSideTest', () => {
     let ownProps;
     let actions;
     let hentSykepengesoknader;
-    let hentSoknader;
+    let oppdaterSoknader;
     let hentDineSykmeldinger;
     let opprettSoknadUtland;
     let initialize;
@@ -60,14 +60,14 @@ describe('SoknadSideTest', () => {
         };
 
         hentSykepengesoknader = sinon.spy();
-        hentSoknader = sinon.spy();
+        oppdaterSoknader = sinon.spy();
         hentDineSykmeldinger = sinon.spy();
         opprettSoknadUtland = sinon.spy();
         initialize = sinon.spy();
 
         actions = {
             hentSykepengesoknader,
-            hentSoknader,
+            oppdaterSoknader,
             hentDineSykmeldinger,
             opprettSoknadUtland,
             initialize,
@@ -81,7 +81,7 @@ describe('SoknadSideTest', () => {
                 hentet: false,
             };
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSoknader.called).to.equal(true);
+            expect(oppdaterSoknader.called).to.equal(true);
         });
 
         it('Skal hente søknader hvis søknader er hentet', () => {
@@ -90,7 +90,7 @@ describe('SoknadSideTest', () => {
                 hentet: true,
             };
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSoknader.called).to.equal(true);
+            expect(oppdaterSoknader.called).to.equal(true);
         });
 
         it('Skal hente sykepengesøknader', () => {
@@ -112,7 +112,7 @@ describe('SoknadSideTest', () => {
                 henter: false,
             };
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSoknader.called).to.equal(true);
+            expect(oppdaterSoknader.called).to.equal(true);
         });
     });
 

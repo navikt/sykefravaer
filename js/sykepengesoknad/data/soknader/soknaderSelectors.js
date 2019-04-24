@@ -18,6 +18,10 @@ export const skalHenteSoknader = (state) => {
         && !state.soknader.hentingFeilet;
 };
 
+export const skalHenteSoknaderHvisIkkeHenter = (state) => {
+    return !state.soknader.henter;
+};
+
 export const sykmeldingHarBehandletSoknad = (state, sykmeldingId) => {
     return state.soknader.data.filter((soknad) => {
         return soknad.sykmeldingId === sykmeldingId && soknad.status === SENDT;

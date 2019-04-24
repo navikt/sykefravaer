@@ -12,7 +12,7 @@ import { soknadrespons } from '../../../../test/mock/mockSoknadSelvstendig';
 import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '../../../toggles';
 import logger from '../../../logging';
 import { ARBEIDSTAKERE, OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
-import { hentSoknad, skalHenteSoknader } from './soknaderSelectors';
+import { hentSoknad, skalHenteSoknader, skalHenteSoknaderHvisIkkeHenter } from './soknaderSelectors';
 import { populerSoknadMedSvarUtenKonvertertePerioder } from '../../utils/populerSoknadMedSvar';
 import fraBackendsoknadTilInitiellSoknad from '../../utils/fraBackendsoknadTilInitiellSoknad';
 import { hentSkjemaVerdier } from '../../../selectors/reduxFormSelectors';
@@ -26,7 +26,7 @@ import {
     AVBRYT_SOKNAD_FORESPURT,
     GJENAPNE_SOKNAD_FORESPURT,
     HENT_SOKNADER_FORESPURT,
-    LAGRE_SOKNAD_FORESPURT, OPPDATER_SOKNAD_FEILET,
+    LAGRE_SOKNAD_FORESPURT, OPPDATER_SOKNAD_FEILET, OPPDATER_SOKNADER_FORESPURT,
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
@@ -68,6 +68,13 @@ export function* oppdaterSoknader() {
 
 export function* hentSoknaderHvisIkkeHentet() {
     const skalHente = yield select(skalHenteSoknader);
+    if (skalHente) {
+        yield oppdaterSoknader();
+    }
+}
+
+export function* oppdaterSoknaderHvisIkkeHenter() {
+    const skalHente = yield select(skalHenteSoknaderHvisIkkeHenter);
     if (skalHente) {
         yield oppdaterSoknader();
     }
@@ -223,6 +230,10 @@ function* watchOppdaterSoknader() {
     ], oppdaterSoknader);
 }
 
+function* watchOppdaterSoknaderHvisIkkehenter() {
+    yield takeEvery([OPPDATER_SOKNADER_FORESPURT], oppdaterSoknaderHvisIkkeHenter);
+}
+
 function* watchSendSoknad() {
     yield takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
 }
@@ -257,5 +268,6 @@ export default function* soknaderSagas() {
         fork(watchGjenapneSoknad),
         fork(watchOpprettUtkastTilKorrigering),
         fork(watchLagreSoknad),
+        fork(watchOppdaterSoknaderHvisIkkehenter),
     ]);
 }

@@ -68,6 +68,25 @@ export function* oppdaterSoknader() {
     }
 }
 
+export function* oppdaterSoknaderVedLagringFeilet(action) {
+    logger.error(`Lagring av av søknad feilet for søknad med ID ${action.soknad.id} og status ${action.soknad.status} ... Henter søknader på nytt.`);
+    yield put(actions.henterSoknader());
+    try {
+        const data = yield call(get, `${hentApiUrl()}/soknader`);
+        yield put(actions.soknaderHentet(data));
+        const soknad = yield select(hentSoknad, action.soknad);
+        logger(`Søknader oppdatert etter at lagring feilet. Status for søknad med ID ${soknad.id} var ${action.soknad.status}, og er nå ${soknad.status}`);
+    } catch (e) {
+        log(e);
+        if (e.message === MANGLER_OIDC_TOKEN) {
+            yield put(actions.henterSoknader());
+        } else {
+            logger.error(`Kunne ikke oppdatere soknader fra syfosoknad. URL: ${window.location.href} - ${e.message}`);
+            yield put(actions.hentSoknaderFeilet());
+        }
+    }
+}
+
 export function* hentSoknaderHvisIkkeHentet() {
     const skalHente = yield select(skalHenteSoknader);
     if (skalHente) {
@@ -176,7 +195,7 @@ export function* lagreSoknad(action) {
         history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${action.sidenummer + 1}`);
     } catch (e) {
         log(e);
-        yield put(actions.oppdaterSoknadFeilet());
+        yield put(actions.oppdaterSoknadFeilet(action.soknad));
     }
 }
 
@@ -228,8 +247,13 @@ function* watchOppdaterSoknader() {
         SOKNAD_ETTERSENDT_NAV,
         SOKNAD_ETTERSENDT_ARBG,
         SOKNAD_AVBRUTT,
-        OPPDATER_SOKNAD_FEILET,
     ], oppdaterSoknader);
+}
+
+function* watchOppdaterSoknaderVedOppdaterFeilet() {
+    yield takeEvery([
+        OPPDATER_SOKNAD_FEILET,
+    ], oppdaterSoknaderVedLagringFeilet);
 }
 
 function* watchOppdaterSoknaderHvisIkkehenter() {
@@ -271,5 +295,6 @@ export default function* soknaderSagas() {
         fork(watchOpprettUtkastTilKorrigering),
         fork(watchLagreSoknad),
         fork(watchOppdaterSoknaderHvisIkkehenter),
+        fork(watchOppdaterSoknaderVedOppdaterFeilet),
     ]);
 }

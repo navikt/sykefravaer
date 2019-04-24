@@ -8,8 +8,10 @@ class StartIgjen extends Component {
     componentDidMount() {
         const { soknad } = this.props;
         const type = soknad.soknadstype ? soknad.soknadstype : 'ARBEIDSTAKER_GAMMEL_PLATTFORM';
+        const sporsmalsliste = soknad.soknadstype ? JSON.stringify(soknad.sporsmal) : null;
         logger.error({
             message: `Ugyldig tilstand i søknad av typen ${type} med ID: ${soknad.id}`,
+            sporsmalsliste,
         });
     }
 

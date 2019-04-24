@@ -1,7 +1,7 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
-import { initialize, change } from 'redux-form';
+import { initialize } from 'redux-form';
 import { get, hentApiUrl, post } from '../../../gateway-api';
 import * as actions from './soknaderActions';
 import {
@@ -41,9 +41,6 @@ import {
 import {
     SOKNAD_ETTERSENDT_ARBG,
 } from '../ettersending/ettersendingArbeidsgiver';
-import { PERIODER } from '../../enums/svartyper';
-import { getObjectValueByString } from '../../../utils';
-import { erGyldigPeriode } from '../../../utils/periodeUtils';
 import history from '../../../history';
 
 const gaTilKvittering = (soknadId) => {
@@ -152,32 +149,6 @@ export function* gjenapneSoknad(action) {
         } catch (e) {
             log(e);
             yield put(actions.gjenapneSoknadFeilet());
-        }
-    }
-}
-
-export function* oppdaterSporsmal(action) {
-    const soknad = yield select(hentSoknad, action.soknad);
-    const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
-    yield put(change(skjemanavn, action.feltnavn, action.nyVerdi));
-    const nyeverdierISkjema = yield select(hentSkjemaVerdier, skjemanavn);
-    const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, nyeverdierISkjema);
-    const skalOppdatereSporsmal = action.svartype === PERIODER
-        ? (() => {
-            const feltnavn = action.feltnavn.split('.')[0];
-            const verdi = getObjectValueByString(nyeverdierISkjema, feltnavn);
-            return erGyldigPeriode(verdi);
-        })()
-        : true;
-
-    if (skalOppdatereSporsmal) {
-        try {
-            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
-            yield put(actions.soknadOppdatert(oppdatertSoknad));
-            yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
-        } catch (e) {
-            log(e);
-            yield put(actions.oppdaterSoknadFeilet());
         }
     }
 }

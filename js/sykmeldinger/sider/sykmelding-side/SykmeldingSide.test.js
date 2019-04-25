@@ -22,6 +22,7 @@ describe('DinSykmeldingContainer', () => {
     let sykmeldinger;
     let actions;
     let hentDineSykmeldinger;
+    let hentSmSykmeldinger;
 
     beforeEach(() => {
         sykmeldinger = [
@@ -101,7 +102,8 @@ describe('DinSykmeldingContainer', () => {
         ownProps.params.sykmeldingId = '3';
 
         hentDineSykmeldinger = sinon.spy();
-        actions = { hentDineSykmeldinger };
+        hentSmSykmeldinger = sinon.spy();
+        actions = { hentDineSykmeldinger, hentSmSykmeldinger };
     });
 
     describe('Henting av data', () => {

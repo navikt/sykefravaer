@@ -8,10 +8,12 @@ import Side from '../../../sider/Side';
 import AppSpinner from '../../../components/AppSpinner';
 import { brodsmule as brodsmulePt, sykmelding as sykmeldingPt } from '../../../propTypes';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
+import { hentSmSykmeldinger } from '../../data/sm-sykmeldinger/smSykmeldingerActions';
 
 export class Container extends Component {
     componentWillMount() {
         this.props.hentDineSykmeldinger();
+        this.props.hentSmSykmeldinger();
     }
 
     render() {
@@ -42,6 +44,7 @@ Container.propTypes = {
         tidligere: PropTypes.string,
     }),
     hentDineSykmeldinger: PropTypes.func,
+    hentSmSykmeldinger: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
@@ -61,4 +64,4 @@ export function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { hentDineSykmeldinger })(Container);
+export default connect(mapStateToProps, { hentDineSykmeldinger, hentSmSykmeldinger })(Container);

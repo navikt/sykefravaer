@@ -29,6 +29,7 @@ import soknadMeta from '../sykepengesoknad/data/soknadMeta/soknadMeta';
 import merVeiledning from '../arbeidsrettet-oppfolging/data/merVeiledning';
 import ettersendingNav from '../sykepengesoknad/data/ettersending/ettersendingNav';
 import ettersendingArbeidsgiver from '../sykepengesoknad/data/ettersending/ettersendingArbeidsgiver';
+import smSykmeldinger from '../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
 
 const reducers = {
     arbeidsgivere,
@@ -66,6 +67,7 @@ const reducers = {
     soknadMeta,
     ettersendingNav,
     ettersendingArbeidsgiver,
+    smSykmeldinger,
 };
 
 export default reducers;

@@ -150,4 +150,5 @@ export const API_NAVN = {
     SYFOMOTEBEHOV: 'syfomotebehov',
     SYFOSOKNAD: 'syfosoknad',
     SYFOSERVICESTRANGLER: 'syfoservicestrangler',
+    SYFOSMREGISTER: 'syfosmregister',
 };

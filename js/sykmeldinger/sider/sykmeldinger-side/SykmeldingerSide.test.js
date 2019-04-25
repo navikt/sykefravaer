@@ -98,34 +98,41 @@ describe('DineSykmeldingerContainer', () => {
 
     describe('Container', () => {
         let hentDineSykmeldinger;
+        let hentSmSykmeldinger;
+        let actions;
 
         beforeEach(() => {
             dispatch = sinon.spy();
             hentDineSykmeldinger = sinon.spy();
+            hentSmSykmeldinger = sinon.spy();
+            actions = {
+                hentDineSykmeldinger,
+                hentSmSykmeldinger,
+            };
         });
 
         it('Skal hente sykmeldinger', () => {
-            shallow(<Container hentDineSykmeldinger={hentDineSykmeldinger} sykmeldinger={[]} sykmeldingerHentet={false} dispatch={dispatch} />);
+            shallow(<Container {...actions} ykmeldinger={[]} sykmeldingerHentet={false} dispatch={dispatch} />);
             expect(hentDineSykmeldinger.calledOnce).to.equal(true);
         });
 
         it('Skal vise spinner dersom data hentes', () => {
-            const component = shallow(<Container hentDineSykmeldinger={hentDineSykmeldinger} sykmeldinger={[]} henter dispatch={dispatch} />);
+            const component = shallow(<Container {...actions} ykmeldinger={[]} henter dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
         it('Skal ikke spinner dersom data ikke hentes', () => {
-            const component = shallow(<Container hentDineSykmeldinger={hentDineSykmeldinger} sykmeldinger={[]} dispatch={dispatch} />);
+            const component = shallow(<Container {...actions} ykmeldinger={[]} dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
         it('Skal vise feilmelding dersom henting feilet', () => {
-            const component = shallow(<Container hentDineSykmeldinger={hentDineSykmeldinger} sykmeldinger={[]} dispatch={dispatch} hentingFeilet />);
+            const component = shallow(<Container {...actions} ykmeldinger={[]} dispatch={dispatch} hentingFeilet />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
         it('Skal vise Sykmeldinger dersom henting er OK', () => {
-            const component = shallow(<Container hentDineSykmeldinger={hentDineSykmeldinger} sykmeldinger={[]} dispatch={dispatch} />);
+            const component = shallow(<Container {...actions} sykmeldinger={[]} dispatch={dispatch} />);
             expect(component.find(Sykmeldinger)).to.have.length(1);
         });
     });

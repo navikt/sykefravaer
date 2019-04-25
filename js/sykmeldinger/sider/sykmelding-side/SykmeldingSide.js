@@ -13,12 +13,14 @@ import Feilmelding from '../../../components/Feilmelding';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
 import { sykmelding as sykmeldingPt } from '../../../propTypes';
 import SykmeldingContext from '../../contexts/SykmeldingContext';
+import { hentSmSykmeldinger } from '../../data/sm-sykmeldinger/smSykmeldingerActions';
 
 const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatuser;
 
 export class Container extends Component {
     componentWillMount() {
         this.props.hentDineSykmeldinger();
+        this.props.hentSmSykmeldinger();
     }
 
     render() {
@@ -106,6 +108,7 @@ Container.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     hentDineSykmeldinger: PropTypes.func,
+    hentSmSykmeldinger: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -126,4 +129,5 @@ export function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
     hentDineSykmeldinger,
+    hentSmSykmeldinger,
 })(Container);

@@ -1,4 +1,5 @@
 import { INVALID } from '../../../enums/behandlingsutfallstatuser';
+import { toggleNyttSykmeldingsmottak } from '../../../selectors/unleashTogglesSelectors';
 
 export const smSykmeldingerSliceSelector = (state) => {
     return state.smSykmeldinger;
@@ -18,7 +19,8 @@ export const hentetSmSykmeldingerSelector = (state) => {
 
 export const skalHenteSmSykmeldingerSelector = (state) => {
     return !henterSmSykmeldingerSelector(state)
-        && !hentetSmSykmeldingerSelector(state);
+        && !hentetSmSykmeldingerSelector(state)
+        && toggleNyttSykmeldingsmottak(state);
 };
 
 export const smSykmeldingerDataSelector = (state) => {

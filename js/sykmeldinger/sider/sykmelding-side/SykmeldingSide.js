@@ -23,6 +23,9 @@ const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatus
 export class Container extends Component {
     componentWillMount() {
         this.props.hentDineSykmeldinger();
+    }
+
+    componentWillUpdate() {
         this.props.hentSmSykmeldinger();
     }
 

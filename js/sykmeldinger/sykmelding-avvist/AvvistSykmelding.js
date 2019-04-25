@@ -13,7 +13,7 @@ const Begrunnelse = ({ smSykmelding }) => {
                 : (<ul>
                     {
                         smSykmelding.behandlingsutfall.ruleHits.map((ruleHit) => {
-                            return <li>{ruleHit.messageForUser}</li>;
+                            return <li key={ruleHit.ruleName}>{ruleHit.messageForUser}</li>;
                         })
                     }
                 </ul>)

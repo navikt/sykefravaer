@@ -112,22 +112,22 @@ describe('DineSykmeldingerContainer', () => {
         });
 
         it('Skal hente sykmeldinger', () => {
-            shallow(<Container {...actions} ykmeldinger={[]} sykmeldingerHentet={false} dispatch={dispatch} />);
+            shallow(<Container {...actions} sykmeldinger={[]} sykmeldingerHentet={false} dispatch={dispatch} />);
             expect(hentDineSykmeldinger.calledOnce).to.equal(true);
         });
 
         it('Skal vise spinner dersom data hentes', () => {
-            const component = shallow(<Container {...actions} ykmeldinger={[]} henter dispatch={dispatch} />);
+            const component = shallow(<Container {...actions} sykmeldinger={[]} henter dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
         it('Skal ikke spinner dersom data ikke hentes', () => {
-            const component = shallow(<Container {...actions} ykmeldinger={[]} dispatch={dispatch} />);
+            const component = shallow(<Container {...actions} sykmeldinger={[]} dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
         it('Skal vise feilmelding dersom henting feilet', () => {
-            const component = shallow(<Container {...actions} ykmeldinger={[]} dispatch={dispatch} hentingFeilet />);
+            const component = shallow(<Container {...actions} sykmeldinger={[]} dispatch={dispatch} hentingFeilet />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 

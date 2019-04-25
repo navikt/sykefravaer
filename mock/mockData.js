@@ -38,5 +38,6 @@ lastFilTilMinne(enums.VIRKSOMHET);
 lastFilTilMinne(enums.FORRIGE_LEDER);
 lastFilTilMinne(enums.SISTE);
 lastFilTilMinne(enums.HENDELSER);
+lastFilTilMinne(enums.SM_SYKMELDINGER);
 
 module.exports = mockData;

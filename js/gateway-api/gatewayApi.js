@@ -39,12 +39,21 @@ export const hentLoginUrl = () => {
     return 'https://loginservice-q.nav.no/login';
 };
 
+export const leggTilCacheBuster = (url) => {
+    const ts = new Date().getTime();
+    return url.indexOf('?') === -1
+        ? `${url}?_ts=${ts}`
+        : `${url}&_ts=${ts}`;
+};
+
 export function get(url, headers = null) {
     const customFetch = getFetch();
     const CustomHeaders = getHeaders();
-    return customFetch(url, {
+    const headersArg = headers || new CustomHeaders();
+    headersArg.append('cache-control', 'no-cache');
+    return customFetch(leggTilCacheBuster(url), {
         credentials: 'include',
-        headers: headers || new CustomHeaders(),
+        headers: headersArg,
     })
         .then((res) => {
             if (res.status === 401) {

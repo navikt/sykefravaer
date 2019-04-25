@@ -69,7 +69,12 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
                         break;
                     }
                     case TALL: {
-                        const feilmelding = validerTall(undersporsmal.min, undersporsmal.max, undersporsmal.tag, values[undersporsmal.tag]);
+                        const feilmelding = validerTall(
+                            undersporsmal.min,
+                            undersporsmal.max,
+                            undersporsmal.tag,
+                            values[undersporsmal.tag],
+                            undersporsmal.undertekst);
                         if (feilmelding) {
                             feilmeldinger[undersporsmal.tag] = feilmelding;
                         }

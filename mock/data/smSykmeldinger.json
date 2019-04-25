@@ -2,7 +2,7 @@
   {
     "id": "60fb7e58-3918-4a3f-8973-ab505b3407b0",
     "behandlingsutfall": {
-      "status": "MANUAL_PROCESSING",
+      "status": "INVALID",
       "ruleHits": [
         {
           "ruleName": "PATIENT_NOT_IN_IP",

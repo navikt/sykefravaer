@@ -9,6 +9,7 @@ import { Container, mapStateToProps } from './LandingssideSide';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
 import brukerinfo from '../../reducers/brukerinfo';
 import { REDIRECT_ETTER_LOGIN } from '../../gateway-api/gatewayApi';
+import smSykmeldinger from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -105,6 +106,7 @@ describe('LandingssideSide', () => {
             },
             brukerinfo: brukerinfo(),
             toggles: {},
+            smSykmeldinger: smSykmeldinger(),
         };
 
         global.window = {

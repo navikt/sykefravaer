@@ -21,6 +21,7 @@ import {
     bekreftetHendelse3,
     ukjentHendelse,
 } from '../../aktivitetskrav/sider/AktivitetskravvarselSide.test';
+import smSykmeldinger from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -69,6 +70,7 @@ describe('DineOppgaverComponent', () => {
                 soknader: {
                     data: [],
                 },
+                smSykmeldinger: smSykmeldinger(),
             };
         });
 
@@ -264,11 +266,26 @@ describe('DineOppgaverComponent', () => {
                     visOppgaver
                     sykepengesoknader={[{ id: '1' }]}
                     sykmeldinger={[{}, {}]}
+                    avvisteSmSykmeldinger={[]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
             });
 
             it('Skal vise tittel', () => {
+                expect(component.find('.js-tittel')).to.contain('Oppgaver som venter på deg');
+            });
+
+            it('Skal vise tittel når man har en avvist sykmelding', () => {
+                component = mount(<DineOppgaverComponent
+                    oppfolgingsdialogerHentet
+                    sykmeldingerHentet
+                    hendelserHentet
+                    visOppgaver
+                    sykepengesoknader={[]}
+                    sykmeldinger={[]}
+                    avvisteSmSykmeldinger={[{}]}
+                    avventendeGodkjenninger={[]}
+                    nyePlaner={[]} />);
                 expect(component.find('.js-tittel')).to.contain('Oppgaver som venter på deg');
             });
 

@@ -14,6 +14,9 @@ import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldin
 import { sykmelding as sykmeldingPt } from '../../../propTypes';
 import SykmeldingContext from '../../contexts/SykmeldingContext';
 import { hentSmSykmeldinger } from '../../data/sm-sykmeldinger/smSykmeldingerActions';
+import { henterSmSykmeldingerSelector, hentingFeiletSmSykmeldingerSelector, smSykmeldingSelector } from '../../data/sm-sykmeldinger/smSykmeldingerSelectors';
+import AvvistSykmelding from '../../sykmelding-avvist/AvvistSykmelding';
+import { smSykmeldingPt } from '../../../propTypes/smSykmeldingProptypes';
 
 const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatuser;
 
@@ -30,6 +33,7 @@ export class Container extends Component {
             hentingFeilet,
             visEldreSykmeldingVarsel,
             eldsteSykmeldingId,
+            smSykmelding,
         } = this.props;
 
         const brodsmuler = [{
@@ -47,6 +51,7 @@ export class Container extends Component {
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
             <SykmeldingContext.Provider value={{
                 sykmelding: dinSykmelding,
+                smSykmelding,
                 dinSykmelding,
                 visEldreSykmeldingVarsel,
                 eldsteSykmeldingId,
@@ -56,10 +61,13 @@ export class Container extends Component {
                         return <div />;
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
-                    } else if (!dinSykmelding) {
+                    } else if (!dinSykmelding && !smSykmelding) {
                         return (<Feilmelding
                             tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel')}
                             melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />);
+                    }
+                    if (smSykmelding) {
+                        return <AvvistSykmelding />;
                     }
                     switch (dinSykmelding.status) {
                         case SENDT:
@@ -109,21 +117,26 @@ Container.propTypes = {
     eldsteSykmeldingId: PropTypes.string,
     hentDineSykmeldinger: PropTypes.func,
     hentSmSykmeldinger: PropTypes.func,
+    smSykmelding: smSykmeldingPt,
 };
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
+    const smSykmelding = smSykmeldingSelector(state, sykmeldingId);
 
     return {
         sykmeldingId,
         dinSykmelding,
+        smSykmelding,
         henter: state.dineSykmeldinger.henter
             || state.ledetekster.henter
-            || state.dineSykmeldinger.hentet !== true,
+            || state.dineSykmeldinger.hentet !== true
+            || henterSmSykmeldingerSelector(state),
         hentingFeilet: state.dineSykmeldinger.hentingFeilet
             || state.arbeidsgiversSykmeldinger.hentingFeilet
-            || state.ledetekster.hentingFeilet,
+            || state.ledetekster.hentingFeilet
+            || hentingFeiletSmSykmeldingerSelector(state),
     };
 }
 

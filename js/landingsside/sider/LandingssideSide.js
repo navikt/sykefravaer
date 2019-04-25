@@ -174,6 +174,7 @@ export function mapStateToProps(state) {
         'ledetekster',
         'soknader',
         'toggles',
+        'smSykmeldinger',
     ];
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);

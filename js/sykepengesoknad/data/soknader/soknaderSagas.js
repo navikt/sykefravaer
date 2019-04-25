@@ -1,7 +1,7 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
-import { initialize, change } from 'redux-form';
+import { initialize } from 'redux-form';
 import { get, hentApiUrl, post } from '../../../gateway-api';
 import * as actions from './soknaderActions';
 import {
@@ -41,9 +41,6 @@ import {
 import {
     SOKNAD_ETTERSENDT_ARBG,
 } from '../ettersending/ettersendingArbeidsgiver';
-import { PERIODER } from '../../enums/svartyper';
-import { getObjectValueByString } from '../../../utils';
-import { erGyldigPeriode } from '../../../utils/periodeUtils';
 import history from '../../../history';
 
 const gaTilKvittering = (soknadId) => {
@@ -63,6 +60,25 @@ export function* oppdaterSoknader() {
             yield put(actions.soknaderHentet(soknadrespons));
         } else {
             logger.error(`Kunne ikke hente soknader fra syfosoknad. URL: ${window.location.href} - ${e.message}`);
+            yield put(actions.hentSoknaderFeilet());
+        }
+    }
+}
+
+export function* oppdaterSoknaderVedLagringFeilet(action) {
+    logger.error(`Lagring av av søknad feilet for søknad med ID ${action.soknad.id} og status ${action.soknad.status} ... Henter søknader på nytt.`);
+    yield put(actions.henterSoknader());
+    try {
+        const data = yield call(get, `${hentApiUrl()}/soknader`);
+        yield put(actions.soknaderHentet(data));
+        const soknad = yield select(hentSoknad, action.soknad);
+        logger.info(`Søknader oppdatert etter at lagring feilet. Status for søknad med ID ${soknad.id} var ${action.soknad.status}, og er nå ${soknad.status}`);
+    } catch (e) {
+        log(e);
+        if (e.message === MANGLER_OIDC_TOKEN) {
+            yield put(actions.henterSoknader());
+        } else {
+            logger.error(`Kunne ikke oppdatere soknader fra syfosoknad. URL: ${window.location.href} - ${e.message}`);
             yield put(actions.hentSoknaderFeilet());
         }
     }
@@ -137,32 +153,6 @@ export function* gjenapneSoknad(action) {
     }
 }
 
-export function* oppdaterSporsmal(action) {
-    const soknad = yield select(hentSoknad, action.soknad);
-    const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
-    yield put(change(skjemanavn, action.feltnavn, action.nyVerdi));
-    const nyeverdierISkjema = yield select(hentSkjemaVerdier, skjemanavn);
-    const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, nyeverdierISkjema);
-    const skalOppdatereSporsmal = action.svartype === PERIODER
-        ? (() => {
-            const feltnavn = action.feltnavn.split('.')[0];
-            const verdi = getObjectValueByString(nyeverdierISkjema, feltnavn);
-            return erGyldigPeriode(verdi);
-        })()
-        : true;
-
-    if (skalOppdatereSporsmal) {
-        try {
-            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
-            yield put(actions.soknadOppdatert(oppdatertSoknad));
-            yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
-        } catch (e) {
-            log(e);
-            yield put(actions.oppdaterSoknadFeilet());
-        }
-    }
-}
-
 export function* lagreSoknad(action) {
     const soknad = yield select(hentSoknad, action.soknad);
     const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
@@ -176,7 +166,7 @@ export function* lagreSoknad(action) {
         history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknad.id}/${action.sidenummer + 1}`);
     } catch (e) {
         log(e);
-        yield put(actions.oppdaterSoknadFeilet());
+        yield put(actions.oppdaterSoknadFeilet(action.soknad));
     }
 }
 
@@ -228,8 +218,13 @@ function* watchOppdaterSoknader() {
         SOKNAD_ETTERSENDT_NAV,
         SOKNAD_ETTERSENDT_ARBG,
         SOKNAD_AVBRUTT,
-        OPPDATER_SOKNAD_FEILET,
     ], oppdaterSoknader);
+}
+
+function* watchOppdaterSoknaderVedOppdaterFeilet() {
+    yield takeEvery([
+        OPPDATER_SOKNAD_FEILET,
+    ], oppdaterSoknaderVedLagringFeilet);
 }
 
 function* watchOppdaterSoknaderHvisIkkehenter() {
@@ -271,5 +266,6 @@ export default function* soknaderSagas() {
         fork(watchOpprettUtkastTilKorrigering),
         fork(watchLagreSoknad),
         fork(watchOppdaterSoknaderHvisIkkehenter),
+        fork(watchOppdaterSoknaderVedOppdaterFeilet),
     ]);
 }

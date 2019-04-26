@@ -8,15 +8,22 @@ import {
 } from './smSykmeldingerActions';
 import { skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
 import { API_NAVN, get, hentSyfoApiUrl } from '../../../gateway-api';
+import { toggleNyttSykmeldingsmottak } from '../../../selectors/unleashTogglesSelectors';
+import { HENTET_UNLEASH_TOGGLES } from '../../../actions/actiontyper';
 
 export function* oppdaterSmSykmeldinger() {
-    yield put(henterSmSykmeldinger());
-    try {
-        const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/sykmeldinger`);
-        yield put(smSykmeldingerHentet(data));
-    } catch (e) {
-        log(e);
-        yield put(hentSmSykmeldingerFeilet());
+    const toggle = yield select(toggleNyttSykmeldingsmottak);
+    if (toggle) {
+        yield put(henterSmSykmeldinger());
+        try {
+            const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/sykmeldinger`);
+            yield put(smSykmeldingerHentet(data));
+        } catch (e) {
+            log(e);
+            yield put(hentSmSykmeldingerFeilet());
+        }
+    } else {
+        smSykmeldingerHentet([]);
     }
 }
 
@@ -28,7 +35,10 @@ export function* hentSmSykmeldingerHvisIkkeHentet() {
 }
 
 function* watchHentSmSykmeldinger() {
-    yield takeEvery(HENT_SM_SYKMELDINGER_FORESPURT, hentSmSykmeldingerHvisIkkeHentet);
+    yield takeEvery([
+        HENT_SM_SYKMELDINGER_FORESPURT,
+        HENTET_UNLEASH_TOGGLES,
+    ], hentSmSykmeldingerHvisIkkeHentet);
 }
 
 export default function* smSykmeldingerSagas() {

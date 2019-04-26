@@ -16,7 +16,7 @@ export function* oppdaterSmSykmeldinger() {
     if (toggle) {
         yield put(henterSmSykmeldinger());
         try {
-            const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/sykmeldinger`);
+            const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/behandlingsutfall`);
             yield put(smSykmeldingerHentet(data));
         } catch (e) {
             log(e);

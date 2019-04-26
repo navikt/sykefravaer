@@ -5,19 +5,9 @@
       "status": "INVALID",
       "ruleHits": [
         {
-          "ruleName": "RULE_1",
+          "ruleName": "TOO_MANY_TREATMENT_DAYS",
           "messageForSender": null,
-          "messageForUser": "Startdatoen er mer enn tre år tilbake."
-        },
-        {
-          "ruleName": "RULE_2",
-          "messageForSender": null,
-          "messageForUser": "Sykmeldingen mangler utdypende opplysninger som kreves når sykefraværet er lengre enn 17 uker til sammen."
-        },
-        {
-          "ruleName": "RULE_3",
-          "messageForSender": null,
-          "messageForUser": "Den som skrev sykmeldingen mangler autorisasjon."
+          "messageForUser": "Det er angitt for mange behandlingsdager. Det kan bare angis én behandlingsdag per uke. "
         }
       ]
     }

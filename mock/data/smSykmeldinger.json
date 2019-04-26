@@ -5,9 +5,19 @@
       "status": "INVALID",
       "ruleHits": [
         {
-          "ruleName": "PATIENT_NOT_IN_IP",
-          "messageForSender": "Hvis pasienten ikke finnes i infotrygd",
-          "messageForUser": "Hvis pasienten ikke finnes i infotrygd"
+          "ruleName": "RULE_1",
+          "messageForSender": null,
+          "messageForUser": "Startdatoen er mer enn tre år tilbake."
+        },
+        {
+          "ruleName": "RULE_2",
+          "messageForSender": null,
+          "messageForUser": "Sykmeldingen mangler utdypende opplysninger som kreves når sykefraværet er lengre enn 17 uker til sammen."
+        },
+        {
+          "ruleName": "RULE_3",
+          "messageForSender": null,
+          "messageForUser": "Den som skrev sykmeldingen mangler autorisasjon."
         }
       ]
     }

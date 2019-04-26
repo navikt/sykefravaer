@@ -32,12 +32,14 @@ const AvvistSykmelding = () => {
                 return (<React.Fragment>
                     <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                     <div className="panel">
-                        <IllustrertInnhold ikon="/sykefravaer/img/svg/avvist-sykmelding.svg" ikonAlt="Advarsel/utropstegn">
-                            <h2 className="panel__tittel">
-                                Sykmeldingen er avvist
-                            </h2>
-                            <Begrunnelse smSykmelding={smSykmelding} />
-                        </IllustrertInnhold>
+                        <div className="avvistSykmelding">
+                            <IllustrertInnhold ikon="/sykefravaer/img/svg/avvist-sykmelding.svg" ikonAlt="Advarsel/utropstegn">
+                                <h2 className="panel__tittel">
+                                    Sykmeldingen er avvist
+                                </h2>
+                                <Begrunnelse smSykmelding={smSykmelding} />
+                            </IllustrertInnhold>
+                        </div>
                     </div>
                 </React.Fragment>);
             }

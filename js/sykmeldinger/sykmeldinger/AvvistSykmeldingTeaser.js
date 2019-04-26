@@ -9,13 +9,12 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
         <Link
             className="inngangspanel inngangspanel--sykmelding"
             to={`${getContextRoot()}/sykmeldinger/${smSykmelding.id}`}>
-            <span className="inngangspanel__ikon" />
+            <span className="inngangspanel__ikon">
+                <img alt="" src="/sykefravaer/img/svg/report-problem-triangle-red.svg" />
+            </span>
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`sykmelding-header-${smSykmelding.id}`}>
-                        <small className="inngangspanel__meta">
-                            Dato
-                        </small>
                         <span className="inngangspanel__tittel">
                             {getLedetekst('sykmelding.teaser.tittel')}
                         </span>

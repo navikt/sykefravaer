@@ -20,15 +20,20 @@ import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 
-const Li = ({ tekst, url }) => {
+const Li = ({ tekst, url, img, imgAlt }) => {
     return (<li>
-        <Link to={url}>{tekst}</Link>
+        { img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" /> }
+        <span>
+            <Link to={url}>{tekst}</Link>
+        </span>
     </li>);
 };
 
 Li.propTypes = {
     tekst: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
+    img: PropTypes.string,
+    imgAlt: PropTypes.string,
 };
 
 export const EksternLi = ({ tekst, url }) => {
@@ -60,7 +65,11 @@ export const AvvistSmSykmelding = ({ smSykmeldinger }) => {
         : getLedetekst('dine-oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
             '%ANTALL%': smSykmeldinger.length.toString(),
         });
-    return (<Li url={url} tekst={tekst} />);
+    return (<Li
+        url={url}
+        tekst={tekst}
+        img="/sykefravaer/img/svg/report-problem-triangle-red.svg"
+        imgAlt="Utropstegn" />);
 };
 
 AvvistSmSykmelding.propTypes = {

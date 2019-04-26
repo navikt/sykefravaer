@@ -7,6 +7,8 @@ import { Container, mapStateToProps } from './SykmeldingerSide';
 import AppSpinner from '../../../components/AppSpinner';
 import Feilmelding from '../../../components/Feilmelding';
 import Sykmeldinger from '../../sykmeldinger/Sykmeldinger';
+import smSykmeldinger from '../../data/sm-sykmeldinger/smSykmeldinger';
+import unleashToggles from '../../../reducers/unleashToggles';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -90,6 +92,8 @@ describe('DineSykmeldingerContainer', () => {
                     bruker: {},
                     innstillinger: {},
                 },
+                smSykmeldinger: smSykmeldinger(),
+                unleashToggles: unleashToggles(),
             });
             expect(res.sykmeldinger).to.deep.equal(dineSykmeldinger.data);
             expect(res.henter).to.equal(false);

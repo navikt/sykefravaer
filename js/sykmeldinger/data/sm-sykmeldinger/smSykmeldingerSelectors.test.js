@@ -2,12 +2,23 @@ import smSykmeldinger from './smSykmeldinger';
 import { skalHenteSmSykmeldingerSelector, avvisteSmSykmeldingerDataSelector } from './smSykmeldingerSelectors';
 import expect from '../../../../test/expect';
 import { henterSmSykmeldinger, smSykmeldingerHentet } from './smSykmeldingerActions';
+import unleashToggles from '../../../reducers/unleashToggles';
+import { unleashTogglesHentet } from '../../../actions/unleashToggles_actions';
+import { NYTT_SYKMELDINGSMOTTAK } from '../../../enums/unleashToggles';
 
 describe('smSykmeldingerSelectors', () => {
+    let unleashTogglesReducer;
+
+    beforeEach(() => {
+        unleashTogglesReducer = unleashToggles(unleashToggles(), unleashTogglesHentet({
+            [NYTT_SYKMELDINGSMOTTAK]: true,
+        }));
+    });
     describe('skalHenteSmSykmeldingerSelector', () => {
         it('Skal returnere true når sykmeldinger ikke er hentet', () => {
             const state = {
                 smSykmeldinger: smSykmeldinger(),
+                unleashToggles: unleashTogglesReducer,
             };
             expect(skalHenteSmSykmeldingerSelector(state)).to.equal(true);
         });
@@ -15,6 +26,7 @@ describe('smSykmeldingerSelectors', () => {
         it('Skal returnere false når sykmeldinger er hentet', () => {
             const state = {
                 smSykmeldinger: smSykmeldinger(smSykmeldinger(), smSykmeldingerHentet()),
+                unleashToggles: unleashTogglesReducer,
             };
             expect(skalHenteSmSykmeldingerSelector(state)).to.equal(false);
         });
@@ -22,6 +34,7 @@ describe('smSykmeldingerSelectors', () => {
         it('Skal returnere false når sykmeldinger hentes', () => {
             const state = {
                 smSykmeldinger: smSykmeldinger(smSykmeldinger(), henterSmSykmeldinger()),
+                unleashToggles: unleashTogglesReducer,
             };
             expect(skalHenteSmSykmeldingerSelector(state)).to.equal(false);
         });
@@ -60,6 +73,7 @@ describe('smSykmeldingerSelectors', () => {
 
             const state = {
                 smSykmeldinger: smSykmeldinger(smSykmeldinger(), smSykmeldingerHentet(data)),
+                unleashToggles: unleashTogglesReducer,
             };
             const resultat = avvisteSmSykmeldingerDataSelector(state);
             expect(resultat).to.deep.equal([{

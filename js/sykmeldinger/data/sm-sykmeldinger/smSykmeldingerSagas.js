@@ -13,7 +13,6 @@ import { HENTET_UNLEASH_TOGGLES } from '../../../actions/actiontyper';
 
 export function* oppdaterSmSykmeldinger() {
     const toggle = yield select(toggleNyttSykmeldingsmottak);
-    console.log("toggle")
     if (toggle) {
         yield put(henterSmSykmeldinger());
         try {

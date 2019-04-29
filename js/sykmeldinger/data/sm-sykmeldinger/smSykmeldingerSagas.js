@@ -46,7 +46,7 @@ export function* bekreftSmSykmeldingLestSaga(action) {
     if (toggle && skalBekrefte) {
         yield put(bekrefterLestSmSykmelding());
         try {
-            yield call(post, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/sykmeldinger/${action.smSykmelding.id}/lestAvBruker`);
+            yield call(post, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/sykmeldinger/${action.smSykmelding.id}/bekreftAvvist`);
             yield put(smSykmeldingBekreftetLest(action.smSykmelding));
             browserHistory.push('/sykefravaer');
             yield delay(10000);

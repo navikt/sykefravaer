@@ -14,6 +14,7 @@ const ledetekster = {
     hendelser: 'Kunne ikke hente alle hendelser',
     sykeforloep: 'Kunne ikke hente ditt siste sykeforløp',
     sykeforloepMetadata: 'Kunne ikke hente metadata for ditt siste sykeforløp',
+    smSykmeldinger: 'Kunne ikke hente alle dine sykmeldinger',
 };
 
 const Feiliste = ({ feilliste }) => {

@@ -25,6 +25,7 @@ const PERSONVIRKSOMHETSNUMMER = 'personVirksomhetsnummer';
 const VIRKSOMHET = 'virksomhet';
 const SISTE = 'siste';
 const HENDELSER = 'hendelser';
+const SM_SYKMELDINGER = 'smSykmeldinger';
 
 module.exports = {
     ARBEIDSGIVERS_SYKMELDINGER,
@@ -54,4 +55,5 @@ module.exports = {
     VIRKSOMHET,
     SISTE,
     HENDELSER,
+    SM_SYKMELDINGER,
 };

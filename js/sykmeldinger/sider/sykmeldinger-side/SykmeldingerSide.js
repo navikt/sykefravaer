@@ -8,14 +8,28 @@ import Side from '../../../sider/Side';
 import AppSpinner from '../../../components/AppSpinner';
 import { brodsmule as brodsmulePt, sykmelding as sykmeldingPt } from '../../../propTypes';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
+import { hentSmSykmeldinger } from '../../data/sm-sykmeldinger/smSykmeldingerActions';
+import {
+    avvisteSmSykmeldingerDataSelector,
+    henterSmSykmeldingerSelector,
+    hentingFeiletSmSykmeldingerSelector,
+    skalHenteSmSykmeldingerSelector,
+} from '../../data/sm-sykmeldinger/smSykmeldingerSelectors';
+import { smSykmeldingerPt } from '../../../propTypes/smSykmeldingProptypes';
 
 export class Container extends Component {
     componentWillMount() {
         this.props.hentDineSykmeldinger();
     }
 
+    componentDidUpdate() {
+        if (this.props.skalHenteSmSykmeldinger) {
+            this.props.hentSmSykmeldinger();
+        }
+    }
+
     render() {
-        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering } = this.props;
+        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering, smSykmeldinger } = this.props;
         return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
             {
                 (() => {
@@ -25,6 +39,7 @@ export class Container extends Component {
                         return (<Feilmelding />);
                     }
                     return (<Sykmeldinger
+                        smSykmeldinger={smSykmeldinger}
                         sykmeldinger={sykmeldinger}
                         sortering={sortering} />);
                 })()
@@ -42,14 +57,19 @@ Container.propTypes = {
         tidligere: PropTypes.string,
     }),
     hentDineSykmeldinger: PropTypes.func,
+    hentSmSykmeldinger: PropTypes.func,
+    smSykmeldinger: smSykmeldingerPt,
+    skalHenteSmSykmeldinger: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
     return {
         sykmeldinger: state.dineSykmeldinger.data,
+        smSykmeldinger: avvisteSmSykmeldingerDataSelector(state),
         sortering: state.dineSykmeldinger.sortering,
-        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || !state.dineSykmeldinger.hentet,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet,
+        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || !state.dineSykmeldinger.hentet || henterSmSykmeldingerSelector(state),
+        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet || hentingFeiletSmSykmeldingerSelector(state),
+        skalHenteSmSykmeldinger: skalHenteSmSykmeldingerSelector(state),
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -61,4 +81,4 @@ export function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { hentDineSykmeldinger })(Container);
+export default connect(mapStateToProps, { hentDineSykmeldinger, hentSmSykmeldinger })(Container);

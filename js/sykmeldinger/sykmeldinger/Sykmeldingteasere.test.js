@@ -29,6 +29,7 @@ const sykmeldinger = [{
         diagnosekode: 'LP2',
     },
     arbeidsfoerEtterPerioden: true,
+    status: 'NY',
 }, {
     id: '2',
     fnr: '12',
@@ -47,6 +48,7 @@ const sykmeldinger = [{
         diagnosekode: 'LP2',
     },
     arbeidsfoerEtterPerioden: true,
+    status: 'NY',
 }, {
     id: '3',
     fnr: '12',
@@ -65,6 +67,7 @@ const sykmeldinger = [{
         diagnosekode: 'LP2',
     },
     arbeidsfoerEtterPerioden: true,
+    status: 'NY',
 }];
 
 describe('SykmeldingTeasere', () => {

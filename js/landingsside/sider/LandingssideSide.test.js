@@ -9,6 +9,7 @@ import { Container, mapStateToProps } from './LandingssideSide';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
 import brukerinfo from '../../reducers/brukerinfo';
 import { REDIRECT_ETTER_LOGIN } from '../../gateway-api/gatewayApi';
+import smSykmeldinger from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -42,6 +43,7 @@ describe('LandingssideSide', () => {
     let hentOppfolgingsforlopsPerioder;
     let hentToggles;
     let hentSykmeldtinfodata;
+    let hentSmSykmeldinger;
 
     let state;
     let actions;
@@ -60,6 +62,7 @@ describe('LandingssideSide', () => {
         hentOppfolging = sinon.spy();
         hentToggles = sinon.spy();
         hentSykmeldtinfodata = sinon.spy();
+        hentSmSykmeldinger = sinon.spy();
 
         actions = {
             hentMote,
@@ -75,6 +78,7 @@ describe('LandingssideSide', () => {
             hentOppfolging,
             hentToggles,
             hentSykmeldtinfodata,
+            hentSmSykmeldinger,
         };
 
         state = {
@@ -102,6 +106,7 @@ describe('LandingssideSide', () => {
             },
             brukerinfo: brukerinfo(),
             toggles: {},
+            smSykmeldinger: smSykmeldinger(),
         };
 
         global.window = {

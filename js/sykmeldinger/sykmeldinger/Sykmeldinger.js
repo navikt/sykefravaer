@@ -5,8 +5,9 @@ import SykmeldingTeasere from './SykmeldingTeasere';
 import SykmeldingerSorteringContainer from './SykmeldingerSorteringContainer';
 import Sidetopp from '../../components/Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
+import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 
-const Sykmeldinger = ({ sykmeldinger = [], sortering }) => {
+const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {
         return sykmld.status === sykmeldingstatuser.NY;
     });
@@ -22,6 +23,7 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering }) => {
         />
         <SykmeldingTeasere
             sykmeldinger={sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)}
+            smSykmeldinger={smSykmeldinger}
             tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel')}
             ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding')}
             className="js-nye-sykmeldinger"
@@ -43,6 +45,7 @@ Sykmeldinger.propTypes = {
     sortering: PropTypes.shape({
         tidligere: PropTypes.string,
     }),
+    smSykmeldinger: smSykmeldingerPt,
 };
 
 export default Sykmeldinger;

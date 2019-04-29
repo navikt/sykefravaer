@@ -32,6 +32,7 @@ import {
     forsoektHentetOppfolgingsPerioder,
 } from '../../utils/oppfolgingsforlopsperioderUtils';
 import { REDIRECT_ETTER_LOGIN } from '../../gateway-api/gatewayApi';
+import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
 
 export class Container extends Component {
     componentWillMount() {
@@ -63,6 +64,7 @@ export class Container extends Component {
         actions.hentSoknader();
         actions.hentOppfolging();
         actions.hentSykmeldtinfodata();
+        actions.hentSmSykmeldinger();
     }
 
     componentDidMount() {
@@ -172,6 +174,7 @@ export function mapStateToProps(state) {
         'ledetekster',
         'soknader',
         'toggles',
+        'smSykmeldinger',
     ];
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
@@ -224,6 +227,7 @@ const mapDispatchToProps = (dispatch) => {
         hentOppfolging,
         hentSykmeldtinfodata,
         hentToggles,
+        hentSmSykmeldinger,
     }, dispatch);
     return { actions };
 };

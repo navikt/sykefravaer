@@ -17,16 +17,23 @@ import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { toggleErPaaHeroku } from '../../toggles';
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
+import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
+import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 
-const Li = ({ tekst, url }) => {
+const Li = ({ tekst, url, img, imgAlt }) => {
     return (<li>
-        <Link to={url}>{tekst}</Link>
+        { img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" /> }
+        <span>
+            <Link to={url}>{tekst}</Link>
+        </span>
     </li>);
 };
 
 Li.propTypes = {
     tekst: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
+    img: PropTypes.string,
+    imgAlt: PropTypes.string,
 };
 
 export const EksternLi = ({ tekst, url }) => {
@@ -47,6 +54,26 @@ export const NySykmelding = ({ sykmeldinger }) => {
 
 NySykmelding.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
+};
+
+export const AvvistSmSykmelding = ({ smSykmeldinger }) => {
+    const url = smSykmeldinger.length === 1
+        ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${smSykmeldinger[0].id}`
+        : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
+    const tekst = smSykmeldinger.length === 1
+        ? getLedetekst('dine-oppgaver.sm-sykmeldinger.en-avvist-sykmelding')
+        : getLedetekst('dine-oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
+            '%ANTALL%': smSykmeldinger.length.toString(),
+        });
+    return (<Li
+        url={url}
+        tekst={tekst}
+        img="/sykefravaer/img/svg/report-problem-triangle-red.svg"
+        imgAlt="Utropstegn" />);
+};
+
+AvvistSmSykmelding.propTypes = {
+    smSykmeldinger: smSykmeldingerPt,
 };
 
 export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
@@ -102,6 +129,7 @@ const RendreOppgaver = (
         harNyttMotebehov,
         nyePlaner,
         visAktivitetskrav,
+        avvisteSmSykmeldinger = [],
     }) => {
     if (!visOppgaver) {
         return null;
@@ -117,6 +145,7 @@ const RendreOppgaver = (
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
                     {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
+                    {avvisteSmSykmeldinger.length > 0 && <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />}
                     {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
                     {mote !== null && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
                     {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('ao.oppgave.inngangstekst')} />}
@@ -141,6 +170,7 @@ RendreOppgaver.propTypes = {
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     visMerVeiledingHendelse: PropTypes.bool,
     visAktivitetskrav: PropTypes.bool,
+    avvisteSmSykmeldinger: smSykmeldingerPt,
 };
 
 export class DineOppgaverComponent extends Component {
@@ -203,6 +233,7 @@ export const mapStateToProps = (state) => {
     const harNyttMotebehov = erMotebehovUbesvart(state);
     const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
+    const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state);
     const visOppgaver = sykmeldinger.length > 0 ||
         sykepengesoknader.length > 0 ||
         soknader.length > 0 ||
@@ -210,7 +241,8 @@ export const mapStateToProps = (state) => {
         harNyttMotebehov ||
         _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 ||
         _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 ||
-        visAktivitetskrav;
+        visAktivitetskrav ||
+        avvisteSmSykmeldinger.length > 0;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
@@ -228,6 +260,7 @@ export const mapStateToProps = (state) => {
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav,
+        avvisteSmSykmeldinger,
     };
 };
 

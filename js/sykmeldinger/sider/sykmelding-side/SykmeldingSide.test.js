@@ -12,6 +12,7 @@ import SendtSykmelding from '../../sykmelding-sendt/SendtSykmelding';
 import AvbruttSykmelding from '../../sykmelding-avbrutt/AvbruttSykmelding';
 import BekreftetSykmelding from '../../sykmelding-bekreftet/BekreftetSykmelding';
 import UtgaattSykmelding from '../../sykmelding-utgatt/UtgaattSykmelding';
+import smSykmeldinger from '../../data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -22,6 +23,7 @@ describe('DinSykmeldingContainer', () => {
     let sykmeldinger;
     let actions;
     let hentDineSykmeldinger;
+    let hentSmSykmeldinger;
 
     beforeEach(() => {
         sykmeldinger = [
@@ -96,12 +98,14 @@ describe('DinSykmeldingContainer', () => {
                 henter: false,
                 hentingFeilet: false,
             },
+            smSykmeldinger: smSykmeldinger(),
         };
         ownProps.params = {};
         ownProps.params.sykmeldingId = '3';
 
         hentDineSykmeldinger = sinon.spy();
-        actions = { hentDineSykmeldinger };
+        hentSmSykmeldinger = sinon.spy();
+        actions = { hentDineSykmeldinger, hentSmSykmeldinger };
     });
 
     describe('Henting av data', () => {

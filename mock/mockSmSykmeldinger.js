@@ -10,6 +10,13 @@ function mockHentSykmeldinger(server) {
 
 function mockSmSykmeldingerLokalt(server) {
     mockHentSykmeldinger(server);
+
+    server.post('/syfosmregister/api/v1/sykmeldinger/:id/lestAvBruker', (req, res) => {
+        res.status(200);
+        setTimeout(() => {
+            res.send('');
+        }, 4000);
+    });
 }
 
 function mockSmSykmeldingerOpplaeringsmiljo(server) {

@@ -16,15 +16,18 @@ const Skjema = (props) => {
         doBekreftSmSykmeldingLest(smSykmelding);
     })}>
         <Feilstripe vis={bekreftFeilet} className="blokk" />
-        <div className="bekreftAktivitetskrav">
+        <div className="bekreftLestAvvistSykmelding">
             <Field
-                name="bekreftAktivitetskrav"
+                name="bekreftetLest"
+                disabled={bekrefter}
                 component={CheckboxSelvstendig}
-                id="bekreftAktivitetskrav"
+                id="bekreftetLest"
                 label={getLedetekst('avvist-sykmelding.bekreft-label')} />
         </div>
         <div className="knapperad">
-            <Hovedknapp type="submit" spinner={bekrefter}>Bekreft</Hovedknapp>
+            <Hovedknapp type="submit" spinner={bekrefter} autoDisableVedSpinner>
+                {getLedetekst('avvist-sykmelding.bekreft-knapp')}
+            </Hovedknapp>
         </div>
     </form>);
 };
@@ -37,11 +40,18 @@ Skjema.propTypes = {
     doBekreftSmSykmeldingLest: PropTypes.func,
 };
 
+const ReduxSkjema = reduxForm({
+    validate: (values = {}) => {
+        return values.bekreftetLest
+            ? {}
+            : {
+                bekreftetLest: getLedetekst('avvist-sykmelding.bekreft-feilmelding'),
+            };
+    },
+})(Skjema);
+
 const Skjemaviser = (props) => {
     const { smSykmelding } = props;
-    const ReduxSkjema = reduxForm({
-        form: getSykmeldingSkjemanavn(smSykmelding.id),
-    })(Skjema);
     return smSykmelding.lestAvBrukerDato
         ? null
         : <ReduxSkjema {...props} />;
@@ -51,10 +61,11 @@ Skjemaviser.propTypes = {
     smSykmelding: smSykmeldingPt,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
         bekrefter: state.smSykmeldinger.bekrefter,
         bekreftFeilet: state.smSykmeldinger.bekreftFeilet,
+        form: getSykmeldingSkjemanavn(ownProps.smSykmelding.id),
     };
 };
 

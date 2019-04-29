@@ -14,6 +14,7 @@ import { Vis } from '../../utils/index';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
 import { toggleErPaaHeroku } from '../../toggles';
+import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -28,6 +29,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
         <Sidebanner brodsmuler={brodsmuler} />
         <div className="begrensning blokk">
             <ServerfeilContainer />
+            <AvvistSykmeldingKvittering />
             {
                 !harSykmeldinger && <IngenSykmeldinger />
             }

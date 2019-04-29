@@ -33,6 +33,7 @@ import {
 } from '../../utils/oppfolgingsforlopsperioderUtils';
 import { REDIRECT_ETTER_LOGIN } from '../../gateway-api/gatewayApi';
 import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
+import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 
 export class Container extends Component {
     componentWillMount() {
@@ -193,7 +194,7 @@ export function mapStateToProps(state) {
         || !forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe),
         harDialogmote: state.mote.data !== null,
         harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
-        harSykmeldinger: state.dineSykmeldinger.data.length > 0,
+        harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
         skalViseMotebehov: !state.dineSykmeldinger.hentingFeilet &&
             !state.ledere.hentingFeilet &&
             skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov),

@@ -6,6 +6,7 @@ export const BEKREFTER_LEST_SM_SYKMELDING = 'BEKREFTER_LEST_SM_SYKMELDING';
 export const SM_SYKMELDING_BEKREFTET_LEST = 'SM_SYKMELDING_BEKREFTET_LEST';
 export const BEKREFT_LEST_SM_SYKMELDING_FORESPURT = 'BEKREFT_LEST_SM_SYKMELDING_FORESPURT';
 export const SM_SYKMELDING_BEKREFT_LEST_FEILET = 'SM_SYKMELDING_BEKREFT_LEST_FEILET';
+export const KVITTERING_VIST_LENGE_NOK = 'KVITTERING_VIST_LENGE_NOK';
 
 export const smSykmeldingerHentet = (data = []) => {
     return {
@@ -45,9 +46,16 @@ export const bekrefterLestSmSykmelding = () => {
     };
 };
 
-export const smSykmeldingBekreftetLest = () => {
+export const bekreftSmSykmeldingKvitteringVistLengeNok = () => {
+    return {
+        type: KVITTERING_VIST_LENGE_NOK,
+    };
+};
+
+export const smSykmeldingBekreftetLest = (smSykmelding) => {
     return {
         type: SM_SYKMELDING_BEKREFTET_LEST,
+        smSykmelding,
     };
 };
 

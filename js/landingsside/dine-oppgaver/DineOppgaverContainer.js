@@ -235,7 +235,7 @@ export const mapStateToProps = (state) => {
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state)
         .filter((smSykmelding) => {
-            return smSykmelding.lestAvBrukerDato === null;
+            return smSykmelding.bekreftetDato === null;
         });
     const visOppgaver = sykmeldinger.length > 0 ||
         sykepengesoknader.length > 0 ||

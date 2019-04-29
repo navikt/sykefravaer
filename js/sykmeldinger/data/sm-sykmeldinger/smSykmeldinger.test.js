@@ -20,7 +20,7 @@ describe('smSykmeldinger', () => {
         expect(nextState.bekrefter).to.equal(false);
     });
 
-    it('Skal sette lestAvBrukerDato når sykmelding er bekreftet lest', () => {
+    it('Skal sette bekreftetDato når sykmelding er bekreftet lest', () => {
         const now = new Date('2019-04-29');
         const clock = sinon.useFakeTimers(now);
         const smSykmelding = mockSmSykmelding();
@@ -28,7 +28,7 @@ describe('smSykmeldinger', () => {
         const action = smSykmeldingBekreftetLest(smSykmelding);
         const nextState = smSykmeldinger(state, action);
         const nySmSykmelding = smSykmeldingSelector({ smSykmeldinger: nextState }, smSykmelding.id);
-        expect(nySmSykmelding.lestAvBrukerDato).to.deep.equal(now);
+        expect(nySmSykmelding.bekreftetDato).to.deep.equal(now);
         expect(nextState.visKvittering).to.equal(true);
         clock.restore();
     });

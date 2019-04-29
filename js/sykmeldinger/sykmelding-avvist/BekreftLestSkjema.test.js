@@ -22,7 +22,7 @@ describe('BekreftLestAvvistSykmeldingSkjema', () => {
 
     it('Skal ikke vise skjema når sykmelding er sendt', () => {
         const smSykmelding = mockSmSykmelding({
-            lestAvBrukerDato: new Date(),
+            bekreftetDato: new Date(),
         });
         const component = mountWithStore(<BekreftLestAvvistSykmeldingSkjema smSykmelding={smSykmelding} />, state);
         expect(component.find('form')).to.have.length(0);

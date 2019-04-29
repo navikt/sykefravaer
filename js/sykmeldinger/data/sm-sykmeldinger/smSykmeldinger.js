@@ -24,7 +24,7 @@ const spesialHandler = (state, action) => {
                     return smSykmelding.id === action.smSykmelding.id
                         ? {
                             ...smSykmelding,
-                            lestAvBrukerDato: new Date(),
+                            bekreftetDato: new Date(),
                         }
                         : smSykmelding;
                 }),
@@ -55,8 +55,8 @@ const spesialHandler = (state, action) => {
 const mapper = (smSykmelding) => {
     return {
         ...smSykmelding,
-        lestAvBrukerDato: smSykmelding.lestAvBrukerDato
-            ? new Date(smSykmelding.lestAvBrukerDato)
+        bekreftetDato: smSykmelding.bekreftetDato
+            ? new Date(smSykmelding.bekreftetDato)
             : null,
     };
 };

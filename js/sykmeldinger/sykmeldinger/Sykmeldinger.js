@@ -16,10 +16,10 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
     });
     const tidligereSortering = sortering && sortering.tidligere ? sortering.tidligere : undefined;
     const ulesteSmSykmeldinger = smSykmeldinger.filter((smSykmelding) => {
-        return smSykmelding.lestAvBrukerDato === null;
+        return smSykmelding.bekreftetDato === null;
     });
     const lesteSmSykmeldinger = smSykmeldinger.filter((smSykmelding) => {
-        return smSykmelding.lestAvBrukerDato !== null;
+        return smSykmelding.bekreftetDato !== null;
     });
     return (<div>
         <Sidetopp

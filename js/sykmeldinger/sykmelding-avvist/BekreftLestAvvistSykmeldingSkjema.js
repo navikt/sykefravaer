@@ -52,7 +52,7 @@ const ReduxSkjema = reduxForm({
 
 const Skjemaviser = (props) => {
     const { smSykmelding } = props;
-    return smSykmelding.lestAvBrukerDato
+    return smSykmelding.bekreftetDato
         ? null
         : <ReduxSkjema {...props} />;
 };

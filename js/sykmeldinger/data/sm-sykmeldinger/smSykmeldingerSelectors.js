@@ -37,10 +37,7 @@ export const avvisteSmSykmeldingerDataSelector = (state) => {
 };
 
 export const visAvvistSykmeldingBekreftetLestKvittering = (state) => {
-    return avvisteSmSykmeldingerDataSelector(state)
-        .filter((smSykmelding) => {
-            return smSykmelding.visKvittering;
-        }).length > 0;
+    return smSykmeldingerSliceSelector(state).visKvittering;
 };
 
 export const smSykmeldingSelector = (state, sykmeldingId) => {

@@ -14,21 +14,22 @@ import {
 } from './smSykmeldingerActions';
 import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
 import { API_NAVN, get, hentSyfoApiUrl, post } from '../../../gateway-api';
-import { toggleNyttSykmeldingsmottak } from '../../../selectors/unleashTogglesSelectors';
+import { toggleNyttSykmeldingsmottak, unleashtogglesHentetSelector } from '../../../selectors/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../actions/actiontyper';
 
 export function* oppdaterSmSykmeldinger() {
     const toggle = yield select(toggleNyttSykmeldingsmottak);
-    if (toggle) {
+    const toggleHentet = yield select(unleashtogglesHentetSelector);
+    if (toggle && toggleHentet) {
         yield put(henterSmSykmeldinger());
         try {
-            const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/behandlingsutfall`);
+            const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/sykmeldinger`);
             yield put(smSykmeldingerHentet(data));
         } catch (e) {
             log(e);
             yield put(hentSmSykmeldingerFeilet());
         }
-    } else {
+    } else if (toggleHentet) {
         yield put(smSykmeldingerHentet([]));
     }
 }

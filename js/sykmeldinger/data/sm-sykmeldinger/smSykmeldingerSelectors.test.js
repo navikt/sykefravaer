@@ -78,6 +78,7 @@ describe('smSykmeldingerSelectors', () => {
             const resultat = avvisteSmSykmeldingerDataSelector(state);
             expect(resultat).to.deep.equal([{
                 id: '3',
+                lestAvBrukerDato: null,
                 behandlingsutfall: {
                     status: 'INVALID',
                     ruleHits: [

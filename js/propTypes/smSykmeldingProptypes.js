@@ -15,6 +15,7 @@ const behandlingsutfallPt = PropTypes.shape({
 export const smSykmeldingPt = PropTypes.shape({
     id: PropTypes.string,
     behandlingsutfall: behandlingsutfallPt,
+    lestAvBrukerDato: PropTypes.instanceOf(Date),
 });
 
 export const smSykmeldingerPt = PropTypes.arrayOf(smSykmeldingPt);

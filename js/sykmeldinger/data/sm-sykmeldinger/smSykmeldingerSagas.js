@@ -1,13 +1,18 @@
-import { call, put, fork, takeEvery, all, select } from 'redux-saga/effects';
+import { call, put, fork, takeEvery, all, select, delay } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
+import { browserHistory } from 'react-router';
 import {
-    BEKREFT_LEST_SM_SYKMELDING_FORESPURT, bekrefterLestSmSykmelding,
+    BEKREFT_LEST_SM_SYKMELDING_FORESPURT,
     HENT_SM_SYKMELDINGER_FORESPURT,
+    bekrefterLestSmSykmelding,
     henterSmSykmeldinger,
-    hentSmSykmeldingerFeilet, SM_SYKMELDING_BEKREFTET_LEST, smSykmeldingBekreftLestFeilet,
+    hentSmSykmeldingerFeilet,
+    smSykmeldingBekreftLestFeilet,
     smSykmeldingerHentet,
+    smSykmeldingBekreftetLest,
+    bekreftSmSykmeldingKvitteringVistLengeNok,
 } from './smSykmeldingerActions';
-import { skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
+import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
 import { API_NAVN, get, hentSyfoApiUrl, post } from '../../../gateway-api';
 import { toggleNyttSykmeldingsmottak } from '../../../selectors/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../actions/actiontyper';
@@ -35,13 +40,17 @@ export function* hentSmSykmeldingerHvisIkkeHentet() {
     }
 }
 
-export function* bekreftSmSykmeldingLest() {
+export function* bekreftSmSykmeldingLestSaga(action) {
     const toggle = yield select(toggleNyttSykmeldingsmottak);
-    if (toggle) {
+    const skalBekrefte = yield select(skalBekrefteSmSykmeldingSelector);
+    if (toggle && skalBekrefte) {
         yield put(bekrefterLestSmSykmelding());
         try {
-            yield call(post, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/bekreftLest`);
-            yield put(bekreftSmSykmeldingLest());
+            yield call(post, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/sykmeldinger/${action.smSykmelding.id}/lestAvBruker`);
+            yield put(smSykmeldingBekreftetLest(action.smSykmelding));
+            browserHistory.push('/sykefravaer');
+            yield delay(10000);
+            yield put(bekreftSmSykmeldingKvitteringVistLengeNok());
         } catch (e) {
             log(e);
             yield put(smSykmeldingBekreftLestFeilet());
@@ -59,19 +68,12 @@ function* watchHentSmSykmeldinger() {
 function* watchBekreftSmSykmeldinger() {
     yield takeEvery([
         BEKREFT_LEST_SM_SYKMELDING_FORESPURT,
-    ], bekreftSmSykmeldingLest);
-}
-
-function* watchOppdaterSmSykmeldinger() {
-    yield takeEvery([
-        SM_SYKMELDING_BEKREFTET_LEST,
-    ], oppdaterSmSykmeldinger);
+    ], bekreftSmSykmeldingLestSaga);
 }
 
 export default function* smSykmeldingerSagas() {
     yield all([
         fork(watchHentSmSykmeldinger),
         fork(watchBekreftSmSykmeldinger),
-        fork(watchOppdaterSmSykmeldinger),
     ]);
 }

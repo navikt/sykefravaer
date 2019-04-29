@@ -5,7 +5,7 @@ import {
     SM_SYKMELDINGER_HENTET,
     BEKREFTER_LEST_SM_SYKMELDING,
     SM_SYKMELDING_BEKREFTET_LEST,
-    SM_SYKMELDING_BEKREFT_LEST_FEILET,
+    SM_SYKMELDING_BEKREFT_LEST_FEILET, KVITTERING_VIST_LENGE_NOK,
 } from './smSykmeldingerActions';
 
 const spesialHandler = (state, action) => {
@@ -20,8 +20,17 @@ const spesialHandler = (state, action) => {
         case SM_SYKMELDING_BEKREFTET_LEST: {
             return {
                 ...state,
+                data: state.data.map((smSykmelding) => {
+                    return smSykmelding.id === action.smSykmelding.id
+                        ? {
+                            ...smSykmelding,
+                            lestAvBrukerDato: new Date(),
+                        }
+                        : smSykmelding;
+                }),
                 bekrefter: false,
                 bekreftFeilet: false,
+                visKvittering: true,
             };
         }
         case SM_SYKMELDING_BEKREFT_LEST_FEILET: {
@@ -29,6 +38,12 @@ const spesialHandler = (state, action) => {
                 ...state,
                 bekreftFeilet: true,
                 bekrefter: false,
+            };
+        }
+        case KVITTERING_VIST_LENGE_NOK: {
+            return {
+                ...state,
+                visKvittering: false,
             };
         }
         default: {

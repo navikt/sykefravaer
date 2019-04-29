@@ -498,6 +498,7 @@ describe('LandingssideSide', () => {
         describe('harSykmeldinger', () => {
             it('Skal være true hvis bruker har sykmeldinger', () => {
                 state.dineSykmeldinger.data = [{}];
+                state.smSykmeldinger = smSykmeldinger();
                 const props = mapStateToProps(state);
                 expect(props.harSykmeldinger)
                     .to
@@ -506,6 +507,7 @@ describe('LandingssideSide', () => {
 
             it('Skal være false hvis bruker ikke har sykmeldinger', () => {
                 state.dineSykmeldinger.data = [];
+                state.smSykmeldinger = smSykmeldinger();
                 const props = mapStateToProps(state);
                 expect(props.harSykmeldinger)
                     .to

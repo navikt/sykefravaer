@@ -15,7 +15,12 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
         return sykmld.status !== sykmeldingstatuser.NY;
     });
     const tidligereSortering = sortering && sortering.tidligere ? sortering.tidligere : undefined;
-
+    const ulesteSmSykmeldinger = smSykmeldinger.filter((smSykmelding) => {
+        return smSykmelding.lestAvBrukerDato === null;
+    });
+    const lesteSmSykmeldinger = smSykmeldinger.filter((smSykmelding) => {
+        return smSykmelding.lestAvBrukerDato !== null;
+    });
     return (<div>
         <Sidetopp
             tittel={getLedetekst('dine-sykmeldinger.tittel')}
@@ -23,7 +28,7 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
         />
         <SykmeldingTeasere
             sykmeldinger={sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)}
-            smSykmeldinger={smSykmeldinger}
+            smSykmeldinger={ulesteSmSykmeldinger}
             tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel')}
             ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding')}
             className="js-nye-sykmeldinger"
@@ -31,6 +36,7 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
         {
             tidligereSykmeldinger.length > 0 && <SykmeldingTeasere
                 sykmeldinger={sorterSykmeldinger(tidligereSykmeldinger, tidligereSortering)}
+                smSykmeldinger={lesteSmSykmeldinger}
                 tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel')}
                 className="js-tidligere-sykmeldinger"
                 id="sykmelding-liste-tidligere">

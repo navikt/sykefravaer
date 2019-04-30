@@ -34,7 +34,7 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
             className="js-nye-sykmeldinger"
             id="sykmelding-liste-nye" />
         {
-            tidligereSykmeldinger.length > 0 && <SykmeldingTeasere
+            (tidligereSykmeldinger.length > 0 || lesteSmSykmeldinger.length > 0) && <SykmeldingTeasere
                 sykmeldinger={sorterSykmeldinger(tidligereSykmeldinger, tidligereSortering)}
                 smSykmeldinger={lesteSmSykmeldinger}
                 tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel')}

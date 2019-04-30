@@ -11,11 +11,11 @@ function mockHentSykmeldinger(server) {
 function mockSmSykmeldingerLokalt(server) {
     mockHentSykmeldinger(server);
 
-    server.post('/syfosmregister/api/v1/sykmeldinger/:id/bekreftAvvist', (req, res) => {
+    server.post('/syfosmregister/api/v1/sykmeldinger/:id/bekreft', (req, res) => {
         res.status(200);
         setTimeout(() => {
             res.send('');
-        }, 4000);
+        }, 1000);
     });
 }
 

@@ -1,9 +1,13 @@
-import { hentHandlingsstreng } from './AvvistSykmelding';
+import React from 'react';
+import { AvvistSykmeldingPanel } from './AvvistSykmelding';
 import expect from '../../../test/expect';
+import { BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR, INVALID_RULESET_VERSION, PATIENT_OVER_70_YEARS } from '../../enums/avvisningsregelnavn';
+import mountWithStore from '../../../test/mountWithStore';
 
 describe('AvvvistSykmelding', () => {
-    describe('hentHandlingsstreng', () => {
+    describe('AvvvistSykmeldingPanel', () => {
         let sykmelding;
+        let setRegelnavn;
 
         beforeEach(() => {
             sykmelding = {
@@ -24,29 +28,40 @@ describe('AvvvistSykmelding', () => {
                     ],
                 },
             };
+
+            setRegelnavn = (regelnavn, regelIndex = 0) => {
+                sykmelding.behandlingsutfall.ruleHits[regelIndex].ruleName = regelnavn;
+            };
         });
 
-        it('Skal returnere "Du må be om ny sykmelding." dersom bruker har ukjent diagnose', () => {
-            const resultat = hentHandlingsstreng(sykmelding);
-            expect(resultat).to.contain('Du må be om ny sykmelding.');
+        it('Skal inneholde "Du må be om ny sykmelding." dersom bruker har ukjent diagnose', () => {
+            const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
+            expect(component.text()).to.contain('Du må be om ny sykmelding.');
+            expect(component.text()).to.contain('Grunnen til at sykmeldingen er avvist:');
         });
 
-        it('Skal returnere info om bekreftelse dersom bruker er for gammel', () => {
-            sykmelding.behandlingsutfall.ruleHits[0].ruleName = 'PATIENT_OVER_70_YEARS';
-            const resultat = hentHandlingsstreng(sykmelding);
-            expect(resultat).to.contain(' Du kan i stedet be om en bekreftelse hvis du trenger dokumentasjon på at du er syk.');
+        it('Skal inneholde info om bekreftelse dersom bruker er for gammel', () => {
+            setRegelnavn(PATIENT_OVER_70_YEARS);
+            const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
+            expect(component.text()).to.contain(' Du kan i stedet be om en bekreftelse hvis du trenger dokumentasjon på at du er syk.');
         });
 
-        it('Skal returnere "Du må oppsøke en som har rett til å sykmelde." dersom bruker er for ung', () => {
-            sykmelding.behandlingsutfall.ruleHits[0].ruleName = 'BEHANDLER_NOT_VALID_IN_HPR';
-            const resultat = hentHandlingsstreng(sykmelding);
-            expect(resultat).to.contain('Du må oppsøke en som har rett til å sykmelde.');
+        it('Skal ikke inneholde noe om "grunnen til at sykmeldingen er avvist" dersom bruker er for gammel', () => {
+            setRegelnavn(PATIENT_OVER_70_YEARS);
+            const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
+            expect(component.text()).not.to.contain('Grunnen til at sykmeldingen er avvist:');
         });
 
-        it('Skal returnere "Du må oppsøke en som har rett til å sykmelde." dersom sykmelder har ugyldig autorisasjon', () => {
-            sykmelding.behandlingsutfall.ruleHits[0].ruleName = 'BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR';
-            const resultat = hentHandlingsstreng(sykmelding);
-            expect(resultat).to.contain('Du må oppsøke en som har rett til å sykmelde.');
+        it('Skal inneholde "Du må oppsøke en som har rett til å sykmelde." dersom sykmelder har ugyldig autorisasjon', () => {
+            setRegelnavn(BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR);
+            const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
+            expect(component.text()).to.contain('Du må oppsøke en som har rett til å sykmelde.');
+        });
+
+        it('Skal inneholde riktig tekst når det er ugydlig sykmld-versjon', () => {
+            setRegelnavn(INVALID_RULESET_VERSION);
+            const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
+            expect(component.text()).to.contain('Du har fått en sykmelding, men den kan ikke brukes fordi det er brukt en ugyldig versjon av sykmeldingen.');
         });
     });
 });

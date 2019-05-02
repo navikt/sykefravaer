@@ -1,5 +1,6 @@
 import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
+import BekreftLestAvvistSykmeldingSkjema from './BekreftLestAvvistSykmeldingSkjema';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import Sidetopp from '../../components/Sidetopp';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
@@ -72,7 +73,7 @@ const AvvistSykmelding = () => {
                 const handling = hentHandlingsstreng(smSykmelding);
                 return (<React.Fragment>
                     <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-                    <div className="panel">
+                    <div className="panel blokk">
                         <div className="avvistSykmelding">
                             <IllustrertInnhold ikon="/sykefravaer/img/svg/avvist-sykmelding.svg" ikonAlt="Advarsel/utropstegn">
                                 <h2 className="panel__tittel">
@@ -86,6 +87,7 @@ const AvvistSykmelding = () => {
                             </IllustrertInnhold>
                         </div>
                     </div>
+                    <BekreftLestAvvistSykmeldingSkjema smSykmelding={smSykmelding} />
                 </React.Fragment>);
             }
         }

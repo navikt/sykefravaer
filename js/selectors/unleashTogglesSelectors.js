@@ -25,3 +25,7 @@ export const toggleNyttSykmeldingsmottak = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[NYTT_SYKMELDINGSMOTTAK] === true;
 };
+
+export const unleashtogglesHentetSelector = (state) => {
+    return state.unleashToggles.hentet;
+};

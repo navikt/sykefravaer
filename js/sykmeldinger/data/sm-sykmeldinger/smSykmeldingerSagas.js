@@ -1,28 +1,35 @@
-import { call, put, fork, takeEvery, all, select } from 'redux-saga/effects';
+import { call, put, fork, takeEvery, all, select, delay } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
+import { browserHistory } from 'react-router';
 import {
+    BEKREFT_LEST_SM_SYKMELDING_FORESPURT,
     HENT_SM_SYKMELDINGER_FORESPURT,
+    bekrefterLestSmSykmelding,
     henterSmSykmeldinger,
     hentSmSykmeldingerFeilet,
+    smSykmeldingBekreftLestFeilet,
     smSykmeldingerHentet,
+    smSykmeldingBekreftetLest,
+    bekreftSmSykmeldingKvitteringVistLengeNok,
 } from './smSykmeldingerActions';
-import { skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
-import { API_NAVN, get, hentSyfoApiUrl } from '../../../gateway-api';
-import { toggleNyttSykmeldingsmottak } from '../../../selectors/unleashTogglesSelectors';
+import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
+import { API_NAVN, get, hentSyfoApiUrl, post } from '../../../gateway-api';
+import { toggleNyttSykmeldingsmottak, unleashtogglesHentetSelector } from '../../../selectors/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../actions/actiontyper';
 
 export function* oppdaterSmSykmeldinger() {
     const toggle = yield select(toggleNyttSykmeldingsmottak);
-    if (toggle) {
+    const toggleHentet = yield select(unleashtogglesHentetSelector);
+    if (toggle && toggleHentet) {
         yield put(henterSmSykmeldinger());
         try {
-            const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/behandlingsutfall`);
+            const data = yield call(get, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/sykmeldinger`);
             yield put(smSykmeldingerHentet(data));
         } catch (e) {
             log(e);
             yield put(hentSmSykmeldingerFeilet());
         }
-    } else {
+    } else if (toggleHentet) {
         yield put(smSykmeldingerHentet([]));
     }
 }
@@ -34,6 +41,24 @@ export function* hentSmSykmeldingerHvisIkkeHentet() {
     }
 }
 
+export function* bekreftSmSykmeldingLestSaga(action) {
+    const toggle = yield select(toggleNyttSykmeldingsmottak);
+    const skalBekrefte = yield select(skalBekrefteSmSykmeldingSelector);
+    if (toggle && skalBekrefte) {
+        yield put(bekrefterLestSmSykmelding());
+        try {
+            yield call(post, `${hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER)}/v1/sykmeldinger/${action.smSykmelding.id}/bekreft`);
+            yield put(smSykmeldingBekreftetLest(action.smSykmelding));
+            browserHistory.push('/sykefravaer');
+            yield delay(10000);
+            yield put(bekreftSmSykmeldingKvitteringVistLengeNok());
+        } catch (e) {
+            log(e);
+            yield put(smSykmeldingBekreftLestFeilet());
+        }
+    }
+}
+
 function* watchHentSmSykmeldinger() {
     yield takeEvery([
         HENT_SM_SYKMELDINGER_FORESPURT,
@@ -41,8 +66,15 @@ function* watchHentSmSykmeldinger() {
     ], hentSmSykmeldingerHvisIkkeHentet);
 }
 
+function* watchBekreftSmSykmeldinger() {
+    yield takeEvery([
+        BEKREFT_LEST_SM_SYKMELDING_FORESPURT,
+    ], bekreftSmSykmeldingLestSaga);
+}
+
 export default function* smSykmeldingerSagas() {
     yield all([
         fork(watchHentSmSykmeldinger),
+        fork(watchBekreftSmSykmeldinger),
     ]);
 }

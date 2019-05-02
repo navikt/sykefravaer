@@ -10,7 +10,8 @@ export const createReducer = (
     henterActionType,
     hentetActionType,
     initState = initiellState,
-    mapper = null) => {
+    mapper = null,
+    spesialHandler) => {
     return (state = initState, action = {}) => {
         switch (action.type) {
             case feilActionType: {
@@ -38,7 +39,9 @@ export const createReducer = (
                 };
             }
             default: {
-                return state;
+                return spesialHandler
+                    ? spesialHandler(state, action)
+                    : state;
             }
         }
     };

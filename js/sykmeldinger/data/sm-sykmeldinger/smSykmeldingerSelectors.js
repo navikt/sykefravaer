@@ -21,6 +21,10 @@ export const skalHenteSmSykmeldingerSelector = (state) => {
         && !hentetSmSykmeldingerSelector(state);
 };
 
+export const skalBekrefteSmSykmeldingSelector = (state) => {
+    return !smSykmeldingerSliceSelector(state).bekrefter;
+};
+
 export const smSykmeldingerDataSelector = (state) => {
     return smSykmeldingerSliceSelector(state).data;
 };
@@ -30,6 +34,10 @@ export const avvisteSmSykmeldingerDataSelector = (state) => {
         .filter((sykmelding) => {
             return sykmelding.behandlingsutfall.status === INVALID;
         });
+};
+
+export const visAvvistSykmeldingBekreftetLestKvittering = (state) => {
+    return smSykmeldingerSliceSelector(state).visKvittering;
 };
 
 export const smSykmeldingSelector = (state, sykmeldingId) => {

@@ -32,17 +32,17 @@ describe('Dine sykmeldinger', () => {
     });
 
     it("Skal vise overskrift for 'Dine sykmeldinger'", () => {
-        component = shallow(<Sykmeldinger sykmeldinger={sykmeldinger} />);
+        component = shallow(<Sykmeldinger smSykmeldinger={[]} sykmeldinger={sykmeldinger} />);
         expect(component.find(Sidetopp).prop('tittel')).to.equal('Dine sykmeldinger');
     });
 
     it('Skal rendre to SykmeldingTeasere dersom man både har nye og gamle sykmeldinger', () => {
-        component = shallow(<Sykmeldinger sykmeldinger={sykmeldinger} />);
+        component = shallow(<Sykmeldinger smSykmeldinger={[]} sykmeldinger={sykmeldinger} />);
         expect(component.find(SykmeldingTeasere)).to.have.length(2);
     });
 
     it('Skal rendre én SykmeldingTeasere dersom man ikke har sykmeldinger', () => {
-        component = shallow(<Sykmeldinger sykmeldinger={[]} />);
+        component = shallow(<Sykmeldinger smSykmeldinger={[]} sykmeldinger={[]} />);
         expect(component.find(SykmeldingTeasere)).to.have.length(1);
     });
 
@@ -58,7 +58,7 @@ describe('Dine sykmeldinger', () => {
                 status: 'NY',
             }),
         ];
-        component = shallow(<Sykmeldinger sykmeldinger={sykmeldinger} />);
+        component = shallow(<Sykmeldinger smSykmeldinger={[]} sykmeldinger={sykmeldinger} />);
         expect(component.find(SykmeldingTeasere)).to.have.length(1);
     });
 });

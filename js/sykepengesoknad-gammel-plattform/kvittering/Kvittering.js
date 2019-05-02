@@ -4,6 +4,7 @@ import Sidetopp from '../../components/Sidetopp';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import { getSendtTilSuffix } from '../utils/sykepengesoknadUtils';
 import { LenkeTilSoknader } from '../../sykepengesoknad/felleskomponenter/LenkeTilSoknader';
+import { IllustrertInnholdGronnHake } from '../../components/IllustrertInnhold';
 
 class Kvittering extends Component {
     componentDidMount() {
@@ -19,15 +20,15 @@ class Kvittering extends Component {
             this.kvittering = c;
         }}>
             <Sidetopp tittel="Kvittering" />
-            <div className="panel blokk js-kvittering">
-                <div className="hode hode--suksess">
-                    <h2 className="hode__tittel">{getLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tittel`)}</h2>
+            <div className="panel js-kvittering blokk">
+                <IllustrertInnholdGronnHake>
+                    <h2 className="panel__tittel">{getLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tittel`)}</h2>
                     <div
                         className="redaksjonelt-innhold"
                         dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tekst`, {
                             '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver ? sykepengesoknad.arbeidsgiver.navn : '',
                         })} />
-                </div>
+                </IllustrertInnholdGronnHake>
             </div>
             <p className="ikke-print blokk navigasjonsstripe">
                 <LenkeTilSoknader />

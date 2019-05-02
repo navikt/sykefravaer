@@ -18,11 +18,13 @@ const sykmeldinger = [{
     etternavn: 'Person',
     sykmelder: 'Ove Olsen',
     arbeidsgiver: 'Selskapet AS',
-    perioder: [{
-        fom: '2015-12-31',
-        tom: '2016-01-06',
-        grad: 67,
-    }],
+    mulighetForArbeid: {
+        perioder: [{
+            fom: '2015-12-31',
+            tom: '2016-01-06',
+            grad: 67,
+        }],
+    },
     hoveddiagnose: {
         diagnose: 'Influensa',
         diagnosesystem: 'ICPC',
@@ -37,11 +39,13 @@ const sykmeldinger = [{
     etternavn: 'Person',
     sykmelder: 'Ove Olsen',
     arbeidsgiver: 'Selskapet AS',
-    perioder: [{
-        fom: '2015-12-31',
-        tom: '2016-01-06',
-        grad: 67,
-    }],
+    mulighetForArbeid: {
+        perioder: [{
+            fom: '2015-12-31',
+            tom: '2016-01-06',
+            grad: 67,
+        }],
+    },
     hoveddiagnose: {
         diagnose: 'Influensa',
         diagnosesystem: 'ICPC',
@@ -56,11 +60,13 @@ const sykmeldinger = [{
     etternavn: 'Person',
     sykmelder: 'Ove Olsen',
     arbeidsgiver: 'Selskapet AS',
-    perioder: [{
-        fom: '2015-12-31',
-        tom: '2016-01-06',
-        grad: 67,
-    }],
+    mulighetForArbeid: {
+        perioder: [{
+            fom: '2015-12-31',
+            tom: '2016-01-06',
+            grad: 67,
+        }],
+    },
     hoveddiagnose: {
         diagnose: 'Influensa',
         diagnosesystem: 'ICPC',

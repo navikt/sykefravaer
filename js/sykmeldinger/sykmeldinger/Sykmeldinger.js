@@ -27,16 +27,14 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
             htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst')}
         />
         <SykmeldingTeasere
-            sykmeldinger={sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)}
-            smSykmeldinger={ulesteSmSykmeldinger}
+            sykmeldinger={sorterSykmeldingerEldsteFoerst([...nyeSykmeldinger, ...ulesteSmSykmeldinger])}
             tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel')}
             ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding')}
             className="js-nye-sykmeldinger"
             id="sykmelding-liste-nye" />
         {
             (tidligereSykmeldinger.length > 0 || lesteSmSykmeldinger.length > 0) && <SykmeldingTeasere
-                sykmeldinger={sorterSykmeldinger(tidligereSykmeldinger, tidligereSortering)}
-                smSykmeldinger={lesteSmSykmeldinger}
+                sykmeldinger={sorterSykmeldinger([...tidligereSykmeldinger, ...lesteSmSykmeldinger], tidligereSortering)}
                 tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel')}
                 className="js-tidligere-sykmeldinger"
                 id="sykmelding-liste-tidligere">

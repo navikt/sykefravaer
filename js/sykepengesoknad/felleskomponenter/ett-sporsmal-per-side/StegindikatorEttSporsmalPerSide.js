@@ -4,6 +4,7 @@ import Stegindikator from 'nav-frontend-stegindikator';
 import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 import history from '../../../history';
 import { soknadPt } from '../../prop-types/soknadProptype';
+import { hentTittel } from './ettSporsmalPerSideUtils';
 
 const Fremdriftsbar = ({ aktivtSteg, antallSteg }) => {
     const style = {
@@ -46,7 +47,7 @@ const StegindikatorEttSporsmalPerSide = ({ soknad, sidenummer }) => {
                 const erAktiv = (sidenummer - 1) === index;
 
                 return (<Stegindikator.Steg
-                    label={`Side ${sidenummer}`}
+                    label={hentTittel(soknad, index + 1)}
                     aktiv={erAktiv}
                     disabled={!erPassert && !erAktiv}
                     key={`${soknad.id}-steg-${index}`}>

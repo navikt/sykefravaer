@@ -53,9 +53,25 @@ const spesialHandler = (state, action) => {
     }
 };
 
+const parsePerioder = (perioderArg) => {
+    const perioder = perioderArg && typeof perioderArg === 'string'
+        ? JSON.parse(perioderArg)
+        : perioderArg;
+    return perioderArg
+        ? perioder.map((periode) => {
+            return {
+                ...periode,
+                fom: new Date(periode.fom),
+                tom: new Date(periode.tom),
+            };
+        })
+        : null;
+};
+
 const mapper = (smSykmelding) => {
     return {
         ...smSykmelding,
+        sykmeldingsperioder: parsePerioder(smSykmelding.sykmeldingsperioder),
         bekreftetDato: smSykmelding.bekreftetDato
             ? new Date(smSykmelding.bekreftetDato)
             : null,

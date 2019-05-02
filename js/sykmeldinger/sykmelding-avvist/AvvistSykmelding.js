@@ -61,10 +61,11 @@ export const hentHandlingsstreng = (smSykmelding) => {
 };
 
 const hentIntrotekst = (smSykmelding) => {
-    const standardtekst = 'Du har fått en sykmelding, men den kan ikke brukes fordi den ikke er gyldig. ';
-    const overSyttitekst = 'Du har fått en sykmelding, men den kan ikke brukes fordi du er over 70 år. ';
-    const ugyldigSykmeldingversjonTekst = 'Du har fått en sykmelding, men den kan ikke brukes fordi det er brukt en ugyldig versjon av sykmeldingen. ';
-    const ingenAutorisasjonTekst = 'Du har fått en sykmelding, men den kan ikke brukes fordi den som skrev sykmeldingen manglet autorisasjon. ';
+    const duHarFattSykmelding = `Du har fått en sykmelding${smSykmelding.legeNavn ? ` fra ${smSykmelding.legeNavn}` : ''}, men den kan ikke brukes fordi`;
+    const standardtekst = `${duHarFattSykmelding} den ikke er gyldig. `;
+    const overSyttitekst = `${duHarFattSykmelding} du er over 70 år. `;
+    const ugyldigSykmeldingversjonTekst = `${duHarFattSykmelding} det er brukt en ugyldig versjon av sykmeldingen. `;
+    const ingenAutorisasjonTekst = `${duHarFattSykmelding} den som skrev sykmeldingen manglet autorisasjon.`;
     const regelnavnliste = hentRegelnavnListe(smSykmelding);
     if (regelnavnliste.includes(PATIENT_OVER_70_YEARS)) {
         return overSyttitekst;

@@ -64,5 +64,14 @@ describe('AvvvistSykmelding', () => {
             expect(component.text()).to.contain('Du har fått en sykmelding, men den kan ikke brukes fordi det er brukt en ugyldig versjon av sykmeldingen.');
             expect(component.text()).to.contain('Du bør kontakte den som har sykmeldt deg eller få sykmelding fra en annen behandler.');
         });
+
+        it('Skal inneholde navn på lege om dette finnes', () => {
+            sykmelding = {
+                ...sykmelding,
+                legeNavn: 'Lege Legenavn',
+            };
+            const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
+            expect(component.text()).to.contain('Du har fått en sykmelding fra Lege Legenavn, men den kan ikke brukes fordi ');
+        });
     });
 });

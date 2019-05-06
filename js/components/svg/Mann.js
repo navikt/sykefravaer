@@ -18,7 +18,7 @@ const Mann = () => {
                 <use xlinkHref="#a" />
             </mask>
             <g mask="url(#b)">
-                <path fill="#C2EAF7" d="M-8 100h126V0H-8z" />
+                <path d="M-8 100h126V0H-8z" />
             </g>
             <g mask="url(#b)">
                 <path

@@ -1,9 +1,9 @@
 import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
+import Veilederpanel from 'nav-frontend-veilederpanel';
 import BekreftLestAvvistSykmeldingSkjema from './BekreftLestAvvistSykmeldingSkjema';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import Sidetopp from '../../components/Sidetopp';
-import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import {
     BEHANDLER_NOT_LE_KI_MT_TL_IN_HPR,
@@ -12,6 +12,7 @@ import {
     INVALID_RULESET_VERSION,
     PATIENT_OVER_70_YEARS,
 } from '../../enums/avvisningsregelnavn';
+import Mann from '../../components/svg/Mann';
 
 const REGELNAVN_INGEN_RETT_TIL_A_SYKMELDE = [
     BEHANDLER_NOT_VALID_IN_HPR,
@@ -61,11 +62,11 @@ export const hentHandlingsstreng = (smSykmelding) => {
 };
 
 const hentIntrotekst = (smSykmelding) => {
-    const duHarFattSykmelding = `Du har fått en sykmelding${smSykmelding.legeNavn ? ` fra ${smSykmelding.legeNavn}` : ''}, men den kan ikke brukes fordi`;
-    const standardtekst = `${duHarFattSykmelding} den ikke er gyldig. `;
-    const overSyttitekst = `${duHarFattSykmelding} du er over 70 år. `;
-    const ugyldigSykmeldingversjonTekst = `${duHarFattSykmelding} det er brukt en ugyldig versjon av sykmeldingen. `;
-    const ingenAutorisasjonTekst = `${duHarFattSykmelding} den som skrev sykmeldingen manglet autorisasjon.`;
+    const intro = `Du har fått en sykmelding${smSykmelding.legeNavn ? ` fra ${smSykmelding.legeNavn}` : ''}, men den kan ikke brukes fordi`;
+    const standardtekst = `${intro} det er gjort en feil i utfyllingen. `;
+    const overSyttitekst = `${intro} du er over 70 år. `;
+    const ugyldigSykmeldingversjonTekst = `${intro} det er brukt en ugyldig versjon av sykmeldingen. `;
+    const ingenAutorisasjonTekst = `${intro} den som skrev sykmeldingen manglet autorisasjon.`;
     const regelnavnliste = hentRegelnavnListe(smSykmelding);
     if (regelnavnliste.includes(PATIENT_OVER_70_YEARS)) {
         return overSyttitekst;
@@ -83,18 +84,20 @@ const hentIntrotekst = (smSykmelding) => {
 
 const BegrunnelseTekst = ({ smSykmelding }) => {
     const overskrift = 'Grunnen til at sykmeldingen er avvist:';
-    return smSykmelding.behandlingsutfall.ruleHits.length === 1
-        ? <p>{overskrift} {smSykmelding.behandlingsutfall.ruleHits[0].messageForUser}</p>
-        : (<React.Fragment>
-            <h3 className="typo-normal">{overskrift}</h3>
-            <ul>
-                {
-                    smSykmelding.behandlingsutfall.ruleHits.map((ruleHit) => {
-                        return <li key={ruleHit.ruleName}>{ruleHit.messageForUser}</li>;
-                    })
-                }
-            </ul>
-        </React.Fragment>);
+    return (<React.Fragment>
+        <h3 className="typo-normal" style={{ marginBottom: '1em' }}>{overskrift}</h3>
+        {
+            smSykmelding.behandlingsutfall.ruleHits.length === 1
+                ? (<p>{smSykmelding.behandlingsutfall.ruleHits[0].messageForUser}</p>)
+                : (<ul>
+                    {
+                        smSykmelding.behandlingsutfall.ruleHits.map((ruleHit) => {
+                            return <li key={ruleHit.ruleName}>{ruleHit.messageForUser}</li>;
+                        })
+                    }
+                </ul>)
+        }
+    </React.Fragment>);
 };
 
 BegrunnelseTekst.propTypes = {
@@ -129,19 +132,23 @@ Begrunnelse.propTypes = {
 export const AvvistSykmeldingPanel = ({ smSykmelding }) => {
     const handlingstreng = hentHandlingsstreng(smSykmelding);
     const introtekststreng = hentIntrotekst(smSykmelding);
-    return (<div className="panel blokk">
-        <div className="avvistSykmelding">
-            <IllustrertInnhold ikon="/sykefravaer/img/svg/avvist-sykmelding.svg" ikonAlt="Advarsel/utropstegn">
-                <h2 className="panel__tittel">
-                    Sykmeldingen er avvist av NAV
-                </h2>
-                <p>
-                    {introtekststreng}
-                    {handlingstreng}
-                </p>
-                <Begrunnelse smSykmelding={smSykmelding} />
-            </IllustrertInnhold>
-        </div>
+    return (<div className="blokk">
+        <Veilederpanel
+            fargetema="feilmelding"
+            type="plakat"
+            center
+            kompakt
+            svg={<Mann />}
+            veilederProps={{ center: true, storrelse: 'S' }}>
+            <h2 className="veilederpanel__tittel">
+                Sykmeldingen er avvist av NAV
+            </h2>
+            <p>
+                {introtekststreng}
+                {handlingstreng}
+            </p>
+            <Begrunnelse smSykmelding={smSykmelding} />
+        </Veilederpanel>
     </div>);
 };
 
@@ -154,7 +161,7 @@ const AvvistSykmelding = () => {
         {
             ({ smSykmelding }) => {
                 return (<React.Fragment>
-                    <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
+                    <Sidetopp className="blokk--xl" tittel={getLedetekst('din-sykmelding.tittel')} />
                     <AvvistSykmeldingPanel smSykmelding={smSykmelding} />
                     <BekreftLestAvvistSykmeldingSkjema smSykmelding={smSykmelding} />
                 </React.Fragment>);

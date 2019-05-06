@@ -12,11 +12,21 @@ const behandlingsutfallPt = PropTypes.shape({
     ruleHits: PropTypes.arrayOf(ruleHitPt),
 });
 
+const smSykmeldingPeriodePt = PropTypes.shape({
+    fom: PropTypes.instanceOf(Date),
+    tom: PropTypes.instanceOf(Date),
+});
+
+const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);
+
 export const smSykmeldingPt = PropTypes.shape({
-    id: PropTypes.string,
-    behandlingsutfall: behandlingsutfallPt,
+    id: PropTypes.string.isRequired,
+    behandlingsutfall: behandlingsutfallPt.isRequired,
     bekreftetDato: PropTypes.instanceOf(Date),
+    legeNavn: PropTypes.string,
+    legekontorOrgnummer: PropTypes.string,
+    arbeidsgiverNavn: PropTypes.string,
+    sykmeldingsperioder: smSykmeldingPerioderPt,
 });
 
 export const smSykmeldingerPt = PropTypes.arrayOf(smSykmeldingPt);
-

@@ -45,6 +45,7 @@ describe('smSykmeldingerSelectors', () => {
             const data = [
                 {
                     id: '2',
+                    sykmeldingsperioder: [],
                     behandlingsutfall: {
                         status: 'MANUAL_PROCESSING',
                         ruleHits: [
@@ -58,6 +59,7 @@ describe('smSykmeldingerSelectors', () => {
                 },
                 {
                     id: '3',
+                    sykmeldingsperioder: [],
                     behandlingsutfall: {
                         status: 'INVALID',
                         ruleHits: [
@@ -79,6 +81,7 @@ describe('smSykmeldingerSelectors', () => {
             expect(resultat).to.deep.equal([{
                 id: '3',
                 bekreftetDato: null,
+                sykmeldingsperioder: [],
                 behandlingsutfall: {
                     status: 'INVALID',
                     ruleHits: [

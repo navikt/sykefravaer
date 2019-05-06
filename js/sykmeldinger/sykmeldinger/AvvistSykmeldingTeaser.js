@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { getLedetekst, senesteTom, tidligsteFom, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
 import getContextRoot from '../../utils/getContextRoot';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
+import { SykmeldingTeaserIkon } from './Sykmeldingteaser';
 
 const FomTom = ({ smSykmelding }) => {
     return smSykmelding.sykmeldingsperioder && smSykmelding.sykmeldingsperioder.length > 0
@@ -21,15 +22,13 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
         <Link
             className="inngangspanel inngangspanel--sykmelding"
             to={`${getContextRoot()}/sykmeldinger/${smSykmelding.id}`}>
-            <span className="inngangspanel__ikon">
-                <img
-                    alt=""
-                    src={
-                        smSykmelding.bekreftetDato
-                            ? '/sykefravaer/img/svg/sykmeldinger.svg'
-                            : '/sykefravaer/img/svg/report-problem-triangle-red.svg'
-                    } />
-            </span>
+            {
+                smSykmelding.bekreftetDato
+                    ? <SykmeldingTeaserIkon />
+                    : (<span className="inngangspanel__ikon">
+                        <img alt="" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/report-problem-triangle-red.svg`} />
+                    </span>)
+            }
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`sykmelding-header-${smSykmelding.id}`}>

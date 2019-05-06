@@ -25,8 +25,8 @@ Statusopplysninger.propTypes = {
     children: PropTypes.node,
 };
 
-const Statuspanel = ({ children, enKolonne = false }) => {
-    const classNames = cn('panel panel--komprimert blokk statuspanel', {
+const Statuspanel = ({ children, enKolonne = false, className = 'blokk' }) => {
+    const classNames = cn('panel panel--komprimert statuspanel', className, {
         'statuspanel--toKol': !enKolonne,
         'statuspanel--enKol': enKolonne,
     });
@@ -38,6 +38,7 @@ const Statuspanel = ({ children, enKolonne = false }) => {
 Statuspanel.propTypes = {
     children: PropTypes.node,
     enKolonne: PropTypes.bool,
+    className: PropTypes.string,
 };
 
 export default Statuspanel;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AvvistSykmeldingPanel } from './AvvistSykmelding';
+import { AvvistSykmeldingPanel } from './AvvistSykmeldingPanel';
 import expect from '../../../test/expect';
 import { BEHANDLER_MANGLER_AUTORISASJON_I_HPR, UGYLDIG_REGELSETTVERSJON, PASIENT_ELDRE_ENN_70 } from '../../enums/avvisningsregelnavn';
 import mountWithStore from '../../../test/mountWithStore';

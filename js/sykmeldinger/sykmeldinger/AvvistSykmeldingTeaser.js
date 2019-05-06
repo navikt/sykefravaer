@@ -22,7 +22,13 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
             className="inngangspanel inngangspanel--sykmelding"
             to={`${getContextRoot()}/sykmeldinger/${smSykmelding.id}`}>
             <span className="inngangspanel__ikon">
-                <img alt="" src="/sykefravaer/img/svg/report-problem-triangle-red.svg" />
+                <img
+                    alt=""
+                    src={
+                        smSykmelding.bekreftetDato
+                            ? '/sykefravaer/img/svg/sykmeldinger.svg'
+                            : '/sykefravaer/img/svg/report-problem-triangle-red.svg'
+                    } />
             </span>
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">

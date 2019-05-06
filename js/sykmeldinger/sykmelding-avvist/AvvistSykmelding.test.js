@@ -1,7 +1,7 @@
 import React from 'react';
 import { AvvistSykmeldingPanel } from './AvvistSykmelding';
 import expect from '../../../test/expect';
-import { BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR, INVALID_RULESET_VERSION, PATIENT_OVER_70_YEARS } from '../../enums/avvisningsregelnavn';
+import { BEHANDLER_MANGLER_AUTORISASJON_I_HPR, UGYLDIG_REGELSETTVERSJON, PASIENT_ELDRE_ENN_70 } from '../../enums/avvisningsregelnavn';
 import mountWithStore from '../../../test/mountWithStore';
 
 describe('AvvvistSykmelding', () => {
@@ -16,12 +16,12 @@ describe('AvvvistSykmelding', () => {
                     status: 'INVALID',
                     ruleHits: [
                         {
-                            ruleName: 'UNKNOWN_DIAGNOSECODE_TYPE',
+                            ruleName: 'UKJENT_DIAGNOSEKODETYPE',
                             messageForSender: null,
                             messageForUser: '',
                         },
                         {
-                            ruleName: 'INVALID_KODEVERK_FOR_BI_DIAGNOSE',
+                            ruleName: 'UGYLDIG_KODEVERK_FOR_BIDIAGNOSE',
                             messageForSender: null,
                             messageForUser: '',
                         },
@@ -41,25 +41,25 @@ describe('AvvvistSykmelding', () => {
         });
 
         it('Skal inneholde info om bekreftelse dersom bruker er for gammel', () => {
-            setRegelnavn(PATIENT_OVER_70_YEARS);
+            setRegelnavn(PASIENT_ELDRE_ENN_70);
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
             expect(component.text()).to.contain(' Du kan i stedet be om en skriftlig bekreftelse på at du er syk.');
         });
 
         it('Skal ikke inneholde noe om "grunnen til at sykmeldingen er avvist" dersom bruker er for gammel', () => {
-            setRegelnavn(PATIENT_OVER_70_YEARS);
+            setRegelnavn(PASIENT_ELDRE_ENN_70);
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
             expect(component.text()).not.to.contain('Grunnen til at sykmeldingen er avvist:');
         });
 
         it('Skal inneholde "Du må oppsøke en som har rett til å sykmelde." dersom sykmelder har ugyldig autorisasjon', () => {
-            setRegelnavn(BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR);
+            setRegelnavn(BEHANDLER_MANGLER_AUTORISASJON_I_HPR);
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
             expect(component.text()).to.contain('Du må oppsøke en som har rett til å sykmelde.');
         });
 
         it('Skal inneholde riktig tekst når det er ugydlig sykmld-versjon', () => {
-            setRegelnavn(INVALID_RULESET_VERSION);
+            setRegelnavn(UGYLDIG_REGELSETTVERSJON);
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
             expect(component.text()).to.contain('Du har fått en sykmelding, men den kan ikke brukes fordi det er brukt en ugyldig versjon av sykmeldingen.');
             expect(component.text()).to.contain('Du bør kontakte den som har sykmeldt deg eller få sykmelding fra en annen behandler.');

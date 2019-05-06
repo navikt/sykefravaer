@@ -6,19 +6,19 @@ import SykmeldingContext from '../contexts/SykmeldingContext';
 import Sidetopp from '../../components/Sidetopp';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import {
-    BEHANDLER_NOT_LE_KI_MT_TL_IN_HPR,
-    BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR,
-    BEHANDLER_NOT_VALID_IN_HPR, BEHANDLER_SUSPENDED,
-    INVALID_RULESET_VERSION,
-    PATIENT_OVER_70_YEARS,
+    BEHANDLER_IKKE_LE_KI_MT_TL_FT_I_HPR,
+    BEHANDLER_MANGLER_AUTORISASJON_I_HPR,
+    BEHANDLER_IKKE_GYLDIG_I_HPR, BEHANDLER_SUSPENDERT,
+    UGYLDIG_REGELSETTVERSJON,
+    PASIENT_ELDRE_ENN_70,
 } from '../../enums/avvisningsregelnavn';
 import Mann from '../../components/svg/Mann';
 
 const REGELNAVN_INGEN_RETT_TIL_A_SYKMELDE = [
-    BEHANDLER_NOT_VALID_IN_HPR,
-    BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR,
-    BEHANDLER_NOT_LE_KI_MT_TL_IN_HPR,
-    BEHANDLER_SUSPENDED,
+    BEHANDLER_IKKE_GYLDIG_I_HPR,
+    BEHANDLER_MANGLER_AUTORISASJON_I_HPR,
+    BEHANDLER_IKKE_LE_KI_MT_TL_FT_I_HPR,
+    BEHANDLER_SUSPENDERT,
 ];
 
 const hentRegelnavnListe = (smSykmelding) => {
@@ -39,10 +39,10 @@ export const hentHandlingsstreng = (smSykmelding) => {
     const regelnavnliste = hentRegelnavnListe(smSykmelding);
 
     const brukerErOver70 = regelnavnliste.find((regelnavn) => {
-        return regelnavn === PATIENT_OVER_70_YEARS;
+        return regelnavn === PASIENT_ELDRE_ENN_70;
     });
     const ugyldigVersjon = regelnavnliste.find((regelnavn) => {
-        return regelnavn === INVALID_RULESET_VERSION;
+        return regelnavn === UGYLDIG_REGELSETTVERSJON;
     });
     const ikkeRettTilASykmelde = hentHarIkkeRettTilASykmelde(smSykmelding);
 
@@ -68,11 +68,11 @@ const hentIntrotekst = (smSykmelding) => {
     const ugyldigSykmeldingversjonTekst = `${intro} det er brukt en ugyldig versjon av sykmeldingen. `;
     const ingenAutorisasjonTekst = `${intro} den som skrev sykmeldingen manglet autorisasjon.`;
     const regelnavnliste = hentRegelnavnListe(smSykmelding);
-    if (regelnavnliste.includes(PATIENT_OVER_70_YEARS)) {
+    if (regelnavnliste.includes(PASIENT_ELDRE_ENN_70)) {
         return overSyttitekst;
     }
 
-    if (regelnavnliste.includes(INVALID_RULESET_VERSION)) {
+    if (regelnavnliste.includes(UGYLDIG_REGELSETTVERSJON)) {
         return ugyldigSykmeldingversjonTekst;
     }
 
@@ -106,12 +106,12 @@ BegrunnelseTekst.propTypes = {
 
 const Begrunnelse = ({ smSykmelding }) => {
     const reglerUtenBegrunnelse = [
-        PATIENT_OVER_70_YEARS,
-        INVALID_RULESET_VERSION,
-        BEHANDLER_NOT_VALID_IN_HPR,
-        BEHANDLER_NOT_VALID_AUTHORIZATION_IN_HPR,
-        BEHANDLER_NOT_LE_KI_MT_TL_IN_HPR,
-        BEHANDLER_SUSPENDED,
+        PASIENT_ELDRE_ENN_70,
+        UGYLDIG_REGELSETTVERSJON,
+        BEHANDLER_IKKE_GYLDIG_I_HPR,
+        BEHANDLER_MANGLER_AUTORISASJON_I_HPR,
+        BEHANDLER_IKKE_LE_KI_MT_TL_FT_I_HPR,
+        BEHANDLER_SUSPENDERT,
     ];
     const visBegrunnelse = smSykmelding
         && smSykmelding.behandlingsutfall

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import { getDuration, getLedetekst, toDate } from '@navikt/digisyfo-npm';
 import { sykmeldingperiode } from '../../propTypes';
 
-const SykmeldingPeriodeinfo = ({ periode, arbeidsgiver, Element = 'p' }) => {
+const SykmeldingPeriodeinfo = ({ periode, arbeidsgiver, Element = 'p', className }) => {
     let ledetekstNokkel = 'sykmelding.teaser.tekst';
     if (periode.behandlingsdager === 1) {
         ledetekstNokkel = 'sykmelding.teaser.tekst.behandlingsdag';
@@ -29,7 +30,7 @@ const SykmeldingPeriodeinfo = ({ periode, arbeidsgiver, Element = 'p' }) => {
     if (periode.reisetilskudd && periode.grad) {
         ledetekstNokkel += '.gradert';
     }
-    return (<Element className="js-periode">{getLedetekst(ledetekstNokkel, {
+    return (<Element className={cn('js-periode', className)}>{getLedetekst(ledetekstNokkel, {
         '%GRAD%': periode.grad,
         '%ARBEIDSGIVER%': arbeidsgiver,
         '%DAGER%': getDuration(periode.fom, periode.tom),
@@ -41,6 +42,7 @@ SykmeldingPeriodeinfo.propTypes = {
     periode: sykmeldingperiode,
     arbeidsgiver: PropTypes.string,
     Element: PropTypes.string,
+    className: PropTypes.string,
 };
 
 export default SykmeldingPeriodeinfo;

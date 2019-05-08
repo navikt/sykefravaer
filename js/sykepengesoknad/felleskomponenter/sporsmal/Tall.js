@@ -6,17 +6,18 @@ import Sporsmalstekst from './Sporsmalstekst';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { lagDesimaltall, lagHeltall } from '../../../utils/index';
 
-const Tall = ({ sporsmalstekst, name, label, undertekst }) => {
+const Tall = ({ sporsmalstekst, name, label, undertekst, kunHeltall }) => {
     const parse = genererParseForEnkeltverdi();
     return (<div>
         <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
         <Field
             component={TekstfeltMedEnhet}
+            kunHeltall={kunHeltall}
             label={label}
             name={name}
             id={name}
             parse={(verdi) => {
-                const parsetVerdi = undertekst === 'prosent'
+                const parsetVerdi = undertekst === 'prosent' || kunHeltall
                     ? lagHeltall(verdi)
                     : lagDesimaltall(verdi);
                 return parse(parsetVerdi);
@@ -32,6 +33,7 @@ Tall.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
     undertekst: PropTypes.string,
+    kunHeltall: PropTypes.bool,
 };
 
 export default Tall;

@@ -47,7 +47,7 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
             </Tall>);
         }
         case PROSENT: {
-            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.prosent')} soknad={soknad}>
+            return (<Tall {...sporsmal} name={name} label={getLedetekst('soknad.prosent')} soknad={soknad} kunHeltall>
                 { undersporsmalsliste }
             </Tall>);
         }
@@ -98,7 +98,10 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
         }
         case RADIO_GRUPPE:
         case RADIO_GRUPPE_TIMER_PROSENT: {
-            return <RadioGruppe {...sporsmal} name={name} soknad={soknad} />;
+            return (<RadioGruppe
+                {...sporsmal}
+                name={name}
+                soknad={soknad} />);
         }
         default: {
             return <UkjentSporsmal sporsmal={sporsmal} />;

@@ -19,7 +19,7 @@ describe('Sykmeldingteaser', () => {
                 }],
             },
         };
-        const teaser = shallow(<Sykmeldingteaser sykmelding={getSykmelding(sykmelding)} />);
+        const teaser = mount(<Sykmeldingteaser sykmelding={getSykmelding(sykmelding)} />);
         expect(teaser.find('.js-title').text()).to.contain('2. – 16. februar 2016');
         expect(teaser.find('.js-title').text()).to.contain('Sykmelding');
     });

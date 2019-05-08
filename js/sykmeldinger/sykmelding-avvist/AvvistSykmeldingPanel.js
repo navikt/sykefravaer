@@ -55,7 +55,7 @@ export const hentHandlingsstreng = (smSykmelding) => {
         return ' Du må oppsøke en som har rett til å sykmelde. ';
     }
 
-    return ' Du må derfor be om ny sykmelding. ';
+    return ' Du må derfor be den som har sykmeldt deg om ny sykmelding. ';
 };
 
 const hentIntrotekst = (smSykmelding) => {
@@ -82,7 +82,7 @@ const hentIntrotekst = (smSykmelding) => {
 const BegrunnelseTekst = ({ smSykmelding }) => {
     const overskrift = 'Grunnen til at sykmeldingen er avvist:';
     return (<React.Fragment>
-        <h3 className="typo-normal" style={{ marginBottom: '1em' }}>{overskrift}</h3>
+        <h3 className="typo-element" style={{ marginBottom: '1em' }}>{overskrift}</h3>
         {
             smSykmelding.behandlingsutfall.ruleHits.length === 1
                 ? (<p>{smSykmelding.behandlingsutfall.ruleHits[0].messageForUser}</p>)

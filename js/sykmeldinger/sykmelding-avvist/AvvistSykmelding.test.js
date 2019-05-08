@@ -36,7 +36,7 @@ describe('AvvvistSykmelding', () => {
 
         it('Skal inneholde "Du må be om ny sykmelding." dersom bruker har ukjent diagnose', () => {
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
-            expect(component.text()).to.contain('Du må derfor be om ny sykmelding.');
+            expect(component.text()).to.contain('Du må derfor be den som har sykmeldt deg om ny sykmelding.');
             expect(component.text()).to.contain('Grunnen til at sykmeldingen er avvist:');
         });
 

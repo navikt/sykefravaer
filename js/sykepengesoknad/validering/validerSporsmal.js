@@ -1,9 +1,10 @@
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { fjernIndexFraTag, formaterEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
+import { fjernIndexFraTag, formaterEnkeltverdi, formaterFlereVerdier } from '../felleskomponenter/sporsmal/fieldUtils';
 import { CHECKED } from '../enums/svarEnums';
 import { CHECKBOX_GRUPPE, FRITEKST, IKKE_RELEVANT, PERIODER, TALL } from '../enums/svartyper';
 import { validerPerioder } from '../../sykepengesoknad-gammel-plattform/utils/valideringUtils';
 import validerTall from './validerTall';
+import { LAND } from '../enums/tagtyper';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste
@@ -30,7 +31,9 @@ export const beregnFeilmeldingstekstFraTag = (tag, max) => {
 };
 
 const verdiErTom = (verdi) => {
-    return (verdi || verdi === '') && verdi.trim && verdi.trim() === '';
+    return (verdi || verdi === '')
+        && verdi.trim
+        && verdi.trim() === '';
 };
 
 const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldingerParam = {}) => {
@@ -96,13 +99,22 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
     return feilmeldinger;
 };
 
+const arrayErTomt = (array) => {
+    return array.filter((streng) => {
+        return verdiErTom(streng);
+    }).length === array.length;
+};
+
 export default function validerSporsmal(sporsmal = [], values = {}) {
     const feilmeldinger = {};
     sporsmal
         .filter((s) => {
-            const verdi = formaterEnkeltverdi(values[s.tag]);
+            const verdi = s.svartype === LAND
+                ? formaterFlereVerdier(values[s.tag])
+                : formaterEnkeltverdi(values[s.tag]);
             return ((values[s.tag] === undefined
                     || verdi === false
+                    || (s.svartype === LAND && arrayErTomt(verdi))
                     || (s.svartype === FRITEKST && verdiErTom(verdi))
                     || (s.svartype === FRITEKST && s.max && verdi.length > s.max)
                     || (s.svartype === PERIODER))

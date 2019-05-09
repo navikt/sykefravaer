@@ -1,0 +1,56 @@
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__suggestions-container--open {
+  .input--m;
+}
+
+.ReactTags__tagInput {
+  position: relative;
+}
+
+.react-autosuggest__suggestions-container--open {
+  position: absolute;
+  border: 1px solid @grayIcon;
+  z-index: 1;
+  background: @white;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .react-autosuggest__suggestion {
+    padding: .75rem;
+    border-bottom: 1px solid @grayBackground;
+    color: @navBla;
+    text-decoration: underline;
+  }
+
+  li:hover, .react-autosuggest__suggestion--highlighted {
+    background-color: @grayBackground;
+    cursor: pointer;
+  }
+
+  mark {
+    background: transparent;
+    color: @navBla;
+    font-weight: 600;
+  }
+}
+
+.ReactTags__remove {
+  margin-left: .5rem;
+  cursor: pointer;
+}
+
+.ReactTags__remove:hover {
+  color: @white;
+}
+
+.etikett--tag {
+  margin: .5rem 1rem 0 0;
+  background-color: @navBlaLighten60;
+}

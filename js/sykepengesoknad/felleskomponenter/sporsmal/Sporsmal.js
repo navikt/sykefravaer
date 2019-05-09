@@ -31,6 +31,8 @@ import { lagreSoknad, soknadEndret } from '../../data/soknader/soknaderActions';
 import UkjentSporsmal from './UkjentSporsmal';
 import Undersporsmalsliste from './Undersporsmalsliste';
 import RadioGruppe from './RadioGruppe';
+import { LAND } from '../../enums/tagtyper';
+import Land from './Land';
 
 export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, actions, soknad }) => {
     const undersporsmalsliste = <Undersporsmalsliste undersporsmal={sporsmal.undersporsmal} soknad={soknad} />;
@@ -102,6 +104,9 @@ export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, 
                 {...sporsmal}
                 name={name}
                 soknad={soknad} />);
+        }
+        case LAND: {
+            return (<Land {...sporsmal} name={name} soknad={soknad} />);
         }
         default: {
             return <UkjentSporsmal sporsmal={sporsmal} />;

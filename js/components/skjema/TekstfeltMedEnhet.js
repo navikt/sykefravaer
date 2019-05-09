@@ -4,8 +4,8 @@ import cn from 'classnames';
 import { fieldPropTypes } from '../../propTypes';
 import Feilmelding from './Feilmelding';
 
-const TekstfeltMedEnhet = ({ label, id, input, meta, undertekst }) => {
-    const inputType = undertekst === 'prosent' ? 'tel' : 'text';
+const TekstfeltMedEnhet = ({ label, id, input, meta, undertekst, kunHeltall }) => {
+    const inputType = undertekst === 'prosent' || kunHeltall ? 'tel' : 'text';
     const className = cn('skjemaelement__input input--xs', {
         'skjemaelement__input--harFeil': meta.touched && meta.error,
     });
@@ -24,6 +24,7 @@ TekstfeltMedEnhet.propTypes = {
     input: fieldPropTypes.input,
     meta: fieldPropTypes.meta,
     undertekst: PropTypes.string,
+    kunHeltall: PropTypes.bool,
 };
 
 export default TekstfeltMedEnhet;

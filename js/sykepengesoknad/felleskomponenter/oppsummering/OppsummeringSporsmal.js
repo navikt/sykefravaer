@@ -21,6 +21,8 @@ import { svartypePt } from '../../../propTypes/index';
 import OppsummeringFritekst from './OppsummeringFritekst';
 import OppsummeringUndertekst from './OppsummeringUndertekst';
 import OppsummeringRadioGruppe from './OppsummeringRadioGruppe';
+import { LAND } from '../../enums/tagtyper';
+import OppsummeringLand from './OppsummeringLand';
 
 const OppsummeringSporsmal = (props) => {
     switch (props.svartype) {
@@ -39,6 +41,9 @@ const OppsummeringSporsmal = (props) => {
         }
         case FRITEKST: {
             return <OppsummeringFritekst {...props} />;
+        }
+        case LAND: {
+            return <OppsummeringLand {...props} />;
         }
         case IKKE_RELEVANT: {
             return <OppsummeringUndertekst {...props} />;

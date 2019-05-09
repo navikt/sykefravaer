@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForCheckbox, genererParseForEnkeltverdi } from './fieldUtils';
+import { fjernIndexFraTag, formaterEnkeltverdi, formaterFlereVerdier, genererParseForCheckbox, genererParseForEnkeltverdi, genererParseForFlereVerdier } from './fieldUtils';
 import { UNCHECKED, CHECKED } from '../../enums/svarEnums';
 import { ANDRE_INNTEKTSKILDER, JOBBET_DU_GRADERT } from '../../enums/tagtyper';
 
@@ -91,6 +91,29 @@ describe('fieldUtils', () => {
         });
     });
 
+    describe('genererParseForFlereverdier', () => {
+        it('Skal returnere svar på riktig format når svaret er JA, NEI', () => {
+            parse = genererParseForFlereVerdier();
+            const svar = parse(['JA', 'NEI']);
+            expect(svar).to.deep.equal({
+                svarverdier: [{
+                    verdi: 'JA',
+                }, {
+                    verdi: 'NEI',
+                }],
+            });
+        });
+    });
+
+    describe('formaterFlereVerdier', () => {
+        it('Skal returnere array av verdier', () => {
+            parse = genererParseForFlereVerdier();
+            const svar = parse(['JA', 'NEI']);
+            const formatertSvar = formaterFlereVerdier(svar);
+            expect(formatertSvar).to.deep.equal(['JA', 'NEI']);
+        });
+    });
+
     describe('genererParseForCheckbox', () => {
         it('Skal returnere riktig svar når det svares med true', () => {
             const parseCheckbox = genererParseForCheckbox('1');
@@ -155,6 +178,12 @@ describe('fieldUtils', () => {
             const svar = parseCheckbox(false);
             const formatertSvar = formaterEnkeltverdi(svar);
             expect(formatertSvar).to.equal(false);
+        });
+
+        it('Skal returnere riktig svar når svar lagret i redux-store er flere verdier', () => {
+            const svar = genererParseForFlereVerdier()(['ja', 'nei']);
+            const formatertVerdi = formaterFlereVerdier(svar);
+            expect(formatertVerdi).to.deep.equal(['ja', 'nei']);
         });
     });
 

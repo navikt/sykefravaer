@@ -1087,7 +1087,7 @@
         "tag": "LAND",
         "sporsmalstekst": "Hvor skal du reise?",
         "undertekst": null,
-        "svartype": "FRITEKST",
+        "svartype": "LAND",
         "min": null,
         "max": "50",
         "pavirkerAndreSporsmal": false,

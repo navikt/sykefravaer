@@ -5,8 +5,9 @@ import { autofill, touch } from 'redux-form';
 import landliste from './landliste';
 import { formaterFlereVerdier, genererParseForFlereVerdier } from '../../../sykepengesoknad/felleskomponenter/sporsmal/fieldUtils';
 import { fieldPropTypes } from '../../../propTypes';
-import NavAutosuggest from './NavAutosuggest';
-import { finnForslag, forslagFinnesIForslagsliste, tilForslagsliste } from './forslagUtils';
+import NavAutosuggest from '../tagvelger/NavAutosuggest';
+import { finnForslag, forslagFinnesIForslagsliste, tilForslagsliste } from '../tagvelger/forslagUtils';
+import { ValgteTags } from './ValgteTags';
 
 export const genererHandleAddition = (meta, input, doAutofill, doTouch, forslagsliste = []) => {
     const prevVal = formaterFlereVerdier(input.value);
@@ -32,14 +33,17 @@ export const genererHandleDelete = (meta, input, doAutofill) => {
 const LandvelgerComponent = ({ input, meta, doAutofill, doTouch }) => {
     const onAdd = genererHandleAddition(meta, input, doAutofill, doTouch, landliste);
     const handleDelete = genererHandleDelete(meta, input, doAutofill);
-    const verdiArray = formaterFlereVerdier(input.value);
+    const verdier = formaterFlereVerdier(input.value);
+
     return (<div>
         <NavAutosuggest
             meta={meta}
             onAdd={onAdd}
             id={input.name}
-            forslagsliste={tilForslagsliste(landliste, verdiArray)}
+            name={input.name}
+            forslagsliste={tilForslagsliste(landliste, verdier)}
         />
+        <ValgteTags verdier={verdier} handleDelete={handleDelete} />
     </div>);
 };
 

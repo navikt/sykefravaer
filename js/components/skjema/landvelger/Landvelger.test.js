@@ -3,6 +3,7 @@ import { genererHandleAddition } from './Landvelger';
 import expect from '../../../../test/expect';
 import { genererParseForFlereVerdier } from '../../../sykepengesoknad/felleskomponenter/sporsmal/fieldUtils';
 import landliste from './landliste';
+import { Forslag } from '../tagvelger/Forslag';
 
 describe('Landvelger', () => {
     describe('genererHandleAddition', () => {
@@ -29,7 +30,7 @@ describe('Landvelger', () => {
 
         it('Skal fylle ut felt når felt ikke har noe verdi fra før', () => {
             const handleAddition = genererHandleAddition(meta, input, doAutofill, doTouch, landliste);
-            handleAddition({ text: 'Sverige' });
+            handleAddition(new Forslag('Sverige'));
             expect(doAutofill.getCall(0).args).to.deep.equal([
                 form,
                 name,
@@ -39,14 +40,14 @@ describe('Landvelger', () => {
 
         it('Skal ikke fylle ut felt når det ikke finnes innsendt tag-liste', () => {
             const handleAddition = genererHandleAddition(meta, input, doAutofill, doTouch, landliste);
-            handleAddition({ text: 'Sveriges' });
+            handleAddition(new Forslag('Sveriges'));
             expect(doAutofill.called).to.equal(false);
         });
 
         it('Skal fylle ut felt når felt har verdi fra før', () => {
             input.value = parse(['Sverige']);
             const handleAddition = genererHandleAddition(meta, input, doAutofill, doTouch, landliste);
-            handleAddition({ text: 'Danmark' });
+            handleAddition(new Forslag('Danmark'));
             expect(doAutofill.getCall(0).args).to.deep.equal([
                 form,
                 name,

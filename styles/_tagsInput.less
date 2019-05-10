@@ -1,9 +1,8 @@
-.ReactTags__tags {
+.react-autosuggest__container {
   position: relative;
 }
 
-.ReactTags__input,
-.ReactTags__suggestions {
+.react-autosuggest__suggestions-container--open {
   .input--m;
 }
 
@@ -11,7 +10,7 @@
   position: relative;
 }
 
-.ReactTags__suggestions {
+.react-autosuggest__suggestions-container--open {
   position: absolute;
   border: 1px solid @grayIcon;
   z-index: 1;
@@ -23,14 +22,14 @@
     padding: 0;
   }
 
-  li {
+  .react-autosuggest__suggestion {
     padding: .75rem;
     border-bottom: 1px solid @grayBackground;
     color: @navBla;
     text-decoration: underline;
   }
 
-  .ReactTags__activeSuggestion, li:hover {
+  li:hover, .react-autosuggest__suggestion--highlighted {
     background-color: @grayBackground;
     cursor: pointer;
   }

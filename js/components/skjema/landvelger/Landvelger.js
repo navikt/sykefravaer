@@ -3,46 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { autofill, touch } from 'redux-form';
 import landliste from './landliste';
-import { TagsInput } from './TagsInput';
 import { formaterFlereVerdier, genererParseForFlereVerdier } from '../../../sykepengesoknad/felleskomponenter/sporsmal/fieldUtils';
 import { fieldPropTypes } from '../../../propTypes';
+import NavAutosuggest from './NavAutosuggest';
+import { finnForslag, forslagFinnesIForslagsliste, tilForslagsliste } from './forslagUtils';
 
-const formatTags = (tags, value) => {
-    return tags
-        .filter((tag) => {
-            return value && value.includes
-                ? !value.includes(tag)
-                : true;
-        })
-        .map((tag) => {
-            return {
-                id: tag.toUpperCase(),
-                text: tag,
-            };
-        });
-};
-
-const tagFinnesITagliste = (tagliste, tag) => {
-    const formatertliste = formatTags(tagliste);
-    return formatertliste.find((t) => {
-        return t.id === tag.toUpperCase();
-    }) !== undefined;
-};
-
-const finnTag = (tagliste, tag) => {
-    const formatertListe = formatTags(tagliste);
-    return formatertListe.find((t) => {
-        return t.id === tag.toUpperCase();
-    }).text;
-};
-
-export const genererHandleAddition = (meta, input, doAutofill, doTouch, tagliste = []) => {
+export const genererHandleAddition = (meta, input, doAutofill, doTouch, forslagsliste = []) => {
     const prevVal = formaterFlereVerdier(input.value);
     const parse = genererParseForFlereVerdier();
-    return (val) => {
-        if (tagFinnesITagliste(tagliste, val.text)) {
+    return (forslag) => {
+        if (forslagFinnesIForslagsliste(forslagsliste, forslag)) {
             doTouch(meta.form, input.name);
-            doAutofill(meta.form, input.name, parse([...prevVal, finnTag(tagliste, val.text)]));
+            doAutofill(meta.form, input.name, parse([...prevVal, finnForslag(forslagsliste, forslag)]));
         }
     };
 };
@@ -58,17 +30,17 @@ export const genererHandleDelete = (meta, input, doAutofill) => {
 };
 
 const LandvelgerComponent = ({ input, meta, doAutofill, doTouch }) => {
-    const handleAddition = genererHandleAddition(meta, input, doAutofill, doTouch, landliste);
+    const onAdd = genererHandleAddition(meta, input, doAutofill, doTouch, landliste);
     const handleDelete = genererHandleDelete(meta, input, doAutofill);
-    const value = formaterFlereVerdier(input.value);
-    return (<TagsInput
-        meta={meta}
-        tags={formatTags(value)}
-        handleAddition={handleAddition}
-        handleDelete={handleDelete}
-        id={input.name}
-        suggestions={formatTags(landliste, value)}
-    />);
+    const verdiArray = formaterFlereVerdier(input.value);
+    return (<div>
+        <NavAutosuggest
+            meta={meta}
+            onAdd={onAdd}
+            id={input.name}
+            forslagsliste={tilForslagsliste(landliste, verdiArray)}
+        />
+    </div>);
 };
 
 LandvelgerComponent.propTypes = {

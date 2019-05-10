@@ -2,7 +2,7 @@ import Autosuggest from 'react-autosuggest';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Feilomrade from '../Feilomrade';
-import { fieldPropTypes } from '../../../propTypes';
+import { fieldPropTypes } from '../../../propTypes/index';
 
 const getQueryIndex = (query, forslag) => {
     return forslag.getText()
@@ -70,6 +70,9 @@ class NavAutosuggest extends Component {
                     if (event.keyCode === ENTER) {
                         event.preventDefault();
                     }
+                    this.setState({
+                        value: '',
+                    });
                     this.props.onAdd(suggestion);
                 }}
                 getSuggestionValue={getSuggestionValue}
@@ -78,8 +81,11 @@ class NavAutosuggest extends Component {
                 inputProps={{
                     value: this.state.value,
                     onChange: this.onChange,
+                    name: this.props.id,
                     className: 'skjemaelement__input input--m',
                 }}
+                id={this.props.id}
+                name={this.props.name}
             />
         </Feilomrade>);
     }
@@ -89,6 +95,8 @@ NavAutosuggest.propTypes = {
     forslagsliste: PropTypes.arrayOf(PropTypes.shape({
         tag: PropTypes.string,
     })),
+    id: PropTypes.string,
+    name: PropTypes.string,
     meta: fieldPropTypes.meta,
     onAdd: PropTypes.func,
 };

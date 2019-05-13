@@ -136,7 +136,8 @@ export const AvvistSykmeldingPanel = ({ smSykmelding }) => {
             center
             kompakt
             svg={<Mann />}
-            veilederProps={{ center: true, storrelse: 'S' }}>
+            veilederProps={{ center: true, storrelse: 'S' }}
+        >
             <h2 className="veilederpanel__tittel">
                 Sykmeldingen er avvist av NAV
             </h2>

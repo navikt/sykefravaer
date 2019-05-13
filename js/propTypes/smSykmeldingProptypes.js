@@ -12,12 +12,12 @@ const behandlingsutfallPt = PropTypes.shape({
     ruleHits: PropTypes.arrayOf(ruleHitPt),
 });
 
-const smSykmeldingPeriodePt = PropTypes.shape({
+export const smSykmeldingPeriodePt = PropTypes.shape({
     fom: PropTypes.instanceOf(Date),
     tom: PropTypes.instanceOf(Date),
 });
 
-const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);
+export const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);
 
 export const smSykmeldingPt = PropTypes.shape({
     id: PropTypes.string.isRequired,

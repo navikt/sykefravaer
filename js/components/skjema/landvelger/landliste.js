@@ -197,6 +197,7 @@ const landliste = [
     'Zambia',
     'Zimbabwe',
     'Øst-Timor',
-    'Østerrike'];
+    'Østerrike',
+];
 
 export default landliste;

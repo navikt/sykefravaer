@@ -5,7 +5,6 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import Feilomrade from '../Feilomrade';
 import { fieldPropTypes } from '../../../propTypes/index';
-import { finnForslag } from './forslagUtils';
 import { Forslag } from './Forslag';
 
 const getQueryIndex = (query, forslag) => {

@@ -49,8 +49,9 @@ class NavAutosuggest extends Component {
         const delvisMatchForslag = this.props.forslagsliste.filter((forslag) => {
             return getQueryIndex(value, forslag) > 0;
         });
+        const suggestions = [...eksakteForslag, ...delvisMatchForslag].slice(0, 5);
         this.setState({
-            suggestions: [...eksakteForslag, ...delvisMatchForslag],
+            suggestions,
         });
     }
 

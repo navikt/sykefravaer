@@ -58,13 +58,9 @@ class NavAutosuggest extends Component {
     }
 
     onSuggestionsFetchRequested({ value }) {
-        const eksakteForslag = this.props.forslagsliste.filter((forslag) => {
+        const suggestions = this.props.forslagsliste.filter((forslag) => {
             return getQueryIndex(value, forslag) === 0;
         });
-        const delvisMatchForslag = this.props.forslagsliste.filter((forslag) => {
-            return getQueryIndex(value, forslag) > 0;
-        });
-        const suggestions = [...eksakteForslag, ...delvisMatchForslag].slice(0, 5);
         this.setState({
             suggestions,
         });

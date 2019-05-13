@@ -2,7 +2,6 @@ import Autosuggest from 'react-autosuggest';
 import React, { Component } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import Feilomrade from '../Feilomrade';
 import { fieldPropTypes } from '../../../propTypes/index';
 import { Forslag } from './Forslag';
 
@@ -88,27 +87,25 @@ class NavAutosuggest extends Component {
     }
 
     render() {
-        return (<Feilomrade {...this.props.meta}>
-            <Autosuggest
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                onSuggestionSelected={this.onSuggestionSelected}
-                getSuggestionValue={getSuggestionValue}
-                renderSuggestion={renderSuggestion}
-                suggestions={this.state.suggestions}
-                inputProps={{
-                    value: this.state.value,
-                    onChange: this.onChange,
-                    onBlur: this.onBlur,
-                    name: this.props.id,
-                    className: cn('skjemaelement__input input--l input--autocomplete', {
-                        'input--autocompleteFocus': this.state.focus,
-                    }),
-                }}
-                id={this.props.id}
-                name={this.props.name}
-            />
-        </Feilomrade>);
+        return (<Autosuggest
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            onSuggestionSelected={this.onSuggestionSelected}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            suggestions={this.state.suggestions}
+            inputProps={{
+                value: this.state.value,
+                onChange: this.onChange,
+                onBlur: this.onBlur,
+                name: this.props.id,
+                className: cn('skjemaelement__input input--l input--autocomplete', {
+                    'input--autocompleteFocus': this.state.focus,
+                }),
+            }}
+            id={this.props.id}
+            name={this.props.name}
+        />);
     }
 }
 

@@ -8,6 +8,7 @@ import { fieldPropTypes } from '../../../propTypes';
 import NavAutosuggest from '../tagvelger/NavAutosuggest';
 import { finnForslag, forslagFinnesIForslagsliste, tilForslagsliste } from '../tagvelger/forslagUtils';
 import { ValgteTags } from './ValgteTags';
+import Feilomrade from '../Feilomrade';
 
 export const genererHandleAddition = (meta, input, doAutofill, doTouch, forslagsliste = []) => {
     const prevVal = formaterFlereVerdier(input.value);
@@ -30,12 +31,13 @@ export const genererHandleDelete = (meta, input, doAutofill) => {
     };
 };
 
-const LandvelgerComponent = ({ input, meta, doAutofill, doTouch }) => {
+const LandvelgerComponent = ({ input, meta, doAutofill, doTouch, sporsmalstekst }) => {
     const onAdd = genererHandleAddition(meta, input, doAutofill, doTouch, landliste);
     const handleDelete = genererHandleDelete(meta, input, doAutofill);
     const verdier = formaterFlereVerdier(input.value);
 
-    return (<div>
+    return (<Feilomrade {...meta}>
+        {sporsmalstekst}
         <NavAutosuggest
             meta={meta}
             onAdd={onAdd}
@@ -44,7 +46,7 @@ const LandvelgerComponent = ({ input, meta, doAutofill, doTouch }) => {
             forslagsliste={tilForslagsliste(landliste, verdier)}
         />
         <ValgteTags verdier={verdier} handleDelete={handleDelete} />
-    </div>);
+    </Feilomrade>);
 };
 
 LandvelgerComponent.propTypes = {
@@ -52,6 +54,7 @@ LandvelgerComponent.propTypes = {
     meta: fieldPropTypes.meta,
     doAutofill: PropTypes.func,
     doTouch: PropTypes.func,
+    sporsmalstekst: PropTypes.node,
 };
 
 const Landvelger = connect(null, {

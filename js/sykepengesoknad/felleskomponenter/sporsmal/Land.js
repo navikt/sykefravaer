@@ -5,13 +5,11 @@ import Sporsmalstekst from './Sporsmalstekst';
 import Landvelger from '../../../components/skjema/landvelger/Landvelger';
 
 const Land = ({ sporsmalstekst, name }) => {
-    return (<div>
-        <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
-        <Field
-            component={Landvelger}
-            name={name}
-            id={name} />
-    </div>);
+    return (<Field
+        sporsmalstekst={<Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />}
+        component={Landvelger}
+        name={name}
+        id={name} />);
 };
 
 Land.propTypes = {

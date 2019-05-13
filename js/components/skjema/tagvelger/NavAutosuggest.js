@@ -57,9 +57,13 @@ class NavAutosuggest extends Component {
     }
 
     onSuggestionsFetchRequested({ value }) {
-        const suggestions = this.props.forslagsliste.filter((forslag) => {
-            return getQueryIndex(value, forslag) === 0;
-        }).slice(0, 5);
+        const suggestions = this.props.forslagsliste
+            .filter((forslag) => {
+                return forslag.getId() !== 'NORGE';
+            })
+            .filter((forslag) => {
+                return getQueryIndex(value, forslag) === 0;
+            }).slice(0, 5);
         this.setState({
             suggestions,
         });

@@ -1059,7 +1059,7 @@
     "opprettetDato": "2019-04-09",
     "innsendtDato": null,
     "sendtTilNAVDato": null,
-    "sendtTilArbeidsgiverDato": null,
+    "sendtTilArbeidsgiverDato": "2019-05-10",
     "avbruttDato": null,
     "startSykeforlop": null,
     "sykmeldingUtskrevet": null,
@@ -1085,7 +1085,7 @@
       {
         "id": "200213",
         "tag": "LAND",
-        "sporsmalstekst": "Hvor skal du reise?",
+        "sporsmalstekst": "Hvilket land skal du reise til?",
         "undertekst": null,
         "svartype": "LAND",
         "min": null,

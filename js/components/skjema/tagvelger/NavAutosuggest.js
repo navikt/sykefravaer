@@ -1,6 +1,5 @@
 import Autosuggest from 'react-autosuggest';
 import React, { Component } from 'react';
-import Chevron from 'nav-frontend-chevron';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import Feilomrade from '../Feilomrade';
@@ -33,11 +32,9 @@ class NavAutosuggest extends Component {
         this.state = {
             value: '',
             suggestions: [],
-            focus: false,
         };
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
-        this.onFocus = this.onFocus.bind(this);
         this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
         this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
         this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
@@ -58,15 +55,6 @@ class NavAutosuggest extends Component {
         if (forslagFraListe) {
             this.velgForslag(forslag);
         }
-        this.setState({
-            focus: false,
-        });
-    }
-
-    onFocus() {
-        this.setState({
-            focus: true,
-        });
     }
 
     onSuggestionsFetchRequested({ value }) {
@@ -109,25 +97,13 @@ class NavAutosuggest extends Component {
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                 onSuggestionSelected={this.onSuggestionSelected}
-                shouldRenderSuggestions={() => {
-                    return true;
-                }}
                 getSuggestionValue={getSuggestionValue}
                 renderSuggestion={renderSuggestion}
-                renderInputComponent={(inputProps) => {
-                    return (<div className="">
-                        <input {...inputProps} />
-                        <Chevron
-                            className="chevron--input"
-                            type={this.state.focus ? 'opp' : 'ned'} />
-                    </div>);
-                }}
                 suggestions={this.state.suggestions}
                 inputProps={{
                     value: this.state.value,
                     onChange: this.onChange,
                     onBlur: this.onBlur,
-                    onFocus: this.onFocus,
                     name: this.props.id,
                     className: cn('skjemaelement__input input--l input--autocomplete', {
                         'input--autocompleteFocus': this.state.focus,

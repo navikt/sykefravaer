@@ -6,6 +6,7 @@ import SykmeldingContext from '../contexts/SykmeldingContext';
 import Sidetopp from '../../components/Sidetopp';
 import { AvvistSykmeldingPanel } from './AvvistSykmeldingPanel';
 import { AvvistSykmeldingStatuspanel } from './AvvistSykmeldingStatuspanel';
+import { SykmeldingOpplysninger } from './SykmeldingOpplysninger';
 
 const AvvistSykmelding = () => {
     return (<SykmeldingContext.Consumer>
@@ -15,6 +16,7 @@ const AvvistSykmelding = () => {
                     <Sidetopp className={cn({ 'blokk--xl': !smSykmelding.bekreftetDato })} tittel={getLedetekst('din-sykmelding.tittel')} />
                     <AvvistSykmeldingStatuspanel smSykmelding={smSykmelding} />
                     <AvvistSykmeldingPanel smSykmelding={smSykmelding} />
+                    <SykmeldingOpplysninger smSykmelding={smSykmelding} />
                     <BekreftLestAvvistSykmeldingSkjema smSykmelding={smSykmelding} />
                 </React.Fragment>);
             }

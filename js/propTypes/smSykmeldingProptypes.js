@@ -15,6 +15,7 @@ const behandlingsutfallPt = PropTypes.shape({
 export const smSykmeldingPeriodePt = PropTypes.shape({
     fom: PropTypes.instanceOf(Date),
     tom: PropTypes.instanceOf(Date),
+    grad: PropTypes.number,
 });
 
 export const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);

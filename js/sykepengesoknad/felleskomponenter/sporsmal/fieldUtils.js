@@ -12,6 +12,18 @@ export const genererParseForEnkeltverdi = () => {
     };
 };
 
+export const genererParseForFlereVerdier = () => {
+    return (verdier = []) => {
+        return {
+            svarverdier: verdier.map((verdi) => {
+                return {
+                    verdi,
+                };
+            }),
+        };
+    };
+};
+
 export const genererParseForCheckbox = () => {
     const parse = genererParseForEnkeltverdi();
     return (value) => {
@@ -29,6 +41,14 @@ export const formaterEnkeltverdi = (value) => {
     } catch (e) {
         return '';
     }
+};
+
+export const formaterFlereVerdier = (verdi) => {
+    return !verdi || !verdi.svarverdier
+        ? []
+        : verdi.svarverdier.map((svarverdi) => {
+            return svarverdi.verdi;
+        });
 };
 
 export const fjernIndexFraTag = (tag) => {

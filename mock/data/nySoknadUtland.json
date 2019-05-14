@@ -28,9 +28,9 @@
     {
       "id": "23833",
       "tag": "LAND",
-      "sporsmalstekst": "Hvor skal du reise?",
+      "sporsmalstekst": "Hvilket land skal du reise til?",
       "undertekst": null,
-      "svartype": "FRITEKST",
+      "svartype": "LAND",
       "min": null,
       "max": "50",
       "pavirkerAndreSporsmal": false,

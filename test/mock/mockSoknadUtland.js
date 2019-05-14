@@ -22,7 +22,7 @@ export const parsetSoknadUtland1 = {
         tag: 'LAND',
         sporsmalstekst: 'Hvilket land skal du reise til?',
         undertekst: null,
-        svartype: 'FRITEKST',
+        svartype: 'LAND',
         min: null,
         max: 100,
         kriterieForVisningAvUndersporsmal: null,

@@ -59,7 +59,7 @@ export const SoknadUtlandSkjema = ({ soknad, handleSubmit, sender, sendSoknad, a
             : <Hovedknapp type="submit" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>;
     };
 
-    return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
+    return (<form autoComplete="off" className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
         <div className={sendingFeilet || avbrytSoknadFeilet ? 'blokk' : null}>
             {sporsmalsliste}

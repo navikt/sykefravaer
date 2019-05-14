@@ -50,11 +50,15 @@ SykmeldingPerioder.propTypes = {
 
 const SykmeldingPeriode = ({ periode }) => {
     const antallDager = getDuration(periode.fom, periode.tom);
+    const grad = periode.grad || 100;
     return (
         <div className="nokkelopplysning">
             <h2 className="nokkelopplysning__tittel">Periode</h2>
             <p className="js-periode blokk-xxs">
                 <strong>{tilLesbarPeriodeMedArstall(periode.fom, periode.tom)}</strong> &bull; {antallDager}&nbsp;{antallDager > 1 ? 'dager' : 'dag'}
+            </p>
+            <p className="js-grad">
+                {grad} % sykmeldt
             </p>
         </div>
     );

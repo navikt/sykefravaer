@@ -2,7 +2,6 @@ import Autosuggest from 'react-autosuggest';
 import React, { Component } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import { fieldPropTypes } from '../../../propTypes/index';
 import { Forslag } from './Forslag';
 
 const getQueryIndex = (query, forslag) => {
@@ -119,7 +118,6 @@ NavAutosuggest.propTypes = {
     })),
     id: PropTypes.string,
     name: PropTypes.string,
-    meta: fieldPropTypes.meta,
     onAdd: PropTypes.func,
 };
 

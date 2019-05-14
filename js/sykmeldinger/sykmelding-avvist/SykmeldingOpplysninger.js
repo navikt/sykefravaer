@@ -7,10 +7,6 @@ import { smSykmeldingPeriodePt, smSykmeldingPerioderPt, smSykmeldingPt } from '.
 
 export const SykmeldingOpplysninger = ({ smSykmelding }) => (
     <article>
-        <header className="panelHeader panelHeader--lysebla">
-            <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />
-        </header>
-
         <div className="panel blokk dine-opplysninger">
             <h2 className="typo-innholdstittel blokk-l">Sykmelding</h2>
 

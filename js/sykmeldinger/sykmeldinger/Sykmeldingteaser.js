@@ -1,30 +1,19 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getLedetekst, senesteTom, sykmeldingstatuser, tidligsteFom, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
 import getContextRoot from '../../utils/getContextRoot';
 import SykmeldingPeriodeinfo from './SykmeldingPeriodeinfo';
-import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Inngangspanel, InngangspanelHeader, InngangspanelIkon, InngangspanelInnhold, InngangspanelTekst } from '../../components/Inngangspanel';
+import { PeriodeListe } from './PeriodeListe';
 
-const PeriodeListe = ({ perioder, arbeidsgiver }) => {
-    return (<ul className="teaser-punktliste js-perioder">
-        {perioder.map((periode, index) => {
-            return (<SykmeldingPeriodeinfo key={index} periode={periode} arbeidsgiver={arbeidsgiver} Element="li" />);
-        })}
-    </ul>);
-};
-
-PeriodeListe.propTypes = {
-    arbeidsgiver: PropTypes.string,
-    perioder: PropTypes.arrayOf(sykmeldingperiode),
-};
-
-export const InngangspanelIkonSykmelding = () => {
-    return (<InngangspanelIkon
+export const InngangspanelIkonSykmelding = () => (
+    <InngangspanelIkon
         ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/sykmeldinger.svg`}
         ikonHover={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/sykmeldinger_hover-blue.svg`}
-    />);
-};
+    />
+);
 
 const SykmeldingTeaser = ({ sykmelding }) => {
     const antallPerioder = sykmelding.mulighetForArbeid.perioder.length;

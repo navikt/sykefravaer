@@ -1204,11 +1204,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": null,
-        "svar": [
-          {
-            "verdi": "CHECKED"
-          }
-        ],
+        "svar": [],
         "undersporsmal": []
       },
       {
@@ -1221,11 +1217,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210710",
@@ -1252,11 +1244,7 @@
         "max": null,
         "pavirkerAndreSporsmal": true,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210712",
@@ -1283,11 +1271,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210714",
@@ -1324,11 +1308,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "210717",
@@ -1386,11 +1366,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210721",

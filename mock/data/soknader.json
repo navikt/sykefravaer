@@ -1204,11 +1204,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": null,
-        "svar": [
-          {
-            "verdi": "CHECKED"
-          }
-        ],
+        "svar": [],
         "undersporsmal": []
       },
       {
@@ -1221,11 +1217,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210710",
@@ -1252,11 +1244,7 @@
         "max": null,
         "pavirkerAndreSporsmal": true,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210712",
@@ -1283,11 +1271,7 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210714",
@@ -1324,11 +1308,7 @@
                 "max": null,
                 "pavirkerAndreSporsmal": false,
                 "kriterieForVisningAvUndersporsmal": "CHECKED",
-                "svar": [
-                  {
-                    "verdi": "CHECKED"
-                  }
-                ],
+                "svar": [],
                 "undersporsmal": [
                   {
                     "id": "210717",
@@ -1378,7 +1358,7 @@
       },
       {
         "id": "210720",
-        "tag": "FERIE",
+        "tag": "FERIE_V2",
         "sporsmalstekst": "Har du tatt ut ferie i perioden 5. - 13. mai 2019?",
         "undertekst": null,
         "svartype": "JA_NEI",
@@ -1386,15 +1366,11 @@
         "max": null,
         "pavirkerAndreSporsmal": false,
         "kriterieForVisningAvUndersporsmal": "JA",
-        "svar": [
-          {
-            "verdi": "NEI"
-          }
-        ],
+        "svar": [],
         "undersporsmal": [
           {
             "id": "210721",
-            "tag": "FERIE_NAR",
+            "tag": "FERIE_NAR_V2",
             "sporsmalstekst": null,
             "undertekst": null,
             "svartype": "PERIODER",
@@ -1409,7 +1385,7 @@
       },
       {
         "id": "210722",
-        "tag": "PERMISJON",
+        "tag": "PERMISJON_V2",
         "sporsmalstekst": "Har du hatt permisjon i perioden 5. - 13. mai 2019?",
         "undertekst": null,
         "svartype": "JA_NEI",
@@ -1421,7 +1397,7 @@
         "undersporsmal": [
           {
             "id": "210723",
-            "tag": "PERMISJON_NAR",
+            "tag": "PERMISJON_NAR_V2",
             "sporsmalstekst": null,
             "undertekst": null,
             "svartype": "PERIODER",
@@ -1436,7 +1412,7 @@
       },
       {
         "id": "210724",
-        "tag": "UTLAND",
+        "tag": "UTLAND_V2",
         "sporsmalstekst": "Har oppholdt deg i utlandet i perioden 5. - 13. mai 2019?",
         "undertekst": null,
         "svartype": "JA_NEI",
@@ -1448,7 +1424,7 @@
         "undersporsmal": [
           {
             "id": "210725",
-            "tag": "UTLAND_NAR",
+            "tag": "UTLAND_NAR_V2",
             "sporsmalstekst": null,
             "undertekst": null,
             "svartype": "PERIODER",

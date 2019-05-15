@@ -1371,7 +1371,7 @@
           {
             "id": "210721",
             "tag": "FERIE_NAR_V2",
-            "sporsmalstekst": null,
+            "sporsmalstekst": "Når tok du ut ferie?",
             "undertekst": null,
             "svartype": "PERIODER",
             "min": "2019-05-05",
@@ -1398,7 +1398,7 @@
           {
             "id": "210723",
             "tag": "PERMISJON_NAR_V2",
-            "sporsmalstekst": null,
+            "sporsmalstekst": "Når tok du permisjon?",
             "undertekst": null,
             "svartype": "PERIODER",
             "min": "2019-05-05",
@@ -1425,7 +1425,7 @@
           {
             "id": "210725",
             "tag": "UTLAND_NAR_V2",
-            "sporsmalstekst": null,
+            "sporsmalstekst": "Når var du utenfor Norge?",
             "undertekst": null,
             "svartype": "PERIODER",
             "min": "2019-05-05",

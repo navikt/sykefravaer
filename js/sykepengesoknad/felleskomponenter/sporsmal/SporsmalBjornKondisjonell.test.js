@@ -14,7 +14,7 @@ import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidst
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe.only('SporsmalBjorn', () => {
+describe('SporsmalBjorn', () => {
     let state;
     const parse = genererParseForEnkeltverdi();
 

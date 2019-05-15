@@ -43,7 +43,7 @@ JaEllerNeiRadioknapper.propTypes = {
 export const RendreJaEllerNei = (props) => {
     const classNames = props.hovedsporsmal ? 'hovedsporsmal' : null;
     const classNamesTilleggssporsmal = props.hovedsporsmal ? 'hovedsporsmal__tilleggssporsmal' : null;
-    const hjelpetekst = <SporsmalHjelpetekst tag={props.tag} />;
+    const hjelpetekst = <SporsmalHjelpetekst tag={props.tag} soknad={props.soknad} />;
     const Sporsmal = props.hovedsporsmal
         ? (<JaEllerNeiRadiopanelgruppe
             {...props}

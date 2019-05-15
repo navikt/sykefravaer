@@ -7,13 +7,10 @@ import { SYKMELDINGSGRAD, FERIE } from '../../enums/tagtyper';
 import { formaterEnkeltverdi } from './fieldUtils';
 import { NEI, JA } from '../../enums/svarEnums';
 import { getSkjemanavnFraSoknad } from '../../utils/getSkjemanavnFraSoknad';
-import { OPPHOLD_UTLAND } from '../../enums/soknadtyper';
 
 const sporsmalMedBjorn = {
-    [OPPHOLD_UTLAND]: {
-        [SYKMELDINGSGRAD]: NEI,
-        [FERIE]: JA,
-    },
+    [SYKMELDINGSGRAD]: NEI,
+    [FERIE]: JA,
 };
 
 const ledetekstNokler = {
@@ -38,13 +35,10 @@ export function mapStateToProps(state, ownProps) {
     const skjemanavn = getSkjemanavnFraSoknad(ownProps.soknad);
     const selector = formValueSelector(skjemanavn);
     const feltVerdi = selector(state, ownProps.tag);
-    const sporsmalMedBjornForSoknad = sporsmalMedBjorn[ownProps.soknad.soknadstype];
-    const vis = !sporsmalMedBjornForSoknad || sporsmalMedBjornForSoknad[ownProps.tag] === undefined
-        ? false
-        : sporsmalMedBjornForSoknad[ownProps.tag] === formaterEnkeltverdi(feltVerdi);
-
     return {
-        vis,
+        vis: sporsmalMedBjorn[ownProps.tag] === undefined
+            ? false
+            : sporsmalMedBjorn[ownProps.tag] === formaterEnkeltverdi(feltVerdi),
     };
 }
 

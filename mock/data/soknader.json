@@ -1,7 +1,7 @@
 [
   {
     "id": "25e65716-ae77-4bbf-8183-84a2742dd138",
-    "aktorId": "1006519251291",
+    "aktorId": "12345678",
     "sykmeldingId": "ddaff965-f514-400e-8e61-3f7b2c753a4b",
     "soknadstype": "ARBEIDSTAKERE",
     "status": "NY",
@@ -654,7 +654,7 @@
   },
   {
     "id": "84974430-4ea1-41fa-a703-6936188496cc",
-    "aktorId": "1006519251291",
+    "aktorId": "12345678",
     "sykmeldingId": "e9a99b9a-73e3-4998-82d1-063ca70866b2",
     "soknadstype": "SELVSTENDIGE_OG_FRILANSERE",
     "status": "NY",
@@ -1050,7 +1050,7 @@
   },
   {
     "id": "441eaf34-85d5-4bf5-8833-8162a70a78cd",
-    "aktorId": "1006519251291",
+    "aktorId": "12345678",
     "sykmeldingId": null,
     "soknadstype": "OPPHOLD_UTLAND",
     "status": "NY",
@@ -1166,7 +1166,7 @@
   },
   {
     "id": "43aaf8e1-cc98-4786-8348-58cb2c63bb08",
-    "aktorId": "1924473393808",
+    "aktorId": "12345678",
     "sykmeldingId": "32ef8e34-b84e-4d3f-a1af-cd7797869d51",
     "soknadstype": "ARBEIDSTAKERE",
     "status": "NY",
@@ -1180,8 +1180,8 @@
     "startSykeforlop": "2019-05-02",
     "sykmeldingUtskrevet": "2019-05-05",
     "arbeidsgiver": {
-      "navn": "ÅSEN BOFELLESSKAP",
-      "orgnummer": "995816598"
+      "navn": "TESTBEDRIFTEN AS",
+      "orgnummer": "999888777"
     },
     "korrigerer": null,
     "korrigertAv": null,
@@ -1237,7 +1237,7 @@
       {
         "id": "210711",
         "tag": "TILBAKE_I_ARBEID",
-        "sporsmalstekst": "Var du tilbake i fullt arbeid hos ÅSEN BOFELLESSKAP før 14. mai 2019?",
+        "sporsmalstekst": "Var du tilbake i fullt arbeid hos TESTBEDRIFTEN AS før 14. mai 2019?",
         "undertekst": null,
         "svartype": "JA_NEI",
         "min": null,
@@ -1264,7 +1264,7 @@
       {
         "id": "210713",
         "tag": "JOBBET_DU_100_PROSENT_0",
-        "sporsmalstekst": "I perioden 5. - 13. mai 2019 var du 100 % sykmeldt fra ÅSEN BOFELLESSKAP. Jobbet du noe i denne perioden?",
+        "sporsmalstekst": "I perioden 5. - 13. mai 2019 var du 100 % sykmeldt fra TESTBEDRIFTEN AS. Jobbet du noe i denne perioden?",
         "undertekst": null,
         "svartype": "JA_NEI",
         "min": null,
@@ -1289,7 +1289,7 @@
           {
             "id": "210715",
             "tag": "HVOR_MYE_HAR_DU_JOBBET_0",
-            "sporsmalstekst": "Hvor mye jobbet du totalt 5. - 13. mai 2019 hos ÅSEN BOFELLESSKAP?",
+            "sporsmalstekst": "Hvor mye jobbet du totalt 5. - 13. mai 2019 hos TESTBEDRIFTEN AS?",
             "undertekst": null,
             "svartype": "RADIO_GRUPPE_TIMER_PROSENT",
             "min": null,
@@ -1440,7 +1440,7 @@
       {
         "id": "210726",
         "tag": "ANDRE_INNTEKTSKILDER",
-        "sporsmalstekst": "Har du andre inntektskilder enn ÅSEN BOFELLESSKAP?",
+        "sporsmalstekst": "Har du andre inntektskilder enn TESTBEDRIFTEN AS?",
         "undertekst": null,
         "svartype": "JA_NEI",
         "min": null,

@@ -1,5 +1,5 @@
 import { toDatePrettyPrint } from '@navikt/digisyfo-npm';
-import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT, RADIO } from '../enums/svartyper';
+import { CHECKBOX, CHECKBOX_PANEL, DATO, FRITEKST, JA_NEI, PERIODER, PROSENT, TIMER, TALL, RADIO_GRUPPE, RADIO_GRUPPE_TIMER_PROSENT, RADIO, LAND } from '../enums/svartyper';
 import { genererParseForEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 import { CHECKED } from '../enums/svarEnums';
 
@@ -28,6 +28,11 @@ const tilInitielleSvarverder = ({ svar, svartype, undersporsmal }) => {
                     }
                     return returPeriode;
                 });
+        }
+        case LAND: {
+            return {
+                svarverdier: svar,
+            };
         }
         case CHECKBOX:
             return parse(svar.map((_svar) => { return (_svar.verdi ? 'CHECKED' : 'UNCHECKED'); })[0]);

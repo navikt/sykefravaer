@@ -4,10 +4,10 @@ import expect from '../../../test/expect';
 import {
     ARBEIDSGIVER,
     BEKREFT_OPPLYSNINGER_UTLAND,
-    LAND,
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
 } from '../enums/tagtyper';
+import { LAND } from '../enums/svartyper';
 
 describe('fraBackendsoknadTilInitiellSoknad', () => {
     it('Skal mappe perioder på norsk format', () => {
@@ -94,6 +94,24 @@ describe('fraBackendsoknadTilInitiellSoknad', () => {
         expect(initiellSoknad[LAND]).to.deep.equal({
             svarverdier: [{
                 verdi: 'Oslo',
+            }],
+        });
+    });
+
+    it('Skal mappe land', () => {
+        const lagretSoknadMedLand = mockLagretSoknad();
+        lagretSoknadMedLand.sporsmal[1].svartype = LAND;
+        lagretSoknadMedLand.sporsmal[1].svar = [{
+            verdi: 'Norge',
+        }, {
+            verdi: 'Sverige',
+        }];
+        const initiellSoknad = fraBackendsoknadTilInitiellSoknad(lagretSoknadMedLand);
+        expect(initiellSoknad[LAND]).to.deep.equal({
+            svarverdier: [{
+                verdi: 'Norge',
+            }, {
+                verdi: 'Sverige',
             }],
         });
     });

@@ -12,13 +12,26 @@ const behandlingsutfallPt = PropTypes.shape({
     ruleHits: PropTypes.arrayOf(ruleHitPt),
 });
 
+const smGradertPt = PropTypes.shape({
+    grad: PropTypes.number.isRequired,
+    reisetilskudd: PropTypes.bool.isRequired,
+});
+
 export const smSykmeldingPeriodePt = PropTypes.shape({
-    fom: PropTypes.instanceOf(Date),
-    tom: PropTypes.instanceOf(Date),
-    grad: PropTypes.number,
+    fom: PropTypes.instanceOf(Date).isRequired,
+    tom: PropTypes.instanceOf(Date).isRequired,
+    gradert: smGradertPt,
+    behandlingsdager: PropTypes.number,
+    innspillTilArbeidsgiver: PropTypes.string,
+    type: PropTypes.oneOf('AKTIVITET_IKKE_MULIG', 'AVVENTENDE', 'BEHANDLINGSDAGER', 'GRADERT', 'REISETILSKUDD').isRequired,
 });
 
 export const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);
+
+export const smArbeidsgiverPt = PropTypes.shape({
+    navn: PropTypes.string.isRequired,
+    stillingsprosent: PropTypes.number.isRequired,
+});
 
 export const smSykmeldingPt = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -26,7 +39,7 @@ export const smSykmeldingPt = PropTypes.shape({
     bekreftetDato: PropTypes.instanceOf(Date),
     legeNavn: PropTypes.string,
     legekontorOrgnummer: PropTypes.string,
-    arbeidsgiverNavn: PropTypes.string,
+    arbeidsgiver: smArbeidsgiverPt,
     sykmeldingsperioder: smSykmeldingPerioderPt,
 });
 

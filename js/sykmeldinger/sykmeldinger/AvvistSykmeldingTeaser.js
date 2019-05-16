@@ -1,13 +1,43 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 
 import React from 'react';
-import { getLedetekst, senesteTom, tidligsteFom, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
+import { getDuration, getLedetekst, senesteTom, tidligsteFom, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
 import getContextRoot from '../../utils/getContextRoot';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import { Inngangspanel, InngangspanelHeader, InngangspanelIkon, InngangspanelInnhold, InngangspanelTekst } from '../../components/Inngangspanel';
 import { InngangspanelIkonSykmelding } from './Sykmeldingteaser';
-import SykmeldingPeriodeinfo from './SykmeldingPeriodeinfo';
-import { PeriodeListe } from './PeriodeListe';
+
+const periodeinfoNokkelBase = (type, behandlingsdager) => {
+    switch (type) {
+        case 'BEHANDLINGSDAGER' && behandlingsdager === 1:
+            return 'sykmelding.teaser.tekst.behandlingsdag';
+        case 'BEHANDLINGSDAGER' && behandlingsdager > 1:
+            return 'sykmelding.teaser.tekst.behandlingsdager';
+        case 'REISETILSKUDD':
+            return 'sykmelding.teaser.tekst.reisetilskudd';
+        case 'AVVENTENDE':
+            return 'sykmelding.teaser.tekst.avventende';
+        default:
+            return 'sykmelding.teaser.tekst';
+    }
+};
+
+const finnLedetekstForPeriodeinfo = (periode) => {
+    let ledetekstNokkel = periodeinfoNokkelBase(periode.type, periode.behandlingsdager);
+
+    if (getDuration(periode.fom, periode.tom) === 1) {
+        ledetekstNokkel += '.en-dag';
+    }
+
+    ledetekstNokkel += '.uten-arbeidsgiver';
+
+    if (periode.grad === null) {
+        ledetekstNokkel += '.ingen-grad';
+    } else if (periode.reisetilskudd) {
+        ledetekstNokkel += '.gradert';
+    }
+    return ledetekstNokkel;
+};
 
 const FomTom = ({ smSykmelding }) => (
     smSykmelding.sykmeldingsperioder && smSykmelding.sykmeldingsperioder.length > 0
@@ -47,8 +77,35 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
                 <InngangspanelTekst>
                     {
                         smSykmelding.sykmeldingsperioder.length === 1
-                            ? <SykmeldingPeriodeinfo className="sist" periode={smSykmelding.sykmeldingsperioder[0]} />
-                            : <PeriodeListe perioder={smSykmelding.sykmeldingsperioder} />
+                            ? (
+                                <p className="js-periode sist">
+                                    {
+                                        smSykmelding.sykmeldingsperioder
+                                            .map(periode => (
+                                                getLedetekst(finnLedetekstForPeriodeinfo(periode), {
+                                                    '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert.grad,
+                                                    '%DAGER%': getDuration(periode.fom, periode.tom),
+                                                })),
+                                            )
+                                    }
+                                </p>
+                            )
+                            : (
+                                <ul className="teaser-punktliste js-perioder">
+                                    {
+                                        smSykmelding.sykmeldingsperioder.map((periode, index) => (
+                                            <li className="js-periode" key={index}>
+                                                {
+                                                    getLedetekst(finnLedetekstForPeriodeinfo(smSykmelding.sykmeldingsperioder[0]), {
+                                                        '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert.grad,
+                                                        '%DAGER%': getDuration(periode.fom, periode.tom),
+                                                    })
+                                                }
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            )
                     }
                 </InngangspanelTekst>
             </InngangspanelInnhold>
@@ -57,7 +114,7 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
 };
 
 AvvistSykmeldingTeaser.propTypes = {
-    smSykmelding: smSykmeldingPt,
+    smSykmelding: smSykmeldingPt.isRequired,
 };
 
 export default AvvistSykmeldingTeaser;

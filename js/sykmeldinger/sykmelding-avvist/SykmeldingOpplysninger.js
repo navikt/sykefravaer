@@ -46,7 +46,7 @@ SykmeldingPerioder.propTypes = {
 
 const SykmeldingPeriode = ({ periode }) => {
     const antallDager = getDuration(periode.fom, periode.tom);
-    const grad = periode.grad || 100;
+    const grad = periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.grad ? periode.grad : '';
     return (
         <div className="nokkelopplysning">
             <h2 className="nokkelopplysning__tittel">Periode</h2>

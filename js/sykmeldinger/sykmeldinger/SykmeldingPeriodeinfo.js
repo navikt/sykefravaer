@@ -1,6 +1,7 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 
 import React from 'react';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { getDuration, getLedetekst, toDate } from '@navikt/digisyfo-npm';
 import { sykmeldingperiode } from '../../propTypes';
@@ -32,7 +33,7 @@ const SykmeldingPeriodeinfo = ({ periode, arbeidsgiver, Element = 'p', className
         ledetekstNokkel += '.gradert';
     }
     return (
-        <Element className={`js-periode ${className}`}>
+        <Element className={cn('js-periode', className)}>
             {
                 getLedetekst(ledetekstNokkel, {
                     '%GRAD%': periode.grad || 100,

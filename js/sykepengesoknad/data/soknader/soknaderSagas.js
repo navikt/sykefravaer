@@ -32,7 +32,7 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SOKNAD_AVBRUTT,
+    SOKNAD_AVBRUTT, SOKNAD_ENDRET,
     SOKNAD_SENDT,
 } from './soknaderActiontyper';
 import {
@@ -170,6 +170,22 @@ export function* lagreSoknad(action) {
     }
 }
 
+export function* oppdaterSporsmalForUtlandssoknad(action) {
+    const soknad = yield select(hentSoknad, action.soknad);
+    if (soknad.soknadstype === OPPHOLD_UTLAND) {
+        const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
+        const gamleVerdierISkjema = yield select(hentSkjemaVerdier, skjemanavn);
+        const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, gamleVerdierISkjema);
+        try {
+            const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
+            yield put(actions.soknadOppdatert(oppdatertSoknad));
+            yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
+        } catch (e) {
+            log(e);
+            yield put(actions.oppdaterSoknadFeilet());
+        }
+    }
+}
 
 const gaTilSkjemaUtland = (soknadUtlandId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${soknadUtlandId}`);
@@ -251,6 +267,10 @@ function* watchLagreSoknad() {
     yield takeEvery(LAGRE_SOKNAD_FORESPURT, lagreSoknad);
 }
 
+function* watchOppdaterUtlandssoknad() {
+    yield takeEvery(SOKNAD_ENDRET, oppdaterSporsmalForUtlandssoknad);
+}
+
 function* watchOpprettUtkastTilKorrigering() {
     yield takeEvery(OPPRETT_UTKAST_TIL_KORRIGERING_FORESPURT, opprettUtkastTilKorrigering);
 }
@@ -267,5 +287,6 @@ export default function* soknaderSagas() {
         fork(watchLagreSoknad),
         fork(watchOppdaterSoknaderHvisIkkehenter),
         fork(watchOppdaterSoknaderVedOppdaterFeilet),
+        fork(watchOppdaterUtlandssoknad),
     ]);
 }

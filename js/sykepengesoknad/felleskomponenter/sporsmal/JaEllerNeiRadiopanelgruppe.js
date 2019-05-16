@@ -37,6 +37,7 @@ const RadioPanelGruppeComponent = (props) => {
             onChange={(event, value) => {
                 const parsedValue = genererParseForEnkeltverdi(props.id)(value);
                 props.doChange(props.meta.form, props.input.name, parsedValue);
+                props.input.onChange(event, value);
             }}
             feil={feil}
         />

@@ -4,7 +4,9 @@ import { CHECKED } from '../enums/svarEnums';
 import { CHECKBOX_GRUPPE, FRITEKST, IKKE_RELEVANT, PERIODER, TALL } from '../enums/svartyper';
 import { validerPerioder } from '../../sykepengesoknad-gammel-plattform/utils/valideringUtils';
 import validerTall from './validerTall';
-import { LAND } from '../enums/tagtyper';
+import {
+    LAND,
+} from '../enums/tagtyper';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste

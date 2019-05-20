@@ -9,7 +9,7 @@ import validerGraderteArbeidssporsmal from './validerGraderteArbeidssporsmal';
 describe('validerGraderteArbeidssporsmal', () => {
     beforeEach(() => {
         setLedetekster({
-            'soknad.feilmelding.hvor_mye_timer_verdi.max': 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt',
+            'soknad.feilmelding.hvor_mye_timer_verdi.min': 'Timene du skrev inn tyder på at du har jobbet mindre enn %MIN% %. Du må enten svare nei på spørsmålet over eller endre antall timer her.',
         });
     });
 
@@ -178,7 +178,7 @@ describe('validerGraderteArbeidssporsmal', () => {
         };
         const values = fraBackendsoknadTilInitiellSoknad(soknad);
         const feilmeldinger = validerGraderteArbeidssporsmal(soknad.sporsmal, values, parseSoknad(soknad));
-        expect(feilmeldinger.HVOR_MYE_TIMER_VERDI_0).to.equal('Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt');
+        expect(feilmeldinger.HVOR_MYE_TIMER_VERDI_0).to.equal('Timene du skrev inn tyder på at du har jobbet mindre enn 60 %. Du må enten svare nei på spørsmålet over eller endre antall timer her.');
     });
 
     it('Skal ikke klage når oppgitt timer i beregnet arbeidsgrad utgjør mer enn arbeidsgrad i sykmeldingen', () => {

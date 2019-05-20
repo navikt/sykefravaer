@@ -9,7 +9,7 @@ export const validerDenneSiden = (values, props) => {
         : [props.soknad.sporsmal[props.sidenummer - 1]];
     const resultat = validerSporsmal(sporsmal, values);
     const arbeidssporsmalFeilmeldinger = props.soknad.soknadstype === ARBEIDSTAKERE
-        ? validerGraderteArbeidssporsmal(sporsmal, values, props.soknad.soknadPerioder)
+        ? validerGraderteArbeidssporsmal(sporsmal, values, props.soknad)
         : {};
     return {
         ...resultat,
@@ -22,7 +22,7 @@ export const validerForegaendeSider = (values, props) => {
         return (index + 1) < props.sidenummer;
     });
     const arbeidssporsmalFeilmeldinger = props.soknad.soknadstype === ARBEIDSTAKERE
-        ? validerGraderteArbeidssporsmal(sporsmal, values, props.soknad.soknadPerioder)
+        ? validerGraderteArbeidssporsmal(sporsmal, values, props.soknad)
         : {};
     return {
         ...validerSporsmal(sporsmal, values),

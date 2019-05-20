@@ -1,48 +1,86 @@
+import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag, formaterEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 import {
+    FERIE_NAR_V2, FERIE_PERMISJON_UTLAND,
+    FERIE_V2,
     HVOR_MANGE_TIMER_PER_UKE,
     HVOR_MYE_HAR_DU_JOBBET,
     HVOR_MYE_PROSENT,
     HVOR_MYE_PROSENT_VERDI,
     HVOR_MYE_TIMER,
     HVOR_MYE_TIMER_VERDI,
-    JOBBET_DU_GRADERT,
+    JOBBET_DU_GRADERT, PERMISJON_NAR_V2, PERMISJON_V2,
 } from '../enums/tagtyper';
 import { getStillingsprosent } from '../../sykepengesoknad-gammel-plattform/aktiviteter-i-sykmeldingsperioden/BeregnetArbeidsgrad';
 import { beregnFeilmeldingstekstFraTag } from './validerSporsmal';
+import { JA } from '../enums/svarEnums';
 
 const leggIndexPaTag = (tag, index) => {
     return `${tag}_${index}`;
 };
 
-const validerGraderteArbeidssporsmal = (sporsmal, values, soknadPerioder) => {
+export const hentFerieOgPermisjonperioder = (values) => {
+    const harHattFerie = formaterEnkeltverdi(values[FERIE_V2]) === JA;
+    const harHattPermisjon = formaterEnkeltverdi(values[PERMISJON_V2]) === JA;
+    const ferieperioder = harHattFerie ? values[FERIE_NAR_V2] : [];
+    const permisjonperioder = harHattPermisjon ? values[PERMISJON_NAR_V2] : [];
+
+    return [
+        ...ferieperioder,
+        ...permisjonperioder,
+    ].map((periode) => {
+        return {
+            fom: fraInputdatoTilJSDato(periode.fom),
+            tom: fraInputdatoTilJSDato(periode.tom),
+        };
+    });
+};
+
+const validerGraderteArbeidssporsmal = (sporsmal, values, soknad) => {
     const feilmeldinger = {};
     const graderteArbeidssporsmal = sporsmal
-        .filter((s) => {
-            return fjernIndexFraTag(s.tag) === JOBBET_DU_GRADERT;
+        .filter((_sporsmal) => {
+            return fjernIndexFraTag(_sporsmal.tag) === JOBBET_DU_GRADERT;
         })
-        .filter((s) => {
-            return formaterEnkeltverdi(values[s.tag]) === s.kriterieForVisningAvUndersporsmal;
+        .filter((_sporsmal) => {
+            return formaterEnkeltverdi(values[_sporsmal.tag]) === _sporsmal.kriterieForVisningAvUndersporsmal;
+        })
+        .filter((_sporsmal) => {
+            const feriesporsmal = soknad.sporsmal.find((spm) => {
+                return spm.tag === FERIE_V2;
+            });
+            const feriePermUtlandsporsmal = soknad.sporsmal.find((spm) => {
+                return spm.tag === FERIE_PERMISJON_UTLAND;
+            });
+            const hovedsporsmalTags = soknad.sporsmal.map((s) => {
+                return s.tag;
+            });
+            const harSvartPaFeriesporsmal = feriesporsmal
+                ? hovedsporsmalTags.indexOf(_sporsmal.tag) > hovedsporsmalTags.indexOf(FERIE_V2)
+                : !feriePermUtlandsporsmal;
+            return harSvartPaFeriesporsmal;
         });
     graderteArbeidssporsmal.forEach((gradertArbeidssporsmal) => {
         const index = parseInt(gradertArbeidssporsmal.tag.split(`${JOBBET_DU_GRADERT}_`)[1], 10);
-        const antallTimerPerNormalUke = formaterEnkeltverdi(values[leggIndexPaTag(HVOR_MANGE_TIMER_PER_UKE, index)]);
         const erSvarOppgittITimer = formaterEnkeltverdi(values[leggIndexPaTag(HVOR_MYE_TIMER, index)]);
-        const antallTimerJobbet = formaterEnkeltverdi(values[leggIndexPaTag(HVOR_MYE_TIMER_VERDI, index)]);
-        const minsteArbeidsgrad = gradertArbeidssporsmal.undersporsmal
-            .find((underspm) => {
-                return fjernIndexFraTag(underspm.tag) === HVOR_MYE_HAR_DU_JOBBET;
-            })
-            .undersporsmal.find((underspm) => {
-                return fjernIndexFraTag(underspm.tag) === HVOR_MYE_PROSENT;
-            })
-            .undersporsmal.find((underspm) => {
-                return fjernIndexFraTag(underspm.tag) === HVOR_MYE_PROSENT_VERDI;
-            }).min;
-        const periode = soknadPerioder[index];
-        const arbeidsgrad = getStillingsprosent(antallTimerJobbet, antallTimerPerNormalUke, periode);
-        if (erSvarOppgittITimer && arbeidsgrad < parseInt(minsteArbeidsgrad, 10)) {
-            feilmeldinger[leggIndexPaTag(HVOR_MYE_TIMER_VERDI, index)] = beregnFeilmeldingstekstFraTag(HVOR_MYE_TIMER_VERDI, true);
+        if (erSvarOppgittITimer) {
+            const antallTimerPerNormalUke = formaterEnkeltverdi(values[leggIndexPaTag(HVOR_MANGE_TIMER_PER_UKE, index)]);
+            const antallTimerJobbet = formaterEnkeltverdi(values[leggIndexPaTag(HVOR_MYE_TIMER_VERDI, index)]);
+            const periode = soknad.soknadPerioder[index];
+            const minsteArbeidsgrad = gradertArbeidssporsmal.undersporsmal
+                .find((underspm) => {
+                    return fjernIndexFraTag(underspm.tag) === HVOR_MYE_HAR_DU_JOBBET;
+                })
+                .undersporsmal.find((underspm) => {
+                    return fjernIndexFraTag(underspm.tag) === HVOR_MYE_PROSENT;
+                })
+                .undersporsmal.find((underspm) => {
+                    return fjernIndexFraTag(underspm.tag) === HVOR_MYE_PROSENT_VERDI;
+                }).min;
+            const arbeidsgrad = getStillingsprosent(antallTimerJobbet, antallTimerPerNormalUke, periode, hentFerieOgPermisjonperioder(values));
+            if (arbeidsgrad < parseInt(minsteArbeidsgrad, 10)) {
+                feilmeldinger[leggIndexPaTag(HVOR_MYE_TIMER_VERDI, index)] = beregnFeilmeldingstekstFraTag(HVOR_MYE_TIMER_VERDI, true);
+            }
         }
     });
 

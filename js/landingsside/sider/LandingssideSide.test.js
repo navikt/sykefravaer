@@ -41,7 +41,6 @@ describe('LandingssideSide', () => {
     let hentOppfolgingsdialoger;
     let hentOppfolging;
     let hentOppfolgingsforlopsPerioder;
-    let hentToggles;
     let hentSykmeldtinfodata;
     let hentSmSykmeldinger;
 
@@ -60,7 +59,6 @@ describe('LandingssideSide', () => {
         hentOppfolgingsforlopsPerioder = sinon.spy();
         hentSoknader = sinon.spy();
         hentOppfolging = sinon.spy();
-        hentToggles = sinon.spy();
         hentSykmeldtinfodata = sinon.spy();
         hentSmSykmeldinger = sinon.spy();
 
@@ -76,7 +74,6 @@ describe('LandingssideSide', () => {
             hentOppfolgingsforlopsPerioder,
             hentSoknader,
             hentOppfolging,
-            hentToggles,
             hentSykmeldtinfodata,
             hentSmSykmeldinger,
         };
@@ -105,7 +102,6 @@ describe('LandingssideSide', () => {
                 data: [],
             },
             brukerinfo: brukerinfo(),
-            toggles: {},
             smSykmeldinger: smSykmeldinger(),
         };
 

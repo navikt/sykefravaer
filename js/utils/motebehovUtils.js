@@ -112,11 +112,6 @@ export const erOppfolgingstilfelleSluttDatoPassert = (sluttOppfolgingsdato) => {
     return dagensDato > oppfolgingstilfelleSluttDato;
 };
 
-export const erMotebehovToggletPaa = (togglesReducer) => {
-    return togglesReducer.data
-        && togglesReducer.data['syfotoggles.dialogmote.motebehov.vis'] === 'true';
-};
-
 export const hentOppfolgingsforlopStartdato = (oppfolgingsforlopsPeriodeData) => {
     return oppfolgingsforlopsPeriodeData.length > 0 && new Date(Math.min.apply(null, oppfolgingsforlopsPeriodeData.map((periode) => {
         return new Date(periode.fom);
@@ -149,12 +144,8 @@ export const finnVirksomhetnrListeMedSkalViseMotebehov = (oppfolgingsforlopsPeri
     return liste;
 };
 
-export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPerioderReducerListe, toggles, motebehovReducer) => {
+export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPerioderReducerListe, motebehovReducer) => {
     try {
-        if (!erMotebehovToggletPaa(toggles)) {
-            return false;
-        }
-
         if (motebehovReducer && motebehovReducer.hentingForbudt === true) {
             return false;
         }
@@ -171,7 +162,7 @@ export const erMotebehovTilgjengeligForOppfolgingsforlop = (state) => {
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
 
-    return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov);
+    return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov);
 };
 
 export const harMotebehovSvar = (state) => {

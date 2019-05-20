@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getLedetekst, hentToggles, keyValue } from '@navikt/digisyfo-npm';
+import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import { brodsmule as brodsmulePt, motebehovReducerPt, motebehovSvarReducerPt } from '../propTypes';
 import Side from './Side';
 import MotebehovInnhold from '../components/moter/MotebehovInnhold';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { forsoektHentetDineSykmeldinger, forsoektHentetToggles, henterEllerHarHentetLedere, henterEllerHarHentetToggles } from '../utils/reducerUtils';
+import {
+    forsoektHentetDineSykmeldinger,
+    henterEllerHarHentetLedere,
+} from '../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../landingsside/data/ledere/ledereActions';
 import { hentMotebehov, svarMotebehov } from '../actions/motebehov_actions';
@@ -29,7 +32,6 @@ class Container extends Component {
         const {
             actions,
             skalHenteLedere,
-            skalHenteToggles,
         } = this.props;
 
         actions.hentDineSykmeldinger();
@@ -38,9 +40,6 @@ class Container extends Component {
 
         if (skalHenteLedere) {
             actions.hentLedere();
-        }
-        if (skalHenteToggles) {
-            actions.hentToggles();
         }
     }
 
@@ -82,7 +81,6 @@ Container.propTypes = {
     sendingFeilet: PropTypes.bool,
     skalHenteOppfolgingsPerioder: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
-    skalHenteToggles: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     motebehovReducer: motebehovReducerPt,
@@ -95,7 +93,6 @@ Container.propTypes = {
         hentMotebehov: PropTypes.func,
         svarMotebehov: PropTypes.func,
         hentOppfolgingsforlopsPerioder: PropTypes.func,
-        hentToggles: PropTypes.func,
     }),
 };
 
@@ -106,7 +103,6 @@ export function mapDispatchToProps(dispatch) {
         hentMotebehov,
         svarMotebehov,
         hentOppfolgingsforlopsPerioder,
-        hentToggles,
     }, dispatch);
 
     return {
@@ -115,7 +111,6 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export function mapStateToProps(state) {
-    const togglesReducer = state.toggles;
     const ledereReducer = state.ledere;
     const dineSykmeldingerReducer = state.dineSykmeldinger;
     const motebehovReducer = state.motebehov;
@@ -129,15 +124,13 @@ export function mapStateToProps(state) {
         const motebehovSvarReducer = state.motebehovSvar[virksomhetsnr] || {};
         motebehovSvarReducerListe.push(motebehovSvarReducer);
     });
-    const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, motebehovReducer);
+    const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, motebehovReducer);
 
     const skalHenteLedere = !henterEllerHarHentetLedere(ledereReducer);
     const skalHenteOppfolgingsPerioder = !henterEllerHarForsoektHentetOppfolgingsPerioder([state.oppfolgingsforlopsPerioder]);
-    const skalHenteToggles = !henterEllerHarHentetToggles(togglesReducer);
 
     const hentOppfolgingsforlopsPerioderFeilet = hentOppfolgingsPerioderFeilet(oppfolgingsforlopsPerioderReducerListe);
-    const harForsoektHentetAlt = forsoektHentetDineSykmeldinger(togglesReducer)
-        && forsoektHentetToggles(togglesReducer)
+    const harForsoektHentetAlt = forsoektHentetDineSykmeldinger(dineSykmeldingerReducer)
         && forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe)
         && (!skalViseMotebehov || motebehovReducer.hentingForsokt);
 
@@ -147,12 +140,10 @@ export function mapStateToProps(state) {
         || ledereReducer.hentingFeilet
         || dineSykmeldingerReducer.hentingFeilet
         || motebehovReducer.hentingFeilet
-        || hentOppfolgingsforlopsPerioderFeilet
-        || togglesReducer.hentingFeilet,
+        || hentOppfolgingsforlopsPerioderFeilet,
         sendingFeilet: harSvarMotebehovFeilet(motebehovSvarReducerListe),
         skalHenteLedere,
         skalHenteOppfolgingsPerioder,
-        skalHenteToggles,
         skalViseMotebehov,
         ledetekster: selectLedeteksterData(state),
         motebehovReducer,

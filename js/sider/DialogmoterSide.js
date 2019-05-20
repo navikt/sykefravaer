@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getLedetekst, hentToggles, keyValue, togglesPt } from '@navikt/digisyfo-npm';
+import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import getContextRoot from '../utils/getContextRoot';
 import history from '../history';
 import Side from './Side';
@@ -18,10 +18,8 @@ import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPer
 import {
     forsoektHentetDineSykmeldinger,
     forsoektHentetLedere,
-    forsoektHentetToggles,
     forsoktHentetMote,
     henterEllerHarHentetLedere,
-    henterEllerHarHentetToggles,
 } from '../utils/reducerUtils';
 import { getMote } from '../utils/moteUtils';
 import { finnVirksomhetnrListeMedSkalViseMotebehov, skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
@@ -39,9 +37,7 @@ class Container extends Component {
         const {
             actions,
             skalHenteLedere,
-            skalHenteToggles,
             skalViseMotebehov,
-            togglesReducer,
             harForsoektHentetAlt,
         } = this.props;
 
@@ -53,17 +49,13 @@ class Container extends Component {
         if (skalHenteLedere) {
             actions.hentLedere();
         }
-        if (skalHenteToggles) {
-            actions.hentToggles();
-        }
 
-        if (togglesReducer.hentet && harForsoektHentetAlt && skalViseMotebehov === false) {
+        if (harForsoektHentetAlt && skalViseMotebehov === false) {
             history.push(`${getContextRoot()}/dialogmoter/mote`);
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        const { togglesReducer } = this.props;
         const {
             harForsoektHentetAlt,
             skalViseMotebehov,
@@ -71,7 +63,7 @@ class Container extends Component {
 
         finnOgHentManglendeOppfolgingsforlopsPerioder(nextProps);
 
-        if (togglesReducer.henter && !nextProps.togglesReducer.henter && harForsoektHentetAlt && skalViseMotebehov === false) {
+        if (harForsoektHentetAlt && skalViseMotebehov === false) {
             history.push(`${getContextRoot()}/dialogmoter/mote`);
         }
     }
@@ -109,11 +101,9 @@ Container.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     koblingId: PropTypes.string,
     motebehovReducer: motebehovReducerPt,
-    togglesReducer: togglesPt,
     harMote: PropTypes.bool,
     harForsoektHentetAlt: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
-    skalHenteToggles: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
@@ -123,7 +113,6 @@ Container.propTypes = {
         hentMote: PropTypes.func,
         hentMotebehov: PropTypes.func,
         hentOppfolgingsforlopsPerioder: PropTypes.func,
-        hentToggles: PropTypes.func,
     }),
 };
 
@@ -134,7 +123,6 @@ export function mapDispatchToProps(dispatch) {
         hentMote,
         hentMotebehov,
         hentOppfolgingsforlopsPerioder,
-        hentToggles,
     }, dispatch);
 
     return {
@@ -143,7 +131,6 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export function mapStateToProps(state) {
-    const togglesReducer = state.toggles;
     const ledereReducer = state.ledere;
     const dineSykmeldingerReducer = state.dineSykmeldinger;
     const moteReducer = state.mote;
@@ -154,17 +141,14 @@ export function mapStateToProps(state) {
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(dineSykmeldingerReducer.data, ledereReducer.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
     const virksomhetnrMedMotebehovListe = finnVirksomhetnrListeMedSkalViseMotebehov(oppfolgingsforlopsPerioderReducerListe);
-    const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, motebehovReducer);
+    const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, motebehovReducer);
 
     const skalHenteLedere = !henterEllerHarHentetLedere(ledereReducer);
-    const skalHenteToggles = !henterEllerHarHentetToggles(togglesReducer);
 
     const hentOppfolgingsforlopsPerioderFeilet = hentOppfolgingsPerioderFeilet(oppfolgingsforlopsPerioderReducerListe);
-    const harForsoektHentetAlt = forsoektHentetToggles(togglesReducer)
-        && forsoektHentetDineSykmeldinger(dineSykmeldingerReducer)
+    const harForsoektHentetAlt = forsoektHentetDineSykmeldinger(dineSykmeldingerReducer)
         && forsoektHentetLedere(ledereReducer)
         && forsoktHentetMote(moteReducer)
-        && forsoektHentetToggles(togglesReducer)
         && forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe)
         && (!skalViseMotebehov || motebehovReducer.hentingForsokt);
 
@@ -173,19 +157,16 @@ export function mapStateToProps(state) {
         hentingFeilet: state.ledetekster.hentingFeilet
         || ledereReducer.hentingFeilet
         || dineSykmeldingerReducer.hentingFeilet
-        || togglesReducer.hentingFeilet
         || dineSykmeldingerReducer.hentingFeilet
         || hentOppfolgingsforlopsPerioderFeilet
         || motebehovReducer.hentingForbudt
         || (skalViseMotebehov && motebehovReducer.hentingFeilet),
         ledetekster: selectLedeteksterData(state),
-        togglesReducer,
         motebehovReducer,
         oppfolgingsforlopsPerioderReducerListe,
         harMote,
         harForsoektHentetAlt,
         skalHenteLedere,
-        skalHenteToggles,
         skalViseMotebehov,
         virksomhetsnrListe,
         virksomhetnrMedMotebehovListe,

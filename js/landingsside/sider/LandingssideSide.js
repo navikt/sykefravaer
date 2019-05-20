@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import {
-    getLedetekst,
-    hentToggles,
-} from '@navikt/digisyfo-npm';
+import { getLedetekst } from '@navikt/digisyfo-npm';
 import { hentMote } from '../../actions/moter_actions';
 import { hentOppfolgingsdialoger } from '../../oppfolgingsdialogNpm/oppfolgingsdialoger_actions';
 import Landingsside from '../landingsside/Landingsside';
@@ -71,12 +68,8 @@ export class Container extends Component {
     componentDidMount() {
         const {
             actions,
-            skalHenteToggles,
         } = this.props;
         actions.hentMotebehov();
-        if (skalHenteToggles) {
-            actions.hentToggles();
-        }
         finnOgHentManglendeOppfolgingsforlopsPerioder(this.props);
     }
 
@@ -136,7 +129,6 @@ Container.propTypes = {
     skalViseAktivitetsplan: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
-    skalHenteToggles: PropTypes.bool,
     actions: PropTypes.shape({
         hentMote: PropTypes.func,
         hentMotebehov: PropTypes.func,
@@ -148,7 +140,6 @@ Container.propTypes = {
         hentOppfolgingsdialoger: PropTypes.func,
         hentOppfolgingsforlopsPerioder: PropTypes.func,
         hentSoknader: PropTypes.func,
-        hentToggles: PropTypes.func,
     }),
 };
 
@@ -174,7 +165,6 @@ export function mapStateToProps(state) {
         'oppfolgingsdialoger',
         'ledetekster',
         'soknader',
-        'toggles',
         'smSykmeldinger',
     ];
 
@@ -184,7 +174,6 @@ export function mapStateToProps(state) {
     return {
         skalHenteLedere: skalHente('ledere'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
-        skalHenteToggles: skalHente('toggles'),
         skalHenteNoe: reducere.reduce((acc, val) => {
             return acc || skalHente(val);
         }, false),
@@ -197,7 +186,7 @@ export function mapStateToProps(state) {
         harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
         skalViseMotebehov: !state.dineSykmeldinger.hentingFeilet &&
             !state.ledere.hentingFeilet &&
-            skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.toggles, state.motebehov),
+            skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov),
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet &&
             !state.oppfolgingsdialoger.hentingFeilet &&
             !state.ledere.hentingFeilet &&
@@ -227,7 +216,6 @@ const mapDispatchToProps = (dispatch) => {
         hentSoknader,
         hentOppfolging,
         hentSykmeldtinfodata,
-        hentToggles,
         hentSmSykmeldinger,
     }, dispatch);
     return { actions };

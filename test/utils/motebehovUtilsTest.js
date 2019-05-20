@@ -1,7 +1,6 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import {
-    erMotebehovToggletPaa,
     finnNyesteMotebehovForVirksomhetListe,
     skalViseMotebehovKvittering,
     hentMoteLandingssideUrl,
@@ -154,29 +153,6 @@ describe('motebehovUtils', () => {
         });
     });
 
-    describe('toggles', () => {
-        const toggleMotebehov = (erMotebehovTogglePaa) => {
-            return {
-                data: {
-                    'syfotoggles.dialogmote.motebehov.vis': erMotebehovTogglePaa ? 'true' : 'false',
-                },
-            };
-        };
-
-        describe('erMotebehovToggletPaa', () => {
-            it('skal returnere false', () => {
-                const exp = false;
-                const res = erMotebehovToggletPaa(toggleMotebehov(false));
-                expect(res).to.equal(exp);
-            });
-            it('skal returnere true', () => {
-                const exp = true;
-                const res = erMotebehovToggletPaa(toggleMotebehov(true));
-                expect(res).to.equal(exp);
-            });
-        });
-    });
-
     describe('erOppfoelgingsdatoPassertMed16UkerOgIkke26Uker', () => {
         let oppfoelgingsdato;
 
@@ -260,71 +236,45 @@ describe('motebehovUtils', () => {
 
     describe('skalViseMotebehovMedOppfolgingsforlopListe', () => {
         let oppfolgingsforlopsPerioderReducer;
-        let togglesPaa;
-        let togglesAv;
         let motebehovReducer;
         beforeEach(() => {
-            togglesPaa = {
-                data: {
-                    'syfotoggles.dialogmote.motebehov.vis': 'true',
-                },
-            };
-            togglesAv = { data: {} };
             oppfolgingsforlopsPerioderReducer = {};
         });
 
-        it('skal returnere false, dersom toggle for motebehov er skrudd av og oppfoelgingsdato ikke er passert med 16uker', () => {
-            oppfolgingsforlopsPerioderReducer = {
-                data: [
-                    { fom: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER - 1)) },
-                ],
-            };
-            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], togglesAv)).to.equal(false);
-        });
-
-        it('skal returnere false, dersom toggle for motebehov er skrudd av og oppfoelgingsdato er passert med 16uker', () => {
-            oppfolgingsforlopsPerioderReducer = {
-                data: [
-                    { fom: leggTilDagerPaaDato(new Date(), -OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER) },
-                ],
-            };
-            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], togglesAv)).to.equal(false);
-        });
-
-        it('skal returnere false, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato ikke er passert med 16uker', () => {
+        it('skal returnere false, dersom oppfolgingsdato ikke er passert med 16uker', () => {
             oppfolgingsforlopsPerioderReducer = [{
                 data: [
                     { fom: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER - 1)) },
                 ],
             }];
-            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], togglesPaa)).to.equal(false);
+            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer])).to.equal(false);
         });
 
-        it('skal returnere true, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato er passert med 16uker', () => {
+        it('skal returnere true, dersom oppfolgingsdato er passert med 16uker', () => {
             oppfolgingsforlopsPerioderReducer = {
                 data: [
                     { fom: leggTilDagerPaaDato(new Date(), -OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER) },
                 ],
             };
-            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], togglesPaa)).to.equal(true);
+            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer])).to.equal(true);
         });
 
-        it('skal returnere true, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato er passert med 16 uker og ikke 26 uker', () => {
+        it('skal returnere true, dersom oppfolgingsdato er passert med 16 uker og ikke 26 uker', () => {
             oppfolgingsforlopsPerioderReducer = {
                 data: [
                     { fom: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER - 1)) },
                 ],
             };
-            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], togglesPaa)).to.equal(true);
+            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer])).to.equal(true);
         });
 
-        it('skal returnere false, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato er passert med 16 uker og 26 uker', () => {
+        it('skal returnere false, dersom oppfolgingsdato er passert med 16 uker og 26 uker', () => {
             oppfolgingsforlopsPerioderReducer = {
                 data: [
                     { fom: leggTilDagerPaaDato(new Date(), -OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER) },
                 ],
             };
-            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], togglesPaa)).to.equal(false);
+            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer])).to.equal(false);
         });
 
         describe('hentingForbudt', () => {
@@ -337,7 +287,7 @@ describe('motebehovUtils', () => {
                 motebehovReducer = {
                     hentingForbudt: true,
                 };
-                expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], togglesPaa, motebehovReducer)).to.equal(false);
+                expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], motebehovReducer)).to.equal(false);
             });
         });
     });
@@ -348,8 +298,6 @@ describe('motebehovUtils', () => {
         let orgnummer;
         let sykmeldingAktiv;
         let ledereReducer;
-        let togglesPaa;
-        let togglesAv;
         beforeEach(() => {
             orgnummer = '110110110';
             sykmeldingAktiv = {
@@ -366,15 +314,9 @@ describe('motebehovUtils', () => {
                 dineSykmeldinger: dineSykmeldingerReducer,
                 ledere: ledereReducer,
             };
-            togglesPaa = {
-                data: {
-                    'syfotoggles.dialogmote.motebehov.vis': 'true',
-                },
-            };
-            togglesAv = { data: {} };
         });
 
-        it('skal returnere false, dersom toggle for motebehov er skrudd av og oppfoelgingsdato ikke er passert med 16uker', () => {
+        it('skal returnere false, dersom oppfolgingsdato ikke er passert med 16uker', () => {
             state = {
                 ...state,
                 oppfolgingsforlopsPerioder: {
@@ -384,12 +326,11 @@ describe('motebehovUtils', () => {
                         ],
                     },
                 },
-                toggles: togglesAv,
             };
             expect(erMotebehovTilgjengeligForOppfolgingsforlop(state)).to.equal(false);
         });
 
-        it('skal returnere false, dersom toggle for motebehov er skrudd av og oppfoelgingsdato er passert med 16uker', () => {
+        it('skal returnere true, dersom oppfolgingsdato er passert med 16uker', () => {
             state = {
                 ...state,
                 oppfolgingsforlopsPerioder: {
@@ -399,42 +340,11 @@ describe('motebehovUtils', () => {
                         ],
                     },
                 },
-                toggles: togglesAv,
-            };
-            expect(erMotebehovTilgjengeligForOppfolgingsforlop(state)).to.equal(false);
-        });
-
-        it('skal returnere false, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato ikke er passert med 16uker', () => {
-            state = {
-                ...state,
-                oppfolgingsforlopsPerioder: {
-                    [orgnummer]: {
-                        data: [
-                            { fom: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER - 1)) },
-                        ],
-                    },
-                },
-                toggles: togglesPaa,
-            };
-            expect(erMotebehovTilgjengeligForOppfolgingsforlop(state)).to.equal(false);
-        });
-
-        it('skal returnere true, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato er passert med 16uker', () => {
-            state = {
-                ...state,
-                oppfolgingsforlopsPerioder: {
-                    [orgnummer]: {
-                        data: [
-                            { fom: leggTilDagerPaaDato(new Date(), -OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER) },
-                        ],
-                    },
-                },
-                toggles: togglesPaa,
             };
             expect(erMotebehovTilgjengeligForOppfolgingsforlop(state)).to.equal(true);
         });
 
-        it('skal returnere true, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato er passert med 16 uker og ikke 26 uker', () => {
+        it('skal returnere true, dersom oppfolgingsdato er passert med 16 uker og ikke 26 uker', () => {
             state = {
                 ...state,
                 oppfolgingsforlopsPerioder: {
@@ -444,12 +354,11 @@ describe('motebehovUtils', () => {
                         ],
                     },
                 },
-                toggles: togglesPaa,
             };
             expect(erMotebehovTilgjengeligForOppfolgingsforlop(state)).to.equal(true);
         });
 
-        it('skal returnere false, dersom toggle for motebehov er skrudd paa og oppfoelgingsdato er passert med 16 uker og 26 uker', () => {
+        it('skal returnere false, dersom oppfolgingsdato er passert med 16 uker og 26 uker', () => {
             state = {
                 ...state,
                 oppfolgingsforlopsPerioder: {
@@ -459,7 +368,6 @@ describe('motebehovUtils', () => {
                         ],
                     },
                 },
-                toggles: togglesPaa,
             };
             expect(erMotebehovTilgjengeligForOppfolgingsforlop(state)).to.equal(false);
         });
@@ -478,7 +386,6 @@ describe('motebehovUtils', () => {
                             ],
                         },
                     },
-                    toggles: togglesPaa,
                 };
                 expect(erMotebehovTilgjengeligForOppfolgingsforlop(state)).to.equal(false);
             });

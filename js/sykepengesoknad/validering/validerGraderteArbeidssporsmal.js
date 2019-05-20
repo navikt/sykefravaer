@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
+import { fraInputdatoTilJSDato, getLedetekst } from '@navikt/digisyfo-npm';
 import { fjernIndexFraTag, formaterEnkeltverdi } from '../felleskomponenter/sporsmal/fieldUtils';
 import {
     FERIE_NAR_V2, FERIE_PERMISJON_UTLAND,
@@ -12,7 +12,6 @@ import {
     JOBBET_DU_GRADERT, PERMISJON_NAR_V2, PERMISJON_V2,
 } from '../enums/tagtyper';
 import { getStillingsprosent } from '../../sykepengesoknad-gammel-plattform/aktiviteter-i-sykmeldingsperioden/BeregnetArbeidsgrad';
-import { beregnFeilmeldingstekstFraTag } from './validerSporsmal';
 import { JA } from '../enums/svarEnums';
 
 const leggIndexPaTag = (tag, index) => {
@@ -79,7 +78,9 @@ const validerGraderteArbeidssporsmal = (sporsmal, values, soknad) => {
                 }).min;
             const arbeidsgrad = getStillingsprosent(antallTimerJobbet, antallTimerPerNormalUke, periode, hentFerieOgPermisjonperioder(values));
             if (arbeidsgrad < parseInt(minsteArbeidsgrad, 10)) {
-                feilmeldinger[leggIndexPaTag(HVOR_MYE_TIMER_VERDI, index)] = beregnFeilmeldingstekstFraTag(HVOR_MYE_TIMER_VERDI, true);
+                feilmeldinger[leggIndexPaTag(HVOR_MYE_TIMER_VERDI, index)] = getLedetekst(`soknad.feilmelding.${fjernIndexFraTag(HVOR_MYE_TIMER_VERDI).toLowerCase()}.min`, {
+                    '%MIN%': minsteArbeidsgrad - 1,
+                });
             }
         }
     });

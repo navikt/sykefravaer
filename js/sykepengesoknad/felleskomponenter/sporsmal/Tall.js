@@ -5,11 +5,13 @@ import TekstfeltMedEnhet from '../../../components/skjema/TekstfeltMedEnhet';
 import Sporsmalstekst from './Sporsmalstekst';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { lagDesimaltall, lagHeltall } from '../../../utils/index';
+import { Forklaringstekst } from './Forklaringstekst';
 
-const Tall = ({ sporsmalstekst, name, label, undertekst, kunHeltall }) => {
+const Tall = ({ sporsmalstekst, name, label, undertekst, kunHeltall, tag }) => {
     const parse = genererParseForEnkeltverdi();
     return (<div>
         <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
+        <Forklaringstekst tag={tag} />
         <Field
             component={TekstfeltMedEnhet}
             kunHeltall={kunHeltall}
@@ -34,6 +36,7 @@ Tall.propTypes = {
     label: PropTypes.string,
     undertekst: PropTypes.string,
     kunHeltall: PropTypes.bool,
+    tag: PropTypes.string,
 };
 
 export default Tall;

@@ -706,6 +706,7 @@ const parsetSoknad1 = {
     id: 'e062a444-5171-4147-84a3-19c8b4ba3c39',
     opprettetDato: new Date('2018-05-29'),
     soknadstype: 'SELVSTENDIGE_OG_FRILANSERE',
+    soknadPerioder: [],
     sporsmal: [
         {
             id: '1',

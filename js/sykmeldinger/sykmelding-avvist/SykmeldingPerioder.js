@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { getLedetekst, getDuration, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
 import { sorterPerioderEldsteFoerst } from '@navikt/digisyfo-npm/lib/utils/sorterSykmeldingerUtils';
 import { smSykmeldingPeriodePt, smSykmeldingPerioderPt } from '../../propTypes/smSykmeldingProptypes';
+import { AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD } from '../enums/sykmeldingskjemaenums';
 
 const perioderClass = perioder => cn('sykmeldingPerioder', { 'sykmeldingPerioder--flere': perioder.length > 1 });
 
@@ -23,31 +24,31 @@ SykmeldingPerioder.propTypes = {
 
 const Periodetekst = ({ periode }) => {
     switch (periode.type) {
-        case 'AKTIVITET_IKKE_MULIG':
+        case AKTIVITET_IKKE_MULIG:
             return (
                 <p className="js-grad">
                     {getLedetekst('din-sykmelding.grad.tekst', { '%GRAD%': 100 })}
                 </p>
             );
-        case 'GRADERT':
+        case GRADERT:
             return (
                 <p className="js-grad">
                     {periode.gradert.grad} % sykmeldt
                     {periode.gradert.reisetilskudd ? (` ${getLedetekst('din-sykmelding.periode.med.reisetilskudd')}`) : null}
                 </p>
             );
-        case 'BEHANDLINGSDAGER':
+        case BEHANDLINGSDAGER:
             return (
                 <p className="js-behandlingsdager">{periode.behandlingsdager} {getLedetekst('din-sykmelding.periode.behandlingsdager')}</p>
             );
-        case 'REISETILSKUDD':
+        case REISETILSKUDD:
             if (periode.gradert === null) {
                 return (
                     <p className="js-reisetilskudd">{getLedetekst('din-sykmelding.periode.reisetilskudd.tittel')}</p>
                 );
             }
             break;
-        case 'AVVENTENDE':
+        case AVVENTENDE:
             return [
                 <div className="blokk">
                     <p className="js-avventende">

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as behandlingsutfallstatuser from '../enums/behandlingsutfallstatuser';
+import { AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD } from '../sykmeldinger/enums/sykmeldingskjemaenums';
 
 const ruleHitPt = PropTypes.shape({
     ruleName: PropTypes.string,
@@ -23,7 +24,7 @@ export const smSykmeldingPeriodePt = PropTypes.shape({
     gradert: smGradertPt,
     behandlingsdager: PropTypes.number,
     innspillTilArbeidsgiver: PropTypes.string,
-    type: PropTypes.oneOf('AKTIVITET_IKKE_MULIG', 'AVVENTENDE', 'BEHANDLINGSDAGER', 'GRADERT', 'REISETILSKUDD').isRequired,
+    type: PropTypes.oneOf(AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD).isRequired,
 });
 
 export const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);

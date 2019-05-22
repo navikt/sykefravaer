@@ -7,12 +7,13 @@ import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import { Inngangspanel, InngangspanelHeader, InngangspanelIkon, InngangspanelInnhold, InngangspanelTekst } from '../../components/Inngangspanel';
 import { InngangspanelIkonSykmelding } from './Sykmeldingteaser';
 
-const periodeinfoNokkelBase = (type, behandlingsdager) => {
+export const periodeinfoNokkelBase = (type, behandlingsdager) => {
     switch (type) {
-        case 'BEHANDLINGSDAGER' && behandlingsdager === 1:
+        case 'BEHANDLINGSDAGER':
+            if (behandlingsdager > 1) {
+                return 'sykmelding.teaser.tekst.behandlingsdager';
+            }
             return 'sykmelding.teaser.tekst.behandlingsdag';
-        case 'BEHANDLINGSDAGER' && behandlingsdager > 1:
-            return 'sykmelding.teaser.tekst.behandlingsdager';
         case 'REISETILSKUDD':
             return 'sykmelding.teaser.tekst.reisetilskudd';
         case 'AVVENTENDE':
@@ -22,7 +23,7 @@ const periodeinfoNokkelBase = (type, behandlingsdager) => {
     }
 };
 
-const finnLedetekstForPeriodeinfo = (periode) => {
+export const finnLedetekstForPeriodeinfo = (periode) => {
     let ledetekstNokkel = periodeinfoNokkelBase(periode.type, periode.behandlingsdager);
 
     if (getDuration(periode.fom, periode.tom) === 1) {
@@ -31,7 +32,7 @@ const finnLedetekstForPeriodeinfo = (periode) => {
 
     ledetekstNokkel += '.uten-arbeidsgiver';
 
-    if (periode.grad === null) {
+    if (periode.gradert === null && periode.type !== 'AKTIVITET_IKKE_MULIG') {
         ledetekstNokkel += '.ingen-grad';
     } else if (periode.reisetilskudd) {
         ledetekstNokkel += '.gradert';
@@ -85,6 +86,7 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
                                                 getLedetekst(finnLedetekstForPeriodeinfo(periode), {
                                                     '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert && periode.gradert.grad,
                                                     '%DAGER%': getDuration(periode.fom, periode.tom),
+                                                    '%BEHANDLINGSDAGER%': periode.behandlingsdager,
                                                 })),
                                             )
                                     }
@@ -96,9 +98,10 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
                                         smSykmelding.sykmeldingsperioder.map((periode, index) => (
                                             <li className="js-periode" key={index}>
                                                 {
-                                                    getLedetekst(finnLedetekstForPeriodeinfo(smSykmelding.sykmeldingsperioder[0]), {
+                                                    getLedetekst(finnLedetekstForPeriodeinfo(periode), {
                                                         '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert && periode.gradert.grad,
                                                         '%DAGER%': getDuration(periode.fom, periode.tom),
+                                                        '%BEHANDLINGSDAGER%': periode.behandlingsdager,
                                                     })
                                                 }
                                             </li>

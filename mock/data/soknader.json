@@ -1139,7 +1139,7 @@
         "id": "200217",
         "tag": "BEKREFT_OPPLYSNINGER_UTLAND_INFO",
         "sporsmalstekst": "Før du reiser ber vi deg bekrefte:",
-        "undertekst": "<ul>\n    <li>Reisen vil ikke gjøre at jeg blir dårligere </li>\n    <li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>\n    <li>Reisen vil ikke hindre planlagt behandling eller oppfølging fra NAV</li>\n</ul>",
+        "undertekst": "<ul><li>Jeg har avklart med legen at reisen ikke vil forlenge sykefraværet</li><li>Reisen hindrer ikke planlagt behandling eller avtaler med NAV</li><li>Reisen er avklart med arbeidsgiveren min</li></ul>",
         "svartype": "IKKE_RELEVANT",
         "min": null,
         "max": null,
@@ -1150,7 +1150,7 @@
           {
             "id": "200218",
             "tag": "BEKREFT_OPPLYSNINGER_UTLAND",
-            "sporsmalstekst": "Jeg bekrefter de tre punktene ovenfor. Jeg har avklart reisen med legen.",
+            "sporsmalstekst": "Jeg bekrefter de tre punktene ovenfor",
             "undertekst": null,
             "svartype": "CHECKBOX_PANEL",
             "min": null,

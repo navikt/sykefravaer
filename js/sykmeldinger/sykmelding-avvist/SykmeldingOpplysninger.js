@@ -68,7 +68,11 @@ SykmeldingPerioder.propTypes = {
 const SykmeldingPeriode = ({ periode }) => {
     const antallDager = getDuration(periode.fom, periode.tom);
     const dagerBoying = antallDager > 1 ? getLedetekst('din-sykmelding.periode.dager') : getLedetekst('din-sykmelding.periode.dag');
-    const grad = periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert.grad ? periode.gradert.grad : '';
+    const grad = periode.type === 'AKTIVITET_IKKE_MULIG'
+        ? 100
+        : periode.gradert && periode.gradert.grad
+            ? periode.gradert.grad
+            : '';
 
     return (
         <div className="nokkelopplysning">

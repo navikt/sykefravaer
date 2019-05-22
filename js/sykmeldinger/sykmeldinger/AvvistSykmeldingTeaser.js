@@ -83,7 +83,7 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
                                         smSykmelding.sykmeldingsperioder
                                             .map(periode => (
                                                 getLedetekst(finnLedetekstForPeriodeinfo(periode), {
-                                                    '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert.grad,
+                                                    '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert && periode.gradert.grad,
                                                     '%DAGER%': getDuration(periode.fom, periode.tom),
                                                 })),
                                             )
@@ -97,7 +97,7 @@ const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
                                             <li className="js-periode" key={index}>
                                                 {
                                                     getLedetekst(finnLedetekstForPeriodeinfo(smSykmelding.sykmeldingsperioder[0]), {
-                                                        '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert.grad,
+                                                        '%GRAD%': periode.type === 'AKTIVITET_IKKE_MULIG' ? 100 : periode.gradert && periode.gradert.grad,
                                                         '%DAGER%': getDuration(periode.fom, periode.tom),
                                                     })
                                                 }

@@ -5,7 +5,6 @@ import metrikker from '../../js/reducers/metrikker';
 import { utfyllingStartet } from '../../js/actions/metrikker_actions';
 import { UTFYLLING_STARTET } from '../../js/enums/metrikkerEnums';
 import { sykmeldingBekreftet, sykmeldingSendt } from '../../js/sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
-import { soknadSendt } from '../../js/sykepengesoknad/data/soknader/soknaderActions';
 
 describe('metrikker', () => {
     let clock;
@@ -89,29 +88,6 @@ describe('metrikker', () => {
         }, {
             type: 'SYKMELDING_SENDT',
             ressursId: 'min-sykmelding-id',
-            tid: nesteTid,
-        }]);
-    });
-
-    it('Skal håndtere soknadSendt', () => {
-        const tid = new Date();
-        const action = utfyllingStartet('min-selvstendig-soknadPt');
-        const state = metrikker(deepFreeze({
-            data: [],
-        }), action);
-        clock.tick(200);
-        const nesteTid = new Date();
-        const nesteAction = soknadSendt({
-            id: 'min-selvstendig-soknadPt',
-        });
-        const nesteState = metrikker(deepFreeze(state), nesteAction);
-        expect(nesteState.data).to.deep.equal([{
-            type: UTFYLLING_STARTET,
-            ressursId: 'min-selvstendig-soknadPt',
-            tid,
-        }, {
-            type: 'SOKNAD_SENDT',
-            ressursId: 'min-selvstendig-soknadPt',
             tid: nesteTid,
         }]);
     });

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as behandlingsutfallstatuser from '../enums/behandlingsutfallstatuser';
+import { AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD } from '../sykmeldinger/enums/sykmeldingskjemaenums';
 
 const ruleHitPt = PropTypes.shape({
     ruleName: PropTypes.string,
@@ -12,12 +13,26 @@ const behandlingsutfallPt = PropTypes.shape({
     ruleHits: PropTypes.arrayOf(ruleHitPt),
 });
 
-const smSykmeldingPeriodePt = PropTypes.shape({
-    fom: PropTypes.instanceOf(Date),
-    tom: PropTypes.instanceOf(Date),
+const smGradertPt = PropTypes.shape({
+    grad: PropTypes.number.isRequired,
+    reisetilskudd: PropTypes.bool.isRequired,
 });
 
-const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);
+export const smSykmeldingPeriodePt = PropTypes.shape({
+    fom: PropTypes.instanceOf(Date).isRequired,
+    tom: PropTypes.instanceOf(Date).isRequired,
+    gradert: smGradertPt,
+    behandlingsdager: PropTypes.number,
+    innspillTilArbeidsgiver: PropTypes.string,
+    type: PropTypes.oneOf(AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD).isRequired,
+});
+
+export const smSykmeldingPerioderPt = PropTypes.arrayOf(smSykmeldingPeriodePt);
+
+export const smArbeidsgiverPt = PropTypes.shape({
+    navn: PropTypes.string.isRequired,
+    stillingsprosent: PropTypes.number.isRequired,
+});
 
 export const smSykmeldingPt = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -25,7 +40,7 @@ export const smSykmeldingPt = PropTypes.shape({
     bekreftetDato: PropTypes.instanceOf(Date),
     legeNavn: PropTypes.string,
     legekontorOrgnummer: PropTypes.string,
-    arbeidsgiverNavn: PropTypes.string,
+    arbeidsgiver: smArbeidsgiverPt,
     sykmeldingsperioder: smSykmeldingPerioderPt,
 });
 

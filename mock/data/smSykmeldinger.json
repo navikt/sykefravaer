@@ -14,7 +14,186 @@
     },
     "legekontorOrgnummer": "223456789",
     "legeNavn": "Frida Perma Frost",
-    "arbeidsgiverNavn": "LOMMEN BARNEHAVE",
-    "sykmeldingsperioder": "[{\"fom\": \"2018-09-01\", \"tom\": \"2018-09-05\"}]"
+    "arbeidsgiver": {
+      "navn": "LOMMEN BARNEHAVE",
+      "stillingsprosent": 100
+    },
+    "sykmeldingsperioder": [
+      {
+        "fom": "2018-09-01",
+        "tom": "2018-09-05",
+        "gradert": null,
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type": "AKTIVITET_IKKE_MULIG"
+      },
+      {
+        "fom": "2018-08-05",
+        "tom": "2018-08-17",
+        "gradert": {
+          "grad": 20,
+          "reisetilskudd": true
+        },
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type":  "GRADERT"
+      }
+    ]
+  },
+  {
+    "id": "645e9b82-c022-4096-1337-192e939199cb",
+    "bekreftetDato": null,
+    "behandlingsutfall": {
+      "status": "INVALID",
+      "ruleHits": [
+        {
+          "ruleName": "BACKDATED_MORE_THEN_8_DAYS_FIRST_SICK",
+          "messageForSender": "Det må begrunnes hvorfor sykmeldingen er tilbakedatert.",
+          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt."
+        }
+      ]
+    },
+    "legekontorOrgnummer": "223456789",
+    "legeNavn": "Frida Perma Frost",
+    "arbeidsgiver": null,
+    "sykmeldingsperioder": [
+      {
+        "fom": "2018-11-13",
+        "tom": "2018-11-20",
+        "gradert": null,
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type": "AKTIVITET_IKKE_MULIG"
+      },
+      {
+        "fom": "2018-12-01",
+        "tom": "2018-12-07",
+        "gradert": {
+          "grad": 80,
+          "reisetilskudd": false
+        },
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type":  "GRADERT"
+      }
+    ]
+  },
+  {
+    "id": "645e9b82-c022-1337-1337-192e939199cb",
+    "bekreftetDato": null,
+    "behandlingsutfall": {
+      "status": "INVALID",
+      "ruleHits": [
+        {
+          "ruleName": "BACKDATED_MORE_THEN_8_DAYS_FIRST_SICK",
+          "messageForSender": "Det må begrunnes hvorfor sykmeldingen er tilbakedatert.",
+          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt."
+        }
+      ]
+    },
+    "legekontorOrgnummer": "223456789",
+    "legeNavn": "Frida Perma Frost",
+    "arbeidsgiver": null,
+    "sykmeldingsperioder": [
+      {
+        "fom": "2018-09-01",
+        "tom": "2018-09-05",
+        "gradert": null,
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type": "AKTIVITET_IKKE_MULIG"
+      }
+    ]
+  },
+  {
+    "id": "6d3ca5e5-95fc-4f7a-8f37-0c5243440938",
+    "bekreftetDato": null,
+    "behandlingsutfall": {
+      "ruleHits": [
+        {
+          "messageForSender": "Kodeverk for hoveddiagnose er feil eller mangler.",
+          "messageForUser": "Den må ha riktig kode for hoveddiagnose.",
+          "ruleName": "UGYLDIG_KODEVERK_FOR_HOVEDDIAGNOSE"
+        },
+        {
+          "messageForSender": "Hvis avventende sykmelding er funnet og det finnes en eller flere perioder. ",
+          "messageForUser": "En avventende sykmelding kan bare inneholde én periode.",
+          "ruleName": "AVVENTENDE_SYKMELDING_KOMBINERT"
+        },
+        {
+          "messageForSender": "Hvis antall dager oppgitt for behandlingsdager periode er for høyt i forhold til periodens lengde avvises meldingen. Mer enn en dag per uke er for høyt. 1 dag per påbegynt uke.",
+          "messageForUser": "Det er angitt for mange behandlingsdager. Det kan bare angis én behandlingsdag per uke.",
+          "ruleName": "FOR_MANGE_BEHANDLINGSDAGER_PER_UKE"
+        },
+        {
+          "messageForSender": "Første sykmelding er tilbakedatert mer enn det som er tillatt.",
+          "messageForUser": "Sykmeldingen er tilbakedatert uten at det er begrunnet.",
+          "ruleName": "TILBAKEDATERT_MER_ENN_8_DAGER_FORSTE_SYKMELDING"
+        }
+      ],
+      "status": "INVALID"
+    },
+    "legekontorOrgnummer": "223456789",
+    "legeNavn": "Frida Perma Frost",
+    "arbeidsgiver": {
+      "navn": "LOMMEN BARNEHAVE",
+      "stillingsprosent": 100
+    },
+    "sykmeldingsperioder": [
+      {
+        "fom": "2019-05-15",
+        "tom": "2019-05-21",
+        "gradert": null,
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type": "AKTIVITET_IKKE_MULIG"
+      },
+      {
+        "fom": "2019-05-08",
+        "tom": "2019-05-14",
+        "gradert": null,
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": "Godt inspill",
+        "type": "AVVENTENDE"
+      },
+      {
+        "fom": "2019-05-01",
+        "tom": "2019-05-07",
+        "gradert": {
+          "grad": 60,
+          "reisetilskudd": true
+        },
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type": "GRADERT"
+      },
+      {
+        "fom": "2019-04-24",
+        "tom": "2019-04-30",
+        "gradert": null,
+        "behandlingsdager": 4,
+        "innspillTilArbeidsgiver": null,
+        "type": "BEHANDLINGSDAGER"
+      },
+      {
+        "fom": "2019-04-17",
+        "tom": "2019-04-23",
+        "gradert": null,
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type": "REISETILSKUDD"
+      },
+      {
+        "fom": "2019-04-10",
+        "tom": "2019-04-16",
+        "gradert": {
+          "grad": 60,
+          "reisetilskudd": true
+        },
+        "behandlingsdager": null,
+        "innspillTilArbeidsgiver": null,
+        "type": "GRADERT"
+      }
+    ]
   }
 ]

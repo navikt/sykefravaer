@@ -7,3 +7,8 @@ export const sykmeldingskjemamodi = {
 
 export const ANNEN_ARBEIDSGIVER_ORGNUMMER = '0';
 export const ANNEN_ARBEIDSSITUASJON = 'ANNEN_ARBEIDSSITUASJON';
+export const AKTIVITET_IKKE_MULIG = 'AKTIVITET_IKKE_MULIG';
+export const AVVENTENDE = 'AVVENTENDE';
+export const BEHANDLINGSDAGER = 'BEHANDLINGSDAGER';
+export const GRADERT = 'GRADERT';
+export const REISETILSKUDD = 'REISETILSKUDD';

@@ -1,6 +1,8 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 import { getDuration, getLedetekst, toDate } from '@navikt/digisyfo-npm';
 import { sykmeldingperiode } from '../../propTypes';
 
@@ -30,12 +32,18 @@ const SykmeldingPeriodeinfo = ({ periode, arbeidsgiver, Element = 'p', className
     if (periode.reisetilskudd && periode.grad) {
         ledetekstNokkel += '.gradert';
     }
-    return (<Element className={cn('js-periode', className)}>{getLedetekst(ledetekstNokkel, {
-        '%GRAD%': periode.grad,
-        '%ARBEIDSGIVER%': arbeidsgiver,
-        '%DAGER%': getDuration(periode.fom, periode.tom),
-        '%BEHANDLINGSDAGER%': periode.behandlingsdager,
-    })}</Element>);
+    return (
+        <Element className={cn('js-periode', className)}>
+            {
+                getLedetekst(ledetekstNokkel, {
+                    '%GRAD%': periode.grad || 100,
+                    '%ARBEIDSGIVER%': arbeidsgiver,
+                    '%DAGER%': getDuration(periode.fom, periode.tom),
+                    '%BEHANDLINGSDAGER%': periode.behandlingsdager,
+                })
+            }
+        </Element>
+    );
 };
 
 SykmeldingPeriodeinfo.propTypes = {

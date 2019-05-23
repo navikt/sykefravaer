@@ -12,7 +12,7 @@ import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
-import { hentSykepengesoknader } from '../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
+import { hentSykepengesoknader } from '../../sykepengesoknad/data/sykepengesoknader/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../data/ledere/ledereActions';
 import { hentMotebehov } from '../../actions/motebehov_actions';

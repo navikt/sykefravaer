@@ -1,6 +1,7 @@
 [
   {
     "id": "645e9b82-c022-4096-96e9-192e939199cb",
+    "mottattTidspunkt": "2018-08-31T00:00:00",
     "bekreftetDato": null,
     "behandlingsutfall": {
       "status": "INVALID",
@@ -42,6 +43,7 @@
   },
   {
     "id": "645e9b82-c022-4096-1337-192e939199cb",
+    "mottattTidspunkt": "2018-11-12T00:00:00",
     "bekreftetDato": null,
     "behandlingsutfall": {
       "status": "INVALID",
@@ -80,7 +82,8 @@
   },
   {
     "id": "645e9b82-c022-1337-1337-192e939199cb",
-    "bekreftetDato": null,
+    "mottattTidspunkt": "2018-08-31T00:00:00",
+    "bekreftetDato": "2018-09-01T00:00:00",
     "behandlingsutfall": {
       "status": "INVALID",
       "ruleHits": [
@@ -107,6 +110,7 @@
   },
   {
     "id": "6d3ca5e5-95fc-4f7a-8f37-0c5243440938",
+    "mottattTidspunkt": "2019-05-14T00:00:00",
     "bekreftetDato": null,
     "behandlingsutfall": {
       "ruleHits": [

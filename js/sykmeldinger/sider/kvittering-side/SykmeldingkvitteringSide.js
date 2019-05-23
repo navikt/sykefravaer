@@ -19,7 +19,7 @@ import { soknadPt, sykmelding as sykmeldingPt } from '../../../propTypes';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../sykepengesoknad/enums/soknadtyper';
 import { harStrengtFortroligAdresseSelector } from '../../../selectors/brukerinfoSelectors';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
-import { hentSykepengesoknader } from '../../../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
+import { hentSykepengesoknader } from '../../../sykepengesoknad/data/sykepengesoknader/sykepengesoknader_actions';
 import { hentSoknader } from '../../../sykepengesoknad/data/soknader/soknaderActions';
 import { hentBrukerinfo } from '../../../actions/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../../data/arbeidsgivere/arbeidsgivereActions';

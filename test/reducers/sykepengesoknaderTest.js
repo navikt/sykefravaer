@@ -4,8 +4,8 @@ import sinon from 'sinon';
 import * as actiontyper from '../../js/actions/actiontyper';
 import sykepengesoknader, {
     finnSoknad,
-} from '../../js/sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader';
-import * as actions from '../../js/sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknader_actions';
+} from '../../js/sykepengesoknad/data/sykepengesoknader/sykepengesoknader';
+import * as actions from '../../js/sykepengesoknad/data/sykepengesoknader/sykepengesoknader_actions';
 
 const getSoknad = () => {
     return {

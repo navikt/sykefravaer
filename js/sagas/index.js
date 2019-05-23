@@ -10,7 +10,7 @@ import brukerinfoSagas from './brukerinfoSagas';
 import dineArbeidsgivereSagas from '../sykmeldinger/data/arbeidsgivere/arbeidsgivereSagas';
 import dineSykmeldingerSagas from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSagas';
 import dinSykmeldingSagas from '../sykmeldinger/data/din-sykmelding/dinSykmeldingSagas';
-import sykepengesoknadSagas from '../sykepengesoknad-gammel-plattform/data/sykepengesoknader/sykepengesoknadSagas';
+import sykepengesoknadSagas from '../sykepengesoknad/data/sykepengesoknader/sykepengesoknadSagas';
 import ledereSagas from '../landingsside/data/ledere/ledereSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
 import moteSagas from './moteSagas';

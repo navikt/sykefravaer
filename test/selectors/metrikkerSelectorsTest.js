@@ -2,9 +2,7 @@ import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { UTFYLLING_STARTET } from '../../js/enums/metrikkerEnums';
-import { hentEvent, hentEvents, hentMetrikk } from '../../js/selectors/metrikkerSelectors';
-import { soknadSendt } from '../../js/sykepengesoknad/data/soknader/soknaderActions';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/sykepengesoknad/enums/soknadtyper';
+import { hentEvent, hentEvents } from '../../js/selectors/metrikkerSelectors';
 
 describe('metrikkerSelectors', () => {
     let state;
@@ -94,31 +92,6 @@ describe('metrikkerSelectors', () => {
                 type: UTFYLLING_STARTET,
             });
             expect(event).to.deep.equal(event3);
-        });
-    });
-
-    describe('hentMetrikk', () => {
-        it('Skal returnere riktig metrikk ved SOKNAD_SENDT når søknaden er for selvstendig næringsdrivende', () => {
-            const action = soknadSendt({
-                id: 'min-selvstendig-soknadPt-id',
-                soknadstype: SELVSTENDIGE_OG_FRILANSERE,
-            });
-            const metrikk = hentMetrikk(state, action);
-            expect(metrikk).to.deep.equal({
-                type: 'SYKEFRAVAER_METRIKK__SYKEPENGESOKNAD_SENDT_SELVSTENDIG/FRILANSER/1SPM-PER-SIDE',
-                data: {
-                    tid: 1401,
-                },
-            });
-        });
-
-        it('Skal ikke tryne hvis søknadstypen er av ukjent type', () => {
-            const action = soknadSendt({
-                id: 'min-selvstendig-soknadPt-id-ukjent',
-                soknadstype: 'UKJENT-TYPE',
-            });
-            const metrikk = hentMetrikk(state, action);
-            expect(metrikk).to.deep.equal(null);
         });
     });
 });

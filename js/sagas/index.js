@@ -18,8 +18,6 @@ import motebehovSagas from './motebehovSagas';
 import svarSagas from './svarSagas';
 import hendelserSagas from '../landingsside/data/hendelser/hendelserSagas';
 import aktivitetskravSagas from '../aktivitetskrav/data/aktivitetskrav/aktivitetskravSagas';
-import beregnArbeidsgiverperiodeSagas from '../sykepengesoknad-gammel-plattform/data/arbeidsgiverperiodeberegning/beregnArbeidsgiverperiodeSagas';
-import forskutteringssporsmalSagas from '../sykepengesoknad-gammel-plattform/data/forskutteringssporsmal/forskutteringssporsmalSagas';
 import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from '../sykmeldinger/data/sykmelding-meta/sykmeldingMetaSagas';
@@ -28,16 +26,13 @@ import soknaderSagas from '../sykepengesoknad/data/soknader/soknaderSagas';
 import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
-import soknadMetaSagas from '../sykepengesoknad/data/soknadMeta/soknadMetaSagas';
 import merVeiledningSagas from '../arbeidsrettet-oppfolging/data/merVeiledningSagas';
-import ettersendingSagas from '../sykepengesoknad/data/ettersending/ettersendingSagas';
 import smSykmeldingerSagas from '../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSagas';
 
 export default function* rootSaga() {
     yield all([
         arbeidsgiversSykmeldingerSagas(),
         brukerinfoSagas(),
-        beregnArbeidsgiverperiodeSagas(),
         dineArbeidsgivereSagas(),
         dineSykmeldingerSagas(),
         dinSykmeldingSagas(),
@@ -50,7 +45,6 @@ export default function* rootSaga() {
         motebehovSagas(),
         svarSagas(),
         togglesSagas(),
-        forskutteringssporsmalSagas(),
         hendelserSagas(),
         aktivitetskravSagas(),
         oppfolgingsforlopsPerioderSagas(),
@@ -62,9 +56,7 @@ export default function* rootSaga() {
         unleashTogglesSagas(),
         metrikkerSagas(),
         oppfolgingsdialogerSagas(),
-        soknadMetaSagas(),
         merVeiledningSagas(),
-        ettersendingSagas(),
         smSykmeldingerSagas(),
     ]);
 }

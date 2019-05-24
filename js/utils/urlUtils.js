@@ -10,7 +10,7 @@ export const getSykepengesoknaderUrl = () => {
 };
 
 export const getSykepengesoknadUrl = (soknadId) => {
-    return `${getSykepengesoknaderUrl()}/${soknadId}`;
+    return `${getSykepengesoknaderUrl()}/soknader/${soknadId}`;
 };
 
 export const getOppfolgingsplanerUrl = () => {

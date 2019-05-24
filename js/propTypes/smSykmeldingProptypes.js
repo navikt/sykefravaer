@@ -38,6 +38,7 @@ export const smSykmeldingPt = PropTypes.shape({
     id: PropTypes.string.isRequired,
     behandlingsutfall: behandlingsutfallPt.isRequired,
     bekreftetDato: PropTypes.instanceOf(Date),
+    mottattTidspunkt: PropTypes.instanceOf(Date),
     legeNavn: PropTypes.string,
     legekontorOrgnummer: PropTypes.string,
     arbeidsgiver: smArbeidsgiverPt,

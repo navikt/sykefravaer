@@ -72,6 +72,9 @@ const mapper = (smSykmelding) => {
     return {
         ...smSykmelding,
         sykmeldingsperioder: parsePerioder(smSykmelding.sykmeldingsperioder),
+        mottattTidspunkt: smSykmelding.mottattTidspunkt
+            ? new Date(smSykmelding.mottattTidspunkt)
+            : null,
         bekreftetDato: smSykmelding.bekreftetDato
             ? new Date(smSykmelding.bekreftetDato)
             : null,

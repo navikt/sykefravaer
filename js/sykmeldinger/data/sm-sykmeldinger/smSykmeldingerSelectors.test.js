@@ -80,6 +80,7 @@ describe('smSykmeldingerSelectors', () => {
             const resultat = avvisteSmSykmeldingerDataSelector(state);
             expect(resultat).to.deep.equal([{
                 id: '3',
+                mottattTidspunkt: null,
                 bekreftetDato: null,
                 sykmeldingsperioder: [],
                 behandlingsutfall: {

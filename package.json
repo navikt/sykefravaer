@@ -13,7 +13,7 @@
     "lintJs:fix": "eslint js/. --ext .js --fix",
     "lintTest": "eslint test/. --ext .js",
     "lintTest:fix": "eslint test/. --ext .js --fix",
-    "clean": "rimraf ./dist/resources/ && mkdirp ./dist/resources",
+    "clean": "rimraf ./dist/resources/ && mkdir ./dist/resources",
     "images-nav-frontend": "cp -R node_modules/nav-frontend-grafikk dist/resources/img",
     "images-local": "cp -R img dist/resources",
     "images": "npm-run-all images-nav-frontend images-local",

@@ -12,6 +12,7 @@ import MotebehovContainer from '../sider/MotebehovSide';
 import DialogmoteSide from '../sider/DialogmoteSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
 import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
+import Redirectside from '../sider/Redirectside';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -28,6 +29,9 @@ const AppRouter = ({ history }) => {
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/mote`} component={DialogmoteSide} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt`} component={AktivitetskravvarselSide} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} component={InfoSideFO} />
+        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykepengesoknad-utland`} component={Redirectside} />
+        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:soknadId`} component={Redirectside} />
+        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`} component={Redirectside} />
         <Route path="*" component={LandingssideSide} />
     </Router>);
 };

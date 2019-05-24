@@ -1,9 +1,20 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 import React from 'react';
-import PT from 'prop-types';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import { SykmeldingPerioder } from './SykmeldingPerioder';
+import { BiDiagnoser, Hoveddiagnose } from './SykmeldingDiagnoser';
+import { Nokkelopplysning } from './Nokkelopplysning';
+
+const getArbeidsgivernavn = arbeidsgiver => (
+    arbeidsgiver !== null ? arbeidsgiver.navn : ''
+);
+
+const getStillingsprosent = arbeidsgiver => (
+    arbeidsgiver !== null && arbeidsgiver.stillingsprosent !== null
+        ? `${arbeidsgiver.stillingsprosent} % stilling`
+        : ''
+);
 
 export const SykmeldingOpplysninger = ({ smSykmelding }) => (
     <article>
@@ -12,15 +23,20 @@ export const SykmeldingOpplysninger = ({ smSykmelding }) => (
 
             <div className="blokk-l side-innhold">
                 <SykmeldingPerioder perioder={smSykmelding.sykmeldingsperioder} />
+                <Hoveddiagnose medisinskVurdering={smSykmelding.medisinskVurdering && smSykmelding.medisinskVurdering.diagnose} />
+                <BiDiagnoser biDiagnoser={smSykmelding.medisinskVurdering && smSykmelding.medisinskVurdering.biDiagnoser} />
                 <Nokkelopplysning
                     vis={smSykmelding.arbeidsgiver !== null}
                     tittel={getLedetekst('din-sykmelding.arbeidsgiver.tittel')}
-                    tekst={smSykmelding.arbeidsgiver ? smSykmelding.arbeidsgiver.navn : ''}
-                />
+                >
+                    <p className="js-arbeidsgiver">{getArbeidsgivernavn(smSykmelding.arbeidsgiver)}</p>
+                    <p className="js-stillingsprosent">{getStillingsprosent(smSykmelding.arbeidsgiver)}</p>
+                </Nokkelopplysning>
                 <Nokkelopplysning
                     tittel={getLedetekst('din-sykmelding.avsender.tittel')}
-                    tekst={smSykmelding.legeNavn}
-                />
+                >
+                    <p className="js-avsender">{smSykmelding.legeNavn}</p>
+                </Nokkelopplysning>
             </div>
         </div>
     </article>
@@ -28,22 +44,4 @@ export const SykmeldingOpplysninger = ({ smSykmelding }) => (
 
 SykmeldingOpplysninger.propTypes = {
     smSykmelding: smSykmeldingPt,
-};
-
-
-const Nokkelopplysning = ({ vis = true, tittel, tekst }) => (
-    vis
-        ? (
-            <div className="nokkelopplysning">
-                <h2 className="nokkelopplysning__tittel">{tittel}</h2>
-                <p className="js-avsender">{tekst}</p>
-            </div>
-        )
-        : null
-);
-
-Nokkelopplysning.propTypes = {
-    vis: PT.bool,
-    tittel: PT.string.isRequired,
-    tekst: PT.string.isRequired,
 };

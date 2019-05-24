@@ -91,7 +91,6 @@ export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
         : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
             '%ANTALL%': alleSoknader.length.toString(),
         });
-    console.log("url", url);
     return (<EksternLi url={url} tekst={tekst} />);
 };
 

@@ -1,5 +1,26 @@
+.presisering, .pekeboble {
+    padding: 1rem;
+    background-color: @white;
+    position: relative;
+
+    @media(min-width: @skjermMini) {
+        padding: 2rem;
+    }
+}
+
 .hovedsporsmal {
     margin-bottom: 3rem;
+}
+
+.hovedsporsmalliste > .hovedsporsmal {
+    border-bottom: 4px solid @navLysGra;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    &:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
 }
 
 .hovedsporsmal--hvit {
@@ -21,15 +42,54 @@
     padding-top: 1rem;
 }
 
+.tilleggssporsmal {
+    @media(min-width: @skjermMini) {
+        padding-top: 0;
+    }
+}
+
+.tilleggssporsmal {
+    padding: 1rem;
+    background-color: @white;
+    position: relative;
+
+    @media(min-width: @skjermMini) {
+        padding-top: 0;
+    }
+}
+
+.tilleggssporsmal__innholdContainer--medAnimasjon {
+    overflow: hidden;
+    .transition-mixin(.3s, height);
+    transform: translate3d(0, 0, 0);
+}
+
 .tilleggsinnhold__innhold {
     opacity: 0;
     .transition-mixin(.3s, opacity);
     position: relative;
 }
 
-.ekstrasporsmal {
+.ekstrasporsmal, .presisering {
     padding: 1rem;
     position: relative;
+
+    &:after {
+        font-size: 1.3333333333333333rem;
+        top: 0;
+        transform: translateY(-50%) rotate(45deg) skew(5deg, 5deg);
+    }
+}
+
+.presisering {
+    margin-top: 2rem;
+
+    &:after {
+        background-color: @white;
+    }
+}
+
+.ekstrasporsmal {
     background-color: @grayBackground;
     margin: 2em -.5em .5rem;
 
@@ -43,15 +103,9 @@
     &:after {
         background-color: @grayBackground;
     }
-
-    &:after {
-        font-size: 1.3333333333333333rem;
-        top: 0;
-        transform: translateY(-50%) rotate(45deg) skew(5deg, 5deg);
-    }
 }
 
-.ekstrasporsmal, .pekeboble {
+.ekstrasporsmal, .presisering, .pekeboble {
     &:after {
         content: "";
         width: 1rem;
@@ -67,10 +121,45 @@
     }
 }
 
-.ekstrasporsmal {
+.presisering {
+    margin-top: 2rem;
+    background: @grayBackground;
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    &:after {
+        background-color: @grayBackground;
+    }
+
+    a {
+        .lenke-mixin();
+    }
+}
+
+.ekstrasporsmal .presisering {
     background: @white;
 
     &:after {
         background-color: @white;
     }
 }
+
+.pekeboble {
+    &:after {
+        font-size: 1.3333333333333333rem;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -50%) rotate(45deg) skew(5deg, 5deg);
+    }
+}
+
+.pekeboble, .pekeboble:after {
+    background-color: @grayBackground;
+}
+
+.pekeboble {
+    margin-top: 2rem;
+}
+

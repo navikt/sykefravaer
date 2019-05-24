@@ -39,7 +39,20 @@
         "innspillTilArbeidsgiver": null,
         "type":  "GRADERT"
       }
-    ]
+    ],
+    "medisinskVurdering": {
+      "diagnose": {
+        "diagnosekode": "L87",
+        "diagnosesystem": "ICPC-2",
+        "diagnosetekst": "Bursitt/tendinitt/synovitt IKA"
+      },
+      "biDiagnoser": [
+        {
+          "diagnosekode": "L87",
+          "diagnosetekst": "Bursitt/tendinitt/synovitt IKA"
+        }
+      ]
+    }
   },
   {
     "id": "645e9b82-c022-4096-1337-192e939199cb",
@@ -116,7 +129,7 @@
       "ruleHits": [
         {
           "messageForSender": "Kodeverk for hoveddiagnose er feil eller mangler.",
-          "messageForUser": "Den må ha riktig kode for hoveddiagnose.",
+          "messageForUser": "Den må ha riktig diagnosekode for hoveddiagnose.",
           "ruleName": "UGYLDIG_KODEVERK_FOR_HOVEDDIAGNOSE"
         },
         {
@@ -198,6 +211,15 @@
         "innspillTilArbeidsgiver": null,
         "type": "GRADERT"
       }
-    ]
+    ],
+    "medisinskVurdering": {
+      "diagnose": null,
+      "biDiagnoser": [
+        {
+          "diagnosekode": "L87",
+          "diagnosetekst": "Bursitt/tendinitt/synovitt IKA"
+        }
+      ]
+    }
   }
 ]

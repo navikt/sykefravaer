@@ -15,7 +15,7 @@ import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad
 import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
-import { toggleErPaaHeroku } from '../../toggles';
+import { erPaaHeroku } from '../../utils/urlUtils';
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
@@ -144,7 +144,7 @@ const RendreOppgaver = (
         return null;
     }
 
-    const OPPFOLGINGSPLANER_URL = toggleErPaaHeroku()
+    const OPPFOLGINGSPLANER_URL = erPaaHeroku()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
         : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 

@@ -1,10 +1,9 @@
 import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { Link } from 'react-router';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
+import { getSykepengesoknaderUrl } from '../../../utils/urlUtils';
 
 export default () => {
-    const sokUrl = `${process.env.REACT_APP_CONTEXT_ROOT}/soknader`;
     return (<div className="panel blokk js-kvittering js-kvittering--sok-naa">
         <StegvisKvittering>
             <Kvitteringsteg
@@ -21,9 +20,9 @@ export default () => {
                 <HtmlAvsnitt
                     nokkel="sykmelding.kvittering.sok-na.steg-2.tekst-2" />
                 <p className="kvitteringsteg__handling">
-                    <Link
-                        to={sokUrl}
-                        className="js-sok knapp knapp--mini">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</Link>
+                    <a
+                        href={getSykepengesoknaderUrl()}
+                        className="js-sok knapp knapp--mini">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</a>
                 </p>
                 <HtmlAvsnitt
                     nokkel="sykmelding.kvittering.sok-na.papir.tekst" />

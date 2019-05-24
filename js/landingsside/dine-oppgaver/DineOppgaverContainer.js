@@ -19,6 +19,7 @@ import { toggleErPaaHeroku } from '../../toggles';
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
+import { getSykepengesoknaderUrl, getSykepengesoknadUrl } from '../../utils/urlUtils';
 
 const Li = ({ tekst, url, img, imgAlt }) => {
     return (<li>
@@ -45,10 +46,14 @@ export const EksternLi = ({ tekst, url }) => {
 EksternLi.propTypes = Li.propTypes;
 
 export const NySykmelding = ({ sykmeldinger }) => {
-    const url = sykmeldinger.length === 1 ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}` : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
-    const tekst = sykmeldinger.length === 1 ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding') : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
-        '%ANTALL%': sykmeldinger.length.toString(),
-    });
+    const url = sykmeldinger.length === 1
+        ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}`
+        : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
+    const tekst = sykmeldinger.length === 1
+        ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding')
+        : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
+            '%ANTALL%': sykmeldinger.length.toString(),
+        });
     return (<Li url={url} tekst={tekst} />);
 };
 
@@ -78,11 +83,16 @@ AvvistSmSykmelding.propTypes = {
 
 export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
     const alleSoknader = [...sykepengesoknader, ...soknader];
-    const url = alleSoknader.length === 1 ? `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${alleSoknader[0].id}` : `${process.env.REACT_APP_CONTEXT_ROOT}/soknader`;
-    const tekst = alleSoknader.length === 1 ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad') : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
-        '%ANTALL%': alleSoknader.length.toString(),
-    });
-    return (<Li url={url} tekst={tekst} />);
+    const url = alleSoknader.length === 1
+        ? getSykepengesoknadUrl(alleSoknader[0].id)
+        : getSykepengesoknaderUrl();
+    const tekst = alleSoknader.length === 1
+        ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad')
+        : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
+            '%ANTALL%': alleSoknader.length.toString(),
+        });
+    console.log("url", url);
+    return (<EksternLi url={url} tekst={tekst} />);
 };
 
 NySykepengesoknad.propTypes = {

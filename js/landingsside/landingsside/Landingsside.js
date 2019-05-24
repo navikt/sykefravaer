@@ -15,6 +15,7 @@ import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
 import { toggleErPaaHeroku } from '../../toggles';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
+import { getSykepengesoknaderUrl } from '../../utils/urlUtils';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -50,7 +51,8 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     hvis={harSykepengesoknader}
                     render={() => {
                         return (<Peker
-                            to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`}
+                            ekstern
+                            to={getSykepengesoknaderUrl()}
                             ikon="soknader"
                             ikonAlt="Søknader"
                             tittel="Søknader om sykepenger" />);

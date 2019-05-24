@@ -15,11 +15,10 @@ import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad
 import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
-import { erPaaHeroku } from '../../utils/urlUtils';
+import { erPaaHeroku, getSykepengesoknaderUrl, getSykepengesoknadUrl } from '../../utils/urlUtils';
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
-import { getSykepengesoknaderUrl, getSykepengesoknadUrl } from '../../utils/urlUtils';
 
 const Li = ({ tekst, url, img, imgAlt }) => {
     return (<li>

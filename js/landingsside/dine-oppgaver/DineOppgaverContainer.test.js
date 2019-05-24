@@ -299,8 +299,8 @@ describe('DineOppgaverComponent', () => {
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
-                expect(component.find(Link).at(1).prop('to')).to.equal('/sykefravaer/soknader/1');
-                expect(component.find(Link).at(1).text()).to.equal('Du har 1 ny søknad');
+                expect(component.find('a').at(1).prop('href')).to.equal('/sykepengesoknad/soknader/1');
+                expect(component.find('a').at(1).text()).to.equal('Du har 1 ny søknad');
             });
 
             it('Skal vise en lenke til dine sykepengesoknader hvis det er flere søknader', () => {
@@ -313,8 +313,8 @@ describe('DineOppgaverComponent', () => {
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
-                expect(component.find(Link).at(1).prop('to')).to.equal('/sykefravaer/soknader');
-                expect(component.find(Link).at(1).text()).to.equal('Du har 2 nye søknader');
+                expect(component.find('a').at(1).prop('href')).to.equal('/sykepengesoknad');
+                expect(component.find('a').at(1).text()).to.equal('Du har 2 nye søknader');
             });
 
             it('Skal vise en lenke til din sykmelding hvis det er én søknad', () => {

@@ -13,9 +13,8 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Vis } from '../../utils/index';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
-import { toggleErPaaHeroku } from '../../toggles';
+import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
-import { getSykepengesoknaderUrl } from '../../utils/urlUtils';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -71,10 +70,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     render={() => {
                         return (<Peker
                             ekstern
-                            to={toggleErPaaHeroku()
-                                ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
-                                : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`
-                            }
+                            to={getOppfolgingsplanerUrl()}
                             ikon="oppfolgingsplaner"
                             ikonAlt="Oppfølgingsplaner"
                             tittel="Oppfølgingsplaner"

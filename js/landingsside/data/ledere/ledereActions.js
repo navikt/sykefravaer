@@ -1,52 +1,59 @@
-import * as actiontyper from '../../../data/actiontyper';
+export const HENT_LEDERE_FORESPURT = 'HENT_LEDERE_FORESPURT';
+export const HENTER_LEDERE = 'HENTER_LEDERE';
+export const LEDERE_HENTET = 'LEDERE_HENTET';
+export const HENT_LEDERE_FEILET = 'HENT_LEDERE_FEILET';
+export const AVKREFT_LEDER_FORESPURT = 'AVKREFT_LEDER_FORESPURT';
+export const LEDER_AVKREFTET = 'LEDER_AVKREFTET';
+export const LEDER_AVKREFTET_FEILET = 'LEDER_AVKREFTET_FEILET';
+export const AVKREFTER_LEDER = 'AVKREFTER_LEDER';
 
 export const hentLedere = () => {
     return {
-        type: actiontyper.HENT_LEDERE_FORESPURT,
+        type: HENT_LEDERE_FORESPURT,
     };
 };
 
 export const henterLedere = () => {
     return {
-        type: actiontyper.HENTER_LEDERE,
+        type: HENTER_LEDERE,
     };
 };
 
 export const ledereHentet = (data) => {
     return {
-        type: actiontyper.LEDERE_HENTET,
+        type: LEDERE_HENTET,
         data,
     };
 };
 
 export const hentLedereFeilet = () => {
     return {
-        type: actiontyper.HENT_LEDERE_FEILET,
+        type: HENT_LEDERE_FEILET,
     };
 };
 
 export const avkreftLeder = (orgnummer) => {
     return {
-        type: actiontyper.AVKREFT_LEDER_FORESPURT,
+        type: AVKREFT_LEDER_FORESPURT,
         orgnummer,
     };
 };
 
 export const lederAvkreftet = (orgnummer) => {
     return {
-        type: actiontyper.LEDER_AVKREFTET,
+        type: LEDER_AVKREFTET,
         orgnummer,
     };
 };
 
 export const avkreftLederFeilet = () => {
     return {
-        type: actiontyper.LEDER_AVKREFTET_FEILET,
+        type: LEDER_AVKREFTET_FEILET,
     };
 };
 
 export const avkrefterLeder = () => {
     return {
-        type: actiontyper.AVKREFTER_LEDER,
+        type: AVKREFTER_LEDER,
     };
 };

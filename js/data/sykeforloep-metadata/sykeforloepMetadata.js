@@ -1,9 +1,5 @@
-import {
-    HENTER_SYKEFORLOEP_METADATA,
-    SYKEFORLOEP_METADATA_HENTET,
-    HENT_SYKEFORLOEP_METADATA_FEILET,
-    BRUKER_ER_UTLOGGET,
-} from '../actiontyper';
+import { BRUKER_ER_UTLOGGET } from '../brukerinfo/brukerinfo_actions';
+import { HENT_SYKEFORLOEP_METADATA_FEILET, SYKEFORLOEP_METADATA_HENTET, HENTER_SYKEFORLOEP_METADATA } from './sykeforloepMetadata_actions';
 
 const initState = {
     henter: false,

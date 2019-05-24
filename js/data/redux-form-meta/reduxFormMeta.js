@@ -1,11 +1,11 @@
-import * as actiontyper from '../actiontyper';
 import { SEND_SKJEMA_FEILET, SEND_SKJEMA_FEILET_HANDTERT } from '../../enums/reduxFormMetaEnums';
+import { SEND_SKJEMA_FEILET1, SEND_SKJEMA_FEILET_HANDTERT1, SKJEMA_ER_GYLDIG } from './reduxFormMeta_actions';
 
 const defaultState = {};
 
 const reduxFormMeta = (state = defaultState, action = {}) => {
     switch (action.type) {
-        case actiontyper.SEND_SKJEMA_FEILET: {
+        case SEND_SKJEMA_FEILET1: {
             return {
                 ...state,
                 [action.skjemanavn]: {
@@ -14,7 +14,7 @@ const reduxFormMeta = (state = defaultState, action = {}) => {
                 },
             };
         }
-        case actiontyper.SEND_SKJEMA_FEILET_HANDTERT: {
+        case SEND_SKJEMA_FEILET_HANDTERT1: {
             return {
                 ...state,
                 [action.skjemanavn]: {
@@ -23,7 +23,7 @@ const reduxFormMeta = (state = defaultState, action = {}) => {
                 },
             };
         }
-        case actiontyper.SKJEMA_ER_GYLDIG: {
+        case SKJEMA_ER_GYLDIG: {
             return {
                 ...state,
                 [action.skjemanavn]: {

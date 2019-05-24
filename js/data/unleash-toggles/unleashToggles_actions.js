@@ -1,26 +1,29 @@
-import * as actiontyper from '../actiontyper';
+export const HENT_UNLEASH_TOGGLES_FORESPURT = 'HENT_UNLEASH_TOGGLES_FORESPURT';
+export const HENTER_UNLEASH_TOGGLES = 'HENTER_UNLEASH_TOGGLES';
+export const HENT_UNLEASH_TOGGLES_FEILET = 'HENT_UNLEASH_TOGGLES_FEILET';
+export const HENTET_UNLEASH_TOGGLES = 'HENTET_UNLEASH_TOGGLES';
 
 export const hentUnleashToggles = () => {
     return {
-        type: actiontyper.HENT_UNLEASH_TOGGLES_FORESPURT,
+        type: HENT_UNLEASH_TOGGLES_FORESPURT,
     };
 };
 
 export const henterUnleashToggles = () => {
     return {
-        type: actiontyper.HENTER_UNLEASH_TOGGLES,
+        type: HENTER_UNLEASH_TOGGLES,
     };
 };
 
 export const unleashTogglesHentet = (data) => {
     return {
-        type: actiontyper.HENTET_UNLEASH_TOGGLES,
+        type: HENTET_UNLEASH_TOGGLES,
         data,
     };
 };
 
 export const hentUnleashTogglesFeilet = () => {
     return {
-        type: actiontyper.HENT_UNLEASH_TOGGLES_FEILET,
+        type: HENT_UNLEASH_TOGGLES_FEILET,
     };
 };

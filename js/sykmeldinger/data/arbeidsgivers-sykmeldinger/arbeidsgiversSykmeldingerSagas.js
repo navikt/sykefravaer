@@ -1,7 +1,15 @@
 import { get, log } from '@navikt/digisyfo-npm';
-import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import * as actiontyper from '../../../data/actiontyper';
+import { call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as actions from './arbeidsgiversSykmeldingerActions';
+import {
+    BEKREFT_SYKMELDING_ANGRET,
+    SYKMELDING_AVBRUTT,
+    SYKMELDING_BEKREFTET,
+    SYKMELDING_GJENAAPNET,
+    SYKMELDING_SENDT,
+} from '../din-sykmelding/dinSykmeldingActions';
+
+const { HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT } = actions;
 
 export function* hentArbeidsgiversSykmeldinger() {
     yield put(actions.henterArbeidsgiversSykmeldinger());
@@ -16,12 +24,12 @@ export function* hentArbeidsgiversSykmeldinger() {
 
 function* watchHentArbeidsgiversSykmeldinger() {
     yield takeEvery([
-        actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
-        actiontyper.SYKMELDING_BEKREFTET,
-        actiontyper.SYKMELDING_SENDT,
-        actiontyper.SYKMELDING_AVBRUTT,
-        actiontyper.SYKMELDING_GJENAAPNET,
-        actiontyper.BEKREFT_SYKMELDING_ANGRET,
+        HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
+        SYKMELDING_BEKREFTET,
+        SYKMELDING_SENDT,
+        SYKMELDING_AVBRUTT,
+        SYKMELDING_GJENAAPNET,
+        BEKREFT_SYKMELDING_ANGRET,
     ], hentArbeidsgiversSykmeldinger);
 }
 

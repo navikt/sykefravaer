@@ -1,23 +1,20 @@
 import { call, put, fork, takeEvery, select, all } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
-import * as actions from './sykeforloep_actions';
 import {
-    HENT_SYKEFORLOEP_FORESPURT,
     HENT_OPPFOLGINGSFORLOPSPERIODER_FORESPURT,
-    SYKMELDING_BEKREFTET,
-    SYKMELDING_SENDT,
-    SYKMELDING_GJENAAPNET,
-} from '../actiontyper';
+} from '../oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
 import { skalHenteSykeforloep } from './sykeforloepSelectors';
+import { henterSykeforloep, sykeforloepHentet, hentSykeforloepFeilet, HENT_SYKEFORLOEP_FORESPURT } from './sykeforloep_actions';
+import { SYKMELDING_BEKREFTET, SYKMELDING_GJENAAPNET, SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 
 function* oppdaterSykeforloep() {
-    yield put(actions.henterSykeforloep());
+    yield put(henterSykeforloep());
     try {
         const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykeforloep`);
-        yield put(actions.sykeforloepHentet(data));
+        yield put(sykeforloepHentet(data));
     } catch (e) {
         log(e);
-        yield put(actions.hentSykeforloepFeilet());
+        yield put(hentSykeforloepFeilet());
     }
 }
 

@@ -1,27 +1,30 @@
-import * as actiontyper from '../actiontyper';
+export const HENTER_SYKEPENGESOKNADER = 'HENTER_SYKEPENGESOKNADER';
+export const HENT_SYKEPENGESOKNADER_FEILET = 'HENT_SYKEPENGESOKNADER_FEILET';
+export const SYKEPENGESOKNADER_HENTET = 'SYKEPENGESOKNADER_HENTET';
+export const HENT_SYKEPENGESOKNADER_FORESPURT = 'HENT_SYKEPENGESOKNADER_FORESPURT';
 
 export function henterSykepengesoknader() {
     return {
-        type: actiontyper.HENTER_SYKEPENGESOKNADER,
+        type: HENTER_SYKEPENGESOKNADER,
     };
 }
 
 export function hentSykepengesoknaderFeilet() {
     return {
-        type: actiontyper.HENT_SYKEPENGESOKNADER_FEILET,
+        type: HENT_SYKEPENGESOKNADER_FEILET,
     };
 }
 
 export function sykepengesoknaderHentet(sykepengesoknader = []) {
     return {
-        type: actiontyper.SYKEPENGESOKNADER_HENTET,
+        type: SYKEPENGESOKNADER_HENTET,
         sykepengesoknader,
     };
 }
 
 export function hentSykepengesoknader() {
     return {
-        type: actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT,
+        type: HENT_SYKEPENGESOKNADER_FORESPURT,
     };
 }
 

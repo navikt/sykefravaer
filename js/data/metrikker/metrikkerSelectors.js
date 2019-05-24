@@ -1,13 +1,8 @@
-import { SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actiontyper';
 import { beregnVarighet } from '../../utils/metrikkerUtils';
 import {
-    TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER,
-    TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER_NY_PLATTFORM,
-    TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG,
     TID_INNSENDING_SYKMELDING,
 } from '../../enums/metrikkerEnums';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
-import { SOKNAD_SENDT } from '../soknader/soknaderActiontyper';
+import { SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 
 export const hentEvents = (state, ressursId) => {
     return [...state.metrikker.data]
@@ -41,45 +36,6 @@ export const hentMetrikk = (state, action) => {
             });
             return {
                 type: hentMetrikktype(SYKMELDING_SENDT),
-                data: {
-                    tid,
-                },
-            };
-        }
-        case SOKNAD_SENDT: {
-            if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) {
-                const tid = beregnVarighet(state, {
-                    ressursId: action.soknad.id,
-                    type: TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG,
-                });
-                return {
-                    type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_SELVSTENDIG/FRILANSER/1SPM-PER-SIDE`),
-                    data: {
-                        tid,
-                    },
-                };
-            }
-            if (action.soknad.soknadstype === ARBEIDSTAKERE) {
-                const tid = beregnVarighet(state, {
-                    ressursId: action.soknad.id,
-                    type: TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER_NY_PLATTFORM,
-                });
-                return {
-                    type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_ARBEIDSTAKER_NY_PLATTFORM`),
-                    data: {
-                        tid,
-                    },
-                };
-            }
-            return null;
-        }
-        case SYKEPENGESOKNAD_SENDT: {
-            const tid = beregnVarighet(state, {
-                ressursId: action.sykepengesoknad.id,
-                type: TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER,
-            });
-            return {
-                type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_ARBEIDSTAKER`),
                 data: {
                     tid,
                 },

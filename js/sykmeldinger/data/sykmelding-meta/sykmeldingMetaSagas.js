@@ -1,7 +1,8 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { post, log } from '@navikt/digisyfo-npm';
 import * as actions from './sykmeldingMetaActions';
-import { HENT_VENTETID_FORESPURT } from '../../../data/actiontyper';
+
+const { HENT_VENTETID_FORESPURT } = actions;
 
 export function* hentVentetid(action) {
     yield put(actions.henterVentetid(action.sykmeldingId));

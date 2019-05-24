@@ -1,9 +1,9 @@
-import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
+import { all, call, fork, put, select, takeEvery } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './sykepengesoknader_actions';
-import * as actiontyper from '../actiontyper';
 import logger from '../../logging';
 import { skalHenteSykepengesoknader } from './sykepengesoknaderSelectors';
+import { SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 
 export function* oppdaterSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
@@ -26,11 +26,11 @@ export function* hentSykepengesoknaderHvisIkkeHentet() {
 
 
 function* watchHentSykepengesoknader() {
-    yield takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknaderHvisIkkeHentet);
+    yield takeEvery(actions.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknaderHvisIkkeHentet);
 }
 
 function* watchSykmeldingSendt() {
-    yield takeEvery(actiontyper.SYKMELDING_SENDT, oppdaterSykepengesoknader);
+    yield takeEvery(SYKMELDING_SENDT, oppdaterSykepengesoknader);
 }
 
 export default function* sykepengesoknadSagas() {

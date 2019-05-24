@@ -1,4 +1,4 @@
-import * as actiontyper from '../../../data/actiontyper';
+import { AVKREFTER_LEDER, HENT_LEDERE_FEILET, HENTER_LEDERE, LEDER_AVKREFTET, LEDER_AVKREFTET_FEILET, LEDERE_HENTET } from './ledereActions';
 
 const defaultState = {
     data: [],
@@ -18,7 +18,7 @@ const setLederProps = (_ledere, orgnummer, props) => {
 
 const ledere = (state = defaultState, action = {}) => {
     switch (action.type) {
-        case actiontyper.LEDERE_HENTET: {
+        case LEDERE_HENTET: {
             return {
                 data: action.data,
                 henter: false,
@@ -26,7 +26,7 @@ const ledere = (state = defaultState, action = {}) => {
                 hentet: true,
             };
         }
-        case actiontyper.HENTER_LEDERE: {
+        case HENTER_LEDERE: {
             return {
                 henter: true,
                 hentingFeilet: false,
@@ -34,7 +34,7 @@ const ledere = (state = defaultState, action = {}) => {
                 hentet: false,
             };
         }
-        case actiontyper.HENT_LEDERE_FEILET: {
+        case HENT_LEDERE_FEILET: {
             return {
                 henter: false,
                 hentingFeilet: true,
@@ -42,7 +42,7 @@ const ledere = (state = defaultState, action = {}) => {
                 hentet: true,
             };
         }
-        case actiontyper.LEDER_AVKREFTET: {
+        case LEDER_AVKREFTET: {
             const _ledere = setLederProps(state.data, action.orgnummer, { avkreftet: true });
 
             return {
@@ -53,14 +53,14 @@ const ledere = (state = defaultState, action = {}) => {
                 data: _ledere,
             };
         }
-        case actiontyper.LEDER_AVKREFTET_FEILET: {
+        case LEDER_AVKREFTET_FEILET: {
             return {
                 ...state,
                 avkrefter: false,
                 avkreftFeilet: true,
             };
         }
-        case actiontyper.AVKREFTER_LEDER: {
+        case AVKREFTER_LEDER: {
             return {
                 ...state,
                 avkrefter: true,

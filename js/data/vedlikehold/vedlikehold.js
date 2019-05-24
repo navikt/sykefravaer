@@ -1,5 +1,5 @@
-import * as actiontyper from '../actiontyper';
 import { createReducer } from '../createReducer';
+import { HENT_VEDLIKEHOLD_FEILET, HENTER_VEDLIKEHOLD, VEDLIKEHOLD_HENTET } from './vedlikehold_actions';
 
 const defaultState = {
     data: {},
@@ -9,9 +9,9 @@ const defaultState = {
 };
 
 const vedlikehold = createReducer(
-    actiontyper.HENT_VEDLIKEHOLD_FEILET,
-    actiontyper.HENTER_VEDLIKEHOLD,
-    actiontyper.VEDLIKEHOLD_HENTET,
+    HENT_VEDLIKEHOLD_FEILET,
+    HENTER_VEDLIKEHOLD,
+    VEDLIKEHOLD_HENTET,
     defaultState);
 
 export default vedlikehold;

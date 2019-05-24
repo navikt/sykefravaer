@@ -2,7 +2,8 @@ import chai from 'chai';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from './brukerinfo_actions';
-import * as actiontyper from '../actiontyper';
+
+const { BRUKERINFO_HENTET, HENT_BRUKERINFO_FEILET, HENTER_BRUKERINFO, SET_TIDSLINJE_ARBEIDSSITUASJON, SJEKK_INNLOGGING_FORESPURT } = actions;
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -18,7 +19,7 @@ describe('brukerinfo_actions', () => {
 
     it('Skal ha en hentBrukerinfo()-funksjon som returnerer riktig action', () => {
         expect(actions.henterBrukerinfo()).to.deep.equal({
-            type: actiontyper.HENTER_BRUKERINFO,
+            type: HENTER_BRUKERINFO,
         });
     });
 
@@ -28,7 +29,7 @@ describe('brukerinfo_actions', () => {
 
     it('Skal ha en hentBrukerinfoFeilet()-function som returnerer riktig action', () => {
         expect(actions.hentBrukerinfoFeilet()).to.deep.equal({
-            type: actiontyper.HENT_BRUKERINFO_FEILET,
+            type: HENT_BRUKERINFO_FEILET,
         });
     });
 
@@ -37,7 +38,7 @@ describe('brukerinfo_actions', () => {
             navn: 'Helge',
             alder: 32,
         })).to.deep.equal({
-            type: actiontyper.BRUKERINFO_HENTET,
+            type: BRUKERINFO_HENTET,
             data: {
                 navn: 'Helge',
                 alder: 32,
@@ -45,21 +46,21 @@ describe('brukerinfo_actions', () => {
         });
 
         expect(actions.brukerinfoHentet()).to.deep.equal({
-            type: actiontyper.BRUKERINFO_HENTET,
+            type: BRUKERINFO_HENTET,
             data: {},
         });
     });
 
     it('Skal ha en setArbeidssituasjon()-funksjon som returnerer riktig action()', () => {
         expect(actions.setArbeidssituasjon('MED_ARBEIDSGIVER')).to.deep.equal({
-            type: actiontyper.SET_TIDSLINJE_ARBEIDSSITUASJON,
+            type: SET_TIDSLINJE_ARBEIDSSITUASJON,
             arbeidssituasjon: 'MED_ARBEIDSGIVER',
         });
     });
 
     it('Skal ha en sjekkInnlogging()-funksjon som returnerer riktig action', () => {
         expect(actions.sjekkInnlogging()).to.deep.equal({
-            type: actiontyper.SJEKK_INNLOGGING_FORESPURT,
+            type: SJEKK_INNLOGGING_FORESPURT,
         });
     });
 });

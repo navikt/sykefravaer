@@ -1,10 +1,7 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import * as actiontyper from '../actiontyper';
-import sykepengesoknader, {
-    finnSoknad,
-} from './sykepengesoknader';
+import sykepengesoknader, { finnSoknad } from './sykepengesoknader';
 import * as actions from './sykepengesoknader_actions';
 
 const getSoknad = () => {
@@ -102,7 +99,7 @@ describe('sykepengesoknader', () => {
 
         it('håndterer SYKEPENGESOKNADER_HENTET', () => {
             const action = {
-                type: actiontyper.SYKEPENGESOKNADER_HENTET,
+                type: actions.SYKEPENGESOKNADER_HENTET,
                 sykepengesoknader: [getSoknad()],
             };
             const nextState = sykepengesoknader(initialState, action);

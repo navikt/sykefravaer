@@ -1,15 +1,13 @@
-import { call, put, fork, takeEvery, all, select } from 'redux-saga/effects';
+import { all, call, fork, put, select, takeEvery } from 'redux-saga/effects';
 import { get, getAjax, log } from '@navikt/digisyfo-npm';
 import { get as gatewayGet, getHeaders } from '../gateway-api/index';
 import * as actions from './brukerinfo_actions';
-import * as actiontyper from '../actiontyper';
 import logger from '../../logging';
-import {
-    skalHenteBrukerinfoSelector,
-    skalHenteOppfolgingSelector,
-    skalHenteSykmeldtinfodata,
-} from './brukerinfoSelectors';
+import { skalHenteBrukerinfoSelector, skalHenteOppfolgingSelector, skalHenteSykmeldtinfodata } from './brukerinfoSelectors';
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
+import { HENTET_UNLEASH_TOGGLES } from '../unleash-toggles/unleashToggles_actions';
+
+const { HENT_BRUKERINFO_FORESPURT, HENT_OPPFOLGING_FORESPURT, HENT_SYKMELDTINFODATA_FORESPURT, SJEKK_INNLOGGING_FORESPURT } = actions;
 
 const getConsumerIdHeaders = () => {
     const CustomHeaders = getHeaders();
@@ -83,21 +81,21 @@ export function* hentSykmeldtinfodata() {
 }
 
 function* watchHentBrukerinfo() {
-    yield takeEvery(actiontyper.HENT_BRUKERINFO_FORESPURT, hentBrukerinfo);
+    yield takeEvery(HENT_BRUKERINFO_FORESPURT, hentBrukerinfo);
 }
 
 function* watchSjekkInnlogging() {
-    yield takeEvery(actiontyper.SJEKK_INNLOGGING_FORESPURT, sjekkInnlogging);
+    yield takeEvery(SJEKK_INNLOGGING_FORESPURT, sjekkInnlogging);
 }
 
 function* watchHentOppfolging() {
-    yield takeEvery(actiontyper.HENT_OPPFOLGING_FORESPURT, hentOppfolging);
+    yield takeEvery(HENT_OPPFOLGING_FORESPURT, hentOppfolging);
 }
 
 function* watchHentSykmeldtinfodata() {
     yield takeEvery([
-        actiontyper.HENT_SYKMELDTINFODATA_FORESPURT,
-        actiontyper.HENTET_UNLEASH_TOGGLES,
+        HENT_SYKMELDTINFODATA_FORESPURT,
+        HENTET_UNLEASH_TOGGLES,
     ], hentSykmeldtinfodata);
 }
 

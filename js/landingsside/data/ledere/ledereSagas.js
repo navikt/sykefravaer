@@ -1,7 +1,8 @@
-import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
-import { get, post, log } from '@navikt/digisyfo-npm';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import { get, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './ledereActions';
-import * as actiontyper from '../../../data/actiontyper';
+
+const { AVKREFT_LEDER_FORESPURT, HENT_LEDERE_FORESPURT } = actions;
 
 export function* hentLedere() {
     yield put(actions.henterLedere());
@@ -26,11 +27,11 @@ export function* avkreftLeder(action) {
 }
 
 function* watchHentLedere() {
-    yield takeEvery(actiontyper.HENT_LEDERE_FORESPURT, hentLedere);
+    yield takeEvery(HENT_LEDERE_FORESPURT, hentLedere);
 }
 
 function* watchAvkreftLeder() {
-    yield takeEvery(actiontyper.AVKREFT_LEDER_FORESPURT, avkreftLeder);
+    yield takeEvery(AVKREFT_LEDER_FORESPURT, avkreftLeder);
 }
 
 export default function* ledereSagas() {

@@ -1,7 +1,14 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import * as actiontyper from '../actiontyper';
-import * as actions from './vedlikehold_actions';
+import {
+    HENT_VEDLIKEHOLD_FEILET,
+    HENT_VEDLIKEHOLD_FORESPURT,
+    HENTER_VEDLIKEHOLD,
+    henterVedlikehold, hentVedlikehold,
+    hentVedlikeholdFeilet,
+    VEDLIKEHOLD_HENTET,
+    vedlikeholdHentet,
+} from './vedlikehold_actions';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -15,14 +22,14 @@ describe('vedlikehold_actions', () => {
 
     describe('henter', () => {
         it('Skal ha en henterVedlikehold()-funksjon som returnerer riktig action', () => {
-            expect(actions.henterVedlikehold()).to.deep.equal({
-                type: actiontyper.HENTER_VEDLIKEHOLD,
+            expect(henterVedlikehold()).to.deep.equal({
+                type: HENTER_VEDLIKEHOLD,
             });
         });
 
         it('Skal ha en vedlikeholdHentet()-funksjon som returnerer riktig action', () => {
-            expect(actions.vedlikeholdHentet(true)).to.deep.equal({
-                type: actiontyper.VEDLIKEHOLD_HENTET,
+            expect(vedlikeholdHentet(true)).to.deep.equal({
+                type: VEDLIKEHOLD_HENTET,
                 data: {
                     vedlikehold: true,
                 },
@@ -30,14 +37,14 @@ describe('vedlikehold_actions', () => {
         });
 
         it('Skal ha en hentVedlikeholdFeilet()-funksjon som returnerer riktig action', () => {
-            expect(actions.hentVedlikeholdFeilet()).to.deep.equal({
-                type: actiontyper.HENT_VEDLIKEHOLD_FEILET,
+            expect(hentVedlikeholdFeilet()).to.deep.equal({
+                type: HENT_VEDLIKEHOLD_FEILET,
             });
         });
 
         it('Skal ha en hentVedlikehold()-funksjon som returnerer riktig action', () => {
-            expect(actions.hentVedlikehold()).to.deep.equal({
-                type: actiontyper.HENT_VEDLIKEHOLD_FORESPURT,
+            expect(hentVedlikehold()).to.deep.equal({
+                type: HENT_VEDLIKEHOLD_FORESPURT,
             });
         });
     });

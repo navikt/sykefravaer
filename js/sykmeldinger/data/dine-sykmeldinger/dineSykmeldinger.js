@@ -1,5 +1,30 @@
 import { parseSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
-import * as actiontyper from '../../../data/actiontyper';
+import { BRUKER_ER_UTLOGGET } from '../../../data/brukerinfo/brukerinfo_actions';
+import {
+    HENT_DINE_SYKMELDINGER_FEILET,
+    HENTER_DINE_SYKMELDINGER,
+    SET_DINE_SYKMELDINGER,
+    SET_SORTERING } from './dineSykmeldingerActions';
+import {
+    ANGRE_BEKREFT_SYKMELDING_FEILET,
+    ANGRER_BEKREFT_SYKMELDING,
+    AVBRYT_SYKMELDING_FEILET,
+    AVBRYTER_SYKMELDING,
+    BEKREFT_SYKMELDING_ANGRET,
+    BEKREFT_SYKMELDING_FEILET,
+    BEKREFTER_SYKMELDING,
+    GJENAAPNE_SYKMELDING_FEILET,
+    GJENAAPNER_SYKMELDING,
+    SEND_SYKMELDING_FEILET,
+    SENDER_SYKMELDING,
+    SET_ARBEIDSSITUASJON,
+    SET_FEILAKTIG_OPPLYSNING,
+    SET_OPPLYSNINGENE_ER_RIKTIGE,
+    SYKMELDING_AVBRUTT,
+    SYKMELDING_BEKREFTET,
+    SYKMELDING_GJENAAPNET,
+    SYKMELDING_SENDT,
+} from '../din-sykmelding/dinSykmeldingActions';
 
 const { SENDT, BEKREFTET, AVBRUTT, NY } = sykmeldingstatuser;
 
@@ -24,7 +49,7 @@ const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
 
 const dineSykmeldinger = (state = initiellState, action = {}) => {
     switch (action.type) {
-        case actiontyper.SET_DINE_SYKMELDINGER: {
+        case SET_DINE_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
                 return {
                     data: action.sykmeldinger.map((s) => {
@@ -50,7 +75,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 hentet: true,
             };
         }
-        case actiontyper.HENTER_DINE_SYKMELDINGER: {
+        case HENTER_DINE_SYKMELDINGER: {
             return {
                 data: state.data,
                 henter: true,
@@ -58,21 +83,21 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 hentet: false,
             };
         }
-        case actiontyper.AVBRYTER_SYKMELDING: {
+        case AVBRYTER_SYKMELDING: {
             return {
                 ...state,
                 avbryter: true,
                 avbrytFeilet: false,
             };
         }
-        case actiontyper.AVBRYT_SYKMELDING_FEILET: {
+        case AVBRYT_SYKMELDING_FEILET: {
             return {
                 ...state,
                 avbryter: false,
                 avbrytFeilet: true,
             };
         }
-        case actiontyper.SYKMELDING_AVBRUTT: {
+        case SYKMELDING_AVBRUTT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: AVBRUTT,
             });
@@ -83,21 +108,21 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 avbrytFeilet: false,
             };
         }
-        case actiontyper.GJENAAPNER_SYKMELDING: {
+        case GJENAAPNER_SYKMELDING: {
             return {
                 ...state,
                 gjenaapner: true,
                 gjenaapneFeilet: false,
             };
         }
-        case actiontyper.GJENAAPNE_SYKMELDING_FEILET: {
+        case GJENAAPNE_SYKMELDING_FEILET: {
             return {
                 ...state,
                 gjenaapner: false,
                 gjenaapneFeilet: true,
             };
         }
-        case actiontyper.SYKMELDING_GJENAAPNET: {
+        case SYKMELDING_GJENAAPNET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: AVBRUTT,
             });
@@ -108,21 +133,21 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 gjenaapneFeilet: false,
             };
         }
-        case actiontyper.ANGRER_BEKREFT_SYKMELDING: {
+        case ANGRER_BEKREFT_SYKMELDING: {
             return {
                 ...state,
                 angrerBekreftSykmelding: true,
                 angreBekreftSykmeldingFeilet: false,
             };
         }
-        case actiontyper.ANGRE_BEKREFT_SYKMELDING_FEILET: {
+        case ANGRE_BEKREFT_SYKMELDING_FEILET: {
             return {
                 ...state,
                 angrerBekreftSykmelding: false,
                 angreBekreftSykmeldingFeilet: true,
             };
         }
-        case actiontyper.BEKREFT_SYKMELDING_ANGRET: {
+        case BEKREFT_SYKMELDING_ANGRET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: NY,
             });
@@ -133,7 +158,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 angreBekreftSykmeldingFeilet: false,
             };
         }
-        case actiontyper.HENT_DINE_SYKMELDINGER_FEILET: {
+        case HENT_DINE_SYKMELDINGER_FEILET: {
             return {
                 data: [],
                 henter: false,
@@ -141,7 +166,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 hentet: true,
             };
         }
-        case actiontyper.SET_ARBEIDSSITUASJON: {
+        case SET_ARBEIDSSITUASJON: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 valgtArbeidssituasjon: action.arbeidssituasjon,
             });
@@ -150,7 +175,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 data,
             };
         }
-        case actiontyper.SYKMELDING_BEKREFTET: {
+        case SYKMELDING_BEKREFTET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: BEKREFTET,
             });
@@ -161,7 +186,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 sendingFeilet: false,
             };
         }
-        case actiontyper.SET_SORTERING: {
+        case SET_SORTERING: {
             let sortering = {};
             sortering[action.status] = action.kriterium;
             sortering = {
@@ -173,7 +198,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 sortering,
             };
         }
-        case actiontyper.SET_FEILAKTIG_OPPLYSNING: {
+        case SET_FEILAKTIG_OPPLYSNING: {
             const data = state.data.map((sykmelding) => {
                 const _sykmelding = { ...sykmelding };
                 if (_sykmelding.id === action.sykmeldingId) {
@@ -185,14 +210,14 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
             });
             return { ...state, data };
         }
-        case actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE: {
+        case SET_OPPLYSNINGENE_ER_RIKTIGE: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 opplysningeneErRiktige: action.erRiktige,
             });
             return { ...state, data };
         }
-        case actiontyper.SENDER_SYKMELDING:
-        case actiontyper.BEKREFTER_SYKMELDING: {
+        case SENDER_SYKMELDING:
+        case BEKREFTER_SYKMELDING: {
             return {
                 ...state,
                 sender: true,
@@ -201,8 +226,8 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 hentingFeilet: false,
             };
         }
-        case actiontyper.SEND_SYKMELDING_FEILET:
-        case actiontyper.BEKREFT_SYKMELDING_FEILET: {
+        case SEND_SYKMELDING_FEILET:
+        case BEKREFT_SYKMELDING_FEILET: {
             return {
                 ...state,
                 sender: false,
@@ -211,7 +236,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 hentingFeilet: false,
             };
         }
-        case actiontyper.SYKMELDING_SENDT: {
+        case SYKMELDING_SENDT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: SENDT,
             });
@@ -222,7 +247,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
                 sendingFeilet: false,
             };
         }
-        case actiontyper.BRUKER_ER_UTLOGGET: {
+        case BRUKER_ER_UTLOGGET: {
             return {
                 data: [],
                 hentingFeilet: false,

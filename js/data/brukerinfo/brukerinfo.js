@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux';
-import * as actiontyper from '../actiontyper';
 import { createReducer } from '../createReducer';
 import { lagJsDate, tilLesbarDatoMedArstall } from '../../utils/datoUtils';
-
-const {
+import {
+    BRUKER_ER_INNLOGGET,
+    BRUKER_ER_UTLOGGET,
+    SET_TIDSLINJE_ARBEIDSSITUASJON,
+    SJEKK_INNLOGGING_FEILET,
+    SJEKKER_INNLOGGING,
     BRUKERINFO_HENTET,
     HENT_BRUKERINFO_FEILET,
     HENT_OPPFOLGING_FEILET,
@@ -13,11 +16,11 @@ const {
     HENT_SYKMELDTINFODATA_FEILET,
     HENTER_SYKMELDTINFODATA,
     SYKMELDTINFODATA_HENTET,
-} = actiontyper;
+} from './brukerinfo_actions';
 
 function innstillinger(state = {}, action = {}) {
     switch (action.type) {
-        case actiontyper.SET_TIDSLINJE_ARBEIDSSITUASJON: {
+        case SET_TIDSLINJE_ARBEIDSSITUASJON: {
             return {
                 ...state,
                 arbeidssituasjon: action.arbeidssituasjon,
@@ -37,14 +40,14 @@ function innlogging(
     },
     action = {}) {
     switch (action.type) {
-        case actiontyper.BRUKER_ER_UTLOGGET: {
+        case BRUKER_ER_UTLOGGET: {
             return {
                 erInnlogget: false,
                 henter: false,
                 hentingFeilet: false,
             };
         }
-        case actiontyper.BRUKER_ER_INNLOGGET: {
+        case BRUKER_ER_INNLOGGET: {
             return {
                 ...state,
                 erInnlogget: true,
@@ -52,14 +55,14 @@ function innlogging(
                 hentingFeilet: false,
             };
         }
-        case actiontyper.SJEKKER_INNLOGGING: {
+        case SJEKKER_INNLOGGING: {
             return {
                 ...state,
                 henter: true,
                 hentingFeilet: false,
             };
         }
-        case actiontyper.SJEKK_INNLOGGING_FEILET: {
+        case SJEKK_INNLOGGING_FEILET: {
             return {
                 erInnlogget: false,
                 hentingFeilet: true,

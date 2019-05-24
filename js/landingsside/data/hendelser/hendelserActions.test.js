@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import * as actions from './hendelserActions';
-import * as actiontyper from '../../../data/actiontyper';
+
+const { HENDELSER_HENTET, HENT_HENDELSER_FEILET, HENT_HENDELSER_FORESPURT, HENTER_HENDELSER } = actions;
 
 describe('hendelser', () => {
     let hendelse;
@@ -21,27 +22,27 @@ describe('hendelser', () => {
     it('Har en hentHendelser()-funksjon', () => {
         const res = actions.hentHendelser();
         expect(res).to.deep.equal({
-            type: actiontyper.HENT_HENDELSER_FORESPURT,
+            type: HENT_HENDELSER_FORESPURT,
         });
     });
 
     it('Har en hendelserHentet()-funksjon', () => {
         const hendelser = [hendelse, hendelse];
         expect(actions.hendelserHentet(hendelser)).to.deep.equal({
-            type: actiontyper.HENDELSER_HENTET,
+            type: HENDELSER_HENTET,
             data: hendelser,
         });
     });
 
     it('Har en henterHendelser()-funksjon', () => {
         expect(actions.henterHendelser()).to.deep.equal({
-            type: actiontyper.HENTER_HENDELSER,
+            type: HENTER_HENDELSER,
         });
     });
 
     it('Har en hentHendelserFeilet()-funksjon', () => {
         expect(actions.hentHendelserFeilet()).to.deep.equal({
-            type: actiontyper.HENT_HENDELSER_FEILET,
+            type: HENT_HENDELSER_FEILET,
         });
     });
 });

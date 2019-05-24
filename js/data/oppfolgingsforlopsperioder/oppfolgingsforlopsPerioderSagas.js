@@ -9,7 +9,8 @@ import {
     log,
 } from '@navikt/digisyfo-npm';
 import * as actions from './oppfolgingsforlopsPerioder_actions';
-import { HENT_OPPFOLGINGSFORLOPSPERIODER_FORESPURT } from '../actiontyper';
+
+const { HENT_OPPFOLGINGSFORLOPSPERIODER_FORESPURT } = actions;
 
 export function* hentOppfolgingsforlopsPerioder(action) {
     yield put(actions.hentOppfolgingsforlopsPerioderHenter(action.virksomhetsnummer));

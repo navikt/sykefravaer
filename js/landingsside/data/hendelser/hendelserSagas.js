@@ -1,7 +1,7 @@
-import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './hendelserActions';
-import * as actiontyper from '../../../data/actiontyper';
+import { AKTIVITETSKRAV_BEKREFTET } from '../../../aktivitetskrav/data/aktivitetskrav/aktivitetskravActions';
 
 export function* hentHendelser() {
     yield put(actions.henterHendelser());
@@ -15,11 +15,11 @@ export function* hentHendelser() {
 }
 
 function* watchHentHendelser() {
-    yield takeEvery(actiontyper.HENT_HENDELSER_FORESPURT, hentHendelser);
+    yield takeEvery(actions.HENT_HENDELSER_FORESPURT, hentHendelser);
 }
 
 function* watchAktivitetskravBekreftet() {
-    yield takeEvery(actiontyper.AKTIVITETSKRAV_BEKREFTET, hentHendelser);
+    yield takeEvery(AKTIVITETSKRAV_BEKREFTET, hentHendelser);
 }
 
 export default function* hendelserSagas() {

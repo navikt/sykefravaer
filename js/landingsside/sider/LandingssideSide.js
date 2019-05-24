@@ -16,7 +16,7 @@ import { hentSykepengesoknader } from '../../data/sykepengesoknader/sykepengesok
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../data/ledere/ledereActions';
 import { hentMotebehov } from '../../data/motebehov/motebehov_actions';
-import { hentSykeforloep, hentSykeforloepMetadata } from '../../data/sykeforloep/sykeforloep_actions';
+import { hentSykeforloep } from '../../data/sykeforloep/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import { skalViseMotebehovMedOppfolgingsforlopListe } from '../../utils/motebehovUtils';
 import { hentSoknader } from '../../data/soknader/soknaderActions';
@@ -31,6 +31,7 @@ import {
 import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
+import { hentSykeforloepMetadata } from '../../data/sykeforloep-metadata/sykeforloepMetadata_actions';
 
 export class Container extends Component {
     componentWillMount() {

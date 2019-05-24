@@ -2,7 +2,8 @@ import chai from 'chai';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from './sykepengesoknader_actions';
-import * as actiontyper from '../actiontyper';
+
+const { HENT_SYKEPENGESOKNADER_FEILET, HENT_SYKEPENGESOKNADER_FORESPURT, HENTER_SYKEPENGESOKNADER, SYKEPENGESOKNADER_HENTET } = actions;
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -25,13 +26,13 @@ describe('sykepengesoknader_actions', () => {
     describe('henter', () => {
         it('Skal ha en henterSykepengesoknader()-funksjon som returnerer riktig action', () => {
             expect(actions.henterSykepengesoknader()).to.deep.equal({
-                type: actiontyper.HENTER_SYKEPENGESOKNADER,
+                type: HENTER_SYKEPENGESOKNADER,
             });
         });
 
         it('Skal ha en sykepengesoknaderHentet()-funksjon som returnerer riktig action', () => {
             expect(actions.sykepengesoknaderHentet([{ id: 12345 }])).to.deep.equal({
-                type: actiontyper.SYKEPENGESOKNADER_HENTET,
+                type: SYKEPENGESOKNADER_HENTET,
                 sykepengesoknader: [{
                     id: 12345,
                 }],
@@ -40,13 +41,13 @@ describe('sykepengesoknader_actions', () => {
 
         it('Skal ha en hentSykepengesoknaderFeilet()-funksjon som returnerer riktig action', () => {
             expect(actions.hentSykepengesoknaderFeilet()).to.deep.equal({
-                type: actiontyper.HENT_SYKEPENGESOKNADER_FEILET,
+                type: HENT_SYKEPENGESOKNADER_FEILET,
             });
         });
 
         it('Skal ha en hentSykepengesoknader()-funksjon som returnerer riktig action', () => {
             expect(actions.hentSykepengesoknader()).to.deep.equal({
-                type: actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT,
+                type: HENT_SYKEPENGESOKNADER_FORESPURT,
             });
         });
     });

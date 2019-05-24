@@ -1,6 +1,6 @@
 import { fork, select, takeEvery } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
-import { SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actiontyper';
+import { SYKMELDING_SENDT, SYKMELDING_BEKREFTET } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 import { hentMetrikk } from './metrikkerSelectors';
 
 const pushToDataLayer = (metrikk) => {

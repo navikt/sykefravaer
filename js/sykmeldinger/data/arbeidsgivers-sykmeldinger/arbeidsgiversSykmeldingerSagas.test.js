@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import { get } from '@navikt/digisyfo-npm';
-import { put, call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { hentArbeidsgiversSykmeldinger } from './arbeidsgiversSykmeldingerSagas';
-import * as actiontyper from '../../../data/actiontyper';
+import { HENTER_ARBEIDSGIVERS_SYKMELDINGER, SET_ARBEIDSGIVERS_SYKMELDINGER } from './arbeidsgiversSykmeldingerActions';
 
 describe('arbeidsgiversSykmeldingerSagas', () => {
     const generator = hentArbeidsgiversSykmeldinger();
 
     it('Skal dispatche HENTER_ARBEIDSGIVERS_SYKMELDINGER', () => {
-        const nextPut = put({ type: actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER });
+        const nextPut = put({ type: HENTER_ARBEIDSGIVERS_SYKMELDINGER });
         expect(generator.next().value).to.deep.equal(nextPut);
     });
 
@@ -19,7 +19,7 @@ describe('arbeidsgiversSykmeldingerSagas', () => {
 
     it('Skal dernest sette arbeidsgivers sykmeldinger', () => {
         const nextPut = put({
-            type: actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER,
+            type: SET_ARBEIDSGIVERS_SYKMELDINGER,
             sykmeldinger: [{
                 id: 1,
                 diagnose: 'Alt vel',

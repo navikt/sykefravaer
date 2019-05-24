@@ -1,10 +1,6 @@
 import { parseSykmelding } from '@navikt/digisyfo-npm';
-import {
-    HENTER_SYKEFORLOEP,
-    SYKEFORLOEP_HENTET,
-    HENT_SYKEFORLOEP_FEILET,
-    BRUKER_ER_UTLOGGET,
-} from '../actiontyper';
+import { BRUKER_ER_UTLOGGET } from '../brukerinfo/brukerinfo_actions';
+import { HENT_SYKEFORLOEP_FEILET, SYKEFORLOEP_HENTET, HENTER_SYKEFORLOEP } from './sykeforloep_actions';
 
 const initState = {
     henter: false,

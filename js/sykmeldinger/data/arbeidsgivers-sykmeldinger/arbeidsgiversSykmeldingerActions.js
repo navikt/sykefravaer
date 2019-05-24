@@ -1,26 +1,29 @@
-import * as actiontyper from '../../../data/actiontyper';
+export const HENTER_ARBEIDSGIVERS_SYKMELDINGER = 'HENTER_ARBEIDSGIVERS_SYKMELDINGER';
+export const HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET = 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET';
+export const SET_ARBEIDSGIVERS_SYKMELDINGER = 'SET_ARBEIDSGIVERS_SYKMELDINGER';
+export const HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT = 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT';
 
 export function henterArbeidsgiversSykmeldinger() {
     return {
-        type: actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER,
+        type: HENTER_ARBEIDSGIVERS_SYKMELDINGER,
     };
 }
 
 export function hentArbeidsgiversSykmeldingerFeilet() {
     return {
-        type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET,
+        type: HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET,
     };
 }
 
 export function setArbeidsgiversSykmeldinger(sykmeldinger = []) {
     return {
-        type: actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER,
+        type: SET_ARBEIDSGIVERS_SYKMELDINGER,
         sykmeldinger,
     };
 }
 
 export function hentArbeidsgiversSykmeldinger() {
     return {
-        type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
+        type: HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
     };
 }

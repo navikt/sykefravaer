@@ -1,5 +1,17 @@
 import { parseSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
-import * as actiontyper from '../../../data/actiontyper';
+import { HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET, HENTER_ARBEIDSGIVERS_SYKMELDINGER, SET_ARBEIDSGIVERS_SYKMELDINGER } from './arbeidsgiversSykmeldingerActions';
+import { BRUKER_ER_UTLOGGET } from '../../../data/brukerinfo/brukerinfo_actions';
+import {
+    BEKREFT_SYKMELDING_FEILET,
+    BEKREFTER_SYKMELDING,
+    SEND_SYKMELDING_FEILET,
+    SENDER_SYKMELDING,
+    SET_ARBEIDSGIVER,
+    SET_FEILAKTIG_OPPLYSNING,
+    SET_OPPLYSNINGENE_ER_RIKTIGE,
+    SYKMELDING_BEKREFTET, SYKMELDING_SENDT,
+    SET_ARBEIDSSITUASJON,
+} from '../din-sykmelding/dinSykmeldingActions';
 
 const { SENDT, BEKREFTET } = sykmeldingstatuser;
 
@@ -22,7 +34,7 @@ const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => {
 
 export default function arbeidsgiversSykmeldinger(state = initiellState, action = {}) {
     switch (action.type) {
-        case actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER: {
+        case SET_ARBEIDSGIVERS_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
                 return {
                     data: action.sykmeldinger.map((s) => {
@@ -45,7 +57,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 hentet: true,
             };
         }
-        case actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER: {
+        case HENTER_ARBEIDSGIVERS_SYKMELDINGER: {
             return {
                 ...state,
                 henter: true,
@@ -53,7 +65,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 hentet: false,
             };
         }
-        case actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET: {
+        case HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET: {
             return {
                 data: [],
                 henter: false,
@@ -61,7 +73,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 hentet: true,
             };
         }
-        case actiontyper.SET_ARBEIDSGIVER: {
+        case SET_ARBEIDSGIVER: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 valgtArbeidsgiver: action.arbeidsgiver,
             });
@@ -70,7 +82,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 data,
             };
         }
-        case actiontyper.SET_ARBEIDSSITUASJON: {
+        case SET_ARBEIDSSITUASJON: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 valgtArbeidssituasjon: action.arbeidssituasjon,
             });
@@ -79,15 +91,15 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 data,
             };
         }
-        case actiontyper.SENDER_SYKMELDING:
-        case actiontyper.BEKREFTER_SYKMELDING: {
+        case SENDER_SYKMELDING:
+        case BEKREFTER_SYKMELDING: {
             return {
                 ...state,
                 sender: true,
                 sendingFeilet: false,
             };
         }
-        case actiontyper.SYKMELDING_BEKREFTET: {
+        case SYKMELDING_BEKREFTET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: BEKREFTET,
             });
@@ -96,7 +108,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 data,
             };
         }
-        case actiontyper.BEKREFT_SYKMELDING_FEILET: {
+        case BEKREFT_SYKMELDING_FEILET: {
             return {
                 ...state,
                 sender: false,
@@ -105,14 +117,14 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 hentingFeilet: false,
             };
         }
-        case actiontyper.SEND_SYKMELDING_FEILET: {
+        case SEND_SYKMELDING_FEILET: {
             return {
                 ...state,
                 sender: false,
                 sendingFeilet: true,
             };
         }
-        case actiontyper.SYKMELDING_SENDT: {
+        case SYKMELDING_SENDT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: SENDT,
             });
@@ -123,7 +135,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 sendingFeilet: false,
             };
         }
-        case actiontyper.SET_FEILAKTIG_OPPLYSNING: {
+        case SET_FEILAKTIG_OPPLYSNING: {
             const data = state.data.map((sykmelding) => {
                 const _sykmelding = { ...sykmelding };
                 if (_sykmelding.id === action.sykmeldingId) {
@@ -138,7 +150,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 data,
             };
         }
-        case actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE: {
+        case SET_OPPLYSNINGENE_ER_RIKTIGE: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 opplysningeneErRiktige: action.erRiktige,
             });
@@ -147,7 +159,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
                 data,
             };
         }
-        case actiontyper.BRUKER_ER_UTLOGGET: {
+        case BRUKER_ER_UTLOGGET: {
             return {
                 data: [],
                 hentingFeilet: false,

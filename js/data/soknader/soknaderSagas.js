@@ -2,10 +2,6 @@ import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { get, hentApiUrl } from '../gateway-api/index';
 import * as actions from './soknaderActions';
-import {
-    SYKMELDING_BEKREFTET,
-    SYKMELDING_SENDT,
-} from '../actiontyper';
 import { soknadrespons } from '../../../test/mock/mockSoknadSelvstendig';
 import { toggleBrukMockDataSelvstendigSoknad } from '../../toggles';
 import logger from '../../logging';
@@ -14,6 +10,7 @@ import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 import {
     HENT_SOKNADER_FORESPURT,
 } from './soknaderActiontyper';
+import { SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 
 export function* oppdaterSoknader() {
     yield put(actions.henterSoknader());

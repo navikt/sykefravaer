@@ -1,20 +1,23 @@
-import * as actiontyper from '../actiontyper';
+export const HENT_VEDLIKEHOLD_FEILET = 'HENT_VEDLIKEHOLD_FEILET';
+export const HENTER_VEDLIKEHOLD = 'HENTER_VEDLIKEHOLD';
+export const VEDLIKEHOLD_HENTET = 'VEDLIKEHOLD_HENTET';
+export const HENT_VEDLIKEHOLD_FORESPURT = 'HENT_VEDLIKEHOLD_FORESPURT';
 
 export const hentVedlikehold = () => {
     return {
-        type: actiontyper.HENT_VEDLIKEHOLD_FORESPURT,
+        type: HENT_VEDLIKEHOLD_FORESPURT,
     };
 };
 
 export const henterVedlikehold = () => {
     return {
-        type: actiontyper.HENTER_VEDLIKEHOLD,
+        type: HENTER_VEDLIKEHOLD,
     };
 };
 
 export const vedlikeholdHentet = (vedlikehold) => {
     return {
-        type: actiontyper.VEDLIKEHOLD_HENTET,
+        type: VEDLIKEHOLD_HENTET,
         data: {
             vedlikehold,
         },
@@ -23,6 +26,6 @@ export const vedlikeholdHentet = (vedlikehold) => {
 
 export const hentVedlikeholdFeilet = () => {
     return {
-        type: actiontyper.HENT_VEDLIKEHOLD_FEILET,
+        type: HENT_VEDLIKEHOLD_FEILET,
     };
 };

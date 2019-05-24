@@ -2,10 +2,8 @@ import { expect } from 'chai';
 import { get } from '@navikt/digisyfo-npm';
 import { call, put } from 'redux-saga/effects';
 import sinon from 'sinon';
-import {
-    oppdaterSykepengesoknader,
-} from './sykepengesoknadSagas';
-import * as actiontyper from '../actiontyper';
+import { oppdaterSykepengesoknader } from './sykepengesoknadSagas';
+import { HENT_SYKEPENGESOKNADER_FORESPURT, HENTER_SYKEPENGESOKNADER, SYKEPENGESOKNADER_HENTET } from './sykepengesoknader_actions';
 
 describe('sykepengersoknadSagas', () => {
     let clock;
@@ -20,12 +18,12 @@ describe('sykepengersoknadSagas', () => {
 
     describe('henting', () => {
         const generator = oppdaterSykepengesoknader({
-            type: actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT,
+            type: HENT_SYKEPENGESOKNADER_FORESPURT,
         });
 
         it('Skal dispatche HENTER_SYKEPENGESOKNADER', () => {
             const nextPut = put({
-                type: actiontyper.HENTER_SYKEPENGESOKNADER,
+                type: HENTER_SYKEPENGESOKNADER,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -37,7 +35,7 @@ describe('sykepengersoknadSagas', () => {
 
         it('Skal dernest sette soknader på state', () => {
             const nextPut = put({
-                type: actiontyper.SYKEPENGESOKNADER_HENTET,
+                type: SYKEPENGESOKNADER_HENTET,
                 sykepengesoknader: [{ id: '1' }],
             });
             expect(generator.next([{

@@ -1,8 +1,31 @@
-import * as actiontyper from '../../../data/actiontyper';
+export const SET_ARBEIDSSITUASJON = 'SET_ARBEIDSSITUASJON';
+export const SET_ARBEIDSGIVER = 'SET_ARBEIDSGIVER';
+export const SENDER_SYKMELDING = 'SENDER_SYKMELDING';
+export const SEND_SYKMELDING_FEILET = 'SEND_SYKMELDING_FEILET';
+export const SYKMELDING_SENDT = 'SYKMELDING_SENDT';
+export const BEKREFTER_SYKMELDING = 'BEKREFTER_SYKMELDING';
+export const BEKREFT_SYKMELDING_FEILET = 'BEKREFT_SYKMELDING_FEILET';
+export const SYKMELDING_BEKREFTET = 'SYKMELDING_BEKREFTET';
+export const AVBRYTER_SYKMELDING = 'AVBRYTER_SYKMELDING';
+export const AVBRYT_SYKMELDING_FEILET = 'AVBRYT_SYKMELDING_FEILET';
+export const SYKMELDING_AVBRUTT = 'SYKMELDING_AVBRUTT';
+export const GJENAAPNER_SYKMELDING = 'GJENAAPNER_SYKMELDING';
+export const GJENAAPNE_SYKMELDING_FEILET = 'GJENAAPNE_SYKMELDING_FEILET';
+export const SYKMELDING_GJENAAPNET = 'SYKMELDING_GJENAAPNET';
+export const ANGRER_BEKREFT_SYKMELDING = 'ANGRER_BEKREFT_SYKMELDING';
+export const ANGRE_BEKREFT_SYKMELDING_FEILET = 'ANGRE_BEKREFTET_SYKMELDING_FEILET';
+export const BEKREFT_SYKMELDING_ANGRET = 'BEKREFT_SYKMELDING_ANGRET';
+export const ANGRE_BEKREFT_SYKMELDING_FORESPURT = 'ANGRE_BEKREFT_SYKMELDING_FORESPURT';
+export const SET_OPPLYSNINGENE_ER_RIKTIGE = 'SET_OPPLYSNINGENE_ER_RIKTIGE';
+export const SET_FEILAKTIG_OPPLYSNING = 'SET_FEILAKTIG_OPPLYSNING';
+export const BEKREFT_SYKMELDING_FORESPURT = 'BEKREFT_SYKMELDING_FORESPURT';
+export const SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT = 'SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT';
+export const AVBRYT_SYKMELDING_FORESPURT = 'AVBRYT_SYKMELDING_FORESPURT';
+export const GJENAAPNE_SYKMELDING_FORESPURT = 'GJENAAPNE_SYKMELDING_FORESPURT';
 
 export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
     return {
-        type: actiontyper.SET_ARBEIDSSITUASJON,
+        type: SET_ARBEIDSSITUASJON,
         arbeidssituasjon,
         sykmeldingId,
     };
@@ -10,7 +33,7 @@ export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
 
 export function setArbeidsgiver(sykmeldingId, arbeidsgiver) {
     return {
-        type: actiontyper.SET_ARBEIDSGIVER,
+        type: SET_ARBEIDSGIVER,
         sykmeldingId,
         arbeidsgiver,
     };
@@ -18,66 +41,66 @@ export function setArbeidsgiver(sykmeldingId, arbeidsgiver) {
 
 export function senderSykmelding(sykmeldingId) {
     return {
-        type: actiontyper.SENDER_SYKMELDING,
+        type: SENDER_SYKMELDING,
         sykmeldingId,
     };
 }
 
 export function sendSykmeldingFeilet(sykmeldingId) {
     return {
-        type: actiontyper.SEND_SYKMELDING_FEILET,
+        type: SEND_SYKMELDING_FEILET,
         sykmeldingId,
     };
 }
 
 export function sykmeldingSendt(sykmeldingId) {
     return {
-        type: actiontyper.SYKMELDING_SENDT,
+        type: SYKMELDING_SENDT,
         sykmeldingId,
     };
 }
 
 export function bekrefterSykmelding() {
     return {
-        type: actiontyper.BEKREFTER_SYKMELDING,
+        type: BEKREFTER_SYKMELDING,
     };
 }
 
 export function bekreftSykmeldingFeilet() {
     return {
-        type: actiontyper.BEKREFT_SYKMELDING_FEILET,
+        type: BEKREFT_SYKMELDING_FEILET,
     };
 }
 
 export function sykmeldingBekreftet(sykmeldingId) {
     return {
-        type: actiontyper.SYKMELDING_BEKREFTET,
+        type: SYKMELDING_BEKREFTET,
         sykmeldingId,
     };
 }
 
 export function avbryterSykmelding() {
     return {
-        type: actiontyper.AVBRYTER_SYKMELDING,
+        type: AVBRYTER_SYKMELDING,
     };
 }
 
 export function avbrytSykmeldingFeilet() {
     return {
-        type: actiontyper.AVBRYT_SYKMELDING_FEILET,
+        type: AVBRYT_SYKMELDING_FEILET,
     };
 }
 
 export function sykmeldingAvbrutt(sykmeldingId) {
     return {
-        type: actiontyper.SYKMELDING_AVBRUTT,
+        type: SYKMELDING_AVBRUTT,
         sykmeldingId,
     };
 }
 
 export function avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {
     return {
-        type: actiontyper.AVBRYT_SYKMELDING_FORESPURT,
+        type: AVBRYT_SYKMELDING_FORESPURT,
         sykmeldingId,
         feilaktigeOpplysninger,
     };
@@ -85,59 +108,59 @@ export function avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {
 
 export function gjenaapnerSykmelding() {
     return {
-        type: actiontyper.GJENAAPNER_SYKMELDING,
+        type: GJENAAPNER_SYKMELDING,
     };
 }
 
 export function gjenaapneSykmeldingFeilet() {
     return {
-        type: actiontyper.GJENAAPNE_SYKMELDING_FEILET,
+        type: GJENAAPNE_SYKMELDING_FEILET,
     };
 }
 
 export function sykmeldingGjenaapnet(sykmeldingId) {
     return {
-        type: actiontyper.SYKMELDING_GJENAAPNET,
+        type: SYKMELDING_GJENAAPNET,
         sykmeldingId,
     };
 }
 
 export function gjenaapneSykmelding(sykmeldingId) {
     return {
-        type: actiontyper.GJENAAPNE_SYKMELDING_FORESPURT,
+        type: GJENAAPNE_SYKMELDING_FORESPURT,
         sykmeldingId,
     };
 }
 
 export function angrerBekreftSykmelding() {
     return {
-        type: actiontyper.ANGRER_BEKREFT_SYKMELDING,
+        type: ANGRER_BEKREFT_SYKMELDING,
     };
 }
 
 export function angreBekreftSykmeldingFeilet() {
     return {
-        type: actiontyper.ANGRE_BEKREFT_SYKMELDING_FEILET,
+        type: ANGRE_BEKREFT_SYKMELDING_FEILET,
     };
 }
 
 export function bekreftSykmeldingAngret(sykmeldingId) {
     return {
-        type: actiontyper.BEKREFT_SYKMELDING_ANGRET,
+        type: BEKREFT_SYKMELDING_ANGRET,
         sykmeldingId,
     };
 }
 
 export function angreBekreftSykmelding(sykmeldingId) {
     return {
-        type: actiontyper.ANGRE_BEKREFT_SYKMELDING_FORESPURT,
+        type: ANGRE_BEKREFT_SYKMELDING_FORESPURT,
         sykmeldingId,
     };
 }
 
 export function setOpplysningeneErRiktige(sykmeldingId, erRiktige) {
     return {
-        type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
+        type: SET_OPPLYSNINGENE_ER_RIKTIGE,
         sykmeldingId,
         erRiktige,
     };
@@ -145,7 +168,7 @@ export function setOpplysningeneErRiktige(sykmeldingId, erRiktige) {
 
 export function setFeilaktigOpplysning(sykmeldingId, opplysning, erFeilaktig) {
     return {
-        type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
+        type: SET_FEILAKTIG_OPPLYSNING,
         opplysning,
         erFeilaktig,
         sykmeldingId,
@@ -154,7 +177,7 @@ export function setFeilaktigOpplysning(sykmeldingId, opplysning, erFeilaktig) {
 
 export function bekreftSykmelding(sykmeldingId, verdier = {}) {
     return {
-        type: actiontyper.BEKREFT_SYKMELDING_FORESPURT,
+        type: BEKREFT_SYKMELDING_FORESPURT,
         sykmeldingId,
         verdier,
     };
@@ -162,7 +185,7 @@ export function bekreftSykmelding(sykmeldingId, verdier = {}) {
 
 export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true) {
     return {
-        type: actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
+        type: SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
         sykmeldingId,
         orgnummer,
         feilaktigeOpplysninger,

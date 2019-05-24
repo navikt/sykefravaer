@@ -1,22 +1,17 @@
-import { call, put, fork, takeEvery, select, all } from 'redux-saga/effects';
+import { all, call, fork, put, select, takeEvery } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
-import * as actions from '../sykeforloep/sykeforloep_actions';
-import {
-    HENT_SYKEFORLOEP_METADATA_FORESPURT,
-    SYKMELDING_AVBRUTT,
-    SYKMELDING_BEKREFTET,
-    SYKMELDING_SENDT,
-} from '../actiontyper';
 import { skalHenteSykeforloepMetadata } from './sykeforloepMetadataSelectors';
+import { SYKMELDING_AVBRUTT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
+import { henterSykeforloepMetadata, hentSykeforloepMetadataFeilet, sykeforloepMetadataHentet, HENT_SYKEFORLOEP_METADATA_FORESPURT } from './sykeforloepMetadata_actions';
 
 export function* oppdaterSykeforloepMetadata() {
-    yield put(actions.henterSykeforloepMetadata());
+    yield put(henterSykeforloepMetadata());
     try {
         const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykeforloep/metadata`);
-        yield put(actions.sykeforloepMetadataHentet(data));
+        yield put(sykeforloepMetadataHentet(data));
     } catch (e) {
         log(e);
-        yield put(actions.hentSykeforloepMetadataFeilet());
+        yield put(hentSykeforloepMetadataFeilet());
     }
 }
 

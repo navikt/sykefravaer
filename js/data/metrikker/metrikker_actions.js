@@ -1,5 +1,6 @@
-import { EVENT_REGISTRERT } from '../actiontyper';
 import { UTFYLLING_STARTET } from '../../enums/metrikkerEnums';
+
+export const EVENT_REGISTRERT = 'EVENT_REGISTRERT';
 
 const eventRegistrert = (eventtype, ressursId) => {
     return {

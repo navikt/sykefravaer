@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import * as actions from './reduxFormMeta_actions';
 import reduxFormMeta from './reduxFormMeta';
 
-describe('reduxFormMeta', () => {
+describe.only('reduxFormMeta', () => {
     it('Returnerer initielt et tomt objekt', () => {
         expect(reduxFormMeta()).to.deep.equal({});
     });

@@ -1,7 +1,6 @@
-import { call, put, fork, takeEvery } from 'redux-saga/effects';
+import { call, fork, put, takeEvery } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './vedlikehold_actions';
-import * as actiontyper from '../actiontyper';
 
 export function* hentVedlikehold() {
     yield put(actions.henterVedlikehold());
@@ -15,7 +14,7 @@ export function* hentVedlikehold() {
 }
 
 function* watchHentVedlikehold() {
-    yield takeEvery(actiontyper.HENT_VEDLIKEHOLD_FORESPURT, hentVedlikehold);
+    yield takeEvery(actions.HENT_VEDLIKEHOLD_FORESPURT, hentVedlikehold);
 }
 
 export default function* vedlikeholdSagas() {

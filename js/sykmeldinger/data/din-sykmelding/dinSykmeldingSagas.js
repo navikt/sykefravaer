@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import { post, log, arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldingId}/kvittering`);

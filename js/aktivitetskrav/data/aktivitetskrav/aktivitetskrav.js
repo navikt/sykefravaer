@@ -1,4 +1,4 @@
-import { BEKREFTER_AKTIVITETSKRAV, AKTIVITETSKRAV_BEKREFTET, BEKREFT_AKTIVITETSKRAV_FEILET } from '../../../actions/actiontyper';
+import { BEKREFTER_AKTIVITETSKRAV, AKTIVITETSKRAV_BEKREFTET, BEKREFT_AKTIVITETSKRAV_FEILET } from '../../../data/actiontyper';
 
 const initState = {
     bekrefter: false,

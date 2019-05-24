@@ -16,8 +16,3 @@ export const sykmeldingHarBehandletSoknad = (state, sykmeldingId) => {
     }).length > 0;
 };
 
-export const hentSoknad = (state, soknad) => {
-    return state.soknader.data.find((s) => {
-        return s.id === soknad.id;
-    });
-};

@@ -3,7 +3,7 @@ import { call, put } from 'redux-saga/effects';
 import {
     oppdaterSoknader,
 } from './soknaderSagas';
-import { get } from '../../../gateway-api/index';
+import { get } from '../../../data/gateway-api/index';
 import * as actions from './soknaderActions';
 import mockSoknader from '../../../../test/mock/mockSoknadSelvstendig';
 

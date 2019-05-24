@@ -3,7 +3,7 @@ import deepFreeze from 'deep-freeze';
 
 import arbeidsgivere from './arbeidsgivere';
 import { aktuelleArbeidsgivereHentet, hentAktuelleArbeidsgivereFeilet, henterAktuelleArbeidsgivere } from './arbeidsgivereActions';
-import { setErUtlogget } from '../../../actions/brukerinfo_actions';
+import { setErUtlogget } from '../../../data/brukerinfo/brukerinfo_actions';
 
 describe('arbeidsgivere', () => {
     it('håndterer HENTER_AKTUELLE_ARBEIDSGIVERE', () => {

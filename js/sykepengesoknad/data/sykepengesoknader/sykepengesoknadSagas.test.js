@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import {
     oppdaterSykepengesoknader,
 } from './sykepengesoknadSagas';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 describe('sykepengersoknadSagas', () => {
     let clock;

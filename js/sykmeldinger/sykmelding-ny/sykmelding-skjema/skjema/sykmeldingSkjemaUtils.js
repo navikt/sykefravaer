@@ -2,7 +2,7 @@ import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnu
 import { ANNEN_ARBEIDSGIVER_ORGNUMMER, sykmeldingskjemamodi as modi } from '../../../enums/sykmeldingskjemaenums';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 import * as sykmeldingSelectors from '../../../data/sykmelding-meta/sykmeldingMetaSelectors';
-import { hentSkjemaVerdier } from '../../../../selectors/reduxFormSelectors';
+import { hentSkjemaVerdier } from '../../../../data/redux-form/reduxFormSelectors';
 
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;

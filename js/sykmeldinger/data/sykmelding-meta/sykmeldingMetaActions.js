@@ -1,4 +1,4 @@
-import { HENT_VENTETID_FORESPURT, HENTER_VENTETID, VENTETID_HENTET, HENT_VENTETID_FEILET, SKAL_OPPRETTE_SOKNAD_HENTET } from '../../../actions/actiontyper';
+import { HENT_VENTETID_FORESPURT, HENTER_VENTETID, VENTETID_HENTET, HENT_VENTETID_FEILET, SKAL_OPPRETTE_SOKNAD_HENTET } from '../../../data/actiontyper';
 
 export const hentVentetid = (sykmeldingId) => {
     return {

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import CheckboxSelvstendig from '../../components/skjema/CheckboxSelvstendig';
 import { bekreftAktivitetskrav } from '../data/aktivitetskrav/aktivitetskravActions';
 import Feilstripe from '../../components/Feilstripe';
-import { selectLedeteksterData } from '../../selectors/ledeteksterSelectors';
+import { selectLedeteksterData } from '../../data/ledetekster/ledeteksterSelectors';
 
 const Aktivitetskrav = (props) => {
     const { handleSubmit, ledetekster, dispatch, bekrefter, bekreftFeilet } = props;

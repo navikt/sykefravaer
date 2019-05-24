@@ -3,7 +3,7 @@ import { get, post } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { hentLedere, avkreftLeder } from './ledereSagas';
 import * as actions from './ledereActions';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 describe('ledereSagas', () => {
     describe('hentLedere', () => {

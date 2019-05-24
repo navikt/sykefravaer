@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { hentMote } from '../../actions/moter_actions';
+import { hentMote } from '../../data/moter/mote_actions';
 import { hentOppfolgingsdialoger } from '../../oppfolgingsdialogNpm/oppfolgingsdialoger_actions';
 import Landingsside from '../landingsside/Landingsside';
 import SideStrippet from '../../sider/SideStrippet';
@@ -15,20 +15,20 @@ import { brodsmule as brodsmulePt } from '../../propTypes/index';
 import { hentSykepengesoknader } from '../../sykepengesoknad/data/sykepengesoknader/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../data/ledere/ledereActions';
-import { hentMotebehov } from '../../actions/motebehov_actions';
-import { hentSykeforloep, hentSykeforloepMetadata } from '../../actions/sykeforloep_actions';
+import { hentMotebehov } from '../../data/motebehov/motebehov_actions';
+import { hentSykeforloep, hentSykeforloepMetadata } from '../../data/sykeforloep/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import { skalViseMotebehovMedOppfolgingsforlopListe } from '../../utils/motebehovUtils';
 import { hentSoknader } from '../../sykepengesoknad/data/soknader/soknaderActions';
-import { hentOppfolgingsforlopsPerioder } from '../../actions/oppfolgingsforlopsPerioder_actions';
-import { hentSykmeldtinfodata, hentOppfolging } from '../../actions/brukerinfo_actions';
+import { hentOppfolgingsforlopsPerioder } from '../../data/oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
+import { hentSykmeldtinfodata, hentOppfolging } from '../../data/brukerinfo/brukerinfo_actions';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
     finnVirksomheterMedAktivSykmelding,
     forsoektHentetOppfolgingsPerioder,
 } from '../../utils/oppfolgingsforlopsperioderUtils';
-import { REDIRECT_ETTER_LOGIN } from '../../gateway-api/gatewayApi';
+import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 

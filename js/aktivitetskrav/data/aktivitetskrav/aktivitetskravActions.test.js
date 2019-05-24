@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import * as actions from './aktivitetskravActions';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 describe('aktivitetskrav_actions', () => {
     it('Skal ha en bekreftAktivitetskrav()-funksjon som returnerer riktig action', () => {

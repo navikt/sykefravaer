@@ -1,7 +1,7 @@
 import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './hendelserActions';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 export function* hentHendelser() {
     yield put(actions.henterHendelser());

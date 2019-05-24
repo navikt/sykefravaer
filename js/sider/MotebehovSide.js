@@ -14,8 +14,8 @@ import {
 } from '../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../landingsside/data/ledere/ledereActions';
-import { hentMotebehov, svarMotebehov } from '../actions/motebehov_actions';
-import { hentOppfolgingsforlopsPerioder } from '../actions/oppfolgingsforlopsPerioder_actions';
+import { hentMotebehov, svarMotebehov } from '../data/motebehov/motebehov_actions';
+import { hentOppfolgingsforlopsPerioder } from '../data/oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
@@ -25,7 +25,7 @@ import {
     hentOppfolgingsPerioderFeilet,
 } from '../utils/oppfolgingsforlopsperioderUtils';
 import { finnVirksomhetnrListeMedSkalViseMotebehov, harSvarMotebehovFeilet, skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
-import { selectLedeteksterData } from '../selectors/ledeteksterSelectors';
+import { selectLedeteksterData } from '../data/ledetekster/ledeteksterSelectors';
 
 class Container extends Component {
     componentDidMount() {

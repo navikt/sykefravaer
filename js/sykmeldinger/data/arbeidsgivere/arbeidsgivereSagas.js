@@ -1,7 +1,7 @@
 import { call, put, fork, takeEvery, select } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './arbeidsgivereActions';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 export const skalHenteArbeidsgivere = (state, sykmeldingId) => {
     return state.arbeidsgivere.sykmeldingId !== sykmeldingId;

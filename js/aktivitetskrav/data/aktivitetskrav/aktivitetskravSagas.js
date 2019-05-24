@@ -1,7 +1,7 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { post, log } from '@navikt/digisyfo-npm';
 import * as actions from './aktivitetskravActions';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 export function* bekreftAktivitetskrav() {
     yield put(actions.bekrefterAktivitetskrav());

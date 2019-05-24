@@ -1,6 +1,6 @@
 import { get, log } from '@navikt/digisyfo-npm';
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 import * as actions from './arbeidsgiversSykmeldingerActions';
 
 export function* hentArbeidsgiversSykmeldinger() {

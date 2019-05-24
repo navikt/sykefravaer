@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import * as actions from './ledereActions';
-import * as actiontyper from '../../../actions/actiontyper';
+import * as actiontyper from '../../../data/actiontyper';
 
 describe('ledere_actions', () => {
     it('Har en hentLedere()-funksjon', () => {

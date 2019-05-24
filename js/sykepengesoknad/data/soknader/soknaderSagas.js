@@ -1,11 +1,11 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
-import { get, hentApiUrl } from '../../../gateway-api';
+import { get, hentApiUrl } from '../../../data/gateway-api';
 import * as actions from './soknaderActions';
 import {
     SYKMELDING_BEKREFTET,
     SYKMELDING_SENDT,
-} from '../../../actions/actiontyper';
+} from '../../../data/actiontyper';
 import { soknadrespons } from '../../../../test/mock/mockSoknadSelvstendig';
 import { toggleBrukMockDataSelvstendigSoknad } from '../../../toggles';
 import logger from '../../../logging';

@@ -26,9 +26,9 @@ import SpoersmalForFrilanserOgNaeringsdrivende from '../sporsmal-for-frilansere/
 import { Vis } from '../../../../utils/index';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 import Feilstripe from '../../../../components/Feilstripe';
-import { utfyllingStartet } from '../../../../actions/metrikker_actions';
+import { utfyllingStartet } from '../../../../data/metrikker/metrikker_actions';
 import VelgArbeidssituasjonContainer from '../velg-arbeidssituasjon/VelgArbeidssituasjonContainer';
-import * as brukerinfoSelectors from '../../../../selectors/brukerinfoSelectors';
+import * as brukerinfoSelectors from '../../../../data/brukerinfo/brukerinfoSelectors';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 

@@ -1,8 +1,7 @@
 import { fork, select, takeEvery } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
-import { SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
+import { SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
 import { hentMetrikk } from '../selectors/metrikkerSelectors';
-import { SOKNAD_SENDT } from '../sykepengesoknad/data/soknader/soknaderActiontyper';
 
 const pushToDataLayer = (metrikk) => {
     /* eslint-disable */
@@ -28,8 +27,6 @@ function* watch() {
     yield takeEvery([
         SYKMELDING_SENDT,
         SYKMELDING_BEKREFTET,
-        SYKEPENGESOKNAD_SENDT,
-        SOKNAD_SENDT,
     ], lagreMetrikk);
 }
 

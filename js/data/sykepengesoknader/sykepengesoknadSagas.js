@@ -1,8 +1,8 @@
 import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './sykepengesoknader_actions';
-import * as actiontyper from '../../../data/actiontyper';
-import logger from '../../../logging';
+import * as actiontyper from '../actiontyper';
+import logger from '../../logging';
 import { skalHenteSykepengesoknader } from './sykepengesoknaderSelectors';
 
 export function* oppdaterSykepengesoknader() {

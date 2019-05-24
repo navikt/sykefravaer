@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import soknader from './soknader';
 import * as actions from './soknaderActions';
-import mockSoknader, { soknadrespons } from '../../../../test/mock/mockSoknadSelvstendig';
+import mockSoknader, { soknadrespons } from '../../../test/mock/mockSoknadSelvstendig';
 
 describe('soknader', () => {
     let getStateMedDataHentet;

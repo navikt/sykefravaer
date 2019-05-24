@@ -13,7 +13,7 @@ import rootSaga from './data/rootSaga';
 import '../styles/styles.less';
 import './logging';
 import { hentUnleashToggles } from './data/unleash-toggles/unleashToggles_actions';
-import { hentSoknader } from './sykepengesoknad/data/soknader/soknaderActions';
+import { hentSoknader } from './data/soknader/soknaderActions';
 import setPerformOnOppDialogHttpCalls from './oppfolgingsdialogNpm/setPerformOnOppDialogHttpCalls';
 import reducers from './data/reducers';
 

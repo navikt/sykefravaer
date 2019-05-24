@@ -3,9 +3,9 @@ import { call, put } from 'redux-saga/effects';
 import {
     oppdaterSoknader,
 } from './soknaderSagas';
-import { get } from '../../../data/gateway-api/index';
+import { get } from '../gateway-api/index';
 import * as actions from './soknaderActions';
-import mockSoknader from '../../../../test/mock/mockSoknadSelvstendig';
+import mockSoknader from '../../../test/mock/mockSoknadSelvstendig';
 
 describe('soknaderSagas', () => {
     describe('Henting av søknader når det er togglet på', () => {

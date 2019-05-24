@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import * as actiontyper from '../../../data/actiontyper';
+import * as actiontyper from '../actiontyper';
 import sykepengesoknader, {
     finnSoknad,
 } from './sykepengesoknader';

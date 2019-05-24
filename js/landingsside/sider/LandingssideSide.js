@@ -12,14 +12,14 @@ import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
-import { hentSykepengesoknader } from '../../sykepengesoknad/data/sykepengesoknader/sykepengesoknader_actions';
+import { hentSykepengesoknader } from '../../data/sykepengesoknader/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../data/ledere/ledereActions';
 import { hentMotebehov } from '../../data/motebehov/motebehov_actions';
 import { hentSykeforloep, hentSykeforloepMetadata } from '../../data/sykeforloep/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import { skalViseMotebehovMedOppfolgingsforlopListe } from '../../utils/motebehovUtils';
-import { hentSoknader } from '../../sykepengesoknad/data/soknader/soknaderActions';
+import { hentSoknader } from '../../data/soknader/soknaderActions';
 import { hentOppfolgingsforlopsPerioder } from '../../data/oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
 import { hentSykmeldtinfodata, hentOppfolging } from '../../data/brukerinfo/brukerinfo_actions';
 import {

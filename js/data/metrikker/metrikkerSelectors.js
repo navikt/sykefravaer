@@ -6,8 +6,8 @@ import {
     TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG,
     TID_INNSENDING_SYKMELDING,
 } from '../../enums/metrikkerEnums';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad/enums/soknadtyper';
-import { SOKNAD_SENDT } from '../../sykepengesoknad/data/soknader/soknaderActiontyper';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { SOKNAD_SENDT } from '../soknader/soknaderActiontyper';
 
 export const hentEvents = (state, ressursId) => {
     return [...state.metrikker.data]

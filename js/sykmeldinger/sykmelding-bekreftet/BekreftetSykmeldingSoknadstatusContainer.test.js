@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import { getNySoknadSelvstendig } from '../../../test/mock/mockSoknadSelvstendig';
 import { Container, mapStateToProps } from './BekreftetSykmeldingSoknadstatusContainer';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
-import { NY } from '../../sykepengesoknad/enums/soknadstatuser';
+import { NY } from '../../enums/soknadstatuser';
 import {
     FlereSoknader,
     KommendeSoknad,

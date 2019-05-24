@@ -6,7 +6,7 @@ import arbeidsgiversSykmeldinger from '../sykmeldinger/data/arbeidsgivers-sykmel
 import brukerinfo from './brukerinfo/brukerinfo';
 import dineSykmeldinger from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldinger';
 import ledere from '../landingsside/data/ledere/ledere';
-import sykepengesoknader from '../sykepengesoknad/data/sykepengesoknader/sykepengesoknader';
+import sykepengesoknader from './sykepengesoknader/sykepengesoknader';
 import vedlikehold from './vedlikehold/vedlikehold';
 import hendelser from '../landingsside/data/hendelser/hendelser';
 import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav/aktivitetskrav';
@@ -15,7 +15,7 @@ import oppfolgingsforlopsPerioder from './oppfolgingsforlopsperioder/oppfolgings
 import sykeforloep from './sykeforloep/sykeforloep';
 import sykeforloepMetadata from './sykeforloep-metadata/sykeforloepMetadata';
 import sykmeldingMeta from '../sykmeldinger/data/sykmelding-meta/sykmeldingMeta';
-import soknader from '../sykepengesoknad/data/soknader/soknader';
+import soknader from './soknader/soknader';
 import unleashToggles from './unleash-toggles/unleashToggles';
 import metrikker from './metrikker/metrikker';
 import mote from './moter/mote';

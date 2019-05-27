@@ -13,7 +13,7 @@ import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Sidetopp from '../components/Sidetopp';
-import { hentSykeforloep as hentSykeforloepAction } from '../actions/sykeforloep_actions';
+import { hentSykeforloep as hentSykeforloepAction } from '../data/sykeforloep/sykeforloep_actions';
 import {
     brodsmule as brodsmulePt,
     tidslinjehendelse,

@@ -1,26 +1,29 @@
-import * as actiontyper from '../../../actions/actiontyper';
+export const HENT_HENDELSER_FORESPURT = 'HENT_HENDELSER_FORESPURT';
+export const HENT_HENDELSER_FEILET = 'HENT_HENDELSER_FEILET';
+export const HENTER_HENDELSER = 'HENTER_HENDELSER';
+export const HENDELSER_HENTET = 'HENDELSER_HENTET';
 
 export function hentHendelser() {
     return {
-        type: actiontyper.HENT_HENDELSER_FORESPURT,
+        type: HENT_HENDELSER_FORESPURT,
     };
 }
 
 export function hentHendelserFeilet() {
     return {
-        type: actiontyper.HENT_HENDELSER_FEILET,
+        type: HENT_HENDELSER_FEILET,
     };
 }
 
 export function henterHendelser() {
     return {
-        type: actiontyper.HENTER_HENDELSER,
+        type: HENTER_HENDELSER,
     };
 }
 
 export function hendelserHentet(data) {
     return {
-        type: actiontyper.HENDELSER_HENTET,
+        type: HENDELSER_HENTET,
         data,
     };
 }

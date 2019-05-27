@@ -4,7 +4,7 @@ import deepFreeze from 'deep-freeze';
 import dineSykmeldinger from './dineSykmeldinger';
 import * as actions from './dineSykmeldingerActions';
 import * as dinSykmeldingActions from '../din-sykmelding/dinSykmeldingActions';
-import * as brukerActions from '../../../actions/brukerinfo_actions';
+import * as brukerActions from '../../../data/brukerinfo/brukerinfo_actions';
 
 
 export function getSykmelding(soknad = {}) {

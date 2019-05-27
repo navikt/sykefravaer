@@ -1,9 +1,16 @@
-import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
-import { post, log, arbeidssituasjoner } from '@navikt/digisyfo-npm';
+import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
-import * as actiontyper from '../../../actions/actiontyper';
+
+const {
+    ANGRE_BEKREFT_SYKMELDING_FORESPURT,
+    GJENAAPNE_SYKMELDING_FORESPURT,
+    AVBRYT_SYKMELDING_FORESPURT,
+    SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
+    BEKREFT_SYKMELDING_FORESPURT,
+} = actions;
 
 const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldingId}/kvittering`);
@@ -99,23 +106,23 @@ export function* angreBekreftSykmelding(action) {
 }
 
 function* watchAngreBekreftSykmelding() {
-    yield takeEvery(actiontyper.ANGRE_BEKREFT_SYKMELDING_FORESPURT, angreBekreftSykmelding);
+    yield takeEvery(ANGRE_BEKREFT_SYKMELDING_FORESPURT, angreBekreftSykmelding);
 }
 
 function* watchAvbrytSykmelding() {
-    yield takeEvery(actiontyper.AVBRYT_SYKMELDING_FORESPURT, avbrytSykmelding);
+    yield takeEvery(AVBRYT_SYKMELDING_FORESPURT, avbrytSykmelding);
 }
 
 function* watchGjenaapneSykmelding() {
-    yield takeEvery(actiontyper.GJENAAPNE_SYKMELDING_FORESPURT, gjenaapneSykmelding);
+    yield takeEvery(GJENAAPNE_SYKMELDING_FORESPURT, gjenaapneSykmelding);
 }
 
 function* watchSendSykmelding() {
-    yield takeEvery(actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT, sendSykmeldingTilArbeidsgiver);
+    yield takeEvery(SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT, sendSykmeldingTilArbeidsgiver);
 }
 
 function* watchBekreftSykmelding() {
-    yield takeEvery(actiontyper.BEKREFT_SYKMELDING_FORESPURT, bekreftSykmelding);
+    yield takeEvery(BEKREFT_SYKMELDING_FORESPURT, bekreftSykmelding);
 }
 
 export default function* dinSykmeldingSagas() {

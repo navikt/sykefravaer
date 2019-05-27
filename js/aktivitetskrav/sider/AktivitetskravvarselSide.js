@@ -11,7 +11,7 @@ import BekreftAktivitetskravSkjema from '../komponenter/BekreftAktivitetskravSkj
 import { AKTIVITETSKRAV_BEKREFTET, AKTIVITETSKRAV_VARSEL } from '../../enums/hendelsetyper';
 import { hentHendelser } from '../../landingsside/data/hendelser/hendelserActions';
 import { Vis } from '../../utils/index';
-import { selectLedeteksterData } from '../../selectors/ledeteksterSelectors';
+import { selectLedeteksterData } from '../../data/ledetekster/ledeteksterSelectors';
 
 export const INGEN_AKTIVITETSKRAVVARSEL = 'INGEN_AKTIVITETSKRAVVARSEL';
 export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';

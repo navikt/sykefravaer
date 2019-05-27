@@ -1,16 +1,17 @@
 import { expect } from 'chai';
 import { get, post } from '@navikt/digisyfo-npm';
-import { put, call } from 'redux-saga/effects';
-import { hentLedere, avkreftLeder } from './ledereSagas';
+import { call, put } from 'redux-saga/effects';
+import { avkreftLeder, hentLedere } from './ledereSagas';
 import * as actions from './ledereActions';
-import * as actiontyper from '../../../actions/actiontyper';
+
+const { HENTER_LEDERE, LEDERE_HENTET } = actions;
 
 describe('ledereSagas', () => {
     describe('hentLedere', () => {
         const generator = hentLedere({});
 
         it('Skal dispatche HENTER_LEDERE', () => {
-            const nextPut = put({ type: actiontyper.HENTER_LEDERE });
+            const nextPut = put({ type: HENTER_LEDERE });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
@@ -21,7 +22,7 @@ describe('ledereSagas', () => {
 
         it('Skal dernest lagre ledere', () => {
             const nextPut = put({
-                type: actiontyper.LEDERE_HENTET,
+                type: LEDERE_HENTET,
                 data: 'mine data',
             });
             expect(generator.next('mine data').value).to.deep.equal(nextPut);

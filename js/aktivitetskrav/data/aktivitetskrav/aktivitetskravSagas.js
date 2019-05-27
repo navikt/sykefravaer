@@ -1,7 +1,8 @@
-import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { post, log } from '@navikt/digisyfo-npm';
+import { call, fork, put, takeEvery } from 'redux-saga/effects';
+import { log, post } from '@navikt/digisyfo-npm';
 import * as actions from './aktivitetskravActions';
-import * as actiontyper from '../../../actions/actiontyper';
+
+const { BEKREFT_AKTIVITETSKRAV_FORESPURT } = actions;
 
 export function* bekreftAktivitetskrav() {
     yield put(actions.bekrefterAktivitetskrav());
@@ -16,7 +17,7 @@ export function* bekreftAktivitetskrav() {
 }
 
 function* watchBekreftAktivitetskrav() {
-    yield takeEvery(actiontyper.BEKREFT_AKTIVITETSKRAV_FORESPURT, bekreftAktivitetskrav);
+    yield takeEvery(BEKREFT_AKTIVITETSKRAV_FORESPURT, bekreftAktivitetskrav);
 }
 
 export default function* aktivitetskravSagas() {

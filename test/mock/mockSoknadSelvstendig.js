@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { parseSoknad } from '../../js/sykepengesoknad/data/soknader/soknader';
+import { parseSoknad } from '../../js/data/soknader/soknader';
 
 export const soknadSelvstendig1 = {
     fom: '2018-05-20',

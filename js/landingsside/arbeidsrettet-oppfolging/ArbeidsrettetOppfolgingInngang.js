@@ -3,7 +3,7 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import * as PT from 'prop-types';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
-import { erTiltakSykmeldteInngangAktivSelector } from '../../selectors/sykeforloepMetadataSelectors';
+import { erTiltakSykmeldteInngangAktivSelector } from '../../data/sykeforloep-metadata/sykeforloepMetadataSelectors';
 
 export const Inngang = () => {
     return (<div className="panel panel--komprimert landingspanel">

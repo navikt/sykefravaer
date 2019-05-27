@@ -17,11 +17,11 @@ import getSykmelding from '../../../../test/mock/mockSykmeldinger';
 import { getParsetSoknad } from '../../../../test/mock/mockSykepengesoknader';
 import FrilanserSoekDigitaltNaa from '../../kvittering/varianter/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../kvittering/varianter/FrilanserSoekDigitaltSenere';
-import { SELVSTENDIGE_OG_FRILANSERE } from '../../../sykepengesoknad/enums/soknadtyper';
+import { SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
 import AnnetArbeidsledigKvittering from '../../kvittering/varianter/AnnetArbeidsledigKvittering';
 import arbeidsgivere from '../../data/arbeidsgivere/arbeidsgivere';
 import { aktuelleArbeidsgivereHentet } from '../../data/arbeidsgivere/arbeidsgivereActions';
-import { FREMTIDIG } from '../../../sykepengesoknad/enums/soknadstatuser';
+import { FREMTIDIG } from '../../../enums/soknadstatuser';
 import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
 
 chai.use(chaiEnzyme());

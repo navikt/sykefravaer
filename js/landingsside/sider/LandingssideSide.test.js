@@ -7,8 +7,8 @@ import sinon from 'sinon';
 import deepFreeze from 'deep-freeze';
 import { Container, mapStateToProps } from './LandingssideSide';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
-import brukerinfo from '../../reducers/brukerinfo';
-import { REDIRECT_ETTER_LOGIN } from '../../gateway-api/gatewayApi';
+import brukerinfo from '../../data/brukerinfo/brukerinfo';
+import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import smSykmeldinger from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());

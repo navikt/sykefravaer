@@ -16,12 +16,12 @@ import Sykmeldingkvittering, { kvitteringtyper } from '../../kvittering/Sykmeldi
 import AppSpinner from '../../../components/AppSpinner';
 import Feilmelding from '../../../components/Feilmelding';
 import { soknadPt, sykmelding as sykmeldingPt } from '../../../propTypes';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../sykepengesoknad/enums/soknadtyper';
-import { harStrengtFortroligAdresseSelector } from '../../../selectors/brukerinfoSelectors';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
+import { harStrengtFortroligAdresseSelector } from '../../../data/brukerinfo/brukerinfoSelectors';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
-import { hentSykepengesoknader } from '../../../sykepengesoknad/data/sykepengesoknader/sykepengesoknader_actions';
-import { hentSoknader } from '../../../sykepengesoknad/data/soknader/soknaderActions';
-import { hentBrukerinfo } from '../../../actions/brukerinfo_actions';
+import { hentSykepengesoknader } from '../../../data/sykepengesoknader/sykepengesoknader_actions';
+import { hentSoknader } from '../../../data/soknader/soknaderActions';
+import { hentBrukerinfo } from '../../../data/brukerinfo/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { selectDinSykmelding } from '../../data/dine-sykmeldinger/dineSykmeldingerSelectors';
 

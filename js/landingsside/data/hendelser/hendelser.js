@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 
-import * as actiontyper from '../../../actions/actiontyper';
-import { createReducer } from '../../../reducers/createReducer';
+import { createReducer } from '../../../data/createReducer';
+import { HENDELSER_HENTET, HENT_HENDELSER_FEILET, HENTER_HENDELSER } from './hendelserActions';
 
 const MER_VEILEDNING = 'MER_VEILEDNING';
 
@@ -13,9 +13,9 @@ const initiellState = {
 };
 
 const hendelser = createReducer(
-    actiontyper.HENT_HENDELSER_FEILET,
-    actiontyper.HENTER_HENDELSER,
-    actiontyper.HENDELSER_HENTET,
+    HENT_HENDELSER_FEILET,
+    HENTER_HENDELSER,
+    HENDELSER_HENTET,
     initiellState,
     (hendelse) => {
         return {

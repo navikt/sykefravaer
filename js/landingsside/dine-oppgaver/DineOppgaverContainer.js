@@ -10,9 +10,9 @@ import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/
 import { hentHendelser } from '../data/hendelser/hendelserActions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../aktivitetskrav/sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
-import { NY } from '../../sykepengesoknad/enums/soknadstatuser';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad/enums/soknadtyper';
-import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
+import { NY } from '../../enums/soknadstatuser';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { toggleNyArbeidstakerSoknad } from '../../data/unleash-toggles/unleashTogglesSelectors';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { erPaaHeroku, getSykepengesoknaderUrl, getSykepengesoknadUrl } from '../../utils/urlUtils';

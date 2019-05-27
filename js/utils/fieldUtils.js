@@ -1,4 +1,4 @@
-import { CHECKED, UNCHECKED } from '../sykepengesoknad/enums/svarEnums';
+import { CHECKED, UNCHECKED } from '../enums/svarEnums';
 
 export const genererParseForEnkeltverdi = () => {
     return (verdi) => {

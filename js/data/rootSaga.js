@@ -17,7 +17,7 @@ import moteSagas from './moter/moteSagas';
 import motebehovSagas from './motebehov/motebehovSagas';
 import svarSagas from './svar/svarSagas';
 import hendelserSagas from '../landingsside/data/hendelser/hendelserSagas';
-import aktivitetskravSagas from '../aktivitetskrav/data/aktivitetskrav/aktivitetskravSagas';
+import aktivitetskravSagas from '../aktivitetskrav/data/aktivitetskravSagas';
 import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsperioder/oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloep/sykeforloepSagas';
 import sykmeldingMetaSagas from '../sykmeldinger/data/sykmelding-meta/sykmeldingMetaSagas';

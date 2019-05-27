@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import CheckboxSelvstendig from '../../components/skjema/CheckboxSelvstendig';
-import { bekreftAktivitetskrav } from '../data/aktivitetskrav/aktivitetskravActions';
+import { bekreftAktivitetskrav } from '../data/aktivitetskravActions';
 import Feilstripe from '../../components/Feilstripe';
 import { selectLedeteksterData } from '../../data/ledetekster/ledeteksterSelectors';
 

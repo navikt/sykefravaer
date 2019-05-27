@@ -1,7 +1,7 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './hendelserActions';
-import { AKTIVITETSKRAV_BEKREFTET } from '../../../aktivitetskrav/data/aktivitetskrav/aktivitetskravActions';
+import { AKTIVITETSKRAV_BEKREFTET } from '../../../aktivitetskrav/data/aktivitetskravActions';
 
 export function* hentHendelser() {
     yield put(actions.henterHendelser());

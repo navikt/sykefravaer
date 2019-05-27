@@ -9,7 +9,7 @@ import ledere from '../landingsside/data/ledere/ledere';
 import sykepengesoknader from './sykepengesoknader/sykepengesoknader';
 import vedlikehold from './vedlikehold/vedlikehold';
 import hendelser from '../landingsside/data/hendelser/hendelser';
-import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav/aktivitetskrav';
+import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav';
 import reduxFormMeta from './redux-form-meta/reduxFormMeta';
 import oppfolgingsforlopsPerioder from './oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder';
 import sykeforloep from './sykeforloep/sykeforloep';

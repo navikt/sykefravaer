@@ -1,8 +1,57 @@
-import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/digisyfo-npm';
-import { validerPerioder } from '../../../../sykepengesoknad-gammel-plattform/utils/valideringUtils';
+import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums, fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
 import { harValgtArbeidsgiverMedNaermesteLeder } from '../velg-arbeidssituasjon/VelgArbeidssituasjon';
+import validerPeriode from '../../../../components/skjema/periodevelger/validerPeriode';
 
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
+
+export const validerDatoerIPerioder = (perioder, alternativer) => {
+    return perioder.map((periode) => {
+        const feil = {};
+        if (!periode.fom) {
+            feil.fom = 'Vennligst fyll ut dato';
+        }
+        if (!periode.tom) {
+            feil.tom = 'Vennligst fyll ut dato';
+        }
+        if (feil.tom || feil.fom) {
+            return feil;
+        }
+        const fom = fraInputdatoTilJSDato(periode.fom);
+        const tom = fraInputdatoTilJSDato(periode.tom);
+        if (fom.getTime() > tom.getTime()) {
+            feil.tom = 'Sluttdato må være etter startdato';
+            return feil;
+        }
+        if (alternativer) {
+            const fomFeil = validerPeriode(periode.fom, alternativer);
+            const tomFeil = validerPeriode(periode.tom, alternativer);
+            if (fomFeil) {
+                feil.fom = fomFeil;
+            }
+            if (tomFeil) {
+                feil.tom = tomFeil;
+            }
+            if (feil.fom || feil.tom) {
+                return feil;
+            }
+        }
+        return undefined;
+    });
+};
+
+export const validerPerioder = (perioder, alternativer) => {
+    if (!perioder) {
+        return null;
+    }
+    const datofeil = validerDatoerIPerioder(perioder, alternativer);
+    const faktiskeDatofeil = datofeil.filter((feil) => {
+        return feil !== undefined;
+    });
+    if (faktiskeDatofeil.length > 0) {
+        return datofeil;
+    }
+    return null;
+};
 
 const validerFrilansersporsmal = (values) => {
     const feil = {};

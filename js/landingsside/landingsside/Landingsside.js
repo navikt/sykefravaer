@@ -13,7 +13,7 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Vis } from '../../utils/index';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
-import { toggleErPaaHeroku } from '../../toggles';
+import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
 
 const IngenSykmeldinger = () => {
@@ -50,7 +50,8 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     hvis={harSykepengesoknader}
                     render={() => {
                         return (<Peker
-                            to={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`}
+                            ekstern
+                            to={getSykepengesoknaderUrl()}
                             ikon="soknader"
                             ikonAlt="Søknader"
                             tittel="Søknader om sykepenger" />);
@@ -69,10 +70,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     render={() => {
                         return (<Peker
                             ekstern
-                            to={toggleErPaaHeroku()
-                                ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
-                                : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`
-                            }
+                            to={getOppfolgingsplanerUrl()}
                             ikon="oppfolgingsplaner"
                             ikonAlt="Oppfølgingsplaner"
                             tittel="Oppfølgingsplaner"

@@ -1,22 +1,25 @@
-import * as actiontyper from '../../../actions/actiontyper';
+export const HENT_AKTUELLE_ARBEIDSGIVERE_FEILET = 'HENT_AKTUELLE_ARBEIDSGIVERE_FEILET';
+export const HENTER_AKTUELLE_ARBEIDSGIVERE = 'HENTER_AKTUELLE_ARBEIDSGIVERE';
+export const AKTUELLE_ARBEIDSGIVERE_HENTET = 'AKTUELLE_ARBEIDSGIVERE_HENTET';
+export const HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT = 'HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT';
 
 export function hentAktuelleArbeidsgivereFeilet(sykmeldingId) {
     return {
-        type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
+        type: HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
         sykmeldingId,
     };
 }
 
 export function henterAktuelleArbeidsgivere(sykmeldingId) {
     return {
-        type: actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE,
+        type: HENTER_AKTUELLE_ARBEIDSGIVERE,
         sykmeldingId,
     };
 }
 
 export function aktuelleArbeidsgivereHentet(sykmeldingId, arbeidsgivere) {
     return {
-        type: actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET,
+        type: AKTUELLE_ARBEIDSGIVERE_HENTET,
         sykmeldingId,
         arbeidsgivere,
     };
@@ -24,7 +27,7 @@ export function aktuelleArbeidsgivereHentet(sykmeldingId, arbeidsgivere) {
 
 export function hentAktuelleArbeidsgivere(sykmeldingId) {
     return {
-        type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
+        type: HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
         sykmeldingId,
     };
 }

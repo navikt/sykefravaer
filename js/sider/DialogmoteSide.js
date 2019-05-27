@@ -18,8 +18,7 @@ import MotePassert from '../components/moter/moteplanlegger/MotePassert';
 import Svarside from '../components/moter/moteplanlegger/Svarside';
 import {
     hentMote,
-    sendSvar,
-} from '../actions/moter_actions';
+} from '../data/moter/mote_actions';
 import {
     AVBRUTT,
     BEKREFTET,
@@ -28,6 +27,7 @@ import {
     getSvarsideModus,
 } from '../utils/moteUtils';
 import { BRUKER } from '../enums/moteplanleggerDeltakerTyper';
+import { sendSvar } from '../data/svar/svar_actions';
 
 export class Container extends Component {
     componentWillMount() {

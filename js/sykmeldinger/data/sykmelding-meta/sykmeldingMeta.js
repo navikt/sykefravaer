@@ -1,10 +1,10 @@
-import * as actiontyper from '../../../actions/actiontyper';
+import { HENT_VENTETID_FEILET, HENTER_VENTETID, SKAL_OPPRETTE_SOKNAD_HENTET, VENTETID_HENTET } from './sykmeldingMetaActions';
 
 const initiellState = {};
 
 export default function ventetid(state = initiellState, action = {}) {
     switch (action.type) {
-        case actiontyper.HENTER_VENTETID: {
+        case HENTER_VENTETID: {
             return {
                 ...state,
                 [action.sykmeldingId]: {
@@ -13,7 +13,7 @@ export default function ventetid(state = initiellState, action = {}) {
                 },
             };
         }
-        case actiontyper.HENT_VENTETID_FEILET: {
+        case HENT_VENTETID_FEILET: {
             return {
                 ...state,
                 [action.sykmeldingId]: {
@@ -23,7 +23,7 @@ export default function ventetid(state = initiellState, action = {}) {
                 },
             };
         }
-        case actiontyper.VENTETID_HENTET: {
+        case VENTETID_HENTET: {
             return {
                 ...state,
                 [action.sykmeldingId]: {
@@ -35,7 +35,7 @@ export default function ventetid(state = initiellState, action = {}) {
                 },
             };
         }
-        case actiontyper.SKAL_OPPRETTE_SOKNAD_HENTET: {
+        case SKAL_OPPRETTE_SOKNAD_HENTET: {
             return {
                 ...state,
                 [action.sykmeldingId]: {

@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import arbeidsgiversSykmeldinger from './arbeidsgiversSykmeldinger';
 import * as arbActions from './arbeidsgiversSykmeldingerActions';
 import * as dsActions from '../din-sykmelding/dinSykmeldingActions';
-import * as brukerActions from '../../../actions/brukerinfo_actions';
+import * as brukerActions from '../../../data/brukerinfo/brukerinfo_actions';
 import { getSykmelding, getParsetSykmelding } from '../dine-sykmeldinger/dineSykmeldinger.test';
 
 describe('arbeidsgiversSykmeldinger', () => {

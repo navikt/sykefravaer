@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 
 import * as actions from './ledereActions';
-import * as actiontyper from '../../../actions/actiontyper';
+
+const { AVKREFT_LEDER_FORESPURT, HENT_LEDERE_FORESPURT } = actions;
 
 describe('ledere_actions', () => {
     it('Har en hentLedere()-funksjon', () => {
         const res = actions.hentLedere();
         expect(res).to.deep.equal({
-            type: actiontyper.HENT_LEDERE_FORESPURT,
+            type: HENT_LEDERE_FORESPURT,
         });
     });
 
@@ -16,7 +17,7 @@ describe('ledere_actions', () => {
         const res = actions.avkreftLeder(orgnummer);
 
         expect(res).to.deep.equal({
-            type: actiontyper.AVKREFT_LEDER_FORESPURT,
+            type: AVKREFT_LEDER_FORESPURT,
             orgnummer,
         });
     });

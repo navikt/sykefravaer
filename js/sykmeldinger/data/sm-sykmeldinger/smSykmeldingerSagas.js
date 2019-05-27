@@ -13,9 +13,9 @@ import {
     bekreftSmSykmeldingKvitteringVistLengeNok,
 } from './smSykmeldingerActions';
 import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
-import { API_NAVN, get, hentSyfoApiUrl, post } from '../../../gateway-api';
-import { toggleNyttSykmeldingsmottak, unleashtogglesHentetSelector } from '../../../selectors/unleashTogglesSelectors';
-import { HENTET_UNLEASH_TOGGLES } from '../../../actions/actiontyper';
+import { API_NAVN, get, hentSyfoApiUrl, post } from '../../../data/gateway-api';
+import { toggleNyttSykmeldingsmottak, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
+import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
 
 export function* oppdaterSmSykmeldinger() {
     const toggle = yield select(toggleNyttSykmeldingsmottak);

@@ -7,15 +7,15 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { forlengInnloggetSesjon, hentLedetekster, setPerformOnHttpCalls, sjekkInnloggingssesjon } from '@navikt/digisyfo-npm';
 import AppRouter from './routers/AppRouter';
-import { hentVedlikehold } from './actions/vedlikehold_actions';
+import { hentVedlikehold } from './data/vedlikehold/vedlikehold_actions';
 import history from './history';
-import rootSaga from './sagas';
+import rootSaga from './data/rootSaga';
 import '../styles/styles.less';
 import './logging';
-import { hentUnleashToggles } from './actions/unleashToggles_actions';
-import { hentSoknader } from './sykepengesoknad/data/soknader/soknaderActions';
+import { hentUnleashToggles } from './data/unleash-toggles/unleashToggles_actions';
+import { hentSoknader } from './data/soknader/soknaderActions';
 import setPerformOnOppDialogHttpCalls from './oppfolgingsdialogNpm/setPerformOnOppDialogHttpCalls';
-import reducers from './reducers';
+import reducers from './data/reducers';
 
 const rootReducer = combineReducers(reducers);
 

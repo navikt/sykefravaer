@@ -9,7 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from '../felles/Soknadsdatoliste';
-import { soknadPt } from '../../../sykepengesoknad/prop-types/soknadProptype';
+import { soknadPt } from '../../../propTypes/soknadProptype';
 import { SOKNAD_SYKEPENGER } from '../../../enums/filmer';
 
 const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, soknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer' }) => {

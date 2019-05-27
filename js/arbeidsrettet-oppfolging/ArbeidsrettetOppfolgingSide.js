@@ -6,8 +6,8 @@ import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from './ArbeidsrettetOppfolging';
 import Side from '../sider/SideStrippet';
-import { hentOppfolging, hentSykmeldtinfodata } from '../actions/brukerinfo_actions';
-import { selectLedeteksterHenter, selectLedeteksterHentingFeilet } from '../selectors/ledeteksterSelectors';
+import { hentOppfolging, hentSykmeldtinfodata } from '../data/brukerinfo/brukerinfo_actions';
+import { selectLedeteksterHenter, selectLedeteksterHentingFeilet } from '../data/ledetekster/ledeteksterSelectors';
 import {
     selectOppfolgingErUnderOppfolging,
     selectOppfolgingHenter,
@@ -15,7 +15,7 @@ import {
     selectSykmeldtinfodataHenter,
     selectSykmeldtinfodataHentingFeilet,
     selectSykmeldtinfodataMaksdatoString,
-} from '../reducers/brukerinfo';
+} from '../data/brukerinfo/brukerinfo';
 
 class ArbeidsrettetOppfolgingSide extends Component {
     componentDidMount() {

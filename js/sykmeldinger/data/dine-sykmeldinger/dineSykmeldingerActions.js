@@ -1,27 +1,31 @@
-import * as actiontyper from '../../../actions/actiontyper';
+export const HENTER_DINE_SYKMELDINGER = 'HENTER_DINE_SYKMELDINGER';
+export const HENT_DINE_SYKMELDINGER_FEILET = 'HENT_DINE_SYKMELDINGER_FEILET';
+export const SET_DINE_SYKMELDINGER = 'SET_DINE_SYKMELDINGER';
+export const SET_SORTERING = 'SET_SORTERING';
+export const HENT_DINE_SYKMELDINGER_FORESPURT = 'HENT_DINE_SYKMELDINGER_FORESPURT';
 
 export function henterDineSykmeldinger() {
     return {
-        type: actiontyper.HENTER_DINE_SYKMELDINGER,
+        type: HENTER_DINE_SYKMELDINGER,
     };
 }
 
 export function hentDineSykmeldingerFeilet() {
     return {
-        type: actiontyper.HENT_DINE_SYKMELDINGER_FEILET,
+        type: HENT_DINE_SYKMELDINGER_FEILET,
     };
 }
 
 export function setDineSykmeldinger(sykmeldinger = []) {
     return {
-        type: actiontyper.SET_DINE_SYKMELDINGER,
+        type: SET_DINE_SYKMELDINGER,
         sykmeldinger,
     };
 }
 
 export function sorterSykmeldinger(kriterium, status) {
     return {
-        type: actiontyper.SET_SORTERING,
+        type: SET_SORTERING,
         kriterium,
         status,
     };
@@ -29,6 +33,6 @@ export function sorterSykmeldinger(kriterium, status) {
 
 export function hentDineSykmeldinger() {
     return {
-        type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
+        type: HENT_DINE_SYKMELDINGER_FORESPURT,
     };
 }

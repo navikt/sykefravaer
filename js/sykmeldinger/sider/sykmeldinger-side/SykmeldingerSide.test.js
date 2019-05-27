@@ -8,7 +8,7 @@ import AppSpinner from '../../../components/AppSpinner';
 import Feilmelding from '../../../components/Feilmelding';
 import Sykmeldinger from '../../sykmeldinger/Sykmeldinger';
 import smSykmeldinger from '../../data/sm-sykmeldinger/smSykmeldinger';
-import unleashToggles from '../../../reducers/unleashToggles';
+import unleashToggles from '../../../data/unleash-toggles/unleashToggles';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -2,8 +2,8 @@ import smSykmeldinger from './smSykmeldinger';
 import { skalHenteSmSykmeldingerSelector, avvisteSmSykmeldingerDataSelector } from './smSykmeldingerSelectors';
 import expect from '../../../../test/expect';
 import { henterSmSykmeldinger, smSykmeldingerHentet } from './smSykmeldingerActions';
-import unleashToggles from '../../../reducers/unleashToggles';
-import { unleashTogglesHentet } from '../../../actions/unleashToggles_actions';
+import unleashToggles from '../../../data/unleash-toggles/unleashToggles';
+import { unleashTogglesHentet } from '../../../data/unleash-toggles/unleashToggles_actions';
 import { NYTT_SYKMELDINGSMOTTAK } from '../../../enums/unleashToggles';
 
 describe('smSykmeldingerSelectors', () => {

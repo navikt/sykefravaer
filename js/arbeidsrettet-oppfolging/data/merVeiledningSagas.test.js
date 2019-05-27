@@ -3,7 +3,7 @@ import { all, call, put } from 'redux-saga/effects';
 import * as actions from './merVeiledningActions';
 import * as hendelseActions from '../../landingsside/data/hendelser/hendelserActions';
 import { bekreftMerVeiledning, lagUrl } from './merVeiledningSagas';
-import { post } from '../../gateway-api/index';
+import { post } from '../../data/gateway-api/index';
 
 describe('merVeiledning', () => {
     const callback = () => {};

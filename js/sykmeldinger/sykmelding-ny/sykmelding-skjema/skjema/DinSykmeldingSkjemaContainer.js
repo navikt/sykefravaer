@@ -7,16 +7,16 @@ import { datoMedKlokkeslett } from '../../../../utils/datoUtils';
 import AppSpinner from '../../../../components/AppSpinner';
 import Feilmelding from '../../../../components/Feilmelding';
 import { hentAktuelleArbeidsgivere } from '../../../data/arbeidsgivere/arbeidsgivereActions';
-import { hentBrukerinfo } from '../../../../actions/brukerinfo_actions';
+import { hentBrukerinfo } from '../../../../data/brukerinfo/brukerinfo_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../../data/arbeidsgivers-sykmeldinger/arbeidsgiversSykmeldingerActions';
 import { hentVentetid } from '../../../data/sykmelding-meta/sykmeldingMetaActions';
 import { skalViseFrilansersporsmal } from './sykmeldingSkjemaUtils';
-import { hentSykeforloep } from '../../../../actions/sykeforloep_actions';
+import { hentSykeforloep } from '../../../../data/sykeforloep/sykeforloep_actions';
 import * as sykmeldingSelectors from '../../../data/sykmelding-meta/sykmeldingMetaSelectors';
-import * as brukerinfoSelectors from '../../../../selectors/brukerinfoSelectors';
+import * as brukerinfoSelectors from '../../../../data/brukerinfo/brukerinfoSelectors';
 import * as arbeidsgivereSelectors from '../../../data/arbeidsgivere/arbeidsgivereSelectors';
 import * as arbeidsgiversSykmeldingerSelectors from '../../../data/arbeidsgivers-sykmeldinger/arbeidsgiversSykmeldingerSelectors';
-import * as sykeforloepSelectors from '../../../../selectors/sykeforloepSelectors';
+import * as sykeforloepSelectors from '../../../../data/sykeforloep/sykeforloepSelectors';
 
 export class Skjemalaster extends Component {
     componentDidMount() {

@@ -1,4 +1,4 @@
-import { createReducer } from '../../../reducers/createReducer';
+import { createReducer } from '../../../data/createReducer';
 import {
     HENTER_SM_SYKMELDINGER,
     HENT_SM_SYKMELDINGER_FEILET,

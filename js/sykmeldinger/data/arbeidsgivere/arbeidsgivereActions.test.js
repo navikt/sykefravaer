@@ -1,7 +1,13 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from './arbeidsgivereActions';
-import * as actiontyper from '../../../actions/actiontyper';
+
+const {
+    HENTER_AKTUELLE_ARBEIDSGIVERE,
+    HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
+    AKTUELLE_ARBEIDSGIVERE_HENTET,
+    HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
+} = actions;
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -17,7 +23,7 @@ describe('dineArbeidsgivere_actions', () => {
     it('Skal ha en hentAktuelleArbeidsgivere(sykmeldingId, dato)-funksjon som returnerer en funksjon', () => {
         const action = actions.hentAktuelleArbeidsgivere('455');
         expect(action).to.deep.equal({
-            type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
+            type: HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
             sykmeldingId: '455',
         });
     });
@@ -26,7 +32,7 @@ describe('dineArbeidsgivere_actions', () => {
         const sykmeldingId = 'olsen';
         const resultat = actions.henterAktuelleArbeidsgivere(sykmeldingId);
         expect(resultat).to.deep.equal({
-            type: actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE,
+            type: HENTER_AKTUELLE_ARBEIDSGIVERE,
             sykmeldingId: 'olsen',
         });
     });
@@ -35,7 +41,7 @@ describe('dineArbeidsgivere_actions', () => {
         const sykmeldingId = 'olsen';
         const resultat = actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId);
         expect(resultat).to.deep.equal({
-            type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
+            type: HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
             sykmeldingId: 'olsen',
         });
     });
@@ -54,7 +60,7 @@ describe('dineArbeidsgivere_actions', () => {
         }];
         const resultat = actions.aktuelleArbeidsgivereHentet(sykmeldingId, arbeidsgivere);
         expect(resultat).to.deep.equal({
-            type: actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET,
+            type: AKTUELLE_ARBEIDSGIVERE_HENTET,
             sykmeldingId: 'olsen',
             arbeidsgivere: [{
                 orgnr: 12345678,

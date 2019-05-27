@@ -10,11 +10,9 @@ import SykmeldingKvitteringContainer from '../sykmeldinger/sider/kvittering-side
 import DialogmoterContainer from '../sider/DialogmoterSide';
 import MotebehovContainer from '../sider/MotebehovSide';
 import DialogmoteSide from '../sider/DialogmoteSide';
-import SoknaderSide from '../sykepengesoknad-gammel-plattform/sider/SoknaderSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
-import SykepengesoknadContainer from '../sykepengesoknad/sider/SoknadSide';
-import SykepengesoknadUtlandContainer from '../sykepengesoknad/soknad-utland/for-du-begynner/FoerDuBegynnerUtlandContainer';
 import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
+import Redirectside from '../sider/Redirectside';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -25,16 +23,15 @@ const AppRouter = ({ history }) => {
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId`} component={DinSykmeldingContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId/skriv-ut`} component={SykmeldingSkrivUtSide} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId/kvittering`} component={SykmeldingKvitteringContainer} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`} component={SoknaderSide} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId`} component={SykepengesoknadContainer} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:sykepengesoknadId/:steg`} component={SykepengesoknadContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} component={DialogmoteSide} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter`} component={DialogmoterContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`} component={MotebehovContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/mote`} component={DialogmoteSide} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt`} component={AktivitetskravvarselSide} />
-        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykepengesoknad-utland`} component={SykepengesoknadUtlandContainer} />
         <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} component={InfoSideFO} />
+        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykepengesoknad-utland`} component={Redirectside} />
+        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader/:soknadId`} component={Redirectside} />
+        <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`} component={Redirectside} />
         <Route path="*" component={LandingssideSide} />
     </Router>);
 };

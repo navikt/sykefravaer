@@ -10,12 +10,12 @@ import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/
 import { hentHendelser } from '../data/hendelser/hendelserActions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../aktivitetskrav/sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
-import { NY } from '../../sykepengesoknad/enums/soknadstatuser';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../sykepengesoknad/enums/soknadtyper';
-import { toggleNyArbeidstakerSoknad } from '../../selectors/unleashTogglesSelectors';
+import { NY } from '../../enums/soknadstatuser';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { toggleNyArbeidstakerSoknad } from '../../data/unleash-toggles/unleashTogglesSelectors';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
-import { toggleErPaaHeroku } from '../../toggles';
+import { erPaaHeroku, getSykepengesoknaderUrl, getSykepengesoknadUrl } from '../../utils/urlUtils';
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
@@ -45,10 +45,14 @@ export const EksternLi = ({ tekst, url }) => {
 EksternLi.propTypes = Li.propTypes;
 
 export const NySykmelding = ({ sykmeldinger }) => {
-    const url = sykmeldinger.length === 1 ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}` : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
-    const tekst = sykmeldinger.length === 1 ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding') : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
-        '%ANTALL%': sykmeldinger.length.toString(),
-    });
+    const url = sykmeldinger.length === 1
+        ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}`
+        : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
+    const tekst = sykmeldinger.length === 1
+        ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding')
+        : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
+            '%ANTALL%': sykmeldinger.length.toString(),
+        });
     return (<Li url={url} tekst={tekst} />);
 };
 
@@ -78,11 +82,15 @@ AvvistSmSykmelding.propTypes = {
 
 export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
     const alleSoknader = [...sykepengesoknader, ...soknader];
-    const url = alleSoknader.length === 1 ? `${process.env.REACT_APP_CONTEXT_ROOT}/soknader/${alleSoknader[0].id}` : `${process.env.REACT_APP_CONTEXT_ROOT}/soknader`;
-    const tekst = alleSoknader.length === 1 ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad') : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
-        '%ANTALL%': alleSoknader.length.toString(),
-    });
-    return (<Li url={url} tekst={tekst} />);
+    const url = alleSoknader.length === 1
+        ? getSykepengesoknadUrl(alleSoknader[0].id)
+        : getSykepengesoknaderUrl();
+    const tekst = alleSoknader.length === 1
+        ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad')
+        : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
+            '%ANTALL%': alleSoknader.length.toString(),
+        });
+    return (<EksternLi url={url} tekst={tekst} />);
 };
 
 NySykepengesoknad.propTypes = {
@@ -135,7 +143,7 @@ const RendreOppgaver = (
         return null;
     }
 
-    const OPPFOLGINGSPLANER_URL = toggleErPaaHeroku()
+    const OPPFOLGINGSPLANER_URL = erPaaHeroku()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
         : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 

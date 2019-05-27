@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as hendelsetyper from '../enums/hendelsetyper';
-import { svar } from '../sykepengesoknad/prop-types/svarProptype';
+import { svar } from './svarProptype';
 
 export {
     arbeidssituasjon,

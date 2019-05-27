@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Container, mapStateToProps } from './TidslinjeutdragContainer';
-import brukerinfo from '../../reducers/brukerinfo';
-import unleashToggles from '../../reducers/unleashToggles';
-import { sykmeldtInfodataHentet } from '../../actions/brukerinfo_actions';
+import brukerinfo from '../../data/brukerinfo/brukerinfo';
+import unleashToggles from '../../data/unleash-toggles/unleashToggles';
+import { sykmeldtInfodataHentet } from '../../data/brukerinfo/brukerinfo_actions';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -1,4 +1,9 @@
-import * as actiontyper from '../../../actions/actiontyper';
+import { BRUKER_ER_UTLOGGET } from '../../../data/brukerinfo/brukerinfo_actions';
+import {
+    HENTER_AKTUELLE_ARBEIDSGIVERE,
+    AKTUELLE_ARBEIDSGIVERE_HENTET,
+    HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
+} from './arbeidsgivereActions';
 
 const initiellState = {
     henter: false,
@@ -9,7 +14,7 @@ const initiellState = {
 
 export default function arbeidsgivere(state = initiellState, action = {}) {
     switch (action.type) {
-        case actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET: {
+        case AKTUELLE_ARBEIDSGIVERE_HENTET: {
             return {
                 data: action.arbeidsgivere,
                 hentingFeilet: false,
@@ -17,7 +22,7 @@ export default function arbeidsgivere(state = initiellState, action = {}) {
                 sykmeldingId: action.sykmeldingId,
             };
         }
-        case actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET: {
+        case HENT_AKTUELLE_ARBEIDSGIVERE_FEILET: {
             return {
                 data: [],
                 hentingFeilet: true,
@@ -25,7 +30,7 @@ export default function arbeidsgivere(state = initiellState, action = {}) {
                 sykmeldingId: action.sykmeldingId,
             };
         }
-        case actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE: {
+        case HENTER_AKTUELLE_ARBEIDSGIVERE: {
             return {
                 data: [],
                 hentingFeilet: false,
@@ -33,7 +38,7 @@ export default function arbeidsgivere(state = initiellState, action = {}) {
                 sykmeldingId: action.sykmeldingId,
             };
         }
-        case actiontyper.BRUKER_ER_UTLOGGET: {
+        case BRUKER_ER_UTLOGGET: {
             return {
                 data: [],
                 hentingFeilet: false,

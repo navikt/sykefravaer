@@ -70,3 +70,23 @@ export const SykepengerUtlandSoknadTrigger = ({ children }) => {
 SykepengerUtlandSoknadTrigger.propTypes = {
     children: node,
 };
+
+export const NySykmeldingTrigger = ({ children }) => {
+    return (<HotjarTrigger hotjarTrigger="SYKMELDING_NY">
+        {children}
+    </HotjarTrigger>);
+};
+
+NySykmeldingTrigger.propTypes = {
+    children: node,
+};
+
+export const AvvistSykmeldingTrigger = ({ children }) => {
+    return (<HotjarTrigger hotjarTrigger="SYKMELDING_AVVIST">
+        {children}
+    </HotjarTrigger>);
+};
+
+AvvistSykmeldingTrigger.propTypes = {
+    children: node,
+};

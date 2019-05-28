@@ -5,13 +5,14 @@ import Sidetopp from '../../components/Sidetopp';
 import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import EldreSykmeldingVarsel from '../eldre-sykmelding-varsel/EldreSykmeldingVarsel';
+import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 
 class NySykmelding extends Component {
     render() {
         return (<SykmeldingContext.Consumer>
             {
                 ({ sykmelding }) => {
-                    return (<React.Fragment>
+                    return (<NySykmeldingTrigger>
                         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                         <EldreSykmeldingVarsel sykmelding={sykmelding} />
                         <Bjorn
@@ -54,7 +55,7 @@ class NySykmelding extends Component {
                             className="sykmeldingskjemaRef">
                             <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
                         </div>
-                    </React.Fragment>);
+                    </NySykmeldingTrigger>);
                 }
             }
         </SykmeldingContext.Consumer>);

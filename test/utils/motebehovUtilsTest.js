@@ -237,8 +237,11 @@ describe('motebehovUtils', () => {
     describe('skalViseMotebehovMedOppfolgingsforlopListe', () => {
         let oppfolgingsforlopsPerioderReducer;
         let motebehovReducer;
+        let moteReducer;
         beforeEach(() => {
             oppfolgingsforlopsPerioderReducer = {};
+            motebehovReducer = {};
+            moteReducer = {};
         });
 
         it('skal returnere false, dersom oppfolgingsdato ikke er passert med 16uker', () => {
@@ -277,6 +280,23 @@ describe('motebehovUtils', () => {
             expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer])).to.equal(false);
         });
 
+        it('skal returnere true, dersom bruker allerede har svart på møtebehov', () => {
+            oppfolgingsforlopsPerioderReducer = {
+                data: [
+                    { fom: leggTilDagerPaaDato(new Date(), -OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER) },
+                ],
+            };
+            motebehovReducer = {
+                data: [
+                    {
+                        aktorId: '000111222333',
+                        opprettetAv: '000111222333',
+                    },
+                ],
+            };
+            expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], motebehovReducer)).to.equal(true);
+        });
+
         describe('hentingForbudt', () => {
             it('skal returnere false, henting av motebehov er forbudt fra syfomotebehov', () => {
                 oppfolgingsforlopsPerioderReducer = {
@@ -288,6 +308,54 @@ describe('motebehovUtils', () => {
                     hentingForbudt: true,
                 };
                 expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], motebehovReducer)).to.equal(false);
+            });
+        });
+
+        describe('moteplanleggerBrukt', () => {
+            it('skal returnere false, dersom møteplanleggeren er brukt i oppfølgingstilfellet', () => {
+                oppfolgingsforlopsPerioderReducer = {
+                    virksomhetsnummer: '555666444',
+                    data: [
+                        {
+                            fom: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER - 1)),
+                            tom: new Date(),
+                        },
+                    ],
+                };
+                moteReducer = {
+                    data: {
+                        opprettetTidspunkt: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER - 5)),
+                        deltakere: [
+                            {
+                                orgnummer: '555666444',
+                            },
+                        ],
+                    },
+                };
+                expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], motebehovReducer, moteReducer)).to.equal(false);
+            });
+
+            it('skal returnere true, dersom møteplanleggeren er brukt før oppfølgingstilfellet', () => {
+                oppfolgingsforlopsPerioderReducer = {
+                    virksomhetsnummer: '555666444',
+                    data: [
+                        {
+                            fom: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER - 1)),
+                            tom: new Date(),
+                        },
+                    ],
+                };
+                moteReducer = {
+                    data: {
+                        opprettetTidspunkt: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER + 5)),
+                        deltakere: [
+                            {
+                                orgnummer: '555666444',
+                            },
+                        ],
+                    },
+                };
+                expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer], motebehovReducer, moteReducer)).to.equal(true);
             });
         });
     });

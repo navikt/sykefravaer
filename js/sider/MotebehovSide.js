@@ -72,8 +72,13 @@ class Container extends Component {
                 (() => {
                     if (henter) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet || sendingFeilet || !skalViseMotebehov) {
+                    } else if (hentingFeilet || sendingFeilet) {
                         return <Feilmelding />;
+                    } else if (!skalViseMotebehov) {
+                        return (<Feilmelding
+                            tittel={'Møtebehovsiden er ikke tilgjengelig nå.'}
+                            melding={'Dette kan være fordi veilederen din allerede har forespurt et møte, hvis ikke, prøv igjen senere.'}
+                        />);
                     }
                     return (<MotebehovInnhold
                         {...this.props}
@@ -125,6 +130,7 @@ export function mapStateToProps(state) {
     const ledereReducer = state.ledere;
     const dineSykmeldingerReducer = state.dineSykmeldinger;
     const motebehovReducer = state.motebehov;
+    const moteReducer = state.mote;
 
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(dineSykmeldingerReducer.data, ledereReducer.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
@@ -135,7 +141,7 @@ export function mapStateToProps(state) {
         const motebehovSvarReducer = state.motebehovSvar[virksomhetsnr] || {};
         motebehovSvarReducerListe.push(motebehovSvarReducer);
     });
-    const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, motebehovReducer);
+    const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, motebehovReducer, moteReducer);
 
     const skalHenteLedere = !henterEllerHarHentetLedere(ledereReducer);
     const skalHenteOppfolgingsPerioder = !henterEllerHarForsoektHentetOppfolgingsPerioder([state.oppfolgingsforlopsPerioder]);

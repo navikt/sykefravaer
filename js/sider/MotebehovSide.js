@@ -14,7 +14,11 @@ import {
 } from '../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../landingsside/data/ledere/ledereActions';
-import { hentMotebehov, svarMotebehov } from '../data/motebehov/motebehov_actions';
+import { hentMote } from '../data/moter/mote_actions';
+import {
+    hentMotebehov,
+    svarMotebehov,
+} from '../data/motebehov/motebehov_actions';
 import { hentOppfolgingsforlopsPerioder } from '../data/oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
@@ -24,7 +28,11 @@ import {
     henterEllerHarForsoektHentetOppfolgingsPerioder,
     hentOppfolgingsPerioderFeilet,
 } from '../utils/oppfolgingsforlopsperioderUtils';
-import { finnVirksomhetnrListeMedSkalViseMotebehov, harSvarMotebehovFeilet, skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
+import {
+    finnVirksomhetnrListeMedSkalViseMotebehov,
+    harSvarMotebehovFeilet,
+    skalViseMotebehovMedOppfolgingsforlopListe,
+} from '../utils/motebehovUtils';
 import { selectLedeteksterData } from '../data/ledetekster/ledeteksterSelectors';
 
 class Container extends Component {
@@ -36,6 +44,7 @@ class Container extends Component {
 
         actions.hentDineSykmeldinger();
         actions.hentMotebehov();
+        actions.hentMote();
         finnOgHentManglendeOppfolgingsforlopsPerioder(this.props);
 
         if (skalHenteLedere) {
@@ -90,6 +99,7 @@ Container.propTypes = {
     actions: PropTypes.shape({
         hentDineSykmeldinger: PropTypes.func,
         hentLedere: PropTypes.func,
+        hentMote: PropTypes.func,
         hentMotebehov: PropTypes.func,
         svarMotebehov: PropTypes.func,
         hentOppfolgingsforlopsPerioder: PropTypes.func,
@@ -100,6 +110,7 @@ export function mapDispatchToProps(dispatch) {
     const actions = bindActionCreators({
         hentDineSykmeldinger,
         hentLedere,
+        hentMote,
         hentMotebehov,
         svarMotebehov,
         hentOppfolgingsforlopsPerioder,

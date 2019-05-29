@@ -144,15 +144,57 @@ export const finnVirksomhetnrListeMedSkalViseMotebehov = (oppfolgingsforlopsPeri
     return liste;
 };
 
-export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPerioderReducerListe, motebehovReducer) => {
+export const orgnummerFraMote = (moteReducer) => {
+    const moteData = moteReducer.data;
+    const deltakerMedOrgnummer = moteData.deltakere && moteData.deltakere.find((deltaker) => {
+        return !!deltaker.orgnummer;
+    });
+    return deltakerMedOrgnummer.orgnummer;
+};
+
+export const moteOpprettetIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+    const orgnummer = moteReducer && orgnummerFraMote(moteReducer);
+    const oppfolgingsforlopsPerioderReducer = oppfolgingsforlopsPerioderReducerListe.find((periodeReducer) => {
+        return periodeReducer.virksomhetsnummer === orgnummer;
+    });
+
+    const startOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopStartdato(oppfolgingsforlopsPerioderReducer.data);
+    const sluttOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopSluttdato(oppfolgingsforlopsPerioderReducer.data);
+    const moteOpprettetDato = new Date(moteReducer.data.opprettetTidspunkt);
+
+    return startOppfolgingsdato <= moteOpprettetDato && moteOpprettetDato <= sluttOppfolgingsdato;
+};
+
+export const moteplanleggerBruktIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+    if (!moteReducer || !moteReducer.data) {
+        return false;
+    }
+
+    return moteOpprettetIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
+};
+
+export const harSykmeldtSvartPaaMotebehov = (motebehovReducer) => {
+    return motebehovReducer.data && motebehovReducer.data.findIndex((motebehov) => {
+        return motebehov.aktorId === motebehov.opprettetAv;
+    }) > -1;
+};
+
+export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPerioderReducerListe, motebehovReducer, moteReducer) => {
     try {
         if (motebehovReducer && motebehovReducer.hentingForbudt === true) {
             return false;
         }
+        if (motebehovReducer && harSykmeldtSvartPaaMotebehov(motebehovReducer)) {
+            return true;
+        }
 
-        return oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
+        const oppfolgingsforlopMedMotebehovVisning = oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
             return skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer);
-        }).length > 0;
+        });
+        if (oppfolgingsforlopMedMotebehovVisning.length === 0) {
+            return false;
+        }
+        return !moteplanleggerBruktIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
     } catch (e) {
         return false;
     }

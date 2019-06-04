@@ -41,7 +41,7 @@ export const smDiagnosePt = PropTypes.shape({
 });
 
 export const smMedisinskVurderingPt = PropTypes.shape({
-    diagnose: smDiagnosePt,
+    hovedDiagnose: smDiagnosePt,
     biDiagnoser: PropTypes.arrayOf(smDiagnosePt),
 });
 

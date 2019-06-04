@@ -24,11 +24,11 @@ export const SykmeldingOpplysninger = ({ smSykmelding }) => (
             <div className="blokk-l side-innhold">
                 <SykmeldingPerioder perioder={smSykmelding.sykmeldingsperioder} />
                 <Hoveddiagnose
-                    vis={smSykmelding.medisinskVurdering !== null && smSykmelding.medisinskVurdering !== undefined}
+                    vis={!!smSykmelding.medisinskVurdering}
                     hoveddiagnose={smSykmelding.medisinskVurdering && smSykmelding.medisinskVurdering.diagnose}
                 />
                 <BiDiagnoser
-                    vis={smSykmelding.medisinskVurdering !== null && smSykmelding.medisinskVurdering !== undefined}
+                    vis={!!smSykmelding.medisinskVurdering}
                     biDiagnoser={smSykmelding.medisinskVurdering && smSykmelding.medisinskVurdering.biDiagnoser}
                     sykmeldingId={smSykmelding.id}
                 />

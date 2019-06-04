@@ -46,12 +46,7 @@
         "diagnosesystem": "ICPC-2",
         "diagnosetekst": "Bursitt/tendinitt/synovitt IKA"
       },
-      "biDiagnoser": [
-        {
-          "diagnosekode": "L87",
-          "diagnosetekst": "Bursitt/tendinitt/synovitt IKA"
-        }
-      ]
+      "biDiagnoser": []
     }
   },
   {

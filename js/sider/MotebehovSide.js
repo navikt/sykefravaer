@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
-import { brodsmule as brodsmulePt, motebehovReducerPt, motebehovSvarReducerPt } from '../propTypes';
+import {
+    brodsmule as brodsmulePt,
+    motebehovReducerPt,
+    motebehovSvarReducerPt,
+    sykeforloepPt,
+} from '../propTypes';
 import Side from './Side';
 import MotebehovInnhold from '../components/moter/MotebehovInnhold';
 import AppSpinner from '../components/AppSpinner';
@@ -99,6 +104,7 @@ Container.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     motebehovReducer: motebehovReducerPt,
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
+    oppfolgingsforlopsPerioderReducerListe: PropTypes.arrayOf(sykeforloepPt),
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
     actions: PropTypes.shape({

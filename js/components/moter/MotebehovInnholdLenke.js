@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { motebehovReducerPt } from '../../propTypes';
-import { skalViseMotebehovKvittering } from '../../utils/motebehovUtils';
 
 const TEKSTER = {
     tittel: 'Ønsker du et dialogmøte med NAV?',
@@ -12,10 +10,9 @@ const TEKSTER = {
 
 const MotebehovInnholdLenke = (
     {
-        motebehovReducer,
-        virksomhetsnrListe,
+        skalViseKvittering,
     }) => {
-    const knappTekstNokkel = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe)
+    const knappTekstNokkel = skalViseKvittering
         ? 'mote.motebehovInnholdLenke.knapp.kvittering'
         : 'mote.motebehovInnholdLenke.knapp.svar';
     return (<div className="motebehovInnholdLenke panel">
@@ -30,8 +27,7 @@ const MotebehovInnholdLenke = (
     </div>);
 };
 MotebehovInnholdLenke.propTypes = {
-    motebehovReducer: motebehovReducerPt,
-    virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
+    skalViseKvittering: PropTypes.bool,
 };
 
 export default MotebehovInnholdLenke;

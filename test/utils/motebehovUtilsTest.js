@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import {
-    finnNyesteMotebehovForVirksomhetListe,
+    finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle,
     skalViseMotebehovKvittering,
     hentMoteLandingssideUrl,
     erOppfolgingstilfelleSluttDatoPassert,
@@ -32,9 +32,10 @@ describe('motebehovUtils', () => {
         clock.restore();
     });
 
-    describe('finnNyesteMotebehovForVirksomhetListe', () => {
+    describe('finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle', () => {
         let motebehovReducer;
         let virksomhetsnrListe;
+        let oppfolgingsforlopsPerioderReducerListe;
         beforeEach(() => {
             virksomhetsnrListe = ['110110110', '110110111'];
             motebehovReducer = {
@@ -49,28 +50,62 @@ describe('motebehovUtils', () => {
                     }),
                 ],
             };
+            oppfolgingsforlopsPerioderReducerListe = [
+                {
+                    data: [
+                        {
+                            avventende: null,
+                            behandlingsdager: 0,
+                            fom: leggTilDagerPaaDato(new Date(), -10),
+                            grad: 100,
+                            reisetilskudd: false,
+                            tom: '2019-12-15',
+                        },
+                    ],
+                    virksomhetsnummer: '110110110',
+                },
+                {
+                    data: [
+                        {
+                            avventende: null,
+                            behandlingsdager: 0,
+                            fom: leggTilDagerPaaDato(new Date(), -10),
+                            grad: 100,
+                            reisetilskudd: false,
+                            tom: '2019-12-15',
+                        },
+                    ],
+                    virksomhetsnummer: '110110111',
+                },
+            ];
         });
-        it('Skal finne nyeste motebehov dersom det er flere motebehov hos ulike virksomheter', () => {
+        it('Skal finne nyeste motebehov i et oppfolgingstilfelle dersom det er flere motebehov hos ulike virksomheter', () => {
             const exp = virksomhetsnrListe[1];
-            const res = finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetsnrListe).virksomhetsnummer;
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe).virksomhetsnummer;
             expect(res).to.equal(exp);
         });
 
-        it('Skal finne nyeste motebehov dersom det er flere motebehov hos en virksomhet', () => {
+        it('Skal finne nyeste motebehov i et oppfolgingstilfelle dersom det er flere motebehov hos en virksomhet', () => {
             const exp = virksomhetsnrListe[0];
-            const res = finnNyesteMotebehovForVirksomhetListe(motebehovReducer, [virksomhetsnrListe[0]]).virksomhetsnummer;
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, [virksomhetsnrListe[0]], oppfolgingsforlopsPerioderReducerListe).virksomhetsnummer; // eslint-disable-line max-len
             expect(res).to.equal(exp);
         });
 
         it('Skal ikke finne nyeste motebehov dersom det er motebehov, men ikke hos viksomhet', () => {
             const exp = undefined;
-            const res = finnNyesteMotebehovForVirksomhetListe(motebehovReducer, []);
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, [], oppfolgingsforlopsPerioderReducerListe);
             expect(res).to.equal(exp);
         });
 
         it('Skal ikke finne nyeste motebehov dersom det ikke er motebehov hos virksomhet', () => {
             const exp = undefined;
-            const res = finnNyesteMotebehovForVirksomhetListe({ data: [] }, virksomhetsnrListe);
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle({ data: [] }, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
+            expect(res).to.equal(exp);
+        });
+
+        it('Skal ikke finne nyeste motebehov dersom det er motebehov, men ingen i et gjeldende oppfolgingstilfelle', () => {
+            const exp = undefined;
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, virksomhetsnrListe, []);
             expect(res).to.equal(exp);
         });
     });
@@ -78,6 +113,7 @@ describe('motebehovUtils', () => {
     describe('skalViseMotebehovKvittering', () => {
         let motebehovReducer;
         let virksomhetsnrListe;
+        let oppfolgingsforlopsPerioderReducerListe;
         beforeEach(() => {
             virksomhetsnrListe = ['110110110', '110110111'];
             motebehovReducer = {
@@ -92,22 +128,56 @@ describe('motebehovUtils', () => {
                     }),
                 ],
             };
+            oppfolgingsforlopsPerioderReducerListe = [
+                {
+                    data: [
+                        {
+                            avventende: null,
+                            behandlingsdager: 0,
+                            fom: leggTilDagerPaaDato(new Date(), -10),
+                            grad: 100,
+                            reisetilskudd: false,
+                            tom: '2019-12-15',
+                        },
+                    ],
+                    virksomhetsnummer: '110110110',
+                },
+                {
+                    data: [
+                        {
+                            avventende: null,
+                            behandlingsdager: 0,
+                            fom: leggTilDagerPaaDato(new Date(), -10),
+                            grad: 100,
+                            reisetilskudd: false,
+                            tom: '2019-12-15',
+                        },
+                    ],
+                    virksomhetsnummer: '110110111',
+                },
+            ];
         });
-        it('Skal returnere false om det ikke eksisterer motebehov hos virksomhet', () => {
+        it('Skal returnere false om det ikke eksisterer motebehov hos virksomhet i et oppfolgingstilfelle', () => {
             const exp = false;
-            const res = skalViseMotebehovKvittering({ data: [] }, virksomhetsnrListe);
+            const res = skalViseMotebehovKvittering({ data: [] }, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
             expect(res).to.equal(exp);
         });
 
-        it('Skal returnere false om det eksisterer motebehov, men ikke hos virksomhet', () => {
+        it('Skal returnere false om det eksisterer motebehov i et oppfolgingstilfelle, men ikke hos virksomhet', () => {
             const exp = false;
-            const res = skalViseMotebehovKvittering({ data: [] }, virksomhetsnrListe);
+            const res = skalViseMotebehovKvittering({ data: [] }, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
             expect(res).to.equal(exp);
         });
 
-        it('Skal returnere true om det eksisterer motebehov hos virksomhet', () => {
+        it('Skal returnere true om det eksisterer motebehov hos virksomhet i et oppfolgingstilfelle', () => {
             const exp = true;
-            const res = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe);
+            const res = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
+            expect(res).to.equal(exp);
+        });
+
+        it('Skal returnere false om det eksisterer motebehov hos virksomhet, men ikke i et oppfolgingstilfelle', () => {
+            const exp = false;
+            const res = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe, []);
             expect(res).to.equal(exp);
         });
     });
@@ -280,15 +350,16 @@ describe('motebehovUtils', () => {
             expect(skalViseMotebehovMedOppfolgingsforlopListe([oppfolgingsforlopsPerioderReducer])).to.equal(false);
         });
 
-        it('skal returnere true, dersom bruker allerede har svart på møtebehov', () => {
+        it('skal returnere true, dersom bruker allerede har svart på møtebehov innen et oppfolgingstilfelle', () => {
             oppfolgingsforlopsPerioderReducer = {
                 data: [
-                    { fom: leggTilDagerPaaDato(new Date(), -OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER) },
+                    { fom: leggTilDagerPaaDato(new Date(), -OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER) },
                 ],
             };
             motebehovReducer = {
                 data: [
                     {
+                        opprettetDato: leggTilDagerPaaDato(new Date(), -(OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER - 1)),
                         aktorId: '000111222333',
                         opprettetAv: '000111222333',
                     },

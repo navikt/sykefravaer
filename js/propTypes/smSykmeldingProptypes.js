@@ -34,6 +34,17 @@ export const smArbeidsgiverPt = PropTypes.shape({
     stillingsprosent: PropTypes.number.isRequired,
 });
 
+export const smDiagnosePt = PropTypes.shape({
+    diagnosekode: PropTypes.string,
+    diagnosesystem: PropTypes.string,
+    diagnosetekst: PropTypes.string,
+});
+
+export const smMedisinskVurderingPt = PropTypes.shape({
+    hovedDiagnose: smDiagnosePt,
+    biDiagnoser: PropTypes.arrayOf(smDiagnosePt),
+});
+
 export const smSykmeldingPt = PropTypes.shape({
     id: PropTypes.string.isRequired,
     behandlingsutfall: behandlingsutfallPt.isRequired,
@@ -43,6 +54,7 @@ export const smSykmeldingPt = PropTypes.shape({
     legekontorOrgnummer: PropTypes.string,
     arbeidsgiver: smArbeidsgiverPt,
     sykmeldingsperioder: smSykmeldingPerioderPt,
+    medisinskVurdering: smMedisinskVurderingPt,
 });
 
 export const smSykmeldingerPt = PropTypes.arrayOf(smSykmeldingPt);

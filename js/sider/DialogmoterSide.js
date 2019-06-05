@@ -22,7 +22,11 @@ import {
     henterEllerHarHentetLedere,
 } from '../utils/reducerUtils';
 import { getMote } from '../utils/moteUtils';
-import { finnVirksomhetnrListeMedSkalViseMotebehov, skalViseMotebehovMedOppfolgingsforlopListe } from '../utils/motebehovUtils';
+import {
+    finnVirksomhetnrListeMedSkalViseMotebehov,
+    skalViseMotebehovKvittering,
+    skalViseMotebehovMedOppfolgingsforlopListe,
+} from '../utils/motebehovUtils';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
@@ -104,6 +108,7 @@ Container.propTypes = {
     harMote: PropTypes.bool,
     harForsoektHentetAlt: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
+    skalViseKvittering: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
@@ -142,6 +147,7 @@ export function mapStateToProps(state) {
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
     const virksomhetnrMedMotebehovListe = finnVirksomhetnrListeMedSkalViseMotebehov(oppfolgingsforlopsPerioderReducerListe);
     const skalViseMotebehov = skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, motebehovReducer, moteReducer);
+    const skalViseKvittering = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
 
     const skalHenteLedere = !henterEllerHarHentetLedere(ledereReducer);
 
@@ -167,6 +173,7 @@ export function mapStateToProps(state) {
         harMote,
         harForsoektHentetAlt,
         skalHenteLedere,
+        skalViseKvittering,
         skalViseMotebehov,
         virksomhetsnrListe,
         virksomhetnrMedMotebehovListe,

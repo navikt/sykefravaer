@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
-import { brodsmule as brodsmulePt, motebehovReducerPt, motebehovSvarReducerPt } from '../propTypes';
+import {
+    brodsmule as brodsmulePt,
+    motebehovReducerPt,
+    motebehovSvarReducerPt,
+} from '../propTypes';
 import Side from './Side';
 import MotebehovInnhold from '../components/moter/MotebehovInnhold';
 import AppSpinner from '../components/AppSpinner';
@@ -76,17 +80,21 @@ class Container extends Component {
                     (() => {
                         if (henter) {
                             return <AppSpinner />;
-                        } else if (hentingFeilet || sendingFeilet) {
+                        } if (hentingFeilet || sendingFeilet) {
                             return <Feilmelding />;
-                        } else if (!skalViseMotebehov) {
-                            return (<Feilmelding
-                                tittel={'Møtebehovsiden er ikke tilgjengelig nå.'}
-                                melding={'Dette kan være fordi veilederen din allerede har forespurt et møte, hvis ikke, prøv igjen senere.'}
-                            />);
+                        } if (!skalViseMotebehov) {
+                            return (
+                                <Feilmelding
+                                    tittel="Møtebehovsiden er ikke tilgjengelig nå."
+                                    melding="Dette kan være fordi veilederen din allerede har forespurt et møte, hvis ikke, prøv igjen senere."
+                                />
+                            );
                         }
-                        return (<MotebehovInnhold
-                            {...this.props}
-                        />);
+                        return (
+                            <MotebehovInnhold
+                                {...this.props}
+                            />
+                        );
                     })()
                 }
             </Side>

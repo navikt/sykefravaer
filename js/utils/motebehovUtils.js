@@ -144,7 +144,7 @@ export const riktigOppfolgingsforlopsPeriodeReducer = (oppfolgingsforlopsPeriode
     });
 };
 
-export const moteOpprettetIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+export const erMoteOpprettetIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
     const orgnummer = moteReducer && orgnummerFraMote(moteReducer);
     const oppfolgingsforlopsPerioderReducer = riktigOppfolgingsforlopsPeriodeReducer(oppfolgingsforlopsPerioderReducerListe, orgnummer);
 
@@ -155,12 +155,12 @@ export const moteOpprettetIOppfolgingstilfelle = (moteReducer, oppfolgingsforlop
     return startOppfolgingsdato <= moteOpprettetDato && moteOpprettetDato <= sluttOppfolgingsdato;
 };
 
-export const moteplanleggerBruktIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+export const erMoteplanleggerBruktIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
     if (!moteReducer || !moteReducer.data) {
         return false;
     }
 
-    return moteOpprettetIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
+    return erMoteOpprettetIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
 };
 
 export const erDatoInnenforEtOppfolgingsforlop = (dato, oppfolgingsforlopsPerioderReducerListe) => {
@@ -212,7 +212,7 @@ export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPer
             return true;
         }
 
-        return !moteplanleggerBruktIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
+        return !erMoteplanleggerBruktIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
     } catch (e) {
         return false;
     }

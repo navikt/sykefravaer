@@ -8,7 +8,7 @@ import ledetekster from '../../../../../test/mock/mockLedetekster';
 import { AvbrytSykmeldingDialog } from './AvbrytDialog';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 
 describe('AvbrytSykmeldingDialog', () => {

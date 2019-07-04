@@ -18,20 +18,27 @@ export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {
     const ledetekstparams = {
         '%DATO%': tilLesbarDatoMedArstall(oppfolgingstilfelleStartdato),
     };
-    const hjelpetekst = (<Hjelpetekst
-        id="egenmeldingsperioder-hjelpetekst">{getLedetekst('din-sykmelding.egenmeldingsperioder.hjelpetekst', ledetekstparams)}</Hjelpetekst>);
+    const hjelpetekst = (
+        <Hjelpetekst
+            id="egenmeldingsperioder-hjelpetekst">
+            {getLedetekst('din-sykmelding.egenmeldingsperioder.hjelpetekst', ledetekstparams)}
+        </Hjelpetekst>
+    );
 
-    return (<JaEllerNei
-        name="harAnnetFravaer"
-        className="hovedsporsmal--hvit"
-        spoersmal={getLedetekst('din-sykmelding.egenmeldingsperioder.janei.sporsmal', ledetekstparams)}
-        hjelpetekst={hjelpetekst}>
-        <Periodevelger
-            spoersmal={getLedetekst('din-sykmelding.egenmeldingsperioder.perioder.sporsmal', ledetekstparams)}
-            tidligsteFom={fom}
-            senesteTom={tom}
-            name="fravaersperioder" />
-    </JaEllerNei>);
+    return (
+        <JaEllerNei
+            name="harAnnetFravaer"
+            className="hovedsporsmal--hvit"
+            spoersmal={getLedetekst('din-sykmelding.egenmeldingsperioder.janei.sporsmal', ledetekstparams)}
+            hjelpetekst={hjelpetekst}
+        >
+            <Periodevelger
+                spoersmal={getLedetekst('din-sykmelding.egenmeldingsperioder.perioder.sporsmal', ledetekstparams)}
+                tidligsteFom={fom}
+                senesteTom={tom}
+                name="fravaersperioder" />
+        </JaEllerNei>
+    );
 };
 
 Egenmeldingssporsmal.propTypes = {
@@ -39,23 +46,31 @@ Egenmeldingssporsmal.propTypes = {
 };
 
 export const Forsikringssporsmal = () => {
-    const hjelpetekst = (<Hjelpetekst
-        id="forsikring-hjelpetekst">{getLedetekst('din-sykmelding.forsikring.hjelpetekst.tekst')}</Hjelpetekst>);
-    return (<div className="hovedsporsmal hovedsporsmal--hvit blokk--xs">
-        <Field
-            name="harForsikring"
-            hjelpetekst={hjelpetekst}
-            component={JaEllerNeiRadioknapper}
-            parse={parseJaEllerNei}
-            spoersmal={getLedetekst('din-sykmelding.forsikring.janei.sporsmal')} />
-    </div>);
+    const hjelpetekst = (
+        <Hjelpetekst
+            id="forsikring-hjelpetekst">
+            {getLedetekst('din-sykmelding.forsikring.hjelpetekst.tekst')}
+        </Hjelpetekst>
+    );
+    return (
+        <div className="hovedsporsmal hovedsporsmal--hvit blokk--xs">
+            <Field
+                name="harForsikring"
+                hjelpetekst={hjelpetekst}
+                component={JaEllerNeiRadioknapper}
+                parse={parseJaEllerNei}
+                spoersmal={getLedetekst('din-sykmelding.forsikring.janei.sporsmal')} />
+        </div>
+    );
 };
 
 export const Spoersmal = ({ oppfolgingstilfelleStartdato }) => {
-    return (<div>
-        <Egenmeldingssporsmal oppfolgingstilfelleStartdato={oppfolgingstilfelleStartdato} />
-        <Forsikringssporsmal />
-    </div>);
+    return (
+        <div>
+            <Egenmeldingssporsmal oppfolgingstilfelleStartdato={oppfolgingstilfelleStartdato} />
+            <Forsikringssporsmal />
+        </div>
+    );
 };
 
 Spoersmal.propTypes = {

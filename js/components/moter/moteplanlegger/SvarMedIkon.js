@@ -15,9 +15,11 @@ const getIkonsti = (filnavn) => {
 };
 
 const Ikon = ({ ikon }) => {
-    return (<div className="alternativsvar__ikon">
-        <img src={getIkonsti(ikon)} className="js-ikon-passer" alt="" />
-    </div>);
+    return (
+        <div className="alternativsvar__ikon">
+            <img src={getIkonsti(ikon)} className="js-ikon-passer" alt="" />
+        </div>
+    );
 };
 
 Ikon.propTypes = {
@@ -61,9 +63,18 @@ const getIkonFilnavn = (bruker, svar) => {
 };
 
 const Svartekst = ({ tekst, deltakertype }) => {
-    return (<div className="alternativsvar__tekst">
-        <p><span className="alternativsvar__deltakertype">{deltakertype}:</span> {tekst}</p>
-    </div>);
+    return (
+        <div className="alternativsvar__tekst">
+            <p>
+                <span className="alternativsvar__deltakertype">
+                    {deltakertype}
+:
+                </span>
+                {' '}
+                {tekst}
+            </p>
+        </div>
+    );
 };
 
 Svartekst.propTypes = {
@@ -72,28 +83,33 @@ Svartekst.propTypes = {
 };
 
 export const NavKan = () => {
-    return (<li className="alternativsvar__svar js-navssvar">
-        <Ikon ikon="status--kan.svg" />
-        <Svartekst
-            deltakertype="NAV"
-            tekst={getLedetekst('mote.svar.status.kan-mote', {
-                '%NAVN%': 'Veilederen',
-            })} />
-    </li>);
+    return (
+        <li className="alternativsvar__svar js-navssvar">
+            <Ikon ikon="status--kan.svg" />
+            <Svartekst
+                deltakertype="NAV"
+                tekst={getLedetekst('mote.svar.status.kan-mote', {
+                    '%NAVN%': 'Veilederen',
+                })} />
+        </li>
+    );
 };
 
 export const SvarMedIkon = (
     {
         bruker,
         svar,
-    }) => {
+    },
+) => {
     const deltakertype = bruker.type === ARBEIDSGIVER
         ? 'Arbeidsgiver'
         : 'Arbeidstaker';
-    return (<li className="alternativsvar__svar js-annenssvar">
-        <Ikon ikon={getIkonFilnavn(bruker, svar)} />
-        <Svartekst deltakertype={`${deltakertype}en`} navn={bruker.navn} tekst={getSvartekst(bruker, svar)} />
-    </li>);
+    return (
+        <li className="alternativsvar__svar js-annenssvar">
+            <Ikon ikon={getIkonFilnavn(bruker, svar)} />
+            <Svartekst deltakertype={`${deltakertype}en`} navn={bruker.navn} tekst={getSvartekst(bruker, svar)} />
+        </li>
+    );
 };
 
 SvarMedIkon.propTypes = {

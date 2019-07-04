@@ -19,32 +19,36 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
         return input.value === true
             ? <p className="sist">{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.nei')}</p>
             : input.value === false
-                ? (<p className="sist">
-                    {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
-                        '%NAERMESTELEDER%': navn,
-                    })}
-                </p>)
+                ? (
+                    <p className="sist">
+                        {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
+                            '%NAERMESTELEDER%': navn,
+                        })}
+                    </p>
+                )
                 : null;
     };
 
     const hjelpetekst = (<Hjelpetekst id="velg-beOmNyNaermesteLeder-hjelpetekst">{getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst')}</Hjelpetekst>);
 
-    return (<div className="hovedsporsmal__tilleggssporsmal">
-        <Radioknapper
-            input={input}
-            meta={meta}
-            spoersmal={getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.v2', {
-                '%NAERMESTELEDER%': naermesteLeder.navn,
-            })}
-            hjelpetekst={hjelpetekst}>
-            {
-                alternativer.map((alternativ, index) => {
-                    return <input {...alternativ} key={index} />;
-                })
-            }
-        </Radioknapper>
-        {infoOmSykemeldingmottaker(naermesteLeder.navn)}
-    </div>);
+    return (
+        <div className="hovedsporsmal__tilleggssporsmal">
+            <Radioknapper
+                input={input}
+                meta={meta}
+                spoersmal={getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.v2', {
+                    '%NAERMESTELEDER%': naermesteLeder.navn,
+                })}
+                hjelpetekst={hjelpetekst}>
+                {
+                    alternativer.map((alternativ, index) => {
+                        return <input {...alternativ} key={index} />;
+                    })
+                }
+            </Radioknapper>
+            {infoOmSykemeldingmottaker(naermesteLeder.navn)}
+        </div>
+    );
 };
 
 RendreErLederRiktig.propTypes = {
@@ -54,16 +58,18 @@ RendreErLederRiktig.propTypes = {
 };
 
 const ErLederRiktig = (props) => {
-    return (<Field
-        {...props}
-        component={RendreErLederRiktig}
-        name="beOmNyNaermesteLeder"
-        parse={(value) => {
-            if (value !== undefined) {
-                return value === 'true';
-            }
-            return value;
-        }} />);
+    return (
+        <Field
+            {...props}
+            component={RendreErLederRiktig}
+            name="beOmNyNaermesteLeder"
+            parse={(value) => {
+                if (value !== undefined) {
+                    return value === 'true';
+                }
+                return value;
+            }} />
+    );
 };
 
 ErLederRiktig.propTypes = {

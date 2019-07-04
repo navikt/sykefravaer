@@ -6,11 +6,11 @@ import chaiEnzyme from 'chai-enzyme';
 import Radioknapper, { Radioknapp } from '../../../js/components/skjema/Radioknapper';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('Radioknapper', () => {
     it('Viser hjelpetekst om satt', () => {
-        const hjelpetekst = <Hjelpetekst id={'1'} tekst={'tekst'} tittel={'tittel'} />;
+        const hjelpetekst = <Hjelpetekst id="1" tekst="tekst" tittel="tittel" />;
         const comp = shallow(<Radioknapper hjelpetekst={hjelpetekst} meta={{}} input={{}} spoersmal="spoersmaal" />);
         expect(comp.find(Hjelpetekst)).to.have.length(1);
     });
@@ -55,4 +55,3 @@ describe('Radioknapper', () => {
         });
     });
 });
-

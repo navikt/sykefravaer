@@ -8,7 +8,7 @@ import ledetekster from '../../../test/mock/mockLedetekster';
 import SykmeldingPeriodeinfo from './SykmeldingPeriodeinfo';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 const getPeriode = (prd = {}) => {
     const periode = {

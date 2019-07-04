@@ -1,15 +1,16 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { reduxForm, getFormValues } from 'redux-form';
+import { getFormValues, reduxForm } from 'redux-form';
 import Knapp from 'nav-frontend-knapper';
 import {
-    tilDatePeriode,
-    getLedetekst,
     arbeidssituasjoner,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
+    getLedetekst,
+    tilDatePeriode,
     toDatePrettyPrint,
 } from '@navikt/digisyfo-npm';
 import ArbeidsgiversSykmeldingContainer from '../../../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
@@ -39,13 +40,15 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(utfyllingStartet(this.props.sykmelding.id));
+        const { dispatch, sykmelding } = this.props;
+        dispatch(utfyllingStartet(sykmelding.id));
     }
 
     componentWillReceiveProps(nextProps) {
+        const { brukersSvarverdier } = this.props;
         if (nextProps.brukersSvarverdier
-            && this.props.brukersSvarverdier
-            && nextProps.brukersSvarverdier.opplysningeneErRiktige !== this.props.brukersSvarverdier.opplysningeneErRiktige) {
+            && brukersSvarverdier
+            && nextProps.brukersSvarverdier.opplysningeneErRiktige !== brukersSvarverdier.opplysningeneErRiktige) {
             this.setState({
                 visAvbrytDialog: false,
             });
@@ -55,15 +58,8 @@ export class DinSykmeldingSkjemaComponent extends Component {
     getFeilaktigeOpplysninger() {
         const { brukersSvarverdier } = this.props;
         return brukersSvarverdier.feilaktigeOpplysninger
-            .filter((opplysning) => {
-                return opplysning.avkrysset && !brukersSvarverdier.opplysningeneErRiktige;
-            })
-            .reduce((acc, currentValue) => {
-                return {
-                    ...acc,
-                    [currentValue.opplysning]: true,
-                };
-            }, {});
+            .filter(opplysning => opplysning.avkrysset && !brukersSvarverdier.opplysningeneErRiktige)
+            .reduce((acc, currentValue) => ({ ...acc, [currentValue.opplysning]: true }), {});
     }
 
     getEgenmeldingsperioder() {
@@ -79,17 +75,20 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     avbryt() {
-        this.props.avbrytSykmelding(this.props.sykmelding.id, this.getFeilaktigeOpplysninger());
+        const { avbrytSykmelding, sykmelding } = this.props;
+        avbrytSykmelding(sykmelding.id, this.getFeilaktigeOpplysninger());
     }
 
     handleSubmit(values) {
-        const { sykmelding, modus } = this.props;
+        const {
+            sykmelding, modus, sendSykmeldingTilArbeidsgiver, bekreftSykmelding,
+        } = this.props;
         const feilaktigeOpplysninger = this.getFeilaktigeOpplysninger();
 
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:
             case modi.SEND: {
-                this.props.sendSykmeldingTilArbeidsgiver(
+                sendSykmeldingTilArbeidsgiver(
                     sykmelding.id,
                     values.valgtArbeidsgiver.orgnummer,
                     feilaktigeOpplysninger,
@@ -98,7 +97,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 return;
             }
             case modi.BEKREFT: {
-                this.props.bekreftSykmelding(
+                bekreftSykmelding(
                     sykmelding.id,
                     {
                         arbeidssituasjon: values.valgtArbeidssituasjon,
@@ -111,9 +110,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 return;
             }
             case modi.AVBRYT: {
-                this.setState({
-                    visAvbrytDialog: !this.state.visAvbrytDialog,
-                });
+                this.setState(prevState => ({
+                    visAvbrytDialog: !prevState.visAvbrytDialog,
+                }));
                 break;
             }
             default: {
@@ -134,100 +133,101 @@ export class DinSykmeldingSkjemaComponent extends Component {
             avbrytFeilet,
             handleSubmit,
             visFrilansersporsmal,
-            untouch } = this.props;
+            untouch,
+            visAvbrytDialog,
+        } = this.props;
 
-        return (<form
-            id="dinSykmeldingSkjema"
-            onSubmit={handleSubmit((v) => {
-                this.handleSubmit(v);
-            })}>
-            <FeiloppsummeringContainer skjemanavn={getSykmeldingSkjemanavn(sykmelding.id)} />
-            <h3 className="typo-innholdstittel blokk--xxs">{getLedetekst('starte-sykmelding.tittel')}</h3>
-            <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
-            <ErOpplysningeneRiktige untouch={untouch} sykmelding={sykmelding} />
-            <Vis
-                hvis={modus !== modi.AVBRYT}
-                render={() => {
-                    return (<div className="blokk">
-                        <VelgArbeidssituasjonContainer {...this.props} />
+        return (
+            <form
+                id="dinSykmeldingSkjema"
+                onSubmit={handleSubmit((v) => {
+                    this.handleSubmit(v);
+                })}>
+                <FeiloppsummeringContainer skjemanavn={getSykmeldingSkjemanavn(sykmelding.id)} />
+                <h3 className="typo-innholdstittel blokk--xxs">{getLedetekst('starte-sykmelding.tittel')}</h3>
+                <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
+                <ErOpplysningeneRiktige untouch={untouch} sykmelding={sykmelding} />
+                <Vis
+                    hvis={modus !== modi.AVBRYT}
+                    render={() => (
+                        <div className="blokk">
+                            <VelgArbeidssituasjonContainer {...this.props} />
+                            <Vis
+                                hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}
+                                render={() => <StrengtFortroligInfo sykmeldingId={sykmelding.id} />} />
+                            <Vis
+                                hvis={visFrilansersporsmal}
+                                render={() => <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />} />
+                        </div>
+                    )}
+                />
+                <Vis
+                    hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
+                    render={() => <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />} />
+                <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
+                <Vis
+                    hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
+                    render={() => <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>} />
+                <div className="knapperad">
+                    <p className="blokk--s">
+                        <Knapp
+                            autoDisableVedSpinner
+                            spinner={sender}
+                            ref={(c) => {
+                                this.submitknapp = c;
+                            }}
+                            id="dinSykmeldingSkjemaSubmit"
+                            type={modus === modi.AVBRYT ? 'fare' : 'hoved'}>
+                            {getLedetekst(`starte-sykmelding.knapp.${modus}`)}
+                        </Knapp>
+                    </p>
+                    <div className="avbrytDialog">
                         <Vis
-                            hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}
-                            render={() => {
-                                return <StrengtFortroligInfo sykmeldingId={sykmelding.id} />;
+                            hvis={modus !== modi.AVBRYT}
+                            render={() => (
+                                <p className="blokk">
+                                    {/* TODO: Bruk knappelenkestyling i stedet for <a/> som knapp */}
+                                    {/* eslint-disable-next-line */}
+                                    <a
+                                        href="#"
+                                        role="button"
+                                        tabIndex="0"
+                                        aria-pressed={visAvbrytDialog}
+                                        className="lenke"
+                                        ref={(c) => {
+                                            this.triggAvbrytdialogKnapp = c;
+                                        }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            this.setState({
+                                                visAvbrytDialog: !visAvbrytDialog,
+                                            });
+                                        }}
+                                    >
+                                        {getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}
+                                    </a>
+                                </p>
+                            )} />
+                        <AvbrytDialog
+                            vis={visAvbrytDialog}
+                            avbryter={avbryter}
+                            avbrytHandler={() => {
+                                this.setState({
+                                    visAvbrytDialog: false,
+                                });
+                                if (this.triggAvbrytdialogKnapp) {
+                                    this.triggAvbrytdialogKnapp.focus();
+                                } else if (this.submitknapp) {
+                                    this.submitknapp.focus();
+                                }
+                            }}
+                            bekreftHandler={() => {
+                                this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
                             }} />
-                        <Vis
-                            hvis={visFrilansersporsmal}
-                            render={() => {
-                                return <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />;
-                            }} />
-                    </div>);
-                }}
-            />
-            <Vis
-                hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
-                render={() => {
-                    return <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />;
-                }} />
-            <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
-            <Vis
-                hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
-                render={() => {
-                    return <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>;
-                }} />
-            <div className="knapperad">
-                <p className="blokk--s">
-                    <Knapp
-                        autoDisableVedSpinner
-                        spinner={sender}
-                        ref={(c) => {
-                            this.submitknapp = c;
-                        }}
-                        id="dinSykmeldingSkjemaSubmit"
-                        type={modus === modi.AVBRYT ? 'fare' : 'hoved'}>
-                        {getLedetekst(`starte-sykmelding.knapp.${modus}`)}
-                    </Knapp>
-                </p>
-                <div className="avbrytDialog">
-                    <Vis
-                        hvis={modus !== modi.AVBRYT}
-                        render={() => {
-                            return (<p className="blokk">
-                                <a
-                                    href="#"
-                                    role="button"
-                                    tabIndex="0"
-                                    aria-pressed={this.state.visAvbrytDialog}
-                                    className="lenke"
-                                    ref={(c) => {
-                                        this.triggAvbrytdialogKnapp = c;
-                                    }}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        this.setState({
-                                            visAvbrytDialog: !this.state.visAvbrytDialog,
-                                        });
-                                    }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</a>
-                            </p>);
-                        }} />
-                    <AvbrytDialog
-                        vis={this.state.visAvbrytDialog}
-                        avbryter={avbryter}
-                        avbrytHandler={() => {
-                            this.setState({
-                                visAvbrytDialog: false,
-                            });
-                            if (this.triggAvbrytdialogKnapp) {
-                                this.triggAvbrytdialogKnapp.focus();
-                            } else if (this.submitknapp) {
-                                this.submitknapp.focus();
-                            }
-                        }}
-                        bekreftHandler={() => {
-                            this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
-                        }} />
+                    </div>
                 </div>
-            </div>
-        </form>);
+            </form>
+        );
     }
 }
 
@@ -240,6 +240,10 @@ DinSykmeldingSkjemaComponent.propTypes = {
     handleSubmit: PropTypes.func,
     brukersSvarverdier: PropTypes.shape({
         opplysningeneErRiktige: PropTypes.bool,
+        feilaktigeOpplysninger: PropTypes.arrayOf(PropTypes.shape()),
+        valgtArbeidssituasjon: PropTypes.string,
+        fravaersperioder: PropTypes.arrayOf(PropTypes.shape()),
+        harAnnetFravaer: PropTypes.bool,
     }),
     untouch: PropTypes.func,
     sendSykmeldingTilArbeidsgiver: PropTypes.func,
@@ -251,21 +255,17 @@ DinSykmeldingSkjemaComponent.propTypes = {
     modus: PropTypes.oneOf(Object.values(modi)),
     visFrilansersporsmal: PropTypes.bool,
     dispatch: PropTypes.func,
+    visAvbrytDialog: PropTypes.bool,
 };
 
-export const getFeilaktigeOpplysninger = () => {
-    return Object.keys(feilaktigeOpplysningerEnums).map((key) => {
-        return {
-            opplysning: feilaktigeOpplysningerEnums[key],
-        };
-    });
-};
+export const getFeilaktigeOpplysninger = () => Object.keys(feilaktigeOpplysningerEnums)
+    .map(key => ({
+        opplysning: feilaktigeOpplysningerEnums[key],
+    }));
 
 export const mapStateToProps = (state, ownProps) => {
-    const sykmelding = ownProps.sykmelding;
-    const dinSykmelding = state.dineSykmeldinger.data.find((s) => {
-        return s.id === sykmelding.id;
-    });
+    const { sykmelding } = ownProps;
+    const dinSykmelding = state.dineSykmeldinger.data.find(s => s.id === sykmelding.id);
     const sporsmal = dinSykmelding ? dinSykmelding.sporsmal : null;
     const harStrengtFortroligAdresse = brukerinfoSelectors.harStrengtFortroligAdresseSelector(state);
     const values = getFormValues(getSykmeldingSkjemanavn(sykmelding.id))(state) || {};
@@ -311,6 +311,7 @@ export const mapStateToProps = (state, ownProps) => {
         sendingFeilet: state.dineSykmeldinger.sendingFeilet,
         avbryter: state.dineSykmeldinger.avbryter,
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
+        visAvbrytDialog: state.visAvbrytDialog,
     };
 };
 
@@ -326,10 +327,13 @@ const ConnectedSkjema = compose(
 )(DinSykmeldingSkjemaComponent);
 
 const DinSykmeldingSkjema = (props) => {
-    return (<ConnectedSkjema
-        {...props}
-        form={getSykmeldingSkjemanavn(props.sykmelding.id)}
-        key={getSykmeldingSkjemanavn(props.sykmelding.id)} />);
+    const { sykmelding } = props;
+    return (
+        <ConnectedSkjema
+            {...props}
+            form={getSykmeldingSkjemanavn(sykmelding.id)}
+            key={getSykmeldingSkjemanavn(sykmelding.id)} />
+    );
 };
 
 DinSykmeldingSkjema.propTypes = {

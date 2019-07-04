@@ -6,7 +6,9 @@ import { getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import { angreBekreftSykmelding as angreBekreftSykmeldingAction } from '../data/din-sykmelding/dinSykmeldingActions';
 import { selectKanEndreSykmeldingArbeidssituasjon } from '../data/dine-sykmeldinger/dineSykmeldingerSelectors';
 
-export const Container = ({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis, angrerBekreftSykmelding }) => {
+export const Container = ({
+    sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis, angrerBekreftSykmelding,
+}) => {
     return vis ? (
         <div>
             <div className="verktoylinje">

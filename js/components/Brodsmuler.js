@@ -4,21 +4,31 @@ import { Link } from 'react-router';
 import getContextRoot from '../utils/getContextRoot';
 import { brodsmule as brodsmuleProptype } from '../propTypes';
 
-const Brodsmule = ({ sti, tittel, sisteSmule, erKlikkbar }) => {
+const Brodsmule = ({
+    sti, tittel, sisteSmule, erKlikkbar,
+}) => {
     if (sisteSmule) {
-        return (<span className="js-smuletekst">
-            <span className="vekk">Du er her:</span> <span className="brodsmule">{tittel}</span>
-        </span>);
-    } else if (erKlikkbar) {
-        return (<span className="js-smuletekst">
-            <Link className="js-smule brodsmuler__smule" to={getContextRoot() + sti}>{tittel}</Link>
-            <span className="brodsmule__skille"> / </span>
-        </span>);
+        return (
+            <span className="js-smuletekst">
+                <span className="vekk">Du er her:</span>
+                {' '}
+                <span className="brodsmule">{tittel}</span>
+            </span>
+        );
+    } if (erKlikkbar) {
+        return (
+            <span className="js-smuletekst">
+                <Link className="js-smule brodsmuler__smule" to={getContextRoot() + sti}>{tittel}</Link>
+                <span className="brodsmule__skille"> / </span>
+            </span>
+        );
     }
-    return (<span>
-        <span className="brodsmuler__smule">{tittel}</span>
-        <span className="brodsmule__skille"> / </span>
-    </span>);
+    return (
+        <span>
+            <span className="brodsmuler__smule">{tittel}</span>
+            <span className="brodsmule__skille"> / </span>
+        </span>
+    );
 };
 
 Brodsmule.propTypes = {
@@ -29,10 +39,13 @@ Brodsmule.propTypes = {
 };
 
 const ToggleLink = ({ onClick }) => {
-    return (<span>
-        <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle brodsmuler__smule" href="#" onClick={onClick}>...</a>
-        <span className="brodsmule__skille"> / </span>
-    </span>);
+    return (
+        <span>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle brodsmuler__smule" href="#" onClick={onClick}>...</a>
+            <span className="brodsmule__skille"> / </span>
+        </span>
+    );
 };
 
 ToggleLink.propTypes = {
@@ -59,7 +72,9 @@ class Brodsmuler extends Component {
     }
 
     visCollapsed() {
-        return this.props.brodsmuler.length > 3 && this.state.visCollapsed;
+        const { brodsmuler } = this.props;
+        const { visCollapsed } = this.state;
+        return brodsmuler.length > 3 && visCollapsed;
     }
 
     visAlleBrodsmuler() {
@@ -71,31 +86,35 @@ class Brodsmuler extends Component {
     render() {
         const { brodsmuler } = this.props;
         const synligeBrodsmuler = this.getSynligeBrodsmuler();
-        return (<nav className="brodsmuler" aria-label="Du er her: ">
-            <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" className="brodsmuler__ikon" />
-            <div className="brodsmuler__smuler">
-                <a href="/dittnav" className="js-smule brodsmuler__smule">Ditt NAV</a>
-                {brodsmuler.length > 0 && <span className="brodsmule__skille"> / </span>}
-                {
-                    this.visCollapsed() && <ToggleLink onClick={(e) => {
-                        e.preventDefault();
-                        this.visAlleBrodsmuler();
-                    }} />
-                }
-                {
-                    synligeBrodsmuler
-                        .map((smule, index) => {
-                            return {
-                                ...smule,
-                                sisteSmule: synligeBrodsmuler.length === index + 1,
-                            };
-                        })
-                        .map((smule, index) => {
-                            return <Brodsmule key={index} {...smule} />;
-                        })
-                }
-            </div>
-        </nav>);
+        return (
+            <nav className="brodsmuler" aria-label="Du er her: ">
+                <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" className="brodsmuler__ikon" />
+                <div className="brodsmuler__smuler">
+                    <a href="/dittnav" className="js-smule brodsmuler__smule">Ditt NAV</a>
+                    {brodsmuler.length > 0 && <span className="brodsmule__skille"> / </span>}
+                    {
+                        this.visCollapsed() && (
+                            <ToggleLink onClick={(e) => {
+                                e.preventDefault();
+                                this.visAlleBrodsmuler();
+                            }} />
+                        )
+                    }
+                    {
+                        synligeBrodsmuler
+                            .map((smule, index) => {
+                                return {
+                                    ...smule,
+                                    sisteSmule: synligeBrodsmuler.length === index + 1,
+                                };
+                            })
+                            .map((smule, index) => {
+                                return <Brodsmule key={index} {...smule} />;
+                            })
+                    }
+                </div>
+            </nav>
+        );
     }
 }
 

@@ -19,32 +19,41 @@ import { smSykmeldingerPt } from '../../../propTypes/smSykmeldingProptypes';
 
 export class Container extends Component {
     componentWillMount() {
-        this.props.hentDineSykmeldinger();
+        const { doHentDineSykmeldinger } = this.props;
+        doHentDineSykmeldinger();
     }
 
     componentDidUpdate() {
-        if (this.props.skalHenteSmSykmeldinger) {
-            this.props.hentSmSykmeldinger();
+        const { doHentSmSykmeldinger, skalHenteSmSykmeldinger } = this.props;
+        if (skalHenteSmSykmeldinger) {
+            doHentSmSykmeldinger();
         }
     }
 
     render() {
-        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering, smSykmeldinger } = this.props;
-        return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    } else if (hentingFeilet) {
-                        return (<Feilmelding />);
-                    }
-                    return (<Sykmeldinger
-                        smSykmeldinger={smSykmeldinger}
-                        sykmeldinger={sykmeldinger}
-                        sortering={sortering} />);
-                })()
-            }
-        </Side>);
+        const {
+            brodsmuler, sykmeldinger, henter, hentingFeilet, sortering, smSykmeldinger,
+        } = this.props;
+        return (
+            <Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
+                {
+                    (() => {
+                        if (henter) {
+                            return <AppSpinner />;
+                        }
+                        if (hentingFeilet) {
+                            return (<Feilmelding />);
+                        }
+                        return (
+                            <Sykmeldinger
+                                smSykmeldinger={smSykmeldinger}
+                                sykmeldinger={sykmeldinger}
+                                sortering={sortering} />
+                        );
+                    })()
+                }
+            </Side>
+        );
     }
 }
 
@@ -56,8 +65,8 @@ Container.propTypes = {
     sortering: PropTypes.shape({
         tidligere: PropTypes.string,
     }),
-    hentDineSykmeldinger: PropTypes.func,
-    hentSmSykmeldinger: PropTypes.func,
+    doHentDineSykmeldinger: PropTypes.func,
+    doHentSmSykmeldinger: PropTypes.func,
     smSykmeldinger: smSykmeldingerPt,
     skalHenteSmSykmeldinger: PropTypes.bool,
 };
@@ -81,4 +90,9 @@ export function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { hentDineSykmeldinger, hentSmSykmeldinger })(Container);
+const actionCreators = {
+    doHentDineSykmeldinger: hentDineSykmeldinger,
+    doHentSmSykmeldinger: hentSmSykmeldinger,
+};
+
+export default connect(mapStateToProps, actionCreators)(Container);

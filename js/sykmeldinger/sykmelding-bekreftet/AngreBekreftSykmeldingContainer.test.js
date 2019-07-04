@@ -16,7 +16,7 @@ import { Container, mapStateToProps } from './AngreBekreftSykmeldingContainer';
 import { SYKMELDING_ARBEIDSSITUASJON } from '../../enums/unleashToggles';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('Container', () => {
     let clock;

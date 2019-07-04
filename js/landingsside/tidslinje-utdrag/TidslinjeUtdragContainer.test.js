@@ -9,7 +9,7 @@ import unleashToggles from '../../data/unleash-toggles/unleashToggles';
 import { sykmeldtInfodataHentet } from '../../data/brukerinfo/brukerinfo_actions';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('TidslinjeutdragContainer', () => {
     let sykmeldinger;

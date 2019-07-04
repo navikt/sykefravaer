@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser } from '@navikt/digisyfo-npm';
+import {
+    getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser,
+} from '@navikt/digisyfo-npm';
 import SykmeldingTeasere from './SykmeldingTeasere';
 import SykmeldingerSorteringContainer from './SykmeldingerSorteringContainer';
 import Sidetopp from '../../components/Sidetopp';
@@ -21,27 +23,31 @@ const Sykmeldinger = ({ sykmeldinger = [], sortering, smSykmeldinger }) => {
     const lesteSmSykmeldinger = smSykmeldinger.filter((smSykmelding) => {
         return smSykmelding.bekreftetDato !== null;
     });
-    return (<div>
-        <Sidetopp
-            tittel={getLedetekst('dine-sykmeldinger.tittel')}
-            htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst')}
-        />
-        <SykmeldingTeasere
-            sykmeldinger={sorterSykmeldingerEldsteFoerst([...nyeSykmeldinger, ...ulesteSmSykmeldinger])}
-            tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel')}
-            ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding')}
-            className="js-nye-sykmeldinger"
-            id="sykmelding-liste-nye" />
-        {
-            (tidligereSykmeldinger.length > 0 || lesteSmSykmeldinger.length > 0) && <SykmeldingTeasere
-                sykmeldinger={sorterSykmeldinger([...tidligereSykmeldinger, ...lesteSmSykmeldinger], tidligereSortering)}
-                tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel')}
-                className="js-tidligere-sykmeldinger"
-                id="sykmelding-liste-tidligere">
-                <SykmeldingerSorteringContainer status="tidligere" />
-            </SykmeldingTeasere>
-        }
-    </div>);
+    return (
+        <div>
+            <Sidetopp
+                tittel={getLedetekst('dine-sykmeldinger.tittel')}
+                htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst')}
+            />
+            <SykmeldingTeasere
+                sykmeldinger={sorterSykmeldingerEldsteFoerst([...nyeSykmeldinger, ...ulesteSmSykmeldinger])}
+                tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel')}
+                ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding')}
+                className="js-nye-sykmeldinger"
+                id="sykmelding-liste-nye" />
+            {
+                (tidligereSykmeldinger.length > 0 || lesteSmSykmeldinger.length > 0) && (
+                    <SykmeldingTeasere
+                        sykmeldinger={sorterSykmeldinger([...tidligereSykmeldinger, ...lesteSmSykmeldinger], tidligereSortering)}
+                        tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel')}
+                        className="js-tidligere-sykmeldinger"
+                        id="sykmelding-liste-tidligere">
+                        <SykmeldingerSorteringContainer status="tidligere" />
+                    </SykmeldingTeasere>
+                )
+            }
+        </div>
+    );
 };
 
 Sykmeldinger.propTypes = {

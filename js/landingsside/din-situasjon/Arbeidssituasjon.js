@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Arbeidssituasjon = ({ className, ikonSrc, ikonAlt, situasjon }) => {
+const Arbeidssituasjon = ({
+    className, ikonSrc, ikonAlt, situasjon,
+}) => {
     return (
         <div className="situasjon__panel">
             <div className={`situasjon ${className}`}>
@@ -10,7 +12,8 @@ const Arbeidssituasjon = ({ className, ikonSrc, ikonAlt, situasjon }) => {
                 </div>
                 {situasjon}
             </div>
-        </div>);
+        </div>
+    );
 };
 
 Arbeidssituasjon.propTypes = {

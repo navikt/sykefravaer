@@ -1,15 +1,15 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import {
+    arbeidssituasjoner,
     getLedetekst,
-    tilLesbarDatoMedArstall,
     senesteTom,
+    sykepengesoknad as sykepengesoknadPt,
     sykepengesoknadstatuser,
     sykmeldingstatuser,
-    arbeidssituasjoner,
-    sykepengesoknad as sykepengesoknadPt,
+    tilLesbarDatoMedArstall,
 } from '@navikt/digisyfo-npm';
 import Side from '../../../sider/Side';
 import Sykmeldingkvittering, { kvitteringtyper } from '../../kvittering/Sykmeldingkvittering';
@@ -25,16 +25,26 @@ import { hentBrukerinfo } from '../../../data/brukerinfo/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { selectDinSykmelding } from '../../data/dine-sykmeldinger/dineSykmeldingerSelectors';
 
-const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
+const {
+    SENDT, TIL_SENDING, BEKREFTET, AVBRUTT,
+} = sykmeldingstatuser;
 const { FREMTIDIG, NY } = sykepengesoknadstatuser;
 
 export class KvitteringSide extends Component {
     componentDidMount() {
-        this.props.actions.hentSoknader();
-        this.props.actions.hentDineSykmeldinger();
-        this.props.actions.hentBrukerinfo();
-        this.props.actions.hentSykepengesoknader();
-        this.props.actions.hentAktuelleArbeidsgivere(this.props.sykmeldingId);
+        const {
+            sykmeldingId,
+            doHentDineSykmeldinger,
+            doHentSykepengesoknader,
+            doHentSoknader,
+            doHentBrukerinfo,
+            doHentAktuelleArbeidsgivere,
+        } = this.props;
+        doHentDineSykmeldinger();
+        doHentSykepengesoknader();
+        doHentSoknader();
+        doHentBrukerinfo();
+        doHentAktuelleArbeidsgivere(sykmeldingId);
     }
 
     render() {
@@ -71,21 +81,27 @@ export class KvitteringSide extends Component {
                 return <Feilmelding />;
             }
             if (!sykmelding) {
-                return (<Feilmelding
-                    tittel="Fant ikke kvittering"
-                    melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
+                return (
+                    <Feilmelding
+                        tittel="Fant ikke kvittering"
+                        melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />
+                );
             }
             if (kvitteringtype && [SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) > -1) {
-                return (<Sykmeldingkvittering
-                    kvitteringtype={kvitteringtype}
-                    sykepengesoknader={sykepengesoknader}
-                    soknader={soknader} />);
+                return (
+                    <Sykmeldingkvittering
+                        kvitteringtype={kvitteringtype}
+                        sykepengesoknader={sykepengesoknader}
+                        soknader={soknader} />
+                );
             }
             if ([SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) === -1) {
-                return (<Feilmelding
-                    tittel="Sykmeldingen har feil status"
-                    melding={`Du kan ikke se kvitteringen fordi sykmeldingen har status «${sykmelding.status}»`}
-                />);
+                return (
+                    <Feilmelding
+                        tittel="Sykmeldingen har feil status"
+                        melding={`Du kan ikke se kvitteringen fordi sykmeldingen har status «${sykmelding.status}»`}
+                    />
+                );
             }
             return <Feilmelding />;
         })();
@@ -106,70 +122,51 @@ KvitteringSide.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
     kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)),
-    actions: PropTypes.shape({
-        hentSoknader: PropTypes.func,
-        hentSykepengesoknader: PropTypes.func,
-        hentBrukerinfo: PropTypes.func,
-        hentDineSykmeldinger: PropTypes.func,
-        hentAktuelleArbeidsgivere: PropTypes.func,
-    }),
+    doHentDineSykmeldinger: PropTypes.func,
+    doHentSykepengesoknader: PropTypes.func,
+    doHentSoknader: PropTypes.func,
+    doHentBrukerinfo: PropTypes.func,
+    doHentAktuelleArbeidsgivere: PropTypes.func,
 };
 
-const getArbeidssituasjon = (sykmelding) => {
-    return typeof sykmelding.valgtArbeidssituasjon === 'string'
+const getArbeidssituasjon = sykmelding => (
+    typeof sykmelding.valgtArbeidssituasjon === 'string'
         ? sykmelding.valgtArbeidssituasjon.toUpperCase()
-        : '';
-};
+        : ''
+);
 
-const erFrilanserEllerSelvstendigNaringsdrivende = (sykmelding) => {
-    return [arbeidssituasjoner.FRILANSER, arbeidssituasjoner.NAERINGSDRIVENDE].indexOf(getArbeidssituasjon(sykmelding)) > -1;
-};
+const erFrilanserEllerSelvstendigNaringsdrivende = sykmelding => (
+    [arbeidssituasjoner.FRILANSER, arbeidssituasjoner.NAERINGSDRIVENDE]
+        .indexOf(getArbeidssituasjon(sykmelding)) > -1
+);
 
-const erAvventendeReisetilskuddEllerBehandlingsdager = (sykmelding) => {
-    return sykmelding
-        && sykmelding.mulighetForArbeid
-        && sykmelding.mulighetForArbeid.perioder
-            .some((periode) => {
-                return periode.avventende || periode.reisetilskudd || periode.behandlingsdager;
-            });
-};
+const erAvventendeReisetilskuddEllerBehandlingsdager = sykmelding => sykmelding
+    && sykmelding.mulighetForArbeid
+    && sykmelding.mulighetForArbeid.perioder
+        .some(periode => periode.avventende || periode.reisetilskudd || periode.behandlingsdager);
 
 const getKvitteringtype = (state, sykmeldingId) => {
-    const sykmelding = state.dineSykmeldinger.data.find((s) => {
-        return s.id === sykmeldingId;
-    });
+    const sykmelding = state.dineSykmeldinger.data.find(s => s.id === sykmeldingId);
+
     if (!sykmelding) {
         return null;
     }
-    const arbeidstakersoknader = state.soknader.data.filter((s) => {
-        return s.soknadstype === ARBEIDSTAKERE;
-    });
+    const arbeidstakersoknader = state.soknader.data.filter(s => s.soknadstype === ARBEIDSTAKERE);
     const denneSykmeldingensSykepengesoknader = [
         ...state.sykepengesoknader.data,
         ...arbeidstakersoknader,
-    ].filter((s) => {
-        return s.sykmeldingId === sykmeldingId;
-    });
-    const nyeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter((s) => {
-        return s.status === NY;
-    });
-    const fremtidigeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter((s) => {
-        return s.status === FREMTIDIG;
-    });
-    const denneSykmeldingensSoknader = state.soknader.data.filter((s) => {
-        return s.sykmeldingId === sykmelding.id && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
-    });
-    const nyeSoknaderForDenneSykmeldingen = denneSykmeldingensSoknader.filter((s) => {
-        return s.status === NY;
-    });
-    const skalOppretteSoknad = (state.sykmeldingMeta[sykmeldingId] || {}).skalOppretteSoknad;
+    ].filter(s => s.sykmeldingId === sykmeldingId);
+
+    const nyeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter(s => s.status === NY);
+    const fremtidigeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter(s => s.status === FREMTIDIG);
+    const denneSykmeldingensSoknader = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE);
+    const nyeSoknaderForDenneSykmeldingen = denneSykmeldingensSoknader.filter(s => s.status === NY);
+    const { skalOppretteSoknad } = state.sykmeldingMeta[sykmeldingId] || {};
     const mottakendeArbeidsgiver = sykmelding.mottakendeArbeidsgiver
-        ? state.arbeidsgivere.data.find((arbeidsgiver) => {
-            return arbeidsgiver.orgnummer === sykmelding.mottakendeArbeidsgiver.virksomhetsnummer;
-        })
+        ? state.arbeidsgivere.data.find(arbeidsgiver => arbeidsgiver.orgnummer === sykmelding.mottakendeArbeidsgiver.virksomhetsnummer)
         : null;
     const forskuttererArbeidsgiver = mottakendeArbeidsgiver
-        && mottakendeArbeidsgiver.naermesteLeder
+    && mottakendeArbeidsgiver.naermesteLeder
         ? mottakendeArbeidsgiver.naermesteLeder.arbeidsgiverForskuttererLoenn !== false
         : true;
 
@@ -234,14 +231,12 @@ const getKvitteringtype = (state, sykmeldingId) => {
 };
 
 export function mapStateToProps(state, ownProps) {
-    const sykmeldingId = ownProps.params.sykmeldingId;
+    const { sykmeldingId } = ownProps.params;
     const sykmelding = selectDinSykmelding(state, sykmeldingId);
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const kvitteringtype = getKvitteringtype(state, sykmeldingId);
-    const soknadErFremtidig = (s) => {
-        return s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
-    };
+    const soknadErFremtidig = s => s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
 
     return {
         henter,
@@ -255,18 +250,14 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators({
-            hentDineSykmeldinger,
-            hentSykepengesoknader,
-            hentSoknader,
-            hentBrukerinfo,
-            hentAktuelleArbeidsgivere,
-        }, dispatch),
-    };
-}
+const actionCreators = {
+    doHentDineSykmeldinger: hentDineSykmeldinger,
+    doHentSykepengesoknader: hentSykepengesoknader,
+    doHentSoknader: hentSoknader,
+    doHentBrukerinfo: hentBrukerinfo,
+    doHentAktuelleArbeidsgivere: hentAktuelleArbeidsgivere,
+};
 
-const SykmeldingkvitteringSide = connect(mapStateToProps, mapDispatchToProps)(KvitteringSide);
+const SykmeldingkvitteringSide = connect(mapStateToProps, actionCreators)(KvitteringSide);
 
 export default SykmeldingkvitteringSide;

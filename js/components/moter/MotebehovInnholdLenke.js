@@ -14,20 +14,23 @@ const MotebehovInnholdLenke = (
     {
         motebehovReducer,
         virksomhetsnrListe,
-    }) => {
+    },
+) => {
     const knappTekstNokkel = skalViseMotebehovKvittering(motebehovReducer, virksomhetsnrListe)
         ? 'mote.motebehovInnholdLenke.knapp.kvittering'
         : 'mote.motebehovInnholdLenke.knapp.svar';
-    return (<div className="motebehovInnholdLenke panel">
-        <h2 className="panel__tittel">{TEKSTER.tittel}</h2>
-        <p>{TEKSTER.undertekst}</p>
-        <Link
-            className="knapp"
-            to="/sykefravaer/dialogmoter/behov"
-        >
-            {getLedetekst(knappTekstNokkel)}
-        </Link>
-    </div>);
+    return (
+        <div className="motebehovInnholdLenke panel">
+            <h2 className="panel__tittel">{TEKSTER.tittel}</h2>
+            <p>{TEKSTER.undertekst}</p>
+            <Link
+                className="knapp"
+                to="/sykefravaer/dialogmoter/behov"
+            >
+                {getLedetekst(knappTekstNokkel)}
+            </Link>
+        </div>
+    );
 };
 MotebehovInnholdLenke.propTypes = {
     motebehovReducer: motebehovReducerPt,

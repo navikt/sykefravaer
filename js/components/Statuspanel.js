@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 export const StatusNokkelopplysning = ({ children, Overskrift = 'h2', tittel }) => {
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift={Overskrift} tittel={tittel}>
-        {children}
-    </SykmeldingNokkelOpplysning>);
+    return (
+        <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift={Overskrift} tittel={tittel}>
+            {children}
+        </SykmeldingNokkelOpplysning>
+    );
 };
 
 StatusNokkelopplysning.propTypes = {
@@ -16,9 +18,11 @@ StatusNokkelopplysning.propTypes = {
 };
 
 export const Statusopplysninger = ({ children }) => {
-    return (<div className="statusopplysninger">
-        {children}
-    </div>);
+    return (
+        <div className="statusopplysninger">
+            {children}
+        </div>
+    );
 };
 
 Statusopplysninger.propTypes = {
@@ -30,9 +34,11 @@ const Statuspanel = ({ children, enKolonne = false, className = 'blokk' }) => {
         'statuspanel--toKol': !enKolonne,
         'statuspanel--enKol': enKolonne,
     });
-    return (<div className={classNames}>
-        {children}
-    </div>);
+    return (
+        <div className={classNames}>
+            {children}
+        </div>
+    );
 };
 
 Statuspanel.propTypes = {
@@ -42,4 +48,3 @@ Statuspanel.propTypes = {
 };
 
 export default Statuspanel;
-

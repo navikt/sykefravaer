@@ -9,7 +9,7 @@ import {
 } from '../../js/utils/datoUtils';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('datoUtils', () => {
     it('skal formattere dato', () => {
@@ -76,4 +76,3 @@ describe('datoUtils', () => {
         });
     });
 });
-

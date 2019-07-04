@@ -4,7 +4,8 @@ import {
     HENT_DINE_SYKMELDINGER_FEILET,
     HENTER_DINE_SYKMELDINGER,
     SET_DINE_SYKMELDINGER,
-    SET_SORTERING } from './dineSykmeldingerActions';
+    SET_SORTERING,
+} from './dineSykmeldingerActions';
 import {
     ANGRE_BEKREFT_SYKMELDING_FEILET,
     ANGRER_BEKREFT_SYKMELDING,
@@ -26,7 +27,9 @@ import {
     SYKMELDING_SENDT,
 } from '../din-sykmelding/dinSykmeldingActions';
 
-const { SENDT, BEKREFTET, AVBRUTT, NY } = sykmeldingstatuser;
+const {
+    SENDT, BEKREFTET, AVBRUTT, NY,
+} = sykmeldingstatuser;
 
 const initiellState = {
     henter: false,

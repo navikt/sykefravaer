@@ -1,5 +1,7 @@
 import { get, log } from '@navikt/digisyfo-npm';
-import { call, fork, put, takeEvery } from 'redux-saga/effects';
+import {
+    call, fork, put, takeEvery,
+} from 'redux-saga/effects';
 import * as actions from './arbeidsgiversSykmeldingerActions';
 import {
     BEKREFT_SYKMELDING_ANGRET,

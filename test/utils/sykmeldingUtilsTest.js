@@ -16,7 +16,7 @@ import {
 } from '../mock/mockSykmeldinger';
 import { getLedere } from '../mock/mockLedere';
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('sykmeldingUtils', () => {
     let clock;

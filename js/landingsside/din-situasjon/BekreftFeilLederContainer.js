@@ -6,8 +6,9 @@ import { naermesteLeder as naermesteLederPt } from '../../propTypes/index';
 import BekreftFeilLeder, { LederAvkreftet } from './BekreftFeilLeder';
 
 export const Container = (props) => {
-    return props.leder.avkreftet
-        ? <LederAvkreftet onLukk={props.onAvbryt} />
+    const { leder, onAvbryt } = props;
+    return leder.avkreftet
+        ? <LederAvkreftet onLukk={onAvbryt} />
         : <BekreftFeilLeder {...props} />;
 };
 

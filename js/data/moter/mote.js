@@ -48,7 +48,7 @@ const mote = (state = initialState, action = {}) => {
         }
         case SVAR_SENDT: {
             const avkryssetIder = action.data;
-            const deltakertype = action.deltakertype;
+            const { deltakertype } = action;
             const data = Object.assign({}, state.data, {
                 deltakere: state.data.deltakere
                     .map((deltaker) => {

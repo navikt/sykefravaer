@@ -1,3 +1,4 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
@@ -5,8 +6,12 @@ import { Field } from 'redux-form';
 import { Vis } from '../../../utils';
 import validerDatoField from '../datovelger/validerDatoField';
 import DayPickerPeriode from './DayPickerPeriode';
+// TODO: Fiks sykliske dependencies
+// eslint-disable-next-line import/no-cycle
 import FomFieldComponent from './PeriodeFom';
+// eslint-disable-next-line import/no-cycle,import/no-cycle
 import PeriodeTomComponent from './PeriodeTom';
+// eslint-disable-next-line import/no-cycle
 import { PeriodevelgerContext } from './Periodevelger';
 
 let lukk;
@@ -42,9 +47,9 @@ class PeriodevelgerInputComponent extends Component {
 
 
     toggle() {
-        this.setState({
-            erApen: !this.state.erApen,
-        });
+        this.setState(prevState => ({
+            erApen: !prevState.erApen,
+        }));
     }
 
     lukk() {
@@ -67,14 +72,16 @@ class PeriodevelgerInputComponent extends Component {
     }
 
     validerDatoField(input) {
+        const { tidligsteFom, senesteTom } = this.props;
         return validerDatoField(input, {
-            fra: this.props.tidligsteFom,
-            til: this.props.senesteTom,
+            fra: tidligsteFom,
+            til: senesteTom,
         });
     }
 
     render() {
-        const { names, periodeIndex } = this.props;
+        const { names, periodeIndex, onRemoveHandler } = this.props;
+        const { erApen } = this.state;
         const buttonId = `toggle-${names[1].split('.')[0]}`;
         return (
             /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -90,7 +97,7 @@ class PeriodevelgerInputComponent extends Component {
                             onDoubleClick={this.apne}
                             onKeyUp={this.lukk}
                             validate={this.validerDatoField}
-                            kalenderVises={this.state.erApen} />
+                            kalenderVises={erApen} />
                     </div>
                     <div className="periodevelger__skille">–</div>
                     <div className="periodevelger__tom">
@@ -104,31 +111,34 @@ class PeriodevelgerInputComponent extends Component {
                             onDoubleClick={this.apne}
                             onKeyUp={this.lukk}
                             validate={this.validerDatoField}
-                            erApen={this.state.erApen} />
+                            erApen={erApen} />
                     </div>
                 </div>
                 <Vis
-                    hvis={this.state.erApen}
-                    render={() => {
-                        return (<DayPickerPeriode
+                    hvis={erApen}
+                    render={() => (
+                        <DayPickerPeriode
                             {...this.props}
                             lukk={this.lukk}
-                            ariaControlledBy={buttonId} />);
-                    }} />
+                            ariaControlledBy={buttonId} />
+                    )} />
                 <Vis
                     hvis={periodeIndex !== 0}
-                    render={() => {
-                        return (<div className="periodevelger__verktoy">
+                    render={() => (
+                        <div className="periodevelger__verktoy">
                             <button
                                 type="button"
                                 className="lenke"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    this.props.onRemoveHandler();
-                                }}>{getLedetekst('sykepengesoknad.periodevelger.slett')}</button>
-                        </div>);
-                    }} />
-            </div>);
+                                    onRemoveHandler();
+                                }}>
+                                {getLedetekst('sykepengesoknad.periodevelger.slett')}
+                            </button>
+                        </div>
+                    )} />
+            </div>
+        );
         /* eslint-disable jsx-a11y/no-static-element-interactions */
     }
 }
@@ -143,15 +153,12 @@ PeriodevelgerInputComponent.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-const PeriodevelgerInput = (props) => {
-    return (<PeriodevelgerContext.Consumer>
+const PeriodevelgerInput = props => (
+    <PeriodevelgerContext.Consumer>
         {
-            (contextProps) => {
-                return <PeriodevelgerInputComponent {...props} {...contextProps} />;
-            }
+            contextProps => <PeriodevelgerInputComponent {...props} {...contextProps} />
         }
-    </PeriodevelgerContext.Consumer>);
-};
+    </PeriodevelgerContext.Consumer>
+);
 
 export default PeriodevelgerInput;
-

@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 import { getDuration, getLedetekst, toDate } from '@navikt/digisyfo-npm';
 import { sykmeldingperiode } from '../../propTypes';
 
-const SykmeldingPeriodeinfo = ({ periode, arbeidsgiver, Element = 'p', className }) => {
+const SykmeldingPeriodeinfo = ({
+    periode, arbeidsgiver, Element = 'p', className,
+}) => {
     let ledetekstNokkel = 'sykmelding.teaser.tekst';
     if (periode.behandlingsdager === 1) {
         ledetekstNokkel = 'sykmelding.teaser.tekst.behandlingsdag';

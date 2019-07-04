@@ -1,7 +1,9 @@
 import { setLedetekster } from '@navikt/digisyfo-npm';
 import { finnLedetekstForPeriodeinfo, lagPeriodetekst, periodeinfoNokkelBase } from './AvvistSykmeldingTeaser';
 import expect from '../../../test/expect';
-import { AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD } from '../enums/sykmeldingskjemaenums';
+import {
+    AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD,
+} from '../enums/sykmeldingskjemaenums';
 
 describe('Avvist sykmelding teaser', () => {
     describe('ledetekstbase', () => {

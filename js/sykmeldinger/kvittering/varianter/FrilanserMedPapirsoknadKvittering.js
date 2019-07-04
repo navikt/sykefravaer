@@ -4,29 +4,31 @@ import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from '../felles/Kvitte
 import { FrilanserSelvstendigKvitteringHotjarTrigger } from '../../../components/HotjarTrigger';
 
 const FrilanserMedPapirsoknadKvittering = () => {
-    return (<FrilanserSelvstendigKvitteringHotjarTrigger>
-        <div className="js-kvittering js-kvittering--sok-papir">
-            <div className="panel blokk">
-                <StegvisKvittering>
-                    <Kvitteringsteg
-                        nummer="1"
-                        ok
-                        tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-1.tittel')} />
-                    <Kvitteringsteg
-                        nummer="2"
-                        tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-2.tittel')}>
-                        <HtmlAvsnitt
-                            nokkel="bekreft-sykmelding.skal-opprettes-soknad.steg-2.tekst" />
-                    </Kvitteringsteg>
-                </StegvisKvittering>
+    return (
+        <FrilanserSelvstendigKvitteringHotjarTrigger>
+            <div className="js-kvittering js-kvittering--sok-papir">
+                <div className="panel blokk">
+                    <StegvisKvittering>
+                        <Kvitteringsteg
+                            nummer="1"
+                            ok
+                            tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-1.tittel')} />
+                        <Kvitteringsteg
+                            nummer="2"
+                            tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-2.tittel')}>
+                            <HtmlAvsnitt
+                                nokkel="bekreft-sykmelding.skal-opprettes-soknad.steg-2.tekst" />
+                        </Kvitteringsteg>
+                    </StegvisKvittering>
+                </div>
+                <Bjorn
+                    className="blokk"
+                    hvit
+                    stor
+                    nokkel="bekreft-sykmelding.skal-opprettes-soknad.bjorn" />
             </div>
-            <Bjorn
-                className="blokk"
-                hvit
-                stor
-                nokkel="bekreft-sykmelding.skal-opprettes-soknad.bjorn" />
-        </div>
-    </FrilanserSelvstendigKvitteringHotjarTrigger>);
+        </FrilanserSelvstendigKvitteringHotjarTrigger>
+    );
 };
 
 export default FrilanserMedPapirsoknadKvittering;

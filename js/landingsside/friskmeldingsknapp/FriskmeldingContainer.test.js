@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { mapStateToProps } from './FriskmeldingContainer';
 import mockSykmelding from '../../../test/mock/mockSykmeldinger';
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('FriskmeldingContainer', () => {
     let clock;

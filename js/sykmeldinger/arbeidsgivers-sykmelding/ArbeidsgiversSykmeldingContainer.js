@@ -16,12 +16,14 @@ export class ArbeidsgiversSykmeldingWrapper extends Component {
 
     render() {
         const { sykmelding, Overskrift, henter } = this.props;
-        return (<div className="blokk">
-            <ArbeidsgiversSykmelding
-                sykmelding={sykmelding}
-                Overskrift={Overskrift}
-                henter={henter} />
-        </div>);
+        return (
+            <div className="blokk">
+                <ArbeidsgiversSykmelding
+                    sykmelding={sykmelding}
+                    Overskrift={Overskrift}
+                    henter={henter} />
+            </div>
+        );
     }
 }
 

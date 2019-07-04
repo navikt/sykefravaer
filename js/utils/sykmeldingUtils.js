@@ -25,8 +25,8 @@ export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
 export const erSykmeldingAktiv = (sykmelding) => {
     const dagensDato = new Date();
     dagensDato.setHours(0, 0, 0, 0);
-    return sykmelding.mulighetForArbeid &&
-        sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+    return sykmelding.mulighetForArbeid
+        && sykmelding.mulighetForArbeid.perioder.filter((periode) => {
             return new Date(periode.tom) >= new Date(dagensDato);
         }).length > 0;
 };

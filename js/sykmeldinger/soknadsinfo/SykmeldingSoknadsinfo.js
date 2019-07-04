@@ -11,7 +11,9 @@ import {
     UtgaattSoknadBekreftelse,
 } from './SykmeldingSoknadstatus';
 
-const { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT, TIL_SENDING } = sykepengesoknadstatuser;
+const {
+    NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT, TIL_SENDING,
+} = sykepengesoknadstatuser;
 
 const SykmeldingSoknadsinfo = ({ sykepengesoknader }) => {
     const el = (() => {
@@ -47,9 +49,11 @@ const SykmeldingSoknadsinfo = ({ sykepengesoknader }) => {
     if (!el) {
         return null;
     }
-    return (<div className="panel panel--komprimert blokk">
-        {el}
-    </div>);
+    return (
+        <div className="panel panel--komprimert blokk">
+            {el}
+        </div>
+    );
 };
 
 SykmeldingSoknadsinfo.propTypes = {

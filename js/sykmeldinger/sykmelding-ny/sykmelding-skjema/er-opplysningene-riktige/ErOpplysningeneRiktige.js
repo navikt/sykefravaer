@@ -11,17 +11,19 @@ export const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).m
 });
 
 const ErOpplysningeneRiktige = (props) => {
-    return (<JaEllerNei
-        verdiMedTilleggssporsmal={false}
-        className="hovedsporsmal--hvit"
-        spoersmal="Er opplysningene i sykmeldingen riktige?"
-        name="opplysningeneErRiktige">
-        <FieldArray
-            {...props}
-            component={HvilkeOpplysningerErIkkeRiktige}
-            name="feilaktigeOpplysninger"
-            fields={feilaktigeOpplysninger} />
-    </JaEllerNei>);
+    return (
+        <JaEllerNei
+            verdiMedTilleggssporsmal={false}
+            className="hovedsporsmal--hvit"
+            spoersmal="Er opplysningene i sykmeldingen riktige?"
+            name="opplysningeneErRiktige">
+            <FieldArray
+                {...props}
+                component={HvilkeOpplysningerErIkkeRiktige}
+                name="feilaktigeOpplysninger"
+                fields={feilaktigeOpplysninger} />
+        </JaEllerNei>
+    );
 };
 
 export default ErOpplysningeneRiktige;

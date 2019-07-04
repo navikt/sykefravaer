@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import TidslinjeUtdrag, { VelgArbeidssituasjon } from './TidslinjeUtdrag';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('TidslinjeUtdrag', () => {
     beforeEach(() => {

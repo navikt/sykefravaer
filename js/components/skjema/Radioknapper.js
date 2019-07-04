@@ -16,26 +16,32 @@ export const getId = (id) => {
         .join('-');
 };
 
-export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer = null, disabled, visUndertekst }) => {
+export const Radioknapp = ({
+    input, value, children, id, label, checked, labelSekundaer = null, disabled, visUndertekst,
+}) => {
     const labelMedSekundaerlabel = labelSekundaer
-        ? (<div>
-            {label}
-            <span className="sekundaerLabel">{labelSekundaer}</span>
-        </div>) : label;
-    return (<div>
-        <Radio
-            id={getId(id)}
-            type="radio"
-            {...input}
-            disabled={disabled}
-            checked={checked || input.value.toString() === value.toString()}
-            value={value}
-            label={labelMedSekundaerlabel}
-            onBlur={() => {
-                input.onBlur();
-            }} />
-        { (input.value === value || disabled || visUndertekst) && children }
-    </div>);
+        ? (
+            <div>
+                {label}
+                <span className="sekundaerLabel">{labelSekundaer}</span>
+            </div>
+        ) : label;
+    return (
+        <div>
+            <Radio
+                id={getId(id)}
+                type="radio"
+                {...input}
+                disabled={disabled}
+                checked={checked || input.value.toString() === value.toString()}
+                value={value}
+                label={labelMedSekundaerlabel}
+                onBlur={() => {
+                    input.onBlur();
+                }} />
+            { (input.value === value || disabled || visUndertekst) && children }
+        </div>
+    );
 };
 
 Radioknapp.propTypes = {
@@ -53,21 +59,25 @@ Radioknapp.propTypes = {
     visUndertekst: PropTypes.bool,
 };
 
-const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children = [], horisontal = false, hjelpetekst, hjelpelinje, visUndertekst }) => {
-    return (<Feilomrade {...meta} id={input.name}>
-        <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
-            <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
-            { hjelpetekst }
-        </div>
-        { hjelpelinje }
-        <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
-            {
-                children.map((radioknapp, index) => {
-                    return <Radioknapp key={index} input={input} id={`${input.name}-${index}`} visUndertekst={visUndertekst} {...radioknapp.props} />;
-                })
-            }
-        </div>
-    </Feilomrade>);
+const Radioknapper = ({
+    input, meta, spoersmal, Overskrift = 'h3', children = [], horisontal = false, hjelpetekst, hjelpelinje, visUndertekst,
+}) => {
+    return (
+        <Feilomrade {...meta} id={input.name}>
+            <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
+                <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
+                { hjelpetekst }
+            </div>
+            { hjelpelinje }
+            <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
+                {
+                    children.map((radioknapp, index) => {
+                        return <Radioknapp key={index} input={input} id={`${input.name}-${index}`} visUndertekst={visUndertekst} {...radioknapp.props} />;
+                    })
+                }
+            </div>
+        </Feilomrade>
+    );
 };
 
 Radioknapper.propTypes = {

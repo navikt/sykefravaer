@@ -81,20 +81,24 @@ const hentIntrotekst = (smSykmelding) => {
 
 const BegrunnelseTekst = ({ smSykmelding }) => {
     const overskrift = 'Grunnen til at sykmeldingen er avvist:';
-    return (<React.Fragment>
-        <h3 className="typo-element" style={{ marginBottom: '1em' }}>{overskrift}</h3>
-        {
-            smSykmelding.behandlingsutfall.ruleHits.length === 1
-                ? (<p>{smSykmelding.behandlingsutfall.ruleHits[0].messageForUser}</p>)
-                : (<ul>
-                    {
-                        smSykmelding.behandlingsutfall.ruleHits.map((ruleHit) => {
-                            return <li key={ruleHit.ruleName}>{ruleHit.messageForUser}</li>;
-                        })
-                    }
-                </ul>)
-        }
-    </React.Fragment>);
+    return (
+        <React.Fragment>
+            <h3 className="typo-element" style={{ marginBottom: '1em' }}>{overskrift}</h3>
+            {
+                smSykmelding.behandlingsutfall.ruleHits.length === 1
+                    ? (<p>{smSykmelding.behandlingsutfall.ruleHits[0].messageForUser}</p>)
+                    : (
+                        <ul>
+                            {
+                                smSykmelding.behandlingsutfall.ruleHits.map((ruleHit) => {
+                                    return <li key={ruleHit.ruleName}>{ruleHit.messageForUser}</li>;
+                                })
+                            }
+                        </ul>
+                    )
+            }
+        </React.Fragment>
+    );
 };
 
 BegrunnelseTekst.propTypes = {
@@ -129,25 +133,27 @@ Begrunnelse.propTypes = {
 export const AvvistSykmeldingPanel = ({ smSykmelding }) => {
     const handlingstreng = hentHandlingsstreng(smSykmelding);
     const introtekststreng = hentIntrotekst(smSykmelding);
-    return (<div className="blokk">
-        <Veilederpanel
-            fargetema="feilmelding"
-            type="plakat"
-            center
-            kompakt
-            svg={<Mann />}
-            veilederProps={{ center: true, storrelse: 'S' }}
-        >
-            <h2 className="veilederpanel__tittel">
+    return (
+        <div className="blokk">
+            <Veilederpanel
+                fargetema="feilmelding"
+                type="plakat"
+                center
+                kompakt
+                svg={<Mann />}
+                veilederProps={{ center: true, storrelse: 'S' }}
+            >
+                <h2 className="veilederpanel__tittel">
                 Sykmeldingen er avvist av NAV
-            </h2>
-            <p>
-                {introtekststreng}
-                {handlingstreng}
-            </p>
-            <Begrunnelse smSykmelding={smSykmelding} />
-        </Veilederpanel>
-    </div>);
+                </h2>
+                <p>
+                    {introtekststreng}
+                    {handlingstreng}
+                </p>
+                <Begrunnelse smSykmelding={smSykmelding} />
+            </Veilederpanel>
+        </div>
+    );
 };
 
 AvvistSykmeldingPanel.propTypes = {

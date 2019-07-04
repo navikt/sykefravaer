@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, keyValue, scrollTo, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
+import {
+    getLedetekst, keyValue, scrollTo, tilLesbarDatoMedArstall,
+} from '@navikt/digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
@@ -18,11 +20,15 @@ export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';
 export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING';
 
 const Kvittering = ({ bekreftetdato, ledetekster }) => {
-    return (<Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
-        <p className="sist">{getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
-            '%DATO%': tilLesbarDatoMedArstall(bekreftetdato),
-        })}</p>
-    </Alertstripe>);
+    return (
+        <Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
+            <p className="sist">
+                {getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
+                    '%DATO%': tilLesbarDatoMedArstall(bekreftetdato),
+                })}
+            </p>
+        </Alertstripe>
+    );
 };
 
 Kvittering.propTypes = {
@@ -32,9 +38,9 @@ Kvittering.propTypes = {
 
 class Container extends Component {
     componentDidMount() {
-        const { hendelserHentet, hentingFeiletHendelser } = this.props;
+        const { hendelserHentet, hentingFeiletHendelser, doHentHendelser } = this.props;
         if (!hendelserHentet && !hentingFeiletHendelser) {
-            this.props.hentHendelser();
+            doHentHendelser();
         }
     }
 
@@ -48,7 +54,9 @@ class Container extends Component {
     }
 
     render() {
-        const { henter, hendelserHentet, hentingFeilet, ledetekster, visning, varseldato, bekreftetdato } = this.props;
+        const {
+            henter, hendelserHentet, hentingFeilet, ledetekster, visning, varseldato, bekreftetdato,
+        } = this.props;
         const brodsmuler = [{
             sti: '/',
             tittel: 'Ditt sykefravær',
@@ -56,43 +64,49 @@ class Container extends Component {
         }, {
             tittel: getLedetekst('aktivitetskrav-varsel.tittel', ledetekster),
         }];
-        return (<Side tittel="Aktivitetskrav" brodsmuler={brodsmuler} laster={henter || !hendelserHentet}>
-            {
-                (() => {
-                    if (hentingFeilet) {
-                        return <Feilmelding />;
-                    }
-                    if (henter || !hendelserHentet) {
-                        return <AppSpinner />;
-                    }
-                    if (visning === INGEN_AKTIVITETSKRAVVARSEL) {
-                        return (<Feilmelding
-                            tittel={getLedetekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
-                            melding={getLedetekst('aktivitetskrav-varsel.ingen-varsel.melding')} />);
-                    }
-                    return (<div>
-                        <div
-                            aria-live="polite"
-                            role="alert"
-                            ref={(c) => {
-                                this.kvittering = c;
-                            }}>
-                            <Vis
-                                hvis={visning === AKTIVITETSVARSELKVITTERING}
-                                render={() => {
-                                    return <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} />;
-                                }} />
-                        </div>
-                        <Artikkel ledetekster={ledetekster} inntruffetdato={varseldato} />
-                        <Vis
-                            hvis={visning !== AKTIVITETSVARSELKVITTERING}
-                            render={() => {
-                                return <BekreftAktivitetskravSkjema />;
-                            }} />
-                    </div>);
-                })()
-            }
-        </Side>);
+        return (
+            <Side tittel="Aktivitetskrav" brodsmuler={brodsmuler} laster={henter || !hendelserHentet}>
+                {
+                    (() => {
+                        if (hentingFeilet) {
+                            return <Feilmelding />;
+                        }
+                        if (henter || !hendelserHentet) {
+                            return <AppSpinner />;
+                        }
+                        if (visning === INGEN_AKTIVITETSKRAVVARSEL) {
+                            return (
+                                <Feilmelding
+                                    tittel={getLedetekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
+                                    melding={getLedetekst('aktivitetskrav-varsel.ingen-varsel.melding')} />
+                            );
+                        }
+                        return (
+                            <div>
+                                <div
+                                    aria-live="polite"
+                                    role="alert"
+                                    ref={(c) => {
+                                        this.kvittering = c;
+                                    }}>
+                                    <Vis
+                                        hvis={visning === AKTIVITETSVARSELKVITTERING}
+                                        render={() => {
+                                            return <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} />;
+                                        }} />
+                                </div>
+                                <Artikkel ledetekster={ledetekster} inntruffetdato={varseldato} />
+                                <Vis
+                                    hvis={visning !== AKTIVITETSVARSELKVITTERING}
+                                    render={() => {
+                                        return <BekreftAktivitetskravSkjema />;
+                                    }} />
+                            </div>
+                        );
+                    })()
+                }
+            </Side>
+        );
     }
 }
 
@@ -103,7 +117,7 @@ Container.propTypes = {
     ledetekster: keyValue,
     varseldato: PropTypes.instanceOf(Date),
     bekreftetdato: PropTypes.instanceOf(Date),
-    hentHendelser: PropTypes.func,
+    doHentHendelser: PropTypes.func,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
 };
@@ -111,7 +125,7 @@ Container.propTypes = {
 const sorterHendelser = (a, b) => {
     if (a.inntruffetdato.getTime() > b.inntruffetdato.getTime()) {
         return -1;
-    } else if (a.inntruffetdato.getTime() < b.inntruffetdato.getTime()) {
+    } if (a.inntruffetdato.getTime() < b.inntruffetdato.getTime()) {
         return 1;
     }
     return 0;
@@ -165,4 +179,4 @@ export function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { hentHendelser })(Container);
+export default connect(mapStateToProps, { doHentHendelser: hentHendelser })(Container);

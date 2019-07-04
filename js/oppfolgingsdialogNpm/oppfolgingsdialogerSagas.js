@@ -1,4 +1,6 @@
-import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
+import {
+    call, put, fork, takeEvery, all,
+} from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import {
     HENT_OPPFOLGINGSDIALOGER_FORESPURT,

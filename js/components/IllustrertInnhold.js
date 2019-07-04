@@ -2,19 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-const IllustrertInnhold = ({ ikon, ikonAlt, children, liten, revers }) => {
+const IllustrertInnhold = ({
+    ikon, ikonAlt, children, liten, revers,
+}) => {
     const classnamesIkon = cn('illustrertInnhold__ikon', {
         'illustrertInnhold__ikon--liten': liten,
     });
     const classNamesBoks = cn('illustrertInnhold', {
         'illustrertInnhold--revers': revers,
     });
-    return (<div className={classNamesBoks}>
-        <div className={classnamesIkon}>
-            <img src={ikon} alt={ikonAlt} />
+    return (
+        <div className={classNamesBoks}>
+            <div className={classnamesIkon}>
+                <img src={ikon} alt={ikonAlt} />
+            </div>
+            <div className="illustrertInnhold__innhold">{children}</div>
         </div>
-        <div className="illustrertInnhold__innhold">{children}</div>
-    </div>);
+    );
 };
 
 IllustrertInnhold.propTypes = {

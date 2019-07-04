@@ -1,7 +1,7 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { hentMote } from '../../data/moter/mote_actions';
@@ -21,7 +21,7 @@ import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import { skalViseMotebehovMedOppfolgingsforlopListe } from '../../utils/motebehovUtils';
 import { hentSoknader } from '../../data/soknader/soknaderActions';
 import { hentOppfolgingsforlopsPerioder } from '../../data/oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
-import { hentSykmeldtinfodata, hentOppfolging } from '../../data/brukerinfo/brukerinfo_actions';
+import { hentOppfolging, hentSykmeldtinfodata } from '../../data/brukerinfo/brukerinfo_actions';
 import {
     finnOgHentManglendeOppfolgingsforlopsPerioder,
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
@@ -45,37 +45,51 @@ export class Container extends Component {
         const {
             skalHenteLedere,
             skalHenteOppfolgingsdialoger,
-            actions,
+            doHentMote,
+            doHentSykepengesoknader,
+            doHentDineSykmeldinger,
+            doHentSykeforloep,
+            doHentSykeforloepMetadata,
+            doHentSoknader,
+            doHentOppfolging,
+            doHentSykmeldtinfodata,
+            doHentSmSykmeldinger,
+            doHentLedere,
+            doHentOppfolgingsdialoger,
         } = this.props;
 
         if (skalHenteLedere) {
-            actions.hentLedere();
+            doHentLedere();
         }
 
         if (skalHenteOppfolgingsdialoger) {
-            actions.hentOppfolgingsdialoger();
+            doHentOppfolgingsdialoger();
         }
-        actions.hentMote();
-        actions.hentSykepengesoknader();
-        actions.hentDineSykmeldinger();
-        actions.hentSykeforloep();
-        actions.hentSykeforloepMetadata();
-        actions.hentSoknader();
-        actions.hentOppfolging();
-        actions.hentSykmeldtinfodata();
-        actions.hentSmSykmeldinger();
+        doHentMote();
+        doHentSykepengesoknader();
+        doHentDineSykmeldinger();
+        doHentSykeforloep();
+        doHentSykeforloepMetadata();
+        doHentSoknader();
+        doHentOppfolging();
+        doHentSykmeldtinfodata();
+        doHentSmSykmeldinger();
     }
 
     componentDidMount() {
         const {
-            actions,
+            doHentMotebehov,
+            doHentOppfolgingsforlopsPerioder,
+            oppfolgingsforlopsPerioderReducerListe,
+            virksomhetsnrListe,
         } = this.props;
-        actions.hentMotebehov();
-        finnOgHentManglendeOppfolgingsforlopsPerioder(this.props);
+        doHentMotebehov();
+        finnOgHentManglendeOppfolgingsforlopsPerioder(doHentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
     }
 
     componentWillReceiveProps(nextProps) {
-        finnOgHentManglendeOppfolgingsforlopsPerioder(nextProps);
+        const { doHentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe } = nextProps;
+        finnOgHentManglendeOppfolgingsforlopsPerioder(doHentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
     }
 
     render() {
@@ -94,26 +108,31 @@ export class Container extends Component {
         const Sidetype = hentingFeilet ? Side : SideStrippet;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
 
-        return (<Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || skalHenteNoe}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    } else if (hentingFeilet) {
-                        return <Feilmelding />;
-                    }
-                    return (<Landingsside
-                        brodsmuler={brodsmuler}
-                        harSykepengesoknader={harSykepengesoknader}
-                        harDialogmote={harDialogmote}
-                        harSykmeldinger={harSykmeldinger}
-                        skalViseMotebehov={skalViseMotebehov}
-                        skalViseOppfolgingsdialog={skalViseOppfolgingsdialog}
-                        skalViseAktivitetsplan={skalViseAktivitetsplan}
-                    />);
-                })()
-            }
-        </Sidetype>);
+        return (
+            <Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || skalHenteNoe}>
+                {
+                    (() => {
+                        if (henter) {
+                            return <AppSpinner />;
+                        }
+                        if (hentingFeilet) {
+                            return <Feilmelding />;
+                        }
+                        return (
+                            <Landingsside
+                                brodsmuler={brodsmuler}
+                                harSykepengesoknader={harSykepengesoknader}
+                                harDialogmote={harDialogmote}
+                                harSykmeldinger={harSykmeldinger}
+                                skalViseMotebehov={skalViseMotebehov}
+                                skalViseOppfolgingsdialog={skalViseOppfolgingsdialog}
+                                skalViseAktivitetsplan={skalViseAktivitetsplan}
+                            />
+                        );
+                    })()
+                }
+            </Sidetype>
+        );
     }
 }
 
@@ -130,18 +149,21 @@ Container.propTypes = {
     skalViseAktivitetsplan: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
-    actions: PropTypes.shape({
-        hentMote: PropTypes.func,
-        hentMotebehov: PropTypes.func,
-        hentLedere: PropTypes.func,
-        hentSykepengesoknader: PropTypes.func,
-        hentDineSykmeldinger: PropTypes.func,
-        hentSykeforloep: PropTypes.func,
-        hentSykeforloepMetadata: PropTypes.func,
-        hentOppfolgingsdialoger: PropTypes.func,
-        hentOppfolgingsforlopsPerioder: PropTypes.func,
-        hentSoknader: PropTypes.func,
-    }),
+    oppfolgingsforlopsPerioderReducerListe: PropTypes.arrayOf(PropTypes.shape()),
+    virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
+    doHentMote: PropTypes.func,
+    doHentMotebehov: PropTypes.func,
+    doHentLedere: PropTypes.func,
+    doHentSykepengesoknader: PropTypes.func,
+    doHentDineSykmeldinger: PropTypes.func,
+    doHentSykeforloep: PropTypes.func,
+    doHentSykeforloepMetadata: PropTypes.func,
+    doHentOppfolgingsdialoger: PropTypes.func,
+    doHentOppfolgingsforlopsPerioder: PropTypes.func,
+    doHentSoknader: PropTypes.func,
+    doHentOppfolging: PropTypes.func,
+    doHentSykmeldtinfodata: PropTypes.func,
+    doHentSmSykmeldinger: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
@@ -175,23 +197,19 @@ export function mapStateToProps(state) {
     return {
         skalHenteLedere: skalHente('ledere'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
-        skalHenteNoe: reducere.reduce((acc, val) => {
-            return acc || skalHente(val);
-        }, false),
-        henter: reducere.reduce((acc, val) => {
-            return acc || henter(val);
-        }, false)
-        || !forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe),
+        skalHenteNoe: reducere.reduce((acc, val) => acc || skalHente(val), false),
+        henter: reducere.reduce((acc, val) => acc || henter(val), false)
+            || !forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe),
         harDialogmote: state.mote.data !== null,
         harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
         harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
-        skalViseMotebehov: !state.dineSykmeldinger.hentingFeilet &&
-            !state.ledere.hentingFeilet &&
-            skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov),
-        skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet &&
-            !state.oppfolgingsdialoger.hentingFeilet &&
-            !state.ledere.hentingFeilet &&
-            skalViseOppfoelgingsdialogLenke(state.dineSykmeldinger.data, state.oppfolgingsdialoger),
+        skalViseMotebehov: !state.dineSykmeldinger.hentingFeilet
+            && !state.ledere.hentingFeilet
+            && skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov),
+        skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet
+            && !state.oppfolgingsdialoger.hentingFeilet
+            && !state.ledere.hentingFeilet
+            && skalViseOppfoelgingsdialogLenke(state.dineSykmeldinger.data, state.oppfolgingsdialoger),
         skalViseAktivitetsplan: state.brukerinfo.oppfolging.data.underOppfolging,
         hentingFeilet: state.ledetekster.hentingFeilet,
         oppfolgingsforlopsPerioderReducerListe,
@@ -203,23 +221,20 @@ export function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    const actions = bindActionCreators({
-        hentMote,
-        hentMotebehov,
-        hentSykepengesoknader,
-        hentLedere,
-        hentDineSykmeldinger,
-        hentOppfolgingsdialoger,
-        hentOppfolgingsforlopsPerioder,
-        hentSykeforloep,
-        hentSykeforloepMetadata,
-        hentSoknader,
-        hentOppfolging,
-        hentSykmeldtinfodata,
-        hentSmSykmeldinger,
-    }, dispatch);
-    return { actions };
+const actionCreators = {
+    doHentMote: hentMote,
+    doHentMotebehov: hentMotebehov,
+    doHentSykepengesoknader: hentSykepengesoknader,
+    doHentLedere: hentLedere,
+    doHentDineSykmeldinger: hentDineSykmeldinger,
+    doHentOppfolgingsdialoger: hentOppfolgingsdialoger,
+    doHentOppfolgingsforlopsPerioder: hentOppfolgingsforlopsPerioder,
+    doHentSykeforloep: hentSykeforloep,
+    doHentSykeforloepMetadata: hentSykeforloepMetadata,
+    doHentSoknader: hentSoknader,
+    doHentOppfolging: hentOppfolging,
+    doHentSykmeldtinfodata: hentSykmeldtinfodata,
+    doHentSmSykmeldinger: hentSmSykmeldinger,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default connect(mapStateToProps, actionCreators)(Container);

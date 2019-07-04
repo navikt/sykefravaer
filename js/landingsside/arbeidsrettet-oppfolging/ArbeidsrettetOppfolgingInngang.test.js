@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import { Container, Inngang } from './ArbeidsrettetOppfolgingInngang';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('ArbeidsrettetOppfolging', () => {
     it('Skal vise inngang hvis erTiltakSykmeldteInngangAktiv er true på sykeforloepMetadata', () => {

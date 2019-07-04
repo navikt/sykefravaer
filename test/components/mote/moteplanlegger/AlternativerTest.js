@@ -10,7 +10,7 @@ import ledetekster from '../../../mock/mockLedetekster';
 import getMote, { moteIkkeBesvart } from '../../../mock/mockMote';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('Alternativer', () => {
     let getAlternativer;

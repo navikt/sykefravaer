@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { scrollTo, erSynligIViewport } from '@navikt/digisyfo-npm';
+import { erSynligIViewport, scrollTo } from '@navikt/digisyfo-npm';
 import { Vis } from '../../utils';
 
 const FeillisteMelding = ({ feltnavn, feilmelding }) => {
-    return (<li className="feiloppsummering__feil">
-        <a href={`#${feltnavn}`}>{feilmelding}</a>
-    </li>);
+    return (
+        <li className="feiloppsummering__feil">
+            <a href={`#${feltnavn}`}>{feilmelding}</a>
+        </li>
+    );
 };
 
 FeillisteMelding.propTypes = {
@@ -43,28 +45,36 @@ class Feiloppsummering extends Component {
     }
 
     render() {
+        const { visFeilliste } = this.props;
         const feilmeldinger = getFeilmeldinger(this.props);
-        return (<div aria-live="polite" role="alert">
-            <Vis
-                hvis={feilmeldinger.length > 0 && this.props.visFeilliste}
-                render={() => {
-                    return (<div
-                        className="feiloppsummering blokk"
-                        ref={(c) => {
-                            this.oppsummering = c;
-                        }}
-                        tabIndex="-1">
-                        <h3 className="feiloppsummering__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
-                        <ul className="feiloppsummering__liste">
-                            {
-                                feilmeldinger.map((feilmld, index) => {
-                                    return <FeillisteMelding key={index} {...feilmld} />;
-                                })
-                            }
-                        </ul>
-                    </div>);
-                }} />
-        </div>);
+        return (
+            <div aria-live="polite" role="alert">
+                <Vis
+                    hvis={feilmeldinger.length > 0 && visFeilliste}
+                    render={() => {
+                        return (
+                            <div
+                                className="feiloppsummering blokk"
+                                ref={(c) => {
+                                    this.oppsummering = c;
+                                }}
+                                tabIndex="-1">
+                                <h3 className="feiloppsummering__tittel">
+                                    {`Det er ${feilmeldinger.length} feil i skjemaet`}
+                                </h3>
+                                <ul className="feiloppsummering__liste">
+                                    {
+                                        feilmeldinger.map((feilmld, index) => {
+                                            return <FeillisteMelding key={index} {...feilmld} />;
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                        );
+                    }}
+                />
+            </div>
+        );
     }
 }
 

@@ -9,7 +9,9 @@ import SporsmalMedTillegg from '../../../../components/skjema/SporsmalMedTillegg
 import { fieldPropTypes } from '../../../../propTypes';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 
-const { PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE } = feilaktigeOpplysningerEnums;
+const {
+    PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE,
+} = feilaktigeOpplysningerEnums;
 
 const feilaktigeOpplysningerProp = PropTypes.arrayOf(PropTypes.shape({
     avkrysset: PropTypes.bool,
@@ -25,42 +27,48 @@ Tilleggsinfo.propTypes = {
 };
 
 export const DuTrengerNySykmelding = () => {
-    return (<Tilleggsinfo>
-        <div className="hode hode--advarsel">
-            <h5 className="hode__tittel">
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel')}
-            </h5>
-            <p>
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst')}
-            </p>
-        </div>
-    </Tilleggsinfo>);
+    return (
+        <Tilleggsinfo>
+            <div className="hode hode--advarsel">
+                <h5 className="hode__tittel">
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel')}
+                </h5>
+                <p>
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst')}
+                </p>
+            </div>
+        </Tilleggsinfo>
+    );
 };
 
 export const DuKanBrukeSykmeldingenDinArbeidsgiver = () => {
-    return (<Tilleggsinfo>
-        <div className="hode hode--informasjon">
-            <h5 className="hode__tittel">
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
-            </h5>
-            <p>
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst')}
-            </p>
-        </div>
-    </Tilleggsinfo>);
+    return (
+        <Tilleggsinfo>
+            <div className="hode hode--informasjon">
+                <h5 className="hode__tittel">
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                </h5>
+                <p>
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst')}
+                </p>
+            </div>
+        </Tilleggsinfo>
+    );
 };
 
 export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => {
-    return (<Tilleggsinfo>
-        <div className="hode hode--informasjon">
-            <h5 className="hode__tittel">
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
-            </h5>
-            <p>
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst')}
-            </p>
-        </div>
-    </Tilleggsinfo>);
+    return (
+        <Tilleggsinfo>
+            <div className="hode hode--informasjon">
+                <h5 className="hode__tittel">
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
+                </h5>
+                <p>
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst')}
+                </p>
+            </div>
+        </Tilleggsinfo>
+    );
 };
 
 const getAvkryssedeOpplysninger = (feilaktigeOpplysninger) => {
@@ -97,20 +105,24 @@ export const VelgFeilaktigeOpplysninger = ({ fields, meta }) => {
     labels[DIAGNOSE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose');
     labels[ANDRE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre');
 
-    return (<Feilomrade {...meta} id="feilaktigeOpplysninger">
-        <h4 className="skjema__sporsmal">Hvilke opplysninger er ikke riktige?</h4>
-        {
-            fields.map((field, index) => {
-                const opplysning = field.opplysning;
-                return (<Field
-                    key={index}
-                    component={Checkbox}
-                    name={`feilaktigeOpplysninger[${index}].avkrysset`}
-                    label={labels[opplysning]}
-                    id={`checkbox-${opplysning}`} />);
-            })
-        }
-    </Feilomrade>);
+    return (
+        <Feilomrade {...meta} id="feilaktigeOpplysninger">
+            <h4 className="skjema__sporsmal">Hvilke opplysninger er ikke riktige?</h4>
+            {
+                fields.map((field, index) => {
+                    const { opplysning } = field;
+                    return (
+                        <Field
+                            key={index}
+                            component={Checkbox}
+                            name={`feilaktigeOpplysninger[${index}].avkrysset`}
+                            label={labels[opplysning]}
+                            id={`checkbox-${opplysning}`} />
+                    );
+                })
+            }
+        </Feilomrade>
+    );
 };
 
 VelgFeilaktigeOpplysninger.propTypes = {
@@ -132,12 +144,14 @@ export const HvilkeOpplysninger = (props) => {
             return false;
         }
     };
-    return (<SporsmalMedTillegg
-        {...props}
-        Sporsmal={Sporsmal}
-        visTillegg={visTillegg}>
-        <FeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger} />
-    </SporsmalMedTillegg>);
+    return (
+        <SporsmalMedTillegg
+            {...props}
+            Sporsmal={Sporsmal}
+            visTillegg={visTillegg}>
+            <FeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger} />
+        </SporsmalMedTillegg>
+    );
 };
 
 HvilkeOpplysninger.propTypes = {

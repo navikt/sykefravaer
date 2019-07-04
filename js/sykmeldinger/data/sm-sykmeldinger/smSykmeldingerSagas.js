@@ -1,4 +1,6 @@
-import { call, put, fork, takeEvery, all, select, delay } from 'redux-saga/effects';
+import {
+    call, put, fork, takeEvery, all, select, delay,
+} from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
 import {
@@ -13,7 +15,9 @@ import {
     bekreftSmSykmeldingKvitteringVistLengeNok,
 } from './smSykmeldingerActions';
 import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
-import { API_NAVN, get, hentSyfoApiUrl, post } from '../../../data/gateway-api';
+import {
+    API_NAVN, get, hentSyfoApiUrl, post,
+} from '../../../data/gateway-api';
 import { toggleNyttSykmeldingsmottak, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
 

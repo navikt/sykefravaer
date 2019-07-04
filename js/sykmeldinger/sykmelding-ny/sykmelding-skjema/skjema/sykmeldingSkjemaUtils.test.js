@@ -6,7 +6,7 @@ import getSykmelding from '../../../../../test/mock/mockSykmeldinger';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 import { getFeilaktigeOpplysninger } from './DinSykmeldingSkjema';
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('getSkjemaModus', () => {
     it('Skal være SEND by default', () => {

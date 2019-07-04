@@ -9,10 +9,12 @@ import Arbeidssituasjoner, {
     mapArbeidssituasjonTilIkonSrc,
 } from './Arbeidssituasjoner';
 
-const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = situasjoner;
+const {
+    ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET,
+} = situasjoner;
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('Arbeidssituasjoner', () => {
     describe('mapArbeidssituasjonTilIkonSrc', () => {
@@ -60,7 +62,7 @@ describe('Arbeidssituasjoner', () => {
 
         it('Skal vise Arbeidsgiver for arbeidsgivere', () => {
             const component = shallow(<Arbeidssituasjoner arbeidsgivere={['SOLSTRÅLEN PIZZA']} arbeidssituasjoner={[]} />);
-            expect(component.find(Arbeidssituasjon).props().situasjon).to.deep.equal(<Arbeidsgiver arbeidsgiver={'SOLSTRÅLEN PIZZA'} />);
+            expect(component.find(Arbeidssituasjon).props().situasjon).to.deep.equal(<Arbeidsgiver arbeidsgiver="SOLSTRÅLEN PIZZA" />);
         });
     });
 });

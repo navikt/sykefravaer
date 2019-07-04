@@ -27,4 +27,3 @@ export function hentSykeforloepFeilet() {
         type: HENT_SYKEFORLOEP_FEILET,
     };
 }
-

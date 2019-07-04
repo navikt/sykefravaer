@@ -1,57 +1,68 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Feilomrade from '../Feilomrade';
 import { fieldPropTypes, fields as fieldsPt } from '../../../propTypes';
+// eslint-disable-next-line import/no-cycle
 import PeriodeFields from './PeriodeFields';
 
 export class PeriodelisteComponent extends Component {
     componentWillMount() {
-        if (this.props.fields.length === 0) {
-            this.props.fields.push({});
+        const { fields } = this.props;
+        if (fields.length === 0) {
+            fields.push({});
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.fields.length !== prevProps.fields.length
-            && typeof this.props.onAddRemove === 'function') {
-            this.props.onAddRemove(this.props.namePrefix, this.props.fields.getAll());
+        const { fields, onAddRemove, namePrefix } = this.props;
+        if (fields.length !== prevProps.fields.length
+            && typeof onAddRemove === 'function') {
+            onAddRemove(namePrefix, fields.getAll());
         }
     }
 
     render() {
-        const { fields, namePrefix, spoersmal, meta, Overskrift } = this.props;
+        const {
+            fields, namePrefix, spoersmal, meta, Overskrift,
+        } = this.props;
 
-        return (<div className="periodevelger">
-            <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
-                <Feilomrade {...meta} id={namePrefix}>
-                    <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
-                    <div className="periodevelger__perioder">
-                        {
-                            fields.map((field, index) => {
-                                return (<PeriodeFields
-                                    Overskrift={Overskrift}
-                                    skjemanavn={meta.form}
-                                    name={`${namePrefix}[${index}]`}
-                                    key={index}
-                                    index={index}
-                                    onRemoveHandler={() => {
-                                        fields.remove(index);
-                                    }} />);
-                            })
-                        }
-                    </div>
-                </Feilomrade>
+        return (
+            <div className="periodevelger">
+                <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
+                    <Feilomrade {...meta} id={namePrefix}>
+                        <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
+                        <div className="periodevelger__perioder">
+                            {
+                                fields.map((field, index) => (
+                                    <PeriodeFields
+                                        Overskrift={Overskrift}
+                                        skjemanavn={meta.form}
+                                        name={`${namePrefix}[${index}]`}
+                                        key={index}
+                                        index={index}
+                                        onRemoveHandler={() => {
+                                            fields.remove(index);
+                                        }} />
+                                ))
+                            }
+                        </div>
+                    </Feilomrade>
+                </div>
+                <button
+                    className="lenke"
+                    type="button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        fields.push({});
+                    }}>
++
+                    {getLedetekst('sykepengesoknad.periodevelger.legg-til-ekstra')}
+                </button>
             </div>
-            <button
-                className="lenke"
-                type="button"
-                onClick={(e) => {
-                    e.preventDefault();
-                    fields.push({});
-                }}>+ {getLedetekst('sykepengesoknad.periodevelger.legg-til-ekstra')}</button>
-        </div>);
+        );
     }
 }
 
@@ -72,4 +83,3 @@ PeriodelisteComponent.defaultProps = {
 const Periodeliste = connect()(PeriodelisteComponent);
 
 export default Periodeliste;
-

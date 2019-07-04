@@ -20,13 +20,17 @@ import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 
-const Li = ({ tekst, url, img, imgAlt }) => {
-    return (<li>
-        { img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" /> }
-        <span>
-            <Link to={url}>{tekst}</Link>
-        </span>
-    </li>);
+const Li = ({
+    tekst, url, img, imgAlt,
+}) => {
+    return (
+        <li>
+            { img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" /> }
+            <span>
+                <Link to={url}>{tekst}</Link>
+            </span>
+        </li>
+    );
 };
 
 Li.propTypes = {
@@ -37,9 +41,11 @@ Li.propTypes = {
 };
 
 export const EksternLi = ({ tekst, url }) => {
-    return (<li>
-        <a href={url}>{tekst}</a>
-    </li>);
+    return (
+        <li>
+            <a href={url}>{tekst}</a>
+        </li>
+    );
 };
 
 EksternLi.propTypes = Li.propTypes;
@@ -69,11 +75,13 @@ export const AvvistSmSykmelding = ({ smSykmeldinger }) => {
         : getLedetekst('dine-oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
             '%ANTALL%': smSykmeldinger.length.toString(),
         });
-    return (<Li
-        url={url}
-        tekst={tekst}
-        img="/sykefravaer/img/svg/report-problem-triangle-red.svg"
-        imgAlt="Utropstegn" />);
+    return (
+        <Li
+            url={url}
+            tekst={tekst}
+            img="/sykefravaer/img/svg/report-problem-triangle-red.svg"
+            imgAlt="Utropstegn" />
+    );
 };
 
 AvvistSmSykmelding.propTypes = {
@@ -99,28 +107,32 @@ NySykepengesoknad.propTypes = {
 };
 
 export const NyttAktivitetskravvarsel = () => {
-    return (<Li
-        url={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt/`}
-        tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
+    return (
+        <Li
+            url={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt/`}
+            tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />
+    );
 };
 
 const nyePlanerTekst = (antall) => {
-    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall') :
-        getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.flertall', {
+    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall')
+        : getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.flertall', {
             '%ANTALL%': antall,
         });
 };
 
 export const NyttMotebehovVarsel = () => {
-    return (<Li
-        url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`}
-        tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
-    />);
+    return (
+        <Li
+            url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`}
+            tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
+        />
+    );
 };
 
 const avventendeGodkjenningerTekst = (antall) => {
-    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall') :
-        getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
+    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall')
+        : getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
             '%ANTALL%': antall,
         });
 };
@@ -138,7 +150,8 @@ const RendreOppgaver = (
         nyePlaner,
         visAktivitetskrav,
         avvisteSmSykmeldinger = [],
-    }) => {
+    },
+) => {
     if (!visOppgaver) {
         return null;
     }
@@ -147,24 +160,26 @@ const RendreOppgaver = (
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
         : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 
-    return (<div className="landingspanel dineOppgaver">
-        <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/oppgaver.svg`} ikonAlt="Oppgaver">
-            <div>
-                <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
-                <ul className="inngangsliste">
-                    {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
-                    {avvisteSmSykmeldinger.length > 0 && <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />}
-                    {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
-                    {mote !== null && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
-                    {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('ao.oppgave.inngangstekst')} />}
-                    {avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />}
-                    {nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} />}
-                    {harNyttMotebehov && <NyttMotebehovVarsel />}
-                    {visAktivitetskrav && <NyttAktivitetskravvarsel />}
-                </ul>
-            </div>
-        </IllustrertInnhold>
-    </div>);
+    return (
+        <div className="landingspanel dineOppgaver">
+            <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/oppgaver.svg`} ikonAlt="Oppgaver">
+                <div>
+                    <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
+                    <ul className="inngangsliste">
+                        {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
+                        {avvisteSmSykmeldinger.length > 0 && <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />}
+                        {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
+                        {mote !== null && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
+                        {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('ao.oppgave.inngangstekst')} />}
+                        {avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />}
+                        {nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} />}
+                        {harNyttMotebehov && <NyttMotebehovVarsel />}
+                        {visAktivitetskrav && <NyttAktivitetskravvarsel />}
+                    </ul>
+                </div>
+            </IllustrertInnhold>
+        </div>
+    );
 };
 
 RendreOppgaver.propTypes = {
@@ -188,12 +203,14 @@ export class DineOppgaverComponent extends Component {
             sykmeldingerHentingFeilet,
             hendelserHentet,
             hentingFeiletHendelser,
+            doHentDineSykmeldinger,
+            doHentHendelser,
         } = this.props;
         if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
-            this.props.hentDineSykmeldinger();
+            doHentDineSykmeldinger();
         }
         if (!hendelserHentet && !hentingFeiletHendelser) {
-            this.props.hentHendelser();
+            doHentHendelser();
         }
     }
 
@@ -205,13 +222,13 @@ export class DineOppgaverComponent extends Component {
 DineOppgaverComponent.propTypes = {
     sykmeldingerHentet: PropTypes.bool,
     sykmeldingerHentingFeilet: PropTypes.bool,
-    hentDineSykmeldinger: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
-    hentHendelser: PropTypes.func,
     hentingFeiletHendelser: PropTypes.bool,
     hendelserHentet: PropTypes.bool,
     oppfolgingsdialogerHentet: PropTypes.bool,
     visOppgaver: PropTypes.bool,
+    doHentDineSykmeldinger: PropTypes.func,
+    doHentHendelser: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
@@ -245,15 +262,15 @@ export const mapStateToProps = (state) => {
         .filter((smSykmelding) => {
             return smSykmelding.bekreftetDato === null;
         });
-    const visOppgaver = sykmeldinger.length > 0 ||
-        sykepengesoknader.length > 0 ||
-        soknader.length > 0 ||
-        moteRes !== null ||
-        harNyttMotebehov ||
-        _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 ||
-        _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 ||
-        visAktivitetskrav ||
-        avvisteSmSykmeldinger.length > 0;
+    const visOppgaver = sykmeldinger.length > 0
+        || sykepengesoknader.length > 0
+        || soknader.length > 0
+        || moteRes !== null
+        || harNyttMotebehov
+        || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0
+        || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0
+        || visAktivitetskrav
+        || avvisteSmSykmeldinger.length > 0;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
@@ -276,7 +293,8 @@ export const mapStateToProps = (state) => {
 };
 
 const DineOppgaverContainer = connect(mapStateToProps, {
-    hentDineSykmeldinger, hentHendelser,
+    doHentDineSykmeldinger: hentDineSykmeldinger,
+    doHentHendelser: hentHendelser,
 })(DineOppgaverComponent);
 
 export default DineOppgaverContainer;

@@ -22,7 +22,8 @@ export default class NaermesteLeder extends Component {
     }
 
     lukkLightbox() {
-        const knapp = this[`leder-${this.state.leder.orgnummer}`];
+        const { leder } = this.state;
+        const knapp = this[`leder-${leder.orgnummer}`];
         if (knapp) {
             knapp.focus();
         }
@@ -34,22 +35,25 @@ export default class NaermesteLeder extends Component {
 
     render() {
         const { leder } = this.props;
+        const { visLightbox } = this.state;
         const classNameLeder = classNames('leder', { 'leder--avkreftet': leder.avkreftet });
         return (
             <div className={classNameLeder}>
                 {
-                    this.state.visLightbox
-                        && <Lightbox
+                    visLightbox
+                    && (
+                        <Lightbox
                             bredde="m"
                             onClose={() => {
                                 this.lukkLightbox();
                             }}>
                             <BekreftFeilLederContainer
-                                orgnummer={this.state.leder.orgnummer}
+                                orgnummer={leder.orgnummer}
                                 onAvbryt={() => {
                                     this.lukkLightbox();
                                 }} />
                         </Lightbox>
+                    )
                 }
                 <p
                     className="leder__informasjon"
@@ -58,25 +62,36 @@ export default class NaermesteLeder extends Component {
                     })} />
                 <div className="leder__handlinger">
                     {
-                        !leder.avkreftet && <button
-                            ref={(c) => {
-                                this[`leder-${leder.orgnummer}`] = c;
-                            }}
-                            type="button"
-                            className="lenke leder__meldFeil js-feil"
-                            onClick={() => {
-                                this.apneLightbox(leder);
-                            }}>{getLedetekst('din-situasjon.naermeste-leder.meld-feil')}</button>
+                        !leder.avkreftet && (
+                            <button
+                                ref={(c) => {
+                                    this[`leder-${leder.orgnummer}`] = c;
+                                }}
+                                type="button"
+                                className="lenke leder__meldFeil js-feil"
+                                onClick={() => {
+                                    this.apneLightbox(leder);
+                                }}>
+                                {getLedetekst('din-situasjon.naermeste-leder.meld-feil')}
+                            </button>
+                        )
                     }
                 </div>
                 {
-                    leder.arbeidsgiverForskuttererLoenn != null &&
-                    <div className="leder__forskuttering">
-                        <p className="leder__forskuttering-tekst">{getLedetekst(`din-situasjon.arbeidsgiver-forskutterer${leder.arbeidsgiverForskuttererLoenn ? '' : '-ikke'}`)}</p>
-                        <Hjelpetekst>{getLedetekst('din-situasjon.forskuttering.hjelpetekst.tekst')}</Hjelpetekst>
-                    </div>
+                    leder.arbeidsgiverForskuttererLoenn != null
+                    && (
+                        <div className="leder__forskuttering">
+                            <p
+                                className="leder__forskuttering-tekst"
+                            >
+                                {getLedetekst(`din-situasjon.arbeidsgiver-forskutterer${leder.arbeidsgiverForskuttererLoenn ? '' : '-ikke'}`)}
+                            </p>
+                            <Hjelpetekst>{getLedetekst('din-situasjon.forskuttering.hjelpetekst.tekst')}</Hjelpetekst>
+                        </div>
+                    )
                 }
-            </div>);
+            </div>
+        );
     }
 }
 

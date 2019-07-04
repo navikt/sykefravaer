@@ -7,7 +7,7 @@ import DayPicker from 'react-day-picker';
 import DaypickerDato from '../../../../js/components/skjema/datovelger/DayPickerDato';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('DaypickerDato', () => {
     let component;

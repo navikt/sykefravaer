@@ -1,3 +1,4 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
@@ -6,34 +7,32 @@ import { fieldPropTypes } from '../../../propTypes';
 import { erGyldigDato } from '../../../utils/datoUtils';
 import NavBar from '../daypicker/DayPickerNavBar';
 import Caption from '../daypicker/DayPickerCaption';
-import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from '../daypicker/daypickerLocale';
+import {
+    localeUtils, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT,
+} from '../daypicker/daypickerLocale';
 
-export const leggTilNullForan = (nr) => {
-    return nr > 9 || nr.length > 1 ? nr : `0${nr}`;
-};
-
-let lukk;
+export const leggTilNullForan = nr => (nr > 9 || nr.length > 1 ? nr : `0${nr}`);
 
 class DayPickerComponent extends Component {
     componentDidMount() {
-        lukk = () => {
-            this.props.lukk();
-        };
-        document.addEventListener('click', lukk);
+        const { lukk } = this.props;
+        document.addEventListener('click', () => lukk());
         if (this.kalender) {
             this.kalender.focus();
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (!prevProps.erApen && this.props.erApen) {
+        const { erApen } = this.props;
+        if (!prevProps.erApen && erApen) {
             scrollTo(this.kalender);
             this.kalender.focus();
         }
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', lukk);
+        const { lukk } = this.props;
+        document.removeEventListener('click', () => lukk());
     }
 
     getDateFromValue() {
@@ -47,11 +46,12 @@ class DayPickerComponent extends Component {
     }
 
     getInitialMonth() {
+        const { senesteTom } = this.props;
         const s = this.getDateFromValue();
         if (s) {
             return s;
         }
-        return this.props.senesteTom || new Date();
+        return senesteTom || new Date();
     }
 
     selectedDays(day) {
@@ -68,48 +68,47 @@ class DayPickerComponent extends Component {
     }
 
     render() {
-        const { onKeyUp } = this.props;
+        const { onKeyUp, onDayClick } = this.props;
         /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-        return (<div
-            className="datokalender"
-            role="application"
-            tabIndex="-1"
-            ref={(c) => {
-                this.kalender = c;
-            }}
-            onKeyDown={(e) => {
-                const OPP = 40;
-                const NED = 38;
-                if ([OPP, NED].indexOf(e.keyCode) > -1) {
-                    e.preventDefault();
-                }
-            }}
-            onKeyUp={(e) => {
-                onKeyUp(e);
-            }}>
-            <DayPicker
-                locale="no"
-                months={MONTHS}
-                weekdaysLong={WEEKDAYS_LONG}
-                weekdaysShort={WEEKDAYS_SHORT}
-                initialMonth={this.getInitialMonth()}
-                localeUtils={localeUtils}
-                firstDayOfWeek={1}
-                captionElement={<Caption />}
-                navbarElement={<NavBar />}
-                disabledDays={(day) => {
-                    return this.erDeaktivertDag(day);
+        return (
+            <div
+                className="datokalender"
+                role="application"
+                tabIndex="-1"
+                ref={(c) => {
+                    this.kalender = c;
                 }}
-                selectedDays={(day) => {
-                    return this.selectedDays(day);
-                }}
-                onDayClick={(jsDato, modifiers, event) => {
-                    if (!this.erDeaktivertDag(jsDato)) {
-                        this.props.onDayClick(event, jsDato);
+                onKeyDown={(e) => {
+                    const OPP = 40;
+                    const NED = 38;
+                    if ([OPP, NED].indexOf(e.keyCode) > -1) {
+                        e.preventDefault();
                     }
                 }}
-            />
-        </div>);
+                onKeyUp={(e) => {
+                    onKeyUp(e);
+                }}
+            >
+                <DayPicker
+                    locale="no"
+                    months={MONTHS}
+                    weekdaysLong={WEEKDAYS_LONG}
+                    weekdaysShort={WEEKDAYS_SHORT}
+                    initialMonth={this.getInitialMonth()}
+                    localeUtils={localeUtils}
+                    firstDayOfWeek={1}
+                    captionElement={<Caption />}
+                    navbarElement={<NavBar />}
+                    disabledDays={day => this.erDeaktivertDag(day)}
+                    selectedDays={day => this.selectedDays(day)}
+                    onDayClick={(jsDato, modifiers, event) => {
+                        if (!this.erDeaktivertDag(jsDato)) {
+                            onDayClick(event, jsDato);
+                        }
+                    }}
+                />
+            </div>
+        );
         /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
     }
 }

@@ -9,7 +9,7 @@ import {
     antallVirkedagerIPerioder,
 } from '../../js/utils/periodeUtils';
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('periodeUtils', () => {
     describe('periodeErHelg', () => {

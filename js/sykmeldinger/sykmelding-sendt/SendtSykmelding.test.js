@@ -10,7 +10,7 @@ import ledetekster from '../../../test/mock/mockLedetekster';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('SendtSykmelding', () => {
     let component;

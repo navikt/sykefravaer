@@ -1,4 +1,6 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import {
+    all, call, fork, put, takeEvery,
+} from 'redux-saga/effects';
 import { get, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './ledereActions';
 

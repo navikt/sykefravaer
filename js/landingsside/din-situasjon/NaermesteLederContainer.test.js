@@ -6,7 +6,7 @@ import { Container, mapStateToProps } from './NaermesteLederContainer';
 import NaermesteLeder from './NaermesteLeder';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('NaermesteLederContainer', () => {
     let state;

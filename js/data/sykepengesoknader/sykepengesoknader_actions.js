@@ -27,4 +27,3 @@ export function hentSykepengesoknader() {
         type: HENT_SYKEPENGESOKNADER_FORESPURT,
     };
 }
-

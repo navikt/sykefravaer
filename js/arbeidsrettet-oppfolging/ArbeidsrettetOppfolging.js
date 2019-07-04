@@ -15,7 +15,8 @@ import HotjarTrigger from '../components/HotjarTrigger';
 
 class ArbeidsrettetOppfolging extends Component {
     componentDidMount() {
-        const action = this.props.underOppfolging
+        const { underOppfolging } = this.props;
+        const action = underOppfolging
             ? 'SIDE_VIST_UNDER_OPPFOLGING'
             : 'SIDE_VIST_IKKE_UNDER_OPPFOLGING';
         pushToDataAOLayer(action);

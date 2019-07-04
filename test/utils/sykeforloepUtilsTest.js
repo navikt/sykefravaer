@@ -3,7 +3,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { getOppfolgingstilfelleStartdato } from '../../js/utils/sykeforloepUtils';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('sykeforloepUtils', () => {
     it('Skal returnere oppfolgingsdato fra riktig sykeforløp dersom identdato er før oppfolgingsdato', () => {

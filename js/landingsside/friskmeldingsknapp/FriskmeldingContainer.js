@@ -8,7 +8,7 @@ const dagerDifferanse = (fra, til) => {
 };
 
 const beregnSykmeldingstype = (sykmelding) => {
-    const perioder = sykmelding.mulighetForArbeid.perioder;
+    const { perioder } = sykmelding.mulighetForArbeid;
     const harBehandlingsdager = perioder.some((p) => {
         return p.behandlingsdager !== null;
     });

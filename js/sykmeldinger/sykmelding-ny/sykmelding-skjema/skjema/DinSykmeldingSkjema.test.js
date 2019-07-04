@@ -15,7 +15,7 @@ import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 import mountWithStore from '../../../../../test/mountWithStore';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('DinSykmeldingSkjema -', () => {
     let component;
@@ -454,7 +454,8 @@ describe('DinSykmeldingSkjema -', () => {
                         navn: 'Ole sykmelding-id',
                         epost: 'ole.sykmelding-id@test.no',
                     },
-                } };
+                },
+            };
 
             component = getComponent(getState(values));
             expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(0);
@@ -471,7 +472,8 @@ describe('DinSykmeldingSkjema -', () => {
                         navn: 'Ole sykmelding-id',
                         epost: 'ole.sykmelding-id@test.no',
                     },
-                } };
+                },
+            };
 
             component = getComponent(getState(values));
             expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(0);

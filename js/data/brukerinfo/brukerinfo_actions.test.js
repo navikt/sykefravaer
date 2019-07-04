@@ -3,10 +3,12 @@ import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from './brukerinfo_actions';
 
-const { BRUKERINFO_HENTET, HENT_BRUKERINFO_FEILET, HENTER_BRUKERINFO, SET_TIDSLINJE_ARBEIDSSITUASJON, SJEKK_INNLOGGING_FORESPURT } = actions;
+const {
+    BRUKERINFO_HENTET, HENT_BRUKERINFO_FEILET, HENTER_BRUKERINFO, SET_TIDSLINJE_ARBEIDSSITUASJON, SJEKK_INNLOGGING_FORESPURT,
+} = actions;
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('brukerinfo_actions', () => {
     beforeEach(() => {

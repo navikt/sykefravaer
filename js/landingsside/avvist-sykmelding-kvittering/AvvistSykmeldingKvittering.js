@@ -7,11 +7,13 @@ import { visAvvistSykmeldingBekreftetLestKvittering } from '../../sykmeldinger/d
 
 const Stripe = ({ vis }) => {
     return vis
-        ? <div aria-live="assertive" role="alert">
-            <AlertStripeSuksess className="landingspanel">
-                {getLedetekst('avvist-sykmelding.bekreftet.kvittering')}
-            </AlertStripeSuksess>
-        </div>
+        ? (
+            <div aria-live="assertive" role="alert">
+                <AlertStripeSuksess className="landingspanel">
+                    {getLedetekst('avvist-sykmelding.bekreftet.kvittering')}
+                </AlertStripeSuksess>
+            </div>
+        )
         : null;
 };
 

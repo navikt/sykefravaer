@@ -9,7 +9,7 @@ import { Container, mapStateToProps } from './BekreftFeilLederContainer';
 import BekreftFeil, { LederAvkreftet } from './BekreftFeilLeder';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('BekreftFeilLederContainer', () => {
     let state;

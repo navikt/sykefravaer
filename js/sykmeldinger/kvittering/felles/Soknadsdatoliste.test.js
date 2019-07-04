@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import Soknadsdatoliste, { soknadsdatoremse, soknadsdatoremseUtenForsteDato } from './Soknadsdatoliste';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('Soknadsdatoliste', () => {
     let comp;

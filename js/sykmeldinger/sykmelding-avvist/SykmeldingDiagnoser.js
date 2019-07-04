@@ -33,7 +33,8 @@ export const Hoveddiagnose = ({ vis = true, hoveddiagnose = null }) => {
                             </div>
                             <p>
                                 <span className="js-hoveddiagnose-kode">{hoveddiagnose.diagnosekode}</span>
-                                &nbsp;<span className="js-hoveddiagnose-system">{hoveddiagnose.diagnosesystem}</span>
+                                &nbsp;
+                                <span className="js-hoveddiagnose-system">{hoveddiagnose.diagnosesystem}</span>
                             </p>
                         </div>
                     </div>
@@ -66,8 +67,8 @@ Hoveddiagnose.propTypes = {
 };
 
 export const BiDiagnoser = ({ vis = true, biDiagnoser = [], sykmeldingId }) => (
-    vis ?
-        biDiagnoser.map((biDiagnose, index) => (
+    vis
+        ? biDiagnoser.map((biDiagnose, index) => (
             <div
                 className="rad-container"
                 key={`${sykmeldingId}-bidiagnose-${index}`}
@@ -78,7 +79,8 @@ export const BiDiagnoser = ({ vis = true, biDiagnoser = [], sykmeldingId }) => (
                 <Nokkelopplysning tittel={getLedetekst('din-sykmelding.diagnosekode.tittel')}>
                     <p>
                         <span className="js-bidiagnose-kode">{biDiagnose.diagnosekode}</span>
-                        &nbsp;<span className="js-bidiagnose-system">{biDiagnose.diagnosesystem}</span>
+                        &nbsp;
+                        <span className="js-bidiagnose-system">{biDiagnose.diagnosesystem}</span>
                     </p>
                 </Nokkelopplysning>
             </div>

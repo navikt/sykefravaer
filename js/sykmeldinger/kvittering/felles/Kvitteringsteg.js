@@ -4,26 +4,36 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 export const StegvisKvittering = ({ children }) => {
-    return (<div className="stegvisKvittering">
-        {children}
-    </div>);
+    return (
+        <div className="stegvisKvittering">
+            {children}
+        </div>
+    );
 };
 
 StegvisKvittering.propTypes = {
     children: PropTypes.node,
 };
 
-const Kvitteringsteg = ({ nummer, aktiv, ok, tittel, children }) => {
+const Kvitteringsteg = ({
+    nummer, aktiv, ok, tittel, children,
+}) => {
     const classNames = cn('kvitteringsteg__nummer', {
         'kvitteringsteg__nummer--aktiv': aktiv,
         'kvitteringsteg__nummer--ok': ok,
     });
-    return (<div className="kvitteringsteg">
-        <div className="kvitteringsteg__innhold">
-            <h2 className="kvitteringsteg__tittel js-tittel"><span className={classNames}>{nummer}</span> {tittel}</h2>
-            { children && <div className="js-tekst">{children}</div> }
+    return (
+        <div className="kvitteringsteg">
+            <div className="kvitteringsteg__innhold">
+                <h2 className="kvitteringsteg__tittel js-tittel">
+                    <span className={classNames}>{nummer}</span>
+                    {' '}
+                    {tittel}
+                </h2>
+                { children && <div className="js-tekst">{children}</div> }
+            </div>
         </div>
-    </div>);
+    );
 };
 
 Kvitteringsteg.propTypes = {

@@ -1,3 +1,4 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -29,7 +30,7 @@ export class Container extends Component {
     }
 
     render() {
-        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering, smSykmeldinger } = this.props;
+        const { brodsmuler, sykmeldinger, henter, hentingFeilet, hentingSmFeilet, sortering, smSykmeldinger } = this.props;
         return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
             {
                 (() => {
@@ -38,10 +39,14 @@ export class Container extends Component {
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
                     }
-                    return (<Sykmeldinger
-                        smSykmeldinger={smSykmeldinger}
-                        sykmeldinger={sykmeldinger}
-                        sortering={sortering} />);
+                    return (
+                        <Sykmeldinger
+                            smSykmeldinger={smSykmeldinger}
+                            sykmeldinger={sykmeldinger}
+                            sortering={sortering}
+                            infomelding={hentingSmFeilet ? 'Det skjedde en feil ved henting av sykmeldinger, kan ikke vise alle sykmeldinger' : null}
+                        />
+                    );
                 })()
             }
         </Side>);
@@ -53,6 +58,7 @@ Container.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    hentingSmFeilet: PropTypes.bool,
     sortering: PropTypes.shape({
         tidligere: PropTypes.string,
     }),
@@ -68,7 +74,8 @@ export function mapStateToProps(state) {
         smSykmeldinger: avvisteSmSykmeldingerDataSelector(state),
         sortering: state.dineSykmeldinger.sortering,
         henter: state.ledetekster.henter || state.dineSykmeldinger.henter || !state.dineSykmeldinger.hentet || henterSmSykmeldingerSelector(state),
-        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet || hentingFeiletSmSykmeldingerSelector(state),
+        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet,
+        hentingSmFeilet: hentingFeiletSmSykmeldingerSelector(state),
         skalHenteSmSykmeldinger: skalHenteSmSykmeldingerSelector(state),
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

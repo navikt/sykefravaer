@@ -39,12 +39,14 @@ class Container extends Component {
             skalHenteLedere,
             skalViseMotebehov,
             harForsoektHentetAlt,
+            oppfolgingsforlopsPerioderReducerListe,
+            virksomhetsnrListe,
         } = this.props;
 
         actions.hentDineSykmeldinger();
         actions.hentMote();
         actions.hentMotebehov();
-        finnOgHentManglendeOppfolgingsforlopsPerioder(this.props);
+        finnOgHentManglendeOppfolgingsforlopsPerioder(actions.hentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
 
         if (skalHenteLedere) {
             actions.hentLedere();
@@ -59,9 +61,12 @@ class Container extends Component {
         const {
             harForsoektHentetAlt,
             skalViseMotebehov,
+            virksomhetsnrListe,
+            oppfolgingsforlopsPerioderReducerListe,
+            actions,
         } = nextProps;
 
-        finnOgHentManglendeOppfolgingsforlopsPerioder(nextProps);
+        finnOgHentManglendeOppfolgingsforlopsPerioder(actions.hentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
 
         if (harForsoektHentetAlt && skalViseMotebehov === false) {
             history.push(`${getContextRoot()}/dialogmoter/mote`);
@@ -111,6 +116,7 @@ Container.propTypes = {
     skalViseMotebehov: PropTypes.bool,
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
+    oppfolgingsforlopsPerioderReducerListe: PropTypes.arrayOf(PropTypes.shape()),
     actions: PropTypes.shape({
         hentDineSykmeldinger: PropTypes.func,
         hentLedere: PropTypes.func,

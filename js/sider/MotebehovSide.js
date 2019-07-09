@@ -32,11 +32,13 @@ class Container extends Component {
         const {
             actions,
             skalHenteLedere,
+            oppfolgingsforlopsPerioderReducerListe,
+            virksomhetsnrListe,
         } = this.props;
 
         actions.hentDineSykmeldinger();
         actions.hentMotebehov();
-        finnOgHentManglendeOppfolgingsforlopsPerioder(this.props);
+        finnOgHentManglendeOppfolgingsforlopsPerioder(actions.hentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
 
         if (skalHenteLedere) {
             actions.hentLedere();
@@ -44,7 +46,8 @@ class Container extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        finnOgHentManglendeOppfolgingsforlopsPerioder(nextProps);
+        const { actions, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe } = nextProps;
+        finnOgHentManglendeOppfolgingsforlopsPerioder(actions.hentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
     }
 
     render() {
@@ -91,6 +94,7 @@ Container.propTypes = {
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
+    oppfolgingsforlopsPerioderReducerListe: PropTypes.arrayOf(PropTypes.shape()),
     actions: PropTypes.shape({
         hentDineSykmeldinger: PropTypes.func,
         hentLedere: PropTypes.func,

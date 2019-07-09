@@ -9,7 +9,7 @@ import BekreftFeilLederContainer from './BekreftFeilLederContainer';
 import Lightbox from '../../components/Lightbox';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('NaermesteLeder', () => {
     let leder;

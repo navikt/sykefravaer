@@ -2,9 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import * as actions from './hendelserActions';
 
-const {
-    HENDELSER_HENTET, HENT_HENDELSER_FEILET, HENT_HENDELSER_FORESPURT, HENTER_HENDELSER,
-} = actions;
+const { HENDELSER_HENTET, HENT_HENDELSER_FEILET, HENT_HENDELSER_FORESPURT, HENTER_HENDELSER } = actions;
 
 describe('hendelser', () => {
     let hendelse;

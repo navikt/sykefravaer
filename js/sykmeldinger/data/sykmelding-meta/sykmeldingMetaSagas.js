@@ -1,6 +1,4 @@
-import {
-    call, put, fork, takeEvery,
-} from 'redux-saga/effects';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { post, log } from '@navikt/digisyfo-npm';
 import * as actions from './sykmeldingMetaActions';
 

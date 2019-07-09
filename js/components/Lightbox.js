@@ -12,15 +12,13 @@ const Lightbox = ({ onClose, children, bredde }) => {
         'modal--medium': bredde === m,
     });
     Modal.setAppElement(appEl);
-    return (
-        <Modal
-            className={classNames}
-            isOpen
-            closeButton
-            onRequestClose={onClose}>
-            {children}
-        </Modal>
-    );
+    return (<Modal
+        className={classNames}
+        isOpen
+        closeButton
+        onRequestClose={onClose}>
+        {children}
+    </Modal>);
 };
 
 Lightbox.propTypes = {

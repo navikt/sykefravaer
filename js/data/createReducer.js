@@ -11,8 +11,7 @@ export const createReducer = (
     hentetActionType,
     initState = initiellState,
     mapper = null,
-    spesialHandler,
-) => {
+    spesialHandler) => {
     return (state = initState, action = {}) => {
         switch (action.type) {
             case feilActionType: {

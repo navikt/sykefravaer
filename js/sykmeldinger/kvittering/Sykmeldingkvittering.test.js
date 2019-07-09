@@ -7,7 +7,7 @@ import Kvitteringsteg from './felles/Kvitteringsteg';
 import SokOmSykepengerNaaKvittering from './varianter/SokOmSykepengerNaaKvittering';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('Sykmeldingkvittering', () => {
     beforeEach(() => {
@@ -44,3 +44,4 @@ describe('Sykmeldingkvittering', () => {
         });
     });
 });
+

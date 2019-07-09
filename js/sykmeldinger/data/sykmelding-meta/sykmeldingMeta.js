@@ -1,6 +1,4 @@
-import {
-    HENT_VENTETID_FEILET, HENTER_VENTETID, SKAL_OPPRETTE_SOKNAD_HENTET, VENTETID_HENTET,
-} from './sykmeldingMetaActions';
+import { HENT_VENTETID_FEILET, HENTER_VENTETID, SKAL_OPPRETTE_SOKNAD_HENTET, VENTETID_HENTET } from './sykmeldingMetaActions';
 
 const initiellState = {};
 

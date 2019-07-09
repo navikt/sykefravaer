@@ -2,9 +2,7 @@ import { expect } from 'chai';
 
 import * as actions from './aktivitetskravActions';
 
-const {
-    AKTIVITETSKRAV_BEKREFTET, BEKREFT_AKTIVITETSKRAV_FEILET, BEKREFT_AKTIVITETSKRAV_FORESPURT, BEKREFTER_AKTIVITETSKRAV,
-} = actions;
+const { AKTIVITETSKRAV_BEKREFTET, BEKREFT_AKTIVITETSKRAV_FEILET, BEKREFT_AKTIVITETSKRAV_FORESPURT, BEKREFTER_AKTIVITETSKRAV } = actions;
 
 describe('aktivitetskrav_actions', () => {
     it('Skal ha en bekreftAktivitetskrav()-funksjon som returnerer riktig action', () => {

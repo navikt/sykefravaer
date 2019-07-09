@@ -1,14 +1,10 @@
-import {
-    call, put, fork, takeEvery, select, all,
-} from 'redux-saga/effects';
+import { call, put, fork, takeEvery, select, all } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import {
     HENT_OPPFOLGINGSFORLOPSPERIODER_FORESPURT,
 } from '../oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
 import { skalHenteSykeforloep } from './sykeforloepSelectors';
-import {
-    henterSykeforloep, sykeforloepHentet, hentSykeforloepFeilet, HENT_SYKEFORLOEP_FORESPURT,
-} from './sykeforloep_actions';
+import { henterSykeforloep, sykeforloepHentet, hentSykeforloepFeilet, HENT_SYKEFORLOEP_FORESPURT } from './sykeforloep_actions';
 import { SYKMELDING_BEKREFTET, SYKMELDING_GJENAAPNET, SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 
 function* oppdaterSykeforloep() {

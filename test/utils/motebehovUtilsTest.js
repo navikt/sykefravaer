@@ -19,7 +19,7 @@ import { getMotebehov } from '../mock/mockMotebehov';
 import { leggTilDagerPaaDato } from '../testUtils';
 import { hentSykmeldingAktiv } from '../mock/mockSykmeldinger';
 
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('motebehovUtils', () => {
     let clock;

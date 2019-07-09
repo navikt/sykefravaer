@@ -46,37 +46,32 @@ export const FELTER = {
 export const VilHaMoteSvarKnapper = (
     {
         felt,
-    },
-) => {
-    return (
-        <div className="skjemaelement">
-            <h3
-                className="skjemaelement__sporsmal"
-                id={felt.navn}
-            >
-                {felt.spoersmaal}
-            </h3>
-            <Field
-                id={felt.navn}
-                name={felt.navn}
-                component={Radioknapper}
-            >
-                {
-                    felt.svar.map((svar, index) => {
-                        return (
-                            <input
-                                key={`vilHaMote-${index}`}
-                                value={svar.verdi}
-                                label={svar.tekst}
-                                id={`${felt.navn}-${index}`}
-                                aria-labelledby={felt.navn}
-                            />
-                        );
-                    })
-                }
-            </Field>
-        </div>
-    );
+    }) => {
+    return (<div className="skjemaelement">
+        <h3
+            className="skjemaelement__sporsmal"
+            id={felt.navn}
+        >
+            {felt.spoersmaal}
+        </h3>
+        <Field
+            id={felt.navn}
+            name={felt.navn}
+            component={Radioknapper}
+        >
+            {
+                felt.svar.map((svar, index) => {
+                    return (<input
+                        key={`vilHaMote-${index}`}
+                        value={svar.verdi}
+                        label={svar.tekst}
+                        id={`${felt.navn}-${index}`}
+                        aria-labelledby={felt.navn}
+                    />);
+                })
+            }
+        </Field>
+    </div>);
 };
 VilHaMoteSvarKnapper.propTypes = {
     felt: felterPt,
@@ -86,31 +81,28 @@ export const MotebehovSkjemaTekstomraade = (
     {
         felt,
         harMotebehov,
-    },
-) => {
+    }) => {
     const sporsmaalTekst = harMotebehov === 'true'
         ? `${felt.spoersmaal} (valgfritt)`
         : felt.spoersmaal;
-    return (
-        <div className="skjema_element motebehovSkjemaTekstomraade">
-            <h3
-                className="skjemaelement__sporsmal"
-                id={felt.navn}
-            >
-                {sporsmaalTekst}
-            </h3>
-            <TekstSensitiv />
-            <Field
-                className="input--fullbredde"
-                name={felt.navn}
-                id={`${felt.navn}-input`}
-                aria-labelledby={felt.navn}
-                component={Tekstomraade}
-                placeholder="Skriv her"
-                rows="5"
-            />
-        </div>
-    );
+    return (<div className="skjema_element motebehovSkjemaTekstomraade">
+        <h3
+            className="skjemaelement__sporsmal"
+            id={felt.navn}
+        >
+            {sporsmaalTekst}
+        </h3>
+        <TekstSensitiv />
+        <Field
+            className="input--fullbredde"
+            name={felt.navn}
+            id={`${felt.navn}-input`}
+            aria-labelledby={felt.navn}
+            component={Tekstomraade}
+            placeholder={'Skriv her'}
+            rows="5"
+        />
+    </div>);
 };
 MotebehovSkjemaTekstomraade.propTypes = {
     felt: felterPt,
@@ -118,11 +110,9 @@ MotebehovSkjemaTekstomraade.propTypes = {
 };
 
 export const TekstSensitiv = () => {
-    return (
-        <p className="svarMotebehovSkjema__tekstSensitiv">
-            {TEKSTER_INFORMASJON.sensitiv}
-        </p>
-    );
+    return (<p className="svarMotebehovSkjema__tekstSensitiv">
+        {TEKSTER_INFORMASJON.sensitiv}
+    </p>);
 };
 
 export const TekstOpplysning = () => {
@@ -132,39 +122,32 @@ export const TekstOpplysning = () => {
             lenke: 'Les mer om hvordan NAV behandler personopplysninger.',
         },
     };
-    return (
-        <div className="svarMotebehovSkjema__tekstOpplysning">
-            <p>
-                {TEKSTER.tekstOpplysning.tekst}
-                <a
-                    className="lenke"
-                    href="http://www.nav.no/personvern"
-                    title="Følg lenke">
-                    {TEKSTER.tekstOpplysning.lenke}
-                </a>
-            </p>
-        </div>
-    );
+    return (<div className="svarMotebehovSkjema__tekstOpplysning">
+        <p>
+            {TEKSTER.tekstOpplysning.tekst}<a
+                className="lenke"
+                href="http://www.nav.no/personvern"
+                title="Følg lenke">{TEKSTER.tekstOpplysning.lenke}</a>
+        </p>
+    </div>);
 };
 
 export const Knapper = ({ motebehovSvarReducerListe }) => {
-    return (
-        <Fragment>
-            <div className="knapperad">
-                <Hovedknapp
-                    type="submit"
-                    spinner={harSvarMotebehovSender(motebehovSvarReducerListe)}
-                >
-                    {TEKSTER_INFORMASJON.knappSend}
-                </Hovedknapp>
-            </div>
-            <div className="knapperad">
-                <Link className="lenke" to="/sykefravaer/dialogmoter">
+    return (<Fragment>
+        <div className="knapperad">
+            <Hovedknapp
+                type="submit"
+                spinner={harSvarMotebehovSender(motebehovSvarReducerListe)}
+            >
+                {TEKSTER_INFORMASJON.knappSend}
+            </Hovedknapp>
+        </div>
+        <div className="knapperad">
+            <Link className="lenke" to="/sykefravaer/dialogmoter">
                 Avbryt
-                </Link>
-            </div>
-        </Fragment>
-    );
+            </Link>
+        </div>
+    </Fragment>);
 };
 Knapper.propTypes = {
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
@@ -193,27 +176,25 @@ export class SvarMotebehovSkjemaKomponent extends Component {
             motebehovSvarReducerListe,
             handleSubmit,
         } = this.props;
-        return (
-            <form
-                className="svarMotebehovSkjema"
-                onSubmit={handleSubmit(this.handleSubmit)}>
+        return (<form
+            className="svarMotebehovSkjema"
+            onSubmit={handleSubmit(this.handleSubmit)}>
 
-                <div className="panel">
-                    <VilHaMoteSvarKnapper
-                        felt={FELTER.harMotebehov}
-                        handleOptionChange={this.setHarBehovSvar}
-                    />
-                    <MotebehovSkjemaTekstomraade
-                        felt={FELTER.forklaring}
-                        harMotebehov={harMotebehov}
-                    />
-                </div>
+            <div className="panel">
+                <VilHaMoteSvarKnapper
+                    felt={FELTER.harMotebehov}
+                    handleOptionChange={this.setHarBehovSvar}
+                />
+                <MotebehovSkjemaTekstomraade
+                    felt={FELTER.forklaring}
+                    harMotebehov={harMotebehov}
+                />
+            </div>
 
-                <TekstOpplysning />
+            <TekstOpplysning />
 
-                <Knapper motebehovSvarReducerListe={motebehovSvarReducerListe} />
-            </form>
-        );
+            <Knapper motebehovSvarReducerListe={motebehovSvarReducerListe} />
+        </form>);
     }
 }
 

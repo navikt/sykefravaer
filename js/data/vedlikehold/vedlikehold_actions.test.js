@@ -11,7 +11,7 @@ import {
 } from './vedlikehold_actions';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('vedlikehold_actions', () => {
     beforeEach(() => {

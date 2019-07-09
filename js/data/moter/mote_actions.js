@@ -34,3 +34,4 @@ export const moteIkkeFunnet = () => {
         type: MOTE_IKKE_FUNNET,
     };
 };
+

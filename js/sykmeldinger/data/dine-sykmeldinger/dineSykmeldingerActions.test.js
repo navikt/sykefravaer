@@ -2,12 +2,10 @@ import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from './dineSykmeldingerActions';
 
-const {
-    HENT_DINE_SYKMELDINGER_FEILET, HENT_DINE_SYKMELDINGER_FORESPURT, HENTER_DINE_SYKMELDINGER, SET_DINE_SYKMELDINGER, SET_SORTERING,
-} = actions;
+const { HENT_DINE_SYKMELDINGER_FEILET, HENT_DINE_SYKMELDINGER_FORESPURT, HENTER_DINE_SYKMELDINGER, SET_DINE_SYKMELDINGER, SET_SORTERING } = actions;
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('dineSykmeldinger_actions', () => {
     beforeEach(() => {

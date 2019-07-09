@@ -1,10 +1,6 @@
-import {
-    all, call, fork, put, takeEvery,
-} from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
-import {
-    BEKREFT_MER_VEILEDNING_FORESPURT, bekrefterMerVeiledning, bekreftMerVeiledningFeilet, merVeiledningBekreftet,
-} from './merVeiledningActions';
+import { BEKREFT_MER_VEILEDNING_FORESPURT, bekrefterMerVeiledning, bekreftMerVeiledningFeilet, merVeiledningBekreftet } from './merVeiledningActions';
 import { API_NAVN, hentSyfoApiUrl, post } from '../../data/gateway-api/index';
 import { hentHendelser } from '../../landingsside/data/hendelser/hendelserActions';
 

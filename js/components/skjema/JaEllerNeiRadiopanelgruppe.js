@@ -1,45 +1,39 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { change as changeAction } from 'redux-form';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
-import { jaEllerNeiAlternativer } from './jaEllerNeiHelpers';
+import { jaEllerNeiAlternativer } from './JaEllerNei';
 import { fieldPropTypes } from '../../propTypes';
 
-const RadioPanelGruppeComponent = ({
-    meta, hjelpetekst, spoersmal, input, doChange,
-}) => {
-    const feil = meta.touched && meta.error
-        ? { feilmelding: meta.error }
+const RadioPanelGruppeComponent = (props) => {
+    const feil = props.meta.touched && props.meta.error
+        ? { feilmelding: props.meta.error }
         : undefined;
 
-    const legend = hjelpetekst
-        ? (
-            <div className="medHjelpetekst">
-                <h3>{spoersmal}</h3>
-                {hjelpetekst}
-            </div>
-        )
-        : <h3>{spoersmal}</h3>;
+    const legend = props.hjelpetekst
+        ? (<div className="medHjelpetekst">
+            <h3>{props.spoersmal}</h3>
+            {props.hjelpetekst}
+        </div>)
+        : <h3>{props.spoersmal}</h3>;
 
-    return (
-        <RadioPanelGruppe
-            className="inputPanelGruppe--horisontal"
-            name={input.name}
-            legend={legend}
-            radios={jaEllerNeiAlternativer
-                .map(alternativ => ({
-                    ...alternativ,
-                    id: `${input.name}-${alternativ.value}`,
-                }))}
-            checked={input.value}
-            onChange={(event, value) => {
-                doChange(meta.form, input.name, value);
-            }}
-            feil={feil}
-        />
-    );
+    return (<RadioPanelGruppe
+        className="inputPanelGruppe--horisontal"
+        name={props.input.name}
+        legend={legend}
+        radios={jaEllerNeiAlternativer.map((alternativ) => {
+            return {
+                ...alternativ,
+                id: `${props.input.name}-${alternativ.value}`,
+            };
+        })}
+        checked={props.input.value}
+        onChange={(event, value) => {
+            props.doChange(props.meta.form, props.input.name, value);
+        }}
+        feil={feil}
+    />);
 };
 
 RadioPanelGruppeComponent.propTypes = {
@@ -50,10 +44,6 @@ RadioPanelGruppeComponent.propTypes = {
     hjelpetekst: PropTypes.node,
 };
 
-const actionCreators = {
-    doChange: changeAction,
-};
-
-const JaEllerNeiRadiopanelgruppe = connect(null, actionCreators)(RadioPanelGruppeComponent);
+const JaEllerNeiRadiopanelgruppe = connect(null, { doChange: changeAction })(RadioPanelGruppeComponent);
 
 export default JaEllerNeiRadiopanelgruppe;

@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import { TimeoutBox } from '@navikt/digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { describe } from 'mocha';
 import Feilmelding from '../../js/components/Feilmelding';
 import { SideComponent, Utlogget } from '../../js/sider/Side';
 import Brodsmuler from '../../js/components/Brodsmuler';
@@ -12,7 +11,7 @@ import Brodsmuler from '../../js/components/Brodsmuler';
 const DocumentTitle = require('react-document-title');
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('SideComponent', () => {
     let component;
@@ -34,11 +33,9 @@ describe('SideComponent', () => {
             brodsmuler,
             tittel: 'Min side',
         };
-        component = shallow(
-            <SideComponent {...props}>
-                <article>Mitt innhold</article>
-            </SideComponent>,
-        );
+        component = shallow(<SideComponent {...props}>
+            <article>Mitt innhold</article>
+        </SideComponent>);
     });
 
     it('Skal rendre brødsmuler', () => {
@@ -60,11 +57,9 @@ describe('SideComponent', () => {
 
     it('Skal rendre feilmelding hvis bruker er utlogget', () => {
         props.erInnlogget = false;
-        const c = shallow(
-            <SideComponent {...props}>
-                <article>Mitt innhold</article>
-            </SideComponent>,
-        );
+        const c = shallow(<SideComponent {...props}>
+            <article>Mitt innhold</article>
+        </SideComponent>);
         expect(c.find(Utlogget)).to.have.length(1);
     });
 });

@@ -15,44 +15,36 @@ export const TEKSTER = {
 /* eslint-enable max-len */
 
 export const TekstInformasjonBilde = () => {
-    return (
-        <div className="tekstInformasjon__bilde">
-            <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/forDuSvarer.svg`} alt="Kalender" />
-        </div>
-    );
+    return (<div className="tekstInformasjon__bilde">
+        <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/forDuSvarer.svg`} alt="Kalender" />
+    </div>);
 };
 
 export const TekstInformasjonInnhold = () => {
-    return (
-        <div className="tekstInformasjon__innhold">
-            <h2 className="tekstInformasjon__tittel">
-                {TEKSTER.forDuSvarer.tittel}
-            </h2>
-            <ul>
-                <li>{TEKSTER.forDuSvarer.lagetPlan}</li>
-                <li>
-                    {TEKSTER.forDuSvarer.ikkeLagetPlan}
-                    {' '}
-                    <a
-                        className="lenke"
-                        href={erPaaHeroku()
-                            ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
-                            : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`}>
-                        {TEKSTER.tekstInformasjonInnhold.lenke}
-                    </a>
-                </li>
-            </ul>
-        </div>
-    );
+    return (<div className="tekstInformasjon__innhold">
+        <h2 className="tekstInformasjon__tittel">
+            {TEKSTER.forDuSvarer.tittel}
+        </h2>
+        <ul>
+            <li>{TEKSTER.forDuSvarer.lagetPlan}</li>
+            <li>
+                {TEKSTER.forDuSvarer.ikkeLagetPlan} <a
+                    className="lenke"
+                    href={erPaaHeroku()
+                        ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
+                        : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`}>
+                    {TEKSTER.tekstInformasjonInnhold.lenke}
+                </a>
+            </li>
+        </ul>
+    </div>);
 };
 
 const MotebehovInfoForSvar = () => {
-    return (
-        <div className="panel motebehovInfoForSvar">
-            <TekstInformasjonBilde />
-            <TekstInformasjonInnhold />
-        </div>
-    );
+    return (<div className="panel motebehovInfoForSvar">
+        <TekstInformasjonBilde />
+        <TekstInformasjonInnhold />
+    </div>);
 };
 
 export default MotebehovInfoForSvar;

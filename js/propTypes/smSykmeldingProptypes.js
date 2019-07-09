@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import * as behandlingsutfallstatuser from '../enums/behandlingsutfallstatuser';
-import {
-    AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD,
-} from '../sykmeldinger/enums/sykmeldingskjemaenums';
+import { AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD } from '../sykmeldinger/enums/sykmeldingskjemaenums';
 
 const ruleHitPt = PropTypes.shape({
     ruleName: PropTypes.string,

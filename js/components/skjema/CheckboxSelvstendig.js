@@ -4,15 +4,11 @@ import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { fieldPropTypes } from '../../propTypes';
 import Feilmelding from './Feilmelding';
 
-const CheckboxSelvstendig = ({
-    input, meta, label, id, disabled,
-}) => {
-    return (
-        <div>
-            <BekreftCheckboksPanel {...input} inputProps={{ id, disabled }} label={label} checked={input.value === true} />
-            <Feilmelding {...meta} />
-        </div>
-    );
+const CheckboxSelvstendig = ({ input, meta, label, id, disabled }) => {
+    return (<div>
+        <BekreftCheckboksPanel {...input} inputProps={{ id, disabled }} label={label} checked={input.value === true} />
+        <Feilmelding {...meta} />
+    </div>);
 };
 
 CheckboxSelvstendig.propTypes = {

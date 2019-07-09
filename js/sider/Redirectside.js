@@ -6,22 +6,16 @@ import { getSykepengesoknaderUrl } from '../utils/urlUtils';
 
 class RedirectsideComponent extends Component {
     componentDidMount() {
-        const { redirectPath } = this.props;
-        window.location.href = redirectPath;
+        window.location.href = this.props.redirectPath;
     }
 
     render() {
-        const { redirectPath } = this.props;
-        return (
-            <Side tittel="Sender videre...">
-                <div className="panel">
-                    <h1 className="panel__tittel">Du blir sendt videre...</h1>
-                    <p className="sist">
-                        <a href={redirectPath} className="lenke">Gå videre!</a>
-                    </p>
-                </div>
-            </Side>
-        );
+        return (<Side tittel="Sender videre...">
+            <div className="panel">
+                <h1 className="panel__tittel">Du blir sendt videre...</h1>
+                <p className="sist"><a href={this.props.redirectPath} className="lenke">Gå videre!</a></p>
+            </div>
+        </Side>);
     }
 }
 

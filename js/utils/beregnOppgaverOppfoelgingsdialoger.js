@@ -26,9 +26,9 @@ const beregnOppgaverOppfoelgingsdialoger = (oppfolgingsdialoger, sykmeldinger) =
     });
     const avventendeGodkjenninger = oppfolgingdialogerKnyttetTilGyldigSykmelding
         .filter((plan) => {
-            return plan.godkjenninger.length > 0
-                && plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr
-                && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
+            return plan.godkjenninger.length > 0 &&
+                plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr &&
+                finnNyesteGodkjenning(plan.godkjenninger).godkjent;
         });
     const nyePlaner = oppfolgingdialogerKnyttetTilGyldigSykmelding
         .filter((plan) => {

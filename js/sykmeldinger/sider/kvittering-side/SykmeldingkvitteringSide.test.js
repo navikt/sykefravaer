@@ -6,9 +6,7 @@ import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import sinon from 'sinon';
 import { Provider } from 'react-redux';
-import {
-    setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser,
-} from '@navikt/digisyfo-npm';
+import { setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser } from '@navikt/digisyfo-npm';
 import SykmeldingKvitteringContainer, { mapStateToProps } from './SykmeldingkvitteringSide';
 import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../kvittering/varianter/FrilanserMedPapirsoknadKvittering';
@@ -27,7 +25,7 @@ import { FREMTIDIG } from '../../../enums/soknadstatuser';
 import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('SykmeldingkvitteringSide', () => {
     const ownProps = {};
@@ -298,11 +296,9 @@ describe('SykmeldingkvitteringSide', () => {
 
     const getComponent = (_state, _ownProps) => {
         const store = mockStore(_state);
-        return mount(
-            <Provider store={store}>
-                <SykmeldingKvitteringContainer {..._ownProps} />
-            </Provider>,
-        );
+        return mount(<Provider store={store}>
+            <SykmeldingKvitteringContainer {..._ownProps} />
+        </Provider>);
     };
 
     const skalViseStandardSendtKvittering = (_state, _ownProps) => {
@@ -1239,3 +1235,4 @@ describe('SykmeldingkvitteringSide', () => {
         });
     });
 });
+

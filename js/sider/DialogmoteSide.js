@@ -1,8 +1,8 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst } from '@navikt/digisyfo-npm';
+import { bindActionCreators } from 'redux';
 import {
     brodsmule as brodsmulePt,
     moteplanleggerDeltakerPt,
@@ -31,8 +31,7 @@ import { sendSvar } from '../data/svar/svar_actions';
 
 export class Container extends Component {
     componentWillMount() {
-        const { doHentMote } = this.props;
-        doHentMote();
+        this.props.actions.hentMote();
     }
 
     render() {
@@ -43,72 +42,60 @@ export class Container extends Component {
             brodsmuler,
             hentingFeilet,
             moteIkkeFunnet,
-            doSendSvar,
+            actions,
         } = this.props;
         const modus = getSvarsideModus(mote);
-        return (
-            <Side
-                tittel={getLedetekst('mote.sidetittel')}
-                brodsmuler={brodsmuler}
-                laster={henter || !hentet}
-            >
-                {
-                    (() => {
-                        if (henter) {
-                            return <AppSpinner />;
-                        }
-                        if (hentingFeilet) {
-                            return <Feilmelding />;
-                        }
-                        if (moteIkkeFunnet) {
-                            return (
-                                <Feilmelding
-                                    tittel="Du har ingen møteforespørsel for øyeblikket"
-                                    melding="Er du sikker på at du er på riktig side?"
-                                />
-                            );
-                        }
-                        if (erMotePassert(mote)) {
-                            return <MotePassert deltakertype={BRUKER} />;
-                        }
-                        if (modus === BEKREFTET) {
-                            return (
-                                <BekreftetKvittering
-                                    mote={mote}
-                                    deltakertype={BRUKER}
-                                />
-                            );
-                        }
-                        if (modus === MOTESTATUS) {
-                            return (
-                                <Kvittering
-                                    mote={mote}
-                                    deltakertype={BRUKER}
-                                />
-                            );
-                        }
-                        if (modus === AVBRUTT) {
-                            return (
-                                <AvbruttMote
-                                    mote={mote}
-                                    deltakertype={BRUKER}
-                                />
-                            );
-                        }
-                        if (mote) {
-                            return (
-                                <Svarside
-                                    {...this.props}
-                                    deltakertype={BRUKER}
-                                    sendSvar={doSendSvar}
-                                />
-                            );
-                        }
+        return (<Side
+            tittel={getLedetekst('mote.sidetittel')}
+            brodsmuler={brodsmuler}
+            laster={henter || !hentet}
+        >
+            {
+                (() => {
+                    if (henter) {
+                        return <AppSpinner />;
+                    }
+                    if (hentingFeilet) {
                         return <Feilmelding />;
-                    })()
-                }
-            </Side>
-        );
+                    }
+                    if (moteIkkeFunnet) {
+                        return (<Feilmelding
+                            tittel="Du har ingen møteforespørsel for øyeblikket"
+                            melding="Er du sikker på at du er på riktig side?"
+                        />);
+                    }
+                    if (erMotePassert(mote)) {
+                        return <MotePassert deltakertype={BRUKER} />;
+                    }
+                    if (modus === BEKREFTET) {
+                        return (<BekreftetKvittering
+                            mote={mote}
+                            deltakertype={BRUKER}
+                        />);
+                    }
+                    if (modus === MOTESTATUS) {
+                        return (<Kvittering
+                            mote={mote}
+                            deltakertype={BRUKER}
+                        />);
+                    }
+                    if (modus === AVBRUTT) {
+                        return (<AvbruttMote
+                            mote={mote}
+                            deltakertype={BRUKER}
+                        />);
+                    }
+                    if (mote) {
+                        return (<Svarside
+                            {...this.props}
+                            deltakertype={BRUKER}
+                            sendSvar={actions.sendSvar}
+                        />);
+                    }
+                    return <Feilmelding />;
+                })()
+            }
+        </Side>);
     }
 }
 
@@ -117,8 +104,10 @@ Container.propTypes = {
     fantIkkeDeltaker: PropTypes.bool,
     deltaker: moteplanleggerDeltakerPt,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    doHentMote: PropTypes.func,
-    doSendSvar: PropTypes.func,
+    actions: PropTypes.shape({
+        hentMote: PropTypes.func,
+        sendSvar: PropTypes.func,
+    }),
     hentingFeilet: PropTypes.bool,
     moteIkkeFunnet: PropTypes.bool,
     sender: PropTypes.bool,
@@ -126,6 +115,16 @@ Container.propTypes = {
     mote: motePt,
     hentet: PropTypes.bool,
 };
+
+export function mapDispatchToProps(dispatch) {
+    const actions = bindActionCreators({
+        hentMote,
+        sendSvar,
+    }, dispatch);
+    return {
+        actions,
+    };
+}
 
 export function mapStateToProps(state) {
     return {
@@ -148,9 +147,4 @@ export function mapStateToProps(state) {
     };
 }
 
-const actionCreators = {
-    doHentMote: hentMote,
-    doSendSvar: sendSvar,
-};
-
-export default connect(mapStateToProps, actionCreators)(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

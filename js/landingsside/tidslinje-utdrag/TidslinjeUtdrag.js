@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo,
-} from '@navikt/digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
 import FriskmeldingContainer from '../friskmeldingsknapp/FriskmeldingContainer';
 import { Vis } from '../../utils/index';
@@ -80,18 +78,16 @@ tekster[MED_ARBEIDSGIVER] = teksterMedArbeidsgiver;
 tekster[UTEN_ARBEIDSGIVER] = teksterUtenArbeidsgiver;
 
 const TittelIngress = ({ nokkelbase, bilde }) => {
-    return (
-        <div className="tidslinjeutdrag">
-            <img className="tidslinjeutdrag__bilde" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/tidslinjeutdrag/${bilde}`} alt="" />
-            <div className="tidslinjeutdrag__intro">
-                <h2 className="tidslinjeutdrag__tittel">{getLedetekst(`${nokkelbase}.tittel`)}</h2>
-                <div
-                    className="tidslinjeutdrag__ingress redaksjonelt-innhold"
-                    dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.ingress`,
-                        { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
-            </div>
+    return (<div className="tidslinjeutdrag">
+        <img className="tidslinjeutdrag__bilde" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/tidslinjeutdrag/${bilde}`} alt="" />
+        <div className="tidslinjeutdrag__intro">
+            <h2 className="tidslinjeutdrag__tittel">{getLedetekst(`${nokkelbase}.tittel`)}</h2>
+            <div
+                className="tidslinjeutdrag__ingress redaksjonelt-innhold"
+                dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.ingress`,
+                    { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
         </div>
-    );
+    </div>);
 };
 
 TittelIngress.propTypes = {
@@ -100,20 +96,18 @@ TittelIngress.propTypes = {
 };
 
 export const VelgArbeidssituasjon = (props) => {
-    return (
-        <Radiofaner
-            {...props}
-            className="radiofaner__valg--tidslinjeutdrag"
-            radioName="tidslinjeutdragvisning"
-            alternativer={[{
-                verdi: MED_ARBEIDSGIVER,
-                tittel: 'Jeg har arbeidsgiver',
-            }, {
-                verdi: UTEN_ARBEIDSGIVER,
-                tittel: 'Jeg har ikke arbeidsgiver',
-            }]}
-        />
-    );
+    return (<Radiofaner
+        {...props}
+        className="radiofaner__valg--tidslinjeutdrag"
+        radioName="tidslinjeutdragvisning"
+        alternativer={[{
+            verdi: MED_ARBEIDSGIVER,
+            tittel: 'Jeg har arbeidsgiver',
+        }, {
+            verdi: UTEN_ARBEIDSGIVER,
+            tittel: 'Jeg har ikke arbeidsgiver',
+        }]}
+    />);
 };
 
 const track = (event) => {
@@ -174,7 +168,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
     }
 
     getNokkelbase() {
-        const { nokkel } = this.getTekstObjekt();
+        const nokkel = this.getTekstObjekt().nokkel;
         return nokkel === 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2'
             ? 'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2'
             : nokkel;
@@ -200,83 +194,76 @@ export default class TidslinjeUtdrag extends Utvidbar {
             return null;
         }
         const nokkelbase = this.getNokkelbase();
-        return (
-            <div>
-                <article
-                    aria-expanded={this.state.erApen}
-                    className="panel landingspanel"
+        return (<div>
+            <article
+                aria-expanded={this.state.erApen}
+                className="panel landingspanel"
+                ref={(c) => {
+                    this.utvidbar = c;
+                }}>
+                {
+                    visning === VALGFRI && <VelgArbeidssituasjon
+                        valgtAlternativ={this.state.visning}
+                        changeHandler={(_visning) => {
+                            this.setState({
+                                visning: _visning,
+                            });
+                        }} />
+                }
+                <TittelIngress nokkelbase={nokkelbase} bilde={this.getBilde()} />
+                <div
+                    tabIndex="-1"
+                    style={{ height: this.state.hoyde }}
+                    className={`utvidbar__innholdContainer${this.state.containerClassName}`}
+                    onTransitionEnd={() => {
+                        this.onTransitionEnd();
+                        scrollTo(this.utvidbar, 300);
+                        if (this.state.erApen) {
+                            this.container.focus();
+                        }
+                    }}
                     ref={(c) => {
-                        this.utvidbar = c;
+                        this.container = c;
                     }}>
-                    {
-                        visning === VALGFRI && (
-                            <VelgArbeidssituasjon
-                                valgtAlternativ={this.state.visning}
-                                changeHandler={(_visning) => {
-                                    this.setState({
-                                        visning: _visning,
-                                    });
-                                }} />
-                        )
-                    }
-                    <TittelIngress nokkelbase={nokkelbase} bilde={this.getBilde()} />
                     <div
-                        tabIndex="-1"
-                        style={{ height: this.state.hoyde }}
-                        className={`utvidbar__innholdContainer${this.state.containerClassName}`}
-                        onTransitionEnd={() => {
-                            this.onTransitionEnd();
-                            scrollTo(this.utvidbar, 300);
-                            if (this.state.erApen) {
-                                this.container.focus();
-                            }
-                        }}
                         ref={(c) => {
-                            this.container = c;
+                            this.innhold = c;
                         }}>
-                        <div
-                            ref={(c) => {
-                                this.innhold = c;
-                            }}>
-                            {
-                                this.state.visInnhold && (
-                                    <article>
-                                        <div
-                                            className="redaksjonelt-innhold blokk"
-                                            dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`,
-                                                { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
-                                        <p className="blokk">
-                                            <Link className="lenke lenke--tilTidslinje" to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}>
-                                                {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}
-                                            </Link>
-                                        </p>
-                                    </article>
-                                )
-                            }
-                        </div>
+                        {
+                            this.state.visInnhold && (<article>
+                                <div
+                                    className="redaksjonelt-innhold blokk"
+                                    dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`,
+                                        { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
+                                <p className="blokk">
+                                    <Link className="lenke lenke--tilTidslinje" to={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`}>
+                                        {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                                    </Link>
+                                </p>
+                            </article>)
+                        }
                     </div>
-                    <div className="tidslinjeutdrag__toggle">
-                        <button
-                            type="button"
-                            aria-expanded={this.state.erApen}
-                            ref={(c) => {
-                                this['js-toggle'] = c;
-                            }}
-                            onClick={(e) => {
-                                this.trackKlikk();
-                                this.toggle(e);
-                            }}
-                            className={`tidslinjeutdrag__togglelink ${this.state.erApen ? 'tidslinjeutdrag__togglelink--erApen' : ''}`}>
-                            {this.state.erApen ? 'Skjul' : 'Les mer'}
-                        </button>
-                    </div>
-                </article>
-                <Vis
-                    hvis={this.props.visning !== UTEN_ARBEIDSGIVER}
-                    render={() => {
-                        return <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />;
-                    }} />
-            </div>
-        );
+                </div>
+                <div className="tidslinjeutdrag__toggle">
+                    <button
+                        aria-expanded={this.state.erApen}
+                        ref={(c) => {
+                            this['js-toggle'] = c;
+                        }}
+                        onClick={(e) => {
+                            this.trackKlikk();
+                            this.toggle(e);
+                        }}
+                        className={`tidslinjeutdrag__togglelink ${this.state.erApen ? 'tidslinjeutdrag__togglelink--erApen' : ''}`}>
+                        {this.state.erApen ? 'Skjul' : 'Les mer'}
+                    </button>
+                </div>
+            </article>
+            <Vis
+                hvis={this.props.visning !== UTEN_ARBEIDSGIVER}
+                render={() => {
+                    return <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />;
+                }} />
+        </div>);
     }
 }

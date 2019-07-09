@@ -9,38 +9,30 @@ const onKeyDown = (e) => {
     }
 };
 
-const NavBar = ({
-    onNextClick, onPreviousClick, showPreviousButton, showNextButton,
-}) => {
+const NavBar = ({ onNextClick, onPreviousClick, showPreviousButton, showNextButton }) => {
     const className = 'DayPicker-NavButton';
-    return (
-        <div role="toolbar">
-            <button
-                tabIndex="0"
-                className={`${className} DayPicker-NavButton--prev`}
-                disabled={!showPreviousButton}
-                type="button"
-                onKeyDown={onKeyDown}
-                onClick={(e) => {
-                    e.preventDefault();
-                    onPreviousClick();
-                }}>
-Forrige måned
-            </button>
-            <button
-                tabIndex="0"
-                className={`${className} DayPicker-NavButton--next`}
-                disabled={!showNextButton}
-                type="button"
-                onKeyDown={onKeyDown}
-                onClick={(e) => {
-                    e.preventDefault();
-                    onNextClick();
-                }}>
-Neste måned
-            </button>
-        </div>
-    );
+    return (<div role="toolbar">
+        <button
+            tabIndex="0"
+            className={`${className} DayPicker-NavButton--prev`}
+            disabled={!showPreviousButton}
+            type="button"
+            onKeyDown={onKeyDown}
+            onClick={(e) => {
+                e.preventDefault();
+                onPreviousClick();
+            }}>Forrige måned</button>
+        <button
+            tabIndex="0"
+            className={`${className} DayPicker-NavButton--next`}
+            disabled={!showNextButton}
+            type="button"
+            onKeyDown={onKeyDown}
+            onClick={(e) => {
+                e.preventDefault();
+                onNextClick();
+            }}>Neste måned</button>
+    </div>);
 };
 
 NavBar.propTypes = {
@@ -51,3 +43,4 @@ NavBar.propTypes = {
 };
 
 export default NavBar;
+

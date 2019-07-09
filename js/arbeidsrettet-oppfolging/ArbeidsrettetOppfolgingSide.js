@@ -19,22 +19,19 @@ import {
 
 class ArbeidsrettetOppfolgingSide extends Component {
     componentDidMount() {
-        const { doHentOppfolging, doHentSykmeldtinfodata } = this.props;
-        doHentOppfolging();
-        doHentSykmeldtinfodata();
+        this.props.doHentOppfolging();
+        this.props.doHentSykmeldtinfodata();
     }
 
     render() {
-        const {
-            henter, hentingFeilet, underOppfolging, maksDatoString,
-        } = this.props;
+        const { henter, hentingFeilet, underOppfolging, maksDatoString } = this.props;
         return (
             <Side tittel={getLedetekst('ao.sidetittel')} laster={henter}>
                 {
                     (() => {
                         if (henter) {
                             return <AppSpinner />;
-                        } if (hentingFeilet) {
+                        } else if (hentingFeilet) {
                             return <Feilmelding />;
                         }
                         return (

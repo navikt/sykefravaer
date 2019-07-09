@@ -10,7 +10,7 @@ const {
 } = actions;
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('dineArbeidsgivere_actions', () => {
     beforeEach(() => {

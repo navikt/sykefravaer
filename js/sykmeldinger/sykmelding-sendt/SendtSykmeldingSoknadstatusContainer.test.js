@@ -17,7 +17,7 @@ import {
 } from '../soknadsinfo/SykmeldingSoknadstatus';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('BekreftetSykmeldingSoknadstatusContainer', () => {
     let state;

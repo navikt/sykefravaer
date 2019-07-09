@@ -5,9 +5,7 @@ import cn from 'classnames';
 import { getLedetekst, getDuration, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
 import { sorterPerioderEldsteFoerst } from '@navikt/digisyfo-npm/lib/utils/sorterSykmeldingerUtils';
 import { smSykmeldingPeriodePt, smSykmeldingPerioderPt } from '../../propTypes/smSykmeldingProptypes';
-import {
-    AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD,
-} from '../enums/sykmeldingskjemaenums';
+import { AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD } from '../enums/sykmeldingskjemaenums';
 
 const perioderClass = perioder => cn('sykmeldingPerioder', { 'sykmeldingPerioder--flere': perioder.length > 1 });
 
@@ -35,19 +33,13 @@ const Periodetekst = ({ periode }) => {
         case GRADERT:
             return (
                 <p className="js-grad">
-                    {periode.gradert.grad}
-                    {' '}
-% sykmeldt
+                    {periode.gradert.grad} % sykmeldt
                     {periode.gradert.reisetilskudd ? (` ${getLedetekst('din-sykmelding.periode.med.reisetilskudd')}`) : null}
                 </p>
             );
         case BEHANDLINGSDAGER:
             return (
-                <p className="js-behandlingsdager">
-                    {periode.behandlingsdager}
-                    {' '}
-                    {getLedetekst('din-sykmelding.periode.behandlingsdager')}
-                </p>
+                <p className="js-behandlingsdager">{periode.behandlingsdager} {getLedetekst('din-sykmelding.periode.behandlingsdager')}</p>
             );
         case REISETILSKUDD:
             if (periode.gradert === null) {
@@ -86,11 +78,7 @@ const SykmeldingPeriode = ({ periode }) => {
         <div className="nokkelopplysning">
             <h2 className="nokkelopplysning__tittel">{getLedetekst('din-sykmelding.periode.tittel')}</h2>
             <p className="js-periode blokk-xxs">
-                <strong>{tilLesbarPeriodeMedArstall(periode.fom, periode.tom)}</strong>
-                {' '}
-&bull;
-                {antallDager}
-                {dagerBoying}
+                <strong>{tilLesbarPeriodeMedArstall(periode.fom, periode.tom)}</strong> &bull; {antallDager}&nbsp;{dagerBoying}
             </p>
             <Periodetekst periode={periode} />
         </div>

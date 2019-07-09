@@ -43,7 +43,7 @@ export function* hentMotebehovHvisIkkeHentet() {
 }
 
 export function* svarMotebehov(action) {
-    const { virksomhetsnummer } = action;
+    const virksomhetsnummer = action.virksomhetsnummer;
     const body = input2RSLagreMotebehov(action.svar, action.virksomhetsnummer);
     yield put(actions.svarMotebehovSender(virksomhetsnummer));
     try {

@@ -5,12 +5,10 @@ import chaiEnzyme from 'chai-enzyme';
 import { sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
 import SykmeldingStatuspanel, { Nokkelopplysninger } from './SykmeldingStatuspanel';
-import {
-    Sykmeldingstatus, SendtDato, Arbeidsgiver, Orgnummer,
-} from './SykmeldingStatuspanelOpplysning';
+import { Sykmeldingstatus, SendtDato, Arbeidsgiver, Orgnummer } from './SykmeldingStatuspanelOpplysning';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('StatusPanelTest', () => {
     let component;

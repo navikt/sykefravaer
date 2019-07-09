@@ -4,7 +4,7 @@ import getSykmelding from '../../../test/mock/mockSykmeldinger';
 import { mapStateToProps } from './EldreSykmeldingVarsel';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('Varsel om at det finnes eldre sykmelding', () => {
     let state;

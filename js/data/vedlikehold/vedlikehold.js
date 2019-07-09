@@ -12,7 +12,6 @@ const vedlikehold = createReducer(
     HENT_VEDLIKEHOLD_FEILET,
     HENTER_VEDLIKEHOLD,
     VEDLIKEHOLD_HENTET,
-    defaultState,
-);
+    defaultState);
 
 export default vedlikehold;

@@ -1,6 +1,4 @@
-import {
-    call, fork, put, select, takeEvery,
-} from 'redux-saga/effects';
+import { call, fork, put, select, takeEvery } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './arbeidsgivereActions';
 
@@ -11,7 +9,7 @@ export const skalHenteArbeidsgivere = (state, sykmeldingId) => {
 };
 
 export function* hentDineArbeidsgivere(action) {
-    const { sykmeldingId } = action;
+    const sykmeldingId = action.sykmeldingId;
     const skalHente = yield select(skalHenteArbeidsgivere, sykmeldingId);
     if (skalHente) {
         yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));

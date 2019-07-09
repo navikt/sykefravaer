@@ -8,7 +8,7 @@ import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 import JaEllerNei from '../../../../components/skjema/JaEllerNei';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('ErOpplysningeneRiktige -', () => {
     it('Inneholder en ja/nei', () => {

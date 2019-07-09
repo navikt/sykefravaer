@@ -8,7 +8,7 @@ import { ArbeidsgiversSykmeldingWrapper, mapStateToProps } from './Arbeidsgivers
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('ArbeidsgiversSykmeldingContainer', () => {
     let ownProps = {};

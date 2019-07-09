@@ -2,30 +2,23 @@ import React from 'react';
 import Alertstripe from 'nav-frontend-alertstriper';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import {
-    getLedetekst, getSykmelding, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser,
-} from '@navikt/digisyfo-npm';
+import { getLedetekst, getSykmelding, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 
 const { NY } = sykmeldingstatuser;
 
 const EldreSykmeldingVarsel = ({ visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return visEldreSykmeldingVarsel
-        ? (
-            <Alertstripe type="info" className="blokk">
-                <p className="sist">
-                    <span>
-                        {getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')}
-                        {' '}
-                    </span>
-                    <Link
-                        className="lenke"
-                        to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${eldsteSykmeldingId}`}>
-                        {getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}
-                    </Link>
-                </p>
-            </Alertstripe>
-        )
+        ? (<Alertstripe type="info" className="blokk">
+            <p className="sist">
+                <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
+                <Link
+                    className="lenke"
+                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${eldsteSykmeldingId}`}>
+                    {getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}
+                </Link>
+            </p>
+        </Alertstripe>)
         : null;
 };
 

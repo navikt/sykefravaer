@@ -3,9 +3,7 @@ import { get, getAjax } from '@navikt/digisyfo-npm';
 import { put, call, select } from 'redux-saga/effects';
 import { hentBrukerinfo, sjekkInnlogging } from './brukerinfoSagas';
 import { skalHenteBrukerinfoSelector } from './brukerinfoSelectors';
-import {
-    henterBrukerinfo, brukerinfoHentet, setErInnlogget, sjekkerInnlogging,
-} from './brukerinfo_actions';
+import { henterBrukerinfo, brukerinfoHentet, setErInnlogget, sjekkerInnlogging } from './brukerinfo_actions';
 
 describe('brukerinfoSagas', () => {
     describe('hentBrukerinfo', () => {

@@ -23,8 +23,7 @@ class MerVeiledning extends Component {
     }
 
     componentDidMount() {
-        const { doHentHendelser } = this.props;
-        doHentHendelser();
+        this.props.doHentHendelser();
     }
 
     bekreftAlleMerVeiledninghendelser(callback) {
@@ -68,20 +67,18 @@ class MerVeiledning extends Component {
                     <Undertittel tag="h3" className="blokk">{getLedetekst('ao.mer-veiledning.sporsmal')}</Undertittel>
                     {
                         !bekrefter
-                            ? (
-                                <React.Fragment>
-                                    <p className="blokk--xxs">
-                                        <Hovedknapp onClick={this.handleJaBtnClicked}>
-                                            {getLedetekst('ao.mer-veiledning.ja')}
-                                        </Hovedknapp>
-                                    </p>
-                                    <p className="blokk--xxs">
-                                        <Flatknapp onClick={this.handleNeiBtnClicked}>
-                                            {getLedetekst('ao.mer-veiledning.nei')}
-                                        </Flatknapp>
-                                    </p>
-                                </React.Fragment>
-                            )
+                            ? (<React.Fragment>
+                                <p className="blokk--xxs">
+                                    <Hovedknapp onClick={this.handleJaBtnClicked}>
+                                        {getLedetekst('ao.mer-veiledning.ja')}
+                                    </Hovedknapp>
+                                </p>
+                                <p className="blokk--xxs">
+                                    <Flatknapp onClick={this.handleNeiBtnClicked}>
+                                        {getLedetekst('ao.mer-veiledning.nei')}
+                                    </Flatknapp>
+                                </p>
+                            </React.Fragment>)
                             : <AppSpinner className="app-spinner--inline" />
                     }
                 </div>

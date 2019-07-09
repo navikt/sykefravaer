@@ -4,25 +4,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from './TidslinjeUtdrag';
 
-const {
-    SENDT, NY, BEKREFTET, TIL_SENDING,
-} = sykmeldingstatuser;
+const { SENDT, NY, BEKREFTET, TIL_SENDING } = sykmeldingstatuser;
 
 const ETT_DOGN = 1000 * 60 * 60 * 24;
 const TRETTINI_UKER = 7 * 39;
 
 export const Container = (props) => {
-    const {
-        visUtdrag, startdato, antallDager, visning, hentingFeilet,
-    } = props;
+    const { visUtdrag, startdato, antallDager, visning, hentingFeilet } = props;
     return (!visUtdrag || hentingFeilet)
         ? null
-        : (
-            <TidslinjeUtdrag
-                startdato={startdato}
-                antallDager={antallDager}
-                visning={visning} />
-        );
+        : <TidslinjeUtdrag
+            startdato={startdato}
+            antallDager={antallDager}
+            visning={visning} />;
 };
 
 Container.propTypes = {
@@ -35,7 +29,7 @@ Container.propTypes = {
 
 const getSykefravaerVarighet = (state) => {
     const dato = state.sykeforloep.startdato;
-    const { erArbeidsrettetOppfolgingSykmeldtInngangAktiv } = state.brukerinfo.sykmeldtinfodata.data;
+    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv = state.brukerinfo.sykmeldtinfodata.data.erArbeidsrettetOppfolgingSykmeldtInngangAktiv;
     const TVING_MER_ENN_39_UKER = 275;
     const TVING_MINDRE_ENN_39_UKER = 272;
     const dagensDato = new Date();
@@ -68,7 +62,7 @@ export const skalViseUtdrag = (state) => {
 };
 
 const getVisning = (state) => {
-    const { startdato } = state.sykeforloep;
+    const startdato = state.sykeforloep.startdato;
     const dineSykmeldinger = state.dineSykmeldinger.data;
     if (!startdato) {
         return VALGFRI;
@@ -110,8 +104,8 @@ const getVisning = (state) => {
 };
 
 export const mapStateToProps = (state) => {
-    const { hentingFeilet } = state.sykeforloep;
-    const { startdato } = state.sykeforloep;
+    const hentingFeilet = state.sykeforloep.hentingFeilet;
+    const startdato = state.sykeforloep.startdato;
     const antallDager = startdato
         ? getSykefravaerVarighet(state)
         : undefined;

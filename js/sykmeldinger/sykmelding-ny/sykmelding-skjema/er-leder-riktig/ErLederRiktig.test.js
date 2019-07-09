@@ -9,7 +9,7 @@ import ErLederRiktig, { RendreErLederRiktig } from './ErLederRiktig';
 import Radioknapper from '../../../../components/skjema/Radioknapper';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('ErLederRiktig', () => {
     beforeEach(() => {

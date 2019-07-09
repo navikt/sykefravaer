@@ -9,7 +9,7 @@ import SykmeldingTeasere from './SykmeldingTeasere';
 import SykmeldingerSorteringContainer from './SykmeldingerSorteringContainer';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 const sykmeldinger = [{
     id: '1',
@@ -83,44 +83,25 @@ describe('SykmeldingTeasere', () => {
 
     it('Viser en header', () => {
         const component = shallow(<SykmeldingTeasere tittel="Mine sykmeldinger" sykmeldinger={sykmeldinger} />);
-        expect(component.find('header'))
-            .to
-            .have
-            .length(1);
-        expect(component.find('header')
-            .text())
-            .to
-            .contain('Mine sykmeldinger');
+        expect(component.find('header')).to.have.length(1);
+        expect(component.find('header').text()).to.contain('Mine sykmeldinger');
     });
 
     it('Viser children dersom de er sendt inn', () => {
-        const component = shallow(
-            <SykmeldingTeasere tittel="Mine sykmeldinger" sykmeldinger={sykmeldinger}>
-                <SykmeldingerSorteringContainer />
-            </SykmeldingTeasere>,
-        );
-        expect(component.contains(<SykmeldingerSorteringContainer />))
-            .to
-            .equal(true);
+        const component = shallow(<SykmeldingTeasere tittel="Mine sykmeldinger" sykmeldinger={sykmeldinger} >
+            <SykmeldingerSorteringContainer />
+        </SykmeldingTeasere>);
+        expect(component.contains(<SykmeldingerSorteringContainer />)).to.equal(true);
     });
 
     it('Viser en Sykmeldingteaser per sykmelding', () => {
         const component = shallow(<SykmeldingTeasere sykmeldinger={sykmeldinger} />);
-        expect(component.find(Sykmeldingteaser))
-            .to
-            .have
-            .length(3);
+        expect(component.find(Sykmeldingteaser)).to.have.length(3);
     });
 
     it('Viser en melding når det ikke er sykmeldinger', () => {
         const component = shallow(<SykmeldingTeasere tittel="Mine sykmeldinger" sykmeldinger={[]} ingenSykmeldingerMelding="Du har ingen sykmeldinger" />);
-        expect(component.find(Sykmeldingteaser))
-            .to
-            .have
-            .length(0);
-        expect(component.find('p')
-            .text())
-            .to
-            .equal('Du har ingen sykmeldinger');
+        expect(component.find(Sykmeldingteaser)).to.have.length(0);
+        expect(component.find('p').text()).to.equal('Du har ingen sykmeldinger');
     });
 });

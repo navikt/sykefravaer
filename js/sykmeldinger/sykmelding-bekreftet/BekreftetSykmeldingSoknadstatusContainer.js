@@ -13,11 +13,9 @@ import { soknadPt } from '../../propTypes';
 
 const Soknadstatus = ({ soknader, erSelvstendigEllerFrilanserSykmelding }) => {
     if (!erSelvstendigEllerFrilanserSykmelding) {
-        return (
-            <div className="panel panel--komprimert blokk">
-                <PapirsoknadMelding />
-            </div>
-        );
+        return (<div className="panel panel--komprimert blokk">
+            <PapirsoknadMelding />
+        </div>);
     }
     if (soknader.length === 0) {
         return null;
@@ -51,12 +49,10 @@ export class Container extends Component {
 
         return henter
             ? <AppSpinner />
-            : (
-                <Soknadstatus
-                    erSelvstendigEllerFrilanserSykmelding={erSelvstendigEllerFrilanserSykmelding}
-                    selvstendigToggle={selvstendigToggle}
-                    soknader={soknader} />
-            );
+            : <Soknadstatus
+                erSelvstendigEllerFrilanserSykmelding={erSelvstendigEllerFrilanserSykmelding}
+                selvstendigToggle={selvstendigToggle}
+                soknader={soknader} />;
     }
 }
 
@@ -70,7 +66,7 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state, ownProps) => {
-    const { sykmelding } = ownProps;
+    const sykmelding = ownProps.sykmelding;
     const soknader = state.soknader.data
         .filter((soknad) => {
             return soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE;

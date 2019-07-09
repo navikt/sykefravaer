@@ -1,6 +1,4 @@
-import {
-    all, call, fork, put, select, takeEvery,
-} from 'redux-saga/effects';
+import { all, call, fork, put, select, takeEvery } from 'redux-saga/effects';
 import { get, getAjax, log } from '@navikt/digisyfo-npm';
 import { get as gatewayGet, getHeaders } from '../gateway-api/index';
 import * as actions from './brukerinfo_actions';
@@ -9,9 +7,7 @@ import { skalHenteBrukerinfoSelector, skalHenteOppfolgingSelector, skalHenteSykm
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 import { HENTET_UNLEASH_TOGGLES } from '../unleash-toggles/unleashToggles_actions';
 
-const {
-    HENT_BRUKERINFO_FORESPURT, HENT_OPPFOLGING_FORESPURT, HENT_SYKMELDTINFODATA_FORESPURT, SJEKK_INNLOGGING_FORESPURT,
-} = actions;
+const { HENT_BRUKERINFO_FORESPURT, HENT_OPPFOLGING_FORESPURT, HENT_SYKMELDTINFODATA_FORESPURT, SJEKK_INNLOGGING_FORESPURT } = actions;
 
 const getConsumerIdHeaders = () => {
     const CustomHeaders = getHeaders();

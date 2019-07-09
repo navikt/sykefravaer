@@ -6,7 +6,7 @@ import Sykmeldingteaser from './Sykmeldingteaser';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('Sykmeldingteaser', () => {
     it('Viser datoer', () => {

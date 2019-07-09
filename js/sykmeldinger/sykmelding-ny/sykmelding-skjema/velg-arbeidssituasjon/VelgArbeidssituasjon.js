@@ -11,9 +11,7 @@ import ErLederRiktig from '../er-leder-riktig/ErLederRiktig';
 import SkrivUtSykmeldingDialog from '../skriv-ut/SkrivUtSykmeldingDialog';
 import { ANNEN_ARBEIDSGIVER_ORGNUMMER, ANNEN_ARBEIDSSITUASJON } from '../../../enums/sykmeldingskjemaenums';
 
-const {
-    ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET,
-} = arbeidssituasjonerEnums;
+const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = arbeidssituasjonerEnums;
 
 const arbeidssituasjoner = [NAERINGSDRIVENDE, FRILANSER, ARBEIDSTAKER, ARBEIDSLEDIG, ANNET];
 
@@ -30,9 +28,7 @@ export const harValgtArbeidsgiverMedNaermesteLeder = (svar, arbeidsgivere) => {
     return harValgtArbeidsgiver(svar, arbeidsgivere) && valgtArbeidsgiver.naermesteLeder !== null;
 };
 
-export const RendreVelgArbeidssituasjon = ({
-    input, meta, arbeidsgivere, alternativer,
-}) => {
+export const RendreVelgArbeidssituasjon = ({ input, meta, arbeidsgivere, alternativer }) => {
     const hjelpelinje = arbeidsgivere.length > 1
         ? <p>{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.flere-arbeidsgivere-infotekst')}</p>
         : null;
@@ -40,31 +36,27 @@ export const RendreVelgArbeidssituasjon = ({
         ? <p className="sist js-gdpr">{getLedetekst('send-til-arbeidsgiver.gdpr.sender-til-altinn')}</p>
         : null;
 
-    return (
-        <div>
-            <Radioknapper
-                hjelpelinje={hjelpelinje}
-                id="valgtArbeidssituasjon"
-                input={input}
-                meta={meta}
-                spoersmal={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.3')}
-                hjelpetekst={<Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>}>
-                {
-                    alternativer
-                        .map((alternativ, index) => {
-                            return (
-                                <i
-                                    key={index}
-                                    label={alternativ.label}
-                                    value={alternativ.value}
-                                    labelSekundaer={alternativ.labelSekundaer} />
-                            );
-                        })
-                }
-            </Radioknapper>
-            {gdpr}
-        </div>
-    );
+    return (<div>
+        <Radioknapper
+            hjelpelinje={hjelpelinje}
+            id="valgtArbeidssituasjon"
+            input={input}
+            meta={meta}
+            spoersmal={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.3')}
+            hjelpetekst={<Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>}>
+            {
+                alternativer
+                    .map((alternativ, index) => {
+                        return (<i
+                            key={index}
+                            label={alternativ.label}
+                            value={alternativ.value}
+                            labelSekundaer={alternativ.labelSekundaer} />);
+                    })
+            }
+        </Radioknapper>
+        {gdpr}
+    </div>);
 };
 
 RendreVelgArbeidssituasjon.propTypes = {
@@ -78,8 +70,8 @@ RendreVelgArbeidssituasjon.propTypes = {
 };
 
 export const visTillegg = (props) => {
-    const { value } = props.input;
-    const { arbeidsgivere } = props;
+    const value = props.input.value;
+    const arbeidsgivere = props.arbeidsgivere;
     return !props.harStrengtFortroligAdresse
         && (harValgtArbeidsgiverMedNaermesteLeder(value, arbeidsgivere)
             || value === ARBEIDSTAKER);
@@ -96,15 +88,13 @@ export const Velg = (props) => {
             ? <ErLederRiktig naermesteLeder={valgtArbeidsgiver.naermesteLeder} />
             : null;
     const Sporsmal = <RendreVelgArbeidssituasjon {...props} />;
-    return (
-        <SporsmalMedTillegg
-            className="hovedsporsmal hovedsporsmal--hvit blokk--s"
-            {...props}
-            Sporsmal={Sporsmal}
-            visTillegg={visTillegg}>
-            {tillegg}
-        </SporsmalMedTillegg>
-    );
+    return (<SporsmalMedTillegg
+        className="hovedsporsmal hovedsporsmal--hvit blokk--s"
+        {...props}
+        Sporsmal={Sporsmal}
+        visTillegg={visTillegg}>
+        {tillegg}
+    </SporsmalMedTillegg>);
 };
 
 Velg.propTypes = {
@@ -193,28 +183,23 @@ class VelgArbeidssituasjon extends Component {
     }
 
     getAlternativer() {
-        const { arbeidsgivere } = this.props;
-        return getAlternativer(arbeidsgivere, this.state);
+        return getAlternativer(this.props.arbeidsgivere, this.state);
     }
 
     render() {
-        const {
-            untouch, arbeidsgivere, sykmelding, harStrengtFortroligAdresse,
-        } = this.props;
+        const { untouch, arbeidsgivere, sykmelding, harStrengtFortroligAdresse } = this.props;
 
-        return (
-            <Field
-                onChange={this.onChange}
-                onBlur={() => {
-                    untouch('valgtArbeidsgiver');
-                }}
-                alternativer={this.getAlternativer()}
-                arbeidsgivere={arbeidsgivere}
-                sykmelding={sykmelding}
-                harStrengtFortroligAdresse={harStrengtFortroligAdresse}
-                component={Velg}
-                name="valgtArbeidssituasjonShadow" />
-        );
+        return (<Field
+            onChange={this.onChange}
+            onBlur={() => {
+                untouch('valgtArbeidsgiver');
+            }}
+            alternativer={this.getAlternativer()}
+            arbeidsgivere={arbeidsgivere}
+            sykmelding={sykmelding}
+            harStrengtFortroligAdresse={harStrengtFortroligAdresse}
+            component={Velg}
+            name="valgtArbeidssituasjonShadow" />);
     }
 }
 

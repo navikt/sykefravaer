@@ -21,16 +21,14 @@ export function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
 }
 
 export const Arbeidsgiver = ({ arbeidsgiver }) => {
-    return (
-        <div className="situasjon__innhold">
-            <p className="situasjon__tittel">
-                {getLedetekst('din-situasjon.ansatt', {
-                    '%ORGANISASJONSNAVN%': arbeidsgiver,
-                })}
-            </p>
-            <NaermesteLederContainer organisasjonsnavn={arbeidsgiver} />
-        </div>
-    );
+    return (<div className="situasjon__innhold">
+        <p className="situasjon__tittel">
+            {getLedetekst('din-situasjon.ansatt', {
+                '%ORGANISASJONSNAVN%': arbeidsgiver,
+            })}
+        </p>
+        <NaermesteLederContainer organisasjonsnavn={arbeidsgiver} />
+    </div>);
 };
 
 const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
@@ -44,8 +42,7 @@ const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
                         ikonSrc={mapArbeidssituasjonTilIkonSrc(ARBEIDSTAKER)}
                         ikonAlt={getLedetekst(`din-situasjon.${ARBEIDSTAKER}`)}
                         situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
-                    />
-                );
+                    />);
             })}
             {arbeidssituasjoner.map((arbeidssituasjon) => {
                 const arbeidssituasjonLedetekst = getLedetekst(`din-situasjon.${arbeidssituasjon}`);

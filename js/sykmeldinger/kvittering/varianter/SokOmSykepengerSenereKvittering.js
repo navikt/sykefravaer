@@ -12,45 +12,41 @@ import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } f
 import { soknadPt } from '../../../propTypes/soknadProptype';
 import { SOKNAD_SYKEPENGER } from '../../../enums/filmer';
 
-const SokOmSykepengerSenereKvittering = ({
-    sykepengesoknader, soknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer',
-}) => {
+const SokOmSykepengerSenereKvittering = ({ sykepengesoknader, soknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer' }) => {
     const soknaderOgSykepengesoknader = [...sykepengesoknader, ...soknader];
-    return (
-        <div className="js-kvittering js-kvittering--sok-senere">
-            <div className="panel blokk">
-                <StegvisKvittering>
-                    <Kvitteringsteg
-                        nummer="1"
-                        ok
-                        tittel={getLedetekst(`sykmelding.kvittering.sok-senere.steg-1.${forskutteringstype}.${sykmeldingstype}-sykmelding.tittel`)}>
-                        <HtmlAvsnitt
-                            Tag="div"
-                            nokkel={`sykmelding.kvittering.sok-senere.steg-1.${forskutteringstype}.${sykmeldingstype}-sykmelding.undertekst`} />
-                    </Kvitteringsteg>
-                    <Kvitteringsteg
-                        nummer="2"
-                        tittel={getLedetekst(`sykmelding.kvittering.sok-senere.steg-2.${forskutteringstype}.${sykmeldingstype}-sykmelding.tittel`)}>
-                        <HtmlAvsnitt
-                            nokkel={`sykmelding.kvittering.sok-senere.steg-2.${forskutteringstype}.${sykmeldingstype}-sykmelding.undertekst`}
-                            replacements={{
-                                '%DATO%': tilLesbarDatoMedArstall(sorterSoknaderEtterDatoTilgjengelig(soknaderOgSykepengesoknader)[0].tom),
-                                '%DATOER%': soknadsdatoremseUtenForsteDato(soknaderOgSykepengesoknader),
-                            }} />
-                    </Kvitteringsteg>
-                </StegvisKvittering>
-            </div>
-            <Bjorn
-                className="blokk"
-                hvit
-                stor
-                nokkel="sykmelding.kvittering.sok-senere.bjorn" />
-            <div className="blokk">
-                <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
-                <Video film={SOKNAD_SYKEPENGER} />
-            </div>
+    return (<div className="js-kvittering js-kvittering--sok-senere">
+        <div className="panel blokk">
+            <StegvisKvittering>
+                <Kvitteringsteg
+                    nummer="1"
+                    ok
+                    tittel={getLedetekst(`sykmelding.kvittering.sok-senere.steg-1.${forskutteringstype}.${sykmeldingstype}-sykmelding.tittel`)}>
+                    <HtmlAvsnitt
+                        Tag="div"
+                        nokkel={`sykmelding.kvittering.sok-senere.steg-1.${forskutteringstype}.${sykmeldingstype}-sykmelding.undertekst`} />
+                </Kvitteringsteg>
+                <Kvitteringsteg
+                    nummer="2"
+                    tittel={getLedetekst(`sykmelding.kvittering.sok-senere.steg-2.${forskutteringstype}.${sykmeldingstype}-sykmelding.tittel`)}>
+                    <HtmlAvsnitt
+                        nokkel={`sykmelding.kvittering.sok-senere.steg-2.${forskutteringstype}.${sykmeldingstype}-sykmelding.undertekst`}
+                        replacements={{
+                            '%DATO%': tilLesbarDatoMedArstall(sorterSoknaderEtterDatoTilgjengelig(soknaderOgSykepengesoknader)[0].tom),
+                            '%DATOER%': soknadsdatoremseUtenForsteDato(soknaderOgSykepengesoknader),
+                        }} />
+                </Kvitteringsteg>
+            </StegvisKvittering>
         </div>
-    );
+        <Bjorn
+            className="blokk"
+            hvit
+            stor
+            nokkel="sykmelding.kvittering.sok-senere.bjorn" />
+        <div className="blokk">
+            <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
+            <Video film={SOKNAD_SYKEPENGER} />
+        </div>
+    </div>);
 };
 
 SokOmSykepengerSenereKvittering.propTypes = {
@@ -61,11 +57,9 @@ SokOmSykepengerSenereKvittering.propTypes = {
 };
 
 export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding = ({ sykepengesoknader, soknader }) => {
-    return (
-        <SokOmSykepengerSenereKvittering
-            soknader={soknader}
-            sykepengesoknader={sykepengesoknader} />
-    );
+    return (<SokOmSykepengerSenereKvittering
+        soknader={soknader}
+        sykepengesoknader={sykepengesoknader} />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding.propTypes = {
@@ -74,12 +68,10 @@ SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding.propTypes 
 };
 
 export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding = ({ sykepengesoknader, soknader }) => {
-    return (
-        <SokOmSykepengerSenereKvittering
-            soknader={soknader}
-            sykepengesoknader={sykepengesoknader}
-            sykmeldingstype="kort" />
-    );
+    return (<SokOmSykepengerSenereKvittering
+        soknader={soknader}
+        sykepengesoknader={sykepengesoknader}
+        sykmeldingstype="kort" />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding.propTypes = {
@@ -88,12 +80,10 @@ SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding.propTypes 
 };
 
 export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding = ({ sykepengesoknader, soknader }) => {
-    return (
-        <SokOmSykepengerSenereKvittering
-            sykepengesoknader={sykepengesoknader}
-            soknader={soknader}
-            forskutteringstype="arbeidsgiver-forskutterer-ikke" />
-    );
+    return (<SokOmSykepengerSenereKvittering
+        sykepengesoknader={sykepengesoknader}
+        soknader={soknader}
+        forskutteringstype="arbeidsgiver-forskutterer-ikke" />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding.propTypes = {
@@ -102,13 +92,11 @@ SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding.propTy
 };
 
 export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding = ({ sykepengesoknader, soknader }) => {
-    return (
-        <SokOmSykepengerSenereKvittering
-            sykepengesoknader={sykepengesoknader}
-            soknader={soknader}
-            sykmeldingstype="kort"
-            forskutteringstype="arbeidsgiver-forskutterer-ikke" />
-    );
+    return (<SokOmSykepengerSenereKvittering
+        sykepengesoknader={sykepengesoknader}
+        soknader={soknader}
+        sykmeldingstype="kort"
+        forskutteringstype="arbeidsgiver-forskutterer-ikke" />);
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding.propTypes = {

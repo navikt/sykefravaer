@@ -11,29 +11,25 @@ import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import { bekreftSmSykmeldingLest } from '../data/sm-sykmeldinger/smSykmeldingerActions';
 
 const Skjema = (props) => {
-    const {
-        handleSubmit, smSykmelding, bekrefter, bekreftFeilet, doBekreftSmSykmeldingLest,
-    } = props;
-    return (
-        <form onSubmit={handleSubmit(() => {
-            doBekreftSmSykmeldingLest(smSykmelding);
-        })}>
-            <Feilstripe vis={bekreftFeilet} className="blokk" />
-            <div className="bekreftLestAvvistSykmelding">
-                <Field
-                    name="bekreftetLest"
-                    disabled={bekrefter}
-                    component={CheckboxSelvstendig}
-                    id="bekreftetLest"
-                    label={getLedetekst('avvist-sykmelding.bekreft-label')} />
-            </div>
-            <div className="knapperad">
-                <Hovedknapp type="submit" spinner={bekrefter} autoDisableVedSpinner>
-                    {getLedetekst('avvist-sykmelding.bekreft-knapp')}
-                </Hovedknapp>
-            </div>
-        </form>
-    );
+    const { handleSubmit, smSykmelding, bekrefter, bekreftFeilet, doBekreftSmSykmeldingLest } = props;
+    return (<form onSubmit={handleSubmit(() => {
+        doBekreftSmSykmeldingLest(smSykmelding);
+    })}>
+        <Feilstripe vis={bekreftFeilet} className="blokk" />
+        <div className="bekreftLestAvvistSykmelding">
+            <Field
+                name="bekreftetLest"
+                disabled={bekrefter}
+                component={CheckboxSelvstendig}
+                id="bekreftetLest"
+                label={getLedetekst('avvist-sykmelding.bekreft-label')} />
+        </div>
+        <div className="knapperad">
+            <Hovedknapp type="submit" spinner={bekrefter} autoDisableVedSpinner>
+                {getLedetekst('avvist-sykmelding.bekreft-knapp')}
+            </Hovedknapp>
+        </div>
+    </form>);
 };
 
 Skjema.propTypes = {

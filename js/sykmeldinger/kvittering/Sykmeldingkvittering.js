@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as sykepengesoknadPt,
-} from '@navikt/digisyfo-npm';
+import { getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as sykepengesoknadPt } from '@navikt/digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../../components/LenkeTilDineSykmeldinger';
 import Sidetopp from '../../components/Sidetopp';
 import StandardSykmeldingkvittering from './varianter/StandardSykmeldingkvittering';
@@ -43,36 +41,28 @@ export const kvitteringtyper = {
 };
 
 const AvbruttKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            status={sykmeldingstatuser.AVBRUTT}
-            tittel={getLedetekst('avbryt-sykmelding.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('avbryt-sykmelding.kvittering.undertekst')} />
-    );
+    return (<StandardSykmeldingkvittering
+        status={sykmeldingstatuser.AVBRUTT}
+        tittel={getLedetekst('avbryt-sykmelding.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('avbryt-sykmelding.kvittering.undertekst')} />);
 };
 
 const ArbeidstakerBekreftetSykmeldingKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst')} />
-    );
+    return (<StandardSykmeldingkvittering
+        tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst')} />);
 };
 
 const StrengtFortroligAdresseKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('bekreft-sykmelding.skjermingskode-6.kvittering.undertekst')} />
-    );
+    return (<StandardSykmeldingkvittering
+        tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('bekreft-sykmelding.skjermingskode-6.kvittering.undertekst')} />);
 };
 
 const BekreftetKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.undertekst')} />
-    );
+    return (<StandardSykmeldingkvittering
+        tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.undertekst')} />);
 };
 
 const SykmeldingKvittering = (props) => {
@@ -98,17 +88,15 @@ const SykmeldingKvittering = (props) => {
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];
-    return (
-        <div>
-            <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.hva-naa')} />
-            {
-                Component
-                    ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />
-                    : <Feilmelding />
-            }
-            <LenkeTilDineSykmeldinger />
-        </div>
-    );
+    return (<div>
+        <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.hva-naa')} />
+        {
+            Component
+                ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />
+                : <Feilmelding />
+        }
+        <LenkeTilDineSykmeldinger />
+    </div>);
 };
 
 SykmeldingKvittering.propTypes = {

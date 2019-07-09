@@ -34,7 +34,7 @@ export const genererParseForCheckbox = () => {
 
 export const formaterEnkeltverdi = (value) => {
     try {
-        const { verdi } = value.svarverdier[0];
+        const verdi = value.svarverdier[0].verdi;
         return (verdi === CHECKED || verdi === UNCHECKED)
             ? verdi === CHECKED
             : verdi;
@@ -54,7 +54,7 @@ export const formaterFlereVerdier = (verdi) => {
 export const fjernIndexFraTag = (tag) => {
     const separator = '_';
     const tagdeler = tag.split(separator);
-    if (!Number.isNaN(parseInt(tagdeler[tagdeler.length - 1], 10))) {
+    if (!isNaN(parseInt(tagdeler[tagdeler.length - 1], 10))) {
         tagdeler.splice(-1, 1);
         return tagdeler.join(separator);
     }

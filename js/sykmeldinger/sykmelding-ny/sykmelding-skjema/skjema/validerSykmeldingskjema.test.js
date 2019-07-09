@@ -2,7 +2,7 @@ import chai from 'chai';
 import { arbeidssituasjoner, feilaktigeOpplysninger } from '@navikt/digisyfo-npm';
 import validerSykmeldingskjema from './validerSykmeldingskjema';
 
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('validerSykmeldingskjema', () => {
     const { ARBEIDSTAKER, FRILANSER } = arbeidssituasjoner;
@@ -96,8 +96,7 @@ describe('validerSykmeldingskjema', () => {
             feilaktigeOpplysninger: [{
                 opplysning: 'periode',
                 avkrysset: true,
-            }],
-        };
+            }] };
         const res = validerSykmeldingskjema(fields, props);
         expect(res).to.deep.equal({});
     });
@@ -108,8 +107,7 @@ describe('validerSykmeldingskjema', () => {
             feilaktigeOpplysninger: [{
                 opplysning: 'sykmeldingsgrad',
                 avkrysset: true,
-            }],
-        };
+            }] };
         const res = validerSykmeldingskjema(fields, props);
         expect(res).to.deep.equal({});
     });

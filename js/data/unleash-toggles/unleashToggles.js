@@ -12,7 +12,6 @@ const unleashToggles = createReducer(
     HENT_UNLEASH_TOGGLES_FEILET,
     HENTER_UNLEASH_TOGGLES,
     HENTET_UNLEASH_TOGGLES,
-    initiellState,
-);
+    initiellState);
 
 export default unleashToggles;

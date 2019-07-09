@@ -10,7 +10,7 @@ import Sykmeldinger from './Sykmeldinger';
 import SykmeldingTeasere from './SykmeldingTeasere';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('Dine sykmeldinger', () => {
     let component;

@@ -19,7 +19,7 @@ import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 const hendelserData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
@@ -186,12 +186,12 @@ describe('Container', () => {
     describe('Container', () => {
         let apneHendelserSpy;
         let sykeforloep;
-        let doHentSykeforloep;
+        let hentSykeforloep;
 
         beforeEach(() => {
             apneHendelserSpy = sinon.spy();
 
-            doHentSykeforloep = sinon.spy();
+            hentSykeforloep = sinon.spy();
             sykeforloep = {
                 henter: false,
                 hentet: false,
@@ -202,7 +202,7 @@ describe('Container', () => {
         it('Skal vise en AppSpinner dersom ledetekster ikke er lastet og vi venter på sykeforloep', () => {
             const hendelser = [];
             const component = shallow(<Container
-                doHentSykeforloep={doHentSykeforloep}
+                hentSykeforloep={hentSykeforloep}
                 ledetekster={ledetekster}
                 sykeforloep={Object.assign({}, sykeforloep, {
                     hentet: true,
@@ -218,7 +218,7 @@ describe('Container', () => {
         it('Skal vise en Feilmelding dersom henting av ledetekster feiler', () => {
             const hendelser = [];
             const component = shallow(<Container
-                doHentSykeforloep={doHentSykeforloep}
+                hentSykeforloep={hentSykeforloep}
                 ledetekster={ledetekster}
                 sykeforloep={sykeforloep}
                 hendelser={hendelser}
@@ -258,7 +258,7 @@ describe('Container', () => {
                 key: 4,
             }];
             const component = shallow(<Container
-                doHentSykeforloep={doHentSykeforloep}
+                hentSykeforloep={hentSykeforloep}
                 ledetekster={_ledetekster}
                 hendelser={hendelser}
                 sykeforloep={sykeforloep}

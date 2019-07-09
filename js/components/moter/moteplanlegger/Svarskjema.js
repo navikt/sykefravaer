@@ -54,8 +54,7 @@ export const Skjema = (
         touch,
         autofill,
         deltakertype = BRUKER,
-    },
-) => {
+    }) => {
     const deltaker = mote.deltakere.filter((d) => {
         return d.type === deltakertype;
     })[0];
@@ -65,69 +64,63 @@ export const Skjema = (
     };
     const tidligereAlternativer = getTidligereAlternativer(mote, deltakertype);
 
-    return (
-        <form className="panel" onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="svarskjema__tittel">{getLedetekst('mote.skjema.alternativer.hvilke-alternativer-passer')}</h2>
-            <p
-                className="svarskjema__intro"
-                dangerouslySetInnerHTML={hentPersonvernTekst(deltakertype)}
-            />
-            <div className="tidOgSted">
-                <div className="tidOgSted__sted">
-                    <Motested sted={deltaker.svar[0].sted} />
-                </div>
-                <div className="tidOgSted__alternativer">
-                    <FieldArray
-                        name="tidspunkter"
-                        deltakertype={deltakertype}
-                        component={Alternativer}
-                        alternativer={getNyeAlternativer(mote, deltakertype)}
-                        mote={mote}
-                        touch={touch}
-                        autofill={autofill}
-                    />
-                </div>
+    return (<form className="panel" onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="svarskjema__tittel">{getLedetekst('mote.skjema.alternativer.hvilke-alternativer-passer')}</h2>
+        <p
+            className="svarskjema__intro"
+            dangerouslySetInnerHTML={hentPersonvernTekst(deltakertype)}
+        />
+        <div className="tidOgSted">
+            <div className="tidOgSted__sted">
+                <Motested sted={deltaker.svar[0].sted} />
             </div>
-            { tidligereAlternativer.length > 0
-        && (
-            <Utvidbar
-                tittel="Tidligere foreslåtte tidspunkter"
-                className="blokk"
-                visLukklenke={false}>
-                <BesvarteTidspunkter
-                    alternativer={tidligereAlternativer}
+            <div className="tidOgSted__alternativer">
+                <FieldArray
+                    name="tidspunkter"
+                    deltakertype={deltakertype}
+                    component={Alternativer}
+                    alternativer={getNyeAlternativer(mote, deltakertype)}
                     mote={mote}
+                    touch={touch}
+                    autofill={autofill}
                 />
-            </Utvidbar>
-        )
+            </div>
+        </div>
+        { tidligereAlternativer.length > 0 &&
+        <Utvidbar
+            tittel="Tidligere foreslåtte tidspunkter"
+            className="blokk"
+            visLukklenke={false}>
+            <BesvarteTidspunkter
+                alternativer={tidligereAlternativer}
+                mote={mote}
+            />
+        </Utvidbar>
+        }
+        { deltakertype === BRUKER && <MinstEttTidspunktContainer /> }
+        <div className="blokk">
+            <Alertstripe
+                type="info">
+                <div dangerouslySetInnerHTML={getHtmlLedetekst(`mote.skjema.konsekvens-ved-manglende-svar.${deltakertype.toLowerCase()}.v2`)} />
+            </Alertstripe>
+        </div>
+        <div aria-live="polite" role="alert">
+            { sendingFeilet &&
+            <Alertstripe type="advarsel">
+                <p className="sist">{getLedetekst('mote.skjema.innsending.feilet')}</p>
+            </Alertstripe>
             }
-            { deltakertype === BRUKER && <MinstEttTidspunktContainer /> }
-            <div className="blokk">
-                <Alertstripe
-                    type="info">
-                    <div dangerouslySetInnerHTML={getHtmlLedetekst(`mote.skjema.konsekvens-ved-manglende-svar.${deltakertype.toLowerCase()}.v2`)} />
-                </Alertstripe>
-            </div>
-            <div aria-live="polite" role="alert">
-                { sendingFeilet
-            && (
-                <Alertstripe type="advarsel">
-                    <p className="sist">{getLedetekst('mote.skjema.innsending.feilet')}</p>
-                </Alertstripe>
-            )
-                }
-            </div>
-            <div className="knapperad">
-                <Hovedknapp
-                    className="js-submit"
-                    htmlType="submit"
-                    disabled={sender}
-                    spinner={sender}>
-                    {getLedetekst('mote.skjema.send-svar-knapp')}
-                </Hovedknapp>
-            </div>
-        </form>
-    );
+        </div>
+        <div className="knapperad">
+            <Hovedknapp
+                className="js-submit"
+                htmlType="submit"
+                disabled={sender}
+                spinner={sender}>
+                {getLedetekst('mote.skjema.send-svar-knapp')}
+            </Hovedknapp>
+        </div>
+    </form>);
 };
 
 Skjema.propTypes = {

@@ -4,27 +4,23 @@ import { ArbeidsgiversSykmeldingOpplysninger, Utvidbar } from '@navikt/digisyfo-
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import AppSpinner from '../../components/AppSpinner';
 
-const ArbeidsgiversSykmelding = ({
-    sykmelding, Overskrift = 'h2', erApen = false, henter,
-}) => {
-    return (
-        <Utvidbar
-            tittel="Slik ser sykmeldingen ut for arbeidsgiveren din"
-            ikon="svg/arbeidsgiver.svg"
-            ikonHover="svg/arbeidsgiver--hover.svg"
-            ikonAltTekst="Arbeidsgiver"
-            erApen={erApen}
-            variant="lilla"
-            Overskrift={Overskrift}>
-            {
-                (() => {
-                    return henter
-                        ? <AppSpinner />
-                        : <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} />;
-                })()
-            }
-        </Utvidbar>
-    );
+const ArbeidsgiversSykmelding = ({ sykmelding, Overskrift = 'h2', erApen = false, henter }) => {
+    return (<Utvidbar
+        tittel="Slik ser sykmeldingen ut for arbeidsgiveren din"
+        ikon="svg/arbeidsgiver.svg"
+        ikonHover="svg/arbeidsgiver--hover.svg"
+        ikonAltTekst="Arbeidsgiver"
+        erApen={erApen}
+        variant="lilla"
+        Overskrift={Overskrift}>
+        {
+            (() => {
+                return henter
+                    ? <AppSpinner />
+                    : <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} />;
+            })()
+        }
+    </Utvidbar>);
 };
 
 ArbeidsgiversSykmelding.propTypes = {

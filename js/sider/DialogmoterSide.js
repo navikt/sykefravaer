@@ -74,27 +74,23 @@ class Container extends Component {
             henter,
             hentingFeilet,
         } = this.props;
-        return (
-            <Side
-                tittel={getLedetekst('mote.moter.sidetittel')}
-                brodsmuler={brodsmuler}
-                laster={henter}>
-                {
-                    (() => {
-                        if (henter) {
-                            return <AppSpinner />;
-                        } if (hentingFeilet) {
-                            return <Feilmelding />;
-                        }
-                        return (
-                            <DialogmoterInnhold
-                                {...this.props}
-                            />
-                        );
-                    })()
-                }
-            </Side>
-        );
+        return (<Side
+            tittel={getLedetekst('mote.moter.sidetittel')}
+            brodsmuler={brodsmuler}
+            laster={henter}>
+            {
+                (() => {
+                    if (henter) {
+                        return <AppSpinner />;
+                    } else if (hentingFeilet) {
+                        return <Feilmelding />;
+                    }
+                    return (<DialogmoterInnhold
+                        {...this.props}
+                    />);
+                })()
+            }
+        </Side>);
     }
 }
 

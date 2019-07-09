@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import Brodsmuler from '../../js/components/Brodsmuler';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('Brodsmuler', () => {
     it('Skal vise Ditt NAV dersom ingen brødsmuler sendes inn', () => {

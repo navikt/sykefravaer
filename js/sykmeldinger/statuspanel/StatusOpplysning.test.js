@@ -7,7 +7,7 @@ import getSykmelding from '../../../test/mock/mockSykmeldinger';
 import { Sykmeldingstatus } from './SykmeldingStatuspanelOpplysning';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('StatusOpplysning', () => {
     it('Skal vise hjelpetekst for status === TIL_SENDING', () => {

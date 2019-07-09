@@ -1,7 +1,6 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { erSynligIViewport, scrollTo } from '@navikt/digisyfo-npm';
+import { scrollTo, erSynligIViewport } from '@navikt/digisyfo-npm';
 import { Vis } from '../../utils';
 
 class SporsmalMedTillegg extends Component {
@@ -11,6 +10,7 @@ class SporsmalMedTillegg extends Component {
         this.state = {
             erApen,
             containerClassName: '',
+            hindreToggle: false,
             hoyde: !erApen ? '0' : 'auto',
             visInnhold: erApen,
             opacity: erApen ? '1' : '0',
@@ -30,16 +30,15 @@ class SporsmalMedTillegg extends Component {
     }
 
     onHoydeTransitionEnd() {
-        const { harAnimasjon, erApen } = this.state;
-        if (!harAnimasjon) {
+        if (!this.state.harAnimasjon) {
             return;
         }
-        this.setState(prevState => ({
-            containerClassName: prevState.containerClassName.replace(' animerer', ''),
-        }));
-
-        if (erApen) {
+        this.setState({
+            containerClassName: this.state.containerClassName.replace(' animerer', ''),
+        });
+        if (this.state.erApen) {
             this.setState({
+                hindreToggle: false,
                 harAnimasjon: false,
             });
             this.setAutoHoyde();
@@ -50,6 +49,7 @@ class SporsmalMedTillegg extends Component {
             return;
         }
         this.setState({
+            hindreToggle: false,
             visInnhold: false,
             harAnimasjon: false,
             opacity: '0',
@@ -58,22 +58,20 @@ class SporsmalMedTillegg extends Component {
     }
 
     getContainerClass() {
-        const { containerClassName } = this.state;
-        return `tilleggssporsmal__innholdContainer${containerClassName}`;
+        return `tilleggssporsmal__innholdContainer${this.state.containerClassName}`;
     }
 
     getErApen(props) {
-        const { visTillegg } = this.props;
-        return visTillegg(props);
+        return this.props.visTillegg(props);
     }
 
     setAutoHoyde() {
         /* Fjerner animasjonsklassen slik at Safari ikke
         tegner komponenten på nytt når høyde settes til 'auto': */
-        this.setState(prevState => ({
-            gammelHoyde: prevState.hoyde,
+        this.setState({
+            gammelHoyde: this.state.hoyde,
             containerClassName: '',
-        }));
+        });
         // Setter høyde til auto:
         setTimeout(() => {
             this.setState({
@@ -104,6 +102,7 @@ class SporsmalMedTillegg extends Component {
     apne() {
         this.setState({
             hoyde: '0',
+            hindreToggle: true,
             containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon',
             visInnhold: true,
             harAnimasjon: true,
@@ -111,20 +110,19 @@ class SporsmalMedTillegg extends Component {
         const that = this;
         setTimeout(() => {
             const hoyde = that.tilleggsinnhold ? that.tilleggsinnhold.offsetHeight : 'auto';
-            that.setState(prevState => ({
+            that.setState({
                 erApen: true,
                 hoyde,
-                containerClassName: `${prevState.containerClassName} animerer`,
-            }));
+                containerClassName: `${this.state.containerClassName} animerer`,
+            });
         }, 0);
     }
 
     lukk() {
-        const { gammelHoyde } = this.state;
-
-        const hoyde = this.tilleggsinnhold && this.tilleggsinnhold.offsetHeight ? this.tilleggsinnhold.offsetHeight : gammelHoyde;
+        const hoyde = this.tilleggsinnhold && this.tilleggsinnhold.offsetHeight ? this.tilleggsinnhold.offsetHeight : this.state.gammelHoyde;
         this.setState({
             hoyde,
+            hindreToggle: true,
             opacity: '0',
         });
         setTimeout(() => {
@@ -138,46 +136,38 @@ class SporsmalMedTillegg extends Component {
     }
 
     render() {
-        const {
-            children, Sporsmal, className, informasjon,
-        } = this.props;
-        const {
-            hoyde, visInnhold, opacity,
-        } = this.state;
-        return (
-            <div className={className}>
-                <div ref={(c) => {
-                    this.hovedsporsmal = c;
-                }}>
-                    {Sporsmal}
-                </div>
-                <div
-                    ref={(c) => {
-                        this.container = c;
-                    }}
-                    style={{ height: hoyde }}
-                    className={this.getContainerClass()}
-                    onTransitionEnd={() => {
-                        this.onHoydeTransitionEnd();
-                    }}>
-                    <Vis
-                        hvis={visInnhold}
-                        render={() => (
-                            <div
-                                className="js-tillegg"
-                                ref={(c) => {
-                                    this.tilleggsinnhold = c;
-                                }}>
-                                <div className="tilleggsinnhold__innhold" style={{ opacity }}>
-                                    {children}
-                                </div>
-                            </div>
-                        )}
-                    />
-                </div>
-                {informasjon}
+        const { children, Sporsmal, className, informasjon } = this.props;
+        return (<div className={className}>
+            <div ref={(c) => {
+                this.hovedsporsmal = c;
+            }}>
+                {Sporsmal}
             </div>
-        );
+            <div
+                ref={(c) => {
+                    this.container = c;
+                }}
+                style={{ height: this.state.hoyde }}
+                className={this.getContainerClass()}
+                onTransitionEnd={() => {
+                    this.onHoydeTransitionEnd();
+                }}>
+                <Vis
+                    hvis={this.state.visInnhold}
+                    render={() => {
+                        return (<div
+                            className="js-tillegg"
+                            ref={(c) => {
+                                this.tilleggsinnhold = c;
+                            }}>
+                            <div className="tilleggsinnhold__innhold" style={{ opacity: this.state.opacity }}>
+                                {children}
+                            </div>
+                        </div>);
+                    }} />
+            </div>
+            {informasjon}
+        </div>);
     }
 }
 

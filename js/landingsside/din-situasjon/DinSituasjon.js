@@ -16,8 +16,7 @@ const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => {
                 <Hjelpetekst>{getLedetekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
             </header>
             <Arbeidssituasjoner arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
-        </div>
-    );
+        </div>);
 };
 
 DinSituasjon.propTypes = {

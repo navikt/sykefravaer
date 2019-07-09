@@ -20,42 +20,36 @@ import { smSykmeldingerPt } from '../../../propTypes/smSykmeldingProptypes';
 
 export class Container extends Component {
     componentWillMount() {
-        const { doHentDineSykmeldinger } = this.props;
-        doHentDineSykmeldinger();
+        this.props.hentDineSykmeldinger();
     }
 
     componentDidUpdate() {
-        const { doHentSmSykmeldinger, skalHenteSmSykmeldinger } = this.props;
-        if (skalHenteSmSykmeldinger) {
-            doHentSmSykmeldinger();
+        if (this.props.skalHenteSmSykmeldinger) {
+            this.props.hentSmSykmeldinger();
         }
     }
 
     render() {
-        const {
-            brodsmuler, sykmeldinger, henter, hentingFeilet, hentingSmFeilet, sortering, smSykmeldinger,
-        } = this.props;
-        return (
-            <Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
-                {
-                    (() => {
-                        if (henter) {
-                            return <AppSpinner />;
-                        } if (hentingFeilet) {
-                            return (<Feilmelding />);
-                        }
-                        return (
-                            <Sykmeldinger
-                                smSykmeldinger={smSykmeldinger}
-                                sykmeldinger={sykmeldinger}
-                                sortering={sortering}
-                                infomelding={hentingSmFeilet ? 'Det skjedde en feil ved henting av sykmeldinger, kan ikke vise alle sykmeldinger' : null}
-                            />
-                        );
-                    })()
-                }
-            </Side>
-        );
+        const { brodsmuler, sykmeldinger, henter, hentingFeilet, hentingSmFeilet, sortering, smSykmeldinger } = this.props;
+        return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
+            {
+                (() => {
+                    if (henter) {
+                        return <AppSpinner />;
+                    } else if (hentingFeilet) {
+                        return (<Feilmelding />);
+                    }
+                    return (
+                        <Sykmeldinger
+                            smSykmeldinger={smSykmeldinger}
+                            sykmeldinger={sykmeldinger}
+                            sortering={sortering}
+                            infomelding={hentingSmFeilet ? 'Det skjedde en feil ved henting av sykmeldinger, kan ikke vise alle sykmeldinger' : null}
+                        />
+                    );
+                })()
+            }
+        </Side>);
     }
 }
 
@@ -68,8 +62,8 @@ Container.propTypes = {
     sortering: PropTypes.shape({
         tidligere: PropTypes.string,
     }),
-    doHentDineSykmeldinger: PropTypes.func,
-    doHentSmSykmeldinger: PropTypes.func,
+    hentDineSykmeldinger: PropTypes.func,
+    hentSmSykmeldinger: PropTypes.func,
     smSykmeldinger: smSykmeldingerPt,
     skalHenteSmSykmeldinger: PropTypes.bool,
 };
@@ -94,9 +88,4 @@ export function mapStateToProps(state) {
     };
 }
 
-const actionCreators = {
-    doHentDineSykmeldinger: hentDineSykmeldinger,
-    doHentSmSykmeldinger: hentSmSykmeldinger,
-};
-
-export default connect(mapStateToProps, actionCreators)(Container);
+export default connect(mapStateToProps, { hentDineSykmeldinger, hentSmSykmeldinger })(Container);

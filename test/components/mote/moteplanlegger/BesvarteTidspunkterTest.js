@@ -15,7 +15,7 @@ import {
 import { BRUKER, NAV_VEILEDER, ARBEIDSGIVER } from '../../../../js/enums/moteplanleggerDeltakerTyper';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('BesvarteTidspunkter', () => {
     let comp;

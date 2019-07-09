@@ -3,12 +3,10 @@ import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from './sykepengesoknader_actions';
 
-const {
-    HENT_SYKEPENGESOKNADER_FEILET, HENT_SYKEPENGESOKNADER_FORESPURT, HENTER_SYKEPENGESOKNADER, SYKEPENGESOKNADER_HENTET,
-} = actions;
+const { HENT_SYKEPENGESOKNADER_FEILET, HENT_SYKEPENGESOKNADER_FORESPURT, HENTER_SYKEPENGESOKNADER, SYKEPENGESOKNADER_HENTET } = actions;
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('sykepengesoknader_actions', () => {
     let clock;

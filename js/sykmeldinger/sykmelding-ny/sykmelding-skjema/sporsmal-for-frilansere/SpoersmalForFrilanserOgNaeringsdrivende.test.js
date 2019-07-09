@@ -9,7 +9,7 @@ import Periodevelger from '../../../../components/skjema/periodevelger/Periodeve
 import { Spoersmal, Egenmeldingssporsmal, Forsikringssporsmal } from './SpoersmalForFrilanserOgNaeringsdrivende';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('SpoersmalForFrilanserOgNaeringsdrivende', () => {
     it('Skal inneholde et Egenmeldingssporsmal', () => {

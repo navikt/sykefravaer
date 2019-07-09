@@ -1,6 +1,4 @@
-import {
-    all, call, fork, put, takeEvery,
-} from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './dinSykmeldingActions';

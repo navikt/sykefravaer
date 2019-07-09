@@ -10,13 +10,12 @@ import {
     FeilaktigeOpplysningerInfo,
     DuTrengerNySykmelding,
     DuKanBrukeSykmeldingenDinArbeidsgiver,
-    DuKanBrukeSykmeldingenDinDiagnoseAndre,
-} from './HvilkeOpplysningerErIkkeRiktige';
+    DuKanBrukeSykmeldingenDinDiagnoseAndre } from './HvilkeOpplysningerErIkkeRiktige';
 import Feilomrade from '../../../../components/skjema/Feilomrade';
 import { feilaktigeOpplysninger } from './ErOpplysningeneRiktige';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('HvilkeOpplysningerErIkkeRiktige', () => {
     describe('VelgFeilaktigeOpplysninger', () => {

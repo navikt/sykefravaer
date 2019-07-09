@@ -3,7 +3,7 @@ import chai from 'chai';
 import { mapStateToProps, getNestedKeys } from '../../../js/containers/skjema/FeiloppsummeringContainer';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('FeiloppsummeringContainer', () => {
     describe('mapStateToProps', () => {

@@ -9,29 +9,25 @@ import Feilstripe from '../../components/Feilstripe';
 import { selectLedeteksterData } from '../../data/ledetekster/ledeteksterSelectors';
 
 const Aktivitetskrav = (props) => {
-    const {
-        handleSubmit, ledetekster, dispatch, bekrefter, bekreftFeilet,
-    } = props;
-    return (
-        <form onSubmit={handleSubmit(() => {
-            dispatch(bekreftAktivitetskrav());
-        })}>
-            <Feilstripe vis={bekreftFeilet} className="blokk" />
-            <div className="bekreftAktivitetskrav">
-                <Field
-                    name="bekreftAktivitetskrav"
-                    component={CheckboxSelvstendig}
-                    id="bekreftAktivitetskrav"
-                    label={getLedetekst('aktivitetskrav-varsel.bekreft-label', ledetekster)} />
-            </div>
-            <div className="knapperad">
-                <button type="submit" className={`knapp${bekrefter ? ' knapp--spinner' : ''}`}>
+    const { handleSubmit, ledetekster, dispatch, bekrefter, bekreftFeilet } = props;
+    return (<form onSubmit={handleSubmit(() => {
+        dispatch(bekreftAktivitetskrav());
+    })}>
+        <Feilstripe vis={bekreftFeilet} className="blokk" />
+        <div className="bekreftAktivitetskrav">
+            <Field
+                name="bekreftAktivitetskrav"
+                component={CheckboxSelvstendig}
+                id="bekreftAktivitetskrav"
+                label={getLedetekst('aktivitetskrav-varsel.bekreft-label', ledetekster)} />
+        </div>
+        <div className="knapperad">
+            <button type="submit" className={`knapp${bekrefter ? ' knapp--spinner' : ''}`}>
                 Bekreft
-                    { bekrefter && <span className="knapp__spinner" /> }
-                </button>
-            </div>
-        </form>
-    );
+                { bekrefter && <span className="knapp__spinner" /> }
+            </button>
+        </div>
+    </form>);
 };
 
 Aktivitetskrav.propTypes = {

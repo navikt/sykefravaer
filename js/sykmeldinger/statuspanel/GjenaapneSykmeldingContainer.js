@@ -5,9 +5,7 @@ import Knapp from 'nav-frontend-knapper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { gjenaapneSykmelding } from '../data/din-sykmelding/dinSykmeldingActions';
 
-function GjenaapneSykmeldingContainer({
-    sykmeldingId, gjenaapneSykmeldingConnected, gjenaapneFeilet, gjenaapner,
-}) {
+function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmeldingConnected, gjenaapneFeilet, gjenaapner }) {
     return (
         <div>
             <div className="verktoylinje">

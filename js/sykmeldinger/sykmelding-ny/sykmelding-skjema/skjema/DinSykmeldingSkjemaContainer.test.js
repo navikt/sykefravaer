@@ -11,7 +11,7 @@ import Feilmelding from '../../../../components/Feilmelding';
 import { mapStateToProps, Skjemalaster } from './DinSykmeldingSkjemaContainer';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('DinSykmeldingSkjemaContainer', () => {
     const getState = (state = {}) => {
@@ -366,21 +366,19 @@ describe('DinSykmeldingSkjemaContainer', () => {
 
     describe('Render', () => {
         let actions;
-        let doHentAktuelleArbeidsgivere;
-        let doHentArbeidsgiversSykmeldinger;
-        let doHentBrukerinfo;
-        let doHentVentetid;
-        let doHentSykeforloep;
+        let hentAktuelleArbeidsgivere;
+        let hentArbeidsgiversSykmeldinger;
+        let hentBrukerinfo;
+        let hentVentetid;
+        let hentSykeforloep;
 
         beforeEach(() => {
-            doHentBrukerinfo = sinon.spy();
-            doHentAktuelleArbeidsgivere = sinon.spy();
-            doHentArbeidsgiversSykmeldinger = sinon.spy();
-            doHentVentetid = sinon.spy();
-            doHentSykeforloep = sinon.spy();
-            actions = {
-                doHentBrukerinfo, doHentAktuelleArbeidsgivere, doHentArbeidsgiversSykmeldinger, doHentVentetid, doHentSykeforloep,
-            };
+            hentBrukerinfo = sinon.spy();
+            hentAktuelleArbeidsgivere = sinon.spy();
+            hentArbeidsgiversSykmeldinger = sinon.spy();
+            hentVentetid = sinon.spy();
+            hentSykeforloep = sinon.spy();
+            actions = { hentBrukerinfo, hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentVentetid, hentSykeforloep };
         });
 
         it('Skal vise planlagt-vedlikehold ved vedlikehold', () => {
@@ -390,22 +388,22 @@ describe('DinSykmeldingSkjemaContainer', () => {
 
         it('Skal hente brukerinfo', () => {
             shallow(<Skjemalaster skalHenteBrukerinfo {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
-            expect(doHentBrukerinfo.calledOnce).to.equal(true);
+            expect(hentBrukerinfo.calledOnce).to.equal(true);
         });
 
         it('Skal hente sykeforløp', () => {
             shallow(<Skjemalaster skalHenteBrukerinfo {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
-            expect(doHentSykeforloep.calledOnce).to.equal(true);
+            expect(hentSykeforloep.calledOnce).to.equal(true);
         });
 
         it('Skal hente ventetid hvis skalHenteVentetid er true', () => {
             shallow(<Skjemalaster skalHenteVentetid {...actions} sykmeldingId="1" vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
-            expect(doHentVentetid.calledWith('1')).to.equal(true);
+            expect(hentVentetid.calledWith('1')).to.equal(true);
         });
 
         it('Skal ikke hente ventetid hvis skalHenteVentetid er false', () => {
             shallow(<Skjemalaster {...actions} sykmeldingId="1" vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b' } }} />);
-            expect(doHentVentetid.called).to.equal(false);
+            expect(hentVentetid.called).to.equal(false);
         });
     });
 });

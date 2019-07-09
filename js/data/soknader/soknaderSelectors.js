@@ -15,3 +15,4 @@ export const sykmeldingHarBehandletSoknad = (state, sykmeldingId) => {
         return soknad.sykmeldingId === sykmeldingId && soknad.status === SENDT;
     }).length > 0;
 };
+

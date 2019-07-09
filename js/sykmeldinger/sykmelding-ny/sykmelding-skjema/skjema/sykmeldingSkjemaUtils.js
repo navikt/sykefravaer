@@ -8,9 +8,7 @@ const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
 export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
-    const {
-        opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon, valgtArbeidsgiver,
-    } = values;
+    const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon, valgtArbeidsgiver } = values;
     const harValgtAnnenArbeidsgiver = valgtArbeidsgiver
         && valgtArbeidsgiver.orgnummer === ANNEN_ARBEIDSGIVER_ORGNUMMER;
     const valgteFeilaktigeOpplysninger = feilaktigeOpplysninger
@@ -30,10 +28,10 @@ export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
         return modi.AVBRYT;
     }
 
-    if (valgtArbeidssituasjon === ARBEIDSTAKER
-        && !harStrengtFortroligAdresse
-        && !harValgtAnnenArbeidsgiver
-        && values.beOmNyNaermesteLeder === false) {
+    if (valgtArbeidssituasjon === ARBEIDSTAKER &&
+        !harStrengtFortroligAdresse &&
+        !harValgtAnnenArbeidsgiver &&
+        values.beOmNyNaermesteLeder === false) {
         return modi.SEND_MED_NAERMESTE_LEDER;
     }
 

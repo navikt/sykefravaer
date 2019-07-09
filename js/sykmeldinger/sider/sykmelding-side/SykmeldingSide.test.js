@@ -15,15 +15,15 @@ import UtgaattSykmelding from '../../sykmelding-utgatt/UtgaattSykmelding';
 import smSykmeldinger from '../../data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('DinSykmeldingContainer', () => {
     const ownProps = {};
     let state;
     let sykmeldinger;
     let actions;
-    let doHentDineSykmeldinger;
-    let doHentSmSykmeldinger;
+    let hentDineSykmeldinger;
+    let hentSmSykmeldinger;
 
     beforeEach(() => {
         sykmeldinger = [
@@ -103,9 +103,9 @@ describe('DinSykmeldingContainer', () => {
         ownProps.params = {};
         ownProps.params.sykmeldingId = '3';
 
-        doHentDineSykmeldinger = sinon.spy();
-        doHentSmSykmeldinger = sinon.spy();
-        actions = { doHentDineSykmeldinger, doHentSmSykmeldinger };
+        hentDineSykmeldinger = sinon.spy();
+        hentSmSykmeldinger = sinon.spy();
+        actions = { hentDineSykmeldinger, hentSmSykmeldinger };
     });
 
     describe('Henting av data', () => {
@@ -114,7 +114,7 @@ describe('DinSykmeldingContainer', () => {
                 state.dineSykmeldinger.hentet = false;
                 const props = mapStateToProps(state, ownProps);
                 shallow(<Container {...props} {...actions} />);
-                expect(doHentDineSykmeldinger.called).to.equal(true);
+                expect(hentDineSykmeldinger.called).to.equal(true);
             });
         });
     });

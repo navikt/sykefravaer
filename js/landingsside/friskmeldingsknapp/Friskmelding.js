@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-    Bjorn, getHtmlLedetekst, getLedetekst, log,
-} from '@navikt/digisyfo-npm';
+import { Bjorn, getHtmlLedetekst, getLedetekst, log } from '@navikt/digisyfo-npm';
 import { Knapp } from 'nav-frontend-knapper';
 import { Vis } from '../../utils/index';
 import Lightbox from '../../components/Lightbox';
@@ -21,18 +19,16 @@ const track = (event, variant, datalayerData, sykefravaerVarighet) => {
 };
 
 const Friskmeldingslightbox = ({ lukk }) => {
-    return (
-        <Lightbox onClose={lukk}>
-            <h2 className="modal__tittel">{getLedetekst('friskmelding.info-tittel.helt')}</h2>
-            <div
-                className="redaksjonelt-innhold blokk"
-                dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.helt')} />
-            <h2 className="panel__tittel">{getLedetekst('friskmelding.info-tittel.delvis')}</h2>
-            <div
-                className="redaksjonelt-innhold"
-                dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.delvis')} />
-        </Lightbox>
-    );
+    return (<Lightbox onClose={lukk}>
+        <h2 className="modal__tittel">{getLedetekst('friskmelding.info-tittel.helt')}</h2>
+        <div
+            className="redaksjonelt-innhold blokk"
+            dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.helt')} />
+        <h2 className="panel__tittel">{getLedetekst('friskmelding.info-tittel.delvis')}</h2>
+        <div
+            className="redaksjonelt-innhold"
+            dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.delvis')} />
+    </Lightbox>);
 };
 
 Friskmeldingslightbox.propTypes = {
@@ -40,18 +36,14 @@ Friskmeldingslightbox.propTypes = {
 };
 
 const TekstOgKnapp = ({ onClick, tekstnokkel }) => {
-    return (
-        <div>
-            <p>{getLedetekst(tekstnokkel)}</p>
-            <p className="sist">
-                <Knapp
-                    mini
-                    onClick={onClick}>
-                    {getLedetekst('friskmelding.bjorn-knapp')}
-                </Knapp>
-            </p>
-        </div>
-    );
+    return (<div>
+        <p>{getLedetekst(tekstnokkel)}</p>
+        <p className="sist">
+            <Knapp
+                mini
+                onClick={onClick}>{getLedetekst('friskmelding.bjorn-knapp')}</Knapp>
+        </p>
+    </div>);
 };
 
 TekstOgKnapp.propTypes = {
@@ -60,13 +52,7 @@ TekstOgKnapp.propTypes = {
 };
 
 const TekstOgLenke = ({ onClick, tekstnokkel }) => {
-    return (
-        <p>
-            {getLedetekst(tekstnokkel)}
-            {' '}
-            <button onClick={onClick} type="button" className="lenke">Les mer om hva du kan gjøre.</button>
-        </p>
-    );
+    return (<p>{getLedetekst(tekstnokkel)} <button onClick={onClick} type="button" className="lenke">Les mer om hva du kan gjøre.</button></p>);
 };
 
 TekstOgLenke.propTypes = TekstOgKnapp.propTypes;
@@ -86,11 +72,9 @@ class Friskmelding extends Component {
         this.startABTest('AUGUST_2018');
     }
 
-    pushToDataLayer(event, otherVariant) {
-        const { variant } = this.state;
-        const { datalayerData, sykefravaerVarighet } = this.props;
-        const v = otherVariant || variant;
-        track(event, v, datalayerData, sykefravaerVarighet);
+    pushToDataLayer(event, variant) {
+        const v = variant || this.state.variant;
+        track(event, v, this.props.datalayerData, this.props.sykefravaerVarighet);
     }
 
     visLightbox() {
@@ -112,14 +96,13 @@ class Friskmelding extends Component {
     }
 
     render() {
-        const { visLightbox } = this.state;
         return ([
             <Bjorn key="friskmeldingsbjorn" className="landingspanel" hvit>
                 <TekstOgKnapp onClick={this.visLightbox} tekstnokkel="friskmelding.bjorn" />
             </Bjorn>,
             <Vis
                 key="friskmeldingslightbox"
-                hvis={visLightbox}
+                hvis={this.state.visLightbox}
                 render={() => {
                     return <Friskmeldingslightbox lukk={this.lukkLightbox} />;
                 }} />,

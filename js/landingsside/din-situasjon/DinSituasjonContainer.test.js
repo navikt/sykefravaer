@@ -19,7 +19,7 @@ const { ARBEIDSTAKER, FRILANSER } = situasjoner;
 const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('DinSituasjonContainer', () => {
     let clock;

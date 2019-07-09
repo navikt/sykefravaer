@@ -2,14 +2,10 @@ import 'whatwg-fetch';
 import 'babel-polyfill';
 import { render } from 'react-dom';
 import React from 'react';
-import {
-    applyMiddleware, combineReducers, compose, createStore,
-} from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import {
-    forlengInnloggetSesjon, hentLedetekster, setPerformOnHttpCalls, sjekkInnloggingssesjon,
-} from '@navikt/digisyfo-npm';
+import { forlengInnloggetSesjon, hentLedetekster, setPerformOnHttpCalls, sjekkInnloggingssesjon } from '@navikt/digisyfo-npm';
 import AppRouter from './routers/AppRouter';
 import { hentVedlikehold } from './data/vedlikehold/vedlikehold_actions';
 import history from './history';
@@ -57,12 +53,9 @@ if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.VIS_LEDETEKSTNOKLER = false;
 }
 
-render(
-    <Provider store={store}>
-        <AppRouter history={history} />
-    </Provider>,
-    document.getElementById('maincontent'),
-);
+render(<Provider store={store}>
+    <AppRouter history={history} />
+</Provider>, document.getElementById('maincontent'));
 
 export {
     store,

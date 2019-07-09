@@ -7,7 +7,7 @@ import PeriodeFields from '../../../../js/components/skjema/periodevelger/Period
 import { PeriodelisteComponent } from '../../../../js/components/skjema/periodevelger/Periodeliste';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('PeriodelisteComponent', () => {
     let fields;

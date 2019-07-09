@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { lagDesimaltall, lagHeltall, Vis } from '../../js/utils';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('utils', () => {
     describe('lagDesimaltall', () => {
@@ -124,45 +124,37 @@ describe('utils', () => {
 
     describe('Vis', () => {
         it('Skal vise children hvis det er children og hvis = true', () => {
-            const toMount = (
-                <Vis hvis>
-                    <p>Olsen</p>
-                </Vis>
-            );
+            const toMount = (<Vis hvis>
+                <p>Olsen</p>
+            </Vis>);
             const component = mount(toMount);
             expect(component.html()).to.equal('<p>Olsen</p>');
         });
 
         it('Skal ikke vise children hvis det er children og hvis = false', () => {
-            const toMount = (
-                <Vis hvis={false}>
-                    <p>Olsen</p>
-                </Vis>
-            );
+            const toMount = (<Vis hvis={false}>
+                <p>Olsen</p>
+            </Vis>);
             const component = mount(toMount);
             expect(component.html()).to.equal(null);
         });
 
         it('Skal vise render-funksjonens returverdi hvis det er render-funkksjon og hvis = true', () => {
-            const toMount = (
-                <Vis
-                    hvis
-                    render={() => {
-                        return <p>Olsen</p>;
-                    }} />
-            );
+            const toMount = (<Vis
+                hvis
+                render={() => {
+                    return <p>Olsen</p>;
+                }} />);
             const component = mount(toMount);
             expect(component.html()).to.equal('<p>Olsen</p>');
         });
 
         it('Skal ikke vise render-funksjonens returverdi hvis det er render-funkksjon og hvis = false', () => {
-            const toMount = (
-                <Vis
-                    hvis={false}
-                    render={() => {
-                        return <p>Olsen</p>;
-                    }} />
-            );
+            const toMount = (<Vis
+                hvis={false}
+                render={() => {
+                    return <p>Olsen</p>;
+                }} />);
             const component = mount(toMount);
             expect(component.html()).to.equal(null);
         });

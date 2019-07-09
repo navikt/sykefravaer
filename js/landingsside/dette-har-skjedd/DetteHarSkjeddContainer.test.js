@@ -6,22 +6,16 @@ import { mapStateToProps, Container } from './DetteHarSkjeddContainer';
 import DetteHarSkjedd from './DetteHarSkjedd';
 
 chai.use(chaiEnzyme());
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('DetteHarSkjeddContainer', () => {
     let hendelser;
 
     beforeEach(() => {
         hendelser = [
-            {
-                id: 68929, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: null,
-            },
-            {
-                id: 66306, inntruffetdato: new Date('2017-08-02'), type: 'NY_NAERMESTE_LEDER', ressursId: null,
-            },
-            {
-                id: 68931, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '68929',
-            }];
+            { id: 68929, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: null },
+            { id: 66306, inntruffetdato: new Date('2017-08-02'), type: 'NY_NAERMESTE_LEDER', ressursId: null },
+            { id: 68931, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '68929' }];
     });
 
     describe('mapStateToProps', () => {
@@ -36,9 +30,7 @@ describe('DetteHarSkjeddContainer', () => {
 
         it('Skal returnere hendelser av typen AKTIVITETSKRAV_BEKREFTET', () => {
             const props = mapStateToProps(state);
-            expect(props.hendelser).to.deep.equal([{
-                id: 68931, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '68929',
-            }]);
+            expect(props.hendelser).to.deep.equal([{ id: 68931, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '68929' }]);
         });
 
         it('Skal returnere visDetteHarSkjedd === true dersom det finnes (minst) en hendelse av typen AKTIVITETSKRAV_BEKREFTET', () => {

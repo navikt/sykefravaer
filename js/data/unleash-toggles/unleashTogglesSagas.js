@@ -1,6 +1,4 @@
-import {
-    call, fork, put, takeEvery,
-} from 'redux-saga/effects';
+import { call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as actions from './unleashToggles_actions';
 import { post } from '../gateway-api/index';
 import * as toggles from '../../enums/unleashToggles';

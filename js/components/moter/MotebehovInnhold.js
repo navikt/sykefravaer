@@ -18,30 +18,23 @@ const MotebehovInnhold = (
         motebehovReducer,
         motebehovSvarReducerListe,
         virksomhetnrMedMotebehovListe,
-    },
-) => {
+    }) => {
     const motebehov = finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetnrMedMotebehovListe);
 
     const innhold = motebehov
-        ? (
-            <MotebehovKvittering
-                motebehov={motebehov}
-            />
-        )
-        : (
-            <MotebehovSvar
-                virksomhetsnrListe={virksomhetnrMedMotebehovListe}
-                motebehovSvarReducerListe={motebehovSvarReducerListe}
-                svarMotebehov={actions.svarMotebehov}
-            />
-        );
-    return (
-        <div className="motebehovSideInnhold">
-            <Sidetopp tittel={getLedetekst('mote.motebehov.sidetittel')} />
+        ? (<MotebehovKvittering
+            motebehov={motebehov}
+        />)
+        : (<MotebehovSvar
+            virksomhetsnrListe={virksomhetnrMedMotebehovListe}
+            motebehovSvarReducerListe={motebehovSvarReducerListe}
+            svarMotebehov={actions.svarMotebehov}
+        />);
+    return (<div className="motebehovSideInnhold">
+        <Sidetopp tittel={getLedetekst('mote.motebehov.sidetittel')} />
 
-            { innhold }
-        </div>
-    );
+        { innhold }
+    </div>);
 };
 MotebehovInnhold.propTypes = {
     actions: PropTypes.shape({

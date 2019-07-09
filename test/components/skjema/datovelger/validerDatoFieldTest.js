@@ -1,7 +1,7 @@
 import chai from 'chai';
 import validerDatoField from '../../../../js/components/skjema/datovelger/validerDatoField';
 
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('validerDatoField', () => {
     it('Skal returnere feilmelding hvis dato ikke er sendt inn', () => {

@@ -18,3 +18,4 @@ export const getOppfolgingsplanerUrl = () => {
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
         : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 };
+

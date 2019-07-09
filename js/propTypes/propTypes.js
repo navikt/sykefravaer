@@ -91,3 +91,4 @@ export const oppsummeringSporsmal = {
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
 };
+

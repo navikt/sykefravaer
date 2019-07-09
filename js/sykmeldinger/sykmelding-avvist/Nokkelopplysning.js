@@ -3,9 +3,7 @@ import PT from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 
-export const Nokkelopplysning = ({
-    vis = true, className, tittel, children,
-}) => (
+export const Nokkelopplysning = ({ vis = true, className, tittel, children }) => (
     vis
         ? (
             <div className={cn('nokkelopplysning', className)}>

@@ -80,8 +80,7 @@ describe('dinSykmeldingSagas', () => {
                 }],
                 harAnnetFravaer: true,
                 harForsikring: true,
-            },
-        );
+            });
         const generator = bekreftSykmelding(action);
 
         it('Skal dispatche BEKREFTER_SYKMELDING', () => {

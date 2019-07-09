@@ -8,7 +8,7 @@ export const lagDesimaltall = (streng) => {
     }
     if (!s.endsWith('.')) {
         s = parseFloat(s);
-        if (Number.isNaN(s)) {
+        if (isNaN(s)) {
             return '';
         }
     }

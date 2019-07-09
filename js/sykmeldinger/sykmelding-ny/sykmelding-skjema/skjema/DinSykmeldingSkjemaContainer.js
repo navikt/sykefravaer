@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, getSykmelding, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
+import { getSykmelding, getLedetekst, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
 import DinSykmeldingSkjema from './DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../../../utils/datoUtils';
 import AppSpinner from '../../../../components/AppSpinner';
@@ -33,51 +33,38 @@ export class Skjemalaster extends Component {
             skalHenteArbeidsgivere,
             skalHenteArbeidsgiversSykmeldinger,
             skalHenteVentetid,
-            doHentAktuelleArbeidsgivere,
-            doHentBrukerinfo,
-            doHentArbeidsgiversSykmeldinger,
-            doHentVentetid,
-            doHentSykeforloep,
         } = this.props;
 
         if (skalHenteArbeidsgivere) {
-            doHentAktuelleArbeidsgivere(sykmeldingId);
+            this.props.hentAktuelleArbeidsgivere(sykmeldingId);
         }
-        doHentBrukerinfo();
+        this.props.hentBrukerinfo();
         if (skalHenteArbeidsgiversSykmeldinger) {
-            doHentArbeidsgiversSykmeldinger();
+            this.props.hentArbeidsgiversSykmeldinger();
         }
         if (skalHenteVentetid) {
-            doHentVentetid(sykmeldingId);
+            this.props.hentVentetid(sykmeldingId);
         }
-        doHentSykeforloep();
+        this.props.hentSykeforloep();
     }
 
     render() {
-        const {
-            henter, hentingFeilet, vedlikehold, sykmelding, visFrilansersporsmal,
-        } = this.props;
+        const { henter, hentingFeilet, vedlikehold, sykmelding, visFrilansersporsmal } = this.props;
         if (henter) {
             return <AppSpinner />;
-        }
-        if (hentingFeilet) {
+        } else if (hentingFeilet) {
             return <Feilmelding tittel="Beklager, det oppstod en feil" melding="Du kan dessverre ikke ta i bruk sykmeldingen akkurat nå. Prøv igjen senere!" />;
+        } else if (vedlikehold.datospennMedTid) {
+            return (<Feilmelding
+                tittel={getLedetekst('under-vedlikehold.varsel.tittel')}
+                melding={getLedetekst('under-vedlikehold.varsel.tekst', {
+                    '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+                    '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
+                })} />);
         }
-        if (vedlikehold.datospennMedTid) {
-            return (
-                <Feilmelding
-                    tittel={getLedetekst('under-vedlikehold.varsel.tittel')}
-                    melding={getLedetekst('under-vedlikehold.varsel.tekst', {
-                        '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
-                        '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
-                    })} />
-            );
-        }
-        return (
-            <DinSykmeldingSkjema
-                sykmelding={sykmelding}
-                visFrilansersporsmal={visFrilansersporsmal} />
-        );
+        return (<DinSykmeldingSkjema
+            sykmelding={sykmelding}
+            visFrilansersporsmal={visFrilansersporsmal} />);
     }
 }
 
@@ -89,15 +76,15 @@ Skjemalaster.propTypes = {
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,
     }),
-    visFrilansersporsmal: PropTypes.bool,
+    hentSykeforloep: PropTypes.func,
     skalHenteArbeidsgivere: PropTypes.bool,
     skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
+    hentAktuelleArbeidsgivere: PropTypes.func,
+    hentBrukerinfo: PropTypes.func,
+    hentArbeidsgiversSykmeldinger: PropTypes.func,
     skalHenteVentetid: PropTypes.bool,
-    doHentSykeforloep: PropTypes.func,
-    doHentAktuelleArbeidsgivere: PropTypes.func,
-    doHentBrukerinfo: PropTypes.func,
-    doHentArbeidsgiversSykmeldinger: PropTypes.func,
-    doHentVentetid: PropTypes.func,
+    hentVentetid: PropTypes.func,
+    visFrilansersporsmal: PropTypes.bool,
 };
 
 export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => {
@@ -114,7 +101,7 @@ export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => {
 };
 
 export const mapStateToProps = (state, ownProps) => {
-    const { sykmeldingId } = ownProps;
+    const sykmeldingId = ownProps.sykmeldingId;
 
     const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId) || {};
     const skalHenteVentetid = sykmeldingSelectors.skalHenteVentetid(state, sykmeldingId);
@@ -138,14 +125,12 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const actionCreators = {
-    doHentAktuelleArbeidsgivere: hentAktuelleArbeidsgivere,
-    doHentArbeidsgiversSykmeldinger: hentArbeidsgiversSykmeldinger,
-    doHentBrukerinfo: hentBrukerinfo,
-    doHentVentetid: hentVentetid,
-    doHentSykeforloep: hentSykeforloep,
-};
-
-const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(Skjemalaster);
+const DinSykmeldingSkjemaContainer = connect(mapStateToProps, {
+    hentAktuelleArbeidsgivere,
+    hentArbeidsgiversSykmeldinger,
+    hentBrukerinfo,
+    hentVentetid,
+    hentSykeforloep,
+})(Skjemalaster);
 
 export default DinSykmeldingSkjemaContainer;

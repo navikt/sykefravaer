@@ -3,3 +3,4 @@ const hentArbeidsrettetOppfolgingBilde = (bildefil) => {
 };
 
 export default hentArbeidsrettetOppfolgingBilde;
+

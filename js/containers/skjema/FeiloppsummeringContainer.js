@@ -15,7 +15,7 @@ const getKeys = (key, errors, prefix) => {
     let keys = [];
     let newPrefix = key;
     if (prefix) {
-        if (Number.isNaN(parseInt(key, 10))) {
+        if (isNaN(parseInt(key, 10))) {
             newPrefix = `${prefix}.${key}`;
         } else {
             newPrefix = `${prefix}[${key}]`;
@@ -60,7 +60,7 @@ export const onSubmitFail = (errors, dispatch, skjemanavn) => {
 };
 
 export const mapStateToProps = (state, ownProps) => {
-    const { skjemanavn } = ownProps;
+    const skjemanavn = ownProps.skjemanavn;
     const harReducer = state.formMeta && state.formMeta[skjemanavn];
     const meta = harReducer ? state.formMeta[skjemanavn] : {};
     const visFeilliste = meta.status === SEND_SKJEMA_FEILET;

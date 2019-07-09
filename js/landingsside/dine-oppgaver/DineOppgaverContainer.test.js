@@ -12,7 +12,8 @@ import {
     moteIkkeBesvart,
     moteBesvartAlleAlternativer,
     moteBesvartMedNyeAlternativerBesvart,
-    moteBesvartMedNyeAlternativerIkkeBesvart } from '../../../test/mock/mockMote';
+    moteBesvartMedNyeAlternativerIkkeBesvart,
+} from '../../../test/mock/mockMote';
 import {
     varselHendelse1,
     varselHendelse2,
@@ -24,7 +25,7 @@ import {
 import smSykmeldinger from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('DineOppgaverComponent', () => {
     describe('mapStateToProps', () => {

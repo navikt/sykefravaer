@@ -22,7 +22,8 @@ const hendelser = createReducer(
             ...hendelse,
             inntruffetdato: new Date(hendelse.inntruffetdato),
         };
-    });
+    },
+);
 
 export default hendelser;
 

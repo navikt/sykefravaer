@@ -1,4 +1,6 @@
-import { DATO, PERIODER, PROSENT, TIMER, TALL } from '../../enums/svartyper';
+import {
+    DATO, PERIODER, PROSENT, TIMER, TALL,
+} from '../../enums/svartyper';
 import {
     HENT_SOKNADER_FEILET,
     HENTER_SOKNADER,

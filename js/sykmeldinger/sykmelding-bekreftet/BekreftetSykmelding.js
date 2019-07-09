@@ -1,5 +1,7 @@
 import React from 'react';
-import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar, arbeidssituasjoner } from '@navikt/digisyfo-npm';
+import {
+    getLedetekst, DineSykmeldingOpplysninger, Utvidbar, arbeidssituasjoner,
+} from '@navikt/digisyfo-npm';
 import ArbeidsgiversSykmeldingContainer from '../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
 import Sidetopp from '../../components/Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
@@ -25,9 +27,11 @@ const BekreftetSykmelding = ({ dinSykmelding }) => {
             <Vis
                 hvis={dinSykmelding.valgtArbeidssituasjon === arbeidssituasjoner.ARBEIDSTAKER}
                 render={() => {
-                    return (<div className="blokk">
-                        <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
-                    </div>);
+                    return (
+                        <div className="blokk">
+                            <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
+                        </div>
+                    );
                 }} />
         </div>
     );

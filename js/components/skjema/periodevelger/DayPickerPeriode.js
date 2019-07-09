@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { autofill, touch, formValueSelector } from 'redux-form';
-import { toDatePrettyPrint, fraInputdatoTilJSDato, scrollTo, tilLesbarDatoUtenAarstall } from '@navikt/digisyfo-npm';
+import { autofill, formValueSelector, touch } from 'redux-form';
+import {
+    fraInputdatoTilJSDato, scrollTo, tilLesbarDatoUtenAarstall, toDatePrettyPrint,
+} from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from '../daypicker/daypickerLocale';
+import {
+    localeUtils, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT,
+} from '../daypicker/daypickerLocale';
 import Caption from '../daypicker/DayPickerCaption';
 import NavBar from '../daypicker/DayPickerNavBar';
 import { leggTilNullForan } from '../datovelger/DayPickerDato';
 import { erGyldigDato } from '../../../utils/datoUtils';
 
 const Style = () => {
-    return (<style dangerouslySetInnerHTML={{ __html:
-        '@media (max-width: 30em) { body { overflow: hidden!important; } }',
-    }} />);
+    return (
+        <style dangerouslySetInnerHTML={{
+            __html:
+                '@media (max-width: 30em) { body { overflow: hidden!important; } }',
+        }} />
+    );
 };
 
 const Datoer = ({ fom, tom }) => {
@@ -38,12 +45,13 @@ const velgerStartdato = (fra, til, dato) => {
 
 class DayPickerPeriode extends Component {
     constructor(props) {
+        const { valgtTil } = props;
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleDayMouseEnter = this.handleDayMouseEnter.bind(this);
         this.erDeaktivertDag = this.erDeaktivertDag.bind(this);
         this.state = {
-            valgtTil: this.props.valgtTil,
+            valgtTil,
         };
     }
 
@@ -58,7 +66,8 @@ class DayPickerPeriode extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (!prevState.erApen && this.state.erApen) {
+        const { erApen } = this.state;
+        if (!prevState.erApen && erApen) {
             scrollTo(this.kalender);
             this.kalender.focus();
         }
@@ -79,7 +88,9 @@ class DayPickerPeriode extends Component {
     }
 
     getInitialMonth() {
-        const { valgtFra, valgtTil, tidligsteFom, senesteTom, initiellDato } = this.props;
+        const {
+            valgtFra, valgtTil, tidligsteFom, senesteTom, initiellDato,
+        } = this.props;
         return valgtTil || valgtFra || initiellDato || senesteTom || tidligsteFom;
     }
 
@@ -109,9 +120,10 @@ class DayPickerPeriode extends Component {
     }
 
     lagreTilReduxState(fieldName, value) {
-        this.props.autofill(this.props.skjemanavn, fieldName, value);
+        const { doAutofill, doTouch, skjemanavn } = this.props;
+        doAutofill(skjemanavn, fieldName, value);
         if (value) {
-            this.props.touch(this.props.skjemanavn, fieldName);
+            doTouch(skjemanavn, fieldName);
         }
     }
 
@@ -122,9 +134,12 @@ class DayPickerPeriode extends Component {
     }
 
     render() {
-        const { valgtFra, valgtTil } = this.props;
+        const {
+            valgtFra, valgtTil, lukk, Overskrift,
+        } = this.props;
         const fraEllerTil = valgtFra || valgtTil;
         const modifiers = { start: fraEllerTil, end: valgtTil };
+        // eslint-disable-next-line react/destructuring-assignment
         const selectedDays = [fraEllerTil, { from: fraEllerTil, to: this.state.valgtTil }];
 
         return (
@@ -135,7 +150,7 @@ class DayPickerPeriode extends Component {
                 }}
                 tabIndex="-1"
                 role="application">
-                <this.props.Overskrift id="periodekalender-tittel" className="periodekalender__tittel" aria-live="polite">{this.getTittel()}</this.props.Overskrift>
+                <Overskrift id="periodekalender-tittel" className="periodekalender__tittel" aria-live="polite">{this.getTittel()}</Overskrift>
                 <div className="periodekalender__kalender">
                     <DayPicker
                         locale="no"
@@ -158,10 +173,13 @@ class DayPickerPeriode extends Component {
                     <button
                         type="button"
                         className="knapp"
-                        onClick={this.props.lukk}>Lagre periode</button>
+                        onClick={lukk}>
+                        Lagre periode
+                    </button>
                 </div>
                 <Style />
-            </div>);
+            </div>
+        );
     }
 }
 
@@ -173,9 +191,10 @@ DayPickerPeriode.propTypes = {
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
     initiellDato: PropTypes.instanceOf(Date),
-    autofill: PropTypes.func,
-    touch: PropTypes.func,
+    doAutofill: PropTypes.func,
+    doTouch: PropTypes.func,
     skjemanavn: PropTypes.string,
+    Overskrift: PropTypes.string,
     lukk: PropTypes.func,
     names: PropTypes.arrayOf(PropTypes.string),
     valgtFra: PropTypes.instanceOf(Date),
@@ -194,4 +213,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps, { autofill, touch })(DayPickerPeriode);
+export default connect(mapStateToProps, { doAutofill: autofill, doTouch: touch })(DayPickerPeriode);

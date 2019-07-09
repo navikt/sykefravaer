@@ -12,7 +12,7 @@ import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import smSykmeldinger from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 const _originalWindow = global.window;
 
@@ -30,53 +30,36 @@ _localStorage.removeItem = (a) => {
 };
 
 describe('LandingssideSide', () => {
-    let hentMote;
-    let hentMotebehov;
-    let hentSykepengesoknader;
-    let hentSoknader;
-    let hentLedere;
-    let hentDineSykmeldinger;
-    let hentSykeforloep;
-    let hentSykeforloepMetadata;
-    let hentOppfolgingsdialoger;
-    let hentOppfolging;
-    let hentOppfolgingsforlopsPerioder;
-    let hentSykmeldtinfodata;
-    let hentSmSykmeldinger;
+    let doHentMote;
+    let doHentMotebehov;
+    let doHentSykepengesoknader;
+    let doHentSoknader;
+    let doHentLedere;
+    let doHentDineSykmeldinger;
+    let doHentSykeforloep;
+    let doHentSykeforloepMetadata;
+    let doHentOppfolgingsdialoger;
+    let doHentOppfolging;
+    let doHentOppfolgingsforlopsPerioder;
+    let doHentSykmeldtinfodata;
+    let doHentSmSykmeldinger;
 
     let state;
-    let actions;
 
     beforeEach(() => {
-        hentMote = sinon.spy();
-        hentMotebehov = sinon.spy();
-        hentSykepengesoknader = sinon.spy();
-        hentLedere = sinon.spy();
-        hentDineSykmeldinger = sinon.spy();
-        hentSykeforloep = sinon.spy();
-        hentSykeforloepMetadata = sinon.spy();
-        hentOppfolgingsdialoger = sinon.spy();
-        hentOppfolgingsforlopsPerioder = sinon.spy();
-        hentSoknader = sinon.spy();
-        hentOppfolging = sinon.spy();
-        hentSykmeldtinfodata = sinon.spy();
-        hentSmSykmeldinger = sinon.spy();
-
-        actions = {
-            hentMote,
-            hentMotebehov,
-            hentSykepengesoknader,
-            hentLedere,
-            hentDineSykmeldinger,
-            hentSykeforloep,
-            hentSykeforloepMetadata,
-            hentOppfolgingsdialoger,
-            hentOppfolgingsforlopsPerioder,
-            hentSoknader,
-            hentOppfolging,
-            hentSykmeldtinfodata,
-            hentSmSykmeldinger,
-        };
+        doHentMote = sinon.spy();
+        doHentMotebehov = sinon.spy();
+        doHentSykepengesoknader = sinon.spy();
+        doHentLedere = sinon.spy();
+        doHentDineSykmeldinger = sinon.spy();
+        doHentSykeforloep = sinon.spy();
+        doHentSykeforloepMetadata = sinon.spy();
+        doHentOppfolgingsdialoger = sinon.spy();
+        doHentOppfolgingsforlopsPerioder = sinon.spy();
+        doHentSoknader = sinon.spy();
+        doHentOppfolging = sinon.spy();
+        doHentSykmeldtinfodata = sinon.spy();
+        doHentSmSykmeldinger = sinon.spy();
 
         state = {
             dineSykmeldinger: {
@@ -117,8 +100,23 @@ describe('LandingssideSide', () => {
         describe('Møte', () => {
             it('Skal hente møte om møte ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentMote.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger}
+                />);
+                expect(doHentMote.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -154,8 +152,22 @@ describe('LandingssideSide', () => {
         describe('Møtebehov', () => {
             it('Skal hente møtebehov om møte ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentMotebehov.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentMotebehov.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -191,8 +203,22 @@ describe('LandingssideSide', () => {
         describe('Sykepengesøknader', () => {
             it('Skal hente sykepengesøknader dersom sykepengesøknader ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykepengesoknader.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentSykepengesoknader.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -228,8 +254,22 @@ describe('LandingssideSide', () => {
         describe('Søknader', () => {
             it('Skal hente søknader dersom søknader ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSoknader.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentSoknader.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -265,8 +305,22 @@ describe('LandingssideSide', () => {
         describe('Ledere', () => {
             it('Skal hente ledere dersom ledere ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentLedere.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentLedere.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -277,8 +331,22 @@ describe('LandingssideSide', () => {
             it('Skal ikke hente ledere dersom ledere er hentet', () => {
                 state.ledere.hentet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentLedere.called)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentLedere.called)
                     .to
                     .equal(false);
                 expect(props.henter)
@@ -289,8 +357,22 @@ describe('LandingssideSide', () => {
             it('Skal ikke hente ledere dersom ledere hentes nå', () => {
                 state.ledere.henter = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentLedere.called)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentLedere.called)
                     .to
                     .equal(false);
                 expect(props.henter)
@@ -301,8 +383,22 @@ describe('LandingssideSide', () => {
             it('Skal ikke hente ledere dersom henting av ledere har feilet', () => {
                 state.ledere.hentingFeilet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentLedere.called)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentLedere.called)
                     .to
                     .equal(false);
                 expect(props.henter)
@@ -314,8 +410,22 @@ describe('LandingssideSide', () => {
         describe('Dine sykmeldinger', () => {
             it('Skal hente dineSykmeldinger', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentDineSykmeldinger.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentDineSykmeldinger.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -351,8 +461,22 @@ describe('LandingssideSide', () => {
         describe('Sykeforløp', () => {
             it('Skal hente sykeforloep', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykeforloep.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentSykeforloep.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -364,8 +488,22 @@ describe('LandingssideSide', () => {
         describe('Sykeforløpmetadata', () => {
             it('Skal hente sykeforloepMetadata dersom sykeforloepMetadata ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentSykeforloepMetadata.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentSykeforloepMetadata.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -401,8 +539,22 @@ describe('LandingssideSide', () => {
         describe('Oppfølgingsdialoger', () => {
             it('Skal hente oppfolgingsdialogerSagas dersom oppfolgingsdialogerSagas ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentOppfolgingsdialoger.calledOnce)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentOppfolgingsdialoger.calledOnce)
                     .to
                     .equal(true);
                 expect(props.henter)
@@ -413,8 +565,22 @@ describe('LandingssideSide', () => {
             it('Skal ikke hente oppfolgingsdialogerSagas dersom oppfolgingsdialogerSagas er hentet', () => {
                 state.oppfolgingsdialoger.hentet = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentOppfolgingsdialoger.called)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentOppfolgingsdialoger.called)
                     .to
                     .equal(false);
                 expect(props.henter)
@@ -425,8 +591,22 @@ describe('LandingssideSide', () => {
             it('Skal ikke hente oppfolgingsdialogerSagas dersom oppfolgingsdialogerSagas hentes nå', () => {
                 state.oppfolgingsdialoger.henter = true;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentOppfolgingsdialoger.called)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentOppfolgingsdialoger.called)
                     .to
                     .equal(false);
                 expect(props.henter)
@@ -438,8 +618,22 @@ describe('LandingssideSide', () => {
                 state.oppfolgingsdialoger.hentingFeilet = true;
                 state.oppfolgingsdialoger.hentet = false;
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
-                expect(hentOppfolgingsdialoger.called)
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentOppfolgingsdialoger.called)
                     .to
                     .equal(false);
                 expect(props.henter)
@@ -719,7 +913,21 @@ describe('LandingssideSide', () => {
                 router.browserHistory = { push: spy };
 
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
 
                 expect(spy.withArgs('https://tjenester.nav.no/sykefravaer').calledOnce).to.equal(true);
             });
@@ -731,7 +939,21 @@ describe('LandingssideSide', () => {
                 router.browserHistory = { push: spy };
 
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
 
                 expect(spy.withArgs('https://tjenester.nav.no/sykefravaer').notCalled).to.equal(true);
             });
@@ -743,7 +965,21 @@ describe('LandingssideSide', () => {
                 router.browserHistory = { push: spy };
 
                 const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container {...props} actions={actions} />);
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
 
                 expect(spy.withArgs('www.vg.no').notCalled).to.equal(true);
             });

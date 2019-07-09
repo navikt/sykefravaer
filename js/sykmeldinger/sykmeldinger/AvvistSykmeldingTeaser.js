@@ -1,12 +1,19 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 
 import React from 'react';
-import { getDuration, getLedetekst, senesteTom, tidligsteFom, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
+import {
+    getDuration, getLedetekst, senesteTom, tidligsteFom, tilLesbarPeriodeMedArstall,
+} from '@navikt/digisyfo-npm';
+import PropTypes from 'prop-types';
 import getContextRoot from '../../utils/getContextRoot';
 import { smSykmeldingPeriodePt, smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
-import { Inngangspanel, InngangspanelHeader, InngangspanelIkon, InngangspanelInnhold, InngangspanelTekst } from '../../components/Inngangspanel';
+import {
+    Inngangspanel, InngangspanelHeader, InngangspanelIkon, InngangspanelInnhold, InngangspanelTekst,
+} from '../../components/Inngangspanel';
 import { InngangspanelIkonSykmelding } from './Sykmeldingteaser';
-import { AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, REISETILSKUDD } from '../enums/sykmeldingskjemaenums';
+import {
+    AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, REISETILSKUDD,
+} from '../enums/sykmeldingskjemaenums';
 
 export const periodeinfoNokkelBase = (type, behandlingsdager) => {
     switch (type) {
@@ -55,12 +62,11 @@ FomTom.propTypes = {
     smSykmelding: smSykmeldingPt,
 };
 
-export const lagPeriodetekst = periode =>
-    getLedetekst(finnLedetekstForPeriodeinfo(periode), {
-        '%GRAD%': periode.type === AKTIVITET_IKKE_MULIG ? 100 : periode.gradert && periode.gradert.grad,
-        '%DAGER%': getDuration(periode.fom, periode.tom),
-        '%BEHANDLINGSDAGER%': periode.behandlingsdager,
-    });
+export const lagPeriodetekst = periode => getLedetekst(finnLedetekstForPeriodeinfo(periode), {
+    '%GRAD%': periode.type === AKTIVITET_IKKE_MULIG ? 100 : periode.gradert && periode.gradert.grad,
+    '%DAGER%': getDuration(periode.fom, periode.tom),
+    '%BEHANDLINGSDAGER%': periode.behandlingsdager,
+});
 
 const TeaserTekst = ({ sykmeldingsperioder }) => (
     <InngangspanelTekst>
@@ -87,7 +93,7 @@ const TeaserTekst = ({ sykmeldingsperioder }) => (
 );
 
 TeaserTekst.propTypes = {
-    sykmeldingsperioder: smSykmeldingPeriodePt.isRequired,
+    sykmeldingsperioder: PropTypes.arrayOf(smSykmeldingPeriodePt.isRequired),
 };
 
 const AvvistSykmeldingTeaser = ({ smSykmelding }) => {
@@ -127,4 +133,3 @@ AvvistSykmeldingTeaser.propTypes = {
 };
 
 export default AvvistSykmeldingTeaser;
-

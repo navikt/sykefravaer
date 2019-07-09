@@ -10,14 +10,16 @@ const Component = ({ visVarsel }) => {
     if (!visVarsel) {
         return null;
     }
-    return (<div className="blokk">
-        <Alertstripe
-            type="info"
-            solid
-        >
-            {getLedetekst('mote.skjema.svar.tidspunkt.info')}
-        </Alertstripe>
-    </div>);
+    return (
+        <div className="blokk">
+            <Alertstripe
+                type="info"
+                solid
+            >
+                {getLedetekst('mote.skjema.svar.tidspunkt.info')}
+            </Alertstripe>
+        </div>
+    );
 };
 
 Component.propTypes = {

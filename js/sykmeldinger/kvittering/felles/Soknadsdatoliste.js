@@ -10,18 +10,22 @@ export const sorterSoknaderEtterDatoTilgjengelig = (sykepengesoknader) => {
 };
 
 const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
-    return (<ul className="js-soknadsdatoliste">
-        {
-            sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)
-                .map((s, index) => {
-                    const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
-                    return (<li key={index}>
-                        <strong>{tilLesbarDatoMedArstall(s.tom)}</strong>
-                        { visStatus ? ` – ${getLedetekst(nokkel)}` : null }
-                    </li>);
-                })
-        }
-    </ul>);
+    return (
+        <ul className="js-soknadsdatoliste">
+            {
+                sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)
+                    .map((s, index) => {
+                        const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
+                        return (
+                            <li key={index}>
+                                <strong>{tilLesbarDatoMedArstall(s.tom)}</strong>
+                                { visStatus ? ` – ${getLedetekst(nokkel)}` : null }
+                            </li>
+                        );
+                    })
+            }
+        </ul>
+    );
 };
 
 Soknadsdatoliste.propTypes = {

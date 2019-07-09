@@ -4,14 +4,16 @@ import { shallow } from 'enzyme';
 import { Field } from 'redux-form';
 import chaiEnzyme from 'chai-enzyme';
 import { arbeidssituasjoner, setLedetekster } from '@navikt/digisyfo-npm';
-import VelgArbeidssituasjon, { getAlternativer, RendreVelgArbeidssituasjon, Velg, visTillegg } from './VelgArbeidssituasjon';
+import VelgArbeidssituasjon, {
+    getAlternativer, RendreVelgArbeidssituasjon, Velg, visTillegg,
+} from './VelgArbeidssituasjon';
 import SporsmalMedTillegg from '../../../../components/skjema/SporsmalMedTillegg';
 import Radioknapper from '../../../../components/skjema/Radioknapper';
 import SkrivUtSykmeldingDialog from '../skriv-ut/SkrivUtSykmeldingDialog';
 import ErLederRiktig from '../er-leder-riktig/ErLederRiktig';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('VelgArbeidssituasjon', () => {
     let props;

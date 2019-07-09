@@ -1,4 +1,6 @@
-import { all, call, fork, put, select, takeEvery } from 'redux-saga/effects';
+import {
+    all, call, fork, put, select, takeEvery,
+} from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './dineSykmeldingerActions';
 import { selectSkalHenteDineSykmeldinger } from './dineSykmeldingerSelectors';

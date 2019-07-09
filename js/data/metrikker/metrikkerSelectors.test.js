@@ -1,8 +1,8 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { UTFYLLING_STARTET } from '../../enums/metrikkerEnums';
-import { hentEvent, hentEvents } from './metrikkerSelectors';
+import { TID_INNSENDING_SYKMELDING, UTFYLLING_STARTET } from '../../enums/metrikkerEnums';
+import { beregnVarighet, hentEvent, hentEvents } from './metrikkerSelectors';
 
 describe('metrikkerSelectors', () => {
     let state;
@@ -81,7 +81,10 @@ describe('metrikkerSelectors', () => {
     describe('hentEvents', () => {
         it('Skal returnere alle event for en gitt ressursId i sortert rekkefølge', () => {
             const events = hentEvents(deepFreeze(state), 'min-sykmelding-id');
-            expect(events).to.deep.equal([event1, event3, event4]);
+            expect(events)
+                .to
+                .deep
+                .equal([event1, event3, event4]);
         });
     });
 
@@ -91,7 +94,23 @@ describe('metrikkerSelectors', () => {
                 ressursId: 'min-sykmelding-id',
                 type: UTFYLLING_STARTET,
             });
-            expect(event).to.deep.equal(event3);
+            expect(event)
+                .to
+                .deep
+                .equal(event3);
+        });
+    });
+
+
+    describe('beregnVarighet', () => {
+        it('Skal returnere riktig tid for innsending av sykmeldinger', () => {
+            const tid = beregnVarighet(deepFreeze(state), {
+                type: TID_INNSENDING_SYKMELDING,
+                ressursId: 'min-sykmelding-id',
+            });
+            expect(tid)
+                .to
+                .equal(45632);
         });
     });
 });

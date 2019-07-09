@@ -6,7 +6,7 @@ import {
     hentSykmeldingGyldigForOppfoelging,
 } from '../mock/mockSykmeldinger';
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('beregnOppgaverOppfoelgingsdialoger', () => {
     let sykmeldingsykmeldingUgyldig;

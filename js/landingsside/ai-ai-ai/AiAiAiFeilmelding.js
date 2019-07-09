@@ -1,3 +1,4 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Alertstripe from 'nav-frontend-alertstriper';
@@ -17,8 +18,8 @@ const ledetekster = {
     smSykmeldinger: 'Kunne ikke hente alle dine sykmeldinger',
 };
 
-const Feiliste = ({ feilliste }) => {
-    return (<ul className="sist">
+const Feiliste = ({ feilliste }) => (
+    <ul className="sist">
         {
             feilliste.map((feil, idx) => {
                 const melding = ledetekster[feil];
@@ -28,8 +29,8 @@ const Feiliste = ({ feilliste }) => {
                 return null;
             })
         }
-    </ul>);
-};
+    </ul>
+);
 
 Feiliste.propTypes = {
     feilliste: PropTypes.arrayOf(PropTypes.string),
@@ -51,9 +52,9 @@ class AiAiAiFeilmelding extends Component {
     }
 
     toggleVisFeil() {
-        this.setState({
-            visFeil: !this.state.visFeil,
-        });
+        this.setState(prevState => ({
+            visFeil: !prevState.visFeil,
+        }));
     }
 
     visFeillisteknapp() {
@@ -69,36 +70,44 @@ class AiAiAiFeilmelding extends Component {
 
     render() {
         const { noeErFeil, feilliste } = this.props;
+        const { visFeil } = this.state;
         const visKnapp = this.visFeillisteknapp();
 
         return (
             <Vis
                 hvis={noeErFeil}
-                render={() => {
-                    return (
-                        <Alertstripe type="advarsel" className="landingspanel">
-                            <p className="sist">
-                                <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>
-                                <Vis
-                                    hvis={visKnapp}
-                                    render={() => {
-                                        return (<button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                this.toggleVisFeil();
-                                            }}
-                                            className="lenke"
-                                            aria-pressed={this.state.visFeil}>Se hva som er feil</button>);
-                                    }} />
-                            </p>
-                            {
-                                visKnapp && <div aria-live="polite">
-                                    { this.state.visFeil && <Feiliste feilliste={feilliste} /> }
+                render={() => (
+                    <Alertstripe type="advarsel" className="landingspanel">
+                        <p className="sist">
+                            <strong>Ai ai ai!</strong>
+                            <span> Vi har problemer med noen av baksystemene nå. </span>
+                            <Vis
+                                hvis={visKnapp}
+                                render={() => (
+                                    <button
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            this.toggleVisFeil();
+                                        }}
+                                        className="lenke"
+                                        aria-pressed={visFeil}>
+                                        Se hva som er feil
+                                    </button>
+                                )}
+                            />
+                        </p>
+                        {
+                            visKnapp && (
+                                <div aria-live="polite">
+                                    {visFeil && <Feiliste feilliste={feilliste} />}
                                 </div>
-                            }
-                        </Alertstripe>
-                    );
-                }} />);
+                            )
+                        }
+                    </Alertstripe>
+                )}
+            />
+        );
     }
 }
 

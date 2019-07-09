@@ -31,41 +31,44 @@ const Kvittering = (
     {
         mote,
         deltakertype = BRUKER,
-    }) => {
+    },
+) => {
     const deltaker = finnDeltakerByType(mote.deltakere, deltakertype);
-    return (<div>
-        <header className="sidetopp">
-            <h1 className="sidetopp__tittel">{getLedetekst('mote.kvittering.tittel')}</h1>
-        </header>
-        <div className="panel">
-            <div className="illustrertTittel">
-                <img
-                    className="illustrertTittel__img"
-                    src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/motesvarSendt.svg`}
-                    alt=""
-                />
-                <h2 className="illustrertTittel__tittel" >
-                    <div dangerouslySetInnerHTML={getHtmlLedetekst('mote.kvittering.svaret-ditt-er-sendt.v2')} />
-                </h2>
-            </div>
-            <div
-                dangerouslySetInnerHTML={getVeienVidereTekst(deltaker, deltakertype)}
-                className="redaksjonelt blokk"
-            />
-            <Utvidbar tittel={getLedetekst('mote.kvittering.se.dine.svar')}>
-                <div>
-                    <div className="blokk">
-                        <Motested sted={deltaker.svar[0].sted} />
-                    </div>
-                    <BesvarteTidspunkter
-                        mote={mote}
-                        deltakertype={deltakertype}
-                        alternativer={mote.alternativer}
+    return (
+        <div>
+            <header className="sidetopp">
+                <h1 className="sidetopp__tittel">{getLedetekst('mote.kvittering.tittel')}</h1>
+            </header>
+            <div className="panel">
+                <div className="illustrertTittel">
+                    <img
+                        className="illustrertTittel__img"
+                        src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/motesvarSendt.svg`}
+                        alt=""
                     />
+                    <h2 className="illustrertTittel__tittel">
+                        <div dangerouslySetInnerHTML={getHtmlLedetekst('mote.kvittering.svaret-ditt-er-sendt.v2')} />
+                    </h2>
                 </div>
-            </Utvidbar>
+                <div
+                    dangerouslySetInnerHTML={getVeienVidereTekst(deltaker, deltakertype)}
+                    className="redaksjonelt blokk"
+                />
+                <Utvidbar tittel={getLedetekst('mote.kvittering.se.dine.svar')}>
+                    <div>
+                        <div className="blokk">
+                            <Motested sted={deltaker.svar[0].sted} />
+                        </div>
+                        <BesvarteTidspunkter
+                            mote={mote}
+                            deltakertype={deltakertype}
+                            alternativer={mote.alternativer}
+                        />
+                    </div>
+                </Utvidbar>
+            </div>
         </div>
-    </div>);
+    );
 };
 
 Kvittering.propTypes = {

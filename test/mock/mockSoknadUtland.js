@@ -83,11 +83,11 @@ export const parsetSoknadUtland1 = {
             undersporsmal: [],
             undertekst: null,
         }],
-        undertekst: '<ul>' +
-        '<li>Reisen vil ikke gjøre at jeg blir dårligere</li>' +
-        '<li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>' +
-        '<li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>' +
-        '</ul>',
+        undertekst: '<ul>'
+        + '<li>Reisen vil ikke gjøre at jeg blir dårligere</li>'
+        + '<li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>'
+        + '<li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>'
+        + '</ul>',
     }],
 };
 
@@ -165,11 +165,11 @@ export const soknadUtland1 = {
             undersporsmal: [],
             undertekst: null,
         }],
-        undertekst: '<ul>\n' +
-        '    <li>Reisen vil ikke gjøre at jeg blir dårligere</li>\n' +
-        '    <li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>\n' +
-        '    <li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>\n' +
-        '</ul>',
+        undertekst: '<ul>\n'
+        + '    <li>Reisen vil ikke gjøre at jeg blir dårligere</li>\n'
+        + '    <li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>\n'
+        + '    <li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>\n'
+        + '</ul>',
     }],
 };
 

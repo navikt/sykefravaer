@@ -6,10 +6,11 @@ import {
     getAktivitetskravvisning,
     INGEN_AKTIVITETSKRAVVARSEL,
     NYTT_AKTIVITETSKRAVVARSEL,
-    AKTIVITETSVARSELKVITTERING } from './AktivitetskravvarselSide';
+    AKTIVITETSVARSELKVITTERING,
+} from './AktivitetskravvarselSide';
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 export const varselHendelse1 = {
     id: 1,
@@ -73,8 +74,12 @@ describe('AktivitetskravVarselContainer', () => {
         it("Skal returnere 'AKTIVITETSVARSELKVITTERING' dersom et varsel er bekreftet samme dag som det har blitt opprettet", () => {
             const hendelser = [
                 { id: 1, inntruffetdato: new Date('2017-08-02'), type: 'NY_NAERMESTE_LEDER' },
-                { id: 2, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: '' },
-                { id: 3, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '2' }];
+                {
+                    id: 2, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: '',
+                },
+                {
+                    id: 3, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '2',
+                }];
             const visning = getAktivitetskravvisning(hendelser);
             expect(visning).to.equal(AKTIVITETSVARSELKVITTERING);
         });
@@ -82,9 +87,15 @@ describe('AktivitetskravVarselContainer', () => {
         it("Skal returnere 'NYTT_AKTIVITETSKRAVVARSEL' dersom et varsel opprettes samme dag som brukeren har bekreftet et tidligere varsel", () => {
             const hendelser = [
                 { id: 1, inntruffetdato: new Date('2017-08-02'), type: 'NY_NAERMESTE_LEDER' },
-                { id: 2, inntruffetdato: new Date('2017-09-17'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: '' },
-                { id: 3, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '2' },
-                { id: 4, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: '' }];
+                {
+                    id: 2, inntruffetdato: new Date('2017-09-17'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: '',
+                },
+                {
+                    id: 3, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '2',
+                },
+                {
+                    id: 4, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: '',
+                }];
             const visning = getAktivitetskravvisning(hendelser);
             expect(visning).to.equal(NYTT_AKTIVITETSKRAVVARSEL);
         });

@@ -1,6 +1,4 @@
-import {
-    finnArbeidsgivereForAktiveSykmeldinger,
-} from './sykmeldingUtils';
+import { finnArbeidsgivereForAktiveSykmeldinger } from './sykmeldingUtils';
 
 export const hentOppfolgingsPerioderFeilet = (oppfolgingsforlopsPerioderReducerListe) => {
     return oppfolgingsforlopsPerioderReducerListe.filter((reducer) => {
@@ -21,24 +19,20 @@ export const henterEllerHarForsoektHentetOppfolgingsPerioder = (oppfolgingsforlo
 };
 
 export const finnVirksomheterMedAktivSykmelding = (sykmeldinger, ledere) => {
-    return finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, ledere).map((virksomhet) => {
-        return virksomhet.virksomhetsnummer;
-    });
+    return finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, ledere)
+        .map((virksomhet) => {
+            return virksomhet.virksomhetsnummer;
+        });
 };
 
-export const finnOgHentManglendeOppfolgingsforlopsPerioder = (props) => {
-    const {
-        actions,
-        oppfolgingsforlopsPerioderReducerListe,
-        virksomhetsnrListe,
-    } = props;
+export const finnOgHentManglendeOppfolgingsforlopsPerioder = (hentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe) => {
     virksomhetsnrListe.forEach((virksomhetsnr) => {
         const reducer = oppfolgingsforlopsPerioderReducerListe.filter((elem) => {
             return elem.virksomhetsnummer === virksomhetsnr;
         })[0];
         const skalHente = !reducer || !henterEllerHarForsoektHentetOppfolgingsPerioder([reducer]);
         if (skalHente) {
-            actions.hentOppfolgingsforlopsPerioder(virksomhetsnr);
+            hentOppfolgingsforlopsPerioder(virksomhetsnr);
         }
     });
 };
@@ -61,4 +55,3 @@ export const finnOppfolgingsforlopsPerioderForAktiveSykmeldinger = (
     });
     return oppfolgingsforlopsPeriodeListe;
 };
-

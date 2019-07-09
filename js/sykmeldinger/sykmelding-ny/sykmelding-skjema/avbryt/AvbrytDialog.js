@@ -4,35 +4,40 @@ import { getLedetekst, getHtmlLedetekst, scrollTo } from '@navikt/digisyfo-npm';
 import { Vis } from '../../../../utils/index';
 
 export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {
-    return (<div
-        className="pekeboble">
-        <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal')} />
-        <div className="blokk--xs">
-            <button
-                disabled={avbryter}
-                className="js-bekreft knapp knapp--fare"
-                type="button"
-                onClick={(e) => {
-                    e.preventDefault();
-                    bekreftHandler();
-                }}>{getLedetekst('din-sykmelding.avbryt.ja')}
-                <Vis
-                    hvis={avbryter}
-                    render={() => {
-                        return <span className="knapp__spinner" />;
-                    }} />
-            </button>
+    return (
+        <div
+            className="pekeboble">
+            <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal')} />
+            <div className="blokk--xs">
+                <button
+                    disabled={avbryter}
+                    className="js-bekreft knapp knapp--fare"
+                    type="button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        bekreftHandler();
+                    }}>
+                    {getLedetekst('din-sykmelding.avbryt.ja')}
+                    <Vis
+                        hvis={avbryter}
+                        render={() => {
+                            return <span className="knapp__spinner" />;
+                        }} />
+                </button>
+            </div>
+            <p className="sist">
+                <button
+                    type="button"
+                    className="lenke js-avbryt"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        avbrytHandler();
+                    }}>
+                    {getLedetekst('din-sykmelding.avbryt.angre')}
+                </button>
+            </p>
         </div>
-        <p className="sist">
-            <button
-                className="lenke js-avbryt"
-                onClick={(e) => {
-                    e.preventDefault();
-                    avbrytHandler();
-                }}>{getLedetekst('din-sykmelding.avbryt.angre')}
-            </button>
-        </p>
-    </div>);
+    );
 };
 
 AvbrytSykmeldingDialog.propTypes = {
@@ -43,23 +48,26 @@ AvbrytSykmeldingDialog.propTypes = {
 
 class AvbrytDialog extends Component {
     componentDidUpdate(prevProps) {
-        if (!prevProps.vis && this.props.vis) {
+        const { vis } = this.props;
+        if (!prevProps.vis && vis) {
             scrollTo(this.dialog);
         }
     }
 
     render() {
         const { vis } = this.props;
-        return (<div
-            ref={(c) => {
-                this.dialog = c;
-            }}>
-            <Vis
-                hvis={vis}
-                render={() => {
-                    return <AvbrytSykmeldingDialog {...this.props} />;
-                }} />
-        </div>);
+        return (
+            <div
+                ref={(c) => {
+                    this.dialog = c;
+                }}>
+                <Vis
+                    hvis={vis}
+                    render={() => {
+                        return <AvbrytSykmeldingDialog {...this.props} />;
+                    }} />
+            </div>
+        );
     }
 }
 

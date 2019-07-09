@@ -22,7 +22,7 @@ const {
 } = actions;
 
 chai.use(chaiEnzyme());
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('dinSykmelding_actions', () => {
     beforeEach(() => {

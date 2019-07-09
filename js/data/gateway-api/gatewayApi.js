@@ -31,7 +31,7 @@ export const hentLoginUrl = () => {
     if (window.location.href.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://loginservice.nav.no/login';
-    } else if (window.location.href.indexOf('localhost') > -1) {
+    } if (window.location.href.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/syfoapi/local/cookie';
     }
@@ -93,7 +93,7 @@ export const post = (url, body) => {
                 log(res, 'Redirect til login');
                 window.location.href = `${hentLoginUrl()}?redirect=${window.location.href}`;
                 return null;
-            } else if (res.status > 400) {
+            } if (res.status > 400) {
                 log(res);
                 throw new Error(`Forespørsel feilet. Statuskode: ${res.status}`);
             } else {
@@ -120,7 +120,7 @@ export const hentApiUrl = () => {
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://syfoapi.nav.no/syfosoknad/api';
-    } else if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+    } if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
         return '/syfoapi/syfosoknad/api';
     }
@@ -137,7 +137,7 @@ export const hentSyfoApiUrl = (appNavn) => {
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
         return `https://syfoapi.nav.no/${appNavn}/api`;
-    } else if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+    } if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
         return `/${appNavn}/api`;
     }

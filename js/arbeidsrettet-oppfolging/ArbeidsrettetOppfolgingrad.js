@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ArbeidsrettetOppfolgingRad = ({ tittel, children }) => {
-    return (<div className="arbeidsrettetOppfolgingRad">
-        { tittel && <h2 className="panel__tittel">{tittel}</h2> }
-        {children}
-    </div>);
+    return (
+        <div className="arbeidsrettetOppfolgingRad">
+            { tittel && <h2 className="panel__tittel">{tittel}</h2> }
+            {children}
+        </div>
+    );
 };
 
 ArbeidsrettetOppfolgingRad.propTypes = {

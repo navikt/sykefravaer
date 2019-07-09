@@ -1,7 +1,8 @@
+/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSykmelding, getLedetekst, sykmeldingstatuser } from '@navikt/digisyfo-npm';
+import { getLedetekst, getSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import Side from '../../../sider/Side';
 import NySykmelding from '../../sykmelding-ny/NySykmelding';
 import SendtSykmelding from '../../sykmelding-sendt/SendtSykmelding';
@@ -18,16 +19,20 @@ import { henterSmSykmeldingerSelector, hentingFeiletSmSykmeldingerSelector, smSy
 import AvvistSykmelding from '../../sykmelding-avvist/AvvistSykmelding';
 import { smSykmeldingPt } from '../../../propTypes/smSykmeldingProptypes';
 
-const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatuser;
+const {
+    SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT,
+} = sykmeldingstatuser;
 
 export class Container extends Component {
     componentWillMount() {
-        this.props.hentDineSykmeldinger();
-        this.props.hentSmSykmeldinger();
+        const { doHentDineSykmeldinger, doHentSmSykmeldinger } = this.props;
+        doHentDineSykmeldinger();
+        doHentSmSykmeldinger();
     }
 
     componentWillUpdate() {
-        this.props.hentSmSykmeldinger();
+        const { doHentSmSykmeldinger } = this.props;
+        doHentSmSykmeldinger();
     }
 
     render() {
@@ -52,64 +57,78 @@ export class Container extends Component {
             tittel: getLedetekst('din-sykmelding.sidetittel'),
         }];
 
-        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
-            <SykmeldingContext.Provider value={{
-                sykmelding: dinSykmelding,
-                smSykmelding,
-                dinSykmelding,
-                visEldreSykmeldingVarsel,
-                eldsteSykmeldingId,
-            }}>
-                {(() => {
-                    if (henter) {
-                        return <div />;
-                    } else if (hentingFeilet) {
-                        return (<Feilmelding />);
-                    } else if (!dinSykmelding && !smSykmelding) {
-                        return (<Feilmelding
-                            tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel')}
-                            melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />);
+        return (
+            <Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
+                <SykmeldingContext.Provider value={{
+                    sykmelding: dinSykmelding,
+                    smSykmelding,
+                    dinSykmelding,
+                    visEldreSykmeldingVarsel,
+                    eldsteSykmeldingId,
+                }}>
+                    {(() => {
+                        if (henter) {
+                            return <div />;
+                        }
+                        if (hentingFeilet) {
+                            return (<Feilmelding />);
+                        }
+                        if (!dinSykmelding && !smSykmelding) {
+                            return (
+                                <Feilmelding
+                                    tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel')}
+                                    melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />
+                            );
+                        }
+                        if (smSykmelding) {
+                            return <AvvistSykmelding />;
+                        }
+                        switch (dinSykmelding.status) {
+                            case SENDT:
+                            case TIL_SENDING: {
+                                return (
+                                    <div>
+                                        <SendtSykmelding dinSykmelding={dinSykmelding} />
+                                        <LenkeTilDineSykmeldinger />
+                                    </div>
+                                );
+                            }
+                            case BEKREFTET: {
+                                return (
+                                    <div>
+                                        <BekreftetSykmelding dinSykmelding={dinSykmelding} />
+                                        <LenkeTilDineSykmeldinger />
+                                    </div>
+                                );
+                            }
+                            case UTGAATT: {
+                                return (
+                                    <div>
+                                        <UtgaattSykmelding sykmelding={dinSykmelding} />
+                                        <LenkeTilDineSykmeldinger />
+                                    </div>
+                                );
+                            }
+                            case NY: {
+                                return (<NySykmelding />);
+                            }
+                            case AVBRUTT: {
+                                return (
+                                    <div>
+                                        <AvbruttSykmelding sykmelding={dinSykmelding} />
+                                        <LenkeTilDineSykmeldinger />
+                                    </div>
+                                );
+                            }
+                            default: {
+                                return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
+                            }
+                        }
+                    })()
                     }
-                    if (smSykmelding) {
-                        return <AvvistSykmelding />;
-                    }
-                    switch (dinSykmelding.status) {
-                        case SENDT:
-                        case TIL_SENDING: {
-                            return (<div>
-                                <SendtSykmelding dinSykmelding={dinSykmelding} />
-                                <LenkeTilDineSykmeldinger />
-                            </div>);
-                        }
-                        case BEKREFTET: {
-                            return (<div>
-                                <BekreftetSykmelding dinSykmelding={dinSykmelding} />
-                                <LenkeTilDineSykmeldinger />
-                            </div>);
-                        }
-                        case UTGAATT: {
-                            return (<div>
-                                <UtgaattSykmelding sykmelding={dinSykmelding} />
-                                <LenkeTilDineSykmeldinger />
-                            </div>);
-                        }
-                        case NY: {
-                            return (<NySykmelding />);
-                        }
-                        case AVBRUTT: {
-                            return (<div>
-                                <AvbruttSykmelding sykmelding={dinSykmelding} />
-                                <LenkeTilDineSykmeldinger />
-                            </div>);
-                        }
-                        default: {
-                            return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
-                        }
-                    }
-                })()
-                }
-            </SykmeldingContext.Provider>
-        </Side>);
+                </SykmeldingContext.Provider>
+            </Side>
+        );
     }
 }
 
@@ -119,13 +138,13 @@ Container.propTypes = {
     hentingFeilet: PropTypes.bool,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
-    hentDineSykmeldinger: PropTypes.func,
-    hentSmSykmeldinger: PropTypes.func,
+    doHentDineSykmeldinger: PropTypes.func,
+    doHentSmSykmeldinger: PropTypes.func,
     smSykmelding: smSykmeldingPt,
 };
 
 export function mapStateToProps(state, ownProps) {
-    const sykmeldingId = ownProps.params.sykmeldingId;
+    const { sykmeldingId } = ownProps.params;
     const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
     const smSykmelding = smSykmeldingSelector(state, sykmeldingId);
 
@@ -145,6 +164,6 @@ export function mapStateToProps(state, ownProps) {
 }
 
 export default connect(mapStateToProps, {
-    hentDineSykmeldinger,
-    hentSmSykmeldinger,
+    doHentDineSykmeldinger: hentDineSykmeldinger,
+    doHentSmSykmeldinger: hentSmSykmeldinger,
 })(Container);

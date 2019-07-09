@@ -38,7 +38,8 @@ function innlogging(
         henter: false,
         hentingFeilet: false,
     },
-    action = {}) {
+    action = {},
+) {
     switch (action.type) {
         case BRUKER_ER_UTLOGGET: {
             return {
@@ -130,4 +131,3 @@ export const selectSykmeldtinfodataMaksdatoString = (state) => {
     }
     return '';
 };
-

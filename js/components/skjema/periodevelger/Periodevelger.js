@@ -2,34 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
 import { harOverlappendePerioder } from '../../../utils/periodeUtils';
+// eslint-disable-next-line import/no-cycle
 import Periodeliste from './Periodeliste';
 
 export const PeriodevelgerContext = React.createContext();
 
-const Periodevelger = ({ name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3', initiellDato, onChange = null, onAddRemove }) => {
-    return (<PeriodevelgerContext.Provider value={{
-        namePrefix: name,
-        name,
-        tidligsteFom,
-        senesteTom,
-        initiellDato,
-        onChange,
-    }}>
-        <FieldArray
-            onAddRemove={onAddRemove}
-            onChange={onChange}
-            validate={(value) => {
-                return harOverlappendePerioder(value)
-                    ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
-                    : undefined;
-            }}
-            Overskrift={Overskrift}
-            component={Periodeliste}
-            name={name}
-            namePrefix={name}
-            spoersmal={spoersmal}
-        />
-    </PeriodevelgerContext.Provider>);
+const Periodevelger = ({
+    name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3', initiellDato, onChange = null, onAddRemove,
+}) => {
+    return (
+        <PeriodevelgerContext.Provider value={{
+            namePrefix: name,
+            name,
+            tidligsteFom,
+            senesteTom,
+            initiellDato,
+            onChange,
+        }}>
+            <FieldArray
+                onAddRemove={onAddRemove}
+                onChange={onChange}
+                validate={(value) => {
+                    return harOverlappendePerioder(value)
+                        ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
+                        : undefined;
+                }}
+                Overskrift={Overskrift}
+                component={Periodeliste}
+                name={name}
+                namePrefix={name}
+                spoersmal={spoersmal}
+            />
+        </PeriodevelgerContext.Provider>
+    );
 };
 
 Periodevelger.propTypes = {

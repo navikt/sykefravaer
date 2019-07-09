@@ -55,23 +55,27 @@ class Container extends Component {
             skalViseMotebehov,
             brodsmuler,
         } = this.props;
-        return (<Side
-            tittel={getLedetekst('mote.behov.sidetittel')}
-            brodsmuler={brodsmuler}
-            laster={henter}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    } else if (hentingFeilet || sendingFeilet || !skalViseMotebehov) {
-                        return <Feilmelding />;
-                    }
-                    return (<MotebehovInnhold
-                        {...this.props}
-                    />);
-                })()
-            }
-        </Side>);
+        return (
+            <Side
+                tittel={getLedetekst('mote.behov.sidetittel')}
+                brodsmuler={brodsmuler}
+                laster={henter}>
+                {
+                    (() => {
+                        if (henter) {
+                            return <AppSpinner />;
+                        } if (hentingFeilet || sendingFeilet || !skalViseMotebehov) {
+                            return <Feilmelding />;
+                        }
+                        return (
+                            <MotebehovInnhold
+                                {...this.props}
+                            />
+                        );
+                    })()
+                }
+            </Side>
+        );
     }
 }
 Container.propTypes = {

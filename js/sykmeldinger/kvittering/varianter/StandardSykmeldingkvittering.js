@@ -10,15 +10,17 @@ const StandardSykmeldingkvittering = (props) => {
         illustrertTittel__img: true,
         'illustrertTittel__img--mikro': status === sykmeldingstatuser.AVBRUTT,
     });
-    return (<div className="panel blokk js-kvittering js-kvittering--standard">
-        <div className="illustrertTittel">
-            <img className={ikonKlasser} src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${ikon}`} alt="" />
-            <h2 className="illustrertTittel__tittel">
-                {tittel}
-            </h2>
+    return (
+        <div className="panel blokk js-kvittering js-kvittering--standard">
+            <div className="illustrertTittel">
+                <img className={ikonKlasser} src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${ikon}`} alt="" />
+                <h2 className="illustrertTittel__tittel">
+                    {tittel}
+                </h2>
+            </div>
+            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={brodtekst} />
         </div>
-        <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={brodtekst} />
-    </div>);
+    );
 };
 
 StandardSykmeldingkvittering.propTypes = {

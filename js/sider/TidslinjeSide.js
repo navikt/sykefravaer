@@ -5,15 +5,15 @@ import {
     getLedetekst,
     Tidslinje,
     TidslinjeVelgArbeidssituasjon,
-    setHendelseData as setHendelseDataAction,
-    hentTidslinjer as hentTidslinjerAction,
+    setHendelseData,
+    hentTidslinjer,
 } from '@navikt/digisyfo-npm';
 import history from '../history';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Sidetopp from '../components/Sidetopp';
-import { hentSykeforloep as hentSykeforloepAction } from '../data/sykeforloep/sykeforloep_actions';
+import { hentSykeforloep } from '../data/sykeforloep/sykeforloep_actions';
 import {
     brodsmule as brodsmulePt,
     tidslinjehendelse,
@@ -28,53 +28,64 @@ export class Container extends Component {
     }
 
     componentWillMount() {
-        this.props.hentSykeforloep();
+        const { doHentSykeforloep } = this.props;
+        doHentSykeforloep();
     }
 
     componentWillReceiveProps(nextProps) {
-        const { hentTidslinjer, apneHendelseIder, sykeforloep, arbeidssituasjon } = this.props;
+        const {
+            doHentTidslinjer, apneHendelseIder, sykeforloep, arbeidssituasjon,
+        } = this.props;
         if (!sykeforloep.hentet && nextProps.sykeforloep.hentet) {
-            hentTidslinjer(apneHendelseIder, arbeidssituasjon, nextProps.sykeforloep.data);
+            doHentTidslinjer(apneHendelseIder, arbeidssituasjon, nextProps.sykeforloep.data);
         }
     }
 
     setHendelseData(id, data) {
-        this.props.setHendelseData(id, data);
+        const { doSetHendelseData } = this.props;
+        doSetHendelseData(id, data);
     }
 
     endreArbeidssituasjon(arbeidssituasjon) {
-        this.props.hentTidslinjer([], arbeidssituasjon, this.props.sykeforloep.data);
+        const { doHentTidslinjer, sykeforloep } = this.props;
+        doHentTidslinjer([], arbeidssituasjon, sykeforloep.data);
     }
 
     render() {
-        const { brodsmuler, hendelser, arbeidssituasjon, henter, hentingFeilet } = this.props;
+        const {
+            brodsmuler, hendelser, arbeidssituasjon, henter, hentingFeilet,
+        } = this.props;
         const htmlIntro = {
             __html: `<p>${getLedetekst('tidslinje.introtekst')}</p>`,
         };
-        return (<Side tittel={getLedetekst('tidslinje.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    } else if (hentingFeilet) {
-                        return (<Feilmelding />);
-                    }
-                    return (<div>
-                        <Sidetopp tittel="Hva skjer under sykefraværet?" htmlTekst={htmlIntro} />
-                        <TidslinjeVelgArbeidssituasjon
-                            valgtArbeidssituasjon={arbeidssituasjon}
-                            hentTidslinjer={this.endreArbeidssituasjon}
-                            endreUrl={history.replace}
-                            rootUrl={process.env.REACT_APP_CONTEXT_ROOT}
-                        />
-                        <Tidslinje
-                            hendelser={hendelser}
-                            arbeidssituasjon={arbeidssituasjon}
-                            setHendelseData={this.setHendelseData} />
-                    </div>);
-                })()
-            }
-        </Side>);
+        return (
+            <Side tittel={getLedetekst('tidslinje.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
+                {
+                    (() => {
+                        if (henter) {
+                            return <AppSpinner />;
+                        } if (hentingFeilet) {
+                            return (<Feilmelding />);
+                        }
+                        return (
+                            <div>
+                                <Sidetopp tittel="Hva skjer under sykefraværet?" htmlTekst={htmlIntro} />
+                                <TidslinjeVelgArbeidssituasjon
+                                    valgtArbeidssituasjon={arbeidssituasjon}
+                                    hentTidslinjer={this.endreArbeidssituasjon}
+                                    endreUrl={history.replace}
+                                    rootUrl={process.env.REACT_APP_CONTEXT_ROOT}
+                                />
+                                <Tidslinje
+                                    hendelser={hendelser}
+                                    arbeidssituasjon={arbeidssituasjon}
+                                    setHendelseData={this.setHendelseData} />
+                            </div>
+                        );
+                    })()
+                }
+            </Side>
+        );
     }
 }
 
@@ -86,9 +97,9 @@ Container.propTypes = {
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
     sykeforloep: sykeforloepPt,
-    hentSykeforloep: PropTypes.func,
-    hentTidslinjer: PropTypes.func,
-    setHendelseData: PropTypes.func,
+    doHentSykeforloep: PropTypes.func,
+    doHentTidslinjer: PropTypes.func,
+    doSetHendelseData: PropTypes.func,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -149,8 +160,9 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps, {
-    hentSykeforloep: hentSykeforloepAction,
-    hentTidslinjer: hentTidslinjerAction,
-    setHendelseData: setHendelseDataAction,
-})(Container);
+const actionCreators = {
+    doHentSykeforloep: hentSykeforloep,
+    doHentTidslinjer: hentTidslinjer,
+    doSetHendelseData: setHendelseData,
+};
+export default connect(mapStateToProps, actionCreators)(Container);

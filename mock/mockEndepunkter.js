@@ -13,7 +13,7 @@ const mockSmSykmeldinger = require('./mockSmSykmeldinger');
 
 function mockEndepunkter(server, erLokal) {
     server.use(express.json());
-    server.use(express.urlencoded());
+    server.use(express.urlencoded({ extended: true }));
 
     server.get('/esso/logout', (req, res) => {
         res.send('<p>Du har blitt sendt til utlogging.</p><p><a href="/sykefravaer">Gå til Ditt sykefravær</a></p>');

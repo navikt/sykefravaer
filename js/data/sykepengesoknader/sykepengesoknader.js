@@ -26,9 +26,7 @@ export function sorterAktiviteterEldsteFoerst(soknad) {
 }
 
 export const settErOppdelt = (soknad) => {
-    const perioder = soknad.aktiviteter.map((a) => {
-        return a.periode;
-    });
+    const perioder = soknad.aktiviteter.map(a => a.periode);
     const _senesteTom = senesteTom(perioder);
     const _tidligsteFom = tidligsteFom(perioder);
     const _erOppdelt = (() => {
@@ -43,11 +41,7 @@ export const settErOppdelt = (soknad) => {
     };
 };
 
-export const finnSoknad = (state, id) => {
-    return state.sykepengesoknader.data.filter((s) => {
-        return `${s.id}` === id;
-    })[0] || {};
-};
+export const finnSoknad = (state, id) => state.sykepengesoknader.data.filter(s => `${s.id}` === id)[0] || {};
 
 export default function sykepengesoknader(state = initiellState, action = {}) {
     switch (action.type) {

@@ -59,33 +59,31 @@ const MotebehovKvittering = (
     {
         motebehov,
     },
-) => {
-    return (
-        <Fragment>
-            <div className="panel motebehovKvittering">
-                <div className="illustrertTittel">
-                    <img
-                        className="illustrertTittel__img"
-                        src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/hake-groenn--lys.svg`}
-                        alt="hake"
-                    />
-                    <h2 className="illustrertTittel__tittel">
-                        {getLedetekst('mote.moteBehovKvittering.tittel')}
-                    </h2>
-                </div>
-
-                <p>{getLedetekst('sykefravaer.motebehovKvittering.tekst')}</p>
-
-                <MotebehovKvitteringUtvidbar motebehov={motebehov} />
+) => (
+    <Fragment>
+        <div className="panel motebehovKvittering">
+            <div className="illustrertTittel">
+                <img
+                    className="illustrertTittel__img"
+                    src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/hake-groenn--lys.svg`}
+                    alt="hake"
+                />
+                <h2 className="illustrertTittel__tittel">
+                    {getLedetekst('mote.moteBehovKvittering.tittel')}
+                </h2>
             </div>
-            <div className="knapperad">
-                <Link className="lenke" to="/sykefravaer/dialogmoter">
+
+            <p>{getLedetekst('sykefravaer.motebehovKvittering.tekst')}</p>
+
+            <MotebehovKvitteringUtvidbar motebehov={motebehov} />
+        </div>
+        <div className="knapperad">
+            <Link className="lenke" to="/sykefravaer/dialogmoter">
                 Tilbake
-                </Link>
-            </div>
-        </Fragment>
-    );
-};
+            </Link>
+        </div>
+    </Fragment>
+);
 MotebehovKvittering.propTypes = {
     motebehov: motebehovPt,
 };

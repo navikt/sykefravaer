@@ -1,35 +1,25 @@
 import { finnArbeidsgivereForAktiveSykmeldinger } from './sykmeldingUtils';
 
-export const hentOppfolgingsPerioderFeilet = (oppfolgingsforlopsPerioderReducerListe) => {
-    return oppfolgingsforlopsPerioderReducerListe.filter((reducer) => {
-        return reducer.hentingFeilet;
-    }).length > 0;
-};
+export const hentOppfolgingsPerioderFeilet = oppfolgingsforlopsPerioderReducerListe =>
+    oppfolgingsforlopsPerioderReducerListe
+        .filter(reducer => reducer.hentingFeilet).length > 0;
 
-export const forsoektHentetOppfolgingsPerioder = (oppfolgingsforlopsPerioderReducerListe) => {
-    return oppfolgingsforlopsPerioderReducerListe.filter((reducer) => {
-        return reducer.hentet || reducer.hentingFeilet;
-    }).length === oppfolgingsforlopsPerioderReducerListe.length;
-};
+export const forsoektHentetOppfolgingsPerioder = oppfolgingsforlopsPerioderReducerListe =>
+    oppfolgingsforlopsPerioderReducerListe
+        .filter(reducer => reducer.hentet || reducer.hentingFeilet)
+        .length === oppfolgingsforlopsPerioderReducerListe.length;
 
-export const henterEllerHarForsoektHentetOppfolgingsPerioder = (oppfolgingsforlopsPerioderReducerListe) => {
-    return oppfolgingsforlopsPerioderReducerListe.filter((reducer) => {
-        return reducer.henter || forsoektHentetOppfolgingsPerioder([reducer]);
-    }).length === oppfolgingsforlopsPerioderReducerListe.length;
-};
+export const henterEllerHarForsoektHentetOppfolgingsPerioder = oppfolgingsforlopsPerioderReducerListe =>
+    oppfolgingsforlopsPerioderReducerListe
+        .filter(reducer => reducer.henter || forsoektHentetOppfolgingsPerioder([reducer]))
+        .length === oppfolgingsforlopsPerioderReducerListe.length;
 
-export const finnVirksomheterMedAktivSykmelding = (sykmeldinger, ledere) => {
-    return finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, ledere)
-        .map((virksomhet) => {
-            return virksomhet.virksomhetsnummer;
-        });
-};
+export const finnVirksomheterMedAktivSykmelding = (sykmeldinger, ledere) => finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, ledere)
+    .map(virksomhet => virksomhet.virksomhetsnummer);
 
 export const finnOgHentManglendeOppfolgingsforlopsPerioder = (hentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe) => {
     virksomhetsnrListe.forEach((virksomhetsnr) => {
-        const reducer = oppfolgingsforlopsPerioderReducerListe.filter((elem) => {
-            return elem.virksomhetsnummer === virksomhetsnr;
-        })[0];
+        const reducer = oppfolgingsforlopsPerioderReducerListe.filter(elem => elem.virksomhetsnummer === virksomhetsnr)[0];
         const skalHente = !reducer || !henterEllerHarForsoektHentetOppfolgingsPerioder([reducer]);
         if (skalHente) {
             hentOppfolgingsforlopsPerioder(virksomhetsnr);

@@ -15,19 +15,17 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
         value: true,
     }];
 
-    const infoOmSykemeldingmottaker = (navn) => {
-        return input.value === true
-            ? <p className="sist">{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.nei')}</p>
-            : input.value === false
-                ? (
-                    <p className="sist">
-                        {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
-                            '%NAERMESTELEDER%': navn,
-                        })}
-                    </p>
-                )
-                : null;
-    };
+    const infoOmSykemeldingmottaker = navn => (input.value === true
+        ? <p className="sist">{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.nei')}</p>
+        : input.value === false
+            ? (
+                <p className="sist">
+                    {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
+                        '%NAERMESTELEDER%': navn,
+                    })}
+                </p>
+            )
+            : null);
 
     const hjelpetekst = (<Hjelpetekst id="velg-beOmNyNaermesteLeder-hjelpetekst">{getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst')}</Hjelpetekst>);
 
@@ -41,9 +39,7 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
                 })}
                 hjelpetekst={hjelpetekst}>
                 {
-                    alternativer.map((alternativ, index) => {
-                        return <input {...alternativ} key={index} />;
-                    })
+                    alternativer.map((alternativ, index) => <input {...alternativ} key={index} />)
                 }
             </Radioknapper>
             {infoOmSykemeldingmottaker(naermesteLeder.navn)}
@@ -57,20 +53,18 @@ RendreErLederRiktig.propTypes = {
     naermesteLeder: naermesteLederPt,
 };
 
-const ErLederRiktig = (props) => {
-    return (
-        <Field
-            {...props}
-            component={RendreErLederRiktig}
-            name="beOmNyNaermesteLeder"
-            parse={(value) => {
-                if (value !== undefined) {
-                    return value === 'true';
-                }
-                return value;
-            }} />
-    );
-};
+const ErLederRiktig = props => (
+    <Field
+        {...props}
+        component={RendreErLederRiktig}
+        name="beOmNyNaermesteLeder"
+        parse={(value) => {
+            if (value !== undefined) {
+                return value === 'true';
+            }
+            return value;
+        }} />
+);
 
 ErLederRiktig.propTypes = {
     skjemaData: PropTypes.shape({}),

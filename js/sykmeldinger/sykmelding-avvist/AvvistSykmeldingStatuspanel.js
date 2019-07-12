@@ -1,4 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import React from 'react';
 import { StatusNokkelopplysning, Statusopplysninger } from '../../components/Statuspanel';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';

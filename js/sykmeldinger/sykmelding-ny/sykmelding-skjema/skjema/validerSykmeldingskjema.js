@@ -4,49 +4,45 @@ import validerPeriode from '../../../../components/skjema/periodevelger/validerP
 
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 
-export const validerDatoerIPerioder = (perioder, alternativer) => {
-    return perioder.map((periode) => {
-        const feil = {};
-        if (!periode.fom) {
-            feil.fom = 'Vennligst fyll ut dato';
+export const validerDatoerIPerioder = (perioder, alternativer) => perioder.map((periode) => {
+    const feil = {};
+    if (!periode.fom) {
+        feil.fom = 'Vennligst fyll ut dato';
+    }
+    if (!periode.tom) {
+        feil.tom = 'Vennligst fyll ut dato';
+    }
+    if (feil.tom || feil.fom) {
+        return feil;
+    }
+    const fom = fraInputdatoTilJSDato(periode.fom);
+    const tom = fraInputdatoTilJSDato(periode.tom);
+    if (fom.getTime() > tom.getTime()) {
+        feil.tom = 'Sluttdato må være etter startdato';
+        return feil;
+    }
+    if (alternativer) {
+        const fomFeil = validerPeriode(periode.fom, alternativer);
+        const tomFeil = validerPeriode(periode.tom, alternativer);
+        if (fomFeil) {
+            feil.fom = fomFeil;
         }
-        if (!periode.tom) {
-            feil.tom = 'Vennligst fyll ut dato';
+        if (tomFeil) {
+            feil.tom = tomFeil;
         }
-        if (feil.tom || feil.fom) {
+        if (feil.fom || feil.tom) {
             return feil;
         }
-        const fom = fraInputdatoTilJSDato(periode.fom);
-        const tom = fraInputdatoTilJSDato(periode.tom);
-        if (fom.getTime() > tom.getTime()) {
-            feil.tom = 'Sluttdato må være etter startdato';
-            return feil;
-        }
-        if (alternativer) {
-            const fomFeil = validerPeriode(periode.fom, alternativer);
-            const tomFeil = validerPeriode(periode.tom, alternativer);
-            if (fomFeil) {
-                feil.fom = fomFeil;
-            }
-            if (tomFeil) {
-                feil.tom = tomFeil;
-            }
-            if (feil.fom || feil.tom) {
-                return feil;
-            }
-        }
-        return undefined;
-    });
-};
+    }
+    return undefined;
+});
 
 export const validerPerioder = (perioder, alternativer) => {
     if (!perioder) {
         return null;
     }
     const datofeil = validerDatoerIPerioder(perioder, alternativer);
-    const faktiskeDatofeil = datofeil.filter((feil) => {
-        return feil !== undefined;
-    });
+    const faktiskeDatofeil = datofeil.filter(feil => feil !== undefined);
     if (faktiskeDatofeil.length > 0) {
         return datofeil;
     }
@@ -74,11 +70,7 @@ const validerFrilansersporsmal = (values) => {
 export default (values, props = {}) => {
     const feilmeldinger = {};
     const feilaktigeOpplysninger = values.feilaktigeOpplysninger || [];
-    const avkryssedeFeilaktigeOpplysninger = feilaktigeOpplysninger.filter((o) => {
-        return o.avkrysset;
-    }).map((o) => {
-        return o.opplysning;
-    });
+    const avkryssedeFeilaktigeOpplysninger = feilaktigeOpplysninger.filter(o => o.avkrysset).map(o => o.opplysning);
 
     if (values.opplysningeneErRiktige === false && (avkryssedeFeilaktigeOpplysninger.indexOf(PERIODE) > -1 || avkryssedeFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
         return {};

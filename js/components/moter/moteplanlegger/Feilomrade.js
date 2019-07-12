@@ -6,13 +6,11 @@ const Feilmelding = (
         submitFailed,
         error,
     },
-) => {
-    return (
-        <p className="skjema__feilmelding" aria-live="polite">
-            {submitFailed && error}
-        </p>
-    );
-};
+) => (
+    <p className="skjema__feilmelding" aria-live="polite">
+        {submitFailed && error}
+    </p>
+);
 
 Feilmelding.propTypes = {
     submitFailed: PropTypes.bool,
@@ -25,14 +23,12 @@ const Feilomrade = (
         error,
         children,
     },
-) => {
-    return (
-        <div className={submitFailed && error ? 'skjema__feilomrade skjema__feilomrade--feil' : 'skjema__feilomrade'}>
-            {children}
-            <Feilmelding submitFailed={submitFailed} error={error} />
-        </div>
-    );
-};
+) => (
+    <div className={submitFailed && error ? 'skjema__feilomrade skjema__feilomrade--feil' : 'skjema__feilomrade'}>
+        {children}
+        <Feilmelding submitFailed={submitFailed} error={error} />
+    </div>
+);
 
 Feilomrade.propTypes = {
     submitFailed: PropTypes.bool,

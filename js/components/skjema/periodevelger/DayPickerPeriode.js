@@ -14,14 +14,12 @@ import NavBar from '../daypicker/DayPickerNavBar';
 import { leggTilNullForan } from '../datovelger/DayPickerDato';
 import { erGyldigDato } from '../../../utils/datoUtils';
 
-const Style = () => {
-    return (
-        <style dangerouslySetInnerHTML={{
-            __html:
+const Style = () => (
+    <style dangerouslySetInnerHTML={{
+        __html:
                 '@media (max-width: 30em) { body { overflow: hidden!important; } }',
-        }} />
-    );
-};
+    }} />
+);
 
 const Datoer = ({ fom, tom }) => {
     const tekst = fom && tom

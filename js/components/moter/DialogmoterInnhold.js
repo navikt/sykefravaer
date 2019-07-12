@@ -13,24 +13,22 @@ const DialogmoterInnhold = (
         skalViseMotebehov,
         virksomhetnrMedMotebehovListe,
     },
-) => {
-    return (
-        <div className="dialogmoterInnhold">
-            <Sidetopp tittel={getLedetekst('mote.moter.sidetittel')} />
+) => (
+    <div className="dialogmoterInnhold">
+        <Sidetopp tittel={getLedetekst('mote.moter.sidetittel')} />
 
-            { skalViseMotebehov
+        { skalViseMotebehov
         && (
             <MotebehovInnholdLenke
                 motebehovReducer={motebehovReducer}
                 virksomhetsnrListe={virksomhetnrMedMotebehovListe}
             />
         )
-            }
+        }
 
-            { harMote && <DialogmoterInnholdLenke /> }
-        </div>
-    );
-};
+        { harMote && <DialogmoterInnholdLenke /> }
+    </div>
+);
 DialogmoterInnhold.propTypes = {
     motebehovReducer: motebehovReducerPt,
     harMote: PropTypes.bool,

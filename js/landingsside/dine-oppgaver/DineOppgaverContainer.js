@@ -22,16 +22,14 @@ import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 
 const Li = ({
     tekst, url, img, imgAlt,
-}) => {
-    return (
-        <li>
-            { img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" /> }
-            <span>
-                <Link to={url}>{tekst}</Link>
-            </span>
-        </li>
-    );
-};
+}) => (
+    <li>
+        { img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" /> }
+        <span>
+            <Link to={url}>{tekst}</Link>
+        </span>
+    </li>
+);
 
 Li.propTypes = {
     tekst: PropTypes.string.isRequired,
@@ -40,13 +38,11 @@ Li.propTypes = {
     imgAlt: PropTypes.string,
 };
 
-export const EksternLi = ({ tekst, url }) => {
-    return (
-        <li>
-            <a href={url}>{tekst}</a>
-        </li>
-    );
-};
+export const EksternLi = ({ tekst, url }) => (
+    <li>
+        <a href={url}>{tekst}</a>
+    </li>
+);
 
 EksternLi.propTypes = Li.propTypes;
 
@@ -106,36 +102,28 @@ NySykepengesoknad.propTypes = {
     soknader: PropTypes.arrayOf(soknadPt),
 };
 
-export const NyttAktivitetskravvarsel = () => {
-    return (
-        <Li
-            url={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt/`}
-            tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />
-    );
-};
+export const NyttAktivitetskravvarsel = () => (
+    <Li
+        url={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt/`}
+        tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />
+);
 
-const nyePlanerTekst = (antall) => {
-    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall')
-        : getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.flertall', {
-            '%ANTALL%': antall,
-        });
-};
+const nyePlanerTekst = antall => (antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall')
+    : getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.flertall', {
+        '%ANTALL%': antall,
+    }));
 
-export const NyttMotebehovVarsel = () => {
-    return (
-        <Li
-            url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`}
-            tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
-        />
-    );
-};
+export const NyttMotebehovVarsel = () => (
+    <Li
+        url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`}
+        tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
+    />
+);
 
-const avventendeGodkjenningerTekst = (antall) => {
-    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall')
-        : getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
-            '%ANTALL%': antall,
-        });
-};
+const avventendeGodkjenningerTekst = antall => (antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall')
+    : getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
+        '%ANTALL%': antall,
+    }));
 
 const RendreOppgaver = (
     {
@@ -232,21 +220,13 @@ DineOppgaverComponent.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    const sykmeldinger = state.dineSykmeldinger.data.filter((s) => {
-        return s.status === sykmeldingstatuser.NY;
-    });
-    const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
-        return s.status === sykepengesoknadstatuser.NY;
-    });
+    const sykmeldinger = state.dineSykmeldinger.data.filter(s => s.status === sykmeldingstatuser.NY);
+    const sykepengesoknader = state.sykepengesoknader.data.filter(s => s.status === sykepengesoknadstatuser.NY);
     const soknader = state.soknader.data
-        .filter((s) => {
-            return s.status === NY;
-        })
-        .filter((s) => {
-            return toggleNyArbeidstakerSoknad(state)
-                ? s.soknadstype === SELVSTENDIGE_OG_FRILANSERE || s.soknadstype === ARBEIDSTAKERE
-                : s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
-        });
+        .filter(s => s.status === NY)
+        .filter(s => (toggleNyArbeidstakerSoknad(state)
+            ? s.soknadstype === SELVSTENDIGE_OG_FRILANSERE || s.soknadstype === ARBEIDSTAKERE
+            : s.soknadstype === SELVSTENDIGE_OG_FRILANSERE));
 
     const mote = state.mote.data;
     let moteRes = null;
@@ -259,9 +239,7 @@ export const mapStateToProps = (state) => {
     const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state)
-        .filter((smSykmelding) => {
-            return smSykmelding.bekreftetDato === null;
-        });
+        .filter(smSykmelding => smSykmelding.bekreftetDato === null);
     const visOppgaver = sykmeldinger.length > 0
         || sykepengesoknader.length > 0
         || soknader.length > 0

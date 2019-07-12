@@ -1,4 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';

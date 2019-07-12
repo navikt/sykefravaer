@@ -72,13 +72,9 @@ Container.propTypes = {
 export const mapStateToProps = (state, ownProps) => {
     const { sykmelding } = ownProps;
     const soknader = state.soknader.data
-        .filter((soknad) => {
-            return soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
-        })
-        .filter((soknad) => {
-            return !soknad.korrigerer
-                && soknad.sykmeldingId === sykmelding.id;
-        });
+        .filter(soknad => soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
+        .filter(soknad => !soknad.korrigerer
+                && soknad.sykmeldingId === sykmelding.id);
     const henter = !state.soknader.hentet || state.soknader.henter;
     const erSelvstendigEllerFrilanserSykmelding = [arbeidssituasjoner.FRILANSER, arbeidssituasjoner.NAERINGSDRIVENDE].indexOf(sykmelding.valgtArbeidssituasjon) > -1;
 

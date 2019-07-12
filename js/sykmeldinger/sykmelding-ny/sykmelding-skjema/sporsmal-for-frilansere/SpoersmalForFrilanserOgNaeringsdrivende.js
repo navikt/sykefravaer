@@ -64,23 +64,19 @@ export const Forsikringssporsmal = () => {
     );
 };
 
-export const Spoersmal = ({ oppfolgingstilfelleStartdato }) => {
-    return (
-        <div>
-            <Egenmeldingssporsmal oppfolgingstilfelleStartdato={oppfolgingstilfelleStartdato} />
-            <Forsikringssporsmal />
-        </div>
-    );
-};
+export const Spoersmal = ({ oppfolgingstilfelleStartdato }) => (
+    <div>
+        <Egenmeldingssporsmal oppfolgingstilfelleStartdato={oppfolgingstilfelleStartdato} />
+        <Forsikringssporsmal />
+    </div>
+);
 
 Spoersmal.propTypes = {
     oppfolgingstilfelleStartdato: PropTypes.instanceOf(Date),
 };
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        oppfolgingstilfelleStartdato: getOppfolgingstilfelleStartdato(state.sykeforloep.data, ownProps.sykmeldingId),
-    };
-};
+const mapStateToProps = (state, ownProps) => ({
+    oppfolgingstilfelleStartdato: getOppfolgingstilfelleStartdato(state.sykeforloep.data, ownProps.sykmeldingId),
+});
 
 export default connect(mapStateToProps)(Spoersmal);

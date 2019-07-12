@@ -14,28 +14,26 @@ const MotebehovSvar = (
         motebehovSvarReducerListe,
         svarMotebehov,
     },
-) => {
-    return (
-        <div className="motebehovSvar">
-            <Bjorn
-                rootUrl="sykefravaer"
-                hvit
-                stor>
-                <p>{bjornTekst}</p>
-            </Bjorn>
+) => (
+    <div className="motebehovSvar">
+        <Bjorn
+            rootUrl="sykefravaer"
+            hvit
+            stor>
+            <p>{bjornTekst}</p>
+        </Bjorn>
 
-            <MotebehovInfoForSvar />
+        <MotebehovInfoForSvar />
 
-            <FolketrygdlovenTekst />
+        <FolketrygdlovenTekst />
 
-            <SvarMotebehovSkjema
-                virksomhetsnrListe={virksomhetsnrListe}
-                motebehovSvarReducerListe={motebehovSvarReducerListe}
-                svarMotebehov={svarMotebehov}
-            />
-        </div>
-    );
-};
+        <SvarMotebehovSkjema
+            virksomhetsnrListe={virksomhetsnrListe}
+            motebehovSvarReducerListe={motebehovSvarReducerListe}
+            svarMotebehov={svarMotebehov}
+        />
+    </div>
+);
 MotebehovSvar.propTypes = {
     virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),

@@ -1,5 +1,3 @@
-export const skalHenteSykeforloep = (state) => {
-    return !state.sykeforloep.hentet
+export const skalHenteSykeforloep = state => !state.sykeforloep.hentet
         && !state.sykeforloep.henter
         && !state.sykeforloep.hentingFeilet;
-};

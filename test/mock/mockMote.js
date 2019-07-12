@@ -1,53 +1,16 @@
-const getMote = (mote) => {
-    return Object.assign({}, {
-        status: 'OPPRETTET',
-        opprettetTidspunkt: new Date('2017-02-22T15:18:24.323'),
-        bekreftetTidspunkt: null,
-        deltakere: [{
-            hendelser: [],
-            deltakerUuid: 'uuid1',
-            navn: 'Are Arbeidsgiver',
-            orgnummer: '123456789',
-            epost: 'are.arbeidsgiver@nav.no',
-            type: 'arbeidsgiver',
-            svartidspunkt: null,
-            svar: [{
-                id: 1,
-                tid: new Date('2017-03-07T15:18:24.323'),
-                created: new Date('2017-02-22T15:18:24.323'),
-                sted: 'Testveien 2',
-                valgt: false,
-            }, {
-                id: 2,
-                tid: new Date('2017-03-09T15:18:24.323'),
-                created: new Date('2017-02-22T15:18:24.323'),
-                sted: 'Testveien 2',
-                valgt: false,
-            }],
-        }, {
-            hendelser: [],
-            deltakerUuid: 'uuid2',
-            navn: 'Sygve Sykmeldt',
-            orgnummer: null,
-            epost: null,
-            type: 'Bruker',
-            svartidspunkt: null,
-            svar: [{
-                id: 1,
-                tid: new Date('2017-03-07T15:18:24.323'),
-                created: new Date('2017-02-22T15:18:24.323'),
-                sted: 'Testveien 2',
-                valgt: false,
-            }, {
-                id: 2,
-                tid: new Date('2017-03-09T15:18:24.323'),
-                created: new Date('2017-02-22T15:18:24.323'),
-                sted: 'Testveien 2',
-                valgt: false,
-            }],
-        }],
-        bekreftetAlternativ: null,
-        alternativer: [{
+const getMote = mote => Object.assign({}, {
+    status: 'OPPRETTET',
+    opprettetTidspunkt: new Date('2017-02-22T15:18:24.323'),
+    bekreftetTidspunkt: null,
+    deltakere: [{
+        hendelser: [],
+        deltakerUuid: 'uuid1',
+        navn: 'Are Arbeidsgiver',
+        orgnummer: '123456789',
+        epost: 'are.arbeidsgiver@nav.no',
+        type: 'arbeidsgiver',
+        svartidspunkt: null,
+        svar: [{
             id: 1,
             tid: new Date('2017-03-07T15:18:24.323'),
             created: new Date('2017-02-22T15:18:24.323'),
@@ -55,13 +18,48 @@ const getMote = (mote) => {
             valgt: false,
         }, {
             id: 2,
-            tid: new Date('2017-02-25T15:18:24.323'),
+            tid: new Date('2017-03-09T15:18:24.323'),
             created: new Date('2017-02-22T15:18:24.323'),
             sted: 'Testveien 2',
             valgt: false,
         }],
-    }, mote);
-};
+    }, {
+        hendelser: [],
+        deltakerUuid: 'uuid2',
+        navn: 'Sygve Sykmeldt',
+        orgnummer: null,
+        epost: null,
+        type: 'Bruker',
+        svartidspunkt: null,
+        svar: [{
+            id: 1,
+            tid: new Date('2017-03-07T15:18:24.323'),
+            created: new Date('2017-02-22T15:18:24.323'),
+            sted: 'Testveien 2',
+            valgt: false,
+        }, {
+            id: 2,
+            tid: new Date('2017-03-09T15:18:24.323'),
+            created: new Date('2017-02-22T15:18:24.323'),
+            sted: 'Testveien 2',
+            valgt: false,
+        }],
+    }],
+    bekreftetAlternativ: null,
+    alternativer: [{
+        id: 1,
+        tid: new Date('2017-03-07T15:18:24.323'),
+        created: new Date('2017-02-22T15:18:24.323'),
+        sted: 'Testveien 2',
+        valgt: false,
+    }, {
+        id: 2,
+        tid: new Date('2017-02-25T15:18:24.323'),
+        created: new Date('2017-02-22T15:18:24.323'),
+        sted: 'Testveien 2',
+        valgt: false,
+    }],
+}, mote);
 
 export default getMote;
 
@@ -455,49 +453,47 @@ export const moteBesvartAvArbeidsgiver = getMote({
     }],
 });
 
-export const bareEtAlternativ = () => {
-    return Object.assign({}, {
-        status: 'OPPRETTET',
-        opprettetTidspunkt: new Date('2017-02-22T15:18:24.323'),
-        bekreftetTidspunkt: null,
-        deltakere: [{
-            hendelser: [],
-            deltakerUuid: 'uuid1',
-            navn: 'Are Arbeidsgiver',
-            orgnummer: '123456789',
-            epost: 'are.arbeidsgiver@nav.no',
-            type: 'arbeidsgiver',
-            svartidspunkt: null,
-            svar: [{
-                id: 1,
-                tid: new Date('2017-03-07T15:18:24.323'),
-                created: new Date('2017-02-22T15:18:24.323'),
-                sted: 'Testveien 2',
-                valgt: false,
-            }],
-        }, {
-            hendelser: [],
-            deltakerUuid: 'uuid2',
-            navn: 'Sygve Sykmeldt',
-            orgnummer: null,
-            epost: null,
-            type: 'Bruker',
-            svartidspunkt: null,
-            svar: [{
-                id: 1,
-                tid: new Date('2017-03-07T15:18:24.323'),
-                created: new Date('2017-02-22T15:18:24.323'),
-                sted: 'Testveien 2',
-                valgt: false,
-            }],
-        }],
-        bekreftetAlternativ: null,
-        alternativer: [{
+export const bareEtAlternativ = () => Object.assign({}, {
+    status: 'OPPRETTET',
+    opprettetTidspunkt: new Date('2017-02-22T15:18:24.323'),
+    bekreftetTidspunkt: null,
+    deltakere: [{
+        hendelser: [],
+        deltakerUuid: 'uuid1',
+        navn: 'Are Arbeidsgiver',
+        orgnummer: '123456789',
+        epost: 'are.arbeidsgiver@nav.no',
+        type: 'arbeidsgiver',
+        svartidspunkt: null,
+        svar: [{
             id: 1,
             tid: new Date('2017-03-07T15:18:24.323'),
             created: new Date('2017-02-22T15:18:24.323'),
             sted: 'Testveien 2',
             valgt: false,
         }],
-    });
-};
+    }, {
+        hendelser: [],
+        deltakerUuid: 'uuid2',
+        navn: 'Sygve Sykmeldt',
+        orgnummer: null,
+        epost: null,
+        type: 'Bruker',
+        svartidspunkt: null,
+        svar: [{
+            id: 1,
+            tid: new Date('2017-03-07T15:18:24.323'),
+            created: new Date('2017-02-22T15:18:24.323'),
+            sted: 'Testveien 2',
+            valgt: false,
+        }],
+    }],
+    bekreftetAlternativ: null,
+    alternativer: [{
+        id: 1,
+        tid: new Date('2017-03-07T15:18:24.323'),
+        created: new Date('2017-02-22T15:18:24.323'),
+        sted: 'Testveien 2',
+        valgt: false,
+    }],
+});

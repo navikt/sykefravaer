@@ -189,12 +189,10 @@ describe('SykmeldingkvitteringSide', () => {
             data: sykmeldinger,
         };
         state.arbeidsgiversSykmeldinger = {
-            data: sykmeldinger.map((s) => {
-                return {
-                    ...s,
-                    valgtArbeidsgiver: {},
-                };
-            }),
+            data: sykmeldinger.map(s => ({
+                ...s,
+                valgtArbeidsgiver: {},
+            })),
         };
         state.ledetekster = {};
         state.brukerinfo = {

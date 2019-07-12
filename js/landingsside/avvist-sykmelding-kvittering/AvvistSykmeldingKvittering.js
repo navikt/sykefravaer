@@ -5,27 +5,23 @@ import { connect } from 'react-redux';
 import { AlertStripeSuksess } from 'nav-frontend-alertstriper';
 import { visAvvistSykmeldingBekreftetLestKvittering } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 
-const Stripe = ({ vis }) => {
-    return vis
-        ? (
-            <div aria-live="assertive" role="alert">
-                <AlertStripeSuksess className="landingspanel">
-                    {getLedetekst('avvist-sykmelding.bekreftet.kvittering')}
-                </AlertStripeSuksess>
-            </div>
-        )
-        : null;
-};
+const Stripe = ({ vis }) => (vis
+    ? (
+        <div aria-live="assertive" role="alert">
+            <AlertStripeSuksess className="landingspanel">
+                {getLedetekst('avvist-sykmelding.bekreftet.kvittering')}
+            </AlertStripeSuksess>
+        </div>
+    )
+    : null);
 
 Stripe.propTypes = {
     vis: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
-    return {
-        vis: visAvvistSykmeldingBekreftetLestKvittering(state),
-    };
-};
+const mapStateToProps = state => ({
+    vis: visAvvistSykmeldingBekreftetLestKvittering(state),
+});
 
 const AvvistSykmeldingKvittering = connect(mapStateToProps)(Stripe);
 

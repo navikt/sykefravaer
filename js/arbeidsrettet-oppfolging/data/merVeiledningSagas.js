@@ -8,13 +8,13 @@ import {
 import { API_NAVN, hentSyfoApiUrl, post } from '../../data/gateway-api/index';
 import { hentHendelser } from '../../landingsside/data/hendelser/hendelserActions';
 
-export const lagUrl = (id) => { return `${hentSyfoApiUrl(API_NAVN.SYFOSERVICESTRANGLER)}/hendelse/${id}/bekreft`; };
+export const lagUrl = id => `${hentSyfoApiUrl(API_NAVN.SYFOSERVICESTRANGLER)}/hendelse/${id}/bekreft`;
 
 export function* bekreftMerVeiledning(action) {
     yield put(bekrefterMerVeiledning());
     try {
         yield all(
-            action.hendelseIder.map((hendelseId) => { return call(post, lagUrl(hendelseId)); }),
+            action.hendelseIder.map(hendelseId => call(post, lagUrl(hendelseId))),
         );
 
         yield put(merVeiledningBekreftet());

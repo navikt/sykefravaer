@@ -26,9 +26,7 @@ const arbeidsgiver = {
     harNaermesteLeder: false,
 };
 
-export const getArbeidsgiver = (ag) => {
-    return Object.assign({}, arbeidsgiver, ag);
-};
+export const getArbeidsgiver = ag => Object.assign({}, arbeidsgiver, ag);
 
 export const getSykmeldinger = [
     {
@@ -273,73 +271,63 @@ const sykmelding = {
     },
 };
 
-const getSykmelding = (skmld = {}) => {
-    return Object.assign({}, sykmelding, skmld);
-};
+const getSykmelding = (skmld = {}) => Object.assign({}, sykmelding, skmld);
 
-export const hentSykmeldingIkkeGyldigForOppfoelging = (dagensDato) => {
-    return getSykmelding({
-        mulighetForArbeid: {
-            perioder: [
-                {
-                    fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3)).toISOString(),
-                    tom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2)).toISOString(),
-                },
-                {
-                    fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1)).toISOString(),
-                    tom: leggTilMnderOgDagerPaaDato(dagensDato, -MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING, -1).toISOString(),
-                },
-            ],
-        },
-    });
-};
+export const hentSykmeldingIkkeGyldigForOppfoelging = dagensDato => getSykmelding({
+    mulighetForArbeid: {
+        perioder: [
+            {
+                fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3)).toISOString(),
+                tom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2)).toISOString(),
+            },
+            {
+                fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1)).toISOString(),
+                tom: leggTilMnderOgDagerPaaDato(dagensDato, -MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING, -1).toISOString(),
+            },
+        ],
+    },
+});
 
-export const hentSykmeldingGyldigForOppfoelging = (dagensDato) => {
-    return getSykmelding({
-        mulighetForArbeid: {
-            perioder: [
-                {
-                    fom: leggTilDagerPaaDato(dagensDato, -35).toISOString(),
-                    tom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
-                },
-                {
-                    fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
-                    tom: leggTilDagerPaaDato(dagensDato, 35).toISOString(),
-                },
-            ],
-        },
-    });
-};
+export const hentSykmeldingGyldigForOppfoelging = dagensDato => getSykmelding({
+    mulighetForArbeid: {
+        perioder: [
+            {
+                fom: leggTilDagerPaaDato(dagensDato, -35).toISOString(),
+                tom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+            },
+            {
+                fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+                tom: leggTilDagerPaaDato(dagensDato, 35).toISOString(),
+            },
+        ],
+    },
+});
 
-export const hentSykmeldingUtgaatt = (dagensDato) => {
-    return getSykmelding({
-        mulighetForArbeid: {
-            perioder: [
-                {
-                    fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3)).toISOString(),
-                    tom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2)).toISOString(),
-                },
-                {
-                    fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1)).toISOString(),
-                    tom: leggTilMnderPaaDato(dagensDato, -MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING).toISOString(),
-                },
-            ],
-        },
-    });
-};
+export const hentSykmeldingUtgaatt = dagensDato => getSykmelding({
+    mulighetForArbeid: {
+        perioder: [
+            {
+                fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3)).toISOString(),
+                tom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2)).toISOString(),
+            },
+            {
+                fom: leggTilMnderPaaDato(dagensDato, -(MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1)).toISOString(),
+                tom: leggTilMnderPaaDato(dagensDato, -MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING).toISOString(),
+            },
+        ],
+    },
+});
 
-export const hentSykmeldingAktiv = (dagensDato) => {
-    return getSykmelding({
-        mulighetForArbeid: {
-            perioder: [
-                {
-                    fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
-                    tom: leggTilDagerPaaDato(dagensDato, 35).toISOString(),
-                },
-            ],
-        },
-    });
-};
+export const hentSykmeldingAktiv = dagensDato => getSykmelding({
+    mulighetForArbeid: {
+        perioder: [
+            {
+                fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+                tom: leggTilDagerPaaDato(dagensDato, 35).toISOString(),
+            },
+        ],
+    },
+});
 
 export default getSykmelding;
 /* eslint-disable max-len */

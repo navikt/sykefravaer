@@ -47,37 +47,33 @@ export const VilHaMoteSvarKnapper = (
     {
         felt,
     },
-) => {
-    return (
-        <div className="skjemaelement">
-            <h3
-                className="skjemaelement__sporsmal"
-                id={felt.navn}
-            >
-                {felt.spoersmaal}
-            </h3>
-            <Field
-                id={felt.navn}
-                name={felt.navn}
-                component={Radioknapper}
-            >
-                {
-                    felt.svar.map((svar, index) => {
-                        return (
-                            <input
-                                key={`vilHaMote-${index}`}
-                                value={svar.verdi}
-                                label={svar.tekst}
-                                id={`${felt.navn}-${index}`}
-                                aria-labelledby={felt.navn}
-                            />
-                        );
-                    })
-                }
-            </Field>
-        </div>
-    );
-};
+) => (
+    <div className="skjemaelement">
+        <h3
+            className="skjemaelement__sporsmal"
+            id={felt.navn}
+        >
+            {felt.spoersmaal}
+        </h3>
+        <Field
+            id={felt.navn}
+            name={felt.navn}
+            component={Radioknapper}
+        >
+            {
+                felt.svar.map((svar, index) => (
+                    <input
+                        key={`vilHaMote-${index}`}
+                        value={svar.verdi}
+                        label={svar.tekst}
+                        id={`${felt.navn}-${index}`}
+                        aria-labelledby={felt.navn}
+                    />
+                ))
+            }
+        </Field>
+    </div>
+);
 VilHaMoteSvarKnapper.propTypes = {
     felt: felterPt,
 };
@@ -117,13 +113,11 @@ MotebehovSkjemaTekstomraade.propTypes = {
     harMotebehov: PropTypes.string,
 };
 
-export const TekstSensitiv = () => {
-    return (
-        <p className="svarMotebehovSkjema__tekstSensitiv">
-            {TEKSTER_INFORMASJON.sensitiv}
-        </p>
-    );
-};
+export const TekstSensitiv = () => (
+    <p className="svarMotebehovSkjema__tekstSensitiv">
+        {TEKSTER_INFORMASJON.sensitiv}
+    </p>
+);
 
 export const TekstOpplysning = () => {
     const TEKSTER = {
@@ -147,25 +141,23 @@ export const TekstOpplysning = () => {
     );
 };
 
-export const Knapper = ({ motebehovSvarReducerListe }) => {
-    return (
-        <Fragment>
-            <div className="knapperad">
-                <Hovedknapp
-                    type="submit"
-                    spinner={harSvarMotebehovSender(motebehovSvarReducerListe)}
-                >
-                    {TEKSTER_INFORMASJON.knappSend}
-                </Hovedknapp>
-            </div>
-            <div className="knapperad">
-                <Link className="lenke" to="/sykefravaer/dialogmoter">
+export const Knapper = ({ motebehovSvarReducerListe }) => (
+    <Fragment>
+        <div className="knapperad">
+            <Hovedknapp
+                type="submit"
+                spinner={harSvarMotebehovSender(motebehovSvarReducerListe)}
+            >
+                {TEKSTER_INFORMASJON.knappSend}
+            </Hovedknapp>
+        </div>
+        <div className="knapperad">
+            <Link className="lenke" to="/sykefravaer/dialogmoter">
                 Avbryt
-                </Link>
-            </div>
-        </Fragment>
-    );
-};
+            </Link>
+        </div>
+    </Fragment>
+);
 Knapper.propTypes = {
     motebehovSvarReducerListe: PropTypes.arrayOf(motebehovSvarReducerPt),
 };

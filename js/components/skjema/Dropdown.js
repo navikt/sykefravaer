@@ -4,29 +4,25 @@ import { Select } from 'nav-frontend-skjema';
 
 const Dropdown = ({
     alternativer, valgtAlternativ, ariaControls, id, onChange, label,
-}) => {
-    return (
-        <Select
-            label={label}
-            onChange={(event) => {
-                onChange(event.target.value);
-            }}
-            selected={valgtAlternativ}
-            aria-controls={ariaControls}
-            id={id}>
-            {alternativer.map((alt, idx) => {
-                return (
-                    <option
-                        className={`js-${alt.verdi}`}
-                        key={`${id}-${idx}`}
-                        value={alt.verdi}>
-                        {alt.tekst}
-                    </option>
-                );
-            })}
-        </Select>
-    );
-};
+}) => (
+    <Select
+        label={label}
+        onChange={(event) => {
+            onChange(event.target.value);
+        }}
+        selected={valgtAlternativ}
+        aria-controls={ariaControls}
+        id={id}>
+        {alternativer.map((alt, idx) => (
+            <option
+                className={`js-${alt.verdi}`}
+                key={`${id}-${idx}`}
+                value={alt.verdi}>
+                {alt.tekst}
+            </option>
+        ))}
+    </Select>
+);
 
 Dropdown.propTypes = {
     label: PropTypes.string,

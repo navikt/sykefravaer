@@ -12,11 +12,9 @@ const smSykmelding = {
     },
 };
 
-const mockSmSykmelding = (smSykmeldingArg = {}) => {
-    return {
-        ...smSykmelding,
-        ...smSykmeldingArg,
-    };
-};
+const mockSmSykmelding = (smSykmeldingArg = {}) => ({
+    ...smSykmelding,
+    ...smSykmeldingArg,
+});
 
 export default mockSmSykmelding;

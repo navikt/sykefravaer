@@ -20,54 +20,48 @@ const track = (event, variant, datalayerData, sykefravaerVarighet) => {
     window.dataLayer.push(args);
 };
 
-const Friskmeldingslightbox = ({ lukk }) => {
-    return (
-        <Lightbox onClose={lukk}>
-            <h2 className="modal__tittel">{getLedetekst('friskmelding.info-tittel.helt')}</h2>
-            <div
-                className="redaksjonelt-innhold blokk"
-                dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.helt')} />
-            <h2 className="panel__tittel">{getLedetekst('friskmelding.info-tittel.delvis')}</h2>
-            <div
-                className="redaksjonelt-innhold"
-                dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.delvis')} />
-        </Lightbox>
-    );
-};
+const Friskmeldingslightbox = ({ lukk }) => (
+    <Lightbox onClose={lukk}>
+        <h2 className="modal__tittel">{getLedetekst('friskmelding.info-tittel.helt')}</h2>
+        <div
+            className="redaksjonelt-innhold blokk"
+            dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.helt')} />
+        <h2 className="panel__tittel">{getLedetekst('friskmelding.info-tittel.delvis')}</h2>
+        <div
+            className="redaksjonelt-innhold"
+            dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.delvis')} />
+    </Lightbox>
+);
 
 Friskmeldingslightbox.propTypes = {
     lukk: PropTypes.func,
 };
 
-const TekstOgKnapp = ({ onClick, tekstnokkel }) => {
-    return (
-        <div>
-            <p>{getLedetekst(tekstnokkel)}</p>
-            <p className="sist">
-                <Knapp
-                    mini
-                    onClick={onClick}>
-                    {getLedetekst('friskmelding.bjorn-knapp')}
-                </Knapp>
-            </p>
-        </div>
-    );
-};
+const TekstOgKnapp = ({ onClick, tekstnokkel }) => (
+    <div>
+        <p>{getLedetekst(tekstnokkel)}</p>
+        <p className="sist">
+            <Knapp
+                mini
+                onClick={onClick}>
+                {getLedetekst('friskmelding.bjorn-knapp')}
+            </Knapp>
+        </p>
+    </div>
+);
 
 TekstOgKnapp.propTypes = {
     onClick: PropTypes.func,
     tekstnokkel: PropTypes.string,
 };
 
-const TekstOgLenke = ({ onClick, tekstnokkel }) => {
-    return (
-        <p>
-            {getLedetekst(tekstnokkel)}
-            {' '}
-            <button onClick={onClick} type="button" className="lenke">Les mer om hva du kan gjøre.</button>
-        </p>
-    );
-};
+const TekstOgLenke = ({ onClick, tekstnokkel }) => (
+    <p>
+        {getLedetekst(tekstnokkel)}
+        {' '}
+        <button onClick={onClick} type="button" className="lenke">Les mer om hva du kan gjøre.</button>
+    </p>
+);
 
 TekstOgLenke.propTypes = TekstOgKnapp.propTypes;
 
@@ -120,9 +114,7 @@ class Friskmelding extends Component {
             <Vis
                 key="friskmeldingslightbox"
                 hvis={visLightbox}
-                render={() => {
-                    return <Friskmeldingslightbox lukk={this.lukkLightbox} />;
-                }} />,
+                render={() => <Friskmeldingslightbox lukk={this.lukkLightbox} />} />,
         ]);
     }
 }

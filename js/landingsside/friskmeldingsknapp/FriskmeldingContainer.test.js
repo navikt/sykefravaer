@@ -11,13 +11,11 @@ describe('FriskmeldingContainer', () => {
 
     beforeEach(() => {
         clock = sinon.useFakeTimers(new Date('2018-05-15').getTime());
-        getState = (sykmelding) => {
-            return {
-                dineSykmeldinger: {
-                    data: [mockSykmelding(), mockSykmelding(), sykmelding],
-                },
-            };
-        };
+        getState = sykmelding => ({
+            dineSykmeldinger: {
+                data: [mockSykmelding(), mockSykmelding(), sykmelding],
+            },
+        });
     });
 
     afterEach(() => {

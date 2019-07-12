@@ -1,47 +1,23 @@
 import { INVALID } from '../../../enums/behandlingsutfallstatuser';
 
-export const smSykmeldingerSliceSelector = (state) => {
-    return state.smSykmeldinger;
-};
+export const smSykmeldingerSliceSelector = state => state.smSykmeldinger;
 
-export const henterSmSykmeldingerSelector = (state) => {
-    return smSykmeldingerSliceSelector(state).henter;
-};
+export const henterSmSykmeldingerSelector = state => smSykmeldingerSliceSelector(state).henter;
 
-export const hentingFeiletSmSykmeldingerSelector = (state) => {
-    return smSykmeldingerSliceSelector(state).hentingFeilet;
-};
+export const hentingFeiletSmSykmeldingerSelector = state => smSykmeldingerSliceSelector(state).hentingFeilet;
 
-export const hentetSmSykmeldingerSelector = (state) => {
-    return smSykmeldingerSliceSelector(state).hentet;
-};
+export const hentetSmSykmeldingerSelector = state => smSykmeldingerSliceSelector(state).hentet;
 
-export const skalHenteSmSykmeldingerSelector = (state) => {
-    return !henterSmSykmeldingerSelector(state)
+export const skalHenteSmSykmeldingerSelector = state => !henterSmSykmeldingerSelector(state)
         && !hentetSmSykmeldingerSelector(state);
-};
 
-export const skalBekrefteSmSykmeldingSelector = (state) => {
-    return !smSykmeldingerSliceSelector(state).bekrefter;
-};
+export const skalBekrefteSmSykmeldingSelector = state => !smSykmeldingerSliceSelector(state).bekrefter;
 
-export const smSykmeldingerDataSelector = (state) => {
-    return smSykmeldingerSliceSelector(state).data;
-};
+export const smSykmeldingerDataSelector = state => smSykmeldingerSliceSelector(state).data;
 
-export const avvisteSmSykmeldingerDataSelector = (state) => {
-    return smSykmeldingerDataSelector(state)
-        .filter((sykmelding) => {
-            return sykmelding.behandlingsutfall.status === INVALID;
-        });
-};
+export const avvisteSmSykmeldingerDataSelector = state => smSykmeldingerDataSelector(state)
+    .filter(sykmelding => sykmelding.behandlingsutfall.status === INVALID);
 
-export const visAvvistSykmeldingBekreftetLestKvittering = (state) => {
-    return smSykmeldingerSliceSelector(state).visKvittering;
-};
+export const visAvvistSykmeldingBekreftetLestKvittering = state => smSykmeldingerSliceSelector(state).visKvittering;
 
-export const smSykmeldingSelector = (state, sykmeldingId) => {
-    return smSykmeldingerDataSelector(state).find((sykmelding) => {
-        return sykmelding.id === sykmeldingId;
-    });
-};
+export const smSykmeldingSelector = (state, sykmeldingId) => smSykmeldingerDataSelector(state).find(sykmelding => sykmelding.id === sykmeldingId);

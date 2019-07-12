@@ -45,13 +45,11 @@ Skjema.propTypes = {
 };
 
 const ReduxSkjema = reduxForm({
-    validate: (values = {}) => {
-        return values.bekreftetLest
-            ? {}
-            : {
-                bekreftetLest: getLedetekst('avvist-sykmelding.bekreft-feilmelding'),
-            };
-    },
+    validate: (values = {}) => (values.bekreftetLest
+        ? {}
+        : {
+            bekreftetLest: getLedetekst('avvist-sykmelding.bekreft-feilmelding'),
+        }),
 })(Skjema);
 
 const Skjemaviser = (props) => {
@@ -65,13 +63,11 @@ Skjemaviser.propTypes = {
     smSykmelding: smSykmeldingPt,
 };
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        bekrefter: state.smSykmeldinger.bekrefter,
-        bekreftFeilet: state.smSykmeldinger.bekreftFeilet,
-        form: getSykmeldingSkjemanavn(ownProps.smSykmelding.id),
-    };
-};
+const mapStateToProps = (state, ownProps) => ({
+    bekrefter: state.smSykmeldinger.bekrefter,
+    bekreftFeilet: state.smSykmeldinger.bekreftFeilet,
+    form: getSykmeldingSkjemanavn(ownProps.smSykmelding.id),
+});
 
 const BekreftLestAvvistSykmeldingSkjema = connect(mapStateToProps, {
     doBekreftSmSykmeldingLest: bekreftSmSykmeldingLest,

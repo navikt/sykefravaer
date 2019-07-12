@@ -17,8 +17,6 @@ const arbeidsgiver = {
     harNaermesteLeder: true,
 };
 
-const getArbeidsgiver = (arbsgiver = {}) => {
-    return Object.assign({}, arbeidsgiver, arbsgiver);
-};
+const getArbeidsgiver = (arbsgiver = {}) => Object.assign({}, arbeidsgiver, arbsgiver);
 
 export default getArbeidsgiver;

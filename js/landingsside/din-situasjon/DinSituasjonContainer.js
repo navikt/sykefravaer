@@ -13,16 +13,12 @@ export function selectSykmeldingerYngreEnnTreMaaneder(state) {
     const treMndSiden = new Date();
     treMndSiden.setMonth(treMndSiden.getMonth() - 3);
 
-    return selectDineSykmeldingerData(state).filter((sykmelding) => {
-        return senesteTom(sykmelding.mulighetForArbeid.perioder) > treMndSiden;
-    });
+    return selectDineSykmeldingerData(state).filter(sykmelding => senesteTom(sykmelding.mulighetForArbeid.perioder) > treMndSiden);
 }
 
 export function selectArbeidsgivereTilDinSituasjon(state) {
     const orgnummereMedLedere = selectLedereData(state)
-        .map((leder) => {
-            return leder.orgnummer;
-        });
+        .map(leder => leder.orgnummer);
     const sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(state);
     const sykmeldingerMedAktivNaermesteLeder = selectDineSykmeldingerData(state)
         .filter((sykmelding) => {
@@ -37,12 +33,8 @@ export function selectArbeidsgivereTilDinSituasjon(state) {
     ];
     return [
         ...new Set(sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel
-            .filter((sykmelding) => {
-                return sykmelding.status === SENDT || sykmelding.status === TIL_SENDING;
-            })
-            .map((sykmelding) => {
-                return sykmelding.mottakendeArbeidsgiver.navn;
-            })),
+            .filter(sykmelding => sykmelding.status === SENDT || sykmelding.status === TIL_SENDING)
+            .map(sykmelding => sykmelding.mottakendeArbeidsgiver.navn)),
     ];
 }
 
@@ -50,23 +42,15 @@ export function selectAktuelleArbeidssituasjoner(state) {
     const arbeidsgivere = selectArbeidsgivereTilDinSituasjon(state);
     return [
         ...new Set(selectSykmeldingerYngreEnnTreMaaneder(state)
-            .filter((sykmelding) => {
-                return sykmelding.status === BEKREFTET;
-            })
-            .map((sykmelding) => {
-                return sykmelding.valgtArbeidssituasjon;
-            })
-            .filter((arbeidssituasjon) => {
-                return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
-            })),
+            .filter(sykmelding => sykmelding.status === BEKREFTET)
+            .map(sykmelding => sykmelding.valgtArbeidssituasjon)
+            .filter(arbeidssituasjon => !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length))),
     ];
 }
 
-export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
-    return ((arbeidsgivere && arbeidsgivere.length) || (arbeidssituasjoner && arbeidssituasjoner.length))
-        ? <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
-        : null;
-};
+export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => (((arbeidsgivere && arbeidsgivere.length) || (arbeidssituasjoner && arbeidssituasjoner.length))
+    ? <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
+    : null);
 
 Container.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(PropTypes.string),

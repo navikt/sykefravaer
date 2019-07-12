@@ -18,29 +18,17 @@ const REGELNAVN_INGEN_RETT_TIL_A_SYKMELDE = [
     BEHANDLER_SUSPENDERT,
 ];
 
-const hentRegelnavnListe = (smSykmelding) => {
-    return smSykmelding.behandlingsutfall.ruleHits
-        .map((ruleHit) => {
-            return ruleHit.ruleName;
-        });
-};
+const hentRegelnavnListe = smSykmelding => smSykmelding.behandlingsutfall.ruleHits
+    .map(ruleHit => ruleHit.ruleName);
 
-const hentHarIkkeRettTilASykmelde = (smSykmelding) => {
-    return hentRegelnavnListe(smSykmelding)
-        .reduce((acc, regelnavn) => {
-            return acc || REGELNAVN_INGEN_RETT_TIL_A_SYKMELDE.includes(regelnavn);
-        }, false);
-};
+const hentHarIkkeRettTilASykmelde = smSykmelding => hentRegelnavnListe(smSykmelding)
+    .reduce((acc, regelnavn) => acc || REGELNAVN_INGEN_RETT_TIL_A_SYKMELDE.includes(regelnavn), false);
 
 export const hentHandlingsstreng = (smSykmelding) => {
     const regelnavnliste = hentRegelnavnListe(smSykmelding);
 
-    const brukerErOver70 = regelnavnliste.find((regelnavn) => {
-        return regelnavn === PASIENT_ELDRE_ENN_70;
-    });
-    const ugyldigVersjon = regelnavnliste.find((regelnavn) => {
-        return regelnavn === UGYLDIG_REGELSETTVERSJON;
-    });
+    const brukerErOver70 = regelnavnliste.find(regelnavn => regelnavn === PASIENT_ELDRE_ENN_70);
+    const ugyldigVersjon = regelnavnliste.find(regelnavn => regelnavn === UGYLDIG_REGELSETTVERSJON);
     const ikkeRettTilASykmelde = hentHarIkkeRettTilASykmelde(smSykmelding);
 
     if (brukerErOver70) {
@@ -90,9 +78,7 @@ const BegrunnelseTekst = ({ smSykmelding }) => {
                     : (
                         <ul>
                             {
-                                smSykmelding.behandlingsutfall.ruleHits.map((ruleHit) => {
-                                    return <li key={ruleHit.ruleName}>{ruleHit.messageForUser}</li>;
-                                })
+                                smSykmelding.behandlingsutfall.ruleHits.map(ruleHit => <li key={ruleHit.ruleName}>{ruleHit.messageForUser}</li>)
                             }
                         </ul>
                     )
@@ -117,9 +103,7 @@ const Begrunnelse = ({ smSykmelding }) => {
     const visBegrunnelse = smSykmelding
         && smSykmelding.behandlingsutfall
         && smSykmelding.behandlingsutfall.ruleHits
-        && !smSykmelding.behandlingsutfall.ruleHits.reduce((acc, ruleHit) => {
-            return acc || reglerUtenBegrunnelse.includes(ruleHit.ruleName);
-        }, false);
+        && !smSykmelding.behandlingsutfall.ruleHits.reduce((acc, ruleHit) => acc || reglerUtenBegrunnelse.includes(ruleHit.ruleName), false);
 
     return visBegrunnelse
         ? <BegrunnelseTekst smSykmelding={smSykmelding} />

@@ -14,9 +14,7 @@ export const hentStartdatoFraSykeforloep = (sykeforloep) => {
     if (sykeforloep.length === 0) {
         return null;
     }
-    const startdato = sykeforloep.sort((s1, s2) => {
-        return new Date(s2.oppfoelgingsdato) - new Date(s1.oppfoelgingsdato);
-    })[0].oppfoelgingsdato;
+    const startdato = sykeforloep.sort((s1, s2) => new Date(s2.oppfoelgingsdato) - new Date(s1.oppfoelgingsdato))[0].oppfoelgingsdato;
     return new Date(startdato);
 };
 
@@ -36,13 +34,11 @@ export default (state = initState, action = {}) => {
             return Object.assign({}, state, {
                 henter: false,
                 hentet: true,
-                data: action.data.map((skforloep) => {
-                    return {
-                        ...skforloep,
-                        oppfoelgingsdato: new Date(skforloep.oppfoelgingsdato),
-                        sykmeldinger: skforloep.sykmeldinger.map(parseSykmelding),
-                    };
-                }),
+                data: action.data.map(skforloep => ({
+                    ...skforloep,
+                    oppfoelgingsdato: new Date(skforloep.oppfoelgingsdato),
+                    sykmeldinger: skforloep.sykmeldinger.map(parseSykmelding),
+                })),
                 startdato: hentStartdatoFraSykeforloep(action.data),
             });
         }

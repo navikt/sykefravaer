@@ -20,47 +20,41 @@ export function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
     }
 }
 
-export const Arbeidsgiver = ({ arbeidsgiver }) => {
-    return (
-        <div className="situasjon__innhold">
-            <p className="situasjon__tittel">
-                {getLedetekst('din-situasjon.ansatt', {
-                    '%ORGANISASJONSNAVN%': arbeidsgiver,
-                })}
-            </p>
-            <NaermesteLederContainer organisasjonsnavn={arbeidsgiver} />
-        </div>
-    );
-};
+export const Arbeidsgiver = ({ arbeidsgiver }) => (
+    <div className="situasjon__innhold">
+        <p className="situasjon__tittel">
+            {getLedetekst('din-situasjon.ansatt', {
+                '%ORGANISASJONSNAVN%': arbeidsgiver,
+            })}
+        </p>
+        <NaermesteLederContainer organisasjonsnavn={arbeidsgiver} />
+    </div>
+);
 
-const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
-    return (
-        <div className="arbeidssituasjon-panel">
-            {arbeidsgivere.map((arbeidsgiver, index) => {
-                return (
-                    <Arbeidssituasjon
-                        key={arbeidsgiver}
-                        className={classNames({ situasjon__arbeidsgiver: index > 0 })}
-                        ikonSrc={mapArbeidssituasjonTilIkonSrc(ARBEIDSTAKER)}
-                        ikonAlt={getLedetekst(`din-situasjon.${ARBEIDSTAKER}`)}
-                        situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
-                    />
-                );
-            })}
-            {arbeidssituasjoner.map((arbeidssituasjon) => {
-                const arbeidssituasjonLedetekst = getLedetekst(`din-situasjon.${arbeidssituasjon}`);
-                return (
-                    <Arbeidssituasjon
-                        key={arbeidssituasjon}
-                        className="situasjon__arbeidssituasjon"
-                        ikonSrc={mapArbeidssituasjonTilIkonSrc(arbeidssituasjon)}
-                        ikonAlt={arbeidssituasjonLedetekst}
-                        situasjon={<p className="situasjon__tittel">{arbeidssituasjonLedetekst}</p>} />
-                );
-            })}
-        </div>
-    );
-};
+const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => (
+    <div className="arbeidssituasjon-panel">
+        {arbeidsgivere.map((arbeidsgiver, index) => (
+            <Arbeidssituasjon
+                key={arbeidsgiver}
+                className={classNames({ situasjon__arbeidsgiver: index > 0 })}
+                ikonSrc={mapArbeidssituasjonTilIkonSrc(ARBEIDSTAKER)}
+                ikonAlt={getLedetekst(`din-situasjon.${ARBEIDSTAKER}`)}
+                situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
+            />
+        ))}
+        {arbeidssituasjoner.map((arbeidssituasjon) => {
+            const arbeidssituasjonLedetekst = getLedetekst(`din-situasjon.${arbeidssituasjon}`);
+            return (
+                <Arbeidssituasjon
+                    key={arbeidssituasjon}
+                    className="situasjon__arbeidssituasjon"
+                    ikonSrc={mapArbeidssituasjonTilIkonSrc(arbeidssituasjon)}
+                    ikonAlt={arbeidssituasjonLedetekst}
+                    situasjon={<p className="situasjon__tittel">{arbeidssituasjonLedetekst}</p>} />
+            );
+        })}
+    </div>
+);
 
 Arbeidsgiver.propTypes = {
     arbeidsgiver: PropTypes.string,

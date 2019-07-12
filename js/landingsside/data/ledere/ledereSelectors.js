@@ -1,7 +1,3 @@
-export const selectLedereSlice = (state) => {
-    return state.ledere;
-};
+export const selectLedereSlice = state => state.ledere;
 
-export const selectLedereData = (state) => {
-    return selectLedereSlice(state).data;
-};
+export const selectLedereData = state => selectLedereSlice(state).data;

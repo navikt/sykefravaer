@@ -4,78 +4,74 @@ import sinon from 'sinon';
 import sykepengesoknader, { finnSoknad } from './sykepengesoknader';
 import * as actions from './sykepengesoknader_actions';
 
-const getSoknad = () => {
-    return {
-        aktiviteter: [
-            {
-                avvik: null,
-                grad: 100,
-                periode: {
-                    fom: '2016-07-15',
-                    tom: '2017-01-19',
-                },
+const getSoknad = () => ({
+    aktiviteter: [
+        {
+            avvik: null,
+            grad: 100,
+            periode: {
+                fom: '2016-07-15',
+                tom: '2017-01-19',
             },
-        ],
-        fom: '2016-07-15',
-        tom: '2017-01-19',
-        egenmeldingsperioder: [],
-        ferie: [],
-        gjenopptattArbeidFulltUtDato: null,
-        identdato: null,
-        oppfoelgingsdato: null,
-        permisjon: [],
-        utdanning: null,
-        utenlandsopphold: {
-            perioder: [],
-            soektOmSykepengerIPerioden: null,
         },
-        opprettetDato: '2017-01-01',
-        sendtTilArbeidsgiverDato: null,
-        sendtTilNAVDato: null,
-        sykmeldingSkrevetDato: '2017-02-15',
-        forrigeSykeforloepTom: '2017-01-18',
-        forrigeSendteSoknadTom: null,
-        id: '1',
-        avbruttDato: null,
-    };
-};
+    ],
+    fom: '2016-07-15',
+    tom: '2017-01-19',
+    egenmeldingsperioder: [],
+    ferie: [],
+    gjenopptattArbeidFulltUtDato: null,
+    identdato: null,
+    oppfoelgingsdato: null,
+    permisjon: [],
+    utdanning: null,
+    utenlandsopphold: {
+        perioder: [],
+        soektOmSykepengerIPerioden: null,
+    },
+    opprettetDato: '2017-01-01',
+    sendtTilArbeidsgiverDato: null,
+    sendtTilNAVDato: null,
+    sykmeldingSkrevetDato: '2017-02-15',
+    forrigeSykeforloepTom: '2017-01-18',
+    forrigeSendteSoknadTom: null,
+    id: '1',
+    avbruttDato: null,
+});
 
-const getParsetSoknad = () => {
-    return {
-        aktiviteter: [
-            {
-                avvik: null,
-                grad: 100,
-                periode: {
-                    fom: new Date('2016-07-15'),
-                    tom: new Date('2017-01-19'),
-                },
+const getParsetSoknad = () => ({
+    aktiviteter: [
+        {
+            avvik: null,
+            grad: 100,
+            periode: {
+                fom: new Date('2016-07-15'),
+                tom: new Date('2017-01-19'),
             },
-        ],
-        fom: new Date('2016-07-15'),
-        tom: new Date('2017-01-19'),
-        egenmeldingsperioder: [],
-        ferie: [],
-        gjenopptattArbeidFulltUtDato: null,
-        identdato: null,
-        oppfoelgingsdato: null,
-        permisjon: [],
-        utdanning: null,
-        utenlandsopphold: {
-            perioder: [],
-            soektOmSykepengerIPerioden: null,
         },
-        opprettetDato: new Date('2017-01-01'),
-        sendtTilArbeidsgiverDato: null,
-        sendtTilNAVDato: null,
-        sykmeldingSkrevetDato: new Date('2017-02-15'),
-        forrigeSendteSoknadTom: null,
-        forrigeSykeforloepTom: new Date('2017-01-18'),
-        id: '1',
-        avbruttDato: null,
-        _erOppdelt: false,
-    };
-};
+    ],
+    fom: new Date('2016-07-15'),
+    tom: new Date('2017-01-19'),
+    egenmeldingsperioder: [],
+    ferie: [],
+    gjenopptattArbeidFulltUtDato: null,
+    identdato: null,
+    oppfoelgingsdato: null,
+    permisjon: [],
+    utdanning: null,
+    utenlandsopphold: {
+        perioder: [],
+        soektOmSykepengerIPerioden: null,
+    },
+    opprettetDato: new Date('2017-01-01'),
+    sendtTilArbeidsgiverDato: null,
+    sendtTilNAVDato: null,
+    sykmeldingSkrevetDato: new Date('2017-02-15'),
+    forrigeSendteSoknadTom: null,
+    forrigeSykeforloepTom: new Date('2017-01-18'),
+    id: '1',
+    avbruttDato: null,
+    _erOppdelt: false,
+});
 
 describe('sykepengesoknader', () => {
     let clock;

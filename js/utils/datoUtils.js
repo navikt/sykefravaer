@@ -41,9 +41,7 @@ export const erGyldigDato = (dato) => {
 
 export const ANTALL_MS_DAG = 1000 * 60 * 60 * 24;
 
-export const hentDagerMellomDatoer = (startDato, sluttDato) => {
-    return Math.round(Math.abs((sluttDato.getTime() - startDato.getTime()) / (ANTALL_MS_DAG)));
-};
+export const hentDagerMellomDatoer = (startDato, sluttDato) => Math.round(Math.abs((sluttDato.getTime() - startDato.getTime()) / (ANTALL_MS_DAG)));
 
 export const leggTilDagerPaaDato = (dato, dager) => {
     const nyDato = new Date(dato);
@@ -51,15 +49,11 @@ export const leggTilDagerPaaDato = (dato, dager) => {
     return new Date(nyDato);
 };
 
-export const capitalizeForsteBokstav = (ord) => {
-    return ord.charAt(0).toUpperCase() + ord.slice(1);
-};
+export const capitalizeForsteBokstav = ord => ord.charAt(0).toUpperCase() + ord.slice(1);
 
-export const tilLesbarDatoMedArstallOgUkedag = (datoArg) => {
-    return datoArg
-        ? `${capitalizeForsteBokstav(ukedager[new Date(datoArg).getDay()])} ${tilLesbarDatoMedArstall(datoArg)}`
-        : null;
-};
+export const tilLesbarDatoMedArstallOgUkedag = datoArg => (datoArg
+    ? `${capitalizeForsteBokstav(ukedager[new Date(datoArg).getDay()])} ${tilLesbarDatoMedArstall(datoArg)}`
+    : null);
 
 const pad = (int) => {
     if (int < 10) {

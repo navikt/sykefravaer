@@ -1,4 +1,2 @@
-export const skalHenteArbeidsgiversSykmeldinger = (state) => {
-    return !state.arbeidsgiversSykmeldinger.henter
+export const skalHenteArbeidsgiversSykmeldinger = state => !state.arbeidsgiversSykmeldinger.henter
         && !state.arbeidsgiversSykmeldinger.hentet;
-};

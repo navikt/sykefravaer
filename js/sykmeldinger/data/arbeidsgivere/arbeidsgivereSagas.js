@@ -6,9 +6,7 @@ import * as actions from './arbeidsgivereActions';
 
 const { HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT } = actions;
 
-export const skalHenteArbeidsgivere = (state, sykmeldingId) => {
-    return state.arbeidsgivere.sykmeldingId !== sykmeldingId;
-};
+export const skalHenteArbeidsgivere = (state, sykmeldingId) => state.arbeidsgivere.sykmeldingId !== sykmeldingId;
 
 export function* hentDineArbeidsgivere(action) {
     const { sykmeldingId } = action;

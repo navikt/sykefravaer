@@ -1,4 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import { TID_INNSENDING_SYKMELDING, UTFYLLING_STARTET } from '../../enums/metrikkerEnums';
 import { SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 

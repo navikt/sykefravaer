@@ -3,13 +3,11 @@ import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-export const StegvisKvittering = ({ children }) => {
-    return (
-        <div className="stegvisKvittering">
-            {children}
-        </div>
-    );
-};
+export const StegvisKvittering = ({ children }) => (
+    <div className="stegvisKvittering">
+        {children}
+    </div>
+);
 
 StegvisKvittering.propTypes = {
     children: PropTypes.node,
@@ -30,7 +28,7 @@ const Kvitteringsteg = ({
                     {' '}
                     {tittel}
                 </h2>
-                { children && <div className="js-tekst">{children}</div> }
+                {children && <div className="js-tekst">{children}</div>}
             </div>
         </div>
     );
@@ -44,9 +42,8 @@ Kvitteringsteg.propTypes = {
     children: PropTypes.node,
 };
 
-export const HtmlAvsnitt = ({ nokkel, replacements = null, Tag = 'div' }) => {
-    return <Tag className="kvitteringsteg__tekst" dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }} />;
-};
+export const HtmlAvsnitt = ({ nokkel, replacements = null, Tag = 'div' }) =>
+    <Tag className="kvitteringsteg__tekst" dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }} />;
 
 HtmlAvsnitt.propTypes = {
     nokkel: PropTypes.string.isRequired,

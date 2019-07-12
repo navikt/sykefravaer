@@ -42,38 +42,30 @@ export const kvitteringtyper = {
     BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: 'BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG',
 };
 
-const AvbruttKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            status={sykmeldingstatuser.AVBRUTT}
-            tittel={getLedetekst('avbryt-sykmelding.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('avbryt-sykmelding.kvittering.undertekst')} />
-    );
-};
+const AvbruttKvittering = () => (
+    <StandardSykmeldingkvittering
+        status={sykmeldingstatuser.AVBRUTT}
+        tittel={getLedetekst('avbryt-sykmelding.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('avbryt-sykmelding.kvittering.undertekst')} />
+);
 
-const ArbeidstakerBekreftetSykmeldingKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst')} />
-    );
-};
+const ArbeidstakerBekreftetSykmeldingKvittering = () => (
+    <StandardSykmeldingkvittering
+        tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst')} />
+);
 
-const StrengtFortroligAdresseKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('bekreft-sykmelding.skjermingskode-6.kvittering.undertekst')} />
-    );
-};
+const StrengtFortroligAdresseKvittering = () => (
+    <StandardSykmeldingkvittering
+        tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('bekreft-sykmelding.skjermingskode-6.kvittering.undertekst')} />
+);
 
-const BekreftetKvittering = () => {
-    return (
-        <StandardSykmeldingkvittering
-            tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel')}
-            brodtekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.undertekst')} />
-    );
-};
+const BekreftetKvittering = () => (
+    <StandardSykmeldingkvittering
+        tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel')}
+        brodtekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.undertekst')} />
+);
 
 const SykmeldingKvittering = (props) => {
     const { kvitteringtype, sykepengesoknader, soknader } = props;

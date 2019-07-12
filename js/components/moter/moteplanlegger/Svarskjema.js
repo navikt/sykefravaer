@@ -39,9 +39,7 @@ export function getData(values) {
             return alternativ.verdi;
         }
         return undefined;
-    }).filter((id) => {
-        return id !== undefined;
-    });
+    }).filter(id => id !== undefined);
 }
 
 export const Skjema = (
@@ -56,9 +54,7 @@ export const Skjema = (
         deltakertype = BRUKER,
     },
 ) => {
-    const deltaker = mote.deltakere.filter((d) => {
-        return d.type === deltakertype;
-    })[0];
+    const deltaker = mote.deltakere.filter(d => d.type === deltakertype)[0];
     const onSubmit = (values) => {
         const data = getData(values);
         sendSvar(mote.moteUuid, deltakertype, data);
@@ -141,28 +137,18 @@ Skjema.propTypes = {
     autofill: PropTypes.func,
 };
 
-const harValgtIngen = (values) => {
-    return values.alternativer.filter((alternativ) => {
-        return alternativ
+const harValgtIngen = values => values.alternativer.filter(alternativ => alternativ
             && alternativ.verdi === 'ingen'
-            && alternativ.avkrysset === true;
-    }).length > 0;
-};
+            && alternativ.avkrysset === true).length > 0;
 
-const harValgtDato = (values) => {
-    return values.alternativer.filter((alternativ) => {
-        return alternativ
+const harValgtDato = values => values.alternativer.filter(alternativ => alternativ
             && alternativ.verdi !== 'ingen'
-            && alternativ.avkrysset === true;
-    }).length > 0;
-};
+            && alternativ.avkrysset === true).length > 0;
 
 export function validate(values) {
     const feilmeldinger = {};
     const alternativer = values.alternativer || [];
-    const antallAvkryssede = alternativer.filter((alternativ) => {
-        return alternativ && alternativ.avkrysset === true;
-    }).length;
+    const antallAvkryssede = alternativer.filter(alternativ => alternativ && alternativ.avkrysset === true).length;
     if (!values.alternativer || antallAvkryssede === 0) {
         feilmeldinger.tidspunkter = {
             _error: 'Du må velge minst ett alternativ',

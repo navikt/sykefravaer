@@ -326,33 +326,27 @@ const oppfolgingsdialog = {
     },
 };
 
-export const hentOppfolgingsdialogTidligere = (dagensDato) => {
-    return Object.assign({}, oppfolgingsdialog, {
-        godkjentPlan: {
-            gyldighetstidspunkt: {
-                fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
-                tom: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
-            },
+export const hentOppfolgingsdialogTidligere = dagensDato => Object.assign({}, oppfolgingsdialog, {
+    godkjentPlan: {
+        gyldighetstidspunkt: {
+            fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+            tom: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
         },
-        naermesteLeder: {
-            navn: 'Test Testesen',
-            fnr: '1234567891000',
-            samtykke: null,
-            sistInnlogget: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
-            godkjent: null,
-            aktivFom: leggTilDagerPaaDato(dagensDato, -10).toISOString(),
-        },
-    });
-};
+    },
+    naermesteLeder: {
+        navn: 'Test Testesen',
+        fnr: '1234567891000',
+        samtykke: null,
+        sistInnlogget: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
+        godkjent: null,
+        aktivFom: leggTilDagerPaaDato(dagensDato, -10).toISOString(),
+    },
+});
 
-export const hentOppfolgingsdialogAktiv = (dagensDato) => {
-    return Object.assign({}, hentOppfolgingsdialogTidligere(dagensDato), {
-        godkjentPlan: null,
-    });
-};
+export const hentOppfolgingsdialogAktiv = dagensDato => Object.assign({}, hentOppfolgingsdialogTidligere(dagensDato), {
+    godkjentPlan: null,
+});
 
-const getOppfolgingsdialog = (id = {}) => {
-    return Object.assign({}, oppfolgingsdialog, id);
-};
+const getOppfolgingsdialog = (id = {}) => Object.assign({}, oppfolgingsdialog, id);
 
 export default getOppfolgingsdialog;

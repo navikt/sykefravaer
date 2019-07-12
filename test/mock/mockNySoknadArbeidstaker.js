@@ -799,11 +799,9 @@ export const nySoknadArbeidstaker = {
 
 /* eslint-enable max-len */
 
-const mockNySoknadArbeidstaker = (soknad = {}) => {
-    return parseSoknad({
-        ...nySoknadArbeidstaker,
-        ...soknad,
-    });
-};
+const mockNySoknadArbeidstaker = (soknad = {}) => parseSoknad({
+    ...nySoknadArbeidstaker,
+    ...soknad,
+});
 
 export default mockNySoknadArbeidstaker;

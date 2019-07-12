@@ -5,9 +5,7 @@ import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 const ponyfills = ponyfill();
 export const REDIRECT_ETTER_LOGIN = 'REDIRECT_ETTER_LOGIN';
 
-const isEdge = () => {
-    return window.navigator.userAgent.indexOf('Edge') > -1;
-};
+const isEdge = () => window.navigator.userAgent.indexOf('Edge') > -1;
 
 const getFetch = () => {
     // Gjør dette slik fordi enhetstester vil feile dersom fetch overskrives

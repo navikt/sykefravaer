@@ -2,31 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sykepengesoknad as sykepengesoknadPt, getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
 
-export const sorterSoknaderEtterDatoTilgjengelig = (sykepengesoknader) => {
-    return [...sykepengesoknader]
-        .sort((a, b) => {
-            return a.tom.getTime() - b.tom.getTime();
-        });
-};
+export const sorterSoknaderEtterDatoTilgjengelig = sykepengesoknader => [...sykepengesoknader]
+    .sort((a, b) => a.tom.getTime() - b.tom.getTime());
 
-const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
-    return (
-        <ul className="js-soknadsdatoliste">
-            {
-                sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)
-                    .map((s, index) => {
-                        const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
-                        return (
-                            <li key={index}>
-                                <strong>{tilLesbarDatoMedArstall(s.tom)}</strong>
-                                { visStatus ? ` – ${getLedetekst(nokkel)}` : null }
-                            </li>
-                        );
-                    })
-            }
-        </ul>
-    );
-};
+const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => (
+    <ul className="js-soknadsdatoliste">
+        {
+            sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)
+                .map((s, index) => {
+                    const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
+                    return (
+                        <li key={index}>
+                            <strong>{tilLesbarDatoMedArstall(s.tom)}</strong>
+                            { visStatus ? ` – ${getLedetekst(nokkel)}` : null }
+                        </li>
+                    );
+                })
+        }
+    </ul>
+);
 
 Soknadsdatoliste.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
@@ -39,9 +33,7 @@ const erstattSiste = (streng, finn, erstatning) => {
 };
 
 const tilKommaliste = (liste) => {
-    const datoStrenger = liste.map((s) => {
-        return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
-    });
+    const datoStrenger = liste.map(s => `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`);
     return datoStrenger.length <= 2
         ? datoStrenger.join(' og ')
         : erstattSiste(datoStrenger.join(', '), ', ', ' og ');

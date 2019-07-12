@@ -17,8 +17,8 @@ const { window } = jsdom;
 
 function copyProps(src, target) {
     const props = Object.getOwnPropertyNames(src)
-        .filter((prop) => { return typeof target[prop] === 'undefined'; })
-        .map((prop) => { return Object.getOwnPropertyDescriptor(src, prop); });
+        .filter(prop => typeof target[prop] === 'undefined')
+        .map(prop => Object.getOwnPropertyDescriptor(src, prop));
     Object.defineProperties(target, props);
 }
 

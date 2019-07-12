@@ -61,9 +61,7 @@ class PeriodeTomComponent extends Component {
                     </div>
                     <Vis
                         hvis={!erApen}
-                        render={() => {
-                            return <Feilmelding {...meta} />;
-                        }} />
+                        render={() => <Feilmelding {...meta} />} />
                 </div>
             </div>
         );
@@ -82,16 +80,12 @@ PeriodeTomComponent.propTypes = {
     onKeyUp: PropTypes.func,
 };
 
-const PeriodeTom = (props) => {
-    return (
-        <PeriodevelgerContext.Consumer>
-            {
-                ({ onChange }) => {
-                    return <PeriodeTomComponent {...props} onChange={onChange} />;
-                }
-            }
-        </PeriodevelgerContext.Consumer>
-    );
-};
+const PeriodeTom = props => (
+    <PeriodevelgerContext.Consumer>
+        {
+            ({ onChange }) => <PeriodeTomComponent {...props} onChange={onChange} />
+        }
+    </PeriodevelgerContext.Consumer>
+);
 
 export default PeriodeTom;

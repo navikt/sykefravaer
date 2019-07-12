@@ -1,9 +1,5 @@
-export const erTiltakSykmeldteInngangAktivSelector = (state) => {
-    return state.sykeforloepMetadata.data.erTiltakSykmeldteInngangAktiv;
-};
+export const erTiltakSykmeldteInngangAktivSelector = state => state.sykeforloepMetadata.data.erTiltakSykmeldteInngangAktiv;
 
-export const skalHenteSykeforloepMetadata = (state) => {
-    return !state.sykeforloepMetadata.henter
+export const skalHenteSykeforloepMetadata = state => !state.sykeforloepMetadata.henter
         && !state.sykeforloepMetadata.hentet
         && !state.sykeforloepMetadata.hentingFeilet;
-};

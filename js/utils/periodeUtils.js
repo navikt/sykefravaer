@@ -2,9 +2,7 @@ import { fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tilDatePeriode } fr
 
 const ETT_DOGN = 1000 * 60 * 60 * 24;
 
-const erPafolgendeDager = (a, b) => {
-    return b.getTime() - a.getTime() === 86400000;
-};
+const erPafolgendeDager = (a, b) => b.getTime() - a.getTime() === 86400000;
 
 export const datoErHelgedag = (dato) => {
     const LORDAG = 6;
@@ -22,11 +20,7 @@ export const erGyldigPeriode = (periode) => {
     return true;
 };
 
-export const erGyldigePerioder = (perioder) => {
-    return perioder.reduce((acc, p) => {
-        return erGyldigPeriode(p) && acc;
-    }, true);
-};
+export const erGyldigePerioder = perioder => perioder.reduce((acc, p) => erGyldigPeriode(p) && acc, true);
 
 export const periodeErHelg = (periode) => {
     let fom;
@@ -47,11 +41,7 @@ export const periodeErHelg = (periode) => {
     return false;
 };
 
-export const perioderErHelg = (perioder) => {
-    return perioder.length > 0 && perioder.reduce((acc, periode) => {
-        return acc && periodeErHelg(periode) === true;
-    }, true);
-};
+export const perioderErHelg = perioder => perioder.length > 0 && perioder.reduce((acc, periode) => acc && periodeErHelg(periode) === true, true);
 
 export const periodeOverlapperMedPerioder = (periode_, perioder_) => {
     if (!erGyldigePerioder(perioder_) || !erGyldigPeriode(periode_)) {
@@ -61,22 +51,16 @@ export const periodeOverlapperMedPerioder = (periode_, perioder_) => {
     const periode = tilDatePeriode(periode_);
     const perioder = perioder_.map(tilDatePeriode);
 
-    return perioder.reduce((acc, p) => {
-        return periodeOverlapperMedPeriode(periode, p) || acc;
-    }, false);
+    return perioder.reduce((acc, p) => periodeOverlapperMedPeriode(periode, p) || acc, false);
 };
 
 export const perioderOverlapperMedPerioder = (perioderA, perioderB) => {
     if (!perioderA || !perioderB || perioderA.length === 0 || perioderB.length === 0) {
         return false;
     }
-    const bools = perioderA.map((periode) => {
-        return periodeOverlapperMedPerioder(periode, perioderB);
-    });
+    const bools = perioderA.map(periode => periodeOverlapperMedPerioder(periode, perioderB));
 
-    return bools.reduce((acc, bool) => {
-        return acc && bool;
-    }, true);
+    return bools.reduce((acc, bool) => acc && bool, true);
 };
 
 export const harOverlappendePerioder = (perioder) => {
@@ -85,14 +69,10 @@ export const harOverlappendePerioder = (perioder) => {
         return false;
     }
     const overlappingsinfo = gyldigePerioder.map((p, index) => {
-        const perioderUtenDennePerioden = gyldigePerioder.filter((p2, index2) => {
-            return index !== index2;
-        });
+        const perioderUtenDennePerioden = gyldigePerioder.filter((p2, index2) => index !== index2);
         return periodeOverlapperMedPerioder(p, perioderUtenDennePerioden);
     });
-    return overlappingsinfo.reduce((acc, bool) => {
-        return acc || bool;
-    }, false);
+    return overlappingsinfo.reduce((acc, bool) => acc || bool, false);
 };
 
 export const antallVirkedagerIPeriode = (periode) => {

@@ -121,12 +121,8 @@ export const mapArbeidssituasjonParam = (param) => {
 
 export function setHash(hendelser) {
     const hendelserApne = hendelser
-        .filter((m) => {
-            return m.erApen;
-        })
-        .map((m) => {
-            return m.id;
-        })
+        .filter(m => m.erApen)
+        .map(m => m.id)
         .join('/');
 
     window.history.replaceState(null, null, `#${hendelserApne}`);

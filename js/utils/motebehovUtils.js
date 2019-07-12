@@ -1,27 +1,14 @@
-import {
-    hentDagerMellomDatoer,
-    leggTilDagerPaaDato,
-} from './datoUtils';
+import { hentDagerMellomDatoer, leggTilDagerPaaDato } from './datoUtils';
 import {
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
     finnVirksomheterMedAktivSykmelding,
 } from './oppfolgingsforlopsperioderUtils';
 
-const isDefined = (value) => {
-    return value !== undefined;
-};
+const isDefined = value => value !== undefined;
 
-export const harSvarMotebehovSender = (motebehovSvarReducerListe) => {
-    return motebehovSvarReducerListe.filter((reducer) => {
-        return reducer.sender;
-    }).length > 0;
-};
+export const harSvarMotebehovSender = motebehovSvarReducerListe => motebehovSvarReducerListe.filter(reducer => reducer.sender).length > 0;
 
-export const harSvarMotebehovFeilet = (motebehovSvarReducerListe) => {
-    return motebehovSvarReducerListe.filter((reducer) => {
-        return reducer.sendingFeilet;
-    }).length > 0;
-};
+export const harSvarMotebehovFeilet = motebehovSvarReducerListe => motebehovSvarReducerListe.filter(reducer => reducer.sendingFeilet).length > 0;
 
 export const input2RSLagreMotebehov = (motebehov, virksomhetsnummer, fnr) => {
     const rsLagreMotebehov = {};
@@ -62,19 +49,13 @@ export const MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER = 10 * 7;
 export const OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER = 16 * 7;
 export const OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER = 26 * 7;
 
-export const finnNyesteMotebehovForVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => {
-    return motebehovReducer.data.filter((motebehov) => {
-        return virksomhetsnrListe.filter((virksomhetsnr) => {
-            return motebehov.virksomhetsnummer === virksomhetsnr;
-        }).length > 0;
-    }).sort((m1, m2) => {
-        return m2.opprettetDato - m1.opprettetDato;
-    })[0];
-};
+export const finnNyesteMotebehovForVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => motebehovReducer.data
+    .filter(motebehov => virksomhetsnrListe
+        .filter(virksomhetsnr => motebehov.virksomhetsnummer === virksomhetsnr).length > 0)
+    .sort((m1, m2) => m2.opprettetDato - m1.opprettetDato)[0];
 
-export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnrListe) => {
-    return !!finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetsnrListe);
-};
+export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnrListe) =>
+    !!finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetsnrListe);
 
 export const hentMoteLandingssideUrl = (skalViseMotebehov) => {
     const moteVisning = skalViseMotebehov ? '' : '/mote';
@@ -112,17 +93,11 @@ export const erOppfolgingstilfelleSluttDatoPassert = (sluttOppfolgingsdato) => {
     return dagensDato > oppfolgingstilfelleSluttDato;
 };
 
-export const hentOppfolgingsforlopStartdato = (oppfolgingsforlopsPeriodeData) => {
-    return oppfolgingsforlopsPeriodeData.length > 0 && new Date(Math.min.apply(null, oppfolgingsforlopsPeriodeData.map((periode) => {
-        return new Date(periode.fom);
-    })));
-};
+export const hentOppfolgingsforlopStartdato = oppfolgingsforlopsPeriodeData => oppfolgingsforlopsPeriodeData.length > 0
+    && new Date(Math.min.apply(null, oppfolgingsforlopsPeriodeData.map(periode => new Date(periode.fom))));
 
-export const hentOppfolgingsforlopSluttdato = (oppfolgingsforlopsPeriodeData) => {
-    return oppfolgingsforlopsPeriodeData.length > 0 && new Date(Math.max.apply(null, oppfolgingsforlopsPeriodeData.map((periode) => {
-        return new Date(periode.tom);
-    })));
-};
+export const hentOppfolgingsforlopSluttdato = oppfolgingsforlopsPeriodeData => oppfolgingsforlopsPeriodeData.length > 0
+    && new Date(Math.max.apply(null, oppfolgingsforlopsPeriodeData.map(periode => new Date(periode.tom))));
 
 export const skalViseMotebehovForOppfolgingsforlop = (oppfolgingsforlopsPerioderReducer) => {
     const startOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopStartdato(oppfolgingsforlopsPerioderReducer.data);
@@ -150,9 +125,8 @@ export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPer
             return false;
         }
 
-        return oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
-            return skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer);
-        }).length > 0;
+        return oppfolgingsforlopsPerioderReducerListe.filter(oppfolgingsforlopsPerioderReducer =>
+            skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer)).length > 0;
     } catch (e) {
         return false;
     }
@@ -165,9 +139,7 @@ export const erMotebehovTilgjengeligForOppfolgingsforlop = (state) => {
     return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov);
 };
 
-export const harMotebehovSvar = (state) => {
-    return state.motebehov.data.length > 0;
-};
+export const harMotebehovSvar = state => state.motebehov.data.length > 0;
 
 export const erMotebehovUbesvart = (state) => {
     try {

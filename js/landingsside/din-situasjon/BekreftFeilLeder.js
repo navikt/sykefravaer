@@ -5,24 +5,22 @@ import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes/index';
 import Feilstripe from '../../components/Feilstripe';
 
-export const LederAvkreftet = ({ onLukk }) => {
-    return (
-        <div>
-            <h3 className="hode hode--suksess panel__tittel">{getLedetekst('sykefravaer.endre-naermeste-leder.kvittering.tittel')}</h3>
-            <div className="knapperad">
-                <Knapp
-                    className="knapp js-lukk"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onLukk();
-                    }}
-                >
+export const LederAvkreftet = ({ onLukk }) => (
+    <div>
+        <h3 className="hode hode--suksess panel__tittel">{getLedetekst('sykefravaer.endre-naermeste-leder.kvittering.tittel')}</h3>
+        <div className="knapperad">
+            <Knapp
+                className="knapp js-lukk"
+                onClick={(e) => {
+                    e.preventDefault();
+                    onLukk();
+                }}
+            >
                     Lukk
-                </Knapp>
-            </div>
+            </Knapp>
         </div>
-    );
-};
+    </div>
+);
 
 LederAvkreftet.propTypes = {
     onLukk: PropTypes.func,

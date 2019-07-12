@@ -12,13 +12,11 @@ const Sidetopp = ({ tittel, htmlTekst = null, className }) => {
             </h1>
             <Vis
                 hvis={htmlTekst !== null}
-                render={() => {
-                    return (
-                        <div className="sidetopp__intro js-intro">
-                            <p dangerouslySetInnerHTML={htmlTekst} />
-                        </div>
-                    );
-                }} />
+                render={() => (
+                    <div className="sidetopp__intro js-intro">
+                        <p dangerouslySetInnerHTML={htmlTekst} />
+                    </div>
+                )} />
         </header>
     );
 };

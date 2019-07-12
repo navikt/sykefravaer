@@ -45,17 +45,15 @@ Nokkelopplysninger.propTypes = {
     sykmelding: sykmeldingPt,
 };
 
-const SykmeldingStatuspanel = ({ sykmelding }) => {
-    return (
-        <Statuspanel>
-            <Nokkelopplysninger sykmelding={sykmelding} />
-            {
-                sykmelding.status === sykmeldingstatuser.AVBRUTT
+const SykmeldingStatuspanel = ({ sykmelding }) => (
+    <Statuspanel>
+        <Nokkelopplysninger sykmelding={sykmelding} />
+        {
+            sykmelding.status === sykmeldingstatuser.AVBRUTT
                 && <GjenaapneSykmeldingContainer sykmeldingId={sykmelding.id} />
-            }
-        </Statuspanel>
-    );
-};
+        }
+    </Statuspanel>
+);
 
 SykmeldingStatuspanel.propTypes = {
     sykmelding: sykmeldingPt,

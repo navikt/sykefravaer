@@ -8,17 +8,15 @@ const DatoOgTid = (
         Tag = 'h4',
         className = '',
     },
-) => {
-    return (
-        <Tag className={`motetidspunkt__label ${className}`}>
-            <strong>{visDato(tid)}</strong>
-            <span>
+) => (
+    <Tag className={`motetidspunkt__label ${className}`}>
+        <strong>{visDato(tid)}</strong>
+        <span>
 kl.
-                {visKlokkeslett(tid)}
-            </span>
-        </Tag>
-    );
-};
+            {visKlokkeslett(tid)}
+        </span>
+    </Tag>
+);
 
 DatoOgTid.propTypes = {
     tid: PropTypes.instanceOf(Date),

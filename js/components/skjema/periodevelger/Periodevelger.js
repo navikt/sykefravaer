@@ -9,33 +9,29 @@ export const PeriodevelgerContext = React.createContext();
 
 const Periodevelger = ({
     name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3', initiellDato, onChange = null, onAddRemove,
-}) => {
-    return (
-        <PeriodevelgerContext.Provider value={{
-            namePrefix: name,
-            name,
-            tidligsteFom,
-            senesteTom,
-            initiellDato,
-            onChange,
-        }}>
-            <FieldArray
-                onAddRemove={onAddRemove}
-                onChange={onChange}
-                validate={(value) => {
-                    return harOverlappendePerioder(value)
-                        ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
-                        : undefined;
-                }}
-                Overskrift={Overskrift}
-                component={Periodeliste}
-                name={name}
-                namePrefix={name}
-                spoersmal={spoersmal}
-            />
-        </PeriodevelgerContext.Provider>
-    );
-};
+}) => (
+    <PeriodevelgerContext.Provider value={{
+        namePrefix: name,
+        name,
+        tidligsteFom,
+        senesteTom,
+        initiellDato,
+        onChange,
+    }}>
+        <FieldArray
+            onAddRemove={onAddRemove}
+            onChange={onChange}
+            validate={value => (harOverlappendePerioder(value)
+                ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
+                : undefined)}
+            Overskrift={Overskrift}
+            component={Periodeliste}
+            name={name}
+            namePrefix={name}
+            spoersmal={spoersmal}
+        />
+    </PeriodevelgerContext.Provider>
+);
 
 Periodevelger.propTypes = {
     name: PropTypes.string,

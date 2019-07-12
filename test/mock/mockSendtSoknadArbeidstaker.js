@@ -786,12 +786,10 @@ const soknad = {
 
 const mockSendtSoknadArbeidstaker = parseSoknad(soknad);
 
-export const getSendtSoknadArbeidstaker = (soknadArg = {}) => {
-    return {
-        ...soknad,
-        ...soknadArg,
-    };
-};
+export const getSendtSoknadArbeidstaker = (soknadArg = {}) => ({
+    ...soknad,
+    ...soknadArg,
+});
 
 /* eslint-enable max-len */
 

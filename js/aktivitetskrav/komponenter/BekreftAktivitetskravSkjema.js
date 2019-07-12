@@ -56,13 +56,11 @@ const form = reduxForm({
     validate,
 })(Aktivitetskrav);
 
-const mapStateToProps = (state) => {
-    return {
-        ledetekster: selectLedeteksterData(state),
-        bekrefter: state.aktivitetskrav.bekrefter,
-        bekreftFeilet: state.aktivitetskrav.bekreftFeilet,
-    };
-};
+const mapStateToProps = state => ({
+    ledetekster: selectLedeteksterData(state),
+    bekrefter: state.aktivitetskrav.bekrefter,
+    bekreftFeilet: state.aktivitetskrav.bekreftFeilet,
+});
 
 const connectedForm = connect(mapStateToProps, { actions: { bekreftAktivitetskrav } })(form);
 

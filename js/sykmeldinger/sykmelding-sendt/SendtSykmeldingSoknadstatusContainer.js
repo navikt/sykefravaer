@@ -35,10 +35,8 @@ Container.propTypes = {
 
 export const mapStateToProps = (state, ownProps) => {
     const sykepengesoknader = state.sykepengesoknader.data
-        .filter((soknad) => {
-            return !soknad.korrigerer
-                && soknad.sykmeldingId === ownProps.sykmelding.id;
-        });
+        .filter(soknad => !soknad.korrigerer
+                && soknad.sykmeldingId === ownProps.sykmelding.id);
     const henter = !state.sykepengesoknader.hentet || state.sykepengesoknader.henter;
 
     return {

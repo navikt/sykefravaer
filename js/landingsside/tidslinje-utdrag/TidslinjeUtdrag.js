@@ -79,42 +79,38 @@ const tekster = {};
 tekster[MED_ARBEIDSGIVER] = teksterMedArbeidsgiver;
 tekster[UTEN_ARBEIDSGIVER] = teksterUtenArbeidsgiver;
 
-const TittelIngress = ({ nokkelbase, bilde }) => {
-    return (
-        <div className="tidslinjeutdrag">
-            <img className="tidslinjeutdrag__bilde" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/tidslinjeutdrag/${bilde}`} alt="" />
-            <div className="tidslinjeutdrag__intro">
-                <h2 className="tidslinjeutdrag__tittel">{getLedetekst(`${nokkelbase}.tittel`)}</h2>
-                <div
-                    className="tidslinjeutdrag__ingress redaksjonelt-innhold"
-                    dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.ingress`,
-                        { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
-            </div>
+const TittelIngress = ({ nokkelbase, bilde }) => (
+    <div className="tidslinjeutdrag">
+        <img className="tidslinjeutdrag__bilde" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/tidslinjeutdrag/${bilde}`} alt="" />
+        <div className="tidslinjeutdrag__intro">
+            <h2 className="tidslinjeutdrag__tittel">{getLedetekst(`${nokkelbase}.tittel`)}</h2>
+            <div
+                className="tidslinjeutdrag__ingress redaksjonelt-innhold"
+                dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.ingress`,
+                    { '%ARBEIDSRETTETOPPFOLGING%': `${window.location.origin}/sykefravaer/arbeidsrettet-oppfolging` })} />
         </div>
-    );
-};
+    </div>
+);
 
 TittelIngress.propTypes = {
     nokkelbase: PropTypes.string,
     bilde: PropTypes.string,
 };
 
-export const VelgArbeidssituasjon = (props) => {
-    return (
-        <Radiofaner
-            {...props}
-            className="radiofaner__valg--tidslinjeutdrag"
-            radioName="tidslinjeutdragvisning"
-            alternativer={[{
-                verdi: MED_ARBEIDSGIVER,
-                tittel: 'Jeg har arbeidsgiver',
-            }, {
-                verdi: UTEN_ARBEIDSGIVER,
-                tittel: 'Jeg har ikke arbeidsgiver',
-            }]}
-        />
-    );
-};
+export const VelgArbeidssituasjon = props => (
+    <Radiofaner
+        {...props}
+        className="radiofaner__valg--tidslinjeutdrag"
+        radioName="tidslinjeutdragvisning"
+        alternativer={[{
+            verdi: MED_ARBEIDSGIVER,
+            tittel: 'Jeg har arbeidsgiver',
+        }, {
+            verdi: UTEN_ARBEIDSGIVER,
+            tittel: 'Jeg har ikke arbeidsgiver',
+        }]}
+    />
+);
 
 const track = (event) => {
     /* eslint-disable quote-props */
@@ -168,9 +164,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
 
     getTekstObjekt() {
         const { antallDager } = this.props;
-        return tekster[this.state.visning].filter((t) => {
-            return t.fom <= antallDager && t.tom >= antallDager;
-        })[0];
+        return tekster[this.state.visning].filter(t => t.fom <= antallDager && t.tom >= antallDager)[0];
     }
 
     getNokkelbase() {
@@ -273,9 +267,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
                 </article>
                 <Vis
                     hvis={this.props.visning !== UTEN_ARBEIDSGIVER}
-                    render={() => {
-                        return <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />;
-                    }} />
+                    render={() => <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />} />
             </div>
         );
     }

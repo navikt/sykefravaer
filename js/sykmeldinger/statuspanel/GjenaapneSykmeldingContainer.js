@@ -19,9 +19,7 @@ function GjenaapneSykmeldingContainer({
                         autoDisableVedSpinner
                         className="js-gjenaapne-sykmelding"
                         spinner={gjenaapner}
-                        onClick={() => {
-                            return gjenaapneSykmeldingConnected(sykmeldingId);
-                        }}>
+                        onClick={() => gjenaapneSykmeldingConnected(sykmeldingId)}>
                         {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
                     </Knapp>
                 </div>
@@ -40,11 +38,9 @@ GjenaapneSykmeldingContainer.propTypes = {
     gjenaapner: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
-    return {
-        gjenaapneFeilet: state.dineSykmeldinger.gjenaapneFeilet,
-        gjenaapner: state.dineSykmeldinger.gjenaapner,
-    };
-};
+const mapStateToProps = state => ({
+    gjenaapneFeilet: state.dineSykmeldinger.gjenaapneFeilet,
+    gjenaapner: state.dineSykmeldinger.gjenaapner,
+});
 
 export default connect(mapStateToProps, { gjenaapneSykmeldingConnected: gjenaapneSykmelding })(GjenaapneSykmeldingContainer);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { senesteTom, sykmeldingstatuser, arbeidssituasjoner } from '@navikt/digisyfo-npm';
+import { arbeidssituasjoner, senesteTom, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from './TidslinjeUtdrag';
@@ -53,19 +53,15 @@ const getSykefravaerVarighet = (state) => {
                 : antallDager;
 };
 
-export const skalViseUtdrag = (state) => {
-    return !state.dineSykmeldinger.data
-        ? false
-        : state.dineSykmeldinger.data
-            .filter((s) => {
-                const tom = senesteTom(s.mulighetForArbeid.perioder);
-                const SJU_DAGER = ETT_DOGN * 7;
-                return new Date().getTime() - tom.getTime() < SJU_DAGER;
-            })
-            .filter((s) => {
-                return [SENDT, TIL_SENDING, NY, BEKREFTET].indexOf(s.status) > -1;
-            }).length > 0;
-};
+export const skalViseUtdrag = state => (!state.dineSykmeldinger.data
+    ? false
+    : state.dineSykmeldinger.data
+        .filter((s) => {
+            const tom = senesteTom(s.mulighetForArbeid.perioder);
+            const SJU_DAGER = ETT_DOGN * 7;
+            return new Date().getTime() - tom.getTime() < SJU_DAGER;
+        })
+        .filter(s => [SENDT, TIL_SENDING, NY, BEKREFTET].indexOf(s.status) > -1).length > 0);
 
 const getVisning = (state) => {
     const { startdato } = state.sykeforloep;
@@ -74,29 +70,28 @@ const getVisning = (state) => {
         return VALGFRI;
     }
 
-    const sykmeldingerForDetteSykeforloepet = dineSykmeldinger.filter((s) => {
-        return s.identdato.getTime() >= startdato.getTime();
-    });
+    const sykmeldingerForDetteSykeforloepet = dineSykmeldinger.filter(s => s.identdato.getTime() >= startdato.getTime());
 
-    const sykmeldingerForDetteSykeforloepetSomIkkeErNye = sykmeldingerForDetteSykeforloepet.filter((s) => {
-        return s.status !== NY;
-    });
+    const sykmeldingerForDetteSykeforloepetSomIkkeErNye = sykmeldingerForDetteSykeforloepet.filter(s => s.status !== NY);
 
-    const harBareNyeSykmeldinger = sykmeldingerForDetteSykeforloepet.filter((s) => {
-        return s.status === NY;
-    }).length === sykmeldingerForDetteSykeforloepet.length;
+    const harBareNyeSykmeldinger = sykmeldingerForDetteSykeforloepet.filter(s => s.status === NY).length === sykmeldingerForDetteSykeforloepet.length;
 
     if (harBareNyeSykmeldinger) {
         return VALGFRI;
     }
 
-    const harBareSendteSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
-        return s.status === SENDT || s.status === TIL_SENDING || (s.status === BEKREFTET && s.valgtArbeidssituasjon === arbeidssituasjoner.ARBEIDSTAKER);
-    }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
+    const harBareSendteSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye
+        .filter(s =>
+            s.status === SENDT
+            || s.status === TIL_SENDING
+            || (s.status === BEKREFTET && s.valgtArbeidssituasjon === arbeidssituasjoner.ARBEIDSTAKER))
+        .length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
 
-    const harBareBekreftedeSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
-        return s.status === BEKREFTET && s.valgtArbeidssituasjon !== arbeidssituasjoner.ARBEIDSTAKER;
-    }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
+    const harBareBekreftedeSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye
+        .filter(s =>
+            s.status === BEKREFTET
+            && s.valgtArbeidssituasjon !== arbeidssituasjoner.ARBEIDSTAKER)
+        .length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
 
     if (harBareSendteSykmeldinger) {
         return MED_ARBEIDSGIVER;

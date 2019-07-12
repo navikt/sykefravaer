@@ -18,9 +18,7 @@ const _originalWindow = global.window;
 
 const storage = {};
 const _localStorage = {};
-_localStorage.getItem = (key) => {
-    return storage[key];
-};
+_localStorage.getItem = key => storage[key];
 _localStorage.setItem = (key, value) => {
     storage[key] = value;
 };

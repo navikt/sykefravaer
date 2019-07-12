@@ -9,25 +9,23 @@ import { connect } from 'react-redux';
 
 const { NY } = sykmeldingstatuser;
 
-const EldreSykmeldingVarsel = ({ visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
-    return visEldreSykmeldingVarsel
-        ? (
-            <Alertstripe type="info" className="blokk">
-                <p className="sist">
-                    <span>
-                        {getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')}
-                        {' '}
-                    </span>
-                    <Link
-                        className="lenke"
-                        to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${eldsteSykmeldingId}`}>
-                        {getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}
-                    </Link>
-                </p>
-            </Alertstripe>
-        )
-        : null;
-};
+const EldreSykmeldingVarsel = ({ visEldreSykmeldingVarsel, eldsteSykmeldingId }) => (visEldreSykmeldingVarsel
+    ? (
+        <Alertstripe type="info" className="blokk">
+            <p className="sist">
+                <span>
+                    {getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')}
+                    {' '}
+                </span>
+                <Link
+                    className="lenke"
+                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${eldsteSykmeldingId}`}>
+                    {getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}
+                </Link>
+            </p>
+        </Alertstripe>
+    )
+    : null);
 
 EldreSykmeldingVarsel.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
@@ -35,9 +33,7 @@ EldreSykmeldingVarsel.propTypes = {
 };
 
 const getEldsteNyeSykmelding = (sykmeldinger) => {
-    const nyeSykmeldinger = sykmeldinger.filter((_sykmelding) => {
-        return _sykmelding.status === NY;
-    });
+    const nyeSykmeldinger = sykmeldinger.filter(_sykmelding => _sykmelding.status === NY);
     return sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)[0];
 };
 
@@ -52,9 +48,7 @@ const detFinnesAndreSykmeldingerMedSammePeriode = (sykmeldinger, sykmeldingId) =
         return false;
     }
     const denneSykmeldingensPerioder = JSON.stringify(sykmelding.mulighetForArbeid.perioder);
-    const antallMedSammePerioder = sykmeldinger.filter((_sykmelding) => {
-        return JSON.stringify(_sykmelding.mulighetForArbeid.perioder) === denneSykmeldingensPerioder;
-    }).length;
+    const antallMedSammePerioder = sykmeldinger.filter(_sykmelding => JSON.stringify(_sykmelding.mulighetForArbeid.perioder) === denneSykmeldingensPerioder).length;
     return antallMedSammePerioder > 1;
 };
 
@@ -65,9 +59,7 @@ const harSammePeriodeSomDenEldsteSykmeldingen = (sykmeldinger, sykmeldingId) => 
 };
 
 const visEldreSykmeldingVarsel = (sykmeldinger, sykmeldingId) => {
-    const nyeSykmeldinger = sykmeldinger.filter((s) => {
-        return s.status === NY;
-    });
+    const nyeSykmeldinger = sykmeldinger.filter(s => s.status === NY);
     const erEldst = erEldsteSykmelding(nyeSykmeldinger, sykmeldingId);
     return erEldst
         ? false

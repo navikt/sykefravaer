@@ -22,24 +22,20 @@ const initiellState = {
     hentet: false,
 };
 
-const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => {
-    return sykmeldinger.map((sykmelding) => {
-        let _sykmelding = { ...sykmelding };
-        if (_sykmelding.id === sykmeldingId) {
-            _sykmelding = { ..._sykmelding, ...props };
-        }
-        return _sykmelding;
-    });
-};
+const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => sykmeldinger.map((sykmelding) => {
+    let _sykmelding = { ...sykmelding };
+    if (_sykmelding.id === sykmeldingId) {
+        _sykmelding = { ..._sykmelding, ...props };
+    }
+    return _sykmelding;
+});
 
 export default function arbeidsgiversSykmeldinger(state = initiellState, action = {}) {
     switch (action.type) {
         case SET_ARBEIDSGIVERS_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
                 return {
-                    data: action.sykmeldinger.map((s) => {
-                        return parseSykmelding(s);
-                    }),
+                    data: action.sykmeldinger.map(s => parseSykmelding(s)),
                     henter: false,
                     hentingFeilet: false,
                     hentet: true,
@@ -47,9 +43,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action 
             }
             return {
                 data: state.data.map((gammelSykmelding) => {
-                    const nySykmelding = action.sykmeldinger.filter((sykmld) => {
-                        return sykmld.id === gammelSykmelding.id;
-                    })[0];
+                    const nySykmelding = action.sykmeldinger.filter(sykmld => sykmld.id === gammelSykmelding.id)[0];
                     return { ...gammelSykmelding, ...parseSykmelding(nySykmelding) };
                 }),
                 henter: false,

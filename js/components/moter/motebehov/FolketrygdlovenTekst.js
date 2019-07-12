@@ -7,20 +7,18 @@ export const TEKSTER = {
 };
 /* eslint-enable max-len */
 
-const FolketrygdlovenTekst = () => {
-    return (
-        <div className="panel folketrygdlovenTekst">
-            <p>
-                {TEKSTER.folketrygdloven}
-                <a
-                    className="lenke"
-                    href="https://www.nav.no/no/Bedrift/Oppfolging/Sykmeldt+arbeidstaker/Relatert+informasjon/oppfolging-av-sykmeldte-arbeidstakere?kap=394785"
-                    title="Følg lenke">
-                    {TEKSTER.lenke}
-                </a>
-            </p>
-        </div>
-    );
-};
+const FolketrygdlovenTekst = () => (
+    <div className="panel folketrygdlovenTekst">
+        <p>
+            {TEKSTER.folketrygdloven}
+            <a
+                className="lenke"
+                href="https://www.nav.no/no/Bedrift/Oppfolging/Sykmeldt+arbeidstaker/Relatert+informasjon/oppfolging-av-sykmeldte-arbeidstakere?kap=394785"
+                title="Følg lenke">
+                {TEKSTER.lenke}
+            </a>
+        </p>
+    </div>
+);
 
 export default FolketrygdlovenTekst;

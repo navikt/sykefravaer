@@ -24,11 +24,9 @@ describe('DinSykmeldingSkjema -', () => {
     let state;
     let getState;
 
-    const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
-        return {
-            opplysning: feilaktigeOpplysningerEnums[key],
-        };
-    });
+    const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map(key => ({
+        opplysning: feilaktigeOpplysningerEnums[key],
+    }));
 
     let actions;
     let getComponent;
@@ -57,16 +55,14 @@ describe('DinSykmeldingSkjema -', () => {
             },
         };
 
-        getState = (_values = {}, _state = state) => {
-            return {
-                ..._state,
-                form: {
-                    [getSykmeldingSkjemanavn('sykmelding-id')]: {
-                        values: _values,
-                    },
+        getState = (_values = {}, _state = state) => ({
+            ..._state,
+            form: {
+                [getSykmeldingSkjemanavn('sykmelding-id')]: {
+                    values: _values,
                 },
-            };
-        };
+            },
+        });
 
         ownProps = {
             sykmelding: getSykmelding({
@@ -74,9 +70,7 @@ describe('DinSykmeldingSkjema -', () => {
             }),
         };
         actions = {};
-        getComponent = (s = getState()) => {
-            return mountWithStore(<DinSykmeldingSkjema {...ownProps} />, s);
-        };
+        getComponent = (s = getState()) => mountWithStore(<DinSykmeldingSkjema {...ownProps} />, s);
     });
 
     it('Skal vise VelgArbeidssituasjon', () => {

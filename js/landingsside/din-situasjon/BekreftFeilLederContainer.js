@@ -19,9 +19,7 @@ Container.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     return {
-        leder: state.ledere.data.filter((leder) => {
-            return leder.orgnummer === ownProps.orgnummer;
-        })[0],
+        leder: state.ledere.data.filter(leder => leder.orgnummer === ownProps.orgnummer)[0],
         onAvbryt: ownProps.onAvbryt,
         avkrefter: state.ledere.avkrefter,
         avkreftFeilet: state.ledere.avkreftFeilet,

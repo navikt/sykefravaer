@@ -1,28 +1,18 @@
 import { CHECKED, UNCHECKED } from '../enums/svarEnums';
 
-export const genererParseForEnkeltverdi = () => {
-    return (verdi) => {
-        return verdi || verdi === ''
-            ? {
-                svarverdier: [{
-                    verdi,
-                }],
-            }
-            : undefined;
-    };
-};
+export const genererParseForEnkeltverdi = () => verdi => (verdi || verdi === ''
+    ? {
+        svarverdier: [{
+            verdi,
+        }],
+    }
+    : undefined);
 
-export const genererParseForFlereVerdier = () => {
-    return (verdier = []) => {
-        return {
-            svarverdier: verdier.map((verdi) => {
-                return {
-                    verdi,
-                };
-            }),
-        };
-    };
-};
+export const genererParseForFlereVerdier = () => (verdier = []) => ({
+    svarverdier: verdier.map(verdi => ({
+        verdi,
+    })),
+});
 
 export const genererParseForCheckbox = () => {
     const parse = genererParseForEnkeltverdi();
@@ -43,13 +33,9 @@ export const formaterEnkeltverdi = (value) => {
     }
 };
 
-export const formaterFlereVerdier = (verdi) => {
-    return !verdi || !verdi.svarverdier
-        ? []
-        : verdi.svarverdier.map((svarverdi) => {
-            return svarverdi.verdi;
-        });
-};
+export const formaterFlereVerdier = verdi => (!verdi || !verdi.svarverdier
+    ? []
+    : verdi.svarverdier.map(svarverdi => svarverdi.verdi));
 
 export const fjernIndexFraTag = (tag) => {
     const separator = '_';
@@ -61,8 +47,4 @@ export const fjernIndexFraTag = (tag) => {
     return tag;
 };
 
-export const tagMatcher = (tags, inputTag) => {
-    return tags.filter((tag) => {
-        return inputTag.indexOf(tag) > -1;
-    }).length > 0;
-};
+export const tagMatcher = (tags, inputTag) => tags.filter(tag => inputTag.indexOf(tag) > -1).length > 0;

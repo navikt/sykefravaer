@@ -1,18 +1,14 @@
 import {
-    HENT_MOTEBEHOV_HENTER,
-    HENT_MOTEBEHOV_HENTET,
     HENT_MOTEBEHOV_FEILET,
     HENT_MOTEBEHOV_FORBUDT,
+    HENT_MOTEBEHOV_HENTER,
+    HENT_MOTEBEHOV_HENTET,
     SVAR_MOTEBEHOV_SENDT,
 } from './motebehov_actions';
 
-export const sorterMotebehovEtterNyeste = (motebehovListe) => {
-    return [...motebehovListe].filter((element) => {
-        return element.aktorId === element.opprettetAv;
-    }).sort((t1, t2) => {
-        return t2.opprettetDato - t1.opprettetDato;
-    });
-};
+export const sorterMotebehovEtterNyeste = motebehovListe => [...motebehovListe]
+    .filter(element => element.aktorId === element.opprettetAv)
+    .sort((t1, t2) => t2.opprettetDato - t1.opprettetDato);
 
 const initiellState = {
     henter: false,

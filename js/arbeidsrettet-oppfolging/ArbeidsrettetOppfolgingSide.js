@@ -59,18 +59,16 @@ ArbeidsrettetOppfolgingSide.propTypes = {
     maksDatoString: PropTypes.string,
 };
 
-const mapStateToProps = (state) => {
-    return {
-        henter: selectLedeteksterHenter(state)
+const mapStateToProps = state => ({
+    henter: selectLedeteksterHenter(state)
             || selectOppfolgingHenter(state)
             || selectSykmeldtinfodataHenter(state),
-        hentingFeilet: selectLedeteksterHentingFeilet(state)
+    hentingFeilet: selectLedeteksterHentingFeilet(state)
             || selectOppfolgingHentingFeilet(state)
             || selectSykmeldtinfodataHentingFeilet(state),
-        underOppfolging: selectOppfolgingErUnderOppfolging(state),
-        maksDatoString: selectSykmeldtinfodataMaksdatoString(state),
-    };
-};
+    underOppfolging: selectOppfolgingErUnderOppfolging(state),
+    maksDatoString: selectSykmeldtinfodataMaksdatoString(state),
+});
 
 const actionCreators = {
     doHentOppfolging: hentOppfolging,

@@ -4,21 +4,19 @@ import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Arbeidssituasjoner from './Arbeidssituasjoner';
 
-const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => {
-    return (
-        <div className="landingspanel din-situasjon">
-            <header className="din-situasjon__header">
-                <img
-                    className="din-situasjon__ikon"
-                    src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/arbeidssituasjon.svg`}
-                    alt="Arbeidssituasjon" />
-                <h2 className="din-situasjon__tittel">{getLedetekst('din-situasjon.tittel.2')}</h2>
-                <Hjelpetekst>{getLedetekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
-            </header>
-            <Arbeidssituasjoner arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
-        </div>
-    );
-};
+const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => (
+    <div className="landingspanel din-situasjon">
+        <header className="din-situasjon__header">
+            <img
+                className="din-situasjon__ikon"
+                src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/arbeidssituasjon.svg`}
+                alt="Arbeidssituasjon" />
+            <h2 className="din-situasjon__tittel">{getLedetekst('din-situasjon.tittel.2')}</h2>
+            <Hjelpetekst>{getLedetekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
+        </header>
+        <Arbeidssituasjoner arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
+    </div>
+);
 
 DinSituasjon.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(PropTypes.string),

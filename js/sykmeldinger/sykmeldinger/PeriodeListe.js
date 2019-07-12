@@ -1,5 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import SykmeldingPeriodeinfo from './SykmeldingPeriodeinfo';

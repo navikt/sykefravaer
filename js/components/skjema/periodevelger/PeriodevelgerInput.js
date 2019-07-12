@@ -1,4 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';

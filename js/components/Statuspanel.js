@@ -3,13 +3,11 @@ import { SykmeldingNokkelOpplysning } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-export const StatusNokkelopplysning = ({ children, Overskrift = 'h2', tittel }) => {
-    return (
-        <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift={Overskrift} tittel={tittel}>
-            {children}
-        </SykmeldingNokkelOpplysning>
-    );
-};
+export const StatusNokkelopplysning = ({ children, Overskrift = 'h2', tittel }) => (
+    <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift={Overskrift} tittel={tittel}>
+        {children}
+    </SykmeldingNokkelOpplysning>
+);
 
 StatusNokkelopplysning.propTypes = {
     children: PropTypes.node,
@@ -17,13 +15,11 @@ StatusNokkelopplysning.propTypes = {
     tittel: PropTypes.string,
 };
 
-export const Statusopplysninger = ({ children }) => {
-    return (
-        <div className="statusopplysninger">
-            {children}
-        </div>
-    );
-};
+export const Statusopplysninger = ({ children }) => (
+    <div className="statusopplysninger">
+        {children}
+    </div>
+);
 
 Statusopplysninger.propTypes = {
     children: PropTypes.node,

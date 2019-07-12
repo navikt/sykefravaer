@@ -1,5 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
-
 import React from 'react';
 import {
     getDuration, getLedetekst, senesteTom, tidligsteFom, tilLesbarPeriodeMedArstall,

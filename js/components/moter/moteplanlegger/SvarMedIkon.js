@@ -10,17 +10,13 @@ import { ARBEIDSGIVER } from '../../../enums/moteplanleggerDeltakerTyper';
 
 const { PASSER, PASSER_IKKE } = MULIGE_SVAR;
 
-const getIkonsti = (filnavn) => {
-    return `${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${filnavn}`;
-};
+const getIkonsti = filnavn => `${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${filnavn}`;
 
-const Ikon = ({ ikon }) => {
-    return (
-        <div className="alternativsvar__ikon">
-            <img src={getIkonsti(ikon)} className="js-ikon-passer" alt="" />
-        </div>
-    );
-};
+const Ikon = ({ ikon }) => (
+    <div className="alternativsvar__ikon">
+        <img src={getIkonsti(ikon)} className="js-ikon-passer" alt="" />
+    </div>
+);
 
 Ikon.propTypes = {
     ikon: PropTypes.string.isRequired,
@@ -62,38 +58,34 @@ const getIkonFilnavn = (bruker, svar) => {
     }
 };
 
-const Svartekst = ({ tekst, deltakertype }) => {
-    return (
-        <div className="alternativsvar__tekst">
-            <p>
-                <span className="alternativsvar__deltakertype">
-                    {deltakertype}
+const Svartekst = ({ tekst, deltakertype }) => (
+    <div className="alternativsvar__tekst">
+        <p>
+            <span className="alternativsvar__deltakertype">
+                {deltakertype}
 :
-                </span>
-                {' '}
-                {tekst}
-            </p>
-        </div>
-    );
-};
+            </span>
+            {' '}
+            {tekst}
+        </p>
+    </div>
+);
 
 Svartekst.propTypes = {
     tekst: PropTypes.string.isRequired,
     deltakertype: PropTypes.string.isRequired,
 };
 
-export const NavKan = () => {
-    return (
-        <li className="alternativsvar__svar js-navssvar">
-            <Ikon ikon="status--kan.svg" />
-            <Svartekst
-                deltakertype="NAV"
-                tekst={getLedetekst('mote.svar.status.kan-mote', {
-                    '%NAVN%': 'Veilederen',
-                })} />
-        </li>
-    );
-};
+export const NavKan = () => (
+    <li className="alternativsvar__svar js-navssvar">
+        <Ikon ikon="status--kan.svg" />
+        <Svartekst
+            deltakertype="NAV"
+            tekst={getLedetekst('mote.svar.status.kan-mote', {
+                '%NAVN%': 'Veilederen',
+            })} />
+    </li>
+);
 
 export const SvarMedIkon = (
     {

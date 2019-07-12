@@ -14,9 +14,7 @@ const Kvittering = (
     },
 ) => {
     const tidsted = `${visDato(mote.bekreftetAlternativ.tid).toLowerCase()} kl. ${visKlokkeslett(mote.bekreftetAlternativ.tid)} i ${mote.bekreftetAlternativ.sted}`;
-    const innloggetBruker = mote.deltakere.filter((deltaker) => {
-        return deltaker.type === deltakertype;
-    })[0];
+    const innloggetBruker = mote.deltakere.filter(deltaker => deltaker.type === deltakertype)[0];
 
     const nokkel = deltakertype === BRUKER
         ? 'mote.kvittering.bekreftet.ring.arbeidstaker'

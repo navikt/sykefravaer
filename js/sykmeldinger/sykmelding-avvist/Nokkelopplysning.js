@@ -1,4 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
 import PT from 'prop-types';
 import React from 'react';
 import cn from 'classnames';

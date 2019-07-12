@@ -38,26 +38,22 @@ const initiellState = {
     data: [],
 };
 
-const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
-    return _sykmeldinger.map((sykmelding) => {
-        if (sykmelding.id === sykmeldingId) {
-            return {
-                ...sykmelding,
-                ...props,
-            };
-        }
-        return { ...sykmelding };
-    });
-};
+const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => _sykmeldinger.map((sykmelding) => {
+    if (sykmelding.id === sykmeldingId) {
+        return {
+            ...sykmelding,
+            ...props,
+        };
+    }
+    return { ...sykmelding };
+});
 
 const dineSykmeldinger = (state = initiellState, action = {}) => {
     switch (action.type) {
         case SET_DINE_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
                 return {
-                    data: action.sykmeldinger.map((s) => {
-                        return parseSykmelding(s);
-                    }),
+                    data: action.sykmeldinger.map(s => parseSykmelding(s)),
                     henter: false,
                     hentingFeilet: false,
                     hentet: true,
@@ -65,9 +61,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
             }
             return {
                 data: state.data.map((gammelSykmelding) => {
-                    const nySykmelding = action.sykmeldinger.filter((sykmld) => {
-                        return sykmld.id === gammelSykmelding.id;
-                    })[0];
+                    const nySykmelding = action.sykmeldinger.filter(sykmld => sykmld.id === gammelSykmelding.id)[0];
                     return {
                         ...gammelSykmelding,
                         ...parseSykmelding(nySykmelding),

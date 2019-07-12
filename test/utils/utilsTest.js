@@ -147,9 +147,7 @@ describe('utils', () => {
             const toMount = (
                 <Vis
                     hvis
-                    render={() => {
-                        return <p>Olsen</p>;
-                    }} />
+                    render={() => <p>Olsen</p>} />
             );
             const component = mount(toMount);
             expect(component.html()).to.equal('<p>Olsen</p>');
@@ -159,9 +157,7 @@ describe('utils', () => {
             const toMount = (
                 <Vis
                     hvis={false}
-                    render={() => {
-                        return <p>Olsen</p>;
-                    }} />
+                    render={() => <p>Olsen</p>} />
             );
             const component = mount(toMount);
             expect(component.html()).to.equal(null);

@@ -1,15 +1,7 @@
-const selectLedeteksterSlice = (state) => {
-    return state.ledetekster;
-};
+const selectLedeteksterSlice = state => state.ledetekster;
 
-export const selectLedeteksterData = (state) => {
-    return selectLedeteksterSlice(state).data;
-};
+export const selectLedeteksterData = state => selectLedeteksterSlice(state).data;
 
-export const selectLedeteksterHenter = (state) => {
-    return selectLedeteksterSlice(state).henter;
-};
+export const selectLedeteksterHenter = state => selectLedeteksterSlice(state).henter;
 
-export const selectLedeteksterHentingFeilet = (state) => {
-    return selectLedeteksterSlice(state).hentingFeilet;
-};
+export const selectLedeteksterHentingFeilet = state => selectLedeteksterSlice(state).hentingFeilet;

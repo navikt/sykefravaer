@@ -5,11 +5,9 @@ import { AKTIVITETSKRAV_BEKREFTET } from '../../enums/hendelsetyper';
 import DetteHarSkjedd from './DetteHarSkjedd';
 import { hendelse } from '../../propTypes/index';
 
-export const Container = ({ visDetteHarSkjedd, hendelser }) => {
-    return visDetteHarSkjedd
-        ? <DetteHarSkjedd hendelser={hendelser} />
-        : null;
-};
+export const Container = ({ visDetteHarSkjedd, hendelser }) => (visDetteHarSkjedd
+    ? <DetteHarSkjedd hendelser={hendelser} />
+    : null);
 
 Container.propTypes = {
     visDetteHarSkjedd: PropTypes.bool,
@@ -17,9 +15,7 @@ Container.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    const hendelser = state.hendelser.data.filter((h) => {
-        return h.type === AKTIVITETSKRAV_BEKREFTET;
-    });
+    const hendelser = state.hendelser.data.filter(h => h.type === AKTIVITETSKRAV_BEKREFTET);
     return {
         hendelser,
         visDetteHarSkjedd: hendelser.length > 0,

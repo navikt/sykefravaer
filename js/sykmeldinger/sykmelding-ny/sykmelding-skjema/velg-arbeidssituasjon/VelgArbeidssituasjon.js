@@ -17,16 +17,10 @@ const {
 
 const arbeidssituasjoner = [NAERINGSDRIVENDE, FRILANSER, ARBEIDSTAKER, ARBEIDSLEDIG, ANNET];
 
-const harValgtArbeidsgiver = (svar, arbeidsgivere) => {
-    return arbeidsgivere.find((s) => {
-        return s.orgnummer === svar;
-    }) !== undefined;
-};
+const harValgtArbeidsgiver = (svar, arbeidsgivere) => arbeidsgivere.find(s => s.orgnummer === svar) !== undefined;
 
 export const harValgtArbeidsgiverMedNaermesteLeder = (svar, arbeidsgivere) => {
-    const valgtArbeidsgiver = arbeidsgivere.find((s) => {
-        return s.orgnummer === svar;
-    });
+    const valgtArbeidsgiver = arbeidsgivere.find(s => s.orgnummer === svar);
     return harValgtArbeidsgiver(svar, arbeidsgivere) && valgtArbeidsgiver.naermesteLeder !== null;
 };
 
@@ -51,15 +45,13 @@ export const RendreVelgArbeidssituasjon = ({
                 hjelpetekst={<Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>}>
                 {
                     alternativer
-                        .map((alternativ, index) => {
-                            return (
-                                <i
-                                    key={index}
-                                    label={alternativ.label}
-                                    value={alternativ.value}
-                                    labelSekundaer={alternativ.labelSekundaer} />
-                            );
-                        })
+                        .map((alternativ, index) => (
+                            <i
+                                key={index}
+                                label={alternativ.label}
+                                value={alternativ.value}
+                                labelSekundaer={alternativ.labelSekundaer} />
+                        ))
                 }
             </Radioknapper>
             {gdpr}
@@ -87,9 +79,7 @@ export const visTillegg = (props) => {
 
 export const Velg = (props) => {
     const { input, sykmelding, arbeidsgivere } = props;
-    const valgtArbeidsgiver = arbeidsgivere.find((s) => {
-        return s.orgnummer === input.value;
-    });
+    const valgtArbeidsgiver = arbeidsgivere.find(s => s.orgnummer === input.value);
     const tillegg = input.value === ARBEIDSTAKER
         ? <SkrivUtSykmeldingDialog sykmelding={sykmelding} />
         : harValgtArbeidsgiverMedNaermesteLeder(input.value, arbeidsgivere)
@@ -118,32 +108,26 @@ RendreVelgArbeidssituasjon.propTypes = {
     meta: fieldPropTypes.meta,
 };
 
-export const getArbeidsgivere = (arbeidsgivere) => {
-    return arbeidsgivere.map((a) => {
-        return {
-            label: a.navn,
-            value: a.orgnummer,
-            labelSekundaer: `(${getLedetekst('send-til-arbeidsgiver.orgnr')}: ${formaterOrgnr(a.orgnummer)})`,
-        };
-    });
-};
+export const getArbeidsgivere = arbeidsgivere => arbeidsgivere.map(a => ({
+    label: a.navn,
+    value: a.orgnummer,
+    labelSekundaer: `(${getLedetekst('send-til-arbeidsgiver.orgnr')}: ${formaterOrgnr(a.orgnummer)})`,
+}));
 
-export const getArbeidsgivereOgArbeidssituasjoner = (arbeidsgivere) => {
-    return [
-        ...getArbeidsgivere(arbeidsgivere),
-        ...arbeidssituasjoner.map((value) => {
-            const label = arbeidsgivere.length > 0
+export const getArbeidsgivereOgArbeidssituasjoner = arbeidsgivere => [
+    ...getArbeidsgivere(arbeidsgivere),
+    ...arbeidssituasjoner.map((value) => {
+        const label = arbeidsgivere.length > 0
                 && value === ARBEIDSTAKER
-                ? getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${value.toLowerCase()}-annen-arbeidsgiver.2`)
-                : getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${value.toLowerCase()}.2`);
+            ? getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${value.toLowerCase()}-annen-arbeidsgiver.2`)
+            : getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${value.toLowerCase()}.2`);
 
-            return {
-                value,
-                label,
-            };
-        }),
-    ];
-};
+        return {
+            value,
+            label,
+        };
+    }),
+];
 
 export const getAlternativer = (arbeidsgivere, state = {}) => {
     const flereValg = {
@@ -171,9 +155,7 @@ class VelgArbeidssituasjon extends Component {
         const { arbeidsgivere, autofill } = this.props;
 
         if (harValgtArbeidsgiver(value, arbeidsgivere)) {
-            const valgtArbeidsgiver = arbeidsgivere.find((ag) => {
-                return ag.orgnummer === value;
-            });
+            const valgtArbeidsgiver = arbeidsgivere.find(ag => ag.orgnummer === value);
             autofill('valgtArbeidsgiver', valgtArbeidsgiver);
             autofill('valgtArbeidssituasjon', ARBEIDSTAKER);
         } else if (value === ANNEN_ARBEIDSSITUASJON) {

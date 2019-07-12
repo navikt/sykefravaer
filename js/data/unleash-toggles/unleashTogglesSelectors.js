@@ -11,21 +11,13 @@ export const toggleSelvstendigSoknad = (state) => {
 
 import { SYKMELDING_ARBEIDSSITUASJON, NY_ARBEIDSTAKERSOKNAD, NYTT_SYKMELDINGSMOTTAK } from '../../enums/unleashToggles';
 
-export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
-    return !state.unleashToggles.hentingFeilet
+export const toggleSykmeldingEndreArbeidssituasjon = state => !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[SYKMELDING_ARBEIDSSITUASJON] === true;
-};
 
-export const toggleNyArbeidstakerSoknad = (state) => {
-    return !state.unleashToggles.hentingFeilet
+export const toggleNyArbeidstakerSoknad = state => !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[NY_ARBEIDSTAKERSOKNAD] === true;
-};
 
-export const toggleNyttSykmeldingsmottak = (state) => {
-    return !state.unleashToggles.hentingFeilet
+export const toggleNyttSykmeldingsmottak = state => !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[NYTT_SYKMELDINGSMOTTAK] === true;
-};
 
-export const unleashtogglesHentetSelector = (state) => {
-    return state.unleashToggles.hentet;
-};
+export const unleashtogglesHentetSelector = state => state.unleashToggles.hentet;

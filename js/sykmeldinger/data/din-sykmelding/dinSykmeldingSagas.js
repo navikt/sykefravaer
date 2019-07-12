@@ -22,10 +22,8 @@ const gaTilSykmelding = (sykmeldingId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldingId}/`);
 };
 
-const erFrilanserEllerSelvstendig = (verdier) => {
-    return verdier.arbeidssituasjon === arbeidssituasjoner.FRILANSER
+const erFrilanserEllerSelvstendig = verdier => verdier.arbeidssituasjon === arbeidssituasjoner.FRILANSER
         || verdier.arbeidssituasjon === arbeidssituasjoner.NAERINGSDRIVENDE;
-};
 
 export function* bekreftSykmelding(action) {
     yield put(actions.bekrefterSykmelding());

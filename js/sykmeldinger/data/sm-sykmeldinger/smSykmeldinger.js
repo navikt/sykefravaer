@@ -21,14 +21,12 @@ const spesialHandler = (state, action) => {
         case SM_SYKMELDING_BEKREFTET_LEST: {
             return {
                 ...state,
-                data: state.data.map((smSykmelding) => {
-                    return smSykmelding.id === action.smSykmelding.id
-                        ? {
-                            ...smSykmelding,
-                            bekreftetDato: new Date(),
-                        }
-                        : smSykmelding;
-                }),
+                data: state.data.map(smSykmelding => (smSykmelding.id === action.smSykmelding.id
+                    ? {
+                        ...smSykmelding,
+                        bekreftetDato: new Date(),
+                    }
+                    : smSykmelding)),
                 bekrefter: false,
                 bekreftFeilet: false,
                 visKvittering: true,
@@ -58,28 +56,24 @@ const parsePerioder = (perioderArg) => {
         ? JSON.parse(perioderArg)
         : perioderArg;
     return perioderArg
-        ? perioder.map((periode) => {
-            return {
-                ...periode,
-                fom: new Date(periode.fom),
-                tom: new Date(periode.tom),
-            };
-        })
+        ? perioder.map(periode => ({
+            ...periode,
+            fom: new Date(periode.fom),
+            tom: new Date(periode.tom),
+        }))
         : null;
 };
 
-const mapper = (smSykmelding) => {
-    return {
-        ...smSykmelding,
-        sykmeldingsperioder: parsePerioder(smSykmelding.sykmeldingsperioder),
-        mottattTidspunkt: smSykmelding.mottattTidspunkt
-            ? new Date(smSykmelding.mottattTidspunkt)
-            : null,
-        bekreftetDato: smSykmelding.bekreftetDato
-            ? new Date(smSykmelding.bekreftetDato)
-            : null,
-    };
-};
+const mapper = smSykmelding => ({
+    ...smSykmelding,
+    sykmeldingsperioder: parsePerioder(smSykmelding.sykmeldingsperioder),
+    mottattTidspunkt: smSykmelding.mottattTidspunkt
+        ? new Date(smSykmelding.mottattTidspunkt)
+        : null,
+    bekreftetDato: smSykmelding.bekreftetDato
+        ? new Date(smSykmelding.bekreftetDato)
+        : null,
+});
 
 const smSykmeldinger = createReducer(
     HENT_SM_SYKMELDINGER_FEILET,

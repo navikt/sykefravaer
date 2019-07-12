@@ -32,11 +32,9 @@ const mapStateToProps = (state) => {
     if (!verdier) {
         visVarsel = false;
     } else {
-        visVarsel = verdier.alternativer.filter((alt) => {
-            return alt
+        visVarsel = verdier.alternativer.filter(alt => alt
                 && alt.avkrysset
-                && alt.verdi !== 'ingen';
-        }).length < verdier.alternativer.length - 1;
+                && alt.verdi !== 'ingen').length < verdier.alternativer.length - 1;
     }
     return { visVarsel };
 };

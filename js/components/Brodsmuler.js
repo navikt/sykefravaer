@@ -38,15 +38,13 @@ Brodsmule.propTypes = {
     erKlikkbar: PropTypes.bool,
 };
 
-const ToggleLink = ({ onClick }) => {
-    return (
-        <span>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle brodsmuler__smule" href="#" onClick={onClick}>...</a>
-            <span className="brodsmule__skille"> / </span>
-        </span>
-    );
-};
+const ToggleLink = ({ onClick }) => (
+    <span>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle brodsmuler__smule" href="#" onClick={onClick}>...</a>
+        <span className="brodsmule__skille"> / </span>
+    </span>
+);
 
 ToggleLink.propTypes = {
     onClick: PropTypes.func,
@@ -102,15 +100,11 @@ class Brodsmuler extends Component {
                     }
                     {
                         synligeBrodsmuler
-                            .map((smule, index) => {
-                                return {
-                                    ...smule,
-                                    sisteSmule: synligeBrodsmuler.length === index + 1,
-                                };
-                            })
-                            .map((smule, index) => {
-                                return <Brodsmule key={index} {...smule} />;
-                            })
+                            .map((smule, index) => ({
+                                ...smule,
+                                sisteSmule: synligeBrodsmuler.length === index + 1,
+                            }))
+                            .map((smule, index) => <Brodsmule key={index} {...smule} />)
                     }
                 </div>
             </nav>

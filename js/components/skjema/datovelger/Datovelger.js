@@ -175,16 +175,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const ConnectedDatoField = connect(mapStateToProps, { doChange: change, doTouch: touch })(DatoField);
 
-export const genererValidate = (props) => {
-    return (verdi) => {
-        const formatertVerdi = props.format
-            ? props.format(verdi)
-            : verdi;
-        return validerDatoField(formatertVerdi, {
-            fra: props.tidligsteFom,
-            til: props.senesteTom,
-        });
-    };
+export const genererValidate = props => (verdi) => {
+    const formatertVerdi = props.format
+        ? props.format(verdi)
+        : verdi;
+    return validerDatoField(formatertVerdi, {
+        fra: props.tidligsteFom,
+        til: props.senesteTom,
+    });
 };
 
 const Datovelger = (props) => {

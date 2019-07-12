@@ -6,33 +6,23 @@ import {
     OPPDATER_SOKNADER_FORESPURT,
 } from './soknaderActiontyper';
 
-export const soknaderHentet = (soknader) => {
-    return {
-        type: SOKNADER_HENTET,
-        soknader,
-    };
-};
+export const soknaderHentet = soknader => ({
+    type: SOKNADER_HENTET,
+    soknader,
+});
 
-export const henterSoknader = () => {
-    return {
-        type: HENTER_SOKNADER,
-    };
-};
+export const henterSoknader = () => ({
+    type: HENTER_SOKNADER,
+});
 
-export const hentSoknaderFeilet = () => {
-    return {
-        type: HENT_SOKNADER_FEILET,
-    };
-};
+export const hentSoknaderFeilet = () => ({
+    type: HENT_SOKNADER_FEILET,
+});
 
-export const hentSoknader = () => {
-    return {
-        type: HENT_SOKNADER_FORESPURT,
-    };
-};
+export const hentSoknader = () => ({
+    type: HENT_SOKNADER_FORESPURT,
+});
 
-export const oppdaterSoknader = () => {
-    return {
-        type: OPPDATER_SOKNADER_FORESPURT,
-    };
-};
+export const oppdaterSoknader = () => ({
+    type: OPPDATER_SOKNADER_FORESPURT,
+});

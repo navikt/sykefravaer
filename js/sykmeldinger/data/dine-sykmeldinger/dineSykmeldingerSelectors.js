@@ -1,13 +1,9 @@
 import { sykmeldingHarBehandletSoknad } from '../../../data/soknader/soknaderSelectors';
 import { toggleSykmeldingEndreArbeidssituasjon } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 
-export const selectDineSykmeldingerSlice = (state) => {
-    return state.dineSykmeldinger;
-};
+export const selectDineSykmeldingerSlice = state => state.dineSykmeldinger;
 
-export const selectDineSykmeldingerData = (state) => {
-    return selectDineSykmeldingerSlice(state).data;
-};
+export const selectDineSykmeldingerData = state => selectDineSykmeldingerSlice(state).data;
 
 export const selectSkalHenteDineSykmeldinger = (state) => {
     const dineSykmeldinger = selectDineSykmeldingerSlice(state);
@@ -24,8 +20,4 @@ export const selectKanEndreSykmeldingArbeidssituasjon = (state, sykmelding) => {
         && toggleSykmeldingEndreArbeidssituasjon(state);
 };
 
-export const selectDinSykmelding = (state, sykmeldingId) => {
-    return selectDineSykmeldingerData(state).find((s) => {
-        return s.id === sykmeldingId;
-    });
-};
+export const selectDinSykmelding = (state, sykmeldingId) => selectDineSykmeldingerData(state).find(s => s.id === sykmeldingId);

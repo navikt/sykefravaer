@@ -14,64 +14,62 @@ class NySykmelding extends Component {
         return (
             <SykmeldingContext.Consumer>
                 {
-                    ({ sykmelding }) => {
-                        return (
-                            <NySykmeldingTrigger>
-                                <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-                                <EldreSykmeldingVarsel sykmelding={sykmelding} />
-                                <Bjorn
-                                    className="blokk"
-                                    hvit
-                                    stor>
-                                    <div>
-                                        <p>
-                                            {
-                                                getLedetekst('din-sykmelding.introtekst.bjorn', {
-                                                    '%NAVN%': getSykmeldtFornavn(sykmelding),
-                                                })
-                                            }
-                                        </p>
-                                        <p className="introtekst__knapperad">
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    scrollTo(this.skjema);
-                                                    this.skjema.focus();
-                                                }}
-                                                className="knapp knapp--mini"
-                                            >
+                    ({ sykmelding }) => (
+                        <NySykmeldingTrigger>
+                            <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
+                            <EldreSykmeldingVarsel sykmelding={sykmelding} />
+                            <Bjorn
+                                className="blokk"
+                                hvit
+                                stor>
+                                <div>
+                                    <p>
+                                        {
+                                            getLedetekst('din-sykmelding.introtekst.bjorn', {
+                                                '%NAVN%': getSykmeldtFornavn(sykmelding),
+                                            })
+                                        }
+                                    </p>
+                                    <p className="introtekst__knapperad">
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                scrollTo(this.skjema);
+                                                this.skjema.focus();
+                                            }}
+                                            className="knapp knapp--mini"
+                                        >
                                                 Gå til utfyllingen
-                                            </button>
-                                        </p>
-                                    </div>
-                                </Bjorn>
-                                <article>
-                                    <header className="panelHeader panelHeader--lysebla">
-                                        <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />
-                                        <h2 className="panelHeader__tittel">
-                                            {sykmelding.pasient.fornavn}
-                                            {' '}
-                                            {sykmelding.pasient.mellomnavn}
-                                            {' '}
-                                            {sykmelding.pasient.etternavn}
-                                        </h2>
-                                    </header>
-                                    <div className="panel blokk">
-                                        <DineSykmeldingOpplysninger sykmelding={sykmelding} />
-                                    </div>
-                                </article>
-                                <div
-                                    ref={(c) => {
-                                        this.skjema = c;
-                                    }}
-                                    tabIndex="-1"
-                                    className="sykmeldingskjemaRef">
-                                    <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+                                        </button>
+                                    </p>
                                 </div>
-                            </NySykmeldingTrigger>
-                        );
-                    }
+                            </Bjorn>
+                            <article>
+                                <header className="panelHeader panelHeader--lysebla">
+                                    <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />
+                                    <h2 className="panelHeader__tittel">
+                                        {sykmelding.pasient.fornavn}
+                                        {' '}
+                                        {sykmelding.pasient.mellomnavn}
+                                        {' '}
+                                        {sykmelding.pasient.etternavn}
+                                    </h2>
+                                </header>
+                                <div className="panel blokk">
+                                    <DineSykmeldingOpplysninger sykmelding={sykmelding} />
+                                </div>
+                            </article>
+                            <div
+                                ref={(c) => {
+                                    this.skjema = c;
+                                }}
+                                tabIndex="-1"
+                                className="sykmeldingskjemaRef">
+                                <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+                            </div>
+                        </NySykmeldingTrigger>
+                    )
                 }
             </SykmeldingContext.Consumer>
         );

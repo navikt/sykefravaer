@@ -21,9 +21,7 @@ const Svarside = (props) => {
         mote,
         deltakertype = BRUKER,
     } = props;
-    const annenBruker = mote.deltakere.filter((deltaker) => {
-        return deltaker.type !== deltakertype;
-    })[0];
+    const annenBruker = mote.deltakere.filter(deltaker => deltaker.type !== deltakertype)[0];
 
     const deltakertypeNokkel = deltakertype === BRUKER
         ? 'arbeidstaker'

@@ -1,5 +1,3 @@
-/* eslint arrow-body-style: ["error", "as-needed"] */
-
 import React from 'react';
 import cn from 'classnames';
 import { getLedetekst, getDuration, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';

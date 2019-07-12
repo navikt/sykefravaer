@@ -133,26 +133,22 @@ describe('skalViseFrilansersporsmal', () => {
         values = {
             valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
         };
-        setFormValuesToState = (state_, sykmeldingId, values_) => {
-            return {
-                ...state_,
-                form: {
-                    [getSykmeldingSkjemanavn(sykmeldingId)]: {
-                        values: values_,
-                    },
+        setFormValuesToState = (state_, sykmeldingId, values_) => ({
+            ...state_,
+            form: {
+                [getSykmeldingSkjemanavn(sykmeldingId)]: {
+                    values: values_,
                 },
-            };
-        };
-        setMeta = (_state, sykmelding, _erUtenforVentetid) => {
-            return {
-                ...state,
-                sykmeldingMeta: {
-                    [sykmelding.id]: {
-                        erUtenforVentetid: _erUtenforVentetid,
-                    },
+            },
+        });
+        setMeta = (_state, sykmelding, _erUtenforVentetid) => ({
+            ...state,
+            sykmeldingMeta: {
+                [sykmelding.id]: {
+                    erUtenforVentetid: _erUtenforVentetid,
                 },
-            };
-        };
+            },
+        });
     });
 
     it('Skal returnere false hvis sykmelding er med behandlingsdager', () => {

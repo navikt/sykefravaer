@@ -15,12 +15,8 @@ export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
         && valgtArbeidsgiver.orgnummer === ANNEN_ARBEIDSGIVER_ORGNUMMER;
     const valgteFeilaktigeOpplysninger = feilaktigeOpplysninger
         ? feilaktigeOpplysninger
-            .filter((o) => {
-                return o.avkrysset;
-            })
-            .map((o) => {
-                return o.opplysning;
-            })
+            .filter(o => o.avkrysset)
+            .map(o => o.opplysning)
         : [];
 
     if (opplysningeneErRiktige === false
@@ -49,9 +45,7 @@ export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
 };
 
 export const skalViseFrilansersporsmal = (state, sykmeldingId) => {
-    const sykmelding = state.arbeidsgiversSykmeldinger.data.find((s) => {
-        return s.id === sykmeldingId;
-    });
+    const sykmelding = state.arbeidsgiversSykmeldinger.data.find(s => s.id === sykmeldingId);
     const values = hentSkjemaVerdier(state, getSykmeldingSkjemanavn(sykmeldingId));
     const erUtenforVentetid = sykmeldingSelectors.erUtenforVentetid(state, sykmeldingId);
     if (!sykmelding || !sykmelding.mulighetForArbeid || !values || erUtenforVentetid) {
@@ -59,11 +53,9 @@ export const skalViseFrilansersporsmal = (state, sykmeldingId) => {
     }
 
     return sykmelding.mulighetForArbeid.perioder
-        .some((periode) => {
-            return periode.avventende
+        .some(periode => periode.avventende
                 || periode.reisetilskudd
-                || periode.behandlingsdager;
-        })
+                || periode.behandlingsdager)
         ? false
         : [NAERINGSDRIVENDE, FRILANSER].indexOf(values.valgtArbeidssituasjon) > -1;
 };

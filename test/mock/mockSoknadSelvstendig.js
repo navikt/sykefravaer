@@ -1052,19 +1052,15 @@ const parsetSoknad1 = {
     tom: new Date('2018-05-28'),
 };
 
-export const getNySoknadSelvstendig = (soknad = {}) => {
-    return {
-        ...parsetSoknad1,
-        ...soknad,
-    };
-};
+export const getNySoknadSelvstendig = (soknad = {}) => ({
+    ...parsetSoknad1,
+    ...soknad,
+});
 
-export const getSendtSoknadSelvstendig = (soknad = {}) => {
-    return {
-        ...parseSoknad(sendtSoknadSelvstendig1),
-        ...soknad,
-    };
-};
+export const getSendtSoknadSelvstendig = (soknad = {}) => ({
+    ...parseSoknad(sendtSoknadSelvstendig1),
+    ...soknad,
+});
 
 export const soknadrespons = [soknadSelvstendig1];
 

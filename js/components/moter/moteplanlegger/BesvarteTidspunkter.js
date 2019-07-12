@@ -22,12 +22,8 @@ const BesvarteTidspunkter = (
         fnr,
     },
 ) => {
-    const arbeidsgiver = mote.deltakere.filter((d) => {
-        return d.type === ARBEIDSGIVER;
-    })[0];
-    const bruker = mote.deltakere.filter((d) => {
-        return d.type === BRUKER;
-    })[0];
+    const arbeidsgiver = mote.deltakere.filter(d => d.type === ARBEIDSGIVER)[0];
+    const bruker = mote.deltakere.filter(d => d.type === BRUKER)[0];
 
     let forsteDeltaker = bruker;
     let andreDeltaker = arbeidsgiver;
@@ -51,12 +47,8 @@ const BesvarteTidspunkter = (
                         return 0;
                     })
                     .map((field, index) => {
-                        const forsteDeltakersSvar = forsteDeltaker && forsteDeltaker.svar.filter((s) => {
-                            return s.id === field.id;
-                        })[0];
-                        const andreDeltakersSvar = andreDeltaker && andreDeltaker.svar.filter((s) => {
-                            return s.id === field.id;
-                        })[0];
+                        const forsteDeltakersSvar = forsteDeltaker && forsteDeltaker.svar.filter(s => s.id === field.id)[0];
+                        const andreDeltakersSvar = andreDeltaker && andreDeltaker.svar.filter(s => s.id === field.id)[0];
                         const _forsteDeltaker = forsteDeltaker && Object.assign({}, forsteDeltaker, {
                             navn: deltakertype === NAV_VEILEDER
                                 ? forsteDeltaker.navn

@@ -1,3 +1,1 @@
-export default () => {
-    return '/sykefravaer';
-};
+export default () => '/sykefravaer';

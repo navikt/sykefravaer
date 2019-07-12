@@ -4,26 +4,22 @@ import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from '@navikt/d
 import JaEllerNei from '../../../../components/skjema/JaEllerNei';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 
-export const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
-    return {
-        opplysning: feilaktigeOpplysningerEnums[key],
-    };
-});
+export const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map(key => ({
+    opplysning: feilaktigeOpplysningerEnums[key],
+}));
 
-const ErOpplysningeneRiktige = (props) => {
-    return (
-        <JaEllerNei
-            verdiMedTilleggssporsmal={false}
-            className="hovedsporsmal--hvit"
-            spoersmal="Er opplysningene i sykmeldingen riktige?"
-            name="opplysningeneErRiktige">
-            <FieldArray
-                {...props}
-                component={HvilkeOpplysningerErIkkeRiktige}
-                name="feilaktigeOpplysninger"
-                fields={feilaktigeOpplysninger} />
-        </JaEllerNei>
-    );
-};
+const ErOpplysningeneRiktige = props => (
+    <JaEllerNei
+        verdiMedTilleggssporsmal={false}
+        className="hovedsporsmal--hvit"
+        spoersmal="Er opplysningene i sykmeldingen riktige?"
+        name="opplysningeneErRiktige">
+        <FieldArray
+            {...props}
+            component={HvilkeOpplysningerErIkkeRiktige}
+            name="feilaktigeOpplysninger"
+            fields={feilaktigeOpplysninger} />
+    </JaEllerNei>
+);
 
 export default ErOpplysningeneRiktige;

@@ -5,11 +5,9 @@ export const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'jul
 export const WEEKDAYS_LONG = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
 export const WEEKDAYS_SHORT = ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'];
 
-export const formatDay = (date) => {
+export const formatDay = date =>
     // aria-label på dager
-    return `${WEEKDAYS_LONG[date.getDay()]} ${tilLesbarDatoMedArstall(date)}`;
-};
-
+    `${WEEKDAYS_LONG[date.getDay()]} ${tilLesbarDatoMedArstall(date)}`;
 export const localeUtils = {
     ...LocaleUtils,
     formatDay,

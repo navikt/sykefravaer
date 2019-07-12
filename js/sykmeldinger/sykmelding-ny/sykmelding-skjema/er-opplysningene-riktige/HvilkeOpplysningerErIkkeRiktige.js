@@ -18,66 +18,52 @@ const feilaktigeOpplysningerProp = PropTypes.arrayOf(PropTypes.shape({
     opplysning: PropTypes.string,
 }));
 
-const Tilleggsinfo = ({ children }) => {
-    return (<div className="ekstrasporsmal ekstrasporsmal--sist">{children}</div>);
-};
+const Tilleggsinfo = ({ children }) => (<div className="ekstrasporsmal ekstrasporsmal--sist">{children}</div>);
 
 Tilleggsinfo.propTypes = {
     children: PropTypes.element,
 };
 
-export const DuTrengerNySykmelding = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--advarsel">
-                <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel')}
-                </h5>
-                <p>
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst')}
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
+export const DuTrengerNySykmelding = () => (
+    <Tilleggsinfo>
+        <div className="hode hode--advarsel">
+            <h5 className="hode__tittel">
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel')}
+            </h5>
+            <p>
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst')}
+            </p>
+        </div>
+    </Tilleggsinfo>
+);
 
-export const DuKanBrukeSykmeldingenDinArbeidsgiver = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
-                </h5>
-                <p>
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst')}
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
+export const DuKanBrukeSykmeldingenDinArbeidsgiver = () => (
+    <Tilleggsinfo>
+        <div className="hode hode--informasjon">
+            <h5 className="hode__tittel">
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+            </h5>
+            <p>
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst')}
+            </p>
+        </div>
+    </Tilleggsinfo>
+);
 
-export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
-                </h5>
-                <p>
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst')}
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
+export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => (
+    <Tilleggsinfo>
+        <div className="hode hode--informasjon">
+            <h5 className="hode__tittel">
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
+            </h5>
+            <p>
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst')}
+            </p>
+        </div>
+    </Tilleggsinfo>
+);
 
-const getAvkryssedeOpplysninger = (feilaktigeOpplysninger) => {
-    return feilaktigeOpplysninger.filter((o) => {
-        return o.avkrysset;
-    }).map((o) => {
-        return o.opplysning;
-    });
-};
+const getAvkryssedeOpplysninger = feilaktigeOpplysninger => feilaktigeOpplysninger.filter(o => o.avkrysset).map(o => o.opplysning);
 
 export const FeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = [] }) => {
     const opplysninger = getAvkryssedeOpplysninger(feilaktigeOpplysninger);
@@ -137,9 +123,7 @@ export const HvilkeOpplysninger = (props) => {
     const Sporsmal = <VelgFeilaktigeOpplysninger {...props} />;
     const visTillegg = (propsarg) => {
         try {
-            return propsarg.feilaktigeOpplysninger.filter((o) => {
-                return o.avkrysset;
-            }).length > 0;
+            return propsarg.feilaktigeOpplysninger.filter(o => o.avkrysset).length > 0;
         } catch (e) {
             return false;
         }
@@ -158,11 +142,9 @@ HvilkeOpplysninger.propTypes = {
     feilaktigeOpplysninger: feilaktigeOpplysningerProp,
 };
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        feilaktigeOpplysninger: getFormValues(getSykmeldingSkjemanavn(ownProps.sykmelding.id))(state).feilaktigeOpplysninger,
-    };
-};
+const mapStateToProps = (state, ownProps) => ({
+    feilaktigeOpplysninger: getFormValues(getSykmeldingSkjemanavn(ownProps.sykmelding.id))(state).feilaktigeOpplysninger,
+});
 
 const FeilaktigeOpplysninger = connect(mapStateToProps)(HvilkeOpplysninger);
 

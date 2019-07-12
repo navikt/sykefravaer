@@ -4,17 +4,15 @@ import { Radio } from 'nav-frontend-skjema';
 import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
 
-export const getId = (id) => {
-    return id
-        .split('.')
-        .join('-')
-        .split('[')
-        .join('-')
-        .split(']')
-        .join('-')
-        .split('--')
-        .join('-');
-};
+export const getId = id => id
+    .split('.')
+    .join('-')
+    .split('[')
+    .join('-')
+    .split(']')
+    .join('-')
+    .split('--')
+    .join('-');
 
 export const Radioknapp = ({
     input, value, children, id, label, checked, labelSekundaer = null, disabled, visUndertekst,
@@ -61,24 +59,20 @@ Radioknapp.propTypes = {
 
 const Radioknapper = ({
     input, meta, spoersmal, Overskrift = 'h3', children = [], horisontal = false, hjelpetekst, hjelpelinje, visUndertekst,
-}) => {
-    return (
-        <Feilomrade {...meta} id={input.name}>
-            <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
-                <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
-                { hjelpetekst }
-            </div>
-            { hjelpelinje }
-            <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
-                {
-                    children.map((radioknapp, index) => {
-                        return <Radioknapp key={index} input={input} id={`${input.name}-${index}`} visUndertekst={visUndertekst} {...radioknapp.props} />;
-                    })
-                }
-            </div>
-        </Feilomrade>
-    );
-};
+}) => (
+    <Feilomrade {...meta} id={input.name}>
+        <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
+            <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
+            { hjelpetekst }
+        </div>
+        { hjelpelinje }
+        <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
+            {
+                children.map((radioknapp, index) => <Radioknapp key={index} input={input} id={`${input.name}-${index}`} visUndertekst={visUndertekst} {...radioknapp.props} />)
+            }
+        </div>
+    </Feilomrade>
+);
 
 Radioknapper.propTypes = {
     input: fieldPropTypes.input,

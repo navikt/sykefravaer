@@ -26,8 +26,6 @@ const naermesteLeder = {
     aktivTom: null,
 };
 
-const getLeder = (leder = {}) => {
-    return Object.assign({}, naermesteLeder, leder);
-};
+const getLeder = (leder = {}) => Object.assign({}, naermesteLeder, leder);
 
 export default getLeder;

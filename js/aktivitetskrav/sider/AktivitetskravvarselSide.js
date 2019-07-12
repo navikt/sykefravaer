@@ -19,17 +19,15 @@ export const INGEN_AKTIVITETSKRAVVARSEL = 'INGEN_AKTIVITETSKRAVVARSEL';
 export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';
 export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING';
 
-const Kvittering = ({ bekreftetdato, ledetekster }) => {
-    return (
-        <Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
-            <p className="sist">
-                {getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
-                    '%DATO%': tilLesbarDatoMedArstall(bekreftetdato),
-                })}
-            </p>
-        </Alertstripe>
-    );
-};
+const Kvittering = ({ bekreftetdato, ledetekster }) => (
+    <Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
+        <p className="sist">
+            {getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
+                '%DATO%': tilLesbarDatoMedArstall(bekreftetdato),
+            })}
+        </p>
+    </Alertstripe>
+);
 
 Kvittering.propTypes = {
     bekreftetdato: PropTypes.instanceOf(Date),
@@ -91,16 +89,12 @@ class Container extends Component {
                                     }}>
                                     <Vis
                                         hvis={visning === AKTIVITETSVARSELKVITTERING}
-                                        render={() => {
-                                            return <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} />;
-                                        }} />
+                                        render={() => <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} />} />
                                 </div>
                                 <Artikkel ledetekster={ledetekster} inntruffetdato={varseldato} />
                                 <Vis
                                     hvis={visning !== AKTIVITETSVARSELKVITTERING}
-                                    render={() => {
-                                        return <BekreftAktivitetskravSkjema />;
-                                    }} />
+                                    render={() => <BekreftAktivitetskravSkjema />} />
                             </div>
                         );
                     })()
@@ -131,23 +125,13 @@ const sorterHendelser = (a, b) => {
     return 0;
 };
 
-const getSisteAktivitetskrav = (hendelser) => {
-    return [...hendelser]
-        .sort(sorterHendelser)
-        .filter((h) => {
-            return h.type === AKTIVITETSKRAV_VARSEL;
-        })[0];
-};
+const getSisteAktivitetskrav = hendelser => [...hendelser]
+    .sort(sorterHendelser)
+    .filter(h => h.type === AKTIVITETSKRAV_VARSEL)[0];
 
-const getBekreftelseAvAktivitetskrav = (hendelser, aktivitetskrav) => {
-    return hendelser
-        .filter((h) => {
-            return h.type === AKTIVITETSKRAV_BEKREFTET;
-        })
-        .filter((h) => {
-            return parseInt(h.ressursId, 10) === aktivitetskrav.id;
-        })[0];
-};
+const getBekreftelseAvAktivitetskrav = (hendelser, aktivitetskrav) => hendelser
+    .filter(h => h.type === AKTIVITETSKRAV_BEKREFTET)
+    .filter(h => parseInt(h.ressursId, 10) === aktivitetskrav.id)[0];
 
 export const getAktivitetskravvisning = (hendelser) => {
     const sisteAktivitetskrav = getSisteAktivitetskrav(hendelser);

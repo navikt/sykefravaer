@@ -6,17 +6,15 @@ const defaultState = {
     data: [],
 };
 
-const setLederProps = (_ledere, orgnummer, props) => {
-    return _ledere.map((leder) => {
-        if (leder.orgnummer === orgnummer) {
-            return {
-                ...leder,
-                ...props,
-            };
-        }
-        return leder;
-    });
-};
+const setLederProps = (_ledere, orgnummer, props) => _ledere.map((leder) => {
+    if (leder.orgnummer === orgnummer) {
+        return {
+            ...leder,
+            ...props,
+        };
+    }
+    return leder;
+});
 
 const ledere = (state = defaultState, action = {}) => {
     switch (action.type) {

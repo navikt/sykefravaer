@@ -90,39 +90,23 @@ const brukerinfo = combineReducers({
 
 export default brukerinfo;
 
-const selectBrukerinfoSlice = (state) => {
-    return state.brukerinfo;
-};
+const selectBrukerinfoSlice = state => state.brukerinfo;
 
 // Oppfolgingselectors
-const selectOppfolgingSlice = (state) => {
-    return selectBrukerinfoSlice(state).oppfolging;
-};
+const selectOppfolgingSlice = state => selectBrukerinfoSlice(state).oppfolging;
 
-export const selectOppfolgingHenter = (state) => {
-    return selectOppfolgingSlice(state).henter;
-};
+export const selectOppfolgingHenter = state => selectOppfolgingSlice(state).henter;
 
-export const selectOppfolgingHentingFeilet = (state) => {
-    return selectOppfolgingSlice(state).hentingFeilet;
-};
+export const selectOppfolgingHentingFeilet = state => selectOppfolgingSlice(state).hentingFeilet;
 
-export const selectOppfolgingErUnderOppfolging = (state) => {
-    return selectOppfolgingSlice(state).data.underOppfolging;
-};
+export const selectOppfolgingErUnderOppfolging = state => selectOppfolgingSlice(state).data.underOppfolging;
 
 // Sykmeldtinfodataselectors
-const selectSykmeldtinfodataSlice = (state) => {
-    return selectBrukerinfoSlice(state).sykmeldtinfodata;
-};
+const selectSykmeldtinfodataSlice = state => selectBrukerinfoSlice(state).sykmeldtinfodata;
 
-export const selectSykmeldtinfodataHenter = (state) => {
-    return selectSykmeldtinfodataSlice(state).henter;
-};
+export const selectSykmeldtinfodataHenter = state => selectSykmeldtinfodataSlice(state).henter;
 
-export const selectSykmeldtinfodataHentingFeilet = (state) => {
-    return selectSykmeldtinfodataSlice(state).hentingFeilet;
-};
+export const selectSykmeldtinfodataHentingFeilet = state => selectSykmeldtinfodataSlice(state).hentingFeilet;
 
 export const selectSykmeldtinfodataMaksdatoString = (state) => {
     const datostring = selectSykmeldtinfodataSlice(state).data.maksDato;

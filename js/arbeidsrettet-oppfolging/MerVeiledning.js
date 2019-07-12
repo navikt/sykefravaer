@@ -38,16 +38,12 @@ class MerVeiledning extends Component {
 
     handleNeiBtnClicked() {
         pushToDataAOLayer('KLIKK_NEI');
-        this.bekreftAlleMerVeiledninghendelser(() => {
-            return history.push('/sykefravaer');
-        });
+        this.bekreftAlleMerVeiledninghendelser(() => history.push('/sykefravaer'));
     }
 
     handleJaBtnClicked() {
         pushToDataAOLayer('KLIKK_JA');
-        this.bekreftAlleMerVeiledninghendelser(() => {
-            return window.location.assign('/arbeidssokerregistrering/start?fraSykefravaer=true');
-        });
+        this.bekreftAlleMerVeiledninghendelser(() => window.location.assign('/arbeidssokerregistrering/start?fraSykefravaer=true'));
     }
 
     render() {
@@ -98,13 +94,11 @@ MerVeiledning.propTypes = {
     merVeiledningHendelseIder: PT.arrayOf(PT.number),
 };
 
-const mapStateToProps = (state) => {
-    return {
-        merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
-        bekrefter: state.merVeiledning.bekrefter,
-        bekreftingFeilet: state.merVeiledning.bekreftingFeilet,
-    };
-};
+const mapStateToProps = state => ({
+    merVeiledningHendelseIder: selectAlleHarMerVeiledningIder(state),
+    bekrefter: state.merVeiledning.bekrefter,
+    bekreftingFeilet: state.merVeiledning.bekreftingFeilet,
+});
 
 const actionCreators = {
     doBekreftMerVeiledning: bekreftMerVeiledning,

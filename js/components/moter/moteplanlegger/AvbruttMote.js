@@ -45,14 +45,12 @@ const AvbruttMote = (
                 <div className="adskilt__blokk blokk">
                     <h3 className="typo-element">{getLedetekst('mote.avbruttmote.tidspunkter_det_gjelder')}</h3>
                     <div className="kvittering__svar blokk">
-                        { mote.alternativer.map((alternativ) => {
-                            return (
-                                // eslint-disable-next-line jsx-a11y/label-has-associated-control
-                                <label key={alternativ.id} className="avbrutt__mote__svar">
-                                    {`${visDato(alternativ.tid)} ${getLedetekst('mote.kvittering.kl')} ${visKlokkeslett(alternativ.tid)}`}
-                                </label>
-                            );
-                        })
+                        { mote.alternativer.map(alternativ => (
+                            // eslint-disable-next-line jsx-a11y/label-has-associated-control
+                            <label key={alternativ.id} className="avbrutt__mote__svar">
+                                {`${visDato(alternativ.tid)} ${getLedetekst('mote.kvittering.kl')} ${visKlokkeslett(alternativ.tid)}`}
+                            </label>
+                        ))
                         }
                     </div>
                     <h3 className="typo-element">{getLedetekst('mote.avbruttmote.motested')}</h3>

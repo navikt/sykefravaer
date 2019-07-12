@@ -9,18 +9,10 @@ const dagerDifferanse = (fra, til) => {
 
 const beregnSykmeldingstype = (sykmelding) => {
     const { perioder } = sykmelding.mulighetForArbeid;
-    const harBehandlingsdager = perioder.some((p) => {
-        return p.behandlingsdager !== null;
-    });
-    const harReisetilskudd = perioder.some((p) => {
-        return p.reisetilskudd !== null;
-    });
-    const erAvventende = perioder.some((p) => {
-        return p.avventende !== null;
-    });
-    const erGradert = perioder.some((p) => {
-        return p.grad !== 100;
-    });
+    const harBehandlingsdager = perioder.some(p => p.behandlingsdager !== null);
+    const harReisetilskudd = perioder.some(p => p.reisetilskudd !== null);
+    const erAvventende = perioder.some(p => p.avventende !== null);
+    const erGradert = perioder.some(p => p.grad !== 100);
 
     return harBehandlingsdager
         ? 'BEHANDLINGSDAGER'

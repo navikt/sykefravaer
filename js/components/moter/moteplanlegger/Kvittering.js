@@ -20,9 +20,7 @@ export const getVeienVidereTekst = (deltaker, deltakertype = BRUKER) => {
     const nokkel = deltakertype === BRUKER
         ? 'mote.kvittering.hva_skjer_videre.innhold.v2.arbeidstaker'
         : 'mote.kvittering.hva_skjer_videre.innhold.v2.arbeidsgiver';
-    return deltaker.svar.filter((svar) => {
-        return svar.valgt;
-    }).length === 0
+    return deltaker.svar.filter(svar => svar.valgt).length === 0
         ? getHtmlLedetekst(`mote.kvittering.hva_skjer_videre.innhold.ingenalternativpasser.v3.${deltakertypenokkel}`)
         : getHtmlLedetekst(nokkel);
 };

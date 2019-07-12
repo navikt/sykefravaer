@@ -100,8 +100,7 @@ Skjemalaster.propTypes = {
     doHentVentetid: PropTypes.func,
 };
 
-export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => {
-    return brukerinfoSelectors.skalHenteBrukerinfoSelector(state)
+export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => brukerinfoSelectors.skalHenteBrukerinfoSelector(state)
         || state.brukerinfo.bruker.henter
         || sykmeldingSelectors.skalHenteVentetid(state, sykmeldingId)
         || state.sykmeldingMeta.henter
@@ -111,7 +110,6 @@ export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => {
         || state.sykeforloep.henter
         || state.arbeidsgivere.henter
         || arbeidsgivereSelectors.skalHenteArbeidsgivere(state, sykmeldingId);
-};
 
 export const mapStateToProps = (state, ownProps) => {
     const { sykmeldingId } = ownProps;

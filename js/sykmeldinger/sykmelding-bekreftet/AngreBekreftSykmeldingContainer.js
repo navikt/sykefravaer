@@ -8,32 +8,30 @@ import { selectKanEndreSykmeldingArbeidssituasjon } from '../data/dine-sykmeldin
 
 export const Container = ({
     sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis, angrerBekreftSykmelding,
-}) => {
-    return vis ? (
-        <div>
-            <div className="verktoylinje">
-                <div className="verktoylinje__element">
-                    <Knapp
-                        mini
-                        autoDisableVedSpinner
-                        spinner={angrerBekreftSykmelding}
-                        htmlType="button"
-                        type="standard"
-                        className="js-angre-bekreft-sykmelding"
-                        onClick={() => { return angreBekreftSykmelding(sykmelding.id); }}>
-                        {getLedetekst('din-sykmelding.godkjennt.angre')}
-                    </Knapp>
-                </div>
-            </div>
-            <div aria-live="polite">
-                {
-                    angreBekreftSykmeldingFeilet
-                    && <p className="skjemaelement__feilmelding">{getLedetekst('din-sykmelding.godkjennt.angre.feilet')}</p>
-                }
+}) => (vis ? (
+    <div>
+        <div className="verktoylinje">
+            <div className="verktoylinje__element">
+                <Knapp
+                    mini
+                    autoDisableVedSpinner
+                    spinner={angrerBekreftSykmelding}
+                    htmlType="button"
+                    type="standard"
+                    className="js-angre-bekreft-sykmelding"
+                    onClick={() => angreBekreftSykmelding(sykmelding.id)}>
+                    {getLedetekst('din-sykmelding.godkjennt.angre')}
+                </Knapp>
             </div>
         </div>
-    ) : null;
-};
+        <div aria-live="polite">
+            {
+                angreBekreftSykmeldingFeilet
+                    && <p className="skjemaelement__feilmelding">{getLedetekst('din-sykmelding.godkjennt.angre.feilet')}</p>
+            }
+        </div>
+    </div>
+) : null);
 
 Container.propTypes = {
     sykmelding: sykmeldingPt,
@@ -52,10 +50,8 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export const connectAngreArbeidssituasjon = (Component) => {
-    return connect(mapStateToProps, {
-        angreBekreftSykmelding: angreBekreftSykmeldingAction,
-    })(Component);
-};
+export const connectAngreArbeidssituasjon = Component => connect(mapStateToProps, {
+    angreBekreftSykmelding: angreBekreftSykmeldingAction,
+})(Component);
 
 export default connectAngreArbeidssituasjon(Container);

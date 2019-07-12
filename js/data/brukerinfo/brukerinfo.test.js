@@ -7,9 +7,7 @@ import brukerinfo from './brukerinfo';
 let item;
 
 window.localStorage = {};
-window.localStorage.getItem = (i) => {
-    return i;
-};
+window.localStorage.getItem = i => i;
 window.localStorage.setItem = (_item) => {
     item = _item;
 };

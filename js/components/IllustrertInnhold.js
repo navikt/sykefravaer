@@ -29,8 +29,6 @@ IllustrertInnhold.propTypes = {
     liten: PropTypes.bool,
 };
 
-export const IllustrertInnholdGronnHake = (props) => {
-    return <IllustrertInnhold {...props} ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/kvitteringhake.svg`} ikonAlt="Hake" />;
-};
+export const IllustrertInnholdGronnHake = props => <IllustrertInnhold {...props} ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/kvitteringhake.svg`} ikonAlt="Hake" />;
 
 export default IllustrertInnhold;

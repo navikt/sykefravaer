@@ -128,9 +128,7 @@ describe('BesvarteTidspunkter', () => {
     describe('Når det ikke finnes arbeidsgiver på møtet fordi brukeren f.eks. er reservert i KRR', () => {
         beforeEach(() => {
             const mote = Object.assign({}, moteBesvartTrueAvArbeidsgiver, {
-                deltakere: moteBesvartTrueAvArbeidsgiver.deltakere.filter((d) => {
-                    return d.type === ARBEIDSGIVER;
-                }),
+                deltakere: moteBesvartTrueAvArbeidsgiver.deltakere.filter(d => d.type === ARBEIDSGIVER),
             });
             comp = mount(<BesvarteTidspunkter
                 mote={mote}
@@ -144,9 +142,7 @@ describe('BesvarteTidspunkter', () => {
     describe('Når det bare finnes bruker på møtet fordi arbeidsgiveren av en eller annen grunn ikke er der', () => {
         beforeEach(() => {
             const mote = Object.assign({}, moteBesvartTrueAvArbeidsgiver, {
-                deltakere: moteBesvartTrueAvArbeidsgiver.deltakere.filter((d) => {
-                    return d.type === BRUKER;
-                }),
+                deltakere: moteBesvartTrueAvArbeidsgiver.deltakere.filter(d => d.type === BRUKER),
             });
             comp = mount(<BesvarteTidspunkter
                 mote={mote}

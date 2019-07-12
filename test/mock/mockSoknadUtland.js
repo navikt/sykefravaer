@@ -173,12 +173,10 @@ export const soknadUtland1 = {
     }],
 };
 
-export const getSoknadUtland = (soknad = {}) => {
-    return {
-        ...parsetSoknadUtland1,
-        ...soknad,
-    };
-};
+export const getSoknadUtland = (soknad = {}) => ({
+    ...parsetSoknadUtland1,
+    ...soknad,
+});
 
 export const soknadUtlandRespons = [soknadUtland1];
 export const soknadUtlandParset = [parsetSoknadUtland1];

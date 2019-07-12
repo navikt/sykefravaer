@@ -128,9 +128,7 @@ const lagretSoknad = {
     ],
 };
 
-export default (s = {}) => {
-    return parseSoknad({
-        ...lagretSoknad,
-        ...s,
-    });
-};
+export default (s = {}) => parseSoknad({
+    ...lagretSoknad,
+    ...s,
+});

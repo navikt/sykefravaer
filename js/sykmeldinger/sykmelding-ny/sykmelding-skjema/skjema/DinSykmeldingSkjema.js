@@ -134,8 +134,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
             handleSubmit,
             visFrilansersporsmal,
             untouch,
-            visAvbrytDialog,
         } = this.props;
+
+        const { visAvbrytDialog } = this.state;
 
         return (
             <form
@@ -311,7 +312,6 @@ export const mapStateToProps = (state, ownProps) => {
         sendingFeilet: state.dineSykmeldinger.sendingFeilet,
         avbryter: state.dineSykmeldinger.avbryter,
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
-        visAvbrytDialog: state.visAvbrytDialog,
     };
 };
 

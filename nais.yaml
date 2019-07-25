@@ -1,5 +1,5 @@
 name: sykefravaer
-team: digisyfo
+team: teamsykefravr
 image: repo.adeo.no:5443/digisyfo/sykefravaer
 replicas:
   min: 2

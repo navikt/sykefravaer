@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import { motebehovReducerPt } from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 import DialogmoterInnholdLenke from './DialogmoterInnholdLenke';
 import MotebehovInnholdLenke from './MotebehovInnholdLenke';
 
 const DialogmoterInnhold = (
     {
-        motebehovReducer,
         harMote,
+        skalViseKvittering,
         skalViseMotebehov,
-        virksomhetnrMedMotebehovListe,
     },
 ) => {
     return (
@@ -21,8 +19,7 @@ const DialogmoterInnhold = (
             { skalViseMotebehov
         && (
             <MotebehovInnholdLenke
-                motebehovReducer={motebehovReducer}
-                virksomhetsnrListe={virksomhetnrMedMotebehovListe}
+                skalViseKvittering={skalViseKvittering}
             />
         )
             }
@@ -32,10 +29,9 @@ const DialogmoterInnhold = (
     );
 };
 DialogmoterInnhold.propTypes = {
-    motebehovReducer: motebehovReducerPt,
     harMote: PropTypes.bool,
+    skalViseKvittering: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
-    virksomhetnrMedMotebehovListe: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default DialogmoterInnhold;

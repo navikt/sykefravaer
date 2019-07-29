@@ -205,7 +205,7 @@ export function mapStateToProps(state) {
         harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
         skalViseMotebehov: !state.dineSykmeldinger.hentingFeilet
             && !state.ledere.hentingFeilet
-            && skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov),
+            && skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov, state.mote),
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet
             && !state.oppfolgingsdialoger.hentingFeilet
             && !state.ledere.hentingFeilet

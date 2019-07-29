@@ -62,20 +62,6 @@ export const MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER = 10 * 7;
 export const OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER = 16 * 7;
 export const OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER = 26 * 7;
 
-export const finnNyesteMotebehovForVirksomhetListe = (motebehovReducer, virksomhetsnrListe) => {
-    return motebehovReducer.data.filter((motebehov) => {
-        return virksomhetsnrListe.filter((virksomhetsnr) => {
-            return motebehov.virksomhetsnummer === virksomhetsnr;
-        }).length > 0;
-    }).sort((m1, m2) => {
-        return m2.opprettetDato - m1.opprettetDato;
-    })[0];
-};
-
-export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnrListe) => {
-    return !!finnNyesteMotebehovForVirksomhetListe(motebehovReducer, virksomhetsnrListe);
-};
-
 export const hentMoteLandingssideUrl = (skalViseMotebehov) => {
     const moteVisning = skalViseMotebehov ? '' : '/mote';
     return `${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter${moteVisning}`;
@@ -144,15 +130,89 @@ export const finnVirksomhetnrListeMedSkalViseMotebehov = (oppfolgingsforlopsPeri
     return liste;
 };
 
-export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPerioderReducerListe, motebehovReducer) => {
+export const orgnummerFraMote = (moteReducer) => {
+    const moteData = moteReducer.data;
+    const deltakerMedOrgnummer = moteData.deltakere && moteData.deltakere.find((deltaker) => {
+        return !!deltaker.orgnummer;
+    });
+    return deltakerMedOrgnummer.orgnummer;
+};
+
+export const oppfolgingsforlopsPerioderReducerForOrgnummer = (oppfolgingsforlopsPerioderReducerListe, orgnummer) => {
+    return oppfolgingsforlopsPerioderReducerListe.find((periodeReducer) => {
+        return periodeReducer.virksomhetsnummer === orgnummer;
+    });
+};
+
+export const erMoteOpprettetIOppfolgingsforlop = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+    const orgnummer = moteReducer && orgnummerFraMote(moteReducer);
+    const oppfolgingsforlopsPerioderReducer = oppfolgingsforlopsPerioderReducerForOrgnummer(oppfolgingsforlopsPerioderReducerListe, orgnummer);
+
+    const startOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopStartdato(oppfolgingsforlopsPerioderReducer.data);
+    const sluttOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopSluttdato(oppfolgingsforlopsPerioderReducer.data);
+    const moteOpprettetDato = new Date(moteReducer.data.opprettetTidspunkt);
+
+    return startOppfolgingsdato <= moteOpprettetDato && moteOpprettetDato <= sluttOppfolgingsdato;
+};
+
+export const erMoteplanleggerBruktIOppfolgingsforlop = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+    if (!moteReducer || !moteReducer.data) {
+        return false;
+    }
+
+    return erMoteOpprettetIOppfolgingsforlop(moteReducer, oppfolgingsforlopsPerioderReducerListe);
+};
+
+export const erDatoInnenforEtOppfolgingsforlop = (dato, oppfolgingsforlopsPerioderReducerListe) => {
+    return oppfolgingsforlopsPerioderReducerListe.findIndex((perioderReducer) => {
+        const startOppfolgingsdato = perioderReducer.data && hentOppfolgingsforlopStartdato(perioderReducer.data);
+        const sluttOppfolgingsdato = perioderReducer.data && hentOppfolgingsforlopSluttdato(perioderReducer.data);
+        return startOppfolgingsdato <= dato && dato <= sluttOppfolgingsdato;
+    }) > -1;
+};
+
+export const finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop = (motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe) => {
+    const nyesteMotebehov = motebehovReducer.data.filter((motebehov) => {
+        return virksomhetsnrListe.filter((virksomhetsnr) => {
+            return motebehov.virksomhetsnummer === virksomhetsnr;
+        }).length > 0;
+    }).sort((m1, m2) => {
+        return m2.opprettetDato - m1.opprettetDato;
+    })[0];
+
+    return nyesteMotebehov && erDatoInnenforEtOppfolgingsforlop(new Date(nyesteMotebehov.opprettetDato), oppfolgingsforlopsPerioderReducerListe)
+        ? nyesteMotebehov
+        : undefined;
+};
+
+export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe) => {
+    return !!finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
+};
+
+export const harSykmeldtSvartPaaMotebehovIOppfolgingsforlop = (motebehovReducer, oppfolgingsforlopsPerioderReducerListe) => {
+    return motebehovReducer.data && motebehovReducer.data.findIndex((motebehov) => {
+        return motebehov.aktorId === motebehov.opprettetAv && erDatoInnenforEtOppfolgingsforlop(new Date(motebehov.opprettetDato), oppfolgingsforlopsPerioderReducerListe);
+    }) > -1;
+};
+
+export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPerioderReducerListe, motebehovReducer, moteReducer) => {
     try {
         if (motebehovReducer && motebehovReducer.hentingForbudt === true) {
             return false;
         }
 
-        return oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
+        const oppfolgingsforlopMedMotebehovVisning = oppfolgingsforlopsPerioderReducerListe.filter((oppfolgingsforlopsPerioderReducer) => {
             return skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer);
-        }).length > 0;
+        });
+        if (oppfolgingsforlopMedMotebehovVisning.length === 0) {
+            return false;
+        }
+
+        if (motebehovReducer && harSykmeldtSvartPaaMotebehovIOppfolgingsforlop(motebehovReducer, oppfolgingsforlopsPerioderReducerListe)) {
+            return true;
+        }
+
+        return !erMoteplanleggerBruktIOppfolgingsforlop(moteReducer, oppfolgingsforlopsPerioderReducerListe);
     } catch (e) {
         return false;
     }
@@ -162,7 +222,7 @@ export const erMotebehovTilgjengeligForOppfolgingsforlop = (state) => {
     const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
     const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
 
-    return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov);
+    return skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov, state.mote);
 };
 
 export const harMotebehovSvar = (state) => {

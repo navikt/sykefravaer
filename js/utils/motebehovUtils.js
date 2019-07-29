@@ -138,15 +138,15 @@ export const orgnummerFraMote = (moteReducer) => {
     return deltakerMedOrgnummer.orgnummer;
 };
 
-export const riktigOppfolgingsforlopsPeriodeReducer = (oppfolgingsforlopsPerioderReducerListe, orgnummer) => {
+export const oppfolgingsforlopsPerioderReducerForOrgnummer = (oppfolgingsforlopsPerioderReducerListe, orgnummer) => {
     return oppfolgingsforlopsPerioderReducerListe.find((periodeReducer) => {
         return periodeReducer.virksomhetsnummer === orgnummer;
     });
 };
 
-export const erMoteOpprettetIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+export const erMoteOpprettetIOppfolgingsforlop = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
     const orgnummer = moteReducer && orgnummerFraMote(moteReducer);
-    const oppfolgingsforlopsPerioderReducer = riktigOppfolgingsforlopsPeriodeReducer(oppfolgingsforlopsPerioderReducerListe, orgnummer);
+    const oppfolgingsforlopsPerioderReducer = oppfolgingsforlopsPerioderReducerForOrgnummer(oppfolgingsforlopsPerioderReducerListe, orgnummer);
 
     const startOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopStartdato(oppfolgingsforlopsPerioderReducer.data);
     const sluttOppfolgingsdato = oppfolgingsforlopsPerioderReducer.data && hentOppfolgingsforlopSluttdato(oppfolgingsforlopsPerioderReducer.data);
@@ -155,12 +155,12 @@ export const erMoteOpprettetIOppfolgingstilfelle = (moteReducer, oppfolgingsforl
     return startOppfolgingsdato <= moteOpprettetDato && moteOpprettetDato <= sluttOppfolgingsdato;
 };
 
-export const erMoteplanleggerBruktIOppfolgingstilfelle = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
+export const erMoteplanleggerBruktIOppfolgingsforlop = (moteReducer, oppfolgingsforlopsPerioderReducerListe) => {
     if (!moteReducer || !moteReducer.data) {
         return false;
     }
 
-    return erMoteOpprettetIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
+    return erMoteOpprettetIOppfolgingsforlop(moteReducer, oppfolgingsforlopsPerioderReducerListe);
 };
 
 export const erDatoInnenforEtOppfolgingsforlop = (dato, oppfolgingsforlopsPerioderReducerListe) => {
@@ -171,7 +171,7 @@ export const erDatoInnenforEtOppfolgingsforlop = (dato, oppfolgingsforlopsPeriod
     }) > -1;
 };
 
-export const finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle = (motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe) => {
+export const finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop = (motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe) => {
     const nyesteMotebehov = motebehovReducer.data.filter((motebehov) => {
         return virksomhetsnrListe.filter((virksomhetsnr) => {
             return motebehov.virksomhetsnummer === virksomhetsnr;
@@ -186,10 +186,10 @@ export const finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle = (motebe
 };
 
 export const skalViseMotebehovKvittering = (motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe) => {
-    return !!finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
+    return !!finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
 };
 
-export const harSykmeldtSvartPaaMotebehovIOppfolgingstilfelle = (motebehovReducer, oppfolgingsforlopsPerioderReducerListe) => {
+export const harSykmeldtSvartPaaMotebehovIOppfolgingsforlop = (motebehovReducer, oppfolgingsforlopsPerioderReducerListe) => {
     return motebehovReducer.data && motebehovReducer.data.findIndex((motebehov) => {
         return motebehov.aktorId === motebehov.opprettetAv && erDatoInnenforEtOppfolgingsforlop(new Date(motebehov.opprettetDato), oppfolgingsforlopsPerioderReducerListe);
     }) > -1;
@@ -208,11 +208,11 @@ export const skalViseMotebehovMedOppfolgingsforlopListe = (oppfolgingsforlopsPer
             return false;
         }
 
-        if (motebehovReducer && harSykmeldtSvartPaaMotebehovIOppfolgingstilfelle(motebehovReducer, oppfolgingsforlopsPerioderReducerListe)) {
+        if (motebehovReducer && harSykmeldtSvartPaaMotebehovIOppfolgingsforlop(motebehovReducer, oppfolgingsforlopsPerioderReducerListe)) {
             return true;
         }
 
-        return !erMoteplanleggerBruktIOppfolgingstilfelle(moteReducer, oppfolgingsforlopsPerioderReducerListe);
+        return !erMoteplanleggerBruktIOppfolgingsforlop(moteReducer, oppfolgingsforlopsPerioderReducerListe);
     } catch (e) {
         return false;
     }

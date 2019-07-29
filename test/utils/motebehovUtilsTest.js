@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import {
-    finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle,
+    finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop,
     skalViseMotebehovKvittering,
     hentMoteLandingssideUrl,
     erOppfolgingstilfelleSluttDatoPassert,
@@ -32,7 +32,7 @@ describe('motebehovUtils', () => {
         clock.restore();
     });
 
-    describe('finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle', () => {
+    describe('finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop', () => {
         let motebehovReducer;
         let virksomhetsnrListe;
         let oppfolgingsforlopsPerioderReducerListe;
@@ -79,33 +79,33 @@ describe('motebehovUtils', () => {
                 },
             ];
         });
-        it('Skal finne nyeste motebehov i et oppfolgingstilfelle dersom det er flere motebehov hos ulike virksomheter', () => {
+        it('Skal finne nyeste motebehov i et oppfolgingsforlop dersom det er flere motebehov hos ulike virksomheter', () => {
             const exp = virksomhetsnrListe[1];
-            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe).virksomhetsnummer;
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop(motebehovReducer, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe).virksomhetsnummer;
             expect(res).to.equal(exp);
         });
 
-        it('Skal finne nyeste motebehov i et oppfolgingstilfelle dersom det er flere motebehov hos en virksomhet', () => {
+        it('Skal finne nyeste motebehov i et oppfolgingsforlop dersom det er flere motebehov hos en virksomhet', () => {
             const exp = virksomhetsnrListe[0];
-            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, [virksomhetsnrListe[0]], oppfolgingsforlopsPerioderReducerListe).virksomhetsnummer; // eslint-disable-line max-len
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop(motebehovReducer, [virksomhetsnrListe[0]], oppfolgingsforlopsPerioderReducerListe).virksomhetsnummer; // eslint-disable-line max-len
             expect(res).to.equal(exp);
         });
 
         it('Skal ikke finne nyeste motebehov dersom det er motebehov, men ikke hos viksomhet', () => {
             const exp = undefined;
-            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, [], oppfolgingsforlopsPerioderReducerListe);
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop(motebehovReducer, [], oppfolgingsforlopsPerioderReducerListe);
             expect(res).to.equal(exp);
         });
 
         it('Skal ikke finne nyeste motebehov dersom det ikke er motebehov hos virksomhet', () => {
             const exp = undefined;
-            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle({ data: [] }, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop({ data: [] }, virksomhetsnrListe, oppfolgingsforlopsPerioderReducerListe);
             expect(res).to.equal(exp);
         });
 
-        it('Skal ikke finne nyeste motebehov dersom det er motebehov, men ingen i et gjeldende oppfolgingstilfelle', () => {
+        it('Skal ikke finne nyeste motebehov dersom det er motebehov, men ingen i et gjeldende oppfolgingsforlop', () => {
             const exp = undefined;
-            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, virksomhetsnrListe, []);
+            const res = finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop(motebehovReducer, virksomhetsnrListe, []);
             expect(res).to.equal(exp);
         });
     });

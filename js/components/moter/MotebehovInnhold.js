@@ -10,7 +10,7 @@ import Sidetopp from '../Sidetopp';
 import MotebehovSvar from './motebehov/MotebehovSvar';
 import MotebehovKvittering from './motebehov/MotebehovKvittering';
 import {
-    finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle,
+    finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop,
 } from '../../utils/motebehovUtils';
 
 const MotebehovInnhold = (
@@ -22,7 +22,7 @@ const MotebehovInnhold = (
         virksomhetnrMedMotebehovListe,
     },
 ) => {
-    const motebehov = finnNyesteMotebehovForVirksomhetListeIOppfolgingstilfelle(motebehovReducer, virksomhetnrMedMotebehovListe, oppfolgingsforlopsPerioderReducerListe);
+    const motebehov = finnNyesteMotebehovForVirksomhetListeIOppfolgingsforlop(motebehovReducer, virksomhetnrMedMotebehovListe, oppfolgingsforlopsPerioderReducerListe);
 
     const innhold = motebehov
         ? (

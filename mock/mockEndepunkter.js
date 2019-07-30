@@ -1,5 +1,5 @@
 const express = require('express');
-const mockRestoppfolgingsdialog = require('./mockRestoppfolgingsdialog');
+const mockSyfooppfolgingsplanservice = require('./mockSyfooppfolgingsplanservice');
 const mockSyfomoteadmin = require('./mockSyfomoteadmin');
 const mockSyfomotebehov = require('./mockSyfomotebehov');
 const mockSyforest = require('./mockSyforest');
@@ -24,7 +24,7 @@ function mockEndepunkter(server, erLokal) {
     });
 
     [
-        mockRestoppfolgingsdialog,
+        mockSyfooppfolgingsplanservice,
         mockSyfomoteadmin,
         mockSyfomotebehov,
         mockSyforest,

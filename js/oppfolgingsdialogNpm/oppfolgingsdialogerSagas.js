@@ -1,7 +1,12 @@
 import {
     call, put, fork, takeEvery, all,
 } from 'redux-saga/effects';
-import { get, log } from '@navikt/digisyfo-npm';
+import { log } from '@navikt/digisyfo-npm';
+import {
+    API_NAVN,
+    hentSyfoApiUrl,
+    get,
+} from '../data/gateway-api/gatewayApi';
 import {
     HENT_OPPFOLGINGSDIALOGER_FORESPURT,
     henterOppfolgingsdialoger,
@@ -14,7 +19,7 @@ export function* hentOppfolgingsdialoger() {
     yield put(henterOppfolgingsdialoger());
 
     try {
-        const url = `${process.env.REACT_APP_OPPFOELGINGSDIALOGREST_ROOT}/sykmeldt/oppfoelgingsdialoger`;
+        const url = `${hentSyfoApiUrl(API_NAVN.SYFOOPPFOLGINGSPLANSERVICE)}/arbeidstaker/oppfolgingsplaner`;
         const data = yield call(get, url);
         yield put(oppfolgingsdialogerHentet(data));
     } catch (e) {

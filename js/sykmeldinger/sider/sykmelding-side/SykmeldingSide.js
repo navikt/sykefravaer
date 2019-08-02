@@ -152,14 +152,14 @@ export function mapStateToProps(state, ownProps) {
         sykmeldingId,
         dinSykmelding,
         smSykmelding,
-        henter: state.dineSykmeldinger.henter
+        henter: (state.dineSykmeldinger.henter && !smSykmelding)
             || state.ledetekster.henter
             || state.dineSykmeldinger.hentet !== true
-            || henterSmSykmeldingerSelector(state),
-        hentingFeilet: state.dineSykmeldinger.hentingFeilet
+            || (henterSmSykmeldingerSelector(state) && !dinSykmelding),
+        hentingFeilet: (state.dineSykmeldinger.hentingFeilet && !smSykmelding)
             || state.arbeidsgiversSykmeldinger.hentingFeilet
             || state.ledetekster.hentingFeilet
-            || hentingFeiletSmSykmeldingerSelector(state),
+            || (hentingFeiletSmSykmeldingerSelector(state) && !dinSykmelding),
     };
 }
 

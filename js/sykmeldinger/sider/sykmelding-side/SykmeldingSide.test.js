@@ -342,5 +342,100 @@ describe('DinSykmeldingContainer', () => {
             const res = mapStateToProps(state, ownProps);
             expect(res.sykmeldingId).to.equal('3');
         });
+
+        describe('Henter og hentingfeilet fra to forskjellige kilder', () => {
+            ownProps.params = {};
+            state = {};
+            beforeEach(() => {
+                state.dineSykmeldinger = {
+                    data: [],
+                    henter: false,
+                    hentingFeilet: false,
+                };
+                state.smSykmeldinger = {
+                    data: [],
+                    henter: false,
+                    hentingFeilet: false,
+                };
+                state.ledetekster = {
+                    data: [],
+                    henter: false,
+                    hentingFeilet: false,
+                };
+                state.arbeidsgiversSykmeldinger = {
+                    data: [],
+                    henter: false,
+                    hentingFeilet: false,
+                };
+            });
+
+            it('Setter henter til false om vi har hentet sykmeldingen fra den andre kilden', () => {
+                ownProps.params.sykmeldingId = 'id1';
+                state.dineSykmeldinger = {
+                    data: [{ id: 'id1' }],
+                    henter: false,
+                    hentet: true,
+                    hentingFeilet: false,
+                };
+                state.smSykmeldinger = {
+                    data: [],
+                    henter: true,
+                    hentingFeilet: false,
+                };
+                const props = mapStateToProps(state, ownProps);
+                expect(props.henter).to.equal(false);
+            });
+
+            it('Setter henter til true om vi har henter den aktuelle sykmeldingen', () => {
+                ownProps.params.sykmeldingId = 'id1';
+                state.dineSykmeldinger = {
+                    data: [{ id: 'id1' }],
+                    henter: true,
+                    hentet: false,
+                    hentingFeilet: false,
+                };
+                state.smSykmeldinger = {
+                    data: [],
+                    henter: false,
+                    hentingFeilet: false,
+                };
+                const props = mapStateToProps(state, ownProps);
+                expect(props.henter).to.equal(true);
+            });
+
+            it('Setter ikke hentingFeilet om det vi har sykmeldingen og den andre kilden feiler', () => {
+                ownProps.params.sykmeldingId = 'id1';
+                state.dineSykmeldinger = {
+                    data: [{ id: 'id1' }],
+                    henter: false,
+                    hentet: true,
+                    hentingFeilet: false,
+                };
+                state.smSykmeldinger = {
+                    data: [],
+                    henter: false,
+                    hentingFeilet: true,
+                };
+                const props = mapStateToProps(state, ownProps);
+                expect(props.hentingFeilet).to.equal(false);
+            });
+
+            it('Setter hentingFeilet om det vi ikke har sykmeldingen og henting feiler', () => {
+                ownProps.params.sykmeldingId = 'id1';
+                state.dineSykmeldinger = {
+                    data: [],
+                    henter: false,
+                    hentet: true,
+                    hentingFeilet: true,
+                };
+                state.smSykmeldinger = {
+                    data: [{ id: 'id2' }],
+                    henter: false,
+                    hentingFeilet: false,
+                };
+                const props = mapStateToProps(state, ownProps);
+                expect(props.hentingFeilet).to.equal(true);
+            });
+        });
     });
 });

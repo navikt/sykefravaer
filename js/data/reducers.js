@@ -21,9 +21,7 @@ import soknader from './soknader/soknader';
 import unleashToggles from './unleash-toggles/unleashToggles';
 import metrikker from './metrikker/metrikker';
 import mote from './moter/mote';
-import svar from './svar/svar';
 import motebehov from './motebehov/motebehov';
-import motebehovSvar from './motebehov-svar/motebehovSvar';
 import history from '../history';
 import merVeiledning from '../arbeidsrettet-oppfolging/data/merVeiledning';
 import smSykmeldinger from '../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
@@ -39,9 +37,7 @@ const reducers = {
     merVeiledning,
     mote,
     motebehov,
-    motebehovSvar,
     oppfolgingsforlopsPerioder,
-    svar,
     sykepengesoknader,
     toggles,
     tidslinjer,

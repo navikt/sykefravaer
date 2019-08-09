@@ -6,13 +6,6 @@ function mockPilotEndepunkterForLokalmiljo(server) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[enums.MOTEBEHOV]));
     });
-
-    server.post('/syfomotebehov/api/motebehov', (req, res) => {
-        const nyttMotebehov = req.body;
-
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(nyttMotebehov));
-    });
 }
 
 function mockPilotEndepunkterForOpplaeringsmiljo(server) {

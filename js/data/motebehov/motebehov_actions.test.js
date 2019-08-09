@@ -41,36 +41,4 @@ describe('actions', () => {
             type: actions.HENT_MOTEBEHOV_FORBUDT,
         });
     });
-
-    it('Skal ha en svarMotebehov()-funksjon som returnerer riktig action', () => {
-        const svar = {};
-        expect(actions.svarMotebehov(svar, virksomhetsnummer)).to.deep.equal({
-            type: actions.SVAR_MOTEBEHOV_FORESPURT,
-            svar,
-            virksomhetsnummer,
-        });
-    });
-
-    it('Skal ha en svarMotebehovSender()-funksjon som returnerer riktig action', () => {
-        expect(actions.svarMotebehovSender(virksomhetsnummer)).to.deep.equal({
-            type: actions.SVAR_MOTEBEHOV_SENDER,
-            virksomhetsnummer,
-        });
-    });
-
-    it('har en svarMotebehovSendt()-funksjon som returnerer riktig action', () => {
-        const svar = {};
-        expect(actions.svarMotebehovSendt(svar, virksomhetsnummer)).to.deep.equal({
-            type: actions.SVAR_MOTEBEHOV_SENDT,
-            svar,
-            virksomhetsnummer,
-        });
-    });
-
-    it('Skal ha en svarMotebehovFeilet()-funksjon som returnerer riktig action', () => {
-        expect(actions.svarMotebehovFeilet(virksomhetsnummer)).to.deep.equal({
-            type: actions.SVAR_MOTEBEHOV_FEILET,
-            virksomhetsnummer,
-        });
-    });
 });

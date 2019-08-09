@@ -13,11 +13,9 @@ import {
     API_NAVN,
     hentSyfoApiUrl,
     get,
-    post,
 } from '../gateway-api/gatewayApi';
 import * as actions from './motebehov_actions';
 import { skalHenteMotebehov } from './motebehovSelectors';
-import { input2RSLagreMotebehov } from '../../utils/motebehovUtils';
 
 export function* hentMotebehov() {
     yield put(actions.hentMotebehovHenter());
@@ -42,31 +40,12 @@ export function* hentMotebehovHvisIkkeHentet() {
     }
 }
 
-export function* svarMotebehov(action) {
-    const { virksomhetsnummer } = action;
-    const body = input2RSLagreMotebehov(action.svar, action.virksomhetsnummer);
-    yield put(actions.svarMotebehovSender(virksomhetsnummer));
-    try {
-        const url = `${hentSyfoApiUrl(API_NAVN.SYFOMOTEBEHOV)}/motebehov?fnr=${''}`;
-        yield call(post, url, body);
-        yield put(actions.svarMotebehovSendt(body, virksomhetsnummer));
-    } catch (e) {
-        log(e);
-        yield put(actions.svarMotebehovFeilet(virksomhetsnummer));
-    }
-}
-
 function* watchHentMotebehov() {
     yield takeEvery(actions.HENT_MOTEBEHOV_FORESPURT, hentMotebehovHvisIkkeHentet);
-}
-
-function* watchSvarMotebehov() {
-    yield takeEvery(actions.SVAR_MOTEBEHOV_FORESPURT, svarMotebehov);
 }
 
 export default function* motebehovSagas() {
     yield all([
         fork(watchHentMotebehov),
-        fork(watchSvarMotebehov),
     ]);
 }

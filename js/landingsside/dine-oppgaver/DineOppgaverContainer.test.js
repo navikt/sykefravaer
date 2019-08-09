@@ -355,8 +355,8 @@ describe('DineOppgaverComponent', () => {
                     mote="TRENGER_SVAR"
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
-                expect(component.find(Link).at(0).prop('to')).to.equal('/sykefravaer/dialogmote');
-                expect(component.find(Link).at(0).text()).to.equal('Svar på NAVs spørsmål om dialogmøte');
+                expect(component.find(EksternLi).at(0).prop('url')).to.equal('/dialogmote');
+                expect(component.find(EksternLi).at(0).text()).to.equal('Svar på NAVs spørsmål om dialogmøte');
             });
 
             it('Skal vise lenke til motebehov hvis motebehov er tilgjengelig og ikke besvart', () => {
@@ -370,8 +370,8 @@ describe('DineOppgaverComponent', () => {
                     nyePlaner={[]}
                     harNyttMotebehov
                 />);
-                expect(component.find(Link).at(0).prop('to')).to.equal('/sykefravaer/dialogmoter/behov');
-                expect(component.find(Link).at(0).text()).to.equal('Du har 1 ny forspørsel om behov for dialogmøte');
+                expect(component.find(EksternLi).at(0).prop('url')).to.equal('/dialogmote/behov');
+                expect(component.find(EksternLi).at(0).text()).to.equal('Du har 1 ny forspørsel om behov for dialogmøte');
             });
 
             it("Skal vise lenke til aktivitetskrav hvis det er kommet et nytt varsel'", () => {

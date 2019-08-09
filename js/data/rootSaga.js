@@ -15,7 +15,6 @@ import ledereSagas from '../landingsside/data/ledere/ledereSagas';
 import vedlikeholdSagas from './vedlikehold/vedlikeholdSagas';
 import moteSagas from './moter/moteSagas';
 import motebehovSagas from './motebehov/motebehovSagas';
-import svarSagas from './svar/svarSagas';
 import hendelserSagas from '../landingsside/data/hendelser/hendelserSagas';
 import aktivitetskravSagas from '../aktivitetskrav/data/aktivitetskravSagas';
 import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsperioder/oppfolgingsforlopsPerioderSagas';
@@ -43,7 +42,6 @@ export default function* rootSaga() {
         vedlikeholdSagas(),
         moteSagas(),
         motebehovSagas(),
-        svarSagas(),
         togglesSagas(),
         hendelserSagas(),
         aktivitetskravSagas(),

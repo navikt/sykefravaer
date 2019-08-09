@@ -6,57 +6,7 @@ import {
     finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
     finnVirksomheterMedAktivSykmelding,
 } from './oppfolgingsforlopsperioderUtils';
-
-const isDefined = (value) => {
-    return value !== undefined;
-};
-
-export const harSvarMotebehovSender = (motebehovSvarReducerListe) => {
-    return motebehovSvarReducerListe.filter((reducer) => {
-        return reducer.sender;
-    }).length > 0;
-};
-
-export const harSvarMotebehovFeilet = (motebehovSvarReducerListe) => {
-    return motebehovSvarReducerListe.filter((reducer) => {
-        return reducer.sendingFeilet;
-    }).length > 0;
-};
-
-export const input2RSLagreMotebehov = (motebehov, virksomhetsnummer, fnr) => {
-    const rsLagreMotebehov = {};
-    const rsMotebehovSvar = {};
-    if (!isDefined(motebehov)) {
-        return rsLagreMotebehov;
-    }
-    rsLagreMotebehov.virksomhetsnummer = virksomhetsnummer || '';
-    rsLagreMotebehov.arbeidstakerFnr = fnr || '';
-
-    if (isDefined(motebehov.harMotebehov)) {
-        if (motebehov.harMotebehov === 'true') {
-            rsMotebehovSvar.harMotebehov = true;
-        } else if (motebehov.harMotebehov === 'false') {
-            rsMotebehovSvar.harMotebehov = false;
-        } else {
-            rsMotebehovSvar.harMotebehov = motebehov.harMotebehov;
-        }
-    }
-    if (isDefined(motebehov.friskmeldingForventning)) {
-        rsMotebehovSvar.friskmeldingForventning = motebehov.friskmeldingForventning;
-    }
-    if (isDefined(motebehov.tiltak)) {
-        rsMotebehovSvar.tiltak = motebehov.tiltak;
-    }
-    if (isDefined(motebehov.tiltakResultat)) {
-        rsMotebehovSvar.tiltakResultat = motebehov.tiltakResultat;
-    }
-    if (isDefined(motebehov.forklaring)) {
-        rsMotebehovSvar.forklaring = motebehov.forklaring;
-    }
-    rsLagreMotebehov.motebehovSvar = rsMotebehovSvar;
-
-    return rsLagreMotebehov;
-};
+import { hentDialogmoteUrl } from './urlUtils';
 
 export const MOTEBEHOVSVAR_GYLDIG_VARIGHET_DAGER = 10 * 7;
 export const OPPFOLGINGSFORLOP_MOTEBEHOV_START_DAGER = 16 * 7;
@@ -64,7 +14,7 @@ export const OPPFOLGINGSFORLOP_MOTEBEHOV_SLUTT_DAGER = 26 * 7;
 
 export const hentMoteLandingssideUrl = (skalViseMotebehov) => {
     const moteVisning = skalViseMotebehov ? '' : '/mote';
-    return `${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter${moteVisning}`;
+    return hentDialogmoteUrl(moteVisning);
 };
 
 export const erOppfoelgingsdatoNyereEnn132DagerForProdsetting = (oppfoelgingsdato) => {
@@ -118,16 +68,6 @@ export const skalViseMotebehovForOppfolgingsforlop = (oppfolgingsforlopsPerioder
         && !erOppfolgingstilfelleSluttDatoPassert(sluttOppfolgingsdato)
         && erOppfoelgingsdatoPassertMed16UkerOgIkke26Uker(startOppfolgingsdato)
         && erOppfoelgingsdatoNyereEnn132DagerForProdsetting(startOppfolgingsdato);
-};
-
-export const finnVirksomhetnrListeMedSkalViseMotebehov = (oppfolgingsforlopsPerioderReducerListe) => {
-    const liste = [];
-    oppfolgingsforlopsPerioderReducerListe.forEach((oppfolgingsforlopsPerioderReducer) => {
-        if (skalViseMotebehovForOppfolgingsforlop(oppfolgingsforlopsPerioderReducer)) {
-            liste.push(oppfolgingsforlopsPerioderReducer.virksomhetsnummer);
-        }
-    });
-    return liste;
 };
 
 export const orgnummerFraMote = (moteReducer) => {

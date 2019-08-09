@@ -13,6 +13,13 @@ export const getSykepengesoknadUrl = (soknadId) => {
     return `${getSykepengesoknaderUrl()}/soknader/${soknadId}`;
 };
 
+export const hentDialogmoteUrl = (sidevisning = '') => {
+    const sluttUrl = `${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}${sidevisning}`;
+    return erPaaHeroku()
+        ? `https://dialogmote.herokuapp.com${sluttUrl}`
+        : sluttUrl;
+};
+
 export const getOppfolgingsplanerUrl = () => {
     return erPaaHeroku()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'

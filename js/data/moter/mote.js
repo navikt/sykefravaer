@@ -5,7 +5,6 @@ import {
     MOTE_IKKE_FUNNET,
 } from './mote_actions';
 import { konverterTid } from '../../utils/moteUtils';
-import { SVAR_SENDT } from '../svar/svar_actions';
 
 const initialState = {
     data: null,
@@ -45,36 +44,6 @@ const mote = (state = initialState, action = {}) => {
                 moteIkkeFunnet: true,
                 hentet: true,
             };
-        }
-        case SVAR_SENDT: {
-            const avkryssetIder = action.data;
-            const { deltakertype } = action;
-            const data = Object.assign({}, state.data, {
-                deltakere: state.data.deltakere
-                    .map((deltaker) => {
-                        if (deltaker.type === deltakertype) {
-                            return Object.assign({}, deltaker, {
-                                svar: deltaker.svar.map((s) => {
-                                    if (avkryssetIder.includes(s.id)) {
-                                        return Object.assign({}, s, {
-                                            valgt: true,
-                                        });
-                                    }
-                                    return s;
-                                }),
-                                svartidspunkt: new Date(),
-                            });
-                        }
-                        return deltaker;
-                    }),
-            });
-
-            return Object.assign({}, state, {
-                data,
-                sender: false,
-                sendingFeilet: false,
-                sendt: true,
-            });
         }
         default: {
             return state;

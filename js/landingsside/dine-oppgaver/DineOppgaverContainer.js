@@ -123,8 +123,8 @@ const nyePlanerTekst = (antall) => {
 
 export const NyttMotebehovVarsel = () => {
     return (
-        <Li
-            url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmoter/behov`}
+        <EksternLi
+            url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}/behov`}
             tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
         />
     );
@@ -169,7 +169,7 @@ const RendreOppgaver = (
                         {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
                         {avvisteSmSykmeldinger.length > 0 && <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />}
                         {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
-                        {mote !== null && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/dialogmote`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
+                        {mote !== null && <EksternLi url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
                         {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('ao.oppgave.inngangstekst')} />}
                         {avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />}
                         {nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} />}

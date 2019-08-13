@@ -70,6 +70,7 @@ const Landingsside = ({
                         render={() => {
                             return (
                                 <Peker
+                                    ekstern
                                     to={hentMoteLandingssideUrl(skalViseMotebehov)}
                                     ikon="dialogmoter"
                                     ikonAlt="Dialogmøter"

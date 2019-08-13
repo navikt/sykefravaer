@@ -3,7 +3,6 @@ import {
     HENT_MOTEBEHOV_HENTET,
     HENT_MOTEBEHOV_FEILET,
     HENT_MOTEBEHOV_FORBUDT,
-    SVAR_MOTEBEHOV_SENDT,
 } from './motebehov_actions';
 
 export const sorterMotebehovEtterNyeste = (motebehovListe) => {
@@ -59,17 +58,6 @@ export default function motebehov(state = initiellState, action = {}) {
                 henter: false,
                 hentingForbudt: true,
                 hentingForsokt: true,
-            };
-        }
-        case SVAR_MOTEBEHOV_SENDT: {
-            const nyttMotebehov = {
-                ...action.svar,
-                virksomhetsnummer: action.virksomhetsnummer,
-                opprettetDato: new Date(),
-            };
-            return {
-                ...state,
-                data: [nyttMotebehov, ...state.data],
             };
         }
         default:

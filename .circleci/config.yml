@@ -33,6 +33,31 @@ jobs:
       - barkendeploy/docker-build
       - barkendeploy/docker-login
       - barkendeploy/docker-push
+  run_tests:
+    docker:
+      - image: "circleci/node:latest"
+    steps:
+      - checkout
+      - setup_remote_docker
+      - barkendeploy/init
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm'
+      - restore_cache:
+          key: dependency-cashe-{{ checksum "package.json" }}
+      - run:
+          name: Run npm install
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Test
+          command: npm run test
+      - run:
+          name: Lint
+          command: npm run lint
 workflows:
   version: 2
   build_and_release:
@@ -40,12 +65,20 @@ workflows:
       - linux_build:
           context: barkendeploy
           filters:
-            tags:
-              only: naiserator
+            branches:
+              only: master
       - barkendeploy/deployment:
           deployments:
             - barkendeploy/deploy-create:
                 cluster: dev-sbs
+            - barkendeploy/deploy-create:
+                cluster: prod-sbs
           context: barkendeploy
           requires:
             - linux_build
+  test_branch:
+    jobs:
+      - run_tests:
+          filters:
+            branches:
+              ignore: master

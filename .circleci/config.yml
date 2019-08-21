@@ -52,3 +52,10 @@ workflows:
           filters:
             tags:
               only: naiserator
+      - barkendeploy/deployment:
+          deployments:
+            - barkendeploy/deploy-create:
+                cluster: dev-sbs
+          context: barkendeploy
+          requires:
+            - linux_build

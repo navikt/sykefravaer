@@ -28,6 +28,7 @@ jobs:
           name: lint
           command: npm run lint
       - barkendeploy/docker-build
+      - barkendeploy/docker-login
       - barkendeploy/docker-push
   deploy:
     docker:

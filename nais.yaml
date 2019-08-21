@@ -1,40 +1,45 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: sykefravaer
-  namespace: default
-  labels:
-    team: teamsykefravr
-spec:
-  image: navikt/sykefravaer:{{version}}
-  port: 8080
-  team: teamsykefravr
+name: sykefravaer
+team: teamsykefravr
+image: repo.adeo.no:5443/digisyfo/sykefravaer
+replicas:
+  min: 2
+  max: 2
+  cpuThresholdPercentage: 50
+port: 8080
+healthcheck:
   liveness:
-    path: /isAlive
-    initialDelay: 0
-    periodSeconds: 5
-    timeout: 1
-    failureThreshold: 3
+    path: /health/isAlive
+    initialDelay: 60
   readiness:
-    path: /isReady
-    initialDelay: 0
-    periodSeconds: 5
-    timeout: 1
-  resources:
-    limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 200m
-      memory: 256Mi
-  replicas:
-    min: 2
-    max: 2
-    cpuThresholdPercentage: 90
-  vault:
-    enabled: true
-  ingresses:
-    - https://sykefravaer.nais.oera-q.local
-    - https://sykefravaer.nais.oera.local
-    - https://tjenester-q1.nav.no
-    - https://tjenester.nav.no
+    path: /health/isReady
+    initialDelay: 60
+prometheus:
+  enabled: true
+  path: /actuator/metrics
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+ingress:
+  enabled: true
+fasitResources:
+  used:
+    - alias: appres.cms
+      resourceType: baseurl
+    - alias: loginservice
+      resourceType: restservice
+    - alias: syfoapi-syfomoteadminapi
+      resourceType: restservice
+    - alias: syfoapi-syfoteksterapi
+      resourceType: restservice
+    - alias: syfoapi-syfosoknadapi
+      resourceType: restservice
+    - alias: sykefravaerapi
+      resourceType: restservice
+    - alias: oppfoelgingsdialogapi
+      resourceType: restservice
+    - alias: syfounleashapi
+      resourceType: restservice

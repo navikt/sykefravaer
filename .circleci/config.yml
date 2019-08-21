@@ -22,11 +22,14 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: test
+          name: Test
           command: npm run test
       - run:
-          name: lint
+          name: Lint
           command: npm run lint
+      - run:
+          name: Bygg
+          command: npm run nais-build
       - barkendeploy/docker-build
       - barkendeploy/docker-login
       - barkendeploy/docker-push

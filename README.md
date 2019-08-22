@@ -1,8 +1,17 @@
 # Sykefravaer (tidligere kjent som «syfofront»)
+[![CircleCI](https://circleci.com/gh/navikt/sykefravaer.svg?style=svg)](https://circleci.com/gh/navikt/sykefravaer)
+
 Frontend for digitalisering av sykefraværsoppfølging (DigiSYFO) http://tjenester.nav.no/sykefravaer/
 
 ## TL;DR
 React-app for den sykmeldte. Viser sykmeldinger, sykepengesøknader og informasjon om nærmeste leder.
+
+## CI
+Appen bygges og deployes på [CircleCI](https://circleci.com/gh/navikt/sykefravaer). Det er kun `master` som vil bli 
+deployet automatisk. Ved vellykket bygg av docker image på master vil imaget bli pushet til `dev-sbs` og `prod-sbs`. 
+Alle andre brancher vil kun bli testet. For å rulle en branch til `dev-sbs` kan man bruke 
+[syfodeploy](https://github.com/navikt/syfodeploy/blob/master/syfodeploy.sh), dette er et verktøy som vil trigge kjøring
+av `build_branch` workflowen til CircleCI som bygger og deployer branchen til `dsv-sbs`. 
 
 ## Kjøre lokalt
 Applikasjonen har en mock som kan brukes lokalt. Her mockes diverse endepunkter, dog ikke alle. 

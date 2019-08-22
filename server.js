@@ -81,10 +81,10 @@ const startServer = (html) => {
         res.end(prometheus.register.metrics());
     });
 
-    server.get('/health/isAlive', (req, res) => {
+    server.get('/is_alive', (req, res) => {
         res.sendStatus(200);
     });
-    server.get('/health/isReady', (req, res) => {
+    server.get('/is_ready', (req, res) => {
         res.sendStatus(200);
     });
 

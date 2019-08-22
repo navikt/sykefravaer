@@ -1,8 +1,12 @@
 version: 2.1
 orbs:
   barkendeploy: navikt/barkendeploy@dev:master
+parameters:
+  deploy_branch:
+    type: boolean
+    default: false
 jobs:
-  linux_build:
+  build:
     docker:
       - image: "circleci/node:latest"
     steps:
@@ -62,7 +66,7 @@ workflows:
   version: 2
   build_and_release:
     jobs:
-      - linux_build:
+      - build:
           context: barkendeploy
           filters:
             branches:
@@ -75,10 +79,26 @@ workflows:
                 cluster: prod-sbs
           context: barkendeploy
           requires:
-            - linux_build
+            - build
   test_branch:
+    unless: << pipeline.parameters.deploy_branch >>
     jobs:
       - run_tests:
           filters:
             branches:
               ignore: master
+  build_branch:
+    when: << pipeline.parameters.deploy_branch >>
+    jobs:
+      - build:
+          context: barkendeploy
+          filters:
+            branches:
+              ignore: master
+      - barkendeploy/deployment:
+          deployments:
+            - barkendeploy/deploy-create:
+                cluster: dev-sbs
+          context: barkendeploy
+          requires:
+            - build

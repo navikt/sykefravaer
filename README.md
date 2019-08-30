@@ -1,10 +1,9 @@
-# Sykefravaer (tidligere kjent som «syfofront»)
+# Sykefravaer
 [![CircleCI](https://circleci.com/gh/navikt/sykefravaer.svg?style=svg)](https://circleci.com/gh/navikt/sykefravaer)
 
-Frontend for digitalisering av sykefraværsoppfølging (DigiSYFO) http://tjenester.nav.no/sykefravaer/
-
-## TL;DR
-React-app for den sykmeldte. Viser sykmeldinger, sykepengesøknader og informasjon om nærmeste leder.
+Sykefravaer er landingssiden for sykefraværsoppfølging. Den henter data om sykmeldinger og sykepengesøknader og lar den 
+sykmeldte navigere til sider hvor dataen vises. Appen skal videreutvikles til å bare være et skall som lenker videre til
+egne appers om er ansvarlige for å vise og behandle data for forskjellige områder. 
 
 ## CI
 Appen bygges og deployes på [CircleCI](https://circleci.com/gh/navikt/sykefravaer). Det er kun `master` som vil bli 
@@ -13,25 +12,26 @@ Alle andre brancher vil kun bli testet. For å rulle en branch til `dev-sbs` kan
 [syfodeploy](https://github.com/navikt/syfodeploy/blob/master/syfodeploy.sh), dette er et verktøy som vil trigge kjøring
 av `build_branch` workflowen til CircleCI som bygger og deployer branchen til `dsv-sbs`. 
 
+## Logger
+Denne appen bruker frontendlogger, du kan se loggen [her](https://logs.adeo.no/goto/da5c8e86da5d5151a9b3be331de093bc).
+
 ## Kjøre lokalt
-Applikasjonen har en mock som kan brukes lokalt. Her mockes diverse endepunkter, dog ikke alle. 
+For å kjøre appen lokalt må du ha Node installert og installere npm avhengigheter, `npm install`.
 
-Du må ha Node installert.
+For å kjøre appen lokalt brukes `webpack-dev-server` for å serve ressurser, selve appen serves av en express server.
+Det betyr at man må ha to prosesser kjørende for å kjøre appen. 
 
-Du må også konfigurere npm som følger:
+Appen startes lokalt ved å kjøre disse kommandoene:
+- `npm run-dev`
+- `npm start-local` 
 
-```bash
-$ npm config set @types:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"
-$ npm config set @babel:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"
-```
+## Test og lint
+Appen testes med chai + mocha. Foretrukket plassering av tester er i samme mappe som filen den tester med navneformat:
+`<fil-som-testes>.test.js`. Vi bruker eslint for å håndheve kodestil. Stilen er en gatemiks av air-bnb og hjemmesnekra
+regler. 
 
-* For å kjøre koden lokalt: 
-    - `$ npm install`
-    - `$ npm run dev`
-    - I et annet vindu `$ npm run start-local`
-    - Eventuelt kan komandoene kjøres fra `package.json` i intellij.
-* Kjør tester med `npm test` eller `npm test:watch`
-* Lint JS-kode med `npm run lint` eller `npm run lint:fix`
+* Kjør tester med `npm test`, watch med `npm test:watch`
+* Lint JS-kode med `npm run lint`. For å fikse enkle lint feil kan du kjøre `npm run lint:fix`
 
 ## Deploy mock app til Heroku
 Installer heroku, på mac kan du bruke brew: `$ brew install heroku`.

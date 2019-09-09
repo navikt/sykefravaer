@@ -163,7 +163,7 @@ class VelgArbeidssituasjon extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            visArbeidssituasjoner: props.initialValues.valgtArbeidssituasjonShadow !== null,
+            visArbeidssituasjoner: true,
         };
     }
 

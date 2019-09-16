@@ -30,9 +30,7 @@ export const harValgtArbeidsgiverMedNaermesteLeder = (svar, arbeidsgivere) => {
     return harValgtArbeidsgiver(svar, arbeidsgivere) && valgtArbeidsgiver.naermesteLeder !== null;
 };
 
-export const RendreVelgArbeidssituasjon = ({
-    input, meta, arbeidsgivere, alternativer,
-}) => {
+export const RendreVelgArbeidssituasjon = ({ input, meta, arbeidsgivere, alternativer }) => {
     const hjelpelinje = arbeidsgivere.length > 1
         ? <p>{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.flere-arbeidsgivere-infotekst')}</p>
         : null;
@@ -41,14 +39,18 @@ export const RendreVelgArbeidssituasjon = ({
         : null;
 
     return (
-        <div>
+        <React.Fragment>
             <Radioknapper
                 hjelpelinje={hjelpelinje}
                 id="valgtArbeidssituasjon"
                 input={input}
                 meta={meta}
                 spoersmal={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.3')}
-                hjelpetekst={<Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>}>
+                hjelpetekst={(
+                    <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">
+                        {getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}
+                    </Hjelpetekst>
+                )}>
                 {
                     alternativer
                         .map((alternativ, index) => {
@@ -63,7 +65,7 @@ export const RendreVelgArbeidssituasjon = ({
                 }
             </Radioknapper>
             {gdpr}
-        </div>
+        </React.Fragment>
     );
 };
 
@@ -133,7 +135,7 @@ export const getArbeidsgivereOgArbeidssituasjoner = (arbeidsgivere) => {
         ...getArbeidsgivere(arbeidsgivere),
         ...arbeidssituasjoner.map((value) => {
             const label = arbeidsgivere.length > 0
-                && value === ARBEIDSTAKER
+            && value === ARBEIDSTAKER
                 ? getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${value.toLowerCase()}-annen-arbeidsgiver.2`)
                 : getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${value.toLowerCase()}.2`);
 
@@ -163,7 +165,7 @@ class VelgArbeidssituasjon extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            visArbeidssituasjoner: props.initialValues.valgtArbeidssituasjonShadow !== null,
+            visArbeidssituasjoner: true,
         };
     }
 

@@ -668,8 +668,8 @@
       "mellomnavn": "Peyton",
       "etternavn": "Jones"
     },
-    "arbeidsgiver": "PONTYPANDY FIRE SERVICE",
-    "stillingsprosent": 100,
+    "arbeidsgiver": "",
+    "stillingsprosent": 0,
     "diagnose": {
       "hoveddiagnose": {
         "diagnose": "TENDINITT INA",

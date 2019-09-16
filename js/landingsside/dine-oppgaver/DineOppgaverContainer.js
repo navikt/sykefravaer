@@ -11,8 +11,7 @@ import { hentHendelser } from '../data/hendelser/hendelserActions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../aktivitetskrav/sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../enums/soknadstatuser';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
-import { toggleNyArbeidstakerSoknad } from '../../data/unleash-toggles/unleashTogglesSelectors';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE, ARBEIDSLEDIG } from '../../enums/soknadtyper';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import { erPaaHeroku, getSykepengesoknaderUrl, getSykepengesoknadUrl } from '../../utils/urlUtils';
@@ -243,9 +242,7 @@ export const mapStateToProps = (state) => {
             return s.status === NY;
         })
         .filter((s) => {
-            return toggleNyArbeidstakerSoknad(state)
-                ? s.soknadstype === SELVSTENDIGE_OG_FRILANSERE || s.soknadstype === ARBEIDSTAKERE
-                : s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
+            return s.soknadstype === SELVSTENDIGE_OG_FRILANSERE || s.soknadstype === ARBEIDSTAKERE || s.soknadstype === ARBEIDSLEDIG;
         });
 
     const mote = state.mote.data;

@@ -2,6 +2,24 @@ const mockData = require('./mockData');
 const enums = require('./mockDataEnums');
 
 const mockSyforestLokalt = (server) => {
+    server.post('/syforest/sykmeldinger/:id/actions/bekreft', (req, res) => {
+        const { id } = req.params;
+        mockData[enums.SYKMELDINGER] = mockData[enums.SYKMELDINGER].map(sykmelding => {
+            return sykmelding.id === id
+                ? {
+                    ...sykmelding, status: 'SENDT',
+                }
+                : sykmelding
+        });
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({}));
+    });
+
+    server.post('/syforest/sykmeldinger/:id/actions/skalOppretteSoknad', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(false);
+    });
+
     server.post('/syforest/naermesteledere/:id/actions/avkreft', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({}));

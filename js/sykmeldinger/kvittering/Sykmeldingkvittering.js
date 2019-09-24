@@ -13,6 +13,7 @@ import {
     SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding,
 } from './varianter/SokOmSykepengerSenereKvittering';
 import SokOmSykepengerNaaKvittering from './varianter/SokOmSykepengerNaaKvittering';
+import SokOmSykepengerNaaArbeidsledig from './varianter/SokOmSykepengerNaaArbeidsledig';
 import FrilanserMedPapirsoknadKvittering from './varianter/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from './varianter/FrilanserUtenSoknadKvittering';
 import FrilanserSoekDigitaltNaa from './varianter/FrilanserSoekDigitaltNaa';
@@ -22,8 +23,15 @@ import SendtSykmeldingMedPapirSoknadKvittering from './varianter/SendtSykmelding
 import AnnetArbeidsledigKvittering from './varianter/AnnetArbeidsledigKvittering';
 import Feilmelding from '../../components/Feilmelding';
 import { soknadPt } from '../../propTypes/index';
+import {
+    SokOmSykepengerSenereArbeidsledigKortSykmelding,
+    SokOmSykepengerSenereArbeidsledigLangSykmelding,
+} from './varianter/SokOmSykepengerSenereArbeidsledig';
 
 export const kvitteringtyper = {
+    KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG: 'KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG',
+    KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING',
+    KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING',
     KVITTERING_MED_SYKEPENGER_SOK_NA: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ',
     KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING',
     KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING: 'KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING',
@@ -79,6 +87,9 @@ const SykmeldingKvittering = (props) => {
     const { kvitteringtype, sykepengesoknader, soknader } = props;
     /* eslint-disable max-len */
     const kvitteringMap = {
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG]: SokOmSykepengerNaaArbeidsledig,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING]: SokOmSykepengerSenereArbeidsledigKortSykmelding,
+        [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING]: SokOmSykepengerSenereArbeidsledigLangSykmelding,
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING]: SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding,
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING]: SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding,
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING]: SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding,

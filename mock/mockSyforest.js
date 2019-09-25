@@ -4,12 +4,25 @@ const enums = require('./mockDataEnums');
 const mockSyforestLokalt = (server) => {
     server.post('/syforest/sykmeldinger/:id/actions/bekreft', (req, res) => {
         const { id } = req.params;
-        mockData[enums.SYKMELDINGER] = mockData[enums.SYKMELDINGER].map(sykmelding => {
+        mockData[enums.SYKMELDINGER] = mockData[enums.SYKMELDINGER].map((sykmelding) => {
             return sykmelding.id === id
                 ? {
                     ...sykmelding, status: 'SENDT',
                 }
-                : sykmelding
+                : sykmelding;
+        });
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({}));
+    });
+
+    server.post('/syforest/sykmeldinger/:id/actions/send', (req, res) => {
+        const { id } = req.params;
+        mockData[enums.SYKMELDINGER] = mockData[enums.SYKMELDINGER].map((sykmelding) => {
+            return sykmelding.id === id
+                ? {
+                    ...sykmelding, status: 'SENDT',
+                }
+                : sykmelding;
         });
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({}));

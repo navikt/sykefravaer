@@ -16,7 +16,7 @@ import Sykmeldingkvittering, { kvitteringtyper } from '../../kvittering/Sykmeldi
 import AppSpinner from '../../../components/AppSpinner';
 import Feilmelding from '../../../components/Feilmelding';
 import { soknadPt, sykmelding as sykmeldingPt } from '../../../propTypes';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
+import { ARBEIDSLEDIG, ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
 import { harStrengtFortroligAdresseSelector } from '../../../data/brukerinfo/brukerinfoSelectors';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentSykepengesoknader } from '../../../data/sykepengesoknader/sykepengesoknader_actions';
@@ -151,6 +151,22 @@ const getKvitteringtype = (state, sykmeldingId) => {
     if (!sykmelding) {
         return null;
     }
+
+    const arbeidsledigsoknader = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id && s.soknadstype === ARBEIDSLEDIG);
+    const nyeSoknaderArbeidsledig = arbeidsledigsoknader.filter(s => s.status === NY);
+
+    if (nyeSoknaderArbeidsledig.length > 0) {
+        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG;
+    }
+
+    if (arbeidsledigsoknader.length === 1) {
+        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING;
+    }
+
+    if (arbeidsledigsoknader.length > 1) {
+        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING;
+    }
+
     const arbeidstakersoknader = state.soknader.data.filter(s => s.soknadstype === ARBEIDSTAKERE);
     const denneSykmeldingensSykepengesoknader = [
         ...state.sykepengesoknader.data,

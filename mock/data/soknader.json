@@ -1682,7 +1682,7 @@
     ]
   },
   {
-        "id": "5f2d742c-db00-448b-9178-321b6a44dc55", "aktorId": "aktorId-745463060", "sykmeldingId": "cd223f13-8a79-4e25-bd28-50e88ab54be6", "soknadstype": "ARBEIDSLEDIG", "status": "NY",
+        "id": "5f2d742c-db00-448b-9178-321b6a44dc55", "aktorId": "aktorId-745463060", "sykmeldingId": "0ba8ea3e-2bd1-4d03-b127-40a5535fcf93", "soknadstype": "ARBEIDSLEDIG", "status": "NY",
         "fom": "2019-08-08", "tom": "2019-08-17", "opprettetDato": "2019-08-27", "innsendtDato": null, "sendtTilNAVDato": null, "sendtTilArbeidsgiverDato": null, "avbruttDato": null,
         "startSykeforlop": "2019-08-03", "sykmeldingUtskrevet": "2019-08-08", "arbeidsgiver": null, "korrigerer": null, "korrigertAv": null, "arbeidssituasjon": "ARBEIDSLEDIG",
         "soknadPerioder": [{ "fom": "2019-08-08", "tom": "2019-08-12", "grad": 100 }, { "fom": "2019-08-13", "tom": "2019-08-17", "grad": 40 }],

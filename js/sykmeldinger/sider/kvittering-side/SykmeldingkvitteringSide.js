@@ -154,18 +154,17 @@ const getKvitteringtype = (state, sykmeldingId) => {
 
     const arbeidsledigsoknader = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id && s.soknadstype === ARBEIDSLEDIG);
     const nyeSoknaderArbeidsledig = arbeidsledigsoknader.filter(s => s.status === NY);
-    const fremSoknaderArbeidsledig = arbeidsledigsoknader.filter(s => s.status === FREMTIDIG);
 
     if (nyeSoknaderArbeidsledig.length > 0) {
         return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG;
     }
 
-    if (nyeSoknaderArbeidsledig.length === 0 && fremSoknaderArbeidsledig.length > 1) {
-        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING;
+    if (arbeidsledigsoknader.length === 1) {
+        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING;
     }
 
-    if (nyeSoknaderArbeidsledig.length === 0 && fremSoknaderArbeidsledig.length === 1) {
-        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING;
+    if (arbeidsledigsoknader.length > 1) {
+        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING;
     }
 
     const arbeidstakersoknader = state.soknader.data.filter(s => s.soknadstype === ARBEIDSTAKERE);

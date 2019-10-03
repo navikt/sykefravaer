@@ -20,11 +20,11 @@ import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sy
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 
 const Li = ({
-    tekst, url, img, imgAlt,
-}) => {
+                tekst, url, img, imgAlt,
+            }) => {
     return (
         <li>
-            { img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" /> }
+            {img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" />}
             <span>
                 <Link to={url}>{tekst}</Link>
             </span>
@@ -162,20 +162,18 @@ const RendreOppgaver = (
     return (
         <div className="landingspanel dineOppgaver">
             <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/oppgaver.svg`} ikonAlt="Oppgaver">
-                <div>
-                    <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
-                    <ul className="inngangsliste">
-                        {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
-                        {avvisteSmSykmeldinger.length > 0 && <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />}
-                        {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
-                        {mote !== null && <EksternLi url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
-                        {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('ao.oppgave.inngangstekst')} />}
-                        {avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />}
-                        {nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} />}
-                        {harNyttMotebehov && <NyttMotebehovVarsel />}
-                        {visAktivitetskrav && <NyttAktivitetskravvarsel />}
-                    </ul>
-                </div>
+                <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
+                <ul className="inngangsliste">
+                    {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
+                    {avvisteSmSykmeldinger.length > 0 && <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />}
+                    {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
+                    {mote !== null && <EksternLi url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
+                    {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('ao.oppgave.inngangstekst')} />}
+                    {avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />}
+                    {nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} />}
+                    {harNyttMotebehov && <NyttMotebehovVarsel />}
+                    {visAktivitetskrav && <NyttAktivitetskravvarsel />}
+                </ul>
             </IllustrertInnhold>
         </div>
     );

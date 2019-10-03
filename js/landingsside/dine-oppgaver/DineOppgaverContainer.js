@@ -19,9 +19,7 @@ import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 
-const Li = ({
-                tekst, url, img, imgAlt,
-            }) => {
+const Li = ({ tekst, url, img, imgAlt }) => {
     return (
         <li>
             {img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" />}

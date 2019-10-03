@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
@@ -26,11 +27,16 @@ const IngenSykmeldinger = () => {
     );
 };
 
+const infostyle = {
+    marginBottom: '2rem',
+};
+
 const Landingsside = ({
-    brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger, skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
+    brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger,
+    skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
 }) => {
     return (
-        <div>
+        <React.Fragment>
             <Sidebanner brodsmuler={brodsmuler} />
             <div className="begrensning blokk">
                 <ServerfeilContainer />
@@ -38,6 +44,11 @@ const Landingsside = ({
                 {
                     !harSykmeldinger && <IngenSykmeldinger />
                 }
+                <AlertStripe type="info" style={infostyle}>
+                    Enkelte av dere har opplevd å få avvist sykmeldingen i perioden 26.09 til og med 30.09
+                    med begrunnelse om at den som har sykmeldt deg ikke har autorisasjon. Dette skjedde på grunn
+                    av en feil hos oss og vi beklager ulempen dette har medført for deg og din lege.
+                </AlertStripe>
                 <DineOppgaverContainer />
                 <Utdrag />
                 <DinSituasjonContainer />
@@ -115,7 +126,7 @@ const Landingsside = ({
                     <p className="sist">{getLedetekst('landingsside.gdpr.personopplysninger')}</p>
                 </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 };
 

@@ -34,9 +34,13 @@ describe('AvvvistSykmelding', () => {
             };
         });
 
-        it('Skal inneholde "Du må be om ny sykmelding." dersom bruker har ukjent diagnose', () => {
+        it('Skal inneholde "Vi har gitt beskjed til Lege Legenavn" dersom bruker har ukjent diagnose', () => {
+            sykmelding = {
+                ...sykmelding,
+                legeNavn: 'Lege Legenavn',
+            };
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
-            expect(component.text()).to.contain('Du må derfor be den som har sykmeldt deg om ny sykmelding.');
+            expect(component.text()).to.contain('Vi har gitt beskjed til Lege Legenavn');
             expect(component.text()).to.contain('Grunnen til at sykmeldingen er avvist:');
         });
 
@@ -61,7 +65,7 @@ describe('AvvvistSykmelding', () => {
         it('Skal inneholde riktig tekst når det er ugydlig sykmld-versjon', () => {
             setRegelnavn(UGYLDIG_REGELSETTVERSJON);
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
-            expect(component.text()).to.contain('Du har fått en sykmelding, men den kan ikke brukes fordi det er brukt en ugyldig versjon av sykmeldingen.');
+            expect(component.text()).to.contain('Du trenger en ny sykmelding fordi det er brukt en ugyldig versjon av sykmeldingen.');
             expect(component.text()).to.contain('Du bør kontakte den som har sykmeldt deg eller få sykmelding fra en annen behandler.');
         });
 
@@ -71,7 +75,7 @@ describe('AvvvistSykmelding', () => {
                 legeNavn: 'Lege Legenavn',
             };
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
-            expect(component.text()).to.contain('Du har fått en sykmelding fra Lege Legenavn, men den kan ikke brukes fordi ');
+            expect(component.text()).to.contain('Lege Legenavn');
         });
     });
 });

@@ -60,7 +60,6 @@ export const hentHandlingsstreng = (smSykmelding) => {
 
 const hentIntrotekst = (smSykmelding) => {
     const intro = `Du trenger en ny sykmelding fordi`;
-    //const intro = `Du har fått en sykmelding${smSykmelding.legeNavn ? ` fra ${smSykmelding.legeNavn}` : ''}, men den kan ikke brukes fordi`;
     const standardtekst = `${intro} det er gjort en feil i utfyllingen. Vi har gitt beskjed til ${smSykmelding.legeNavn} om hva som er feil, og at du må få en ny sykmelding.`;
     const overSyttitekst = `${intro} du er over 70 år. `;
     const ugyldigSykmeldingversjonTekst = `${intro} det er brukt en ugyldig versjon av sykmeldingen. `;

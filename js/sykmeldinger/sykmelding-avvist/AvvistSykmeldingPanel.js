@@ -44,23 +44,24 @@ export const hentHandlingsstreng = (smSykmelding) => {
     const ikkeRettTilASykmelde = hentHarIkkeRettTilASykmelde(smSykmelding);
 
     if (brukerErOver70) {
-        return ' Du kan i stedet be om en skriftlig bekreftelse på at du er syk. ';
+        return 'Du kan i stedet be om en skriftlig bekreftelse på at du er syk. ';
     }
 
     if (ugyldigVersjon) {
-        return ' Du bør kontakte den som har sykmeldt deg eller få sykmelding fra en annen behandler. ';
+        return 'Du bør kontakte den som har sykmeldt deg eller få sykmelding fra en annen behandler. ';
     }
 
     if (ikkeRettTilASykmelde) {
-        return ' Du må oppsøke en som har rett til å sykmelde. ';
+        return 'Du må oppsøke en som har rett til å sykmelde. ';
     }
 
-    return ' Du må derfor be den som har sykmeldt deg om ny sykmelding. ';
+    return `Når du har fått ny sykmelding fra ${smSykmelding.legeNavn}, får du en ny beskjed fra oss om å logge deg inn på nav.no slik at du kan sende inn sykmeldingen. 
+    Går det mange dager, bør du kontakte ${smSykmelding.legeNavn} som skal skrive den nye sykmeldingen.`;
 };
 
 const hentIntrotekst = (smSykmelding) => {
-    const intro = `Du har fått en sykmelding${smSykmelding.legeNavn ? ` fra ${smSykmelding.legeNavn}` : ''}, men den kan ikke brukes fordi`;
-    const standardtekst = `${intro} det er gjort en feil i utfyllingen. `;
+    const intro = 'Du trenger en ny sykmelding fordi';
+    const standardtekst = `${intro} det er gjort en feil i utfyllingen. Vi har gitt beskjed til ${smSykmelding.legeNavn} om hva som er feil, og at du må få en ny sykmelding.`;
     const overSyttitekst = `${intro} du er over 70 år. `;
     const ugyldigSykmeldingversjonTekst = `${intro} det er brukt en ugyldig versjon av sykmeldingen. `;
     const ingenAutorisasjonTekst = `${intro} den som skrev sykmeldingen manglet autorisasjon.`;
@@ -144,12 +145,11 @@ export const AvvistSykmeldingPanel = ({ smSykmelding }) => {
                 veilederProps={{ center: true, storrelse: 'S' }}
             >
                 <h2 className="veilederpanel__tittel">
-                Sykmeldingen er avvist av NAV
+                Sykmeldingen kan dessverre ikke brukes
                 </h2>
-                <p>
-                    {introtekststreng}
-                    {handlingstreng}
-                </p>
+                <p>Beklager at vi må bry deg mens du er syk.</p>
+                <p>{introtekststreng}</p>
+                <p>{handlingstreng}</p>
                 <Begrunnelse smSykmelding={smSykmelding} />
             </Veilederpanel>
         </div>

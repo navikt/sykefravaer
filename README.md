@@ -22,8 +22,8 @@ For å kjøre appen lokalt brukes `webpack-dev-server` for å serve ressurser, s
 Det betyr at man må ha to prosesser kjørende for å kjøre appen. 
 
 Appen startes lokalt ved å kjøre disse kommandoene:
-- `npm run dev`
-- `npm run start-local` 
+- `npm run-dev`
+- `npm start-local` 
 
 ## Test og lint
 Appen testes med chai + mocha. Foretrukket plassering av tester er i samme mappe som filen den tester med navneformat:

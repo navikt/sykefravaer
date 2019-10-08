@@ -80,7 +80,7 @@ export class Container extends Component {
                                     melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />
                             );
                         }
-                        if (smSykmelding) {
+                        if (smSykmelding && smSykmelding.behandlingsutfall.status === 'INVALID') {
                             return <AvvistSykmelding />;
                         }
                         switch (dinSykmelding.status) {

@@ -147,7 +147,7 @@ export const AvvistSykmeldingPanel = ({ smSykmelding }) => {
                 <h2 className="veilederpanel__tittel">
                 Sykmeldingen kan dessverre ikke brukes
                 </h2>
-                <p>Beklager at vi må bry deg mens du er syk</p>
+                <p>Beklager at vi må bry deg mens du er syk.</p>
                 <p>{introtekststreng}</p>
                 <p>{handlingstreng}</p>
                 <Begrunnelse smSykmelding={smSykmelding} />

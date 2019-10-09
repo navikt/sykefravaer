@@ -8,6 +8,7 @@ const ruleHitPt = PropTypes.shape({
     ruleName: PropTypes.string,
     messageForSender: PropTypes.string,
     messageForUser: PropTypes.string,
+    ruleStatus: PropTypes.oneOf(Object.values(behandlingsutfallstatuser)),
 });
 
 const behandlingsutfallPt = PropTypes.shape({

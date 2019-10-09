@@ -19,6 +19,7 @@ describe('SykmeldingOpplysninger', () => {
                         ruleName: 'BACKDATED_MORE_THEN_8_DAYS_FIRST_SICK',
                         messageForSender: 'Det må begrunnes hvorfor sykmeldingen er tilbakedatert.',
                         messageForUser: 'Første sykmelding er tilbakedatert mer enn det som er tillatt.',
+                        ruleStatus: 'INVALID',
                     },
                 ],
             },

@@ -19,11 +19,13 @@ describe('AvvvistSykmelding', () => {
                             ruleName: 'UKJENT_DIAGNOSEKODETYPE',
                             messageForSender: null,
                             messageForUser: '',
+                            ruleStatus: 'INVALID',
                         },
                         {
                             ruleName: 'UGYLDIG_KODEVERK_FOR_BIDIAGNOSE',
                             messageForSender: null,
                             messageForUser: '',
+                            ruleStatus: 'INVALID',
                         },
                     ],
                 },

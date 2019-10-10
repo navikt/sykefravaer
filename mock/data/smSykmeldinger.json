@@ -9,7 +9,8 @@
         {
           "ruleName": "BACKDATED_MORE_THEN_8_DAYS_FIRST_SICK",
           "messageForSender": "Det må begrunnes hvorfor sykmeldingen er tilbakedatert.",
-          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt."
+          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt.",
+          "ruleStatus": "INVALID"
         }
       ]
     },
@@ -59,7 +60,8 @@
         {
           "ruleName": "BACKDATED_MORE_THEN_8_DAYS_FIRST_SICK",
           "messageForSender": "Det må begrunnes hvorfor sykmeldingen er tilbakedatert.",
-          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt."
+          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt.",
+          "ruleStatus": "INVALID"
         }
       ]
     },
@@ -98,7 +100,8 @@
         {
           "ruleName": "BACKDATED_MORE_THEN_8_DAYS_FIRST_SICK",
           "messageForSender": "Det må begrunnes hvorfor sykmeldingen er tilbakedatert.",
-          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt."
+          "messageForUser": "Første sykmelding er tilbakedatert mer enn det som er tillatt.",
+          "ruleStatus": "INVALID"
         }
       ]
     },
@@ -125,22 +128,26 @@
         {
           "messageForSender": "Kodeverk for hoveddiagnose er feil eller mangler.",
           "messageForUser": "Den må ha riktig diagnosekode for hoveddiagnose.",
-          "ruleName": "UGYLDIG_KODEVERK_FOR_HOVEDDIAGNOSE"
+          "ruleName": "UGYLDIG_KODEVERK_FOR_HOVEDDIAGNOSE",
+          "ruleStatus": "INVALID"
         },
         {
           "messageForSender": "Hvis avventende sykmelding er funnet og det finnes en eller flere perioder. ",
           "messageForUser": "En avventende sykmelding kan bare inneholde én periode.",
-          "ruleName": "AVVENTENDE_SYKMELDING_KOMBINERT"
+          "ruleName": "AVVENTENDE_SYKMELDING_KOMBINERT",
+          "ruleStatus": "INVALID"
         },
         {
           "messageForSender": "Hvis antall dager oppgitt for behandlingsdager periode er for høyt i forhold til periodens lengde avvises meldingen. Mer enn en dag per uke er for høyt. 1 dag per påbegynt uke.",
           "messageForUser": "Det er angitt for mange behandlingsdager. Det kan bare angis én behandlingsdag per uke.",
-          "ruleName": "FOR_MANGE_BEHANDLINGSDAGER_PER_UKE"
+          "ruleName": "FOR_MANGE_BEHANDLINGSDAGER_PER_UKE",
+          "ruleStatus": "INVALID"
         },
         {
           "messageForSender": "Første sykmelding er tilbakedatert mer enn det som er tillatt.",
           "messageForUser": "Sykmeldingen er tilbakedatert uten at det er begrunnet.",
-          "ruleName": "TILBAKEDATERT_MER_ENN_8_DAGER_FORSTE_SYKMELDING"
+          "ruleName": "TILBAKEDATERT_MER_ENN_8_DAGER_FORSTE_SYKMELDING",
+          "ruleStatus": "INVALID"
         }
       ],
       "status": "INVALID"

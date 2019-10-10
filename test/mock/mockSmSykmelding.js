@@ -7,6 +7,7 @@ const smSykmelding = {
                 ruleName: 'TOO_MANY_TREATMENT_DAYS',
                 messageForSender: null,
                 messageForUser: 'Det er angitt for mange behandlingsdager. Det kan bare angis én behandlingsdag per uke. ',
+                ruleStatus: 'INVALID',
             },
         ],
     },

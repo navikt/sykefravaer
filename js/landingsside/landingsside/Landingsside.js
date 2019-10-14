@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AlertStripe from 'nav-frontend-alertstriper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
@@ -25,10 +24,6 @@ const IngenSykmeldinger = () => {
             </IllustrertInnhold>
         </div>
     );
-};
-
-const infostyle = {
-    marginBottom: '2rem',
 };
 
 const Landingsside = ({

@@ -44,11 +44,6 @@ const Landingsside = ({
                 {
                     !harSykmeldinger && <IngenSykmeldinger />
                 }
-                <AlertStripe type="info" style={infostyle}>
-                    Enkelte av dere har opplevd å få avvist sykmeldingen i perioden 26.09 til og med 30.09
-                    med begrunnelse om at den som har sykmeldt deg ikke har autorisasjon. Dette skjedde på grunn
-                    av en feil hos oss og vi beklager ulempen dette har medført for deg og din lege.
-                </AlertStripe>
                 <DineOppgaverContainer />
                 <Utdrag />
                 <DinSituasjonContainer />

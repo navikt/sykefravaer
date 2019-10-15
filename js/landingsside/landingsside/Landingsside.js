@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AlertStripe from 'nav-frontend-alertstriper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
@@ -27,10 +26,6 @@ const IngenSykmeldinger = () => {
     );
 };
 
-const infostyle = {
-    marginBottom: '2rem',
-};
-
 const Landingsside = ({
     brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger,
     skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
@@ -44,11 +39,6 @@ const Landingsside = ({
                 {
                     !harSykmeldinger && <IngenSykmeldinger />
                 }
-                <AlertStripe type="info" style={infostyle}>
-                    Enkelte av dere har opplevd å få avvist sykmeldingen i perioden 26.09 til og med 30.09
-                    med begrunnelse om at den som har sykmeldt deg ikke har autorisasjon. Dette skjedde på grunn
-                    av en feil hos oss og vi beklager ulempen dette har medført for deg og din lege.
-                </AlertStripe>
                 <DineOppgaverContainer />
                 <Utdrag />
                 <DinSituasjonContainer />

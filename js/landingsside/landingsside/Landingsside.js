@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
+import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
 import DineOppgaverContainer from '../dine-oppgaver/DineOppgaverContainer';
@@ -39,6 +41,14 @@ const Landingsside = ({
                 {
                     !harSykmeldinger && <IngenSykmeldinger />
                 }
+                {
+                    visInfotekst(getLedetekst('landingsside.infoboks.tekst')) && (
+                        <AlertStripe type="info" style={{ marginBottom: '2rem' }}>
+                            { getLedetekst('landingsside.infoboks.tekst') }
+                        </AlertStripe>
+                    )
+                }
+
                 <DineOppgaverContainer />
                 <Utdrag />
                 <DinSituasjonContainer />

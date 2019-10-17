@@ -75,6 +75,9 @@ export const BiDiagnoser = ({ vis = true, biDiagnoser = [], sykmeldingId }) => (
             >
                 <Nokkelopplysning tittel={getLedetekst('din-sykmelding.bidiagnose.tittel')}>
                     <p className="js-bidiagnose">{biDiagnose.diagnosetekst}</p>
+                    <p className="js-biagnose-meta nokkelopplysning__meta nokkelopplysning__meta--mobil">{getLedetekst('din-sykmelding.diagnose.meta')}</p>
+                    <p className="js-biagnose-meta nokkelopplysning__meta nokkelopplysning__meta--desktop">{getLedetekst('din-sykmelding.diagnose.meta')}</p>
+
                 </Nokkelopplysning>
                 <Nokkelopplysning tittel={getLedetekst('din-sykmelding.diagnosekode.tittel')}>
                     <p>

@@ -53,8 +53,8 @@ jobs:
           resources: naiserator-dev.yaml
       - name: deploy to prod-sbs
         uses: navikt/deployment-cli/action@0.4.0
-          env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           cluster: prod-sbs
           team: teamsykefravr

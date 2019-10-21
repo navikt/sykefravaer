@@ -36,6 +36,11 @@
           "diagnose": "GANGLION SENE",
           "diagnosekode": "L87",
           "diagnosesystem": "ICPC-2"
+        },
+        {
+          "diagnose": "Bidiagnose 2",
+          "diagnosekode": "L87",
+          "diagnosesystem": "ICPC-2"
         }
       ],
       "fravaersgrunnLovfestet": null,

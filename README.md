@@ -1,16 +1,14 @@
 # Sykefravaer
-[![CircleCI](https://circleci.com/gh/navikt/sykefravaer.svg?style=svg)](https://circleci.com/gh/navikt/sykefravaer)
+[![Build status](https://github.com/navikt/sykefravaer/workflows/Deploy%20to%20dev%20and%20prod/badge.svg)](https://github.com/navikt/sykefravaer/workflows/Deploy%20to%20dev%20and%20prod/badge.svg)
 
 Sykefravaer er landingssiden for sykefraværsoppfølging. Den henter data om sykmeldinger og sykepengesøknader og lar den 
 sykmeldte navigere til sider hvor dataen vises. Appen skal videreutvikles til å bare være et skall som lenker videre til
 egne appers om er ansvarlige for å vise og behandle data for forskjellige områder. 
 
 ## CI
-Appen bygges og deployes på [CircleCI](https://circleci.com/gh/navikt/sykefravaer). Det er kun `master` som vil bli 
+Appen bygges og deployes på [GITHUB](https://github.com/navikt/sykefravaer/actions). Det er kun `master` som vil bli 
 deployet automatisk. Ved vellykket bygg av docker image på master vil imaget bli pushet til `dev-sbs` og `prod-sbs`. 
-Alle andre brancher vil kun bli testet. For å rulle en branch til `dev-sbs` kan man bruke 
-[syfodeploy](https://github.com/navikt/syfodeploy/blob/master/syfodeploy.sh), dette er et verktøy som vil trigge kjøring
-av `build_branch` workflowen til CircleCI som bygger og deployer branchen til `dsv-sbs`. 
+Alle andre brancher vil kun bli rullet ut til `dev-sbs`. 
 
 ## Logger
 Denne appen bruker frontendlogger, du kan se loggen [her](https://logs.adeo.no/goto/da5c8e86da5d5151a9b3be331de093bc).

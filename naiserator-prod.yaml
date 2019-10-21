@@ -1,0 +1,55 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: sykefravaer
+  namespace: default
+  labels:
+    team: {{team}}
+spec:
+  image: "docker.pkg.github.com/navikt/sykefravaer:{{tag}}"
+  replicas:
+    min: 2
+    max: 6
+    cpuThresholdPercentage: 90
+  port: 8080
+  ingresses:
+    - "https://tjenester.nav.no/sykefravaer"
+    - "https://sykefravaer.nais.oera.no"
+  liveness:
+    path: /health/isAlive
+    initialDelay: 60
+    timeout: 1
+    periodSeconds: 10
+    failureThreshold: 5
+  readiness:
+    path: /health/isReady
+    initialDelay: 60
+    timeout: 1
+    periodSeconds: 10
+  prometheus:
+    enabled: true
+    path: /actuator/metrics
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  env:
+    - name: APPRES_CMS_URL
+      value: https://appres.nav.no
+    - name: LOGINSERVICE_URL
+      value: https://loginservice.nav.no/login
+    - name: SYFOAPI_SYFOMOTEADMINAPI_URL
+      value: https://syfoapi.nais.oera.no/syfomoteadmin/api
+    - name: SYFOAPI_SYFOTEKSTERAPI_URL
+      value: https://syfoapi.nais.oera.no/syfotekster/api/tekster
+    - name: SYFOAPI_SYFOSOKNADAPI_URL
+      value: https://syfoapi.nais.oera.no/syfosoknad/api
+    - name: SYKEFRAVAERAPI_URL
+      value: https://itjenester.oera.no/syforest
+    - name: OPPFOELGINGSDIALOGAPI_URL
+      value: https://restoppfoelgingsdialog.nais.oera.no/restoppfoelgingsdialog/api
+    - name: SYFOUNLEASHAPI_URL
+      value: https://syfounleash.nais.oera.no

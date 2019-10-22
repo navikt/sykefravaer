@@ -25,7 +25,7 @@ jobs:
           npm run lint
       - name: Build
         run: |
-          npm run build-prod
+          npm run nais-build
       - name: Create Docker tag
         env:
           NAME: sykefravaer

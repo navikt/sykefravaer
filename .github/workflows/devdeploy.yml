@@ -27,12 +27,12 @@ jobs:
       - name: Build
         run: |
           npm run nais-build
-#      - name: Create Docker tag
-#        env:
-#          NAME: sykefravaer
-#        run: |
-#          echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
-#          echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
+      - name: Create Docker tag
+        env:
+          NAME: sykefravaer
+        run: |
+          echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
+          echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
 #      - name: Build Docker image
 #        run: |
 #          docker build -t $(cat .docker_image):$(cat .docker_tag) .

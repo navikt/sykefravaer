@@ -24,9 +24,9 @@ jobs:
       - name: Lint
         run: |
           npm run lint
-#      - name: Build
-#        run: |
-#          npm run build-prod
+      - name: Build
+        run: |
+          npm run build-prod
 #      - name: Create Docker tag
 #        env:
 #          NAME: sykefravaer

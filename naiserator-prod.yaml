@@ -28,7 +28,7 @@ spec:
     timeout: 5
   prometheus:
     enabled: true
-    path: /actuator/metrics
+    path: /prometheus
   resources:
     limits:
       cpu: 500m

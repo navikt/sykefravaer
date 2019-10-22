@@ -28,7 +28,7 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "@navikt/digisyfo-npm": "17.2.0",
+    "@navikt/digisyfo-npm": "17.3.0",
     "babel-loader": "7.1.5",
     "babel-polyfill": "6.26.0",
     "classnames": "2.2.5",
@@ -91,7 +91,6 @@
   },
   "devDependencies": {
     "autoprefixer": "7.0.1",
-    "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "10.0.2",
     "babel-preset-env": "1.6.0",

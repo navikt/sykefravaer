@@ -16,16 +16,16 @@ spec:
     - "https://tjenester.nav.no/sykefravaer"
     - "https://sykefravaer.nais.oera.no"
   liveness:
-    path: /health/isAlive
-    initialDelay: 60
-    timeout: 1
-    periodSeconds: 10
-    failureThreshold: 5
+    path: /is_alive
+    initialDelay: 10
+    timeout: 5
+    periodSeconds: 5
+    failureThreshold: 30
   readiness:
-    path: /health/isReady
-    initialDelay: 60
-    timeout: 1
-    periodSeconds: 10
+    path: /is_ready
+    initialDelay: 30
+    periodSeconds: 5
+    timeout: 5
   prometheus:
     enabled: true
     path: /actuator/metrics

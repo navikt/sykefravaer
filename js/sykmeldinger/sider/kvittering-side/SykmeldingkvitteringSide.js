@@ -140,10 +140,78 @@ const erFrilanserEllerSelvstendigNaringsdrivende = sykmelding => (
         .indexOf(getArbeidssituasjon(sykmelding)) > -1
 );
 
+const erArbeidstaker = sykmelding => (
+    getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER
+);
+
+const erArbeidsledig = sykmelding => (
+    getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSLEDIG
+);
+
 const erAvventendeReisetilskuddEllerBehandlingsdager = sykmelding => sykmelding
     && sykmelding.mulighetForArbeid
     && sykmelding.mulighetForArbeid.perioder
         .some(periode => periode.avventende || periode.reisetilskudd || periode.behandlingsdager);
+
+const erBehandlingsdager = sykmelding => sykmelding
+    && sykmelding.mulighetForArbeid
+    && sykmelding.mulighetForArbeid.perioder
+        .some(periode => periode.behandlingsdager);
+
+function getForskuttererArbeidsgiver(sykmelding, arbeidsgivere) {
+    const mottakendeArbeidsgiver = sykmelding.mottakendeArbeidsgiver
+        ? arbeidsgivere.data.find(arbeidsgiver => arbeidsgiver.orgnummer === sykmelding.mottakendeArbeidsgiver.virksomhetsnummer)
+        : null;
+    return mottakendeArbeidsgiver
+    && mottakendeArbeidsgiver.naermesteLeder
+        ? mottakendeArbeidsgiver.naermesteLeder.arbeidsgiverForskuttererLoenn !== false
+        : true;
+}
+
+const finnKvitteringstypeForBehandlingsdager = (sykmelding, soknader, arbeidsgivere) => {
+    const harAktiveSoknader = soknader.filter(s => s.status === NY).length > 0;
+    const harMangeFremtidigeSoknader = soknader.length > 1;
+    const harEnFremtidigSoknad = soknader.length === 1;
+
+    if (erArbeidstaker(sykmelding)) {
+        const forskuttererArbeidsgiver = getForskuttererArbeidsgiver(sykmelding, arbeidsgivere);
+
+        if (harAktiveSoknader) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
+        }
+        if (harEnFremtidigSoknad) {
+            return forskuttererArbeidsgiver
+                ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING
+                : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_KORT_SYKMELDING;
+        }
+        if (harMangeFremtidigeSoknader) {
+            return forskuttererArbeidsgiver
+                ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING
+                : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING;
+        }
+    }
+    if (erArbeidsledig(sykmelding)) {
+        if (harAktiveSoknader) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG;
+        }
+        if (harEnFremtidigSoknad) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING;
+        }
+        if (harMangeFremtidigeSoknader) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING;
+        }
+    }
+    if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
+        if (harAktiveSoknader) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER;
+        }
+        if (harEnFremtidigSoknad || harMangeFremtidigeSoknader) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER;
+        }
+    }
+    return null;
+};
+
 
 const getKvitteringtype = (state, sykmeldingId) => {
     const sykmelding = state.dineSykmeldinger.data.find(s => s.id === sykmeldingId);
@@ -152,8 +220,16 @@ const getKvitteringtype = (state, sykmeldingId) => {
         return null;
     }
 
-    const arbeidsledigsoknader = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id && s.soknadstype === ARBEIDSLEDIG);
+    const soknaderRelatertTilSykmeldingen = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id);
+    const arbeidsledigsoknader = soknaderRelatertTilSykmeldingen.filter(s => s.sykmeldingId === s.soknadstype === ARBEIDSLEDIG);
     const nyeSoknaderArbeidsledig = arbeidsledigsoknader.filter(s => s.status === NY);
+
+    if (erBehandlingsdager(sykmelding) && soknaderRelatertTilSykmeldingen.length > 0) {
+        const kvittering = finnKvitteringstypeForBehandlingsdager(sykmelding, soknaderRelatertTilSykmeldingen, state.arbeidsgivere);
+        if (kvittering) {
+            return kvittering;
+        }
+    }
 
     if (nyeSoknaderArbeidsledig.length > 0) {
         return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG;
@@ -178,13 +254,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
     const denneSykmeldingensSoknader = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE);
     const nyeSoknaderForDenneSykmeldingen = denneSykmeldingensSoknader.filter(s => s.status === NY);
     const { skalOppretteSoknad } = state.sykmeldingMeta[sykmeldingId] || {};
-    const mottakendeArbeidsgiver = sykmelding.mottakendeArbeidsgiver
-        ? state.arbeidsgivere.data.find(arbeidsgiver => arbeidsgiver.orgnummer === sykmelding.mottakendeArbeidsgiver.virksomhetsnummer)
-        : null;
-    const forskuttererArbeidsgiver = mottakendeArbeidsgiver
-    && mottakendeArbeidsgiver.naermesteLeder
-        ? mottakendeArbeidsgiver.naermesteLeder.arbeidsgiverForskuttererLoenn !== false
-        : true;
+    const forskuttererArbeidsgiver = getForskuttererArbeidsgiver(sykmelding, state.arbeidsgivere);
 
     switch (sykmelding.status) {
         case AVBRUTT: {

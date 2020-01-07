@@ -214,7 +214,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
     }
 
     const soknaderRelatertTilSykmeldingen = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id);
-    const arbeidsledigsoknader = soknaderRelatertTilSykmeldingen.filter(s => s.sykmeldingId === s.soknadstype === ARBEIDSLEDIG);
+    const arbeidsledigsoknader = soknaderRelatertTilSykmeldingen.filter(s => s.soknadstype === ARBEIDSLEDIG);
     const nyeSoknaderArbeidsledig = arbeidsledigsoknader.filter(s => s.status === NY);
 
     if (erBehandlingsdager(sykmelding) && soknaderRelatertTilSykmeldingen.length > 0) {

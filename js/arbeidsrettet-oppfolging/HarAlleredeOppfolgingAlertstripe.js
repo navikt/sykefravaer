@@ -8,7 +8,7 @@ const HarAlleredeOppfolgingAlertstripe = () => {
         <Alertstripe type="suksess" className="alleredeOppfolging blokk">
             <div className="alleredeOppfolging__innhold">
                 <Normaltekst className="alleredeOppfolging__tekst">{getLedetekst('infoside-fo.alertstripe.tekst')}</Normaltekst>
-                <a className="lenke" href="/veientilarbeid">
+                <a className="lenke" href="https://veientilarbeid.nav.no">
                     {getLedetekst('infoside-fo.alertstripe.knapp-tekst')}
                 </a>
             </div>

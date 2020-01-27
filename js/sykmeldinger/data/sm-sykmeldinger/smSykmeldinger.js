@@ -1,3 +1,4 @@
+import { toDate } from '@navikt/digisyfo-npm/lib/utils/datoUtils';
 import { createReducer } from '../../../data/createReducer';
 import {
     HENTER_SM_SYKMELDINGER,
@@ -61,8 +62,8 @@ const parsePerioder = (perioderArg) => {
         ? perioder.map((periode) => {
             return {
                 ...periode,
-                fom: new Date(periode.fom),
-                tom: new Date(periode.tom),
+                fom: toDate(periode.fom),
+                tom: toDate(periode.tom),
             };
         })
         : null;
@@ -73,10 +74,10 @@ const mapper = (smSykmelding) => {
         ...smSykmelding,
         sykmeldingsperioder: parsePerioder(smSykmelding.sykmeldingsperioder),
         mottattTidspunkt: smSykmelding.mottattTidspunkt
-            ? new Date(smSykmelding.mottattTidspunkt)
+            ? toDate(smSykmelding.mottattTidspunkt)
             : null,
         bekreftetDato: smSykmelding.bekreftetDato
-            ? new Date(smSykmelding.bekreftetDato)
+            ? toDate(smSykmelding.bekreftetDato)
             : null,
     };
 };

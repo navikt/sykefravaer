@@ -164,7 +164,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     )}
                 />
                 <Vis
-                    hvis={sykmelding.mulighetForArbeid.perioder[0].behandlingsdager !== null
+                    hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null)
                         && (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER
                         || brukersSvarverdier.valgtArbeidssituasjon === FRILANSER
                         || brukersSvarverdier.valgtArbeidssituasjon === NAERINGSDRIVENDE)}

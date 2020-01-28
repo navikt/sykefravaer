@@ -32,7 +32,7 @@ import { utfyllingStartet } from '../../../../data/metrikker/metrikker_actions';
 import VelgArbeidssituasjonContainer from '../velg-arbeidssituasjon/VelgArbeidssituasjonContainer';
 import * as brukerinfoSelectors from '../../../../data/brukerinfo/brukerinfoSelectors';
 
-const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
+const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG } = arbeidssituasjoner;
 
 export class DinSykmeldingSkjemaComponent extends Component {
     constructor(props) {
@@ -164,17 +164,18 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     )}
                 />
                 <Vis
-                    hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null)
-                        && (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER
-                        || brukersSvarverdier.valgtArbeidssituasjon === FRILANSER
-                        || brukersSvarverdier.valgtArbeidssituasjon === NAERINGSDRIVENDE)}
-                    render={() => (
-                        <Bjorn
-                            className="blokk"
-                            hvit
-                            stor
-                            nokkel="sykmelding.behandlingsdager.bjorn" />
-                    )}
+                    hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null)}
+                    render={() => {
+                        if (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSLEDIG) {
+                            return <Bjorn className="blokk" hvit stor nokkel="sykmelding.behandlingsdager-arbeidsledig.bjorn" />;
+                        }
+                        if (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER
+                            || brukersSvarverdier.valgtArbeidssituasjon === FRILANSER
+                            || brukersSvarverdier.valgtArbeidssituasjon === NAERINGSDRIVENDE) {
+                            return <Bjorn className="blokk" hvit stor nokkel="sykmelding.behandlingsdager.bjorn" />;
+                        }
+                        return null;
+                    }}
                 />
                 <Vis
                     hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}

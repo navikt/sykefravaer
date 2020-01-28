@@ -7,6 +7,7 @@ import { getFormValues, reduxForm } from 'redux-form';
 import Knapp from 'nav-frontend-knapper';
 import {
     arbeidssituasjoner,
+    Bjorn,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
     getLedetekst,
@@ -160,6 +161,19 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                 hvis={visFrilansersporsmal}
                                 render={() => <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />} />
                         </div>
+                    )}
+                />
+                <Vis
+                    hvis={sykmelding.mulighetForArbeid.perioder[0].behandlingsdager !== null
+                        && (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER
+                        || brukersSvarverdier.valgtArbeidssituasjon === FRILANSER
+                        || brukersSvarverdier.valgtArbeidssituasjon === NAERINGSDRIVENDE)}
+                    render={() => (
+                        <Bjorn
+                            className="blokk"
+                            hvit
+                            stor
+                            nokkel="sykmelding.behandlingsdager.bjorn" />
                     )}
                 />
                 <Vis

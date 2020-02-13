@@ -129,6 +129,8 @@ KvitteringSide.propTypes = {
     doHentAktuelleArbeidsgivere: PropTypes.func,
 };
 
+const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
+
 const getArbeidssituasjon = sykmelding => (
     typeof sykmelding.valgtArbeidssituasjon === 'string'
         ? sykmelding.valgtArbeidssituasjon.toUpperCase()

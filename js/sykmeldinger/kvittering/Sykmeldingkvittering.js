@@ -27,6 +27,7 @@ import {
     SokOmSykepengerSenereArbeidsledigKortSykmelding,
     SokOmSykepengerSenereArbeidsledigLangSykmelding,
 } from './varianter/SokOmSykepengerSenereArbeidsledig';
+import SendtAvventendeSykmelding from './varianter/AvventendeSykmeldingKvittering';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG: 'KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG',
@@ -48,6 +49,7 @@ export const kvitteringtyper = {
     STRENGT_FORTROLIG_ADRESSE: 'STRENGT_FORTROLIG_ADRESSE',
     BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER: 'BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER',
     BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: 'BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG',
+    SENDT_AVVENTENDE_SYKMELDING: 'SENDT_AVVENTENDE_SYKMELDING',
 };
 
 const AvbruttKvittering = () => {
@@ -106,6 +108,7 @@ const SykmeldingKvittering = (props) => {
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER]: FrilanserSoekDigitaltNaa,
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER]: FrilanserSoekDigitaltFeil,
         [kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG]: AnnetArbeidsledigKvittering,
+        [kvitteringtyper.SENDT_AVVENTENDE_SYKMELDING]: SendtAvventendeSykmelding,
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];

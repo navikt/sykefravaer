@@ -114,7 +114,7 @@ const SykmeldingKvittering = (props) => {
     const Component = kvitteringMap[kvitteringtype];
     return (
         <div>
-            <Sidetopp tittel={Component === SendtAvventendeSykmelding ? 'Du har send beskjed til arbeidsgiveren din' : getLedetekst('din-sykmelding.kvittering.hva-naa')} />
+            <Sidetopp tittel={Component === SendtAvventendeSykmelding ? 'Du har sendt beskjed til arbeidsgiveren din' : getLedetekst('din-sykmelding.kvittering.hva-naa')} />
             {
                 Component
                     ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />

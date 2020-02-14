@@ -7,6 +7,7 @@ import { getFormValues, reduxForm } from 'redux-form';
 import Knapp from 'nav-frontend-knapper';
 import {
     arbeidssituasjoner,
+    Bjorn,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
     getLedetekst,
@@ -31,7 +32,7 @@ import { utfyllingStartet } from '../../../../data/metrikker/metrikker_actions';
 import VelgArbeidssituasjonContainer from '../velg-arbeidssituasjon/VelgArbeidssituasjonContainer';
 import * as brukerinfoSelectors from '../../../../data/brukerinfo/brukerinfoSelectors';
 
-const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
+const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG } = arbeidssituasjoner;
 
 export class DinSykmeldingSkjemaComponent extends Component {
     constructor(props) {
@@ -161,6 +162,20 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                 render={() => <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />} />
                         </div>
                     )}
+                />
+                <Vis
+                    hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null)}
+                    render={() => {
+                        if (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSLEDIG) {
+                            return <Bjorn className="blokk" hvit stor nokkel="sykmelding.behandlingsdager-arbeidsledig.bjorn" />;
+                        }
+                        if (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER
+                            || brukersSvarverdier.valgtArbeidssituasjon === FRILANSER
+                            || brukersSvarverdier.valgtArbeidssituasjon === NAERINGSDRIVENDE) {
+                            return <Bjorn className="blokk" hvit stor nokkel="sykmelding.behandlingsdager.bjorn" />;
+                        }
+                        return null;
+                    }}
                 />
                 <Vis
                     hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}

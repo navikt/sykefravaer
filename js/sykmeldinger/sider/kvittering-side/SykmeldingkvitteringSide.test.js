@@ -26,7 +26,6 @@ import arbeidsgivere from '../../data/arbeidsgivere/arbeidsgivere';
 import { aktuelleArbeidsgivereHentet } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { FREMTIDIG } from '../../../enums/soknadstatuser';
 import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
-import Sidetopp from '../../../components/Sidetopp';
 
 chai.use(chaiEnzyme());
 const { expect } = chai;

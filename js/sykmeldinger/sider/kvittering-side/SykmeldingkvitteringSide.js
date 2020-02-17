@@ -129,6 +129,8 @@ KvitteringSide.propTypes = {
     doHentAktuelleArbeidsgivere: PropTypes.func,
 };
 
+const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
+
 const getArbeidssituasjon = sykmelding => (
     typeof sykmelding.valgtArbeidssituasjon === 'string'
         ? sykmelding.valgtArbeidssituasjon.toUpperCase()
@@ -213,6 +215,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
         return null;
     }
 
+
     const soknaderRelatertTilSykmeldingen = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id);
     const arbeidsledigsoknader = soknaderRelatertTilSykmeldingen.filter(s => s.soknadstype === ARBEIDSLEDIG);
     const nyeSoknaderArbeidsledig = arbeidsledigsoknader.filter(s => s.status === NY);
@@ -256,6 +259,9 @@ const getKvitteringtype = (state, sykmeldingId) => {
         case SENDT:
         case TIL_SENDING: {
             return (() => {
+                if (erAvventende(sykmelding)) {
+                    return kvitteringtyper.SENDT_AVVENTENDE_SYKMELDING;
+                }
                 if (denneSykmeldingensSykepengesoknader.length === 0) {
                     return kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD;
                 }

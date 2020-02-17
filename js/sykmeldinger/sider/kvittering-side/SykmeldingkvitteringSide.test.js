@@ -14,6 +14,7 @@ import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSyk
 import FrilanserMedPapirsoknadKvittering from '../../kvittering/varianter/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from '../../kvittering/varianter/FrilanserUtenSoknadKvittering';
 import SendtSykmeldingMedPapirSoknadKvittering from '../../kvittering/varianter/SendtSykmeldingMedPapirSoknadKvittering';
+import AvventendeSykmeldingKvittering from '../../kvittering/varianter/AvventendeSykmeldingKvittering';
 
 import getSykmelding from '../../../../test/mock/mockSykmeldinger';
 import { getParsetSoknad } from '../../../../test/mock/mockSykepengesoknader';
@@ -328,6 +329,17 @@ describe('SykmeldingkvitteringSide', () => {
             .length(1);
     };
 
+    const skalViseAvventendeSykmeldingKvittering = (_state, _ownProps) => {
+        const component = getComponent(_state, _ownProps);
+        expect(component.text())
+            .to
+            .contain('Du har sendt beskjed til arbeidsgiveren din om at det er mulig å unngå sykmelding hvis det blir lagt til rette for deg på arbeidsplassen.');
+        expect(component.find(AvventendeSykmeldingKvittering))
+            .to
+            .have
+            .length(1);
+    };
+
     const skalViseStandardBekreftetKvittering = (_state, _ownProps) => {
         const component = getComponent(_state, _ownProps);
         expect(component.text())
@@ -513,6 +525,26 @@ describe('SykmeldingkvitteringSide', () => {
             expect(component.html())
                 .to
                 .contain(ledetekster['sykmelding.kvittering.sok-na.steg-1.tekst-2']);
+        });
+
+        it('Skal vise avventendeSykmelding-kvittering om sykmeldingen er avventende', () => {
+            state.sykepengesoknader.data = [];
+            sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.SENDT,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                mulighetForArbeid: {
+                    perioder: [{
+                        avventende: 'Trenger en bedre stol',
+                    }],
+                },
+            });
+            state.sykmeldingMeta['1'] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            };
+            state.dineSykmeldinger.data = [sykmelding];
+            skalViseAvventendeSykmeldingKvittering(state, ownProps);
         });
     });
 
@@ -860,25 +892,6 @@ describe('SykmeldingkvitteringSide', () => {
             });
         });
 
-        it('Skal vise standard bekreftet-kvittering om sykmeldingen er avventende', () => {
-            state.sykepengesoknader.data = [];
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.BEKREFTET,
-                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                mulighetForArbeid: {
-                    perioder: [{
-                        avventende: 'Trenger en bedre stol',
-                    }],
-                },
-            });
-            state.sykmeldingMeta['1'] = {
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            };
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseStandardBekreftetKvittering(state, ownProps);
-        });
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen har reisetilskudd', () => {
             state.sykepengesoknader.data = [];

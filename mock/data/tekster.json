@@ -285,7 +285,6 @@
     "sykepengesoknad.status.TIL_SENDING": "Sender...",
     "sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har": "Kryss av alt som gjelder deg:",
     "oppfolgingsdialog.oppfolgingsdialogTeaser.underArbeid": "Sist endret: %DATO%<br/>\nEndret av: %BRUKERNAVN%",
-    "sykefravaer.arbeidsrettet-oppfolging.lenketekst": "Les mer om hva som kan passe for deg",
     "sykefravaerarbeidsgiver.sykmeldt.teaser.tekst.en-dag.ingen-grad": "Sykmeldt til og med <strong>%TOMDATO%</strong>",
     "sykefravaerarbeidsgiver.aktivitetskrav-varsel.ingress": "Arbeidstakeren din har snart vært sykmeldt i åtte uker. NAV skal vurdere om den sykmeldte oppfyller aktivitetsplikten og fortsatt har rett til sykepenger.",
     "modiafront.personkort.visning.nokkeltekster.adresse.midlertidig": "Midlertidig adresse",
@@ -1565,11 +1564,9 @@
     "soknad.feilmelding.betaler_arbeidsgiver": "Du må svare på om arbeidsgiveren betaler lønnen din når du er syk",
     "soknad.infotekst.betaler_arbeidsgiver.ja": "Arbeidsgiveren din mottar kopi av søknaden du sender til NAV.",
     "soknad.infotekst.betaler_arbeidsgiver.nei": "Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.",
-
     "soknad.infotekst.betaler_arbeidsgiver.vet_ikke": "Siden du ikke vet svaret på dette spørsmålet, vil arbeidsgiveren din motta en kopi av søknaden du sender til NAV.",
     "soknad.bjorn.jobbet_du_gradert": "Du har kanskje avtalt med arbeidsgiveren din at du skal ha færre arbeidsoppgaver, men bruke lenger tid på dem enn vanlig? Da svarer du i prosent hvor stor mengde av arbeidsoppgavene dine du har utført.",
     "soknad.bjorn.jobbet_du_100_prosent": "Du har kanskje avtalt med arbeidsgiveren din at du skal ha færre arbeidsoppgaver, men bruke lenger tid på dem enn vanlig? Da svarer du i prosent hvor stor mengde av arbeidsoppgavene dine du har utført.",
-
     "infoside-fo.inngangstekst": "Oppfølging og ytelser etter 39 uker",
     "infoside-fo.sidetittel": "Mer veiledning fra NAV",
     "infoside-fo.alertstripe.tekst": "Du har allerede bedt om mer veiledning fra NAV.",

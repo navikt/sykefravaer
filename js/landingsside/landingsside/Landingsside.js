@@ -10,7 +10,6 @@ import DinSituasjonContainer from '../din-situasjon/DinSituasjonContainer';
 import ServerfeilContainer from '../ai-ai-ai/AiAiAiContainer';
 import DetteHarSkjeddContainer from '../dette-har-skjedd/DetteHarSkjeddContainer';
 import Utdrag from '../tidslinje-utdrag/TidslinjeutdragContainer';
-import ArbeidsrettetOppfolging from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingInngang';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Vis } from '../../utils/index';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
@@ -44,7 +43,7 @@ const Landingsside = ({
                 {
                     visInfotekst(getLedetekst('landingsside.infoboks.tekst')) && (
                         <AlertStripe type="info" style={{ marginBottom: '2rem' }}>
-                            { getLedetekst('landingsside.infoboks.tekst') }
+                            {getLedetekst('landingsside.infoboks.tekst')}
                         </AlertStripe>
                     )
                 }
@@ -120,7 +119,6 @@ const Landingsside = ({
                         ikonAlt="Tidslinjen"
                         tittel="Hva skjer under sykefraværet?" />
                 </nav>
-                <ArbeidsrettetOppfolging />
                 <DetteHarSkjeddContainer />
                 <div className="panel blokk-xl">
                     <p className="sist">{getLedetekst('landingsside.gdpr.personopplysninger')}</p>

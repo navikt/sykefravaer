@@ -196,7 +196,7 @@ const finnKvitteringstypeForBehandlingsdager = (sykmelding, soknader, arbeidsgiv
             return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING;
         }
     }
-    if (arbeidssituasjon === arbeidssituasjoner.FRILANSER || arbeidssituasjon === arbeidssituasjoner.SELVSTENDIG_NAERINGSDRIVENDE) {
+    if (arbeidssituasjon === arbeidssituasjoner.FRILANSER || arbeidssituasjon === arbeidssituasjoner.NAERINGSDRIVENDE) {
         if (harAktiveSoknader) {
             return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER;
         }

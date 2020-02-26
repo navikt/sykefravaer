@@ -1,11 +1,11 @@
 [
   {
-    "navn": "PONTYPANDY FIRE SERVICE",
+    "navn": "Hogwarts School of Witchcraft and Wizardry",
     "orgnummer": "110110110",
     "naermesteLeder": {
       "aktoerId": "1101101101102",
-      "navn": "Station Officer Steele",
-      "epost": "steele@pontypandyfire.gov.uk",
+      "navn": "Albus Dumbledore",
+      "epost": "albus@hogwarts.ac.uk",
       "mobil": "110",
       "orgnummer": "110110110",
       "organisasjonsnavn": null,

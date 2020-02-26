@@ -5,7 +5,7 @@
     "status": "SENDT",
     "opprettetDato": "2018-10-18",
     "arbeidsgiver": {
-      "navn": "PONTYPANDY FIRE SERVICE",
+      "navn": "Hogwarts School of Witchcraft and Wizardry",
       "orgnummer": "110110110",
       "naermesteLeder": null,
       "stilling": null
@@ -68,7 +68,7 @@
         {
           "ledetekst": {
             "nokkel": null,
-            "tekst": "Var du tilbake i fullt arbeid hos PONTYPANDY FIRE SERVICE før 4. oktober 2018?",
+            "tekst": "Var du tilbake i fullt arbeid hos Hogwarts School of Witchcraft and Wizardry før 4. oktober 2018?",
             "verdier": {}
           },
           "svar": [
@@ -108,7 +108,7 @@
         {
           "ledetekst": {
             "nokkel": null,
-            "tekst": "I perioden 5. september – 3. oktober 2018 var du 100 % sykmeldt fra PONTYPANDY FIRE SERVICE. Jobbet du noe i denne perioden?",
+            "tekst": "I perioden 5. september – 3. oktober 2018 var du 100 % sykmeldt fra Hogwarts School of Witchcraft and Wizardry. Jobbet du noe i denne perioden?",
             "verdier": {}
           },
           "svar": [
@@ -128,7 +128,7 @@
         {
           "ledetekst": {
             "nokkel": null,
-            "tekst": "Har du andre inntektskilder, eller jobber du for andre enn PONTYPANDY FIRE SERVICE?",
+            "tekst": "Har du andre inntektskilder, eller jobber du for andre enn Hogwarts School of Witchcraft and Wizardry?",
             "verdier": {}
           },
           "svar": [
@@ -214,7 +214,7 @@
     "status": "NY",
     "opprettetDato": "2018-10-18",
     "arbeidsgiver": {
-      "navn": "PONTYPANDY FIRE SERVICE",
+      "navn": "Hogwarts School of Witchcraft and Wizardry",
       "orgnummer": "110110110",
       "naermesteLeder": null,
       "stilling": null

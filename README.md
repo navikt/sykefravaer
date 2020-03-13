@@ -32,7 +32,7 @@ regler.
 * Lint JS-kode med `npm run lint`. For å fikse enkle lint feil kan du kjøre `npm run lint:fix`
 
 ## Deploy mock app til Heroku
-Installer heroku, på mac kan du bruke brew: `$ brew install heroku`.
+Installer heroku, på mac kan du bruke brew: `$ brew install heroku/brew/heroku`.
 
 For å kunne deploye til Heroku må du først logge inn: 
 * `$ heroku login`

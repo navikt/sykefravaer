@@ -6,6 +6,7 @@ import LandingssideSide from '../landingsside/sider/LandingssideSide';
 import DinSykmeldingContainer from '../sykmeldinger/sider/sykmelding-side/SykmeldingSide';
 import SykmeldingSkrivUtSide from '../sykmeldinger/sider/SykmeldingSkrivUtSide';
 import TidslinjeSide from '../sider/TidslinjeSide';
+import KoronaSide from '../sider/KoronaSide';
 import SykmeldingKvitteringContainer from '../sykmeldinger/sider/kvittering-side/SykmeldingkvitteringSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
 import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
@@ -15,6 +16,7 @@ const AppRouter = ({ history }) => {
     return (
         <Router history={history}>
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}`} component={LandingssideSide} />
+            <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`} component={KoronaSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`} component={TidslinjeSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen/:arbeidssituasjon`} component={TidslinjeSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`} component={DineSykmeldingerContainer} />

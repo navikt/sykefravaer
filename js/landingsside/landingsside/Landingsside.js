@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
+import Lenkepanel from 'nav-frontend-lenkepanel';
 import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt } from '../../propTypes/index';
@@ -36,6 +37,7 @@ const Landingsside = ({
             <Sidebanner brodsmuler={brodsmuler} />
             <div className="begrensning blokk">
                 <ServerfeilContainer />
+                <Lenkepanel href={`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`} border>Trenger du sykmelding som følge av koronavirus?</Lenkepanel>
                 <AvvistSykmeldingKvittering />
                 {
                     !harSykmeldinger && <IngenSykmeldinger />

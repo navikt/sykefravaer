@@ -10,6 +10,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
 import AppSpinner from '../components/AppSpinner';
 import Sidetopp from '../components/Sidetopp';
+import KoronaSchema from './KoronaComponents/KoronaSchema';
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -28,6 +29,7 @@ class KoronaContainer extends Component {
             <Side tittel="Korona" brodsmuler={brodsmuler} laster={henterLedetekster || this.isLoading}>
                 <Sidetittel tag="h1" style={{ marginBottom: '2rem' }}>Registrering av egen sykmelding</Sidetittel>
                 <Normaltekst>Her kommer det informasjon om hva som gjelder for denne siden.</Normaltekst>
+                <KoronaSchema />
             </Side>
         );
     }

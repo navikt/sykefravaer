@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
@@ -15,11 +16,13 @@ import KoronaSchema from './KoronaComponents/KoronaSchema';
 class KoronaContainer extends Component {
     constructor(props) {
         super(props);
-        this.isLoading = false;
+        this.state = {
+            isLoading: false,
+        };
     }
 
     componentWillMount() {
-        // this.isLoading = true;
+        // this.setState({ isLoading = true };
         // Do fetching of arbeidsforhold etc.
     }
 

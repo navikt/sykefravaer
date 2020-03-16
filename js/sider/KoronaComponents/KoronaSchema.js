@@ -9,6 +9,7 @@ import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import KoronaDatePicker from './KoronaDatePicker';
@@ -27,6 +28,26 @@ class KoronaSchema extends Component {
         };
     }
 
+
+    getEndDate() {
+        const { startDato, korrigertStartDato } = this.state;
+
+        const endDate = new Date();
+
+        if (korrigertStartDato) {
+            endDate.setDate(korrigertStartDato.getDate() + 14);
+            return endDate;
+        }
+
+        endDate.setDate(startDato.getDate() + 14);
+        return endDate;
+    }
+
+
+    updateArbeidssituasjon(arbeidssituasjon) {
+        this.setState({ arbeidssituasjon });
+    }
+
     updateArbeidsgivere(arbeidsgiver) {
         const { arbeidsgivere } = this.state;
 
@@ -39,24 +60,6 @@ class KoronaSchema extends Component {
         }
     }
 
-    updateArbeidssituasjon(arbeidssituasjon) {
-        this.setState({ arbeidssituasjon });
-    }
-
-    getEndDate() {
-        const { startDato, korrigertStartDato } = this.state;
-
-        const endDate = new Date();
-
-        if (korrigertStartDato) {
-            endDate.setDate(korrigertStartDato.getDate() + 14)
-            return endDate;
-        }
-
-        endDate.setDate(startDato.getDate() + 14)
-        return endDate;
-    }
-
     render() {
         const { arbeidssituasjon, arbeidsgivere, periode, tidligereSyk, startDato, korrigertStartDato } = this.state;
         const { sendSykmelding } = this.props;
@@ -67,7 +70,10 @@ class KoronaSchema extends Component {
         return (
             <div>
                 <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>14-dagers egenmelding</Sidetittel>
-                <Element>NAV har nå opprettet coronamelding for de som mistenker at de er smittet av coronavirus. Du kan selv fylle ut og sende egenmeldingen uten å kontakte fastlege eller legevakten.</Element>
+                <Element>
+                    NAV har nå opprettet coronamelding for de som mistenker at de er smittet av coronavirus.
+                    Du kan selv fylle ut og sende egenmeldingen uten å kontakte fastlege eller legevakten.
+                </Element>
                 <br />
 
                 <Lenke href="#">Du kan lese mer om egenmeldingsordningen her.</Lenke>
@@ -118,7 +124,14 @@ class KoronaSchema extends Component {
                         <Checkbox
                             checked={tidligereSyk}
                             label="Jeg ble syk på et tidligere tidspunkt"
-                            onChange={() => { this.setState((state) => { return { tidligereSyk: !state.tidligereSyk, korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato }; }); }}
+                            onChange={() => {
+                                this.setState((state) => {
+                                    return {
+                                        tidligereSyk: !state.tidligereSyk,
+                                        korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato,
+                                    };
+                                });
+                            }}
                             name="tidligereSyk" />
 
                         {tidligereSyk && (
@@ -127,6 +140,30 @@ class KoronaSchema extends Component {
                                 value={korrigertStartDato}
                                 onChange={(date) => { return this.setState({ korrigertStartDato: date }); }} />
                         )}
+
+                        <div style={{ display: 'flex' }}>
+                            <div style={{ marginTop: '1rem' }}>
+                                <h2 className="nokkelopplysning__tittel">Diagnose</h2>
+                                <p>
+                                    COVID-19
+                                </p>
+                            </div>
+                            <div style={{ marginTop: '1rem', marginLeft: '4rem' }}>
+                                <div style={{ display: 'flex' }}>
+                                    <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
+                                    <div style={{ marginBottom: '-1rem' }}>
+                                        <Hjelpetekst>
+                                            Diagnosekoden henviser til de internasjonale kodeverkene som klassifiserer sykdom og symptomer.
+                                            De ulike diagnosekodene brukes for å gi en mest mulig presis diagnose.
+                                        </Hjelpetekst>
+                                    </div>
+                                </div>
+                                <p>
+                                    R991
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
                 </article>
 

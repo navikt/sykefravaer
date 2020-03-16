@@ -167,6 +167,22 @@ class KoronaSchema extends Component {
                     </div>
                 </article>
 
+                <article>
+                    <div className="panel blokk">
+                        <h3>Jeg er sykmeldt fra</h3>
+                        <Checkbox
+                            checked={false}
+                            name="arbeidsgiver1"
+                            onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
+                            label="Arbeidsgiver 1" />
+                        <Checkbox
+                            checked={false}
+                            name="arbeidsgiver2"
+                            onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
+                            label="Arbeidsgiver 2" />
+                    </div>
+                </article>
+
 
                 <div>
                     <h3>Velg perioden du er syk (?)</h3>

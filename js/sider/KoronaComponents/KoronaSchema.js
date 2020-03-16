@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
+import Lenke from 'nav-frontend-lenker';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Sidetittel, Element } from 'nav-frontend-typografi';
+import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 class KoronaSchema extends Component {
@@ -39,8 +41,26 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem' }}>Registrering av egen sykmelding</Sidetittel>
-                <Normaltekst>Her kommer det informasjon om hva som gjelder for denne siden.</Normaltekst>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>14-dagers egenmelding</Sidetittel>
+                <Element>NAV har nå opprettet coronamelding for de som mistenker at de er smittet av coronavirus. Du kan selv fylle ut og sende egenmeldingen uten å kontakte fastlege eller legevakten.</Element>
+                <br />
+
+                <Lenke href="#">Du kan lese mer om egenmeldingsordningen her.</Lenke>
+
+                <div
+                    style={{ marginTop: '2rem' }}>
+                    <Bjorn
+                        className="blokk"
+                        hvit
+                        stor>
+                            Hei, nedenfor kan du fylle ut og sende inn egenmeldingen om du mistenker at du er syk grunnet coronaviruset.
+                        <br />
+                        <br />
+                        <Knapp>Gå til utfyllingen</Knapp>
+                    </Bjorn>
+                </div>
+
+
                 <div>
                     <h3>Velg perioden du er syk (?)</h3>
                     Periodevalg

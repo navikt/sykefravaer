@@ -4,9 +4,15 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Element } from 'nav-frontend-typografi';
+import { Sidetittel, Element, Innholdstittel } from 'nav-frontend-typografi';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
+import {
+    tilLesbarDatoUtenAarstall,
+} from '@navikt/digisyfo-npm';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
+import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
+import KoronaDatePicker from './KoronaDatePicker';
+
 
 class KoronaSchema extends Component {
     constructor(props) {
@@ -15,6 +21,9 @@ class KoronaSchema extends Component {
             periode: undefined,
             arbeidsgivere: props.arbeidsgivere,
             arbeidssituasjon: undefined,
+            tidligereSyk: true,
+            startDato: new Date(),
+            korrigertStartDato: undefined,
         };
     }
 
@@ -34,10 +43,26 @@ class KoronaSchema extends Component {
         this.setState({ arbeidssituasjon });
     }
 
+    getEndDate() {
+        const { startDato, korrigertStartDato } = this.state;
+
+        const endDate = new Date();
+
+        if (korrigertStartDato) {
+            endDate.setDate(korrigertStartDato.getDate() + 14)
+            return endDate;
+        }
+
+        endDate.setDate(startDato.getDate() + 14)
+        return endDate;
+    }
+
     render() {
-        const { arbeidssituasjon, arbeidsgivere, periode } = this.state;
+        const { arbeidssituasjon, arbeidsgivere, periode, tidligereSyk, startDato, korrigertStartDato } = this.state;
         const { sendSykmelding } = this.props;
         console.log(arbeidssituasjon, arbeidsgivere, periode);
+
+        const endDate = this.getEndDate();
 
         return (
             <div>
@@ -59,6 +84,51 @@ class KoronaSchema extends Component {
                         <Knapp>Gå til utfyllingen</Knapp>
                     </Bjorn>
                 </div>
+
+                <article>
+                    <header className="panelHeader panelHeader--lysebla">
+                        <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />
+                        <h2 className="panelHeader__tittel">
+                            Navn Etternavn
+                        </h2>
+                    </header>
+                    <div className="panel blokk">
+                        <Innholdstittel>14-dagers egenmelding</Innholdstittel>
+                        <br />
+                        <Element>Vennligst fyll ut felter som mangler informasjon.</Element>
+
+
+                        <h2 style={{ marginTop: '2rem' }} className="nokkelopplysning__tittel">Periode</h2>
+                        <strong className="js-periode blokk-xxs">
+                            <span>
+                                {tilLesbarDatoUtenAarstall(korrigertStartDato || startDato)}
+                                {' '}
+                                -
+                                {' '}
+                                {tilLesbarDatoMedArstall(endDate)}
+                            </span>
+                            {' '}
+                            •
+                            {' '}
+                            <span>14 dager</span>
+                        </strong>
+                        <p className="js-grad">100 % sykmeldt</p>
+
+
+                        <Checkbox
+                            checked={tidligereSyk}
+                            label="Jeg ble syk på et tidligere tidspunkt"
+                            onChange={() => { this.setState((state) => { return { tidligereSyk: !state.tidligereSyk, korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato }; }); }}
+                            name="tidligereSyk" />
+
+                        {tidligereSyk && (
+                            <KoronaDatePicker
+                                label="Vennligst velg dato du ble syk"
+                                value={korrigertStartDato}
+                                onChange={(date) => { return this.setState({ korrigertStartDato: date }); }} />
+                        )}
+                    </div>
+                </article>
 
 
                 <div>

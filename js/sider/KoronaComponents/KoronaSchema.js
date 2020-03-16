@@ -87,7 +87,7 @@ class KoronaSchema extends Component {
                         onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
                         name="ingenting" />
                 </div>
-                <Hovedknapp onClick={(e) => { return sendSykmelding({ prop1: 'test1', prop2: 'test2' }); }}>Send sykmelding</Hovedknapp>
+                <Hovedknapp onClick={() => { return sendSykmelding({ prop1: 'test1', prop2: 'test2' }); }}>Send sykmelding</Hovedknapp>
             </div>
 
         );

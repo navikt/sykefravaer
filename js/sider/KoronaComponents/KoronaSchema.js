@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
+import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 class KoronaSchema extends Component {
     constructor(props) {
         super(props);
         this.state = {
             periode: undefined,
-            arbeidsgivere: [],
+            arbeidsgivere: props.arbeidsgivere,
             arbeidssituasjon: undefined,
         };
     }
@@ -31,10 +34,13 @@ class KoronaSchema extends Component {
 
     render() {
         const { arbeidssituasjon, arbeidsgivere, periode } = this.state;
+        const { sendSykmelding } = this.props;
         console.log(arbeidssituasjon, arbeidsgivere, periode);
 
         return (
             <div>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem' }}>Registrering av egen sykmelding</Sidetittel>
+                <Normaltekst>Her kommer det informasjon om hva som gjelder for denne siden.</Normaltekst>
                 <div>
                     <h3>Velg perioden du er syk (?)</h3>
                     Periodevalg
@@ -43,12 +49,12 @@ class KoronaSchema extends Component {
                     hvis arbeidsgiver, vis denne:
                     <h3>Velg arbeidsgivere vi skal sende sykmeldingen til</h3>
                     <Checkbox
-                        checked={arbeidsgivere.arbeidsgiver1}
+                        checked={false}
                         name="arbeidsgiver1"
                         onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
                         label="Arbeidsgiver 1" />
                     <Checkbox
-                        checked={arbeidsgivere.arbeidsgiver2}
+                        checked={false}
                         name="arbeidsgiver2"
                         onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
                         label="Arbeidsgiver 2" />
@@ -81,11 +87,17 @@ class KoronaSchema extends Component {
                         onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
                         name="ingenting" />
                 </div>
-                <Hovedknapp>Send sykmelding</Hovedknapp>
+                <Hovedknapp onClick={(e) => { return sendSykmelding({ prop1: 'test1', prop2: 'test2' }); }}>Send sykmelding</Hovedknapp>
             </div>
 
         );
     }
 }
+
+KoronaSchema.propTypes = {
+    sendSykmelding: PropTypes.func,
+    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
+};
+
 
 export default KoronaSchema;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Element, Innholdstittel } from 'nav-frontend-typografi';
+import { Sidetittel, Element, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import {
     tilLesbarDatoUtenAarstall,
@@ -88,16 +88,16 @@ class KoronaSchema extends Component {
         return (
             <div>
                 <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>14-dagers egenmelding</Sidetittel>
-                <Element>
+                <Undertittel>
                     NAV har nå opprettet coronamelding for de som mistenker at de er smittet av coronavirus.
                     Du kan selv fylle ut og sende egenmeldingen uten å kontakte fastlege eller legevakten.
-                </Element>
+                </Undertittel>
                 <br />
 
                 <Lenke href="#">Du kan lese mer om egenmeldingsordningen her.</Lenke>
 
                 <div
-                    style={{ marginTop: '2rem' }}>
+                    style={{ marginTop: '4rem' }}>
                     <Bjorn
                         className="blokk"
                         hvit

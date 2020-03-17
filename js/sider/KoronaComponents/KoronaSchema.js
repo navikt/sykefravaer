@@ -91,14 +91,14 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>14-dagers egenmelding</Sidetittel>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>14-dagers koronamelding</Sidetittel>
                 <Undertittel>
-                    NAV har nå opprettet coronamelding for de som mistenker at de er smittet av coronavirus.
-                    Du kan selv fylle ut og sende egenmeldingen uten å kontakte fastlege eller legevakten.
+                    NAV har nå laget en ny sykmeldingsfunksjon for de som mistenker at de er smittet av koronavirus.
+                    Du kan selv fylle ut og opprette sykmeldingen her, uten å kontakte fastlege eller legevakten.
                 </Undertittel>
                 <br />
 
-                <Lenke href="#">Du kan lese mer om egenmeldingsordningen her.</Lenke>
+                <Lenke href="#">Du kan lese mer om koronameldingen her.</Lenke>
 
                 <div
                     style={{ marginTop: '4rem' }}>

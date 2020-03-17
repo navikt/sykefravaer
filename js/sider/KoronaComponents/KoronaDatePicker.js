@@ -44,6 +44,7 @@ const DatePicker = ({ label, value, onChange }) => {
                         dateFormat: 'd.m.Y',
                         allowInput: true,
                         locale: flatpickrLocale,
+                        maxDate: new Date(),
                     }}
                 />
                 <span className="flatpickr-icon">
@@ -56,7 +57,7 @@ const DatePicker = ({ label, value, onChange }) => {
 
 DatePicker.propTypes = {
     label: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
 };
 

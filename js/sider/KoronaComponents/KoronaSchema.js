@@ -14,6 +14,10 @@ import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import KoronaDatePicker from './KoronaDatePicker';
 
+const correctDateOffset = (date) => {
+    date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
+    return date;
+};
 
 class KoronaSchema extends Component {
     constructor(props) {
@@ -23,7 +27,7 @@ class KoronaSchema extends Component {
             arbeidsgivere: props.arbeidsgivere,
             valgtArbeidsgivere: [],
             arbeidssituasjon: undefined,
-            tidligereSyk: true,
+            tidligereSyk: false,
             startDato: new Date(),
             korrigertStartDato: undefined,
         };
@@ -158,7 +162,7 @@ class KoronaSchema extends Component {
                             <KoronaDatePicker
                                 label="Vennligst velg dato du ble syk"
                                 value={korrigertStartDato}
-                                onChange={(date) => { return this.setState({ korrigertStartDato: date }); }} />
+                                onChange={(date) => { return this.setState({ korrigertStartDato: correctDateOffset(date) }); }} />
                         )}
 
                         <div style={{ display: 'flex', marginTop: '2rem' }}>

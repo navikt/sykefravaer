@@ -163,7 +163,7 @@ Opprettelse av koronamelding
                         </Systemtittel>
                         <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
-                        <div style={{ marginBottom: '3rem' }}>
+                        <div style={{ marginBottom: '2rem' }}>
                             <img
                                 style={{ position: 'absolute', marginLeft: '-40px', width: '30px', marginTop: '-3px' }}
                                 src={infoSvg}
@@ -172,7 +172,7 @@ Opprettelse av koronamelding
                             <Ingress>Vennligst fyll ut manglende informasjon</Ingress>
                         </div>
 
-                        <div style={{ marginBottom: '3rem' }}>
+                        <div style={{ marginBottom: '2rem' }}>
                             <div style={{ position: 'absolute', right: '50px' }}>
                                 <Hjelpetekst>
                                             TODO: Hva skal det stå her?
@@ -182,7 +182,7 @@ Opprettelse av koronamelding
                             <hr />
                         </div>
 
-                        <div style={{ marginBottom: '3rem' }}>
+                        <div style={{ marginBottom: '2rem' }}>
                             <h2 className="nokkelopplysning__tittel">Navn</h2>
                             <p>
                                     Fornavn Etternavn
@@ -238,7 +238,7 @@ Opprettelse av koronamelding
                             </div>
                         )}
 
-                        <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '3rem' }}>
+                        <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                             <div>
                                 <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                 <p>
@@ -271,7 +271,7 @@ Opprettelse av koronamelding
                             <hr />
                         </div>
 
-                        <div>
+                        <div style={{ marginBottom: '2rem' }}>
                             <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
                             {arbeidsgivere.map((arbeidsgiver) => {
                                 return (
@@ -305,7 +305,7 @@ Opprettelse av koronamelding
                                 label="Jobb som frilanser" />
                         </div>
 
-                        <div>
+                        <div style={{ marginBottom: '3rem' }}>
                             <h3 className="skjema__sporsmal">Annet</h3>
                             <Radio
                                 checked={annetSituasjon === 'annen'}
@@ -334,7 +334,7 @@ Opprettelse av koronamelding
                             <hr />
                         </div>
 
-                        <div style={{ marginBottom: '2rem' }}>
+                        <div style={{ marginBottom: '3rem' }}>
                             <h3 className="skjema__sporsmal">Er opplysningene du har gitt riktige?</h3>
                             <Radio
                                 checked={bekreftet}
@@ -348,8 +348,11 @@ Opprettelse av koronamelding
                                 name="nei" />
                         </div>
 
-                        <div>
+                        <div style={{ marginBottom: '2rem'}}>
                             <Hovedknapp disabled={bekreftet === false} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
+                        </div>
+
+                        <div>
                             <Knapp>Avbryt</Knapp>
                         </div>
                     </div>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Element, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
+import { Sidetittel, Systemtittel, Undertittel, Ingress, Element } from 'nav-frontend-typografi';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import {
     tilLesbarDatoUtenAarstall,
@@ -13,6 +13,24 @@ import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import KoronaDatePicker from './KoronaDatePicker';
+
+const infoSvg = `data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBB
+ZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9u
+OiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBT
+VkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzEx
+LmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9Ik91dGluZV9WZXJzaW9uIiB4bWxucz0iaHR0
+cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8x
+OTk5L3hsaW5rIiB4PSIwcHgiDQoJIHk9IjBweCIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIg
+dmlld0JveD0iMCAwIDI0IDI0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNCAyNCIgeG1s
+OnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8cGF0aCBkPSJNMTEuNSwxQzUuMTU5LDEsMCw2LjE1
+OSwwLDEyLjVDMCwxOC44NDEsNS4xNTksMjQsMTEuNSwyNFMyMywxOC44NDEsMjMsMTIuNUMyMyw2
+LjE1OSwxNy44NDEsMSwxMS41LDF6IE0xMS41LDIzDQoJCUM1LjcxLDIzLDEsMTguMjksMSwxMi41
+QzEsNi43MSw1LjcxLDIsMTEuNSwyUzIyLDYuNzEsMjIsMTIuNUMyMiwxOC4yOSwxNy4yOSwyMywx
+MS41LDIzeiIvPg0KCTxwYXRoIGQ9Ik0xNC41LDE5SDEydi04LjVjMC0wLjI3Ni0wLjIyNC0wLjUt
+MC41LTAuNWgtMkM5LjIyNCwxMCw5LDEwLjIyNCw5LDEwLjVTOS4yMjQsMTEsOS41LDExSDExdjhI
+OC41DQoJCUM4LjIyNCwxOSw4LDE5LjIyNCw4LDE5LjVTOC4yMjQsMjAsOC41LDIwaDZjMC4yNzYs
+MCwwLjUtMC4yMjQsMC41LTAuNVMxNC43NzYsMTksMTQuNSwxOXoiLz4NCgk8Y2lyY2xlIGN4PSIx
+MSIgY3k9IjYuNSIgcj0iMSIvPg0KPC9nPg0KPC9zdmc+DQo=`;
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -23,10 +41,11 @@ class KoronaSchema extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            periode: undefined,
             arbeidsgivere: props.arbeidsgivere,
             valgtArbeidsgivere: [],
-            arbeidssituasjon: undefined,
+            valgtArbeidssituasjon: [],
+            annetSituasjon: undefined,
+            bekreftet: undefined,
             tidligereSyk: false,
             startDato: new Date(),
             korrigertStartDato: undefined,
@@ -48,8 +67,19 @@ class KoronaSchema extends Component {
         return endDate;
     }
 
+    updateArbeidssituasjon(name) {
+        const { valgtArbeidssituasjon } = this.state;
 
-    updateArbeidssituasjon(arbeidssituasjon) {
+        if (valgtArbeidssituasjon.includes(name)) {
+            this.setState({ valgtArbeidssituasjon: valgtArbeidssituasjon.filter((a) => {
+                return a !== name;
+            }) });
+        } else {
+            this.setState({ valgtArbeidssituasjon: [...valgtArbeidssituasjon, name] });
+        }
+    }
+
+    updateAnnet(arbeidssituasjon) {
         this.setState({ arbeidssituasjon });
     }
 
@@ -84,8 +114,8 @@ class KoronaSchema extends Component {
     }
 
     render() {
-        const { arbeidssituasjon, arbeidsgivere, valgtArbeidsgivere, periode, tidligereSyk, startDato, korrigertStartDato } = this.state;
-        console.log(arbeidssituasjon, arbeidsgivere, periode);
+        const { arbeidsgivere, valgtArbeidsgivere,
+            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato } = this.state;
 
         const endDate = this.getEndDate();
 
@@ -106,44 +136,85 @@ class KoronaSchema extends Component {
                         className="blokk"
                         hvit
                         stor>
-                            Hei, nedenfor kan du fylle ut og sende inn egenmeldingen om du mistenker at du er syk grunnet coronaviruset.
+                            Hei, vanligvis er det en behandler som sykmelder deg og sender den inn til oss.
+                            I dette tilfellet blir du selv nødt til å opprette sykmeldingen før du kan bekrefte- og sende den inn.
                         <br />
                         <br />
-                        <Knapp>Gå til utfyllingen</Knapp>
+                        <Knapp>Opprett nå</Knapp>
                     </Bjorn>
                 </div>
 
-                <article>
-                    <header className="panelHeader panelHeader--lysebla">
-                        <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />
-                        <h2 className="panelHeader__tittel">
-                            Navn Etternavn
-                        </h2>
-                    </header>
+                <article style={{ marginTop: '6rem' }}>
                     <div className="panel blokk">
-                        <Innholdstittel>14-dagers egenmelding</Innholdstittel>
-                        <br />
-                        <Element>Vennligst fyll ut felter som mangler informasjon.</Element>
+                        <div style={{
+                            height: '66px',
+                            width: '66px',
+                            position: 'absolute',
+                            backgroundColor: 'red',
+                            left: '50%',
+                            marginLeft: '-33px',
+                            marginTop: '-66px',
+                        }}>
+icon
+                        </div>
+                        <Systemtittel style={{ textAlign: 'center',
+                            marginTop: '2rem' }}>
+Opprettelse av koronamelding
+                        </Systemtittel>
+                        <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
+                        <div style={{ marginBottom: '3rem' }}>
+                            <img
+                                style={{ position: 'absolute', marginLeft: '-40px', width: '30px', marginTop: '-3px' }}
+                                src={infoSvg}
+                                alt="Info"
+                            />
+                            <Ingress>Vennligst fyll ut manglende informasjon</Ingress>
+                        </div>
 
-                        <h2 style={{ marginTop: '2rem' }} className="nokkelopplysning__tittel">Periode</h2>
-                        <strong className="js-periode blokk-xxs">
-                            <span>
-                                {tilLesbarDatoUtenAarstall(korrigertStartDato || startDato)}
-                                {' '}
+                        <div style={{ marginBottom: '3rem' }}>
+                            <div style={{ position: 'absolute', right: '50px' }}>
+                                <Hjelpetekst>
+                                            TODO: Hva skal det stå her?
+                                </Hjelpetekst>
+                            </div>
+                            <Element>Sykmeldingsinformasjon</Element>
+                            <hr />
+                        </div>
+
+                        <div style={{ marginBottom: '3rem' }}>
+                            <h2 className="nokkelopplysning__tittel">Navn</h2>
+                            <p>
+                                    Fornavn Etternavn
+                            </p>
+                        </div>
+
+                        <div style={{ display: 'flex', marginBottom: '2rem' }}>
+                            <div>
+                                <h2 className="nokkelopplysning__tittel">Sykmeldingsperiode</h2>
+                                <p className="js-periode blokk-xxs">
+                                    <span>
+                                        {tilLesbarDatoUtenAarstall(korrigertStartDato || startDato)}
+                                        {' '}
                                 -
-                                {' '}
-                                {tilLesbarDatoMedArstall(endDate)}
-                            </span>
-                            {' '}
+                                        {' '}
+                                        {tilLesbarDatoMedArstall(endDate)}
+                                    </span>
+                                    {' '}
                             •
-                            {' '}
-                            <span>14 dager</span>
-                        </strong>
-                        <p className="js-grad">100 % sykmeldt</p>
+                                    {' '}
+                                    <span>14 dager</span>
+                                </p>
+                            </div>
+                            <div style={{ marginLeft: '4rem' }}>
+                                <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
+                                <p>
+                                    100% sykmeldt
+                                </p>
+                            </div>
+                        </div>
 
-
-                        <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+                        <div style={{ marginBottom: '1rem' }}>
                             <Checkbox
                                 checked={tidligereSyk}
                                 label="Jeg ble syk på et tidligere tidspunkt"
@@ -159,20 +230,22 @@ class KoronaSchema extends Component {
                         </div>
 
                         {tidligereSyk && (
-                            <KoronaDatePicker
-                                label="Vennligst velg dato du ble syk"
-                                value={korrigertStartDato}
-                                onChange={(date) => { return this.setState({ korrigertStartDato: correctDateOffset(date) }); }} />
+                            <div style={{ marginLeft: '2rem' }}>
+                                <KoronaDatePicker
+                                    label="Vennligst velg dato du ble syk"
+                                    value={korrigertStartDato}
+                                    onChange={(date) => { return this.setState({ korrigertStartDato: correctDateOffset(date) }); }} />
+                            </div>
                         )}
 
-                        <div style={{ display: 'flex', marginTop: '2rem' }}>
+                        <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '3rem' }}>
                             <div>
                                 <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                 <p>
                                     COVID-19
                                 </p>
                             </div>
-                            <div style={{ marginLeft: '6rem' }}>
+                            <div style={{ marginLeft: '8rem' }}>
                                 <div style={{ display: 'flex' }}>
                                     <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
                                     <div style={{ marginBottom: '-1rem' }}>
@@ -188,69 +261,104 @@ class KoronaSchema extends Component {
                             </div>
                         </div>
 
-                    </div>
-                </article>
+                        <div style={{ marginBottom: '2rem' }}>
+                            <div style={{ position: 'absolute', right: '50px' }}>
+                                <Hjelpetekst>
+                                            TODO: Hva skal det stå her?
+                                </Hjelpetekst>
+                            </div>
+                            <Element>Din arbeidssituasjon</Element>
+                            <hr />
+                        </div>
 
-                <article>
-                    <div className="panel blokk">
-                        <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
-                        {arbeidsgivere.map((arbeidsgiver) => {
-                            return (
-                                <div key={arbeidsgiver.orgnummer}>
-                                    <Checkbox
-                                        checked={valgtArbeidsgivere.includes(arbeidsgiver.orgnummer)}
-                                        name={arbeidsgiver.orgnummer}
-                                        onChange={() => { return this.updateArbeidsgivere(arbeidsgiver.orgnummer); }}
-                                        label={arbeidsgiver.navn} />
-                                    <span
-                                        style={{ marginTop: '-1rem',
-                                            marginLeft: '2rem',
-                                            marginBottom: '1rem' }}
-                                        className="sekundaerLabel">
+                        <div>
+                            <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
+                            {arbeidsgivere.map((arbeidsgiver) => {
+                                return (
+                                    <div key={arbeidsgiver.orgnummer}>
+                                        <Checkbox
+                                            checked={valgtArbeidsgivere.includes(arbeidsgiver.orgnummer)}
+                                            name={arbeidsgiver.orgnummer}
+                                            onChange={() => { return this.updateArbeidsgivere(arbeidsgiver.orgnummer); }}
+                                            label={arbeidsgiver.navn} />
+                                        <span
+                                            style={{ marginTop: '-1rem',
+                                                marginLeft: '2rem',
+                                                marginBottom: '1rem' }}
+                                            className="sekundaerLabel">
 (Org. nummer:
-                                        {arbeidsgiver.orgnummer}
+                                            {arbeidsgiver.orgnummer}
 )
-                                    </span>
-                                </div>
-                            );
-                        })}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                            <Checkbox
+                                checked={valgtArbeidssituasjon.includes('selvstendig')}
+                                name="selvstendig"
+                                onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                                label="Jobb som selvstendig næringsdrivende" />
+                            <Checkbox
+                                checked={valgtArbeidssituasjon.includes('frilanser')}
+                                name="frilanser"
+                                onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                                label="Jobb som frilanser" />
+                        </div>
 
-                        <h3 className="skjema__sporsmal">Overskrift</h3>
-                        <Radio
-                            checked={arbeidssituasjon === 'selvstendig'}
-                            label="jobb som selvstendig næringsdrivende"
-                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                            name="selvstendig" />
-                        <Radio
-                            checked={arbeidssituasjon === 'frilanser'}
-                            label="jobb som frilanser"
-                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                            name="frilanser" />
-                        <Radio
-                            checked={arbeidssituasjon === 'annen'}
-                            label="jobb hos en annen arbeidsgiver (bortgår?)"
-                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                            name="annen" />
-                        <Radio
-                            checked={arbeidssituasjon === 'arbeidsledig'}
-                            label="Jeg er arbeidsledig"
-                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                            name="arbeidsledig" />
-                        <Radio
-                            checked={arbeidssituasjon === 'ingenting'}
-                            label="Jeg finner ingenting som passer for meg"
-                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                            name="ingenting" />
+                        <div>
+                            <h3 className="skjema__sporsmal">Annet</h3>
+                            <Radio
+                                checked={annetSituasjon === 'annen'}
+                                label="Arbeidsgiver er ikke oppført"
+                                onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                name="annen" />
+                            <Radio
+                                checked={annetSituasjon === 'arbeidsledig'}
+                                label="Jeg er arbeidsledig"
+                                onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                name="arbeidsledig" />
+                            <Radio
+                                checked={annetSituasjon === 'ingenting'}
+                                label="Jeg finner ingenting som passer for meg"
+                                onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                name="ingenting" />
+                        </div>
+
+                        <div style={{ marginBottom: '2rem' }}>
+                            <div style={{ position: 'absolute', right: '50px' }}>
+                                <Hjelpetekst>
+                                            TODO: Hva skal det stå her?
+                                </Hjelpetekst>
+                            </div>
+                            <Element>Bekreft og opprett</Element>
+                            <hr />
+                        </div>
+
+                        <div style={{ marginBottom: '2rem' }}>
+                            <h3 className="skjema__sporsmal">Er opplysningene du har gitt riktige?</h3>
+                            <Radio
+                                checked={bekreftet}
+                                label="Ja"
+                                onChange={() => { this.setState({ bekreftet: true }); }}
+                                name="ja" />
+                            <Radio
+                                checked={bekreftet === false}
+                                label="Nei"
+                                onChange={() => { this.setState({ bekreftet: false }); }}
+                                name="nei" />
+                        </div>
+
+                        <div>
+                            <Hovedknapp disabled={bekreftet === false} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
+                            <Knapp>Avbryt</Knapp>
+                        </div>
                     </div>
                 </article>
-                <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <Hovedknapp onClick={() => { return this.submit(); }}>Opprett sykmelding</Hovedknapp>
-                </div>
 
 
-                <p style={{ marginTop: '4rem', marginLeft: '4rem' }} className="ikke-print blokk navigasjonsstripe">
+                <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-Ditt sykefravær
+TIL DITT SYKEFRAVÆR
                     </a>
                 </p>
             </div>

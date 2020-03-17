@@ -1,5 +1,6 @@
 import './Flatpickr.less';
 import './datepicker-extended.less';
+import PropTypes from 'prop-types';
 
 import Flatpickr from 'react-flatpickr';
 import React from 'react';
@@ -51,6 +52,12 @@ const DatePicker = ({ label, value, onChange }) => {
             </div>
         </div>
     );
+};
+
+DatePicker.propTypes = {
+    label: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
 };
 
 export default DatePicker;

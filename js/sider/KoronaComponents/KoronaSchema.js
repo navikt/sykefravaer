@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Element, Innholdstittel, Undertekst } from 'nav-frontend-typografi';
+import { Sidetittel, Element, Innholdstittel } from 'nav-frontend-typografi';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import {
     tilLesbarDatoUtenAarstall,

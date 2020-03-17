@@ -168,7 +168,7 @@ class KoronaSchema extends Component {
                                     COVID-19
                                 </p>
                             </div>
-                            <div style={{ marginLeft: '4rem' }}>
+                            <div style={{ marginLeft: '6rem' }}>
                                 <div style={{ display: 'flex' }}>
                                     <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
                                     <div style={{ marginBottom: '-1rem' }}>

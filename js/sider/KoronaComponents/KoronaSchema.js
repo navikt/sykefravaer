@@ -139,18 +139,20 @@ class KoronaSchema extends Component {
                         <p className="js-grad">100 % sykmeldt</p>
 
 
-                        <Checkbox
-                            checked={tidligereSyk}
-                            label="Jeg ble syk på et tidligere tidspunkt"
-                            onChange={() => {
-                                this.setState((state) => {
-                                    return {
-                                        tidligereSyk: !state.tidligereSyk,
-                                        korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato,
-                                    };
-                                });
-                            }}
-                            name="tidligereSyk" />
+                        <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+                            <Checkbox
+                                checked={tidligereSyk}
+                                label="Jeg ble syk på et tidligere tidspunkt"
+                                onChange={() => {
+                                    this.setState((state) => {
+                                        return {
+                                            tidligereSyk: !state.tidligereSyk,
+                                            korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato,
+                                        };
+                                    });
+                                }}
+                                name="tidligereSyk" />
+                        </div>
 
                         {tidligereSyk && (
                             <KoronaDatePicker
@@ -159,14 +161,14 @@ class KoronaSchema extends Component {
                                 onChange={(date) => { return this.setState({ korrigertStartDato: date }); }} />
                         )}
 
-                        <div style={{ display: 'flex' }}>
-                            <div style={{ marginTop: '1rem' }}>
+                        <div style={{ display: 'flex', marginTop: '2rem' }}>
+                            <div>
                                 <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                 <p>
                                     COVID-19
                                 </p>
                             </div>
-                            <div style={{ marginTop: '1rem', marginLeft: '4rem' }}>
+                            <div style={{ marginLeft: '4rem' }}>
                                 <div style={{ display: 'flex' }}>
                                     <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
                                     <div style={{ marginBottom: '-1rem' }}>
@@ -241,7 +243,7 @@ class KoronaSchema extends Component {
                 </div>
 
 
-                <p style={{marginTop: '4rem', marginLeft: '4rem'}} className="ikke-print blokk navigasjonsstripe">
+                <p style={{ marginTop: '4rem', marginLeft: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
 Ditt sykefravær
                     </a>

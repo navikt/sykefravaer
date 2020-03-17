@@ -73,14 +73,14 @@ class KoronaSchema extends Component {
             korrigertStartDato,
         } = this.state;
 
-        const egenmelding = {
+        const sykmelding = {
             valgtArbeidsgivere,
             arbeidssituasjon,
             startDato: korrigertStartDato || startDato,
         };
 
-        const { opprettEgenmelding } = this.props;
-        opprettEgenmelding(egenmelding);
+        const { opprettSykmelding } = this.props;
+        opprettSykmelding(sykmelding);
     }
 
     render() {
@@ -243,7 +243,7 @@ class KoronaSchema extends Component {
                     </div>
                 </article>
                 <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <Hovedknapp onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
+                    <Hovedknapp onClick={() => { return this.submit(); }}>Opprett sykmelding</Hovedknapp>
                 </div>
 
 
@@ -259,7 +259,7 @@ Ditt sykefravær
 }
 
 KoronaSchema.propTypes = {
-    opprettEgenmelding: PropTypes.func,
+    opprettSykmelding: PropTypes.func,
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
 };
 

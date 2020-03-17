@@ -17,7 +17,7 @@ import { hentSendingURL } from './KoronaComponents/koronaUtils';
 class KoronaContainer extends Component {
     constructor(props) {
         super(props);
-        this.sendSykmelding = this.sendSykmelding.bind(this);
+        this.opprettSykmelding = this.opprettSykmelding.bind(this);
         this.state = {
             isLoading: false,
             error: undefined,
@@ -43,7 +43,7 @@ class KoronaContainer extends Component {
             });
     }
 
-    sendSykmelding(sykmelding) {
+    opprettSykmelding(sykmelding) {
         this.setState({ isLoading: true });
         const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
         fetch(URL, {
@@ -54,7 +54,7 @@ class KoronaContainer extends Component {
                 this.setState({ isLoading: false, isSent: true });
             })
             .catch((error) => {
-                this.setState({ isLoading: false, error: 'Feil under innsending av sykmelding' });
+                this.setState({ isLoading: false, error: 'Feil under innsending av egenmelding' });
             });
     }
 
@@ -75,7 +75,7 @@ class KoronaContainer extends Component {
                     }
                     return (
                         <KoronaSchema
-                            sendSykmelding={this.sendSykmelding}
+                            opprettSykmelding={this.opprettSykmelding}
                             key={this.state.arbeidsgivere}
                             arbeidsgivere={this.state.arbeidsgivere}
                         />
@@ -96,7 +96,7 @@ const mapStateToProps = (state, ownProps) => {
                 erKlikkbar: true,
             },
             {
-                tittel: 'Opprett egen sykmelding',
+                tittel: '14-dagers egenmelding',
             },
         ],
     };

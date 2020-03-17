@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Element, Innholdstittel } from 'nav-frontend-typografi';
+import { Sidetittel, Element, Innholdstittel, Undertekst } from 'nav-frontend-typografi';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import {
     tilLesbarDatoUtenAarstall,
@@ -21,6 +21,7 @@ class KoronaSchema extends Component {
         this.state = {
             periode: undefined,
             arbeidsgivere: props.arbeidsgivere,
+            valgtArbeidsgivere: [],
             arbeidssituasjon: undefined,
             tidligereSyk: true,
             startDato: new Date(),
@@ -48,21 +49,38 @@ class KoronaSchema extends Component {
         this.setState({ arbeidssituasjon });
     }
 
-    updateArbeidsgivere(arbeidsgiver) {
-        const { arbeidsgivere } = this.state;
+    updateArbeidsgivere(orgnummer) {
+        const { valgtArbeidsgivere } = this.state;
 
-        if (arbeidsgivere.includes(arbeidsgiver)) {
-            this.setState({ arbeidsgivere: arbeidsgivere.filter((a) => {
-                return a !== arbeidsgiver;
+        if (valgtArbeidsgivere.includes(orgnummer)) {
+            this.setState({ valgtArbeidsgivere: valgtArbeidsgivere.filter((a) => {
+                return a !== orgnummer;
             }) });
         } else {
-            this.setState({ arbeidsgivere: [...arbeidsgivere, arbeidsgiver] });
+            this.setState({ valgtArbeidsgivere: [...valgtArbeidsgivere, orgnummer] });
         }
     }
 
+    submit() {
+        const {
+            valgtArbeidsgivere,
+            arbeidssituasjon,
+            startDato,
+            korrigertStartDato,
+        } = this.state;
+
+        const egenmelding = {
+            valgtArbeidsgivere,
+            arbeidssituasjon,
+            startDato: korrigertStartDato || startDato,
+        };
+
+        const { opprettEgenmelding } = this.props;
+        opprettEgenmelding(egenmelding);
+    }
+
     render() {
-        const { arbeidssituasjon, arbeidsgivere, periode, tidligereSyk, startDato, korrigertStartDato } = this.state;
-        const { sendSykmelding } = this.props;
+        const { arbeidssituasjon, arbeidsgivere, valgtArbeidsgivere, periode, tidligereSyk, startDato, korrigertStartDato } = this.state;
         console.log(arbeidssituasjon, arbeidsgivere, periode);
 
         const endDate = this.getEndDate();
@@ -169,68 +187,65 @@ class KoronaSchema extends Component {
 
                 <article>
                     <div className="panel blokk">
-                        <h3>Jeg er sykmeldt fra</h3>
-                        <Checkbox
-                            checked={false}
-                            name="arbeidsgiver1"
-                            onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
-                            label="Arbeidsgiver 1" />
-                        <Checkbox
-                            checked={false}
-                            name="arbeidsgiver2"
-                            onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
-                            label="Arbeidsgiver 2" />
+                        <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
+                        {arbeidsgivere.map((arbeidsgiver) => {
+                            return (
+                                <div key={arbeidsgiver.orgnummer}>
+                                    <Checkbox
+                                        checked={valgtArbeidsgivere.includes(arbeidsgiver.orgnummer)}
+                                        name={arbeidsgiver.orgnummer}
+                                        onChange={() => { return this.updateArbeidsgivere(arbeidsgiver.orgnummer); }}
+                                        label={arbeidsgiver.navn} />
+                                    <span
+                                        style={{ marginTop: '-1rem',
+                                            marginLeft: '2rem' }}
+                                        className="sekundaerLabel">
+(Org. nummer:
+                                        {arbeidsgiver.orgnummer}
+)
+                                    </span>
+                                </div>
+                            );
+                        })}
+
+                        <h3 className="skjema__sporsmal">Overskrift</h3>
+                        <Radio
+                            checked={arbeidssituasjon === 'selvstendig'}
+                            label="jobb som selvstendig næringsdrivende"
+                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                            name="selvstendig" />
+                        <Radio
+                            checked={arbeidssituasjon === 'frilanser'}
+                            label="jobb som frilanser"
+                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                            name="frilanser" />
+                        <Radio
+                            checked={arbeidssituasjon === 'annen'}
+                            label="jobb hos en annen arbeidsgiver (bortgår?)"
+                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                            name="annen" />
+                        <Radio
+                            checked={arbeidssituasjon === 'arbeidsledig'}
+                            label="Jeg er arbeidsledig"
+                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                            name="arbeidsledig" />
+                        <Radio
+                            checked={arbeidssituasjon === 'ingenting'}
+                            label="Jeg finner ingenting som passer for meg"
+                            onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                            name="ingenting" />
                     </div>
                 </article>
-
-
-                <div>
-                    <h3>Velg perioden du er syk (?)</h3>
-                    Periodevalg
+                <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                    <Hovedknapp onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
                 </div>
-                <div>
-                    hvis arbeidsgiver, vis denne:
-                    <h3>Velg arbeidsgivere vi skal sende sykmeldingen til</h3>
-                    <Checkbox
-                        checked={false}
-                        name="arbeidsgiver1"
-                        onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
-                        label="Arbeidsgiver 1" />
-                    <Checkbox
-                        checked={false}
-                        name="arbeidsgiver2"
-                        onChange={(e) => { return this.updateArbeidsgivere(e.target.name); }}
-                        label="Arbeidsgiver 2" />
 
-                    hvis ingen arbeidsgiver, vis denne:
-                    <h3>Velg det som passer for deg</h3>
-                    <Radio
-                        checked={arbeidssituasjon === 'selvstendig'}
-                        label="jobb som selvstendig næringsdrivende"
-                        onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                        name="selvstendig" />
-                    <Radio
-                        checked={arbeidssituasjon === 'frilanser'}
-                        label="jobb som frilanser"
-                        onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                        name="frilanser" />
-                    <Radio
-                        checked={arbeidssituasjon === 'annen'}
-                        label="jobb hos en annen arbeidsgiver (bortgår?)"
-                        onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                        name="annen" />
-                    <Radio
-                        checked={arbeidssituasjon === 'arbeidsledig'}
-                        label="Jeg er arbeidsledig"
-                        onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                        name="arbeidsledig" />
-                    <Radio
-                        checked={arbeidssituasjon === 'ingenting'}
-                        label="Jeg finner ingenting som passer for meg"
-                        onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                        name="ingenting" />
-                </div>
-                <Hovedknapp onClick={() => { return sendSykmelding({ prop1: 'test1', prop2: 'test2' }); }}>Send sykmelding</Hovedknapp>
+
+                <p style={{marginTop: '4rem', marginLeft: '4rem'}} className="ikke-print blokk navigasjonsstripe">
+                    <a className="tilbakelenke" href="/sykefravaer/">
+Ditt sykefravær
+                    </a>
+                </p>
             </div>
 
         );
@@ -238,7 +253,7 @@ class KoronaSchema extends Component {
 }
 
 KoronaSchema.propTypes = {
-    sendSykmelding: PropTypes.func,
+    opprettEgenmelding: PropTypes.func,
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
 };
 

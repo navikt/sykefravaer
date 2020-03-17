@@ -17,7 +17,7 @@ import { hentSendingURL } from './KoronaComponents/koronaUtils';
 class KoronaContainer extends Component {
     constructor(props) {
         super(props);
-        this.sendSykmelding = this.sendSykmelding.bind(this);
+        this.opprettEgenmelding = this.opprettEgenmelding.bind(this);
         this.state = {
             isLoading: false,
             error: undefined,
@@ -43,18 +43,18 @@ class KoronaContainer extends Component {
             });
     }
 
-    sendSykmelding(sykmelding) {
+    opprettEgenmelding(egenmelding) {
         this.setState({ isLoading: true });
         const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
         fetch(URL, {
             method: 'POST',
-            body: JSON.stringify(sykmelding),
+            body: JSON.stringify(egenmelding),
         })
             .then((res) => {
                 this.setState({ isLoading: false, isSent: true });
             })
             .catch((error) => {
-                this.setState({ isLoading: false, error: 'Feil under innsending av sykmelding' });
+                this.setState({ isLoading: false, error: 'Feil under innsending av egenmelding' });
             });
     }
 
@@ -75,7 +75,7 @@ class KoronaContainer extends Component {
                     }
                     return (
                         <KoronaSchema
-                            sendSykmelding={this.sendSykmelding}
+                            opprettEgenmelding={this.opprettEgenmelding}
                             key={this.state.arbeidsgivere}
                             arbeidsgivere={this.state.arbeidsgivere}
                         />

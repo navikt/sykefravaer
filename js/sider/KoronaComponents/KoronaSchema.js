@@ -204,7 +204,8 @@ class KoronaSchema extends Component {
                                         label={arbeidsgiver.navn} />
                                     <span
                                         style={{ marginTop: '-1rem',
-                                            marginLeft: '2rem' }}
+                                            marginLeft: '2rem',
+                                            marginBottom: '1rem' }}
                                         className="sekundaerLabel">
 (Org. nummer:
                                         {arbeidsgiver.orgnummer}

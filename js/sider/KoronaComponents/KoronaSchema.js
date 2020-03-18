@@ -13,6 +13,7 @@ import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import KoronaDatePicker from './KoronaDatePicker';
+import { koronameldingSvg } from './koronameldingSvg';
 
 const infoSvg = `data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBB
 ZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9u
@@ -150,12 +151,11 @@ class KoronaSchema extends Component {
                             height: '66px',
                             width: '66px',
                             position: 'absolute',
-                            backgroundColor: 'red',
                             left: '50%',
                             marginLeft: '-33px',
                             marginTop: '-66px',
                         }}>
-icon
+                            <img src={koronameldingSvg} alt="Ikon" />
                         </div>
                         <Systemtittel style={{ textAlign: 'center',
                             marginTop: '2rem' }}>
@@ -348,7 +348,7 @@ Opprettelse av koronamelding
                                 name="nei" />
                         </div>
 
-                        <div style={{ marginBottom: '2rem'}}>
+                        <div style={{ marginBottom: '2rem' }}>
                             <Hovedknapp disabled={bekreftet === false} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
                         </div>
 

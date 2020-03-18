@@ -181,7 +181,11 @@ class KoronaSchema extends Component {
                             I dette tilfellet blir du selv nødt til å opprette sykmeldingen før du kan bekrefte- og sende den inn.
                         <br />
                         <br />
-                        <Knapp>Opprett nå</Knapp>
+                        <Knapp onClick={() => {
+                            this.formElement.current.scrollIntoView({ behavior: 'smooth' });
+                        }}>
+Opprett nå
+                        </Knapp>
                     </Bjorn>
                 </div>
 

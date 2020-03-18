@@ -114,7 +114,12 @@ class KoronaSchema extends Component {
     }
 
     updateAnnet(annetSituasjon) {
-        this.setState({ annetSituasjon });
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.annetSituasjon === annetSituasjon) {
+            this.setState({ annetSituasjon: undefined });
+        } else {
+            this.setState({ annetSituasjon });
+        }
     }
 
     updateArbeidsgivere(orgnummer) {
@@ -347,17 +352,17 @@ Opprettelse av koronamelding
                                 <Radio
                                     checked={annetSituasjon === 'annen'}
                                     label="Arbeidsgiver er ikke oppført"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                    onClick={(e) => { return this.updateAnnet(e.target.name); }}
                                     name="annen" />
                                 <Radio
                                     checked={annetSituasjon === 'arbeidsledig'}
                                     label="Jeg er arbeidsledig"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                    onClick={(e) => { return this.updateAnnet(e.target.name); }}
                                     name="arbeidsledig" />
                                 <Radio
                                     checked={annetSituasjon === 'ingenting'}
                                     label="Jeg finner ingenting som passer for meg"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                    onClick={(e) => { return this.updateAnnet(e.target.name); }}
                                     name="ingenting" />
                             </div>
 

@@ -139,14 +139,14 @@ class KoronaSchema extends Component {
     submit() {
         const {
             valgtArbeidsgivere,
-            arbeidssituasjon,
+            annetSituasjon,
             startDato,
             korrigertStartDato,
         } = this.state;
 
         const sykmelding = {
             valgtArbeidsgivere,
-            arbeidssituasjon,
+            annetSituasjon,
             startDato: korrigertStartDato || startDato,
         };
 

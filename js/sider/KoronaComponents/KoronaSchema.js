@@ -50,9 +50,32 @@ class KoronaSchema extends Component {
             tidligereSyk: false,
             startDato: new Date(),
             korrigertStartDato: undefined,
+            formHeight: 0,
+            offsetLeft: 0,
+            width: 0,
         };
+        this.formElement = React.createRef();
     }
 
+    componentDidMount() {
+        window.addEventListener('resize', this.redrawBox);
+        this.redrawBox();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.redrawBox);
+    }
+
+    redrawBox = () => {
+        if (!this.formElement) {
+            return null;
+        }
+        
+        const formHeight = this.formElement.current.clientHeight;
+        const offsetLeft = this.formElement.current.getBoundingClientRect().left;
+        const width = this.formElement.current.getBoundingClientRect().left + this.formElement.current.getBoundingClientRect().right;
+        this.setState({ formHeight, offsetLeft, width });
+    }
 
     getEndDate() {
         const { startDato, korrigertStartDato } = this.state;
@@ -116,7 +139,7 @@ class KoronaSchema extends Component {
 
     render() {
         const { arbeidsgivere, valgtArbeidsgivere,
-            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato } = this.state;
+            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato, formHeight, offsetLeft, width } = this.state;
 
         const endDate = this.getEndDate();
 
@@ -145,218 +168,221 @@ class KoronaSchema extends Component {
                     </Bjorn>
                 </div>
 
-                <article style={{ marginTop: '6rem' }}>
-                    <div className="panel blokk">
-                        <div style={{
-                            height: '66px',
-                            width: '66px',
-                            position: 'absolute',
-                            left: '50%',
-                            marginLeft: '-33px',
-                            marginTop: '-66px',
-                        }}>
-                            <img src={koronameldingSvg} alt="Ikon" />
-                        </div>
-                        <Systemtittel style={{ textAlign: 'center',
-                            marginTop: '2rem' }}>
+                <div>
+                    <div style={{ backgroundColor: 'white', height: formHeight, width: width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />
+                    <article style={{ marginTop: '6rem' }} ref={this.formElement}>
+                        <div className="panel blokk">
+                            <div style={{
+                                height: '66px',
+                                width: '66px',
+                                position: 'absolute',
+                                left: '50%',
+                                marginLeft: '-33px',
+                                marginTop: '-66px',
+                            }}>
+                                <img src={koronameldingSvg} alt="Ikon" />
+                            </div>
+                            <Systemtittel style={{ textAlign: 'center',
+                                marginTop: '2rem' }}>
 Opprettelse av koronamelding
-                        </Systemtittel>
-                        <hr style={{ width: '10rem', marginBottom: '2rem' }} />
+                            </Systemtittel>
+                            <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
-                        <div style={{ marginBottom: '2rem' }}>
-                            <img
-                                style={{ position: 'absolute', marginLeft: '-40px', width: '30px', marginTop: '-3px' }}
-                                src={infoSvg}
-                                alt="Info"
-                            />
-                            <Ingress>Vennligst fyll ut manglende informasjon</Ingress>
-                        </div>
+                            <div style={{ marginBottom: '2rem' }}>
+                                <img
+                                    style={{ position: 'absolute', marginLeft: '-40px', width: '30px', marginTop: '-3px' }}
+                                    src={infoSvg}
+                                    alt="Info"
+                                />
+                                <Ingress>Vennligst fyll ut manglende informasjon</Ingress>
+                            </div>
 
-                        <div style={{ marginBottom: '2rem' }}>
-                            <div style={{ position: 'absolute', right: '50px' }}>
-                                <Hjelpetekst>
+                            <div style={{ marginBottom: '2rem' }}>
+                                <div style={{ position: 'absolute', right: '50px' }}>
+                                    <Hjelpetekst>
                                             TODO: Hva skal det stå her?
-                                </Hjelpetekst>
+                                    </Hjelpetekst>
+                                </div>
+                                <Element>Sykmeldingsinformasjon</Element>
+                                <hr />
                             </div>
-                            <Element>Sykmeldingsinformasjon</Element>
-                            <hr />
-                        </div>
 
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h2 className="nokkelopplysning__tittel">Navn</h2>
-                            <p>
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h2 className="nokkelopplysning__tittel">Navn</h2>
+                                <p>
                                     Fornavn Etternavn
-                            </p>
-                        </div>
+                                </p>
+                            </div>
 
-                        <div style={{ display: 'flex', marginBottom: '2rem' }}>
-                            <div>
-                                <h2 className="nokkelopplysning__tittel">Sykmeldingsperiode</h2>
-                                <p className="js-periode blokk-xxs">
-                                    <span>
-                                        {tilLesbarDatoUtenAarstall(korrigertStartDato || startDato)}
-                                        {' '}
+                            <div style={{ display: 'flex', marginBottom: '2rem' }}>
+                                <div>
+                                    <h2 className="nokkelopplysning__tittel">Sykmeldingsperiode</h2>
+                                    <p className="js-periode blokk-xxs">
+                                        <span>
+                                            {tilLesbarDatoUtenAarstall(korrigertStartDato || startDato)}
+                                            {' '}
                                 -
+                                            {' '}
+                                            {tilLesbarDatoMedArstall(endDate)}
+                                        </span>
                                         {' '}
-                                        {tilLesbarDatoMedArstall(endDate)}
-                                    </span>
-                                    {' '}
                             •
-                                    {' '}
-                                    <span>14 dager</span>
-                                </p>
-                            </div>
-                            <div style={{ marginLeft: '4rem' }}>
-                                <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
-                                <p>
+                                        {' '}
+                                        <span>14 dager</span>
+                                    </p>
+                                </div>
+                                <div style={{ marginLeft: '4rem' }}>
+                                    <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
+                                    <p>
                                     100% sykmeldt
-                                </p>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div style={{ marginBottom: '1rem' }}>
-                            <Checkbox
-                                checked={tidligereSyk}
-                                label="Jeg ble syk på et tidligere tidspunkt"
-                                onChange={() => {
-                                    this.setState((state) => {
-                                        return {
-                                            tidligereSyk: !state.tidligereSyk,
-                                            korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato,
-                                        };
-                                    });
-                                }}
-                                name="tidligereSyk" />
-                        </div>
-
-                        {tidligereSyk && (
-                            <div style={{ marginLeft: '2rem' }}>
-                                <KoronaDatePicker
-                                    label="Vennligst velg dato du ble syk"
-                                    value={korrigertStartDato}
-                                    onChange={(date) => { return this.setState({ korrigertStartDato: correctDateOffset(date) }); }} />
+                            <div style={{ marginBottom: '1rem' }}>
+                                <Checkbox
+                                    checked={tidligereSyk}
+                                    label="Jeg ble syk på et tidligere tidspunkt"
+                                    onChange={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                tidligereSyk: !state.tidligereSyk,
+                                                korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato,
+                                            };
+                                        });
+                                    }}
+                                    name="tidligereSyk" />
                             </div>
-                        )}
 
-                        <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
-                            <div>
-                                <h2 className="nokkelopplysning__tittel">Diagnose</h2>
-                                <p>
+                            {tidligereSyk && (
+                                <div style={{ marginLeft: '2rem' }}>
+                                    <KoronaDatePicker
+                                        label="Vennligst velg dato du ble syk"
+                                        value={korrigertStartDato}
+                                        onChange={(date) => { return this.setState({ korrigertStartDato: correctDateOffset(date) }); }} />
+                                </div>
+                            )}
+
+                            <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
+                                <div>
+                                    <h2 className="nokkelopplysning__tittel">Diagnose</h2>
+                                    <p>
                                     COVID-19
-                                </p>
-                            </div>
-                            <div style={{ marginLeft: '8rem' }}>
-                                <div style={{ display: 'flex' }}>
-                                    <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
-                                    <div style={{ marginBottom: '-1rem' }}>
-                                        <Hjelpetekst>
+                                    </p>
+                                </div>
+                                <div style={{ marginLeft: '8rem' }}>
+                                    <div style={{ display: 'flex' }}>
+                                        <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
+                                        <div style={{ marginBottom: '-1rem' }}>
+                                            <Hjelpetekst>
                                             Diagnosekoden henviser til de internasjonale kodeverkene som klassifiserer sykdom og symptomer.
                                             De ulike diagnosekodene brukes for å gi en mest mulig presis diagnose.
-                                        </Hjelpetekst>
+                                            </Hjelpetekst>
+                                        </div>
                                     </div>
-                                </div>
-                                <p>
+                                    <p>
                                     R991
-                                </p>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div style={{ marginBottom: '2rem' }}>
-                            <div style={{ position: 'absolute', right: '50px' }}>
-                                <Hjelpetekst>
+                            <div style={{ marginBottom: '2rem' }}>
+                                <div style={{ position: 'absolute', right: '50px' }}>
+                                    <Hjelpetekst>
                                             TODO: Hva skal det stå her?
-                                </Hjelpetekst>
+                                    </Hjelpetekst>
+                                </div>
+                                <Element>Din arbeidssituasjon</Element>
+                                <hr />
                             </div>
-                            <Element>Din arbeidssituasjon</Element>
-                            <hr />
-                        </div>
 
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
-                            {arbeidsgivere.map((arbeidsgiver) => {
-                                return (
-                                    <div key={arbeidsgiver.orgnummer}>
-                                        <Checkbox
-                                            checked={valgtArbeidsgivere.includes(arbeidsgiver.orgnummer)}
-                                            name={arbeidsgiver.orgnummer}
-                                            onChange={() => { return this.updateArbeidsgivere(arbeidsgiver.orgnummer); }}
-                                            label={arbeidsgiver.navn} />
-                                        <span
-                                            style={{ marginTop: '-1rem',
-                                                marginLeft: '2rem',
-                                                marginBottom: '1rem' }}
-                                            className="sekundaerLabel">
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
+                                {arbeidsgivere.map((arbeidsgiver) => {
+                                    return (
+                                        <div key={arbeidsgiver.orgnummer}>
+                                            <Checkbox
+                                                checked={valgtArbeidsgivere.includes(arbeidsgiver.orgnummer)}
+                                                name={arbeidsgiver.orgnummer}
+                                                onChange={() => { return this.updateArbeidsgivere(arbeidsgiver.orgnummer); }}
+                                                label={arbeidsgiver.navn} />
+                                            <span
+                                                style={{ marginTop: '-1rem',
+                                                    marginLeft: '2rem',
+                                                    marginBottom: '1rem' }}
+                                                className="sekundaerLabel">
 (Org. nummer:
-                                            {arbeidsgiver.orgnummer}
+                                                {arbeidsgiver.orgnummer}
 )
-                                        </span>
-                                    </div>
-                                );
-                            })}
-                            <Checkbox
-                                checked={valgtArbeidssituasjon.includes('selvstendig')}
-                                name="selvstendig"
-                                onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                                label="Jobb som selvstendig næringsdrivende" />
-                            <Checkbox
-                                checked={valgtArbeidssituasjon.includes('frilanser')}
-                                name="frilanser"
-                                onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                                label="Jobb som frilanser" />
-                        </div>
-
-                        <div style={{ marginBottom: '3rem' }}>
-                            <h3 className="skjema__sporsmal">Annet</h3>
-                            <Radio
-                                checked={annetSituasjon === 'annen'}
-                                label="Arbeidsgiver er ikke oppført"
-                                onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                name="annen" />
-                            <Radio
-                                checked={annetSituasjon === 'arbeidsledig'}
-                                label="Jeg er arbeidsledig"
-                                onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                name="arbeidsledig" />
-                            <Radio
-                                checked={annetSituasjon === 'ingenting'}
-                                label="Jeg finner ingenting som passer for meg"
-                                onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                name="ingenting" />
-                        </div>
-
-                        <div style={{ marginBottom: '2rem' }}>
-                            <div style={{ position: 'absolute', right: '50px' }}>
-                                <Hjelpetekst>
-                                            TODO: Hva skal det stå her?
-                                </Hjelpetekst>
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                                <Checkbox
+                                    checked={valgtArbeidssituasjon.includes('selvstendig')}
+                                    name="selvstendig"
+                                    onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                                    label="Jobb som selvstendig næringsdrivende" />
+                                <Checkbox
+                                    checked={valgtArbeidssituasjon.includes('frilanser')}
+                                    name="frilanser"
+                                    onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
+                                    label="Jobb som frilanser" />
                             </div>
-                            <Element>Bekreft og opprett</Element>
-                            <hr />
-                        </div>
 
-                        <div style={{ marginBottom: '3rem' }}>
-                            <h3 className="skjema__sporsmal">Er opplysningene du har gitt riktige?</h3>
-                            <Radio
-                                checked={bekreftet}
-                                label="Ja"
-                                onChange={() => { this.setState({ bekreftet: true }); }}
-                                name="ja" />
-                            <Radio
-                                checked={bekreftet === false}
-                                label="Nei"
-                                onChange={() => { this.setState({ bekreftet: false }); }}
-                                name="nei" />
-                        </div>
+                            <div style={{ marginBottom: '3rem' }}>
+                                <h3 className="skjema__sporsmal">Annet</h3>
+                                <Radio
+                                    checked={annetSituasjon === 'annen'}
+                                    label="Arbeidsgiver er ikke oppført"
+                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                    name="annen" />
+                                <Radio
+                                    checked={annetSituasjon === 'arbeidsledig'}
+                                    label="Jeg er arbeidsledig"
+                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                    name="arbeidsledig" />
+                                <Radio
+                                    checked={annetSituasjon === 'ingenting'}
+                                    label="Jeg finner ingenting som passer for meg"
+                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
+                                    name="ingenting" />
+                            </div>
 
-                        <div style={{ marginBottom: '2rem' }}>
-                            <Hovedknapp disabled={bekreftet === false} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
-                        </div>
+                            <div style={{ marginBottom: '2rem' }}>
+                                <div style={{ position: 'absolute', right: '50px' }}>
+                                    <Hjelpetekst>
+                                            TODO: Hva skal det stå her?
+                                    </Hjelpetekst>
+                                </div>
+                                <Element>Bekreft og opprett</Element>
+                                <hr />
+                            </div>
 
-                        <div>
-                            <Knapp>Avbryt</Knapp>
+                            <div style={{ marginBottom: '3rem' }}>
+                                <h3 className="skjema__sporsmal">Er opplysningene du har gitt riktige?</h3>
+                                <Radio
+                                    checked={bekreftet}
+                                    label="Ja"
+                                    onChange={() => { this.setState({ bekreftet: true }); }}
+                                    name="ja" />
+                                <Radio
+                                    checked={bekreftet === false}
+                                    label="Nei"
+                                    onChange={() => { this.setState({ bekreftet: false }); }}
+                                    name="nei" />
+                            </div>
+
+                            <div style={{ marginBottom: '2rem' }}>
+                                <Hovedknapp disabled={bekreftet === false} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
+                            </div>
+
+                            <div>
+                                <Knapp>Avbryt</Knapp>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </div>
 
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">

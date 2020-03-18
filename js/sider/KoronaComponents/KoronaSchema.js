@@ -64,14 +64,16 @@ class KoronaSchema extends Component {
         this.redrawBox();
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.redrawBox);
-    }
 
     componentDidUpdate(_, nextState) {
+        // eslint-disable-next-line react/destructuring-assignment
         if (this.state.tidligereSyk !== nextState.tidligereSyk) {
             this.redrawBox();
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.redrawBox);
     }
 
     getEndDate() {

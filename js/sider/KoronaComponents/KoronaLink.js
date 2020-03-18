@@ -56,7 +56,7 @@ const KoronaLink = () => {
                 />
             </div>
             <div className="peker__innhold">
-                <h2 className="peker__tittel">Egensykmelding ved mistanke om koronavirus</h2>
+                <h2 className="peker__tittel">Egenerklæring som følge av koronavirus</h2>
             </div>
         </Link>
     );

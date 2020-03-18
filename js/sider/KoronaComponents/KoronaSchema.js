@@ -55,6 +55,8 @@ class KoronaSchema extends Component {
             width: 0,
         };
         this.formElement = React.createRef();
+
+        this.redrawBox = this.redrawBox.bind(this);
     }
 
     componentDidMount() {
@@ -66,15 +68,10 @@ class KoronaSchema extends Component {
         window.removeEventListener('resize', this.redrawBox);
     }
 
-    redrawBox = () => {
-        if (!this.formElement) {
-            return null;
+    componentDidUpdate(_, nextState) {
+        if (this.state.tidligereSyk !== nextState.tidligereSyk) {
+            this.redrawBox();
         }
-        
-        const formHeight = this.formElement.current.clientHeight;
-        const offsetLeft = this.formElement.current.getBoundingClientRect().left;
-        const width = this.formElement.current.getBoundingClientRect().left + this.formElement.current.getBoundingClientRect().right;
-        this.setState({ formHeight, offsetLeft, width });
     }
 
     getEndDate() {
@@ -91,6 +88,19 @@ class KoronaSchema extends Component {
         return endDate;
     }
 
+    redrawBox() {
+        if (!this.formElement) {
+            return null;
+        }
+
+        const formHeight = this.formElement.current.clientHeight;
+        const offsetLeft = this.formElement.current.getBoundingClientRect().left;
+        const width = this.formElement.current.getBoundingClientRect().left + this.formElement.current.getBoundingClientRect().right;
+
+        this.setState({ formHeight, offsetLeft, width });
+        return null;
+    }
+
     updateArbeidssituasjon(name) {
         const { valgtArbeidssituasjon } = this.state;
 
@@ -103,8 +113,8 @@ class KoronaSchema extends Component {
         }
     }
 
-    updateAnnet(arbeidssituasjon) {
-        this.setState({ arbeidssituasjon });
+    updateAnnet(annetSituasjon) {
+        this.setState({ annetSituasjon });
     }
 
     updateArbeidsgivere(orgnummer) {
@@ -145,10 +155,10 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>14-dagers koronamelding</Sidetittel>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>Koronamelding</Sidetittel>
                 <Undertittel>
-                    NAV har nå laget en ny sykmeldingsfunksjon for de som mistenker at de er smittet av koronavirus.
-                    Du kan selv fylle ut og opprette sykmeldingen her, uten å kontakte fastlege eller legevakten.
+                    Her kan du selv opprette 14-dagers egenmelding hvis du mistenker at du er smittet av koronaviruset.
+                    Du trenger ikke kontakte fastlege eller legevakten.
                 </Undertittel>
                 <br />
 
@@ -169,7 +179,7 @@ class KoronaSchema extends Component {
                 </div>
 
                 <div>
-                    <div style={{ backgroundColor: 'white', height: formHeight, width: width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />
+                    <div style={{ backgroundColor: 'white', height: formHeight, width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />
                     <article style={{ marginTop: '6rem' }} ref={this.formElement}>
                         <div className="panel blokk">
                             <div style={{
@@ -200,7 +210,7 @@ Opprettelse av koronamelding
                             <div style={{ marginBottom: '2rem' }}>
                                 <div style={{ position: 'absolute', right: '50px' }}>
                                     <Hjelpetekst>
-                                            TODO: Hva skal det stå her?
+                                            Du må velge dager du er- eller har vært sykmeldt. Husk at dette gjelder kun ved mistanke om sykdom grunnet koronavirus.
                                     </Hjelpetekst>
                                 </div>
                                 <Element>Sykmeldingsinformasjon</Element>
@@ -259,7 +269,9 @@ Opprettelse av koronamelding
                                     <KoronaDatePicker
                                         label="Vennligst velg dato du ble syk"
                                         value={korrigertStartDato}
-                                        onChange={(date) => { return this.setState({ korrigertStartDato: correctDateOffset(date) }); }} />
+                                        onChange={(date) => {
+                                            return this.setState({ korrigertStartDato: correctDateOffset(date) });
+                                        }} />
                                 </div>
                             )}
 
@@ -289,7 +301,7 @@ Opprettelse av koronamelding
                             <div style={{ marginBottom: '2rem' }}>
                                 <div style={{ position: 'absolute', right: '50px' }}>
                                     <Hjelpetekst>
-                                            TODO: Hva skal det stå her?
+                                            Du kan velge en eller flere arbeidssituasjoner.
                                     </Hjelpetekst>
                                 </div>
                                 <Element>Din arbeidssituasjon</Element>
@@ -350,11 +362,6 @@ Opprettelse av koronamelding
                             </div>
 
                             <div style={{ marginBottom: '2rem' }}>
-                                <div style={{ position: 'absolute', right: '50px' }}>
-                                    <Hjelpetekst>
-                                            TODO: Hva skal det stå her?
-                                    </Hjelpetekst>
-                                </div>
                                 <Element>Bekreft og opprett</Element>
                                 <hr />
                             </div>
@@ -374,7 +381,7 @@ Opprettelse av koronamelding
                             </div>
 
                             <div style={{ marginBottom: '2rem' }}>
-                                <Hovedknapp disabled={bekreftet === false} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
+                                <Hovedknapp disabled={!bekreftet} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
                             </div>
 
                             <div>
@@ -387,7 +394,7 @@ Opprettelse av koronamelding
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-TIL DITT SYKEFRAVÆR
+TILBAKE TIL DITT SYKEFRAVÆR
                     </a>
                 </p>
             </div>

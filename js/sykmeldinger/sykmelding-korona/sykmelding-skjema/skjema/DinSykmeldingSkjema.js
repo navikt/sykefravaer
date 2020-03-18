@@ -9,7 +9,6 @@ import {
     arbeidssituasjoner,
     Bjorn,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
-    getHtmlLedetekst,
     getLedetekst,
     tilDatePeriode,
     toDatePrettyPrint,

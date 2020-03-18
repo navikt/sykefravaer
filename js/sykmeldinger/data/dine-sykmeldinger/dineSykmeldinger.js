@@ -54,6 +54,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
     switch (action.type) {
         case SET_DINE_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
+                console.log(action.sykmeldinger);
                 return {
                     data: action.sykmeldinger.map((s) => {
                         return parseSykmelding(s);

@@ -1,5 +1,126 @@
 [
   {
+    "id": "0ba8ea3e-2bd1-4d03-b127-40a5535fce25",
+    "erEgenmeldt": true,
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-10-09",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": {
+        "diagnose": "COVID-19",
+        "diagnosekode": "L87",
+        "diagnosesystem": "ICPC-2"
+      },
+      "bidiagnoser": [
+        {
+          "diagnose": "GANGLION SENE",
+          "diagnosekode": "L87",
+          "diagnosesystem": "ICPC-2"
+        }
+      ],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": "Medising årsak i kategorien annet",
+      "svangerskap": false,
+      "yrkesskade": true,
+      "yrkesskadeDato": "2018-10-09"
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-09",
+          "tom": "2018-10-17",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": [
+        "Annet"
+      ],
+      "aktivitetIkkeMulig434": [
+        "Annet"
+      ],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-09",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-09",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": "Langvarig korsryggsmerter. Ømhet og smerte",
+      "paavirkningArbeidsevne": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket",
+      "resultatAvBehandling": "Nei",
+      "henvisningUtredningBehandling": "Henvist til fysio",
+      "grupper": [
+        {
+          "id": "6.2",
+          "sporsmal": [
+            {
+              "id": "6.2.1",
+              "svar": "Langvarig korsryggsmerter. Ømhet og smerte"
+            },
+            {
+              "id": "6.2.2",
+              "svar": "Kan ikke utføre arbeidsoppgaver 100% som kreves fra yrket"
+            },
+            {
+              "id": "6.2.3",
+              "svar": "Nei"
+            },
+            {
+              "id": "6.2.4",
+              "svar": "Henvist til fysio"
+            }
+          ]
+        }
+      ]
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
     "id": "e9a99b9a-73e3-4998-82d1-063ca70866b2",
     "startLegemeldtFravaer": "2019-03-31",
     "skalViseSkravertFelt": true,

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, getSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import Side from '../../../sider/Side';
 import NySykmelding from '../../sykmelding-ny/NySykmelding';
+import KoronaSykmelding from '../../sykmelding-korona/KoronaSykmelding-Ny';
 import SendtSykmelding from '../../sykmelding-sendt/SendtSykmelding';
 import BekreftetSykmelding from '../../sykmelding-bekreftet/BekreftetSykmelding';
 import AvbruttSykmelding from '../../sykmelding-avbrutt/AvbruttSykmelding';
@@ -82,6 +83,49 @@ export class Container extends Component {
                         }
                         if (smSykmelding && smSykmelding.behandlingsutfall.status === 'INVALID') {
                             return <AvvistSykmelding />;
+                        }
+                        if (dinSykmelding.erEgenmeldt) {
+                            switch (dinSykmelding.status) {
+                                case SENDT:
+                                case TIL_SENDING: {
+                                    return (
+                                        <div>
+                                            <SendtSykmelding dinSykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                case BEKREFTET: {
+                                    return (
+                                        <div>
+                                            <BekreftetSykmelding dinSykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                case UTGAATT: {
+                                    return (
+                                        <div>
+                                            <UtgaattSykmelding sykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                case NY: {
+                                    return (<KoronaSykmelding />);
+                                }
+                                case AVBRUTT: {
+                                    return (
+                                        <div>
+                                            <AvbruttSykmelding sykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                default: {
+                                    return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
+                                }
+                            }
                         }
                         switch (dinSykmelding.status) {
                             case SENDT:

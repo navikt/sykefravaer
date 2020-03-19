@@ -81,12 +81,12 @@ export const RendreVelgArbeidssituasjon = ({
                 id="valgtArbeidssituasjon"
                 input={input}
                 meta={meta}
-                spoersmal="Arbeidsforhold denne egenmeldingen gjelder for"
+                spoersmal="Arbeidsforhold denne egenerklæringen gjelder for"
                 hjelpetekst={(
                     <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">
-            Har du egenmelding for flere arbeidssituasjoner må du ha én
-            egenmelding per arbeidssituasjon. Trenger du flere egenmeldinger, må
-            du registrere en ny egenmelding for det aktuelle arbeidsforholdet.
+            Har du egenerklæring for flere arbeidssituasjoner må du ha én
+            egenerklæring per arbeidssituasjon. Trenger du flere egenerklæringer, må
+            du registrere en ny egenerklæring for det aktuelle arbeidsforholdet.
                     </Hjelpetekst>
                 )}
             >

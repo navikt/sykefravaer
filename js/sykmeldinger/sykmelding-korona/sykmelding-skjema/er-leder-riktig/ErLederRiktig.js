@@ -28,7 +28,7 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
             </p>
         ) : input.value === false ? (
             <p className="sist">
-                {`Vi sender egenmeldingen til ${navn}, som finner den ved å logge inn på nav.no.`}
+                {`Vi sender egenerklæringen til ${navn}, som finner den ved å logge inn på nav.no.`}
             </p>
         ) : null;
     };
@@ -36,8 +36,8 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
     const hjelpetekst = (
         <Hjelpetekst id="velg-beOmNyNaermesteLeder-hjelpetekst">
       Arbeidsgiveren din har oppgitt at det er denne personen som følger deg opp
-      på jobb. Personen vil få se egenmeldingen ved å logge seg på nav.no, og
-      kan bli kontaktet av NAV underveis i egenmeldingen hvis det er behov for
+      på jobb. Personen vil få se egenerklæringen ved å logge seg på nav.no, og
+      kan bli kontaktet av NAV underveis i egenerklæringen hvis det er behov for
       det. Hvis du er usikker på om navnet er riktig, bør du spørre
       arbeidsgiveren din om hvorfor de har valgt det.
         </Hjelpetekst>

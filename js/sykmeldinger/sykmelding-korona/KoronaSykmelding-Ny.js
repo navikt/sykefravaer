@@ -17,14 +17,14 @@ class KoronaSykmelding extends Component {
                 {({ sykmelding }) => {
                     return (
                         <NySykmeldingTrigger>
-                            <Sidetopp tittel="14-dagers egenmelding" />
+                            <Sidetopp tittel="14-dagers egenerklæring" />
                             <h3 style={{ textAlign: 'center', marginBottom: '2.5rem' }}>{`Opprettet ${tilLesbarDatoMedArstall(sykmelding.bekreftelse.utstedelsesdato)}`}</h3>
                             <Bjorn className="blokk" hvit stor>
                                 <div>
                                     <p>
                     Hei, nedenfor ser du en oppsummering av informasjonen du
-                    fylte inn når du opprettet egenmeldingen. Vennligst se over
-                    at informasjonen stemmer og send inn/bekreft egenmeldingen.
+                    fylte inn når du opprettet egenerklæringen. Vennligst se over
+                    at informasjonen stemmer og send inn/bekreft egenerklæringen.
                                     </p>
                                     <p className="introtekst__knapperad">
                                         <button

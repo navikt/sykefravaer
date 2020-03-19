@@ -15,7 +15,7 @@ const ErOpplysningeneRiktige = (props) => {
         <JaEllerNei
             verdiMedTilleggssporsmal={false}
             className="hovedsporsmal--hvit"
-            spoersmal="Er opplysningene i egenmeldingen riktige?"
+            spoersmal="Er opplysningene i egenerklæringen riktige?"
             name="opplysningeneErRiktige">
             <FieldArray
                 {...props}

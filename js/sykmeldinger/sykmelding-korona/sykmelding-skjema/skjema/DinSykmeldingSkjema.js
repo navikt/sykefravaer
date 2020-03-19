@@ -9,7 +9,6 @@ import {
     arbeidssituasjoner,
     Bjorn,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
-    getLedetekst,
     tilDatePeriode,
     toDatePrettyPrint,
 } from '@navikt/digisyfo-npm';

@@ -10,7 +10,7 @@ import Sidetopp from '../../components/Sidetopp';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 
-class KoronaSykmelding extends Component {
+class KoronaSykmeldingNy extends Component {
     render() {
         return (
             <SykmeldingContext.Consumer>
@@ -77,4 +77,4 @@ class KoronaSykmelding extends Component {
     }
 }
 
-export default KoronaSykmelding;
+export default KoronaSykmeldingNy;

@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import { getLedetekst, getSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import Side from '../../../sider/Side';
 import NySykmelding from '../../sykmelding-ny/NySykmelding';
-import KoronaSykmelding from '../../sykmelding-korona/KoronaSykmelding-Ny';
+import KoronaSykmeldingNy from '../../sykmelding-korona/KoronaSykmelding-Ny';
+import KoronaSykmeldingSendt from '../../sykmelding-korona/KoronaSykmelding-Sendt';
+import KoronaSykmeldingBekreftet from '../../sykmelding-korona/KoronaSykmelding-Bekreftet';
+import KoronaSykmeldingUtgaatt from '../../sykmelding-korona/KoronaSYkmelding-Utgaatt';
 import SendtSykmelding from '../../sykmelding-sendt/SendtSykmelding';
 import BekreftetSykmelding from '../../sykmelding-bekreftet/BekreftetSykmelding';
 import AvbruttSykmelding from '../../sykmelding-avbrutt/AvbruttSykmelding';
@@ -19,6 +22,7 @@ import { hentSmSykmeldinger } from '../../data/sm-sykmeldinger/smSykmeldingerAct
 import { henterSmSykmeldingerSelector, hentingFeiletSmSykmeldingerSelector, smSykmeldingSelector } from '../../data/sm-sykmeldinger/smSykmeldingerSelectors';
 import AvvistSykmelding from '../../sykmelding-avvist/AvvistSykmelding';
 import { smSykmeldingPt } from '../../../propTypes/smSykmeldingProptypes';
+import KoronaSykmeldingAvbrutt from '../../sykmelding-korona/KoronaSykmelding-Avbrutt';
 
 const {
     SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT,
@@ -90,7 +94,7 @@ export class Container extends Component {
                                 case TIL_SENDING: {
                                     return (
                                         <div>
-                                            <SendtSykmelding dinSykmelding={dinSykmelding} />
+                                            <KoronaSykmeldingSendt dinSykmelding={dinSykmelding} />
                                             <LenkeTilDineSykmeldinger />
                                         </div>
                                     );
@@ -98,7 +102,7 @@ export class Container extends Component {
                                 case BEKREFTET: {
                                     return (
                                         <div>
-                                            <BekreftetSykmelding dinSykmelding={dinSykmelding} />
+                                            <KoronaSykmeldingBekreftet dinSykmelding={dinSykmelding} />
                                             <LenkeTilDineSykmeldinger />
                                         </div>
                                     );
@@ -106,24 +110,24 @@ export class Container extends Component {
                                 case UTGAATT: {
                                     return (
                                         <div>
-                                            <UtgaattSykmelding sykmelding={dinSykmelding} />
+                                            <KoronaSykmeldingUtgaatt sykmelding={dinSykmelding} />
                                             <LenkeTilDineSykmeldinger />
                                         </div>
                                     );
                                 }
                                 case NY: {
-                                    return (<KoronaSykmelding />);
+                                    return (<KoronaSykmeldingNy />);
                                 }
                                 case AVBRUTT: {
                                     return (
                                         <div>
-                                            <AvbruttSykmelding sykmelding={dinSykmelding} />
+                                            <KoronaSykmeldingAvbrutt sykmelding={dinSykmelding} />
                                             <LenkeTilDineSykmeldinger />
                                         </div>
                                     );
                                 }
                                 default: {
-                                    return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
+                                    return <Feilmelding tittel="Egenerklæringen har ukjent status" />;
                                 }
                             }
                         }

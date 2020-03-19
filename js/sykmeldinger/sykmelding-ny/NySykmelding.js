@@ -58,7 +58,6 @@ class NySykmelding extends Component {
                                         </h2>
                                     </header>
                                     <div className="panel blokk">
-                                        <p>Hei på deg</p>
                                         <DineSykmeldingOpplysninger sykmelding={sykmelding} />
                                     </div>
                                 </article>

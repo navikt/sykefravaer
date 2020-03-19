@@ -179,7 +179,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
                 <Vis
                     hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
-                    render={() => <p className="dinSykmeldingSkjema__sendInfo">{`Å ${modus.toLowerCase()}e sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk`}</p>} />
+                    render={() => (
+                        <p className="dinSykmeldingSkjema__sendInfo">
+                            {`Å ${modus.toLowerCase()}e sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk`}
+                        </p>
+                    )} />
                 <div className="knapperad">
                     <p className="blokk--s">
                         <Knapp

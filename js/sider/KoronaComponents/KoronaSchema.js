@@ -12,7 +12,7 @@ import {
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
-import KoronaDatePicker from './KoronaDatePicker';
+import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 import { koronameldingSvg } from './koronameldingSvg';
 
 const infoSvg = `data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBB
@@ -162,14 +162,17 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>Koronamelding</Sidetittel>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>Forlenget egenmelding</Sidetittel>
                 <Undertittel>
-                    Her kan du selv opprette 14-dagers egenmelding hvis du mistenker at du er smittet av koronaviruset.
-                    Du trenger ikke kontakte fastlege eller legevakten.
+                    Grunnet stor pågang hos helsevesenet og kontaktsentre har NAV laget en midlertidig egenmeldingstjeneste du kan benytte deg av om du er blitt syk.
+                </Undertittel>
+                <br />
+                <Undertittel>
+                    Du kan opprette egenmeldingen via. skjemaet under uten å kontakte fastlegen eller legevakten.
                 </Undertittel>
                 <br />
 
-                <Lenke href="#">Du kan lese mer om koronameldingen her.</Lenke>
+                <Lenke href="#">Du kan lese mer om forlenget egenmelding her. (TODO: MANGLER LENKE)</Lenke>
 
                 <div
                     style={{ marginTop: '4rem' }}>
@@ -277,7 +280,7 @@ Opprettelse av koronamelding
 
                             {tidligereSyk && (
                                 <div style={{ marginLeft: '2rem' }}>
-                                    <KoronaDatePicker
+                                    <EgenmeldingDatePicker
                                         label="Vennligst velg dato du ble syk"
                                         value={korrigertStartDato}
                                         onChange={(date) => {

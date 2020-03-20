@@ -25,7 +25,7 @@ bmUgY2xhc3M9InN0MCIgeDE9IjcuNSIgeTE9IjIuNSIgeDI9IjE2LjUiIHkyPSIyLjUiLz4KPGxp
 bmUgY2xhc3M9InN0MCIgeDE9IjAuNSIgeTE9IjcuNSIgeDI9IjIzLjUiIHkyPSI3LjUiLz4KPC9z
 dmc+Cg==`;
 
-const DatePicker = ({ label, value, onChange }) => {
+const EgenmeldingDatePicker = ({ label, value, onChange }) => {
     return (
         <div className="datepicker-container">
             <div className="datepicker-label">
@@ -55,10 +55,10 @@ const DatePicker = ({ label, value, onChange }) => {
     );
 };
 
-DatePicker.propTypes = {
+EgenmeldingDatePicker.propTypes = {
     label: PropTypes.string,
     value: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
 };
 
-export default DatePicker;
+export default EgenmeldingDatePicker;

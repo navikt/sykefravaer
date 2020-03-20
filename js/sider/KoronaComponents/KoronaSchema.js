@@ -45,6 +45,7 @@ class KoronaSchema extends Component {
             arbeidsgivere: props.arbeidsgivere,
             valgtArbeidsgivere: [],
             valgtArbeidssituasjon: [],
+            koronamistanke: undefined,
             annetSituasjon: undefined,
             bekreftet: undefined,
             tidligereSyk: false,
@@ -155,7 +156,7 @@ class KoronaSchema extends Component {
     }
 
     render() {
-        const { arbeidsgivere, valgtArbeidsgivere,
+        const { arbeidsgivere, valgtArbeidsgivere, koronamistanke,
             bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato, formHeight, offsetLeft, width } = this.state;
 
         const endDate = this.getEndDate();
@@ -208,7 +209,7 @@ Opprett nå
                             </div>
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
-Opprettelse av koronamelding
+Opprettelse av forlenget egenmelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
@@ -224,10 +225,11 @@ Opprettelse av koronamelding
                             <div style={{ marginBottom: '2rem' }}>
                                 <div style={{ position: 'absolute', right: '50px' }}>
                                     <Hjelpetekst>
-                                            Du må velge dager du er- eller har vært sykmeldt. Husk at dette gjelder kun ved mistanke om sykdom grunnet koronavirus.
+                                            Du må velge dager du er- eller har vært sykmeldt.
+                                            Husk at du kan maks velge 14 dager og velger selv om du har lyst til å bruke alle dagene du sykmelder deg.
                                     </Hjelpetekst>
                                 </div>
-                                <Element>Sykmeldingsinformasjon</Element>
+                                <Element>Egenmeldingsinformasjon</Element>
                                 <hr />
                             </div>
 
@@ -240,7 +242,7 @@ Opprettelse av koronamelding
 
                             <div style={{ display: 'flex', marginBottom: '2rem' }}>
                                 <div>
-                                    <h2 className="nokkelopplysning__tittel">Sykmeldingsperiode</h2>
+                                    <h2 className="nokkelopplysning__tittel">Egenmeldingsperiode</h2>
                                     <p className="js-periode blokk-xxs">
                                         <span>
                                             {tilLesbarDatoUtenAarstall(korrigertStartDato || startDato)}
@@ -256,9 +258,9 @@ Opprettelse av koronamelding
                                     </p>
                                 </div>
                                 <div style={{ marginLeft: '4rem' }}>
-                                    <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
+                                    <h2 className="nokkelopplysning__tittel">Sykefraværsgrad</h2>
                                     <p>
-                                    100% sykmeldt
+                                    100%
                                     </p>
                                 </div>
                             </div>
@@ -289,11 +291,25 @@ Opprettelse av koronamelding
                                 </div>
                             )}
 
+                            <div style={{ marginBottom: '3rem' }}>
+                                <h3 className="skjema__sporsmal">Mistenkes det at sykdom skyldes koronavirus?</h3>
+                                <Radio
+                                    checked={koronamistanke}
+                                    label="Ja"
+                                    onClick={() => { this.setState({ koronamistanke: true }); }}
+                                    name="koronamistankeJa" />
+                                <Radio
+                                    checked={koronamistanke === false}
+                                    label="Nei"
+                                    onClick={() => { this.setState({ koronamistanke: false }); }}
+                                    name="koronamistankeNei" />
+                            </div>
+
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                     <p>
-                                    COVID-19
+                                        {koronamistanke ? 'COVID-19' : 'Annet'}
                                     </p>
                                 </div>
                                 <div style={{ marginLeft: '8rem' }}>
@@ -307,7 +323,7 @@ Opprettelse av koronamelding
                                         </div>
                                     </div>
                                     <p>
-                                    R991
+                                        {koronamistanke ? 'R991' : '4NN37'}
                                     </p>
                                 </div>
                             </div>
@@ -395,7 +411,7 @@ Opprettelse av koronamelding
                             </div>
 
                             <div style={{ marginBottom: '2rem' }}>
-                                <Hovedknapp disabled={!bekreftet} onClick={() => { return this.submit(); }}>Opprett koronamelding</Hovedknapp>
+                                <Hovedknapp disabled={!bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
                             </div>
 
                             <div>
@@ -408,7 +424,7 @@ Opprettelse av koronamelding
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-TILBAKE TIL DITT SYKEFRAVÆR
+TILBAKE DITT SYKEFRAVÆR
                     </a>
                 </p>
             </div>

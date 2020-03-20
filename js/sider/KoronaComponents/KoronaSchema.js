@@ -296,11 +296,13 @@ Opprettelse av forlenget egenmelding
                                 <Radio
                                     checked={koronamistanke}
                                     label="Ja"
+                                    onChange={() => {}}
                                     onClick={() => { this.setState({ koronamistanke: true }); }}
                                     name="koronamistankeJa" />
                                 <Radio
                                     checked={koronamistanke === false}
                                     label="Nei"
+                                    onChange={() => {}}
                                     onClick={() => { this.setState({ koronamistanke: false }); }}
                                     name="koronamistankeNei" />
                             </div>
@@ -378,16 +380,19 @@ Opprettelse av forlenget egenmelding
                                     checked={annetSituasjon === 'annen'}
                                     label="Arbeidsgiver er ikke oppført"
                                     onClick={(e) => { return this.updateAnnet(e.target.name); }}
+                                    onChange={() => {}}
                                     name="annen" />
                                 <Radio
                                     checked={annetSituasjon === 'arbeidsledig'}
                                     label="Jeg er arbeidsledig"
                                     onClick={(e) => { return this.updateAnnet(e.target.name); }}
+                                    onChange={() => {}}
                                     name="arbeidsledig" />
                                 <Radio
                                     checked={annetSituasjon === 'ingenting'}
                                     label="Jeg finner ingenting som passer for meg"
                                     onClick={(e) => { return this.updateAnnet(e.target.name); }}
+                                    onChange={() => {}}
                                     name="ingenting" />
                             </div>
 

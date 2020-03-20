@@ -310,9 +310,9 @@ Opprettelse av forlenget egenmelding
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
-                                    <p>
-                                        {koronamistanke ? 'COVID-19' : 'Annet'}
-                                    </p>
+                                    {koronamistanke && <p>COVID-19</p>}
+                                    {koronamistanke === false && <p>Annet</p>}
+                                    {koronamistanke === undefined && <p>-</p>}
                                 </div>
                                 <div style={{ marginLeft: '8rem' }}>
                                     <div style={{ display: 'flex' }}>
@@ -324,9 +324,9 @@ Opprettelse av forlenget egenmelding
                                             </Hjelpetekst>
                                         </div>
                                     </div>
-                                    <p>
-                                        {koronamistanke ? 'R991' : '4NN37'}
-                                    </p>
+                                    {koronamistanke && <p>R991</p>}
+                                    {koronamistanke === false && <p>4NN37</p>}
+                                    {koronamistanke === undefined && <p>-</p>}
                                 </div>
                             </div>
 

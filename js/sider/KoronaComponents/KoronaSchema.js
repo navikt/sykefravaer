@@ -265,7 +265,7 @@ Opprettelse av forlenget egenmelding
                                 </div>
                             </div>
 
-                            <div style={{ marginBottom: '1rem' }}>
+                            <div style={{ marginBottom: '3rem' }}>
                                 <Checkbox
                                     checked={tidligereSyk}
                                     label="Jeg ble syk på et tidligere tidspunkt"
@@ -278,18 +278,18 @@ Opprettelse av forlenget egenmelding
                                         });
                                     }}
                                     name="tidligereSyk" />
+                                {tidligereSyk && (
+                                    <div style={{ marginLeft: '2rem' }}>
+                                        <EgenmeldingDatePicker
+                                            label="Vennligst velg dato du ble syk"
+                                            value={korrigertStartDato}
+                                            onChange={(date) => {
+                                                return this.setState({ korrigertStartDato: correctDateOffset(date) });
+                                            }} />
+                                    </div>
+                                )}
                             </div>
 
-                            {tidligereSyk && (
-                                <div style={{ marginLeft: '2rem' }}>
-                                    <EgenmeldingDatePicker
-                                        label="Vennligst velg dato du ble syk"
-                                        value={korrigertStartDato}
-                                        onChange={(date) => {
-                                            return this.setState({ korrigertStartDato: correctDateOffset(date) });
-                                        }} />
-                                </div>
-                            )}
 
                             <div style={{ marginBottom: '3rem' }}>
                                 <h3 className="skjema__sporsmal">Mistenkes det at sykdom skyldes koronavirus?</h3>

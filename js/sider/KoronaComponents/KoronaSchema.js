@@ -38,6 +38,9 @@ const correctDateOffset = (date) => {
     return date;
 };
 
+const CORONA_CODE = 'R991';
+const OTHER_CODE = '4NN37';
+
 class KoronaSchema extends Component {
     constructor(props) {
         super(props);
@@ -143,12 +146,14 @@ class KoronaSchema extends Component {
             annetSituasjon,
             startDato,
             korrigertStartDato,
+            koronamistanke,
         } = this.state;
 
         const sykmelding = {
             valgtArbeidsgivere,
             annetSituasjon,
             startDato: korrigertStartDato || startDato,
+            diagnose: koronamistanke ? CORONA_CODE : OTHER_CODE,
         };
 
         const { opprettSykmelding } = this.props;
@@ -324,8 +329,8 @@ Opprettelse av forlenget egenmelding
                                             </Hjelpetekst>
                                         </div>
                                     </div>
-                                    {koronamistanke && <p>R991</p>}
-                                    {koronamistanke === false && <p>4NN37</p>}
+                                    {koronamistanke && <p>{CORONA_CODE}</p>}
+                                    {koronamistanke === false && <p>{OTHER_CODE}</p>}
                                     {koronamistanke === undefined && <p>-</p>}
                                 </div>
                             </div>

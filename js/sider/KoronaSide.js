@@ -96,7 +96,7 @@ const mapStateToProps = (state, ownProps) => {
                 erKlikkbar: true,
             },
             {
-                tittel: 'Koronamelding',
+                tittel: 'Forlenget egenmelding',
             },
         ],
     };

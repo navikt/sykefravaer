@@ -10,6 +10,7 @@ import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
@@ -57,6 +58,7 @@ class KoronaSchema extends Component {
             formHeight: 0,
             offsetLeft: 0,
             width: 0,
+            errors: undefined,
         };
         this.formElement = React.createRef();
 
@@ -73,6 +75,31 @@ class KoronaSchema extends Component {
         // eslint-disable-next-line react/destructuring-assignment
         if (this.state.tidligereSyk !== nextState.tidligereSyk) {
             this.redrawBox();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.errors !== nextState.errors) {
+            this.redrawBox();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.koronamistanke !== nextState.koronamistanke) {
+            this.validateAll();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.valgtArbeidsgivere !== nextState.valgtArbeidsgivere) {
+            this.validateAll();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.valgtArbeidssituasjon !== nextState.valgtArbeidssituasjon) {
+            this.validateAll();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.annetSituasjon !== nextState.annetSituasjon) {
+            this.validateAll();
         }
     }
 
@@ -140,7 +167,34 @@ class KoronaSchema extends Component {
         }
     }
 
+    validateAll() {
+        const errors = {};
+
+        const { koronamistanke, valgtArbeidsgivere, valgtArbeidssituasjon, annetSituasjon } = this.state;
+
+        if (koronamistanke === undefined) {
+            errors.koronamistanke = 'Du må velge et alternativ';
+        }
+
+        if ((valgtArbeidsgivere.length === 0 && valgtArbeidssituasjon.length === 0) && annetSituasjon === undefined) {
+            errors.valgtArbeidssituasjon = 'Du må velge en arbeidssituasjon';
+        }
+
+        if (Object.keys(errors).length === 0) {
+            this.setState({ errors: undefined });
+            return undefined;
+        }
+
+        this.setState({ errors });
+        return errors;
+    }
+
     submit() {
+        const errors = this.validateAll();
+        if (errors) {
+            return;
+        }
+
         const {
             valgtArbeidsgivere,
             annetSituasjon,
@@ -162,9 +216,11 @@ class KoronaSchema extends Component {
 
     render() {
         const { arbeidsgivere, valgtArbeidsgivere, koronamistanke,
-            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato, formHeight, offsetLeft, width } = this.state;
+            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato, formHeight, offsetLeft, width, errors } = this.state;
 
         const endDate = this.getEndDate();
+
+        console.log(errors);
 
         return (
             <div>
@@ -310,6 +366,12 @@ Opprettelse av forlenget egenmelding
                                     onChange={() => {}}
                                     onClick={() => { this.setState({ koronamistanke: false }); }}
                                     name="koronamistankeNei" />
+
+                                {errors && errors.koronamistanke && (
+                                    <AlertStripeFeil>
+                                        {errors.koronamistanke}
+                                    </AlertStripeFeil>
+                                )}
                             </div>
 
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
@@ -401,6 +463,12 @@ Opprettelse av forlenget egenmelding
                                     name="ingenting" />
                             </div>
 
+                            {errors && errors.valgtArbeidssituasjon && (
+                                <AlertStripeFeil>
+                                    {errors.valgtArbeidssituasjon}
+                                </AlertStripeFeil>
+                            )}
+
                             <div style={{ marginBottom: '2rem' }}>
                                 <Element>Bekreft og opprett</Element>
                                 <hr />
@@ -420,8 +488,15 @@ Opprettelse av forlenget egenmelding
                                     name="nei" />
                             </div>
 
+                            {errors
+                                && (
+                                    <AlertStripeFeil>
+                                    Det er feil i utfyllingen som må rettes.
+                                    </AlertStripeFeil>
+                                )}
+
                             <div style={{ marginBottom: '2rem' }}>
-                                <Hovedknapp disabled={!bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
+                                <Hovedknapp disabled={errors || !bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
                             </div>
 
                             <div>

@@ -5,7 +5,6 @@ import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Sidetittel, Systemtittel, Undertittel, Element } from 'nav-frontend-typografi';
-import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
@@ -19,6 +18,7 @@ import { infoSvg } from './svg/infoSvg';
 import FormError from './FormComponents/FormError';
 import FormErrorSummary from './FormComponents/FormErrorSummary';
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
+import FormVeileder from './FormComponents/FormVeileder';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -222,23 +222,7 @@ class KoronaSchema extends Component {
 
                 <Lenke href="#">Du kan lese mer om forlenget egenmelding her. (TODO: MANGLER LENKE)</Lenke>
 
-                <div
-                    style={{ marginTop: '4rem' }}>
-                    <Bjorn
-                        className="blokk"
-                        hvit
-                        stor>
-                            Hei, vanligvis er det en behandler som sykmelder deg og sender den inn til oss.
-                            I dette tilfellet blir du selv nødt til å opprette sykmeldingen før du kan bekrefte- og sende den inn.
-                        <br />
-                        <br />
-                        <Knapp onClick={() => {
-                            this.formElement.current.scrollIntoView({ behavior: 'smooth' });
-                        }}>
-Opprett nå
-                        </Knapp>
-                    </Bjorn>
-                </div>
+                <FormVeileder />
 
                 <div>
                     <div style={{ backgroundColor: 'white', height: formHeight, width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />

@@ -10,11 +10,13 @@ import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
-import { koronameldingSvg } from './koronameldingSvg';
+
+import FormError from './FormComponents/FormError';
+import FormErrorSummary from './FormComponents/FormErrorSummary';
+import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 
 const infoSvg = `data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBB
 ZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9u
@@ -258,16 +260,7 @@ Opprett nå
                     <div style={{ backgroundColor: 'white', height: formHeight, width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />
                     <article style={{ marginTop: '6rem' }} ref={this.formElement}>
                         <div className="panel blokk">
-                            <div style={{
-                                height: '66px',
-                                width: '66px',
-                                position: 'absolute',
-                                left: '50%',
-                                marginLeft: '-33px',
-                                marginTop: '-66px',
-                            }}>
-                                <img src={koronameldingSvg} alt="Ikon" />
-                            </div>
+                            <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
 Opprettelse av forlenget egenmelding
@@ -357,11 +350,7 @@ Opprettelse av forlenget egenmelding
                                     onClick={() => { this.setState({ koronamistanke: false }); }}
                                     name="koronamistankeNei" />
 
-                                {errors && errors.koronamistanke && (
-                                    <AlertStripeFeil>
-                                        {errors.koronamistanke}
-                                    </AlertStripeFeil>
-                                )}
+                                <FormError errors={errors} errorKey="koronamistanke" />
                             </div>
 
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
@@ -464,13 +453,10 @@ Opprettelse av forlenget egenmelding
                                     onClick={(e) => { return this.updateAnnet(e.target.name); }}
                                     onChange={() => {}}
                                     name="ingenting" />
+
+                                <FormError errors={errors} errorKey="valgtArbeidssituasjon" />
                             </div>
 
-                            {errors && errors.valgtArbeidssituasjon && (
-                                <AlertStripeFeil>
-                                    {errors.valgtArbeidssituasjon}
-                                </AlertStripeFeil>
-                            )}
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Element>Bekreft og opprett</Element>
@@ -491,12 +477,7 @@ Opprettelse av forlenget egenmelding
                                     name="nei" />
                             </div>
 
-                            {errors
-                                && (
-                                    <AlertStripeFeil>
-                                    Det er feil i utfyllingen som må rettes.
-                                    </AlertStripeFeil>
-                                )}
+                            <FormErrorSummary errors={errors} />
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp disabled={errors || !bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>

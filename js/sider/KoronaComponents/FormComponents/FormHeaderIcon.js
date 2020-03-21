@@ -1,4 +1,6 @@
-export const koronameldingSvg = `data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0L
+import React from 'react';
+
+const koronameldingSvg = `data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0L
 jEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC
 4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly
 93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA2NiA2NiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjYgNjY7IiB4bWw6c3BhY2U9InByZXNlcn
@@ -108,3 +110,20 @@ BpZD0iU1ZHSURfNzJfIj4KCQkJCQk8dXNlIHhsaW5rOmhyZWY9IiNTVkdJRF83MV8iICBzdHlsZT0ib3
 kJPGRlZnM+CgkJCQkJCTxyZWN0IGlkPSJTVkdJRF83M18iIHdpZHRoPSI2NiIgaGVpZ2h0PSI2NiIvPgoJCQkJCTwvZGVmcz4KCQkJCQk8Y2xpcFBhdGggaWQ9IlNWR0lEXzc0XyI+CgkJCQkJCTx1c2UgeGxpbm
 s6aHJlZj0iI1NWR0lEXzczXyIgIHN0eWxlPSJvdmVyZmxvdzp2aXNpYmxlOyIvPgoJCQkJCTwvY2xpcFBhdGg+CgkJCQkJPHJlY3QgeD0iMjIuNCIgeT0iNy41IiBjbGFzcz0ic3QzNiIgd2lkdGg9IjIxLjgiIG
 hlaWdodD0iMTYuNyIvPgoJCQkJPC9nPgoJCQk8L2c+CgkJPC9nPgoJPC9nPgo8L2c+Cjwvc3ZnPgo=`;
+
+const FormHeaderIcon = () => {
+    return (
+        <div style={{
+            height: '66px',
+            width: '66px',
+            position: 'absolute',
+            left: '50%',
+            marginLeft: '-33px',
+            marginTop: '-66px',
+        }}>
+            <img src={koronameldingSvg} alt="Ikon" />
+        </div>
+    );
+};
+
+export default FormHeaderIcon;

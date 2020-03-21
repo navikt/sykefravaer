@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel, Ingress, Element } from 'nav-frontend-typografi';
+import { Sidetittel, Systemtittel, Undertittel, Element } from 'nav-frontend-typografi';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import {
     tilLesbarDatoUtenAarstall,
@@ -275,22 +275,12 @@ Opprettelse av forlenget egenmelding
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <div style={{ marginBottom: '2rem' }}>
-                                <img
-                                    style={{ position: 'absolute', marginLeft: '-40px', width: '30px', marginTop: '-3px' }}
-                                    src={infoSvg}
-                                    alt="Info"
-                                />
-                                <Ingress>Vennligst fyll ut manglende informasjon</Ingress>
-                            </div>
-
-                            <div style={{ marginBottom: '2rem' }}>
                                 <div style={{ position: 'absolute', right: '50px' }}>
                                     <Hjelpetekst>
-                                            Du må velge dager du er- eller har vært sykmeldt.
-                                            Husk at du kan maks velge 14 dager og velger selv om du har lyst til å bruke alle dagene du sykmelder deg.
+                                        Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 14 dager.
                                     </Hjelpetekst>
                                 </div>
-                                <Element>Egenmeldingsinformasjon</Element>
+                                <Element>Dine opplysninger</Element>
                                 <hr />
                             </div>
 
@@ -329,7 +319,7 @@ Opprettelse av forlenget egenmelding
                             <div style={{ marginBottom: '3rem' }}>
                                 <Checkbox
                                     checked={tidligereSyk}
-                                    label="Jeg ble syk på et tidligere tidspunkt"
+                                    label="Jeg ble syk eller måtte i karantene på et tidligere tidspunkt"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
@@ -353,7 +343,7 @@ Opprettelse av forlenget egenmelding
 
 
                             <div style={{ marginBottom: '3rem' }}>
-                                <h3 className="skjema__sporsmal">Mistenkes det at sykdom skyldes koronavirus?</h3>
+                                <h3 className="skjema__sporsmal">Har du mistanke om at du er smittet av korona?</h3>
                                 <Radio
                                     checked={koronamistanke}
                                     label="Ja"

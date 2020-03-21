@@ -57,7 +57,6 @@ class KoronaSchema extends Component {
         this.redrawBox();
     }
 
-
     componentDidUpdate(_, nextState) {
         // eslint-disable-next-line react/destructuring-assignment
         if (this.state.tidligereSyk !== nextState.tidligereSyk) {
@@ -223,7 +222,7 @@ class KoronaSchema extends Component {
 
                 <Lenke href="#">Du kan lese mer om forlenget egenmelding her. (TODO: MANGLER LENKE)</Lenke>
 
-                <FormVeileder />
+                <FormVeileder formElement={this.formElement} />
 
                 <div>
                     <div style={{ backgroundColor: 'white', height: formHeight, width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />
@@ -232,7 +231,7 @@ class KoronaSchema extends Component {
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
-Opprettelse av forlenget egenmelding
+                                Opprettelse av forlenget egenmelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
@@ -297,7 +296,6 @@ Opprettelse av forlenget egenmelding
                                     </div>
                                 )}
                             </div>
-
 
                             <div style={{ marginBottom: '3rem' }}>
                                 <h3 className="skjema__sporsmal">Har du mistanke om at du er smittet av korona?</h3>
@@ -391,7 +389,6 @@ Opprettelse av forlenget egenmelding
                                 }
                             </div>
 
-
                             <div style={{ marginBottom: '3rem' }}>
                                 <h3 className="skjema__sporsmal">Annet</h3>
                                 <Radio
@@ -415,7 +412,6 @@ Opprettelse av forlenget egenmelding
 
                                 <FormError errors={errors} errorKey="valgtArbeidssituasjon" />
                             </div>
-
 
                             <FormSeparator
                                 title="Bekreft og opprett"

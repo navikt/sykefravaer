@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import { Knapp } from 'nav-frontend-knapper';
 
-
 const FormVeileder = ({ formElement }) => {
     return (
         <div
@@ -29,9 +28,7 @@ Opprett nå
 
 FormVeileder.propTypes = {
     formElement: PropTypes.oneOfType([
-        // Either a function
         PropTypes.func,
-        // Or the instance of a DOM native element (see the note about SSR)
         PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
     ]),
 };

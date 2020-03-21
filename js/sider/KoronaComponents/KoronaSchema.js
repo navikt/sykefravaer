@@ -439,7 +439,20 @@ Opprettelse av forlenget egenmelding
                                     name="frilanser"
                                     onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
                                     label="Jobb som frilanser" />
+
+                                {valgtArbeidssituasjon.length >= 2 && (
+                                    <div style={{ marginTop: '2rem', marginBottom: '2rem', display: 'flex' }}>
+                                        <img
+                                            style={{ marginRight: '10px', marginTop: '-2px' }}
+                                            src={infoSvg}
+                                            alt="Info"
+                                        />
+                                        Er du sykmeldt fra flere jobber, opprettes det en sykmelding for hver av dem.
+                                    </div>
+                                )
+                                }
                             </div>
+
 
                             <div style={{ marginBottom: '3rem' }}>
                                 <h3 className="skjema__sporsmal">Annet</h3>

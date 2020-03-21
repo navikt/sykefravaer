@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel, Element } from 'nav-frontend-typografi';
+import { Sidetittel, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
@@ -19,6 +19,7 @@ import FormError from './FormComponents/FormError';
 import FormErrorSummary from './FormComponents/FormErrorSummary';
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormVeileder from './FormComponents/FormVeileder';
+import FormSeparator from './FormComponents/FormSeparator';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -235,15 +236,10 @@ Opprettelse av forlenget egenmelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
-                            <div style={{ marginBottom: '2rem' }}>
-                                <div style={{ position: 'absolute', right: '50px' }}>
-                                    <Hjelpetekst>
-                                        Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 14 dager.
-                                    </Hjelpetekst>
-                                </div>
-                                <Element>Dine opplysninger</Element>
-                                <hr />
-                            </div>
+                            <FormSeparator
+                                helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 14 dager."
+                                title="Dine opplysninger"
+                            />
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <h2 className="nokkelopplysning__tittel">Navn</h2>
@@ -344,15 +340,10 @@ Opprettelse av forlenget egenmelding
                                 </div>
                             </div>
 
-                            <div style={{ marginBottom: '2rem' }}>
-                                <div style={{ position: 'absolute', right: '50px' }}>
-                                    <Hjelpetekst>
-                                            Du kan velge en eller flere arbeidssituasjoner.
-                                    </Hjelpetekst>
-                                </div>
-                                <Element>Din arbeidssituasjon</Element>
-                                <hr />
-                            </div>
+                            <FormSeparator
+                                helptext="Du kan velge en eller flere arbeidssituasjoner."
+                                title="Din arbeidssituasjon"
+                            />
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
@@ -426,10 +417,9 @@ Opprettelse av forlenget egenmelding
                             </div>
 
 
-                            <div style={{ marginBottom: '2rem' }}>
-                                <Element>Bekreft og opprett</Element>
-                                <hr />
-                            </div>
+                            <FormSeparator
+                                title="Bekreft og opprett"
+                            />
 
                             <div style={{ marginBottom: '3rem' }}>
                                 <h3 className="skjema__sporsmal">Er opplysningene du har gitt riktige?</h3>
@@ -457,7 +447,6 @@ Opprettelse av forlenget egenmelding
                         </div>
                     </article>
                 </div>
-
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">

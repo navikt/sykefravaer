@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 
 const FormError = ({ errors, errorKey }) => {
     if (!errors) {
@@ -12,9 +11,9 @@ const FormError = ({ errors, errorKey }) => {
     }
 
     return (
-        <AlertStripeFeil>
+        <p style={{ color: '#BA3A26', fontWeight: '600' }}>
             {errors[errorKey]}
-        </AlertStripeFeil>
+        </p>
     );
 };
 

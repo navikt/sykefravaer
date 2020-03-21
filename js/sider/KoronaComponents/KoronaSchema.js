@@ -15,11 +15,11 @@ import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
 import { infoSvg } from './svg/infoSvg';
 
-import FormError from './FormComponents/FormError';
 import FormErrorSummary from './FormComponents/FormErrorSummary';
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormVeileder from './FormComponents/FormVeileder';
 import FormSeparator from './FormComponents/FormSeparator';
+import FormSection from './FormComponents/FormSection';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -48,6 +48,11 @@ class KoronaSchema extends Component {
             errors: undefined,
         };
         this.formElement = React.createRef();
+        this.errorRef = {
+            koronamistanke: React.createRef(),
+            valgtArbeidssituasjon: React.createRef(),
+        };
+        this.errorSummaryRef = React.createRef();
 
         this.redrawBox = this.redrawBox.bind(this);
     }
@@ -159,7 +164,7 @@ class KoronaSchema extends Component {
         const { koronamistanke, valgtArbeidsgivere, valgtArbeidssituasjon, annetSituasjon } = this.state;
 
         if (koronamistanke === undefined) {
-            errors.koronamistanke = 'Du må velge et alternativ';
+            errors.koronamistanke = 'Du må bekrefte om du mistenker at du er smittet av korona';
         }
 
         if ((valgtArbeidsgivere.length === 0 && valgtArbeidssituasjon.length === 0) && annetSituasjon === undefined) {
@@ -178,6 +183,7 @@ class KoronaSchema extends Component {
     submit() {
         const errors = this.validateAll();
         if (errors) {
+            this.errorSummaryRef.current.focus();
             return;
         }
 
@@ -297,8 +303,11 @@ class KoronaSchema extends Component {
                                 )}
                             </div>
 
-                            <div style={{ marginBottom: '3rem' }}>
-                                <h3 className="skjema__sporsmal">Har du mistanke om at du er smittet av korona?</h3>
+                            <FormSection
+                                title="Har du mistanke om at du er smittet av korona?"
+                                errorKey="koronamistanke"
+                                errors={errors}
+                                errorRef={this.errorRef.koronamistanke}>
                                 <Radio
                                     checked={koronamistanke}
                                     label="Ja"
@@ -311,9 +320,7 @@ class KoronaSchema extends Component {
                                     onChange={() => {}}
                                     onClick={() => { this.setState({ koronamistanke: false }); }}
                                     name="koronamistankeNei" />
-
-                                <FormError errors={errors} errorKey="koronamistanke" />
-                            </div>
+                            </FormSection>
 
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
@@ -343,8 +350,11 @@ class KoronaSchema extends Component {
                                 title="Din arbeidssituasjon"
                             />
 
-                            <div style={{ marginBottom: '2rem' }}>
-                                <h3 className="skjema__sporsmal">Jeg er sykmeldt fra</h3>
+                            <FormSection
+                                title="Jeg er sykmeldt fra"
+                                errorKey="valgtArbeidssituasjon"
+                                errors={errors}
+                                errorRef={this.errorRef.valgtArbeidssituasjon}>
                                 {arbeidsgivere.map((arbeidsgiver) => {
                                     return (
                                         <div key={arbeidsgiver.orgnummer}>
@@ -358,9 +368,9 @@ class KoronaSchema extends Component {
                                                     marginLeft: '2rem',
                                                     marginBottom: '1rem' }}
                                                 className="sekundaerLabel">
-(Org. nummer:
+    (Org. nummer:
                                                 {arbeidsgiver.orgnummer}
-)
+    )
                                             </span>
                                         </div>
                                     );
@@ -383,13 +393,11 @@ class KoronaSchema extends Component {
                                             src={infoSvg}
                                             alt="Info"
                                         />
-                                        Er du sykmeldt fra flere jobber, opprettes det en sykmelding for hver av dem.
+                                            Er du sykmeldt fra flere jobber, opprettes det en sykmelding for hver av dem.
                                     </div>
                                 )
                                 }
-                            </div>
 
-                            <div style={{ marginBottom: '3rem' }}>
                                 <h3 className="skjema__sporsmal">Annet</h3>
                                 <Radio
                                     checked={annetSituasjon === 'annen'}
@@ -409,9 +417,7 @@ class KoronaSchema extends Component {
                                     onClick={(e) => { return this.updateAnnet(e.target.name); }}
                                     onChange={() => {}}
                                     name="ingenting" />
-
-                                <FormError errors={errors} errorKey="valgtArbeidssituasjon" />
-                            </div>
+                            </FormSection>
 
                             <FormSeparator
                                 title="Bekreft og opprett"
@@ -431,7 +437,10 @@ class KoronaSchema extends Component {
                                     name="nei" />
                             </div>
 
-                            <FormErrorSummary errors={errors} />
+                            <FormErrorSummary
+                                errors={errors}
+                                errorSummaryRef={this.errorSummaryRef}
+                                refs={{ valgtArbeidssituasjon: this.errorRef.valgtArbeidssituasjon, koronamistanke: this.errorRef.koronamistanke }} />
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp disabled={errors || !bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>

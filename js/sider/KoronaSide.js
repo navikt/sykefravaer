@@ -12,7 +12,10 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import KoronaKvittering from './KoronaComponents/KoronaKvittering';
-import { hentSendingURL } from './KoronaComponents/koronaUtils';
+import {
+    hentRegistrerEgenmeldingURL,
+    hentArbeidsgiverURL,
+} from './KoronaComponents/koronaUtils';
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -28,7 +31,8 @@ class KoronaContainer extends Component {
 
     componentWillMount() {
         this.setState({ isLoading: true });
-        fetch(`${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/arbeidsgivere`)
+        const URL = `${hentArbeidsgiverURL()}/api/v1/arbeidsforhold`;
+        fetch(URL)
             .then((res) => {
                 return res.json();
             })
@@ -45,7 +49,7 @@ class KoronaContainer extends Component {
 
     opprettSykmelding(sykmelding) {
         this.setState({ isLoading: true });
-        const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
+        const URL = `${hentRegistrerEgenmeldingURL()}/sykmelding/egenmeldt`;
         fetch(URL, {
             method: 'POST',
             body: JSON.stringify(sykmelding),
@@ -54,7 +58,10 @@ class KoronaContainer extends Component {
                 this.setState({ isLoading: false, isSent: true });
             })
             .catch((error) => {
-                this.setState({ isLoading: false, error: 'Feil under innsending av egenmelding' });
+                this.setState({
+                    isLoading: false,
+                    error: 'Feil under innsending av egenmelding',
+                });
             });
     }
 

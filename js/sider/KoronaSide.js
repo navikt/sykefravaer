@@ -49,7 +49,7 @@ class KoronaContainer extends Component {
 
     opprettSykmelding(sykmelding) {
         this.setState({ isLoading: true });
-        const URL = `${hentRegistrerEgenmeldingURL()}/sykmelding/egenmeldt`;
+        const URL = `${hentRegistrerEgenmeldingURL()}/api/v1/sykmelding/egenmeldt`;
         fetch(URL, {
             method: 'POST',
             body: JSON.stringify(sykmelding),

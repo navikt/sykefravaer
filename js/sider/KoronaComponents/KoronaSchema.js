@@ -233,7 +233,7 @@ class KoronaSchema extends Component {
                 <div>
                     <div style={{ backgroundColor: 'white', height: formHeight, width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />
                     <article style={{ marginTop: '6rem' }} ref={this.formElement}>
-                        <div className="panel blokk">
+                        <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>

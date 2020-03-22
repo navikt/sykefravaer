@@ -73,13 +73,13 @@ export const NySykmelding = ({ sykmeldinger }) => {
 
     const tekst = sykmeldinger.length === 1
         ? `Du har 1 ny ${
-            sykmeldinger[0].erEgenmeldt ? 'egenerklæring' : 'sykmelding'
+            sykmeldinger[0].erEgenmeldt ? 'egenmelding' : 'sykmelding'
         }`
         : `Du har ${sykmeldinger.length.toString()} nye ${
             sykmeldinger.some((sm) => {
                 return sm.erEgenmeldt;
             })
-                ? 'sykmeldinger/egenerklæringer'
+                ? 'sykmeldinger/egenmeldinger'
                 : 'sykmeldinger'
         }`;
 

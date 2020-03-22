@@ -194,7 +194,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                             }}
                             id="dinSykmeldingSkjemaSubmit"
                             type={modus === modi.AVBRYT ? 'fare' : 'hoved'}>
-                            {`${modus === modi.SEND_MED_NAERMESTE_LEDER ? 'SEND' : modus} egenerklæringen`}
+                            {`${modus === modi.SEND_MED_NAERMESTE_LEDER ? 'SEND' : modus} egenmeldingen`}
                         </Knapp>
                     </p>
                     <div className="avbrytDialog">
@@ -220,7 +220,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                             });
                                         }}
                                     >
-                                        Jeg ønsker ikke å bruke denne egenerklæringen
+                                        Jeg ønsker ikke å bruke denne egenmeldingen
                                     </a>
                                 </p>
                             )} />

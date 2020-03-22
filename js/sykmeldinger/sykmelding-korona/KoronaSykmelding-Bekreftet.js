@@ -11,7 +11,7 @@ import BekreftetSykmeldingStatuspanel from './BekreftetSykmeldingStatuspanel';
 const KoronaSykmeldingBekreftet = ({ dinSykmelding }) => {
     return (
         <div>
-            <Sidetopp tittel="14-dagers egenerklæring" />
+            <Sidetopp tittel="Utvidet egenmelding" />
             <BekreftetSykmeldingStatuspanel sykmelding={dinSykmelding} />
             <Utvidbar
                 erApen

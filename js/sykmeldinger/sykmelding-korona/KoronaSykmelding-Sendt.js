@@ -8,7 +8,7 @@ import { sykmelding as sykmeldingPt } from '../../propTypes';
 const KoronaSykmeldingSendt = ({ dinSykmelding }) => {
     return (
         <div>
-            <Sidetopp tittel="14-dagers egenerklæring" />
+            <Sidetopp tittel="Utvidet egenmelding" />
             <SykmeldingStatuspanel sykmelding={dinSykmelding} />
             <Utvidbar
                 tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}

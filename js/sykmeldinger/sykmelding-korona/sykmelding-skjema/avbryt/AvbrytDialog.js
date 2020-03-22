@@ -7,7 +7,7 @@ export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler
     return (
         <div
             className="pekeboble">
-            <p className="blokk--s" dangerouslySetInnerHTML={{ __html: 'Er du sikker på at du vil avbryte denne egenerklæringen' }} />
+            <p className="blokk--s" dangerouslySetInnerHTML={{ __html: 'Er du sikker på at du vil avbryte denne egenmeldingen' }} />
             <div className="blokk--xs">
                 <button
                     disabled={avbryter}

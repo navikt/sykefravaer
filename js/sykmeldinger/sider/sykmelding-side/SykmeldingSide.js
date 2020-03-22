@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import { getLedetekst, getSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import Side from '../../../sider/Side';
 import NySykmelding from '../../sykmelding-ny/NySykmelding';
+import KoronaSykmeldingNy from '../../sykmelding-korona/KoronaSykmelding-Ny';
+import KoronaSykmeldingSendt from '../../sykmelding-korona/KoronaSykmelding-Sendt';
+import KoronaSykmeldingBekreftet from '../../sykmelding-korona/KoronaSykmelding-Bekreftet';
+import KoronaSykmeldingUtgaatt from '../../sykmelding-korona/KoronaSYkmelding-Utgaatt';
 import SendtSykmelding from '../../sykmelding-sendt/SendtSykmelding';
 import BekreftetSykmelding from '../../sykmelding-bekreftet/BekreftetSykmelding';
 import AvbruttSykmelding from '../../sykmelding-avbrutt/AvbruttSykmelding';
@@ -18,6 +22,7 @@ import { hentSmSykmeldinger } from '../../data/sm-sykmeldinger/smSykmeldingerAct
 import { henterSmSykmeldingerSelector, hentingFeiletSmSykmeldingerSelector, smSykmeldingSelector } from '../../data/sm-sykmeldinger/smSykmeldingerSelectors';
 import AvvistSykmelding from '../../sykmelding-avvist/AvvistSykmelding';
 import { smSykmeldingPt } from '../../../propTypes/smSykmeldingProptypes';
+import KoronaSykmeldingAvbrutt from '../../sykmelding-korona/KoronaSykmelding-Avbrutt';
 
 const {
     SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT,
@@ -82,6 +87,49 @@ export class Container extends Component {
                         }
                         if (smSykmelding && smSykmelding.behandlingsutfall.status === 'INVALID') {
                             return <AvvistSykmelding />;
+                        }
+                        if (dinSykmelding.erEgenmeldt) {
+                            switch (dinSykmelding.status) {
+                                case SENDT:
+                                case TIL_SENDING: {
+                                    return (
+                                        <div>
+                                            <KoronaSykmeldingSendt dinSykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                case BEKREFTET: {
+                                    return (
+                                        <div>
+                                            <KoronaSykmeldingBekreftet dinSykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                case UTGAATT: {
+                                    return (
+                                        <div>
+                                            <KoronaSykmeldingUtgaatt sykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                case NY: {
+                                    return (<KoronaSykmeldingNy />);
+                                }
+                                case AVBRUTT: {
+                                    return (
+                                        <div>
+                                            <KoronaSykmeldingAvbrutt sykmelding={dinSykmelding} />
+                                            <LenkeTilDineSykmeldinger />
+                                        </div>
+                                    );
+                                }
+                                default: {
+                                    return <Feilmelding tittel="Egenerklæringen har ukjent status" />;
+                                }
+                            }
                         }
                         switch (dinSykmelding.status) {
                             case SENDT:

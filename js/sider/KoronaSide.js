@@ -31,6 +31,7 @@ class KoronaContainer extends Component {
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
         fetch(URL, {
             credentials: 'include',
+            mode: 'no-cors',
         })
             .then((res) => {
                 return res.json();

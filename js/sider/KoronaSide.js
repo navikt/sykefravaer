@@ -13,6 +13,7 @@ import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import KoronaKvittering from './KoronaComponents/KoronaKvittering';
 import { hentEgenmeldtSmApiUrl } from './KoronaComponents/koronaUtils';
+import { get, post } from '../data/gateway-api/gatewayApi';
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -29,12 +30,7 @@ class KoronaContainer extends Component {
     componentWillMount() {
         this.setState({ isLoading: true });
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
-        fetch(URL, {
-            credentials: 'include',
-        })
-            .then((res) => {
-                return res.json();
-            })
+        get(URL)
             .then((arbeidsgivere) => {
                 this.setState({ arbeidsgivere, isLoading: false });
             })
@@ -49,11 +45,7 @@ class KoronaContainer extends Component {
     opprettSykmelding(sykmelding) {
         this.setState({ isLoading: true });
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
-        fetch(URL, {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(sykmelding),
-        })
+        post(URL, sykmelding)
             .then((res) => {
                 this.setState({ isLoading: false, isSent: true });
             })

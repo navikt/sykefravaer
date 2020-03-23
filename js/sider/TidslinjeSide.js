@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
     getLedetekst,
-    Tidslinje,
     TidslinjeVelgArbeidssituasjon,
     setHendelseData,
     hentTidslinjer,
@@ -19,6 +18,8 @@ import {
     tidslinjehendelse,
     sykeforloepPt,
 } from '../propTypes';
+import Tidslinje from '../tidslinje/Tidslinje';
+import { toggleAktivitetskravInformasjon, toggleDialogmoteInformasjon } from '../data/unleash-toggles/unleashTogglesSelectors';
 
 export class Container extends Component {
     constructor(props) {
@@ -53,7 +54,7 @@ export class Container extends Component {
 
     render() {
         const {
-            brodsmuler, hendelser, arbeidssituasjon, henter, hentingFeilet,
+            brodsmuler, hendelser, arbeidssituasjon, henter, hentingFeilet, toggleHendelseUke7, toggleHendelseUke17,
         } = this.props;
         const htmlIntro = {
             __html: `<p>${getLedetekst('tidslinje.introtekst')}</p>`,
@@ -79,7 +80,10 @@ export class Container extends Component {
                                 <Tidslinje
                                     hendelser={hendelser}
                                     arbeidssituasjon={arbeidssituasjon}
-                                    setHendelseData={this.setHendelseData} />
+                                    setHendelseData={this.setHendelseData}
+                                    toggleHendelseUke7={toggleHendelseUke7}
+                                    toggleHendelseUke17={toggleHendelseUke17}
+                                />
                             </div>
                         );
                     })()
@@ -100,6 +104,8 @@ Container.propTypes = {
     doHentSykeforloep: PropTypes.func,
     doHentTidslinjer: PropTypes.func,
     doSetHendelseData: PropTypes.func,
+    toggleHendelseUke7: PropTypes.bool,
+    toggleHendelseUke17: PropTypes.bool,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -141,6 +147,9 @@ export function mapStateToProps(state, ownProps) {
         setHash(hendelser);
     }
     const apneHendelseIder = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
+
+    const toggleHendelseUke7 = toggleAktivitetskravInformasjon(state);
+    const toggleHendelseUke17 = toggleDialogmoteInformasjon(state);
     return {
         arbeidssituasjon,
         hendelser,
@@ -150,6 +159,8 @@ export function mapStateToProps(state, ownProps) {
         sykeforloep: state.sykeforloep,
         hentingFeilet: state.ledetekster.hentingFeilet
         || state.sykeforloep.hentingFeilet,
+        toggleHendelseUke7,
+        toggleHendelseUke17,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

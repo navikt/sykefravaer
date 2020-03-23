@@ -9,7 +9,14 @@ export const toggleSelvstendigSoknad = (state) => {
 
 */
 
-import { SYKMELDING_ARBEIDSSITUASJON, NY_ARBEIDSTAKERSOKNAD, NYTT_SYKMELDINGSMOTTAK, NGINX_PROXY } from '../../enums/unleashToggles';
+import {
+    AKTIVITETSKRAV_INFORMASJON,
+    DIALOGMOTE_INFORMASJON,
+    SYKMELDING_ARBEIDSSITUASJON,
+    NY_ARBEIDSTAKERSOKNAD,
+    NYTT_SYKMELDINGSMOTTAK,
+    NGINX_PROXY,
+} from '../../enums/unleashToggles';
 
 export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
     return !state.unleashToggles.hentingFeilet
@@ -33,4 +40,14 @@ export const unleashtogglesHentetSelector = (state) => {
 export const toggleBrukNginxProxy = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[NGINX_PROXY] === true;
+};
+
+export const toggleAktivitetskravInformasjon = (state) => {
+    return !state.unleashToggles.hentingFeilet
+        && state.unleashToggles.data[AKTIVITETSKRAV_INFORMASJON] === true;
+};
+
+export const toggleDialogmoteInformasjon = (state) => {
+    return !state.unleashToggles.hentingFeilet
+        && state.unleashToggles.data[DIALOGMOTE_INFORMASJON] === true;
 };

@@ -29,7 +29,12 @@ class KoronaContainer extends Component {
     componentWillMount() {
         this.setState({ isLoading: true });
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
-        fetch(URL, { credentials: 'include' })
+        fetch(URL, {
+            credentials: 'include',
+            headers: {
+                'Sec-Fetch-Site:': 'none',
+            },
+        })
             .then((res) => {
                 return res.json();
             })

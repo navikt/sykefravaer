@@ -29,7 +29,7 @@ class KoronaContainer extends Component {
     componentWillMount() {
         this.setState({ isLoading: true });
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
-        fetch(URL)
+        fetch(URL, { credentials: 'include' })
             .then((res) => {
                 return res.json();
             })
@@ -49,6 +49,7 @@ class KoronaContainer extends Component {
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
         fetch(URL, {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify(sykmelding),
         })
             .then((res) => {

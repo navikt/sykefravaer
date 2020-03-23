@@ -31,9 +31,6 @@ class KoronaContainer extends Component {
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
         fetch(URL, {
             credentials: 'include',
-            headers: {
-                'Access-Control-Allow-Origin': 'https://tjenester-q1.nav.no',
-            },
         })
             .then((res) => {
                 return res.json();

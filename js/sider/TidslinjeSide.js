@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
     getLedetekst,
-    Tidslinje,
     TidslinjeVelgArbeidssituasjon,
     setHendelseData,
     hentTidslinjer,
@@ -19,6 +18,11 @@ import {
     tidslinjehendelse,
     sykeforloepPt,
 } from '../propTypes';
+import Tidslinje from '../tidslinje/Tidslinje';
+import {
+    skalViseAktivitetskravInformasjon,
+    skalViseDialogmote2Informasjon,
+} from '../data/unleash-toggles/unleashTogglesSelectors';
 
 export class Container extends Component {
     constructor(props) {
@@ -53,7 +57,7 @@ export class Container extends Component {
 
     render() {
         const {
-            brodsmuler, hendelser, arbeidssituasjon, henter, hentingFeilet,
+            brodsmuler, hendelser, arbeidssituasjon, henter, hentingFeilet, visAktivitetskravInformasjon, visDialogmote2Informasjon,
         } = this.props;
         const htmlIntro = {
             __html: `<p>${getLedetekst('tidslinje.introtekst')}</p>`,
@@ -79,7 +83,10 @@ export class Container extends Component {
                                 <Tidslinje
                                     hendelser={hendelser}
                                     arbeidssituasjon={arbeidssituasjon}
-                                    setHendelseData={this.setHendelseData} />
+                                    setHendelseData={this.setHendelseData}
+                                    visAktivitetskravInformasjon={visAktivitetskravInformasjon}
+                                    visDialogmote2Informasjon={visDialogmote2Informasjon}
+                                />
                             </div>
                         );
                     })()
@@ -100,6 +107,8 @@ Container.propTypes = {
     doHentSykeforloep: PropTypes.func,
     doHentTidslinjer: PropTypes.func,
     doSetHendelseData: PropTypes.func,
+    visAktivitetskravInformasjon: PropTypes.bool,
+    visDialogmote2Informasjon: PropTypes.bool,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -141,6 +150,9 @@ export function mapStateToProps(state, ownProps) {
         setHash(hendelser);
     }
     const apneHendelseIder = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
+
+    const visAktivitetskravInformasjon = skalViseAktivitetskravInformasjon(state);
+    const visDialogmote2Informasjon = skalViseDialogmote2Informasjon(state);
     return {
         arbeidssituasjon,
         hendelser,
@@ -150,6 +162,8 @@ export function mapStateToProps(state, ownProps) {
         sykeforloep: state.sykeforloep,
         hentingFeilet: state.ledetekster.hentingFeilet
         || state.sykeforloep.hentingFeilet,
+        visAktivitetskravInformasjon,
+        visDialogmote2Informasjon,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

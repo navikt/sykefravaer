@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
@@ -446,9 +446,7 @@ class KoronaSchema extends Component {
                                 <Hovedknapp disabled={errors || !bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
                             </div>
 
-                            <div>
-                                <Knapp>Avbryt</Knapp>
-                            </div>
+                            <a href="/sykefravaer/" className="knapp">Avbryt</a>
                         </div>
                     </article>
                 </div>

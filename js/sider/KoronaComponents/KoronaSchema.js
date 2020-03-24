@@ -42,12 +42,14 @@ class KoronaSchema extends Component {
             tidligereSyk: false,
             startDato: new Date(),
             korrigertStartDato: undefined,
-            formHeight: 0,
-            offsetLeft: 0,
-            width: 0,
+            boxSize: {
+                formHeight: 0,
+                offsetLeft: 0,
+                width: 0,
+            },
             errors: undefined,
         };
-        this.formElement = React.createRef();
+        this.formContainerRef = React.createRef();
         this.errorRef = {
             koronamistanke: React.createRef(),
             valgtArbeidssituasjon: React.createRef(),
@@ -113,15 +115,15 @@ class KoronaSchema extends Component {
     }
 
     redrawBox() {
-        if (!this.formElement) {
+        if (!this.formContainerRef) {
             return null;
         }
 
-        const formHeight = this.formElement.current.clientHeight;
-        const offsetLeft = this.formElement.current.getBoundingClientRect().left;
-        const width = this.formElement.current.getBoundingClientRect().left + this.formElement.current.getBoundingClientRect().right;
+        const formHeight = this.formContainerRef.current.clientHeight;
+        const offsetLeft = this.formContainerRef.current.getBoundingClientRect().left;
+        const width = this.formContainerRef.current.getBoundingClientRect().left + this.formContainerRef.current.getBoundingClientRect().right;
 
-        this.setState({ formHeight, offsetLeft, width });
+        this.setState({ boxSize: { formHeight, offsetLeft, width } });
         return null;
     }
 
@@ -208,7 +210,7 @@ class KoronaSchema extends Component {
 
     render() {
         const { arbeidsgivere, valgtArbeidsgivere, koronamistanke,
-            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato, formHeight, offsetLeft, width, errors } = this.state;
+            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato, boxSize, errors } = this.state;
 
         const endDate = this.getEndDate();
 
@@ -228,11 +230,17 @@ class KoronaSchema extends Component {
 
                 <Lenke href="#">Du kan lese mer om forlenget egenmelding her. (TODO: MANGLER LENKE)</Lenke>
 
-                <FormVeileder formElement={this.formElement} />
+                <FormVeileder formContainerRef={this.formContainerRef} />
 
                 <div>
-                    <div style={{ backgroundColor: 'white', height: formHeight, width, zIndex: '-1', marginLeft: offsetLeft * -1, position: 'absolute' }} />
-                    <article style={{ marginTop: '6rem' }} ref={this.formElement}>
+                    <div style={{
+                        backgroundColor: 'white',
+                        height: boxSize.formHeight,
+                        width: boxSize.width,
+                        zIndex: '-1',
+                        marginLeft: boxSize.offsetLeft * -1,
+                        position: 'absolute' }} />
+                    <article style={{ marginTop: '6rem' }} ref={this.formContainerRef}>
                         <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',

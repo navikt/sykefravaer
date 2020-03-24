@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import { Knapp } from 'nav-frontend-knapper';
 
-const FormVeileder = ({ formElement }) => {
+const FormVeileder = ({ formContainerRef }) => {
     return (
         <div
             style={{ marginTop: '4rem' }}>
@@ -17,7 +17,7 @@ const FormVeileder = ({ formElement }) => {
                 <br />
                 <br />
                 <Knapp onClick={() => {
-                    formElement.current.scrollIntoView({ behavior: 'smooth' });
+                    formContainerRef.current.scrollIntoView({ behavior: 'smooth' });
                 }}>
 Opprett nå
                 </Knapp>
@@ -27,7 +27,7 @@ Opprett nå
 };
 
 FormVeileder.propTypes = {
-    formElement: PropTypes.oneOfType([
+    formContainerRef: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
     ]),

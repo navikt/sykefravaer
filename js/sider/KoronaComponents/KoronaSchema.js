@@ -144,15 +144,15 @@ class KoronaSchema extends Component {
         }
     }
 
-    updateArbeidsgivere(orgnummer) {
+    updateArbeidsgivere(arbeidsgiver) {
         const { valgtArbeidsgivere } = this.state;
 
-        if (valgtArbeidsgivere.includes(orgnummer)) {
+        if (valgtArbeidsgivere.find((a) => { return a.orgnummer === arbeidsgiver.orgnummer; })) {
             this.setState({ valgtArbeidsgivere: valgtArbeidsgivere.filter((a) => {
-                return a !== orgnummer;
+                return a !== arbeidsgiver.orgnummer;
             }) });
         } else {
-            this.setState({ valgtArbeidsgivere: [...valgtArbeidsgivere, orgnummer] });
+            this.setState({ valgtArbeidsgivere: [...valgtArbeidsgivere, arbeidsgiver] });
         }
     }
 
@@ -193,7 +193,7 @@ class KoronaSchema extends Component {
         } = this.state;
 
         const sykmelding = {
-            valgtArbeidsgivere,
+            arbeidsforhold: valgtArbeidsgivere,
             annetSituasjon,
             periode: {
                 fom: periode.correctedFom || periode.fom,
@@ -370,9 +370,9 @@ class KoronaSchema extends Component {
                                     return (
                                         <div key={arbeidsgiver.orgnummer}>
                                             <Checkbox
-                                                checked={valgtArbeidsgivere.includes(arbeidsgiver.orgnummer)}
+                                                checked={valgtArbeidsgivere.find((a) => { return a.orgnummer === arbeidsgiver.orgnummer; })}
                                                 name={arbeidsgiver.orgnummer}
-                                                onChange={() => { return this.updateArbeidsgivere(arbeidsgiver.orgnummer); }}
+                                                onChange={() => { return this.updateArbeidsgivere(arbeidsgiver); }}
                                                 label={arbeidsgiver.navn} />
                                             <span
                                                 style={{ marginTop: '-1rem',

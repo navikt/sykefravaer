@@ -3,6 +3,8 @@ import { senesteTom, sykmeldingstatuser, arbeidssituasjoner } from '@navikt/digi
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from './TidslinjeUtdrag';
+import { skalViseAktivitetskravInformasjon } from '../../data/unleash-toggles/unleashTogglesSelectors';
+
 
 const {
     SENDT, NY, BEKREFTET, TIL_SENDING,
@@ -13,7 +15,7 @@ const TRETTINI_UKER = 7 * 39;
 
 export const Container = (props) => {
     const {
-        visUtdrag, startdato, antallDager, visning, hentingFeilet,
+        visUtdrag, startdato, antallDager, visning, hentingFeilet, skalViseAktivitetskrav,
     } = props;
     return (!visUtdrag || hentingFeilet)
         ? null
@@ -21,7 +23,8 @@ export const Container = (props) => {
             <TidslinjeUtdrag
                 startdato={startdato}
                 antallDager={antallDager}
-                visning={visning} />
+                visning={visning}
+                skalViseAktivitetskrav={skalViseAktivitetskrav} />
         );
 };
 
@@ -31,6 +34,7 @@ Container.propTypes = {
     antallDager: PropTypes.number,
     visning: PropTypes.oneOf([MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI]),
     hentingFeilet: PropTypes.bool,
+    skalViseAktivitetskrav: PropTypes.bool,
 };
 
 const getSykefravaerVarighet = (state) => {
@@ -122,6 +126,7 @@ export const mapStateToProps = (state) => {
         antallDager,
         visUtdrag: skalViseUtdrag(state),
         visning: getVisning(state),
+        skalViseAktivitetskrav: skalViseAktivitetskravInformasjon(state),
     };
 };
 

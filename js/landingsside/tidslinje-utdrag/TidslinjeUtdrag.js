@@ -79,6 +79,9 @@ const tekster = {};
 tekster[MED_ARBEIDSGIVER] = teksterMedArbeidsgiver;
 tekster[UTEN_ARBEIDSGIVER] = teksterUtenArbeidsgiver;
 
+const aktivitetskravNokkelMedAG = 'tidslinje.utdrag.aktivitetskrav-med-arbeidsgiver';
+const aktivitetskravNokkelUtenAG = 'tidslinje.utdrag.mulighet-for-aktivitet-uten-arbeidsgiver';
+
 const TittelIngress = ({ nokkelbase, bilde }) => {
     return (
         <div className="tidslinjeutdrag">
@@ -195,8 +198,16 @@ export default class TidslinjeUtdrag extends Utvidbar {
     }
 
     render() {
-        const { visning, antallDager } = this.props;
-        if (antallDager > 500 || !this.getTekstObjekt()) {
+        const { visning, antallDager, skalViseAktivitetskrav } = this.props;
+        const tekstObject = this.getTekstObjekt();
+        console.log('AKTIVITETSKRAV: ', skalViseAktivitetskrav);
+        console.log('tekstObject: ', tekstObject);
+        console.log('nokkelUtenAG: ', aktivitetskravNokkelUtenAG);
+        console.log('nokkelMedAG: ', aktivitetskravNokkelMedAG);
+        if (antallDager > 500
+            || !tekstObject
+            || (!skalViseAktivitetskrav
+            && (tekstObject.nokkel === aktivitetskravNokkelMedAG || tekstObject.nokkel === aktivitetskravNokkelUtenAG))) {
             return null;
         }
         const nokkelbase = this.getNokkelbase();

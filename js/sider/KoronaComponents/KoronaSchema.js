@@ -26,6 +26,13 @@ const correctDateOffset = (date) => {
     return date;
 };
 
+const datePlus14Days = (date) => {
+    const endDate = new Date();
+
+    endDate.setDate(date.getDate() + 14);
+    return endDate;
+};
+
 const CORONA_CODE = 'R991';
 const OTHER_CODE = '4NN37';
 
@@ -40,8 +47,11 @@ class KoronaSchema extends Component {
             annetSituasjon: undefined,
             bekreftet: undefined,
             tidligereSyk: false,
-            startDato: new Date(),
-            korrigertStartDato: undefined,
+            periode: {
+                fom: new Date(),
+                correctedFom: undefined,
+                tom: datePlus14Days(new Date()),
+            },
             boxSize: {
                 formHeight: 0,
                 offsetLeft: 0,
@@ -98,20 +108,6 @@ class KoronaSchema extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.redrawBox);
-    }
-
-    getEndDate() {
-        const { startDato, korrigertStartDato } = this.state;
-
-        const endDate = new Date();
-
-        if (korrigertStartDato) {
-            endDate.setDate(korrigertStartDato.getDate() + 14);
-            return endDate;
-        }
-
-        endDate.setDate(startDato.getDate() + 14);
-        return endDate;
     }
 
     redrawBox() {
@@ -192,15 +188,17 @@ class KoronaSchema extends Component {
         const {
             valgtArbeidsgivere,
             annetSituasjon,
-            startDato,
-            korrigertStartDato,
+            periode,
             koronamistanke,
         } = this.state;
 
         const sykmelding = {
             valgtArbeidsgivere,
             annetSituasjon,
-            startDato: korrigertStartDato || startDato,
+            periode: {
+                fom: periode.correctedFom || periode.fom,
+                tom: periode.tom,
+            },
             diagnose: koronamistanke ? CORONA_CODE : OTHER_CODE,
         };
 
@@ -210,11 +208,7 @@ class KoronaSchema extends Component {
 
     render() {
         const { arbeidsgivere, valgtArbeidsgivere, koronamistanke,
-            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, startDato, korrigertStartDato, boxSize, errors } = this.state;
-
-        const endDate = this.getEndDate();
-
-        console.log(errors);
+            bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, periode, boxSize, errors } = this.state;
 
         return (
             <div>
@@ -266,11 +260,11 @@ class KoronaSchema extends Component {
                                     <h2 className="nokkelopplysning__tittel">Egenmeldingsperiode</h2>
                                     <p className="js-periode blokk-xxs">
                                         <span>
-                                            {tilLesbarDatoUtenAarstall(korrigertStartDato || startDato)}
+                                            {tilLesbarDatoUtenAarstall(periode.correctedFom || periode.fom)}
                                             {' '}
                                 -
                                             {' '}
-                                            {tilLesbarDatoMedArstall(endDate)}
+                                            {tilLesbarDatoMedArstall(periode.tom)}
                                         </span>
                                         {' '}
                             •
@@ -294,7 +288,10 @@ class KoronaSchema extends Component {
                                         this.setState((state) => {
                                             return {
                                                 tidligereSyk: !state.tidligereSyk,
-                                                korrigertStartDato: state.tidligereSyk ? undefined : state.korrigertStartDato,
+                                                periode: {
+                                                    ...state.periode,
+                                                    correctedFom: state.tidligereSyk ? undefined : state.periode.correctedFom,
+                                                },
                                             };
                                         });
                                     }}
@@ -303,9 +300,15 @@ class KoronaSchema extends Component {
                                     <div style={{ marginLeft: '2rem' }}>
                                         <EgenmeldingDatePicker
                                             label="Vennligst velg dato du ble syk"
-                                            value={korrigertStartDato}
+                                            value={periode.correctedFom}
                                             onChange={(date) => {
-                                                return this.setState({ korrigertStartDato: correctDateOffset(date) });
+                                                return this.setState((state) => {
+                                                    return { periode: {
+                                                        ...state.periode,
+                                                        correctedFom: correctDateOffset(date),
+                                                        tom: datePlus14Days(date),
+                                                    } };
+                                                });
                                             }} />
                                     </div>
                                 )}

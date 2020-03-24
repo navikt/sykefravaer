@@ -36,6 +36,16 @@ const datePlus14Days = (date) => {
 const CORONA_CODE = 'R991';
 const OTHER_CODE = '4NN37';
 
+const INITIAL_ERRORS = {
+    koronamistanke: undefined,
+    arbeidssituasjon: undefined,
+};
+
+const INITIAL_TOUCHED = {
+    koronamistanke: undefined,
+    arbeidssituasjon: undefined,
+};
+
 class KoronaSchema extends Component {
     constructor(props) {
         super(props);
@@ -57,7 +67,8 @@ class KoronaSchema extends Component {
                 offsetLeft: 0,
                 width: 0,
             },
-            errors: undefined,
+            errors: INITIAL_ERRORS,
+            touched: INITIAL_TOUCHED,
         };
         this.formContainerRef = React.createRef();
         this.errorRef = {
@@ -81,7 +92,7 @@ class KoronaSchema extends Component {
         }
 
         // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.errors !== nextState.errors) {
+        if (JSON.stringify(this.state.errors) !== JSON.stringify(nextState.errors)) {
             this.redrawBox();
         }
 
@@ -127,60 +138,107 @@ class KoronaSchema extends Component {
         const { valgtArbeidssituasjon } = this.state;
 
         if (valgtArbeidssituasjon.includes(name)) {
-            this.setState({ valgtArbeidssituasjon: valgtArbeidssituasjon.filter((a) => {
-                return a !== name;
-            }) });
+            this.setState((state) => {
+                return {
+                    touched: { ...state.touched, arbeidssituasjon: true },
+                    valgtArbeidssituasjon: valgtArbeidssituasjon.filter((a) => {
+                        return a !== name;
+                    }),
+                };
+            });
         } else {
-            this.setState({ valgtArbeidssituasjon: [...valgtArbeidssituasjon, name] });
+            this.setState((state) => {
+                return {
+                    touched: { ...state.touched, arbeidssituasjon: true },
+                    valgtArbeidssituasjon: [...valgtArbeidssituasjon, name],
+                };
+            });
         }
     }
 
     updateAnnet(annetSituasjon) {
         // eslint-disable-next-line react/destructuring-assignment
         if (this.state.annetSituasjon === annetSituasjon) {
-            this.setState({ annetSituasjon: undefined });
+            this.setState((state) => {
+                return {
+                    touched: { ...state.touched, arbeidssituasjon: true },
+                    annetSituasjon: undefined,
+                };
+            });
         } else {
-            this.setState({ annetSituasjon });
+            this.setState((state) => {
+                return {
+                    touched: { ...state.touched, arbeidssituasjon: true },
+                    annetSituasjon,
+                };
+            });
         }
     }
 
     updateArbeidsgivere(arbeidsgiver) {
         const { valgtArbeidsgivere } = this.state;
 
-        if (valgtArbeidsgivere.find((a) => { return a.orgnummer === arbeidsgiver.orgnummer; })) {
-            this.setState({ valgtArbeidsgivere: valgtArbeidsgivere.filter((a) => {
-                return a !== arbeidsgiver.orgnummer;
-            }) });
+        const alreadySelected = valgtArbeidsgivere.find((a) => {
+            return a.orgnummer === arbeidsgiver.orgnummer;
+        });
+
+        if (alreadySelected) {
+            this.setState((state) => {
+                return {
+                    touched: { ...state.touched, arbeidssituasjon: true },
+                    valgtArbeidsgivere: valgtArbeidsgivere.filter((a) => {
+                        return a.orgnummer !== arbeidsgiver.orgnummer;
+                    }),
+                };
+            });
         } else {
-            this.setState({ valgtArbeidsgivere: [...valgtArbeidsgivere, arbeidsgiver] });
+            this.setState((state) => {
+                return {
+                    touched: { ...state.touched, arbeidssituasjon: true },
+                    valgtArbeidsgivere: [...valgtArbeidsgivere, arbeidsgiver],
+                };
+            });
         }
     }
 
-    validateAll() {
-        const errors = {};
+    validateAll(submitting = false) {
+        const updatedErrors = { ...INITIAL_ERRORS };
 
-        const { koronamistanke, valgtArbeidsgivere, valgtArbeidssituasjon, annetSituasjon } = this.state;
+        const { koronamistanke, valgtArbeidsgivere, valgtArbeidssituasjon, annetSituasjon, touched } = this.state;
 
-        if (koronamistanke === undefined) {
-            errors.koronamistanke = 'Du må bekrefte om du mistenker at du er smittet av korona';
+        // If we are submitting, validate all fields ignoring touched status
+        if (submitting || touched.koronamistanke) {
+            if (koronamistanke === undefined) {
+                updatedErrors.koronamistanke = 'Du må bekrefte om du mistenker at du er smittet av korona';
+            }
         }
 
-        if ((valgtArbeidsgivere.length === 0 && valgtArbeidssituasjon.length === 0) && annetSituasjon === undefined) {
-            errors.valgtArbeidssituasjon = 'Du må velge en arbeidssituasjon';
+        if (submitting || touched.arbeidssituasjon) {
+            if ((valgtArbeidsgivere.length === 0 && valgtArbeidssituasjon.length === 0) && annetSituasjon === undefined) {
+                updatedErrors.arbeidssituasjon = 'Du må velge en arbeidssituasjon';
+            }
         }
 
-        if (Object.keys(errors).length === 0) {
-            this.setState({ errors: undefined });
+        if (Object.keys(updatedErrors).length === 0) {
+            this.setState({ errors: INITIAL_ERRORS });
             return undefined;
         }
 
-        this.setState({ errors });
-        return errors;
+        this.setState({ errors: updatedErrors });
+        return updatedErrors;
+    }
+
+    touchAll() {
+        this.setState({ touched: {
+            koronamistanke: true,
+            arbeidssituasjon: true,
+        } });
     }
 
     submit() {
-        const errors = this.validateAll();
-        if (errors) {
+        this.touchAll();
+        const errors = this.validateAll(true);
+        if (errors.length > 0) {
             this.errorSummaryRef.current.focus();
             return;
         }
@@ -209,6 +267,13 @@ class KoronaSchema extends Component {
     render() {
         const { arbeidsgivere, valgtArbeidsgivere, koronamistanke,
             bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, periode, boxSize, errors } = this.state;
+
+        const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
+            if (errorEntry[1]) {
+                return [...acc, errorEntry];
+            }
+            return acc;
+        }, []);
 
         return (
             <div>
@@ -323,13 +388,33 @@ class KoronaSchema extends Component {
                                     checked={koronamistanke}
                                     label="Ja"
                                     onChange={() => {}}
-                                    onClick={() => { this.setState({ koronamistanke: true }); }}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    koronamistanke: true,
+                                                },
+                                                koronamistanke: true,
+                                            };
+                                        });
+                                    }}
                                     name="koronamistankeJa" />
                                 <Radio
                                     checked={koronamistanke === false}
                                     label="Nei"
                                     onChange={() => {}}
-                                    onClick={() => { this.setState({ koronamistanke: false }); }}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    koronamistanke: true,
+                                                },
+                                                koronamistanke: false,
+                                            };
+                                        });
+                                    }}
                                     name="koronamistankeNei" />
                             </FormSection>
 
@@ -363,7 +448,7 @@ class KoronaSchema extends Component {
 
                             <FormSection
                                 title="Jeg er sykmeldt fra"
-                                errorKey="valgtArbeidssituasjon"
+                                errorKey="arbeidssituasjon"
                                 errors={errors}
                                 errorRef={this.errorRef.valgtArbeidssituasjon}>
                                 {arbeidsgivere.map((arbeidsgiver) => {
@@ -449,12 +534,12 @@ class KoronaSchema extends Component {
                             </div>
 
                             <FormErrorSummary
-                                errors={errors}
+                                mappedErrors={mappedErrors}
                                 errorSummaryRef={this.errorSummaryRef}
                                 refs={{ valgtArbeidssituasjon: this.errorRef.valgtArbeidssituasjon, koronamistanke: this.errorRef.koronamistanke }} />
 
                             <div style={{ marginBottom: '2rem' }}>
-                                <Hovedknapp disabled={errors || !bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
+                                <Hovedknapp disabled={mappedErrors.length > 0 || !bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
                             </div>
 
                             <a href="/sykefravaer/" className="knapp">Avbryt</a>

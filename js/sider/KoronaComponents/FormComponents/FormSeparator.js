@@ -7,7 +7,7 @@ const FormSeparator = ({ helptext, title }) => {
     return (
         <div style={{ marginBottom: '2rem' }}>
             {helptext && (
-                <div style={{ position: 'absolute', right: '50px' }}>
+                <div style={{ position: 'absolute', right: '20px' }}>
                     <Hjelpetekst>
                         {helptext}
                     </Hjelpetekst>

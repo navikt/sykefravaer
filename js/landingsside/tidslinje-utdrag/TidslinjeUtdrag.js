@@ -79,9 +79,6 @@ const tekster = {};
 tekster[MED_ARBEIDSGIVER] = teksterMedArbeidsgiver;
 tekster[UTEN_ARBEIDSGIVER] = teksterUtenArbeidsgiver;
 
-const aktivitetskravNokkelMedAG = 'tidslinje.utdrag.aktivitetskrav-med-arbeidsgiver';
-const aktivitetskravNokkelUtenAG = 'tidslinje.utdrag.mulighet-for-aktivitet-uten-arbeidsgiver';
-
 const TittelIngress = ({ nokkelbase, bilde }) => {
     return (
         <div className="tidslinjeutdrag">
@@ -117,6 +114,17 @@ export const VelgArbeidssituasjon = (props) => {
             }]}
         />
     );
+};
+
+const skalIkkeViseUtdrag = (antallDager, tekstObjekt, skalViseAktivitetskrav) => {
+    const aktivitetskravNokkelMedAG = 'tidslinje.utdrag.aktivitetskrav-med-arbeidsgiver';
+    const aktivitetskravNokkelUtenAG = 'tidslinje.utdrag.mulighet-for-aktivitet-uten-arbeidsgiver';
+
+    if (antallDager > 500 || !tekstObjekt || (!skalViseAktivitetskrav
+        && (tekstObjekt.nokkel === aktivitetskravNokkelMedAG || tekstObjekt.nokkel === aktivitetskravNokkelUtenAG))) {
+        return true;
+    }
+    return false;
 };
 
 const track = (event) => {
@@ -199,15 +207,8 @@ export default class TidslinjeUtdrag extends Utvidbar {
 
     render() {
         const { visning, antallDager, skalViseAktivitetskrav } = this.props;
-        const tekstObject = this.getTekstObjekt();
-        console.log('AKTIVITETSKRAV: ', skalViseAktivitetskrav);
-        console.log('tekstObject: ', tekstObject);
-        console.log('nokkelUtenAG: ', aktivitetskravNokkelUtenAG);
-        console.log('nokkelMedAG: ', aktivitetskravNokkelMedAG);
-        if (antallDager > 500
-            || !tekstObject
-            || (!skalViseAktivitetskrav
-            && (tekstObject.nokkel === aktivitetskravNokkelMedAG || tekstObject.nokkel === aktivitetskravNokkelUtenAG))) {
+        const tekstObjekt = this.getTekstObjekt();
+        if (skalIkkeViseUtdrag(antallDager, tekstObjekt, skalViseAktivitetskrav)) {
             return null;
         }
         const nokkelbase = this.getNokkelbase();

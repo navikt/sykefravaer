@@ -37,7 +37,7 @@ Container.propTypes = {
     skalViseAktivitetskrav: PropTypes.bool,
 };
 
-const getSykefravaerVarighet = (state) => {
+export const getSykefravaerVarighet = (state) => {
     const dato = state.sykeforloep.startdato;
     const { erArbeidsrettetOppfolgingSykmeldtInngangAktiv } = state.brukerinfo.sykmeldtinfodata.data;
     const TVING_MER_ENN_39_UKER = 275;
@@ -71,7 +71,7 @@ export const skalViseUtdrag = (state) => {
             }).length > 0;
 };
 
-const getVisning = (state) => {
+export const getVisning = (state) => {
     const { startdato } = state.sykeforloep;
     const dineSykmeldinger = state.dineSykmeldinger.data;
     if (!startdato) {

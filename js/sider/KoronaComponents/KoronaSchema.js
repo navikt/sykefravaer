@@ -268,6 +268,8 @@ class KoronaSchema extends Component {
         const { arbeidsgivere, valgtArbeidsgivere, koronamistanke,
             bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, periode, boxSize, errors } = this.state;
 
+        console.log(valgtArbeidsgivere);
+
         const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
             if (errorEntry[1]) {
                 return [...acc, errorEntry];
@@ -310,7 +312,7 @@ class KoronaSchema extends Component {
 
                             <FormSeparator
                                 helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 14 dager."
-                                title="Dine opplysninger"
+                                title="Sykmeldingsinfo"
                             />
 
                             <div style={{ marginBottom: '2rem' }}>
@@ -322,7 +324,7 @@ class KoronaSchema extends Component {
 
                             <div style={{ display: 'flex', marginBottom: '2rem' }}>
                                 <div>
-                                    <h2 className="nokkelopplysning__tittel">Egenmeldingsperiode</h2>
+                                    <h2 className="nokkelopplysning__tittel">Periode</h2>
                                     <p className="js-periode blokk-xxs">
                                         <span>
                                             {tilLesbarDatoUtenAarstall(periode.correctedFom || periode.fom)}
@@ -338,7 +340,7 @@ class KoronaSchema extends Component {
                                     </p>
                                 </div>
                                 <div style={{ marginLeft: '4rem' }}>
-                                    <h2 className="nokkelopplysning__tittel">Sykefraværsgrad</h2>
+                                    <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
                                     <p>
                                     100%
                                     </p>
@@ -482,14 +484,16 @@ class KoronaSchema extends Component {
                                     onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
                                     label="Jobb som frilanser" />
 
-                                {valgtArbeidssituasjon.length >= 2 && (
+                                {[...valgtArbeidssituasjon, ...valgtArbeidsgivere].length >= 2 && (
                                     <div style={{ marginTop: '2rem', marginBottom: '2rem', display: 'flex' }}>
                                         <img
-                                            style={{ marginRight: '10px', marginTop: '-2px' }}
+                                            style={{ marginRight: '15px', marginTop: '-2px' }}
                                             src={infoSvg}
                                             alt="Info"
                                         />
-                                            Er du sykmeldt fra flere jobber, opprettes det en sykmelding for hver av dem.
+                                            Det opprettes en sykmelding for hvert arbeidssituasjon.
+                                        <br />
+                                            Husk at du må sende sykmeldinger hver for seg.
                                     </div>
                                 )
                                 }
@@ -520,7 +524,7 @@ class KoronaSchema extends Component {
                             />
 
                             <div style={{ marginBottom: '3rem' }}>
-                                <h3 className="skjema__sporsmal">Er opplysningene du har gitt riktige?</h3>
+                                <h3 className="skjema__sporsmal">Er opplysningene du har oppgitt riktige?</h3>
                                 <Radio
                                     checked={bekreftet}
                                     label="Ja"

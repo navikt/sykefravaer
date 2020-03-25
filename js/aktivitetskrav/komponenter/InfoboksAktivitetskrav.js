@@ -68,9 +68,9 @@ InfoboksAktivitetskravComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const skalViseAktitvetskravInfoboks = skalViseAktivitetskravInformasjon(state) === false && sykeforlopHarPassertAktivitetsvarsel(state);
+    const skalViseAktivitetskravInfoboks = skalViseAktivitetskravInformasjon(state) === false && sykeforlopHarPassertAktivitetsvarsel(state);
     return {
-        skalVise: skalViseAktitvetskravInfoboks,
+        skalVise: skalViseAktivitetskravInfoboks,
     };
 };
 

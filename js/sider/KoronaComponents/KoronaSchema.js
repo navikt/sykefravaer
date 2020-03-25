@@ -429,8 +429,11 @@ class KoronaSchema extends Component {
                                                     koronamistanke: true,
                                                 },
                                                 questions: {
-                                                    ...state.questions,
                                                     koronamistanke: true,
+                                                    karantene: undefined,
+                                                    hjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -447,9 +450,11 @@ class KoronaSchema extends Component {
                                                     ...state.touched,
                                                     koronamistanke: true,
                                                 },
-                                                questions: {
-                                                    ...state.questions,
-                                                    koronamistanke: false,
+                                                questions: { koronamistanke: false,
+                                                    karantene: undefined,
+                                                    hjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -477,6 +482,9 @@ class KoronaSchema extends Component {
                                                 questions: {
                                                     ...state.questions,
                                                     karantene: true,
+                                                    hjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -496,6 +504,9 @@ class KoronaSchema extends Component {
                                                 questions: {
                                                     ...state.questions,
                                                     karantene: false,
+                                                    hjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -569,6 +580,7 @@ class KoronaSchema extends Component {
                                                 questions: {
                                                     ...state.questions,
                                                     husstandenSmittet: true,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -588,6 +600,7 @@ class KoronaSchema extends Component {
                                                 questions: {
                                                     ...state.questions,
                                                     husstandenSmittet: false,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });

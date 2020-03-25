@@ -117,6 +117,7 @@ class KoronaSchema extends Component {
 
         // eslint-disable-next-line react/destructuring-assignment
         if (JSON.stringify(this.state.questions) !== JSON.stringify(nextState.questions)) {
+            this.redrawBox();
             this.validateAll();
         }
 

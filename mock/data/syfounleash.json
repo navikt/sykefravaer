@@ -1,5 +1,5 @@
 {
-  "pre.syfo.informasjon.aktivitetskrav": true,
+  "syfo.informasjon.aktivitetskrav": true,
   "syfo.informasjon.dialogmote": true,
   "syfo.syfofront.korriger.selvstendig.soknad": true,
   "syfo.syfofront.angre.bekreft.sykmelding": true,

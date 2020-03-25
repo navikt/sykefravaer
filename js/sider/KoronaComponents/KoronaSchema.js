@@ -257,7 +257,7 @@ class KoronaSchema extends Component {
     submit() {
         this.touchAll();
         const errors = this.validateAll(true);
-        if (errors.length > 0) {
+        if (Object.keys(errors).length > 0) {
             this.errorSummaryRef.current.focus();
             return;
         }

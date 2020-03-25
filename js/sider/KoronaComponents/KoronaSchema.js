@@ -9,6 +9,7 @@ import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
@@ -39,11 +40,19 @@ const OTHER_CODE = '4NN37';
 const INITIAL_ERRORS = {
     koronamistanke: undefined,
     arbeidssituasjon: undefined,
+    karantene: undefined,
+    hjemmefra: undefined,
+    husstandenSmittet: undefined,
+    husstandenSmittetHjemmefra: undefined,
 };
 
 const INITIAL_TOUCHED = {
     koronamistanke: undefined,
     arbeidssituasjon: undefined,
+    karantene: undefined,
+    hjemmefra: undefined,
+    husstandenSmittet: undefined,
+    husstandenSmittetHjemmefra: undefined,
 };
 
 class KoronaSchema extends Component {
@@ -54,6 +63,10 @@ class KoronaSchema extends Component {
             valgtArbeidsgivere: [],
             valgtArbeidssituasjon: [],
             koronamistanke: undefined,
+            karantene: undefined,
+            hjemmefra: undefined,
+            husstandenSmittet: undefined,
+            husstandenSmittetHjemmefra: undefined,
             annetSituasjon: undefined,
             bekreftet: undefined,
             tidligereSyk: false,
@@ -73,7 +86,11 @@ class KoronaSchema extends Component {
         this.formContainerRef = React.createRef();
         this.errorRef = {
             koronamistanke: React.createRef(),
-            valgtArbeidssituasjon: React.createRef(),
+            arbeidssituasjon: React.createRef(),
+            karantene: React.createRef(),
+            hjemmefra: React.createRef(),
+            husstandenSmittet: React.createRef(),
+            husstandenSmittetHjemmefra: React.createRef(),
         };
         this.errorSummaryRef = React.createRef();
 
@@ -265,10 +282,8 @@ class KoronaSchema extends Component {
     }
 
     render() {
-        const { arbeidsgivere, valgtArbeidsgivere, koronamistanke,
+        const { arbeidsgivere, valgtArbeidsgivere, koronamistanke, karantene, hjemmefra, husstandenSmittet, husstandenSmittetHjemmefra,
             bekreftet, valgtArbeidssituasjon, annetSituasjon, tidligereSyk, periode, boxSize, errors } = this.state;
-
-        console.log(valgtArbeidsgivere);
 
         const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
             if (errorEntry[1]) {
@@ -276,6 +291,8 @@ class KoronaSchema extends Component {
             }
             return acc;
         }, []);
+
+        const canUseEgenmelding = !((hjemmefra === true) || (husstandenSmittetHjemmefra === true) || (husstandenSmittet === false));
 
         return (
             <div>
@@ -420,6 +437,168 @@ class KoronaSchema extends Component {
                                     name="koronamistankeNei" />
                             </FormSection>
 
+                            <FormSection
+                                title="Er du i pålagt karantene?"
+                                errorKey="karantene"
+                                errors={errors}
+                                show={koronamistanke === false}
+                                errorRef={this.errorRef.karantene}>
+                                <Radio
+                                    checked={karantene}
+                                    label="Ja"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    karantene: true,
+                                                },
+                                                karantene: true,
+                                            };
+                                        });
+                                    }}
+                                    name="karanteneJa" />
+                                <Radio
+                                    checked={karantene === false}
+                                    label="Nei"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    karantene: true,
+                                                },
+                                                karantene: false,
+                                            };
+                                        });
+                                    }}
+                                    name="karanteneNei" />
+                            </FormSection>
+
+                            <FormSection
+                                title="Jobber du hjemmefra?"
+                                errorKey="hjemmefra"
+                                errors={errors}
+                                show={karantene === true}
+                                errorRef={this.errorRef.hjemmefra}>
+                                <Radio
+                                    checked={hjemmefra}
+                                    label="Ja"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    hjemmefra: true,
+                                                },
+                                                hjemmefra: true,
+                                            };
+                                        });
+                                    }}
+                                    name="hjemmefraJa" />
+                                <Radio
+                                    checked={hjemmefra === false}
+                                    label="Nei"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    hjemmefra: true,
+                                                },
+                                                hjemmefra: false,
+                                            };
+                                        });
+                                    }}
+                                    name="hjemmefraNei" />
+                            </FormSection>
+
+                            <FormSection
+                                title="Er noen i husstanden din smittet?"
+                                errorKey="husstandenSmittet"
+                                errors={errors}
+                                show={karantene === false}
+                                errorRef={this.errorRef.husstandenSmittet}>
+                                <Radio
+                                    checked={husstandenSmittet}
+                                    label="Ja"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    husstandenSmittet: true,
+                                                },
+                                                husstandenSmittet: true,
+                                            };
+                                        });
+                                    }}
+                                    name="husstandenSmittetJa" />
+                                <Radio
+                                    checked={husstandenSmittet === false}
+                                    label="Nei"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    husstandenSmittet: true,
+                                                },
+                                                husstandenSmittet: false,
+                                            };
+                                        });
+                                    }}
+                                    name="husstandenSmittetNei" />
+                            </FormSection>
+
+                            <FormSection
+                                title="Jobber du hjemmefra?"
+                                errorKey="husstandenSmittetHjemmefra"
+                                errors={errors}
+                                show={husstandenSmittet === true}
+                                errorRef={this.errorRef.husstandenSmittetHjemmefra}>
+                                <Radio
+                                    checked={husstandenSmittetHjemmefra}
+                                    label="Ja"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    husstandenSmittetHjemmefra: true,
+                                                },
+                                                husstandenSmittetHjemmefra: true,
+                                            };
+                                        });
+                                    }}
+                                    name="husstandenSmittetHjemmefraJa" />
+                                <Radio
+                                    checked={husstandenSmittetHjemmefra === false}
+                                    label="Nei"
+                                    onChange={() => {}}
+                                    onClick={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    husstandenSmittetHjemmefra: true,
+                                                },
+                                                husstandenSmittetHjemmefra: false,
+                                            };
+                                        });
+                                    }}
+                                    name="husstandenSmittetHjemmefraNei" />
+                            </FormSection>
+
+                            {!canUseEgenmelding && <AlertStripeFeil>Kan ikke bruke egenmelding</AlertStripeFeil>}
+
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
@@ -543,7 +722,11 @@ class KoronaSchema extends Component {
                                 refs={{ valgtArbeidssituasjon: this.errorRef.valgtArbeidssituasjon, koronamistanke: this.errorRef.koronamistanke }} />
 
                             <div style={{ marginBottom: '2rem' }}>
-                                <Hovedknapp disabled={mappedErrors.length > 0 || !bekreftet} onClick={() => { return this.submit(); }}>Opprett egenmelding</Hovedknapp>
+                                <Hovedknapp
+                                    disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
+                                    onClick={() => { return this.submit(); }}>
+                                Opprett egenmelding
+                                </Hovedknapp>
                             </div>
 
                             <a href="/sykefravaer/" className="knapp">Avbryt</a>

@@ -34,6 +34,11 @@ const datePlus14Days = (date) => {
     return endDate;
 };
 
+const hasErrors = (errors) => {
+    console.log(errors);
+    return Object.values(errors).some((error) => { return error !== undefined; });
+};
+
 const CORONA_CODE = 'R991';
 const OTHER_CODE = '4NN37';
 
@@ -239,9 +244,9 @@ class KoronaSchema extends Component {
             }
         }
 
-        if (Object.keys(updatedErrors).length === 0) {
+        if (!hasErrors(updatedErrors)) {
             this.setState({ errors: INITIAL_ERRORS });
-            return undefined;
+            return updatedErrors;
         }
 
         this.setState({ errors: updatedErrors });
@@ -258,7 +263,7 @@ class KoronaSchema extends Component {
     submit() {
         this.touchAll();
         const errors = this.validateAll(true);
-        if (Object.keys(errors).length > 0) {
+        if (hasErrors(errors)) {
             this.errorSummaryRef.current.focus();
             return;
         }

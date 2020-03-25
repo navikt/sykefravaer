@@ -71,7 +71,7 @@ const ForlengetEgenmeldingLink = () => {
                 />
             </div>
             <div className="peker__innhold">
-                <h2 className="peker__tittel">Opprettingsskjema for forlenget egenmelding</h2>
+                <h2 className="peker__tittel">Opprettingsskjema for egenmeldt sykmelding</h2>
             </div>
         </Link>
     );

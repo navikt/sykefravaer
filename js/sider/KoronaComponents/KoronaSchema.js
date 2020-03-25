@@ -279,7 +279,7 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>Forlenget egenmelding</Sidetittel>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>Egenmeldt sykmelding</Sidetittel>
                 <Undertittel>
                     Grunnet stor pågang hos helsevesenet og kontaktsentre har NAV laget en midlertidig egenmeldingstjeneste du kan benytte deg av om du er blitt syk.
                 </Undertittel>
@@ -306,7 +306,7 @@ class KoronaSchema extends Component {
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
-                                Opprettelse av forlenget egenmelding
+                                Opprett sykmelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 

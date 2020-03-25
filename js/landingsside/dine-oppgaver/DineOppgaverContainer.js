@@ -251,7 +251,7 @@ export const mapStateToProps = (state) => {
     }
     const harNyttMotebehov = erMotebehovUbesvart(state);
     const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
-    const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL && skalViseAktivitetskravInformasjon(state);
+    const visAktivitetskrav = skalViseAktivitetskravInformasjon(state) && getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state)
         .filter((smSykmelding) => {
             return smSykmelding.bekreftetDato === null;

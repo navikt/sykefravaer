@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from './TidslinjeUtdrag';
 import { skalViseAktivitetskravInformasjon } from '../../data/unleash-toggles/unleashTogglesSelectors';
 
-
 const {
     SENDT, NY, BEKREFTET, TIL_SENDING,
 } = sykmeldingstatuser;

@@ -420,8 +420,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.koronamistanke}
                                     label="Ja"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -442,8 +441,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.koronamistanke === false}
                                     label="Nei"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -471,8 +469,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.karantene}
                                     label="Ja"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -493,8 +490,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.karantene === false}
                                     label="Nei"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -523,8 +519,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.hjemmefra}
                                     label="Ja"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -542,8 +537,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.hjemmefra === false}
                                     label="Nei"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -569,8 +563,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.husstandenSmittet}
                                     label="Ja"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -589,8 +582,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.husstandenSmittet === false}
                                     label="Nei"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -617,8 +609,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.husstandenSmittetHjemmefra}
                                     label="Ja"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -636,8 +627,7 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={questions.husstandenSmittetHjemmefra === false}
                                     label="Nei"
-                                    onChange={() => {}}
-                                    onClick={() => {
+                                    onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
@@ -738,20 +728,17 @@ class KoronaSchema extends Component {
                                 <Radio
                                     checked={annetSituasjon === 'annen'}
                                     label="Arbeidsgiver er ikke oppført"
-                                    onClick={(e) => { return this.updateAnnet(e.target.name); }}
-                                    onChange={() => {}}
+                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
                                     name="annen" />
                                 <Radio
                                     checked={annetSituasjon === 'arbeidsledig'}
                                     label="Jeg er arbeidsledig"
-                                    onClick={(e) => { return this.updateAnnet(e.target.name); }}
-                                    onChange={() => {}}
+                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
                                     name="arbeidsledig" />
                                 <Radio
                                     checked={annetSituasjon === 'ingenting'}
                                     label="Jeg finner ingenting som passer for meg"
-                                    onClick={(e) => { return this.updateAnnet(e.target.name); }}
-                                    onChange={() => {}}
+                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
                                     name="ingenting" />
                             </FormSection>
 

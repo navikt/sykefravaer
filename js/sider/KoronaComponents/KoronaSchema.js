@@ -35,7 +35,6 @@ const datePlus14Days = (date) => {
 };
 
 const hasErrors = (errors) => {
-    console.log(errors);
     return Object.values(errors).some((error) => { return error !== undefined; });
 };
 

@@ -491,7 +491,7 @@ class KoronaSchema extends Component {
                                             src={infoSvg}
                                             alt="Info"
                                         />
-                                            Det opprettes en sykmelding for hvert arbeidssituasjon.
+                                            Det opprettes en sykmelding for hver arbeidssituasjon.
                                         <br />
                                             Husk at du må sende sykmeldinger hver for seg.
                                     </div>

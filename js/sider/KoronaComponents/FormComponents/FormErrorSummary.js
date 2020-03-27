@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FormErrorSummary = ({ mappedErrors, refs, errorSummaryRef }) => {
     if (mappedErrors.length === 0) {
-        return null;
+        return <div ref={errorSummaryRef} />;
     }
 
     return (

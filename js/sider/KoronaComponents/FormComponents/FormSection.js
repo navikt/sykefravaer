@@ -5,7 +5,11 @@ import './FormSection.less';
 
 import FormError from './FormError';
 
-const FormSection = ({ title, errors, errorKey, errorRef, children }) => {
+const FormSection = ({ title, errors, errorKey, errorRef, show = true, children }) => {
+    if (show === false) {
+        return null;
+    }
+
     const hasError = errors && errors[errorKey];
 
     const className = hasError ? 'formsection formsection-error' : 'formsection';
@@ -29,6 +33,7 @@ FormSection.propTypes = {
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
     ]),
+    show: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.instanceOf(Element)),
 };
 

@@ -194,6 +194,20 @@ class KoronaSchema extends Component {
         return true;
     }
 
+    showDiagnose() {
+        const { questions: { husstandenSmittet, koronamistankeHjemmefra, palagtKaranteneHjemmefra, husstandenSmittetHjemmefra } } = this.state;
+
+        if (husstandenSmittet === false) {
+            return false;
+        }
+
+        if (koronamistankeHjemmefra === false || palagtKaranteneHjemmefra === false || husstandenSmittetHjemmefra === false) {
+            return true;
+        }
+
+        return false;
+    }
+
     render() {
         const {
             questions,
@@ -211,6 +225,7 @@ class KoronaSchema extends Component {
         }, []);
 
         const canUseEgenmelding = this.canUseEgenmelding();
+        const showDiagnose = this.showDiagnose();
 
         return (
             <div>
@@ -602,8 +617,8 @@ class KoronaSchema extends Component {
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
-                                    {questions.koronamistanke && <p>COVID-19</p>}
-                                    {!questions.koronamistanke && <p>-</p>}
+                                    {showDiagnose && <p>COVID-19</p>}
+                                    {!showDiagnose && <p>-</p>}
                                 </div>
                                 <div style={{ marginLeft: '8rem' }}>
                                     <div style={{ display: 'flex' }}>
@@ -615,8 +630,8 @@ class KoronaSchema extends Component {
                                             </Hjelpetekst>
                                         </div>
                                     </div>
-                                    {questions.koronamistanke && <p>{CORONA_CODE}</p>}
-                                    {!questions.koronamistanke && <p>-</p>}
+                                    {showDiagnose && <p>{CORONA_CODE}</p>}
+                                    {!showDiagnose && <p>-</p>}
                                 </div>
                             </div>
 

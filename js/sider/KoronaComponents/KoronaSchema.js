@@ -9,7 +9,6 @@ import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
@@ -17,6 +16,7 @@ import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormVeileder from './FormComponents/FormVeileder';
 import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
+import CannotUseMelding from './FormComponents/CannotUseMelding';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -606,14 +606,6 @@ class KoronaSchema extends Component {
                                     name="husstandenSmittetHjemmefraNei" />
                             </FormSection>
 
-                            {!canUseEgenmelding && (
-                                <div>
-                                    <AlertStripeFeil>Du kan ikke bruke egenmelding</AlertStripeFeil>
-                                    <Lenke href="#">Les mer om hvem som kan bruke den her TODO: href</Lenke>
-                                </div>
-                            )}
-
-
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
@@ -634,6 +626,14 @@ class KoronaSchema extends Component {
                                     {!showDiagnose && <p>-</p>}
                                 </div>
                             </div>
+
+                            {!canUseEgenmelding && (
+                                <div style={{ marginBottom: '2rem'}}>
+                                    <CannotUseMelding text="Du kan ikke bruke egenmelding" />
+                                    <br />
+                                    <Lenke href="#">Les mer om hvem som kan bruke den her TODO: href</Lenke>
+                                </div>
+                            )}
 
                             <FormSeparator
                                 helptext="Du kan velge en eller flere arbeidssituasjoner."

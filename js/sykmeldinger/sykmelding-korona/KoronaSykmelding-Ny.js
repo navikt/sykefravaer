@@ -5,10 +5,10 @@ import {
     scrollTo,
     tilLesbarDatoMedArstall,
 } from '@navikt/digisyfo-npm';
-import DinSykmeldingSkjemaContainer from './sykmelding-skjema/skjema/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../../components/Sidetopp';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
+import KoronaSkjema from './skjema/Koronaskjema';
 
 class KoronaSykmeldingNy extends Component {
     render() {
@@ -74,7 +74,7 @@ class KoronaSykmeldingNy extends Component {
                                 tabIndex="-1"
                                 className="sykmeldingskjemaRef"
                             >
-                                <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+                                <KoronaSkjema sykmelding={sykmelding} />
                             </div>
                         </NySykmeldingTrigger>
                     );

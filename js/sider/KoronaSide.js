@@ -13,6 +13,7 @@ import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import KoronaKvittering from './KoronaComponents/KoronaKvittering';
 import { hentSendingURL } from './KoronaComponents/koronaUtils';
+import { post } from '../data/gateway-api/gatewayApi';
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -46,11 +47,7 @@ class KoronaContainer extends Component {
     opprettSykmelding(periode) {
         this.setState({ isLoading: true });
         const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
-        fetch(URL, {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify({ periode, arbeidsforhold: [] }),
-        })
+        post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
                 this.setState({ isLoading: false, isSent: true });
             })

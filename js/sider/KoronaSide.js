@@ -77,7 +77,6 @@ class KoronaContainer extends Component {
                         <KoronaSchema
                             opprettSykmelding={this.opprettSykmelding}
                             key={this.state.arbeidsgivere}
-                            arbeidsgivere={this.state.arbeidsgivere}
                         />
                     );
                 })()}

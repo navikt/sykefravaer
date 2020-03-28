@@ -10,11 +10,8 @@ import {
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
-
-import { infoSvg } from './svg/infoSvg';
 
 import FormErrorSummary from './FormComponents/FormErrorSummary';
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
@@ -43,7 +40,6 @@ const OTHER_CODE = '4NN37';
 
 const INITIAL_ERRORS = {
     koronamistanke: undefined,
-    arbeidssituasjon: undefined,
     karantene: undefined,
     hjemmefra: undefined,
     husstandenSmittet: undefined,
@@ -52,7 +48,6 @@ const INITIAL_ERRORS = {
 
 const INITIAL_TOUCHED = {
     koronamistanke: undefined,
-    arbeidssituasjon: undefined,
     karantene: undefined,
     hjemmefra: undefined,
     husstandenSmittet: undefined,
@@ -63,9 +58,6 @@ class KoronaSchema extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arbeidsgivere: props.arbeidsgivere,
-            valgtArbeidsgivere: [],
-            valgtArbeidssituasjon: [],
             questions: {
                 koronamistanke: undefined,
                 karantene: undefined,
@@ -73,7 +65,6 @@ class KoronaSchema extends Component {
                 husstandenSmittet: undefined,
                 husstandenSmittetHjemmefra: undefined,
             },
-            annetSituasjon: undefined,
             bekreftet: undefined,
             tidligereSyk: false,
             periode: {
@@ -92,7 +83,6 @@ class KoronaSchema extends Component {
         this.formContainerRef = React.createRef();
         this.errorRef = {
             koronamistanke: React.createRef(),
-            arbeidssituasjon: React.createRef(),
             karantene: React.createRef(),
             hjemmefra: React.createRef(),
             husstandenSmittet: React.createRef(),
@@ -124,21 +114,6 @@ class KoronaSchema extends Component {
             this.redrawBox();
             this.validateAll();
         }
-
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.valgtArbeidsgivere !== nextState.valgtArbeidsgivere) {
-            this.validateAll();
-        }
-
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.valgtArbeidssituasjon !== nextState.valgtArbeidssituasjon) {
-            this.validateAll();
-        }
-
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.annetSituasjon !== nextState.annetSituasjon) {
-            this.validateAll();
-        }
     }
 
     componentWillUnmount() {
@@ -158,88 +133,15 @@ class KoronaSchema extends Component {
         return null;
     }
 
-    updateArbeidssituasjon(name) {
-        const { valgtArbeidssituasjon } = this.state;
-
-        if (valgtArbeidssituasjon.includes(name)) {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidssituasjon: valgtArbeidssituasjon.filter((a) => {
-                        return a !== name;
-                    }),
-                };
-            });
-        } else {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidssituasjon: [...valgtArbeidssituasjon, name],
-                };
-            });
-        }
-    }
-
-    updateAnnet(annetSituasjon) {
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.annetSituasjon === annetSituasjon) {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    annetSituasjon: undefined,
-                };
-            });
-        } else {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    annetSituasjon,
-                };
-            });
-        }
-    }
-
-    updateArbeidsgivere(arbeidsgiver) {
-        const { valgtArbeidsgivere } = this.state;
-
-        const alreadySelected = valgtArbeidsgivere.find((a) => {
-            return a.orgnummer === arbeidsgiver.orgnummer;
-        });
-
-        if (alreadySelected) {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidsgivere: valgtArbeidsgivere.filter((a) => {
-                        return a.orgnummer !== arbeidsgiver.orgnummer;
-                    }),
-                };
-            });
-        } else {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidsgivere: [...valgtArbeidsgivere, arbeidsgiver],
-                };
-            });
-        }
-    }
-
     validateAll(submitting = false) {
         const updatedErrors = { ...INITIAL_ERRORS };
 
-        const { questions, valgtArbeidsgivere, valgtArbeidssituasjon, annetSituasjon, touched } = this.state;
+        const { questions, touched } = this.state;
 
         // If we are submitting, validate all fields ignoring touched status
         if (submitting || touched.koronamistanke) {
             if (questions.koronamistanke === undefined) {
                 updatedErrors.koronamistanke = 'Du må bekrefte om du mistenker at du er smittet av korona';
-            }
-        }
-
-        if (submitting || touched.arbeidssituasjon) {
-            if ((valgtArbeidsgivere.length === 0 && valgtArbeidssituasjon.length === 0) && annetSituasjon === undefined) {
-                updatedErrors.arbeidssituasjon = 'Du må velge en arbeidssituasjon';
             }
         }
 
@@ -255,7 +157,6 @@ class KoronaSchema extends Component {
     touchAll() {
         this.setState({ touched: {
             koronamistanke: true,
-            arbeidssituasjon: true,
         } });
     }
 
@@ -268,20 +169,14 @@ class KoronaSchema extends Component {
         }
 
         const {
-            valgtArbeidsgivere,
-            annetSituasjon,
             periode,
-            koronamistanke,
         } = this.state;
 
         const sykmelding = {
-            arbeidsforhold: valgtArbeidsgivere,
-            annetSituasjon,
             periode: {
                 fom: periode.correctedFom || periode.fom,
                 tom: periode.tom,
             },
-            diagnose: koronamistanke ? CORONA_CODE : OTHER_CODE,
         };
 
         const { opprettSykmelding } = this.props;
@@ -290,12 +185,8 @@ class KoronaSchema extends Component {
 
     render() {
         const {
-            arbeidsgivere,
-            valgtArbeidsgivere,
             questions,
             bekreftet,
-            valgtArbeidssituasjon,
-            annetSituasjon,
             tidligereSyk,
             periode,
             boxSize,
@@ -683,73 +574,10 @@ class KoronaSchema extends Component {
                                 title="Din arbeidssituasjon"
                             />
 
-                            <FormSection
-                                title="Jeg er sykmeldt fra"
-                                errorKey="arbeidssituasjon"
-                                errors={errors}
-                                errorRef={this.errorRef.valgtArbeidssituasjon}>
-                                {arbeidsgivere.map((arbeidsgiver) => {
-                                    return (
-                                        <div key={arbeidsgiver.orgnummer}>
-                                            <Checkbox
-                                                checked={valgtArbeidsgivere.find((a) => { return a.orgnummer === arbeidsgiver.orgnummer; })}
-                                                name={arbeidsgiver.orgnummer}
-                                                onChange={() => { return this.updateArbeidsgivere(arbeidsgiver); }}
-                                                label={arbeidsgiver.navn} />
-                                            <span
-                                                style={{ marginTop: '-1rem',
-                                                    marginLeft: '2rem',
-                                                    marginBottom: '1rem' }}
-                                                className="sekundaerLabel">
-    (Org. nummer:
-                                                {arbeidsgiver.orgnummer}
-    )
-                                            </span>
-                                        </div>
-                                    );
-                                })}
-                                <Checkbox
-                                    checked={valgtArbeidssituasjon.includes('selvstendig')}
-                                    name="selvstendig"
-                                    onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                                    label="Jobb som selvstendig næringsdrivende" />
-                                <Checkbox
-                                    checked={valgtArbeidssituasjon.includes('frilanser')}
-                                    name="frilanser"
-                                    onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                                    label="Jobb som frilanser" />
-
-                                {[...valgtArbeidssituasjon, ...valgtArbeidsgivere].length >= 2 && (
-                                    <div style={{ marginTop: '2rem', marginBottom: '2rem', display: 'flex' }}>
-                                        <img
-                                            style={{ marginRight: '15px', marginTop: '-2px' }}
-                                            src={infoSvg}
-                                            alt="Info"
-                                        />
-                                            Det opprettes en sykmelding for hver arbeidssituasjon.
-                                        <br />
-                                            Husk at du må sende sykmeldinger hver for seg.
-                                    </div>
-                                )
-                                }
-
-                                <h3 className="skjema__sporsmal">Annet</h3>
-                                <Radio
-                                    checked={annetSituasjon === 'annen'}
-                                    label="Arbeidsgiver er ikke oppført"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                    name="annen" />
-                                <Radio
-                                    checked={annetSituasjon === 'arbeidsledig'}
-                                    label="Jeg er arbeidsledig"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                    name="arbeidsledig" />
-                                <Radio
-                                    checked={annetSituasjon === 'ingenting'}
-                                    label="Jeg finner ingenting som passer for meg"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                    name="ingenting" />
-                            </FormSection>
+                            <Radio
+                                checked
+                                name="selvstendig"
+                                label="Jobb som selvstendig næringsdrivende" />
 
                             <FormSeparator
                                 title="Bekreft og opprett"
@@ -772,7 +600,7 @@ class KoronaSchema extends Component {
                             <FormErrorSummary
                                 mappedErrors={mappedErrors}
                                 errorSummaryRef={this.errorSummaryRef}
-                                refs={{ valgtArbeidssituasjon: this.errorRef.valgtArbeidssituasjon, koronamistanke: this.errorRef.koronamistanke }} />
+                                refs={{ koronamistanke: this.errorRef.koronamistanke }} />
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
@@ -800,7 +628,6 @@ TILBAKE TIL DITT SYKEFRAVÆR
 
 KoronaSchema.propTypes = {
     opprettSykmelding: PropTypes.func,
-    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
 };
 
 

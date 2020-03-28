@@ -48,6 +48,7 @@ class KoronaContainer extends Component {
         const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
         fetch(URL, {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify({ periode, arbeidsforhold: [] }),
         })
             .then((res) => {

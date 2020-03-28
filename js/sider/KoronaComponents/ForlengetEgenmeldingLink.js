@@ -71,7 +71,8 @@ const ForlengetEgenmeldingLink = () => {
                 />
             </div>
             <div className="peker__innhold">
-                <h2 className="peker__tittel">Opprettingsskjema for egenmeldt sykmelding</h2>
+                <h2 className="peker__tittel">16-dagers koronamelding</h2>
+                <p className="peker__undertittel">For selvstendig næringsdrivende og frilansere</p>
             </div>
         </Link>
     );

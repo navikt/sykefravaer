@@ -13,7 +13,6 @@ import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
-import FormErrorSummary from './FormComponents/FormErrorSummary';
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormVeileder from './FormComponents/FormVeileder';
 import FormSeparator from './FormComponents/FormSeparator';
@@ -87,7 +86,6 @@ class KoronaSchema extends Component {
             husstandenSmittet: React.createRef(),
             husstandenSmittetHjemmefra: React.createRef(),
         };
-        this.errorSummaryRef = React.createRef();
 
         this.redrawBox = this.redrawBox.bind(this);
     }
@@ -163,7 +161,6 @@ class KoronaSchema extends Component {
         this.touchAll();
         const errors = this.validateAll(true);
         if (hasErrors(errors)) {
-            this.errorSummaryRef.current.focus();
             return;
         }
 
@@ -594,11 +591,6 @@ class KoronaSchema extends Component {
                                     name="nei" />
                             </div>
 
-                            <FormErrorSummary
-                                mappedErrors={mappedErrors}
-                                errorSummaryRef={this.errorSummaryRef}
-                                refs={{ koronamistanke: this.errorRef.koronamistanke }} />
-
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
                                     disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
@@ -614,7 +606,7 @@ class KoronaSchema extends Component {
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-TILBAKE TIL DITT SYKEFRAVÆR
+TIL DITT SYKEFRAVÆR
                     </a>
                 </p>
             </div>

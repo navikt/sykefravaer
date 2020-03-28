@@ -626,7 +626,7 @@ class KoronaSchema extends Component {
                             </div>
 
                             {!canUseEgenmelding && (
-                                <div style={{ marginBottom: '2rem'}}>
+                                <div style={{ marginBottom: '2rem' }}>
                                     <CannotUseMelding text="Du kan ikke bruke egenmelding" />
                                     <br />
                                     <Lenke href="#">Les mer om hvem som kan bruke den her TODO: href</Lenke>

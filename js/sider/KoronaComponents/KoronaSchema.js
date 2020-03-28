@@ -38,16 +38,18 @@ const CORONA_CODE = 'R991';
 
 const INITIAL_ERRORS = {
     koronamistanke: undefined,
-    karantene: undefined,
-    hjemmefra: undefined,
+    koronamistankeHjemmefra: undefined,
+    palagtKarantene: undefined,
+    palagtKaranteneHjemmefra: undefined,
     husstandenSmittet: undefined,
     husstandenSmittetHjemmefra: undefined,
 };
 
 const INITIAL_TOUCHED = {
     koronamistanke: undefined,
-    karantene: undefined,
-    hjemmefra: undefined,
+    koronamistankeHjemmefra: undefined,
+    palagtKarantene: undefined,
+    palagtKaranteneHjemmefra: undefined,
     husstandenSmittet: undefined,
     husstandenSmittetHjemmefra: undefined,
 };
@@ -58,8 +60,9 @@ class KoronaSchema extends Component {
         this.state = {
             questions: {
                 koronamistanke: undefined,
-                karantene: undefined,
-                hjemmefra: undefined,
+                koronamistankeHjemmefra: undefined,
+                palagtKarantene: undefined,
+                palagtKaranteneHjemmefra: undefined,
                 husstandenSmittet: undefined,
                 husstandenSmittetHjemmefra: undefined,
             },
@@ -81,10 +84,8 @@ class KoronaSchema extends Component {
         this.formContainerRef = React.createRef();
         this.errorRef = {
             koronamistanke: React.createRef(),
-            karantene: React.createRef(),
-            hjemmefra: React.createRef(),
-            husstandenSmittet: React.createRef(),
-            husstandenSmittetHjemmefra: React.createRef(),
+            koronamistankeHjemmefra: React.createRef(),
+            palagtKarantene: React.createRef(),
         };
 
         this.redrawBox = this.redrawBox.bind(this);
@@ -179,6 +180,20 @@ class KoronaSchema extends Component {
         opprettSykmelding(sykmelding);
     }
 
+    canUseEgenmelding() {
+        const { questions: { koronamistankeHjemmefra, palagtKaranteneHjemmefra, husstandenSmittet, husstandenSmittetHjemmefra } } = this.state;
+
+        if (koronamistankeHjemmefra === true || palagtKaranteneHjemmefra === true || husstandenSmittetHjemmefra === true) {
+            return false;
+        }
+
+        if (husstandenSmittet === false) {
+            return false;
+        }
+
+        return true;
+    }
+
     render() {
         const {
             questions,
@@ -195,10 +210,7 @@ class KoronaSchema extends Component {
             return acc;
         }, []);
 
-        const canUseEgenmelding = !(
-            (questions.hjemmefra === true)
-            || (questions.husstandenSmittetHjemmefra === true)
-            || (questions.husstandenSmittet === false));
+        const canUseEgenmelding = this.canUseEgenmelding();
 
         return (
             <div>
@@ -319,10 +331,8 @@ class KoronaSchema extends Component {
                                                 },
                                                 questions: {
                                                     koronamistanke: true,
-                                                    karantene: undefined,
-                                                    hjemmefra: undefined,
-                                                    husstandenSmittet: undefined,
-                                                    husstandenSmittetHjemmefra: undefined,
+                                                    koronamistankeHjemmefra: undefined,
+                                                    palagtKarantene: undefined,
                                                 },
                                             };
                                         });
@@ -338,11 +348,10 @@ class KoronaSchema extends Component {
                                                     ...state.touched,
                                                     koronamistanke: true,
                                                 },
-                                                questions: { koronamistanke: false,
-                                                    karantene: undefined,
-                                                    hjemmefra: undefined,
-                                                    husstandenSmittet: undefined,
-                                                    husstandenSmittetHjemmefra: undefined,
+                                                questions: {
+                                                    koronamistanke: false,
+                                                    koronamistankeHjemmefra: undefined,
+                                                    palagtKarantene: undefined,
                                                 },
                                             };
                                         });
@@ -351,104 +360,144 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Er du i pålagt karantene?"
-                                errorKey="karantene"
+                                title="Jobber du hjemmefra?"
+                                show={questions.koronamistanke === true}
+                                errorKey="koronamistankeHjemmefra"
                                 errors={errors}
-                                show={questions.koronamistanke === false}
-                                errorRef={this.errorRef.karantene}>
+                                errorRef={this.errorRef.koronamistankeHjemmefra}>
                                 <Radio
-                                    checked={questions.karantene}
+                                    checked={questions.koronamistankeHjemmefra}
                                     label="Ja"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    karantene: true,
+                                                    koronamistankeHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    karantene: true,
-                                                    hjemmefra: undefined,
-                                                    husstandenSmittet: undefined,
-                                                    husstandenSmittetHjemmefra: undefined,
+                                                    koronamistankeHjemmefra: true,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="karanteneJa" />
+                                    name="koronamistankeHjemmefraJa" />
                                 <Radio
-                                    checked={questions.karantene === false}
+                                    checked={questions.koronamistankeHjemmefra === false}
                                     label="Nei"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    karantene: true,
+                                                    koronamistankeHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    karantene: false,
-                                                    hjemmefra: undefined,
-                                                    husstandenSmittet: undefined,
-                                                    husstandenSmittetHjemmefra: undefined,
+                                                    koronamistankeHjemmefra: false,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="karanteneNei" />
+                                    name="koronamistankeHjemmefraNei" />
+                            </FormSection>
+
+                            <FormSection
+                                title="Er du i pålagt karantene?"
+                                show={questions.koronamistanke === false}
+                                errorKey="palagtKarantene"
+                                errors={errors}
+                                errorRef={this.errorRef.palagtKarantene}>
+                                <Radio
+                                    checked={questions.palagtKarantene}
+                                    label="Ja"
+                                    onChange={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    palagtKarantene: true,
+                                                },
+                                                questions: {
+                                                    ...state.questions,
+                                                    palagtKarantene: true,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                },
+                                            };
+                                        });
+                                    }}
+                                    name="palagtKaranteneJa" />
+                                <Radio
+                                    checked={questions.palagtKarantene === false}
+                                    label="Nei"
+                                    onChange={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    palagtKarantene: true,
+                                                },
+                                                questions: {
+                                                    ...state.questions,
+                                                    palagtKarantene: false,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                },
+                                            };
+                                        });
+                                    }}
+                                    name="palagtKaranteneNei" />
                             </FormSection>
 
                             <FormSection
                                 title="Jobber du hjemmefra?"
-                                errorKey="hjemmefra"
+                                show={questions.palagtKarantene === true}
+                                errorKey="palagtKaranteneHjemmefra"
                                 errors={errors}
-                                show={questions.karantene === true}
-                                errorRef={this.errorRef.hjemmefra}>
+                                errorRef={this.errorRef.palagtKaranteneHjemmefra}>
                                 <Radio
-                                    checked={questions.hjemmefra}
+                                    checked={questions.palagtKaranteneHjemmefra}
                                     label="Ja"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    hjemmefra: true,
+                                                    palagtKaranteneHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    hjemmefra: true,
+                                                    palagtKaranteneHjemmefra: true,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="hjemmefraJa" />
+                                    name="palagtKaranteneHjemmefraJa" />
                                 <Radio
-                                    checked={questions.hjemmefra === false}
+                                    checked={questions.palagtKaranteneHjemmefra === false}
                                     label="Nei"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    hjemmefra: true,
+                                                    palagtKaranteneHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    hjemmefra: false,
+                                                    palagtKaranteneHjemmefra: false,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="hjemmefraNei" />
+                                    name="palagtKaranteneHjemmefraNei" />
                             </FormSection>
 
                             <FormSection
                                 title="Er noen i husstanden din smittet?"
+                                show={questions.palagtKarantene === false}
                                 errorKey="husstandenSmittet"
                                 errors={errors}
-                                show={questions.karantene === false}
                                 errorRef={this.errorRef.husstandenSmittet}>
                                 <Radio
                                     checked={questions.husstandenSmittet}
@@ -463,7 +512,6 @@ class KoronaSchema extends Component {
                                                 questions: {
                                                     ...state.questions,
                                                     husstandenSmittet: true,
-                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -482,7 +530,6 @@ class KoronaSchema extends Component {
                                                 questions: {
                                                     ...state.questions,
                                                     husstandenSmittet: false,
-                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -492,9 +539,9 @@ class KoronaSchema extends Component {
 
                             <FormSection
                                 title="Jobber du hjemmefra?"
+                                show={questions.husstandenSmittet === true}
                                 errorKey="husstandenSmittetHjemmefra"
                                 errors={errors}
-                                show={questions.husstandenSmittet === true}
                                 errorRef={this.errorRef.husstandenSmittetHjemmefra}>
                                 <Radio
                                     checked={questions.husstandenSmittetHjemmefra}

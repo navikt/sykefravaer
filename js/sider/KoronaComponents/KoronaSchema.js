@@ -36,7 +36,6 @@ const hasErrors = (errors) => {
 };
 
 const CORONA_CODE = 'R991';
-const OTHER_CODE = '4NN37';
 
 const INITIAL_ERRORS = {
     koronamistanke: undefined,
@@ -550,8 +549,7 @@ class KoronaSchema extends Component {
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                     {questions.koronamistanke && <p>COVID-19</p>}
-                                    {questions.koronamistanke === false && <p>Annet</p>}
-                                    {questions.koronamistanke === undefined && <p>-</p>}
+                                    {!questions.koronamistanke && <p>-</p>}
                                 </div>
                                 <div style={{ marginLeft: '8rem' }}>
                                     <div style={{ display: 'flex' }}>
@@ -564,8 +562,7 @@ class KoronaSchema extends Component {
                                         </div>
                                     </div>
                                     {questions.koronamistanke && <p>{CORONA_CODE}</p>}
-                                    {questions.koronamistanke === false && <p>{OTHER_CODE}</p>}
-                                    {questions.koronamistanke === undefined && <p>-</p>}
+                                    {!questions.koronamistanke && <p>-</p>}
                                 </div>
                             </div>
 

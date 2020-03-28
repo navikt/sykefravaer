@@ -62,7 +62,7 @@ class KoronaContainer extends Component {
         const { henterLedetekster, brodsmuler } = this.props;
         return (
             <Side
-                tittel="Egenmeldt sykmelding"
+                tittel="16-dagers koronamelding"
                 brodsmuler={brodsmuler}
                 laster={henterLedetekster || this.state.isLoading}
             >
@@ -96,7 +96,7 @@ const mapStateToProps = (state, ownProps) => {
                 erKlikkbar: true,
             },
             {
-                tittel: 'Egenmeldt sykmelding',
+                tittel: '16-dagers koronamelding',
             },
         ],
     };

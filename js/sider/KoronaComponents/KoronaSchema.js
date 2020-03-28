@@ -315,17 +315,15 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>Egenmeldt sykmelding</Sidetittel>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>16-dagers koronamelding</Sidetittel>
                 <Undertittel>
-                    Grunnet stor pågang hos helsevesenet og kontaktsentre har NAV laget en midlertidig egenmeldingstjeneste du kan benytte deg av om du er blitt syk.
+                    NAV har laget en 16-dagers sykmeldingstjeneste for selvstendig næringsdrivende og frilansere. Dette gjelder kun for sykefravær som skyldes covid-19 pandemien.
                 </Undertittel>
                 <br />
                 <Undertittel>
-                    Du kan opprette egenmeldingen via. skjemaet under uten å kontakte fastlegen eller legevakten.
+                    Du kan selv opprette og sende inn koronameldingen i skjemaet under, uten å kontakte fastlegen eller legevakten.
                 </Undertittel>
                 <br />
-
-                <Lenke href="#">Du kan lese mer om forlenget egenmelding her. (TODO: MANGLER LENKE)</Lenke>
 
                 <FormVeileder formContainerRef={this.formContainerRef} />
 
@@ -342,13 +340,13 @@ class KoronaSchema extends Component {
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
-                                Opprett sykmelding
+                                Opprett koronamelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <FormSeparator
                                 helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 14 dager."
-                                title="Sykmeldingsinfo"
+                                title="Dine opplysninger"
                             />
 
                             <div style={{ marginBottom: '2rem' }}>
@@ -649,7 +647,13 @@ class KoronaSchema extends Component {
                                     name="husstandenSmittetHjemmefraNei" />
                             </FormSection>
 
-                            {!canUseEgenmelding && <AlertStripeFeil>Kan ikke bruke egenmelding</AlertStripeFeil>}
+                            {!canUseEgenmelding && (
+                                <div>
+                                    <AlertStripeFeil>Du kan ikke bruke egenmelding</AlertStripeFeil>
+                                    <Lenke href="#">Les mer om hvem som kan bruke den her TODO: href</Lenke>
+                                </div>
+                            )}
+
 
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
@@ -774,7 +778,7 @@ class KoronaSchema extends Component {
                                 <Hovedknapp
                                     disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
                                     onClick={() => { return this.submit(); }}>
-                                Opprett egenmelding
+                                Opprett koronamelding
                                 </Hovedknapp>
                             </div>
 

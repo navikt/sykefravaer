@@ -633,15 +633,17 @@ class KoronaSchema extends Component {
                                 </div>
                             )}
 
+
                             <FormSeparator
                                 helptext="Du kan velge en eller flere arbeidssituasjoner."
                                 title="Din arbeidssituasjon"
                             />
-
-                            <Radio
-                                checked
-                                name="selvstendig"
-                                label="Jobb som selvstendig næringsdrivende" />
+                            <div style={{ marginBottom: '3rem' }}>
+                                <Radio
+                                    checked
+                                    name="selvstendig"
+                                    label="Jobb som selvstendig næringsdrivende" />
+                            </div>
 
                             <FormSeparator
                                 title="Bekreft og opprett"

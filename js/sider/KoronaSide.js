@@ -43,12 +43,12 @@ class KoronaContainer extends Component {
             });
     }
 
-    opprettSykmelding(sykmelding) {
+    opprettSykmelding(periode) {
         this.setState({ isLoading: true });
         const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
         fetch(URL, {
             method: 'POST',
-            body: JSON.stringify(sykmelding),
+            body: JSON.stringify({ periode, arbeidsforhold: [] }),
         })
             .then((res) => {
                 this.setState({ isLoading: false, isSent: true });

@@ -169,15 +169,13 @@ class KoronaSchema extends Component {
             periode,
         } = this.state;
 
-        const sykmelding = {
-            periode: {
-                fom: periode.correctedFom || periode.fom,
-                tom: periode.tom,
-            },
+        const submitPeriod = {
+            fom: (periode.correctedFom || periode.fom).toISOString().split('T')[0],
+            tom: periode.tom.toISOString().split('T')[0],
         };
 
         const { opprettSykmelding } = this.props;
-        opprettSykmelding(sykmelding);
+        opprettSykmelding(submitPeriod);
     }
 
     canUseEgenmelding() {

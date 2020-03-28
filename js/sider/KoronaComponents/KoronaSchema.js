@@ -23,10 +23,10 @@ const correctDateOffset = (date) => {
     return date;
 };
 
-const datePlus14Days = (date) => {
+const datePlus16Days = (date) => {
     const endDate = new Date();
 
-    endDate.setDate(date.getDate() + 14);
+    endDate.setDate(date.getDate() + 16);
     return endDate;
 };
 
@@ -68,7 +68,7 @@ class KoronaSchema extends Component {
             periode: {
                 fom: new Date(),
                 correctedFom: undefined,
-                tom: datePlus14Days(new Date()),
+                tom: datePlus16Days(new Date()),
             },
             boxSize: {
                 formHeight: 0,
@@ -232,7 +232,7 @@ class KoronaSchema extends Component {
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <FormSeparator
-                                helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 14 dager."
+                                helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 16 dager."
                                 title="Dine opplysninger"
                             />
 
@@ -257,7 +257,7 @@ class KoronaSchema extends Component {
                                         {' '}
                             •
                                         {' '}
-                                        <span>14 dager</span>
+                                        <span>16 dager</span>
                                     </p>
                                 </div>
                                 <div style={{ marginLeft: '4rem' }}>
@@ -294,7 +294,7 @@ class KoronaSchema extends Component {
                                                     return { periode: {
                                                         ...state.periode,
                                                         correctedFom: correctDateOffset(date),
-                                                        tom: datePlus14Days(date),
+                                                        tom: datePlus16Days(date),
                                                     } };
                                                 });
                                             }} />

@@ -333,6 +333,9 @@ class KoronaSchema extends Component {
                                                     koronamistanke: true,
                                                     koronamistankeHjemmefra: undefined,
                                                     palagtKarantene: undefined,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -352,6 +355,9 @@ class KoronaSchema extends Component {
                                                     koronamistanke: false,
                                                     koronamistankeHjemmefra: undefined,
                                                     palagtKarantene: undefined,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -423,6 +429,7 @@ class KoronaSchema extends Component {
                                                     ...state.questions,
                                                     palagtKarantene: true,
                                                     palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
                                                 },
                                             };
                                         });
@@ -442,6 +449,7 @@ class KoronaSchema extends Component {
                                                     ...state.questions,
                                                     palagtKarantene: false,
                                                     palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
                                                 },
                                             };
                                         });
@@ -508,10 +516,12 @@ class KoronaSchema extends Component {
                                                 touched: {
                                                     ...state.touched,
                                                     husstandenSmittet: true,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                                 questions: {
                                                     ...state.questions,
                                                     husstandenSmittet: true,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });

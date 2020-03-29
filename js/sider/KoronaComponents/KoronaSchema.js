@@ -690,7 +690,6 @@ class KoronaSchema extends Component {
                     </article>
                 </div>
 
-
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
 TILBAKE

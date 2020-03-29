@@ -50,7 +50,7 @@ const SykmeldingStatuspanel = ({ sykmelding }) => {
         <Statuspanel>
             <Nokkelopplysninger sykmelding={sykmelding} />
             {
-                sykmelding.status === sykmeldingstatuser.AVBRUTT
+                sykmelding.status === sykmeldingstatuser.AVBRUTT && !sykmelding.erEgenmeldt
                 && <GjenaapneSykmeldingContainer sykmeldingId={sykmelding.id} />
             }
         </Statuspanel>

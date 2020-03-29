@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { RadioPanelGruppe } from 'nav-frontend-skjema';
+import { RadioPanelGruppe, SkjemaGruppe, Radio } from 'nav-frontend-skjema';
 import Panel from 'nav-frontend-paneler';
-import { Knapp } from 'nav-frontend-knapper';
+import { Knapp, Hovedknapp, Fareknapp } from 'nav-frontend-knapper';
+import Lenke from 'nav-frontend-lenker';
+import { Normaltekst } from 'nav-frontend-typografi';
 import * as sykmeldingActions from '../../data/din-sykmelding/dinSykmeldingActions';
 import { sykmelding as sykmeldingPt } from '../../../propTypes';
+import { Vis } from '../../../utils';
 
 class KoronaSkjemaComponent extends Component {
     constructor(props) {
@@ -21,6 +24,7 @@ class KoronaSkjemaComponent extends Component {
                 erOpplysningeneRiktige: undefined,
                 arbeidssituasjon: undefined,
             },
+            visAvbryt: false,
         };
     }
 
@@ -84,10 +88,13 @@ class KoronaSkjemaComponent extends Component {
         }
     }
 
+    handleCancel() {
+        this.props.avbrytSykmelding(this.props.sykmelding.id, {});
+    }
+
     render() {
         return (
             <div>
-                <p>{JSON.stringify(this.state)}</p>
                 <Panel>
                     <RadioPanelGruppe
                         name="erOpplysningeneRiktige"
@@ -132,13 +139,61 @@ class KoronaSkjemaComponent extends Component {
                         }
                     />
                 </Panel>
-                <Knapp
-                    onClick={() => {
-                        return this.handleSubmit();
+
+                <div
+                    style={{
+                        textAlign: 'center',
+                        paddingTop: '2rem',
+                        paddingBottom: '2rem',
                     }}
                 >
-          Bekreft
-                </Knapp>
+                    <Hovedknapp
+                        htmlType="submit"
+                        onClick={() => {
+                            this.handleSubmit();
+                        }}
+                        spinner={this.props.sender}
+                    >
+                        Bekreft koronameldingen
+                    </Hovedknapp>
+                    <div style={{ paddingTop: '1rem' }}>
+                        <Lenke
+                            onClick={(e) => {
+                                e.preventDefault();
+                                this.setState((prevState) => {
+                                    return { ...prevState, visAvbryt: !prevState.visAvbryt };
+                                });
+                            }}
+                        >
+                            Jeg ønsker ikke å bruke denne koronameldingen
+                        </Lenke>
+                    </div>
+                    <Vis hvis={this.state.visAvbryt}>
+                        <div className="pekeboble" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Normaltekst>Er du sikker på at du vil avbryte denne koronameldingen?</Normaltekst>
+                            <Fareknapp
+                                htmlType="button"
+                                onClick={() => {
+                                    this.handleCancel();
+                                }}
+                                spinner={this.props.avbryter}
+                                style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                            >
+                            Ja, jeg er sikkker
+                            </Fareknapp>
+                            <Lenke
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    this.setState((prevState) => {
+                                        return { ...prevState, visAvbryt: false };
+                                    });
+                                }}
+                            >
+                            Lukk
+                            </Lenke>
+                        </div>
+                    </Vis>
+                </div>
             </div>
         );
     }
@@ -147,6 +202,7 @@ class KoronaSkjemaComponent extends Component {
 KoronaSkjemaComponent.propTypes = {
     sykmelding: sykmeldingPt,
     bekreftSykmelding: PropTypes.func,
+    avbrytSykmelding: PropTypes.func,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,

@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import {
-    Tidslinje,
     TIDSLINJE_TYPER,
     setLedetekster,
 } from '@navikt/digisyfo-npm';
@@ -17,6 +16,7 @@ import {
 } from '../../js/sider/TidslinjeSide';
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
+import Tidslinje from '../../js/tidslinje/Tidslinje';
 
 chai.use(chaiEnzyme());
 const { expect } = chai;
@@ -64,6 +64,12 @@ describe('Container', () => {
                 data: [{
                     hendelser: hendelserData,
                 }],
+            },
+            unleashToggles: {
+                data: {},
+                henter: false,
+                hentingFeilet: false,
+                hentet: false,
             },
             sykeforloep: {
                 henter: false,

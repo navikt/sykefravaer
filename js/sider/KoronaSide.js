@@ -11,9 +11,9 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
-import { hentSendingURL } from './KoronaComponents/koronaUtils';
-import { post } from '../data/gateway-api/gatewayApi';
 import history from '../history';
+import { hentEgenmeldtSmApiUrl } from './KoronaComponents/koronaUtils';
+import { get, post } from '../data/gateway-api/gatewayApi';
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -29,10 +29,8 @@ class KoronaContainer extends Component {
 
     componentWillMount() {
         this.setState({ isLoading: true });
-        fetch(`${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/arbeidsgivere`)
-            .then((res) => {
-                return res.json();
-            })
+        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
+        get(URL)
             .then((arbeidsgivere) => {
                 this.setState({ arbeidsgivere, isLoading: false });
             })
@@ -46,13 +44,16 @@ class KoronaContainer extends Component {
 
     opprettSykmelding(periode) {
         this.setState({ isLoading: true });
-        const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
+        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
         post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
                 history.push('/sykefravaer/egensykmelding/kvittering');
             })
             .catch((error) => {
-                this.setState({ isLoading: false, error: 'Feil under innsending av egenmelding' });
+                this.setState({
+                    isLoading: false,
+                    error: 'Feil under innsending av egenmelding',
+                });
             });
     }
 

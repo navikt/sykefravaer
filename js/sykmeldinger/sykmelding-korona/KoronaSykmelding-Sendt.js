@@ -1,14 +1,15 @@
 import React from 'react';
 import { getLedetekst, Utvidbar, DineKoronaSykmeldingOpplysninger } from '@navikt/digisyfo-npm';
+import { Sidetittel, Undertittel } from 'nav-frontend-typografi';
 import SykmeldingStatuspanel from '../statuspanel/SykmeldingStatuspanel';
 import ArbeidsgiversSykmeldingContainer from '../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
-import Sidetopp from '../../components/Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const KoronaSykmeldingSendt = ({ dinSykmelding }) => {
     return (
         <div>
-            <Sidetopp tittel="Utvidet egenmelding" />
+            <Sidetittel style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
+            <Undertittel style={{ marginBottom: '2.5rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
             <SykmeldingStatuspanel sykmelding={dinSykmelding} />
             <Utvidbar
                 tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}

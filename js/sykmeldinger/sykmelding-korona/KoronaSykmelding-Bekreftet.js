@@ -2,8 +2,8 @@ import React from 'react';
 import {
     getLedetekst, DineKoronaSykmeldingOpplysninger, Utvidbar, arbeidssituasjoner,
 } from '@navikt/digisyfo-npm';
+import { Sidetittel, Undertittel } from 'nav-frontend-typografi';
 import ArbeidsgiversSykmeldingContainer from '../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
-import Sidetopp from '../../components/Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Vis } from '../../utils/index';
 import BekreftetSykmeldingStatuspanel from './BekreftetSykmeldingStatuspanel';
@@ -11,7 +11,8 @@ import BekreftetSykmeldingStatuspanel from './BekreftetSykmeldingStatuspanel';
 const KoronaSykmeldingBekreftet = ({ dinSykmelding }) => {
     return (
         <div>
-            <Sidetopp tittel="Utvidet egenmelding" />
+            <Sidetittel style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
+            <Undertittel style={{ marginBottom: '2.5rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
             <BekreftetSykmeldingStatuspanel sykmelding={dinSykmelding} />
             <Utvidbar
                 erApen

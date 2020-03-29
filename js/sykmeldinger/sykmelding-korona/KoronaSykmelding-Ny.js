@@ -1,11 +1,9 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
-    Bjorn,
     DineKoronaSykmeldingOpplysninger,
-    scrollTo,
-    tilLesbarDatoMedArstall,
 } from '@navikt/digisyfo-npm';
-import Sidetopp from '../../components/Sidetopp';
+import { Undertittel, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 import KoronaSkjema from './skjema/Koronaskjema';
@@ -17,37 +15,10 @@ class KoronaSykmeldingNy extends Component {
                 {({ sykmelding }) => {
                     return (
                         <NySykmeldingTrigger>
-                            <Sidetopp tittel="Koronamelding" />
-                            <h3
-                                style={{ textAlign: 'center', marginBottom: '2.5rem' }}
-                            >
-                                {`Opprettet ${tilLesbarDatoMedArstall(
-                                    sykmelding.bekreftelse.utstedelsesdato,
-                                )}`}
-
-                            </h3>
-                            <Bjorn className="blokk" hvit stor>
-                                <div>
-                                    <p>
-                    Hei, her sjekker du at opplysningene fra opprettingsskjemaet
-                    stemmer. Om alt stemmer kan du bekrefte og sende inn
-                    egenmeldingen.
-                                    </p>
-                                    <p className="introtekst__knapperad">
-                                        <button
-                                            type="button"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                scrollTo(this.skjema);
-                                                this.skjema.focus();
-                                            }}
-                                            className="knapp knapp--mini"
-                                        >
-                      Gå til utfyllingen
-                                        </button>
-                                    </p>
-                                </div>
-                            </Bjorn>
+                            <Sidetittel style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
+                            <Undertittel style={{ marginBottom: '2.5rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
+                            <Normaltekst style={{ marginBottom: '1rem' }}>Her sjekker du at opplysningene fra da du opprettet egenmeldingen stemmer. Om alt stemmer kan du bekrefte og sende inn egenmeldingen.</Normaltekst>
+                            <Normaltekst style={{ marginBottom: '2rem' }}>Vennligst se nøye over og påse at opplysningene du har oppgitt er riktige.</Normaltekst>
                             <article>
                                 <header className="panelHeader panelHeader--lysebla">
                                     <img

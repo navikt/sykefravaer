@@ -29,6 +29,7 @@ import {
 } from './varianter/SokOmSykepengerSenereArbeidsledig';
 import SendtAvventendeSykmelding from './varianter/AvventendeSykmeldingKvittering';
 import EgenmeldtKvittering from './varianter/EgenmeldtKvittering';
+import EgenmeldingAvbruttKvittering from './varianter/EgenmeldingAvbruttKvittering';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG: 'KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG',
@@ -52,6 +53,7 @@ export const kvitteringtyper = {
     BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: 'BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG',
     SENDT_AVVENTENDE_SYKMELDING: 'SENDT_AVVENTENDE_SYKMELDING',
     EGENMELDT_KVITTERING: 'EGENMELDT_KVITTERING',
+    EGENMELDING_AVBRUTT_KVITTERING: 'EGENMELDING_AVBRUTT_KVITTERING',
 };
 
 const AvbruttKvittering = () => {
@@ -112,6 +114,7 @@ const SykmeldingKvittering = (props) => {
         [kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG]: AnnetArbeidsledigKvittering,
         [kvitteringtyper.SENDT_AVVENTENDE_SYKMELDING]: SendtAvventendeSykmelding,
         [kvitteringtyper.EGENMELDT_KVITTERING]: EgenmeldtKvittering,
+        [kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING]: EgenmeldingAvbruttKvittering,
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];
@@ -121,6 +124,8 @@ const SykmeldingKvittering = (props) => {
         tittel = 'Du har sendt beskjed til arbeidsgiveren din';
     } else if (Component === EgenmeldtKvittering) {
         tittel = 'Egenmeldingen er sendt';
+    } else if (Component === EgenmeldingAvbruttKvittering) {
+        tittel = 'Egenmeldingen er avbrutt';
     }
 
     return (
@@ -128,7 +133,7 @@ const SykmeldingKvittering = (props) => {
             <Sidetopp tittel={tittel} />
             {
                 Component
-                    ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />
+                    ? <EgenmeldingAvbruttKvittering sykepengesoknader={sykepengesoknader} soknader={soknader} />
                     : <Feilmelding />
             }
             <LenkeTilDineSykmeldinger />

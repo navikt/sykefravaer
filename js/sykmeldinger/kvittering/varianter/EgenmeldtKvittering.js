@@ -13,7 +13,7 @@ const EgenmeldtKvittering = () => {
                     <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Da har du bekreftet og sendt egenmeldingen til NAV</Undertittel>
                 </div>
                 <div style={{ display: 'flex' }}>
-                    <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/blue-info.svg`} alt="checkmark" style={{ marginRight: '2rem', width: '2.5rem', alignSelf: 'flex-start' }} />
+                    <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/blue-info.svg`} alt="informasjon" style={{ marginRight: '2rem', width: '2.5rem', alignSelf: 'flex-start' }} />
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Hva skjer nå?</Undertittel>
                         <Normaltekst style={{ marginBottom: '1rem', marginTop: '1rem' }}>
@@ -38,7 +38,7 @@ const EgenmeldtKvittering = () => {
             </Panel>
             <div style={{ marginBottom: '3rem' }}>
                 <Bjorn hvit>
-                    <Normaltekst>Folkehelseinsituttet ber alle som har symptomer på koronavirus om å melde fra. Da hjelper du til med å kartlegge situasjonen.</Normaltekst>
+                    <Normaltekst style={{ marginBottom: '0.5rem' }}>Folkehelseinsituttet ber alle som har symptomer på koronavirus om å melde fra. Da hjelper du til med å kartlegge situasjonen.</Normaltekst>
                     <Lenke href="https://helsehorge.no/koronavirus/koronasmitte">Meld fra til Folkehelseinsituttet her.</Lenke>
                 </Bjorn>
             </div>

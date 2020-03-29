@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel, Innholdstittel, Ingress } from 'nav-frontend-typografi';
+import { Sidetittel, Systemtittel, Undertittel, Ingress } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
@@ -13,7 +13,6 @@ import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
-import FormVeileder from './FormComponents/FormVeileder';
 import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
 import CannotUseMelding from './FormComponents/CannotUseMelding';
@@ -239,8 +238,6 @@ class KoronaSchema extends Component {
                 </Ingress>
                 <br />
 
-                <FormVeileder formContainerRef={this.formContainerRef} />
-
                 <div>
                     <div style={{
                         backgroundColor: 'white',
@@ -249,7 +246,7 @@ class KoronaSchema extends Component {
                         zIndex: '-1',
                         marginLeft: boxSize.offsetLeft * -1,
                         position: 'absolute' }} />
-                    <article style={{ marginTop: '6rem' }} ref={this.formContainerRef}>
+                    <article style={{ marginTop: '2rem' }} ref={this.formContainerRef}>
                         <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',

@@ -18,8 +18,10 @@ import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
 import CannotUseMelding from './FormComponents/CannotUseMelding';
 import Bekreft from './FormComponents/Bekreft';
+import history from '../../history';
 
 import { checkmarkSvg } from './svg/checkmarkSvg';
+import AvbrytRegistrering from './FormComponents/AvbrytRegistrering';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -70,6 +72,7 @@ class KoronaSchema extends Component {
                 husstandenSmittetHjemmefra: undefined,
             },
             bekreftet: undefined,
+            showAvbryt: false,
             tidligereSyk: false,
             periode: {
                 fom: new Date(),
@@ -102,6 +105,11 @@ class KoronaSchema extends Component {
     componentDidUpdate(_, nextState) {
         // eslint-disable-next-line react/destructuring-assignment
         if (this.state.tidligereSyk !== nextState.tidligereSyk) {
+            this.redrawBox();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.showAvbryt !== nextState.showAvbryt) {
             this.redrawBox();
         }
 
@@ -213,6 +221,7 @@ class KoronaSchema extends Component {
         const {
             questions,
             bekreftet,
+            showAvbryt,
             tidligereSyk,
             periode,
             boxSize,
@@ -665,12 +674,22 @@ class KoronaSchema extends Component {
                             </div>
 
                             <Knapp
-                                onClick={() => { console.log('cancel'); }}>
+                                onClick={() => { this.setState({ showAvbryt: true }); }}>
                                 Avbryt
                             </Knapp>
+
+                            {showAvbryt
+                                && (
+                                    <AvbrytRegistrering
+                                        onAvbryt={() => { history.push('/sykefravaer'); }}
+                                        onAngre={() => { this.setState({ showAvbryt: false }); }}
+                                    />
+                                )
+                            }
                         </div>
                     </article>
                 </div>
+
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">

@@ -12,7 +12,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import history from '../history';
-import { hentEgenmeldtSmApiUrl } from './KoronaComponents/koronaUtils';
+import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
 import { get, post } from '../data/gateway-api/gatewayApi';
 
 class KoronaContainer extends Component {
@@ -44,9 +44,11 @@ class KoronaContainer extends Component {
 
     opprettSykmelding(periode) {
         this.setState({ isLoading: true });
+        const INVALIDATE_URL = `${hentEgenmeldtSmCacheInvalidateApiUrl()}/sykmeldinger/invaliderSesjon`;
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
         post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
+                post(INVALIDATE_URL);
                 history.push('/sykefravaer/egensykmelding/kvittering');
             })
             .catch((error) => {

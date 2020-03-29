@@ -12,6 +12,16 @@ function mockRegistrerEgenSykmelding(server) {
         },
     );
 
+    server.post(
+        '/egenmeldt-sykmelding-backend/sykmeldinger/invaliderSesjon',
+        (req, res) => {
+            res.status(200);
+            setTimeout(() => {
+                res.send('');
+            }, 2000);
+        },
+    );
+
     server.get(
         '/egenmeldt-sykmelding-backend/api/v1/arbeidsforhold',
         (req, res) => {

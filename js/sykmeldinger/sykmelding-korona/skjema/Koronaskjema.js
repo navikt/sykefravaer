@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -37,8 +38,9 @@ class KoronaSkjemaComponent extends Component {
                 },
                 errors: {
                     ...prevState.errors,
-                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis du velger "nei" kan du ikke bruke sykmeldingen' : undefined,
+                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis opplysningene ikke stemmer må du avbryte denne egenmeldingen nederst på siden og opprette en ny.' : undefined,
                 },
+                visAvbryt: event.target.value === 'nei',
             };
         });
     }
@@ -154,7 +156,7 @@ class KoronaSkjemaComponent extends Component {
                         spinner={this.props.sender}
                         disabled={this.state.sporsmal.erOpplysningeneRiktige === 'nei'}
                     >
-                        Bekreft koronameldingen
+                        Bekreft egenmeldingen
                     </Hovedknapp>
                     <div style={{ paddingTop: '1rem' }}>
                         <Lenke

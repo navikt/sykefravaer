@@ -37,7 +37,7 @@ const SykmeldingTeaser = ({ sykmelding }) => {
                                 senesteTom(sykmelding.mulighetForArbeid.perioder),
                             )
                         }
-                        tittel={sykmelding.erEgenmeldt ? 'Utvidet egenmelding' : getLedetekst('sykmelding.teaser.tittel')}
+                        tittel={sykmelding.erEgenmeldt ? 'Egenmelding' : getLedetekst('sykmelding.teaser.tittel')}
                         status={visStatus ? getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`) : null} />
                     <InngangspanelTekst>
                         {

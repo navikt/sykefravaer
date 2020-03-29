@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Sidetittel, Systemtittel, Undertittel, Ingress, Element } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
@@ -13,10 +14,14 @@ import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
-import FormVeileder from './FormComponents/FormVeileder';
 import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
 import CannotUseMelding from './FormComponents/CannotUseMelding';
+import Bekreft from './FormComponents/Bekreft';
+import history from '../../history';
+
+import { checkmarkSvg } from './svg/checkmarkSvg';
+import AvbrytRegistrering from './FormComponents/AvbrytRegistrering';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -67,6 +72,7 @@ class KoronaSchema extends Component {
                 husstandenSmittetHjemmefra: undefined,
             },
             bekreftet: undefined,
+            showAvbryt: false,
             tidligereSyk: false,
             periode: {
                 fom: new Date(),
@@ -99,6 +105,11 @@ class KoronaSchema extends Component {
     componentDidUpdate(_, nextState) {
         // eslint-disable-next-line react/destructuring-assignment
         if (this.state.tidligereSyk !== nextState.tidligereSyk) {
+            this.redrawBox();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.state.showAvbryt !== nextState.showAvbryt) {
             this.redrawBox();
         }
 
@@ -210,6 +221,7 @@ class KoronaSchema extends Component {
         const {
             questions,
             bekreftet,
+            showAvbryt,
             tidligereSyk,
             periode,
             boxSize,
@@ -227,17 +239,17 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>16-dagers koronamelding</Sidetittel>
-                <Undertittel>
-                    NAV har laget en 16-dagers sykmeldingstjeneste for selvstendig næringsdrivende og frilansere. Dette gjelder kun for sykefravær som skyldes covid-19 pandemien.
-                </Undertittel>
-                <br />
-                <Undertittel>
-                    Du kan selv opprette og sende inn koronameldingen i skjemaet under, uten å kontakte fastlegen eller legevakten.
-                </Undertittel>
-                <br />
+                <Sidetittel tag="h1" style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
+                <Undertittel style={{ marginBottom: '2rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
 
-                <FormVeileder formContainerRef={this.formContainerRef} />
+                <Ingress>
+                    Du kan bruke egenmelding i inntil 16 dager hvis du er smittet av koronaviruset, er mistenkt smittet, eller i pålagt karantene.
+                </Ingress>
+                <br />
+                <Ingress>
+                    Vanligvis er det en behandler som sykmelder deg og sender den inn til oss. I dette tilfellet blir du nødt til å opprette egenmeldingen før du kan sende den inn.
+                </Ingress>
+                <br />
 
                 <div>
                     <div style={{
@@ -247,17 +259,18 @@ class KoronaSchema extends Component {
                         zIndex: '-1',
                         marginLeft: boxSize.offsetLeft * -1,
                         position: 'absolute' }} />
-                    <article style={{ marginTop: '6rem' }} ref={this.formContainerRef}>
+                    <article style={{ marginTop: '2rem' }} ref={this.formContainerRef}>
                         <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
-                                Opprett koronamelding
+                                Opprett egenmelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <FormSeparator
-                                helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 16 dager."
+                                helptext="Vi oppretter en periode på 16 dager når du har valgt startdato.
+                                Senere, når du skal fylle ut sykepengesøknaden vi sender deg, oppgir du hvor mange dager du brukte."
                                 title="Dine opplysninger"
                             />
 
@@ -296,7 +309,7 @@ class KoronaSchema extends Component {
                             <div style={{ marginBottom: '3rem' }}>
                                 <Checkbox
                                     checked={tidligereSyk}
-                                    label="Jeg ble syk eller måtte i karantene på et tidligere tidspunkt"
+                                    label="Jeg ble syk på et tidligere tidspunkt"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
@@ -380,7 +393,7 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Jobber du hjemmefra?"
+                                title="Jobber du hjemmefra på fulltid?"
                                 show={questions.koronamistanke === true}
                                 errorKey="koronamistankeHjemmefra"
                                 errors={errors}
@@ -472,7 +485,7 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Jobber du hjemmefra?"
+                                title="Jobber du hjemmefra på fulltid?"
                                 show={questions.palagtKarantene === true}
                                 errorKey="palagtKaranteneHjemmefra"
                                 errors={errors}
@@ -562,7 +575,7 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Jobber du hjemmefra?"
+                                title="Jobber du hjemmefra på fulltid?"
                                 show={questions.husstandenSmittet === true}
                                 errorKey="husstandenSmittetHjemmefra"
                                 errors={errors}
@@ -630,56 +643,56 @@ class KoronaSchema extends Component {
                                 <div style={{ marginBottom: '2rem' }}>
                                     <CannotUseMelding text="Du kan ikke bruke egenmelding" />
                                     <br />
-                                    <Lenke href="#">Les mer om hvem som kan bruke den her TODO: href</Lenke>
+
+                                    <Lenke href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
+                                        Les mer om hvem som kan bruke tjenesten her.
+                                    </Lenke>
                                 </div>
                             )}
 
-
-                            <FormSeparator
-                                helptext="Du kan velge en eller flere arbeidssituasjoner."
-                                title="Din arbeidssituasjon"
-                            />
-                            <div style={{ marginBottom: '3rem' }}>
-                                <Radio
-                                    checked
-                                    name="selvstendig"
-                                    label="Jobb som selvstendig næringsdrivende" />
+                            <Element>Din arbeidssituasjon</Element>
+                            <div style={{ display: 'flex', marginTop: '1rem', marginBottom: '3rem', marginLeft: '2rem' }}>
+                                <img width={28} src={checkmarkSvg} alt="Hake" />
+                                <div style={{ lineHeight: '30px', marginLeft: '1rem' }}>Jobb som selvstendig næringsdrivende eller frilanser</div>
                             </div>
 
                             <FormSeparator
                                 title="Bekreft og opprett"
                             />
 
-                            <div style={{ marginBottom: '3rem' }}>
-                                <h3 className="skjema__sporsmal">Er opplysningene du har oppgitt riktige?</h3>
-                                <Radio
-                                    checked={bekreftet}
-                                    label="Ja"
-                                    onChange={() => { this.setState({ bekreftet: true }); }}
-                                    name="ja" />
-                                <Radio
-                                    checked={bekreftet === false}
-                                    label="Nei"
-                                    onChange={() => { this.setState({ bekreftet: false }); }}
-                                    name="nei" />
-                            </div>
+                            <Bekreft
+                                onChange={() => { this.setState((state) => { return { bekreftet: !state.bekreftet }; }); }}
+                                value={!!bekreftet}
+                            />
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
                                     disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
                                     onClick={() => { return this.submit(); }}>
-                                Opprett koronamelding
+                                Opprett egenmeldingen
                                 </Hovedknapp>
                             </div>
 
-                            <a href="/sykefravaer/" className="knapp">Avbryt</a>
+                            <Knapp
+                                onClick={() => { this.setState({ showAvbryt: true }); }}>
+                                Avbryt
+                            </Knapp>
+
+                            {showAvbryt
+                                && (
+                                    <AvbrytRegistrering
+                                        onAvbryt={() => { history.push('/sykefravaer'); }}
+                                        onAngre={() => { this.setState({ showAvbryt: false }); }}
+                                    />
+                                )
+                            }
                         </div>
                     </article>
                 </div>
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-TIL DITT SYKEFRAVÆR
+TILBAKE
                     </a>
                 </p>
             </div>

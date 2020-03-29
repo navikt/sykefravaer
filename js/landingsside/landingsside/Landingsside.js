@@ -16,7 +16,7 @@ import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
 import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
-import KoronaLink from '../../sider/KoronaComponents/KoronaLink';
+import ForlengetEgenmeldingLink from '../../sider/KoronaComponents/ForlengetEgenmeldingLink';
 import InfoboksAktivitetskrav from '../../aktivitetskrav/komponenter/InfoboksAktivitetskrav';
 
 const IngenSykmeldinger = () => {
@@ -39,7 +39,7 @@ const Landingsside = ({
             <div className="begrensning blokk">
                 <ServerfeilContainer />
 
-                <KoronaLink />
+                <ForlengetEgenmeldingLink />
 
                 <AvvistSykmeldingKvittering />
                 {

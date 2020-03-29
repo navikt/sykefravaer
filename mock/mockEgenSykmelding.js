@@ -3,7 +3,17 @@ const enums = require('./mockDataEnums');
 
 function mockRegistrerEgenSykmelding(server) {
     server.post(
-        '/egenmeldt-sykmelding-backend/sykmelding/egenmeldt',
+        '/egenmeldt-sykmelding-backend/api/v1/sykmelding/egenmeldt',
+        (req, res) => {
+            res.status(200);
+            setTimeout(() => {
+                res.send('');
+            }, 2000);
+        },
+    );
+
+    server.post(
+        '/egenmeldt-sykmelding-backend/sykmeldinger/invaliderSesjon',
         (req, res) => {
             res.status(200);
             setTimeout(() => {

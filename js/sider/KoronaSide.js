@@ -66,7 +66,7 @@ class KoronaContainer extends Component {
         if (this.state.error) {
             return (
                 <Side
-                    tittel="16-dagers koronamelding"
+                    tittel="Opprett egenmelding"
                     brodsmuler={brodsmuler}
                     laster={henterLedetekster || this.state.isLoading}
                 >
@@ -77,7 +77,7 @@ class KoronaContainer extends Component {
 
         return (
             <Side
-                tittel="16-dagers koronamelding"
+                tittel="Opprett egenmelding"
                 brodsmuler={brodsmuler}
                 laster={henterLedetekster || this.state.isLoading}
             >
@@ -100,7 +100,7 @@ const mapStateToProps = (state, ownProps) => {
                 erKlikkbar: true,
             },
             {
-                tittel: '16-dagers koronamelding',
+                tittel: 'Opprett egenmelding',
             },
         ],
     };

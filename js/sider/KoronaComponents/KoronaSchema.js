@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Sidetittel, Systemtittel, Undertittel, Innholdstittel, Ingress } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
@@ -227,14 +227,16 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>16-dagers koronamelding</Sidetittel>
-                <Undertittel>
-                    NAV har laget en 16-dagers sykmeldingstjeneste for selvstendig næringsdrivende og frilansere. Dette gjelder kun for sykefravær som skyldes covid-19 pandemien.
-                </Undertittel>
+                <Sidetittel tag="h1" style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
+                <Undertittel style={{ marginBottom: '2rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
+
+                <Ingress>
+                    Du kan bruke egenmelding i inntil 16 dager hvis du er smittet av koronaviruset, er mistenkt smittet, eller i pålagt karantene.
+                </Ingress>
                 <br />
-                <Undertittel>
-                    Du kan selv opprette og sende inn koronameldingen i skjemaet under, uten å kontakte fastlegen eller legevakten.
-                </Undertittel>
+                <Ingress>
+                    Vanligvis er det en behandler som sykmelder deg og sender den inn til oss. I dette tilfellet blir du nødt til å opprette egenmeldingen før du kan sende den inn.
+                </Ingress>
                 <br />
 
                 <FormVeileder formContainerRef={this.formContainerRef} />
@@ -252,12 +254,13 @@ class KoronaSchema extends Component {
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
-                                Opprett koronamelding
+                                Opprett egenmelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <FormSeparator
-                                helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 16 dager."
+                                helptext="Vi oppretter en periode på 16 dager når du har valgt startdato.
+                                Senere, når du skal fylle ut sykepengesøknaden vi sender deg, oppgir du hvor mange dager du brukte."
                                 title="Dine opplysninger"
                             />
 
@@ -296,7 +299,7 @@ class KoronaSchema extends Component {
                             <div style={{ marginBottom: '3rem' }}>
                                 <Checkbox
                                     checked={tidligereSyk}
-                                    label="Jeg ble syk eller måtte i karantene på et tidligere tidspunkt"
+                                    label="Jeg ble syk på et tidligere tidspunkt"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
@@ -380,7 +383,7 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Jobber du hjemmefra?"
+                                title="Jobber du hjemmefra på fulltid?"
                                 show={questions.koronamistanke === true}
                                 errorKey="koronamistankeHjemmefra"
                                 errors={errors}
@@ -472,7 +475,7 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Jobber du hjemmefra?"
+                                title="Jobber du hjemmefra på fulltid?"
                                 show={questions.palagtKarantene === true}
                                 errorKey="palagtKaranteneHjemmefra"
                                 errors={errors}
@@ -562,7 +565,7 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Jobber du hjemmefra?"
+                                title="Jobber du hjemmefra på fulltid?"
                                 show={questions.husstandenSmittet === true}
                                 errorKey="husstandenSmittetHjemmefra"
                                 errors={errors}
@@ -668,18 +671,21 @@ class KoronaSchema extends Component {
                                 <Hovedknapp
                                     disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
                                     onClick={() => { return this.submit(); }}>
-                                Opprett koronamelding
+                                Opprett egenmeldingen
                                 </Hovedknapp>
                             </div>
 
-                            <a href="/sykefravaer/" className="knapp">Avbryt</a>
+                            <Knapp
+                                onClick={() => { console.log('cancel'); }}>
+                                Avbryt
+                            </Knapp>
                         </div>
                     </article>
                 </div>
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-TIL DITT SYKEFRAVÆR
+TILBAKE
                     </a>
                 </p>
             </div>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel, Ingress } from 'nav-frontend-typografi';
+import { Sidetittel, Systemtittel, Undertittel, Ingress, Element } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
@@ -17,6 +17,8 @@ import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
 import CannotUseMelding from './FormComponents/CannotUseMelding';
+
+import { checkmarkSvg } from './svg/checkmarkSvg';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -638,16 +640,10 @@ class KoronaSchema extends Component {
                                 </div>
                             )}
 
-
-                            <FormSeparator
-                                helptext="Du kan velge en eller flere arbeidssituasjoner."
-                                title="Din arbeidssituasjon"
-                            />
-                            <div style={{ marginBottom: '3rem' }}>
-                                <Radio
-                                    checked
-                                    name="selvstendig"
-                                    label="Jobb som selvstendig næringsdrivende" />
+                            <Element>Din arbeidssituasjon</Element>
+                            <div style={{ display: 'flex', marginTop: '1rem', marginBottom: '3rem', marginLeft: '2rem' }}>
+                                <img width={28} src={checkmarkSvg} alt="Hake" />
+                                <div style={{ lineHeight: '30px', marginLeft: '1rem' }}>Jobb som selvstendig næringsdrivende</div>
                             </div>
 
                             <FormSeparator

@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst, post as syforestPost } from '@navikt/digisyfo-npm';
 
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
@@ -14,6 +14,7 @@ import KoronaSchema from './KoronaComponents/KoronaSchema';
 import history from '../history';
 import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
 import { get, post } from '../data/gateway-api/gatewayApi';
+
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -48,7 +49,7 @@ class KoronaContainer extends Component {
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
         post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
-                post(INVALIDATE_URL);
+                syforestPost(INVALIDATE_URL);
                 history.push('/sykefravaer/egensykmelding/kvittering');
             })
             .catch((error) => {

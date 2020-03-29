@@ -17,6 +17,7 @@ import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
 import CannotUseMelding from './FormComponents/CannotUseMelding';
+import Bekreft from './FormComponents/Bekreft';
 
 import { checkmarkSvg } from './svg/checkmarkSvg';
 
@@ -650,19 +651,10 @@ class KoronaSchema extends Component {
                                 title="Bekreft og opprett"
                             />
 
-                            <div style={{ marginBottom: '3rem' }}>
-                                <h3 className="skjema__sporsmal">Er opplysningene du har oppgitt riktige?</h3>
-                                <Radio
-                                    checked={bekreftet}
-                                    label="Ja"
-                                    onChange={() => { this.setState({ bekreftet: true }); }}
-                                    name="ja" />
-                                <Radio
-                                    checked={bekreftet === false}
-                                    label="Nei"
-                                    onChange={() => { this.setState({ bekreftet: false }); }}
-                                    name="nei" />
-                            </div>
+                            <Bekreft
+                                onChange={() => { this.setState((state) => { return { bekreftet: !state.bekreftet }; }); }}
+                                value={!!bekreftet}
+                            />
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp

@@ -72,7 +72,7 @@ class KoronaSchema extends Component {
                 husstandenSmittet: undefined,
                 husstandenSmittetHjemmefra: undefined,
             },
-            bekreftet: undefined,
+            bekreftet: false,
             showAvbryt: false,
             tidligereSyk: false,
             periode: {
@@ -152,6 +152,36 @@ class KoronaSchema extends Component {
         if (submitting || touched.koronamistanke) {
             if (questions.koronamistanke === undefined) {
                 updatedErrors.koronamistanke = 'Du må bekrefte om du mistenker at du er smittet av korona';
+            }
+        }
+
+        if (submitting || touched.koronamistankeHjemmefra) {
+            if (questions.koronamistanke === true && questions.koronamistankeHjemmefra === undefined) {
+                updatedErrors.koronamistankeHjemmefra = 'Du må bekrefte om du jobber hjemmefra';
+            }
+        }
+
+        if (submitting || touched.palagtKarantene) {
+            if (questions.koronamistanke === false && questions.palagtKarantene === undefined) {
+                updatedErrors.palagtKarantene = 'Du må bekrefte om du er i pålagt karantene';
+            }
+        }
+
+        if (submitting || touched.palagtKaranteneHjemmefra) {
+            if (questions.palagtKarantene === true && questions.palagtKaranteneHjemmefra === undefined) {
+                updatedErrors.palagtKaranteneHjemmefra = 'Du må bekrefte om du jobber hjemmefra';
+            }
+        }
+
+        if (submitting || touched.husstandenSmittet) {
+            if (questions.palagtKarantene === false && questions.husstandenSmittet === undefined) {
+                updatedErrors.husstandenSmittet = 'Du må bekrefte om noen i husstanden er smittet';
+            }
+        }
+
+        if (submitting || touched.husstandenSmittetHjemmefra) {
+            if (questions.husstandenSmittet === true && questions.husstandenSmittetHjemmefra === undefined) {
+                updatedErrors.husstandenSmittetHjemmefra = 'Du må bekrefte om noen i husstanden er smittet';
             }
         }
 
@@ -357,6 +387,11 @@ class KoronaSchema extends Component {
                                                 touched: {
                                                     ...state.touched,
                                                     koronamistanke: true,
+                                                    koronamistankeHjemmefra: undefined,
+                                                    palagtKarantene: undefined,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                                 questions: {
                                                     koronamistanke: true,

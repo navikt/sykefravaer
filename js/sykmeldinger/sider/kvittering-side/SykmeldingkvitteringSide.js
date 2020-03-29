@@ -16,7 +16,7 @@ import Sykmeldingkvittering, { kvitteringtyper } from '../../kvittering/Sykmeldi
 import AppSpinner from '../../../components/AppSpinner';
 import Feilmelding from '../../../components/Feilmelding';
 import { soknadPt, sykmelding as sykmeldingPt } from '../../../propTypes';
-import { ARBEIDSLEDIG, ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
+import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
 import { harStrengtFortroligAdresseSelector } from '../../../data/brukerinfo/brukerinfoSelectors';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentSykepengesoknader } from '../../../data/sykepengesoknader/sykepengesoknader_actions';
@@ -185,7 +185,7 @@ const finnKvitteringstypeForBehandlingsdager = (sykmelding, soknader, arbeidsgiv
                 : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING;
         }
     }
-    if (arbeidssituasjon === arbeidssituasjoner.ARBEIDSLEDIG) {
+    if (arbeidssituasjon === arbeidssituasjoner.ARBEIDSLEDIG || arbeidssituasjon === arbeidssituasjoner.ANNET) {
         if (harAktiveSoknader) {
             return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG;
         }
@@ -217,8 +217,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
 
 
     const soknaderRelatertTilSykmeldingen = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id);
-    const arbeidsledigsoknader = soknaderRelatertTilSykmeldingen.filter(s => s.soknadstype === ARBEIDSLEDIG);
-    const nyeSoknaderArbeidsledig = arbeidsledigsoknader.filter(s => s.status === NY);
+    const nyeSoknader = soknaderRelatertTilSykmeldingen.filter(s => s.status === NY);
 
     if (erBehandlingsdager(sykmelding) && soknaderRelatertTilSykmeldingen.length > 0) {
         const kvittering = finnKvitteringstypeForBehandlingsdager(sykmelding, soknaderRelatertTilSykmeldingen, state.arbeidsgivere);
@@ -227,16 +226,18 @@ const getKvitteringtype = (state, sykmeldingId) => {
         }
     }
 
-    if (nyeSoknaderArbeidsledig.length > 0) {
-        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG;
-    }
+    if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ANNET || getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSLEDIG) {
+        if (nyeSoknader.length > 0) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG;
+        }
 
-    if (arbeidsledigsoknader.length === 1) {
-        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING;
-    }
+        if (soknaderRelatertTilSykmeldingen.length === 1) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_KORT_SYKMELDING;
+        }
 
-    if (arbeidsledigsoknader.length > 1) {
-        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING;
+        if (soknaderRelatertTilSykmeldingen.length > 1) {
+            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSLEDIG_LANG_SYKMELDING;
+        }
     }
 
     const arbeidstakersoknader = state.soknader.data.filter(s => s.soknadstype === ARBEIDSTAKERE);

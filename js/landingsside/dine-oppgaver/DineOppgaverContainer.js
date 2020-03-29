@@ -37,6 +37,7 @@ import {
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
+import { skalViseAktivitetskravInformasjon } from '../../data/unleash-toggles/unleashTogglesSelectors';
 
 const Li = ({ tekst, url, img, imgAlt }) => {
     return (
@@ -326,17 +327,12 @@ export const mapStateToProps = (state) => {
         }
     }
     const harNyttMotebehov = erMotebehovUbesvart(state);
-    const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(
-        state.oppfolgingsdialoger.data,
-        state.dineSykmeldinger.data,
-    );
-    const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data)
-    === NYTT_AKTIVITETSKRAVVARSEL;
-    const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state).filter(
-        (smSykmelding) => {
+    const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
+    const visAktivitetskrav = skalViseAktivitetskravInformasjon(state) && getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
+    const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state)
+        .filter((smSykmelding) => {
             return smSykmelding.bekreftetDato === null;
-        },
-    );
+        });
     const visOppgaver = sykmeldinger.length > 0
     || sykepengesoknader.length > 0
     || soknader.length > 0

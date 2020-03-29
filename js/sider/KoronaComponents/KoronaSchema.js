@@ -181,7 +181,7 @@ class KoronaSchema extends Component {
 
         if (submitting || touched.husstandenSmittetHjemmefra) {
             if (questions.husstandenSmittet === true && questions.husstandenSmittetHjemmefra === undefined) {
-                updatedErrors.husstandenSmittetHjemmefra = 'Du må bekrefte om noen i husstanden er smittet';
+                updatedErrors.husstandenSmittetHjemmefra = 'Du må bekrefte om du jobber hjemmefra';
             }
         }
 

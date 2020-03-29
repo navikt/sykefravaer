@@ -65,7 +65,7 @@ class KoronaSchema extends Component {
         super(props);
         this.state = {
             questions: {
-                koronamistanke: true,
+                koronamistanke: undefined,
                 koronamistankeHjemmefra: undefined,
                 palagtKarantene: undefined,
                 palagtKaranteneHjemmefra: undefined,

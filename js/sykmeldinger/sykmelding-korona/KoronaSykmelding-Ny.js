@@ -17,7 +17,7 @@ class KoronaSykmeldingNy extends Component {
                 {({ sykmelding }) => {
                     return (
                         <NySykmeldingTrigger>
-                            <Sidetopp tittel="Utvidet egenmelding" />
+                            <Sidetopp tittel="Koronamelding" />
                             <h3
                                 style={{ textAlign: 'center', marginBottom: '2.5rem' }}
                             >

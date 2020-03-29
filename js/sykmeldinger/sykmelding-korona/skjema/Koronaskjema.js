@@ -37,7 +37,7 @@ class KoronaSkjemaComponent extends Component {
                 },
                 errors: {
                     ...prevState.errors,
-                    erOpplysningeneRiktige: undefined,
+                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis du velger "nei" kan du ikke bruke sykmeldingen' : undefined,
                 },
             };
         });
@@ -68,10 +68,10 @@ class KoronaSkjemaComponent extends Component {
                     errors: {
                         ...prevState.errors,
                         erOpplysningeneRiktige: !prevState.sporsmal.erOpplysningeneRiktige
-                            ? true
+                            ? 'Du må svare på om opplysningene er riktige'
                             : undefined,
                         arbeidssituasjon: !prevState.sporsmal.arbeidssituasjon
-                            ? true
+                            ? 'Du må svare på hva du er sykmeldt fra'
                             : undefined,
                     },
                 };
@@ -110,7 +110,7 @@ class KoronaSkjemaComponent extends Component {
                         }}
                         feil={
                             this.state.errors.erOpplysningeneRiktige
-                                ? { feilmelding: 'Du må svare på om opplysningene er riktige' }
+                                ? { feilmelding: this.state.errors.erOpplysningeneRiktige }
                                 : null
                         }
                     />
@@ -134,7 +134,7 @@ class KoronaSkjemaComponent extends Component {
                         }}
                         feil={
                             this.state.errors.arbeidssituasjon
-                                ? { feilmelding: 'Du må svare på hva du er sykmeldt fra' }
+                                ? { feilmelding: this.state.errors.arbeidssituasjon }
                                 : null
                         }
                     />
@@ -152,6 +152,7 @@ class KoronaSkjemaComponent extends Component {
                             this.handleSubmit();
                         }}
                         spinner={this.props.sender}
+                        disabled={this.state.sporsmal.erOpplysningeneRiktige === 'nei'}
                     >
                         Bekreft koronameldingen
                     </Hovedknapp>

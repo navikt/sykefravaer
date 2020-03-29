@@ -116,6 +116,17 @@ export const VelgArbeidssituasjon = (props) => {
     );
 };
 
+const skalIkkeViseUtdrag = (antallDager, tekstObjekt, skalViseAktivitetskrav) => {
+    const aktivitetskravNokkelMedAG = 'tidslinje.utdrag.aktivitetskrav-med-arbeidsgiver';
+    const aktivitetskravNokkelUtenAG = 'tidslinje.utdrag.mulighet-for-aktivitet-uten-arbeidsgiver';
+
+    if (antallDager > 500 || !tekstObjekt || (!skalViseAktivitetskrav
+        && (tekstObjekt.nokkel === aktivitetskravNokkelMedAG || tekstObjekt.nokkel === aktivitetskravNokkelUtenAG))) {
+        return true;
+    }
+    return false;
+};
+
 const track = (event) => {
     /* eslint-disable quote-props */
     window.dataLayer.push({
@@ -195,8 +206,9 @@ export default class TidslinjeUtdrag extends Utvidbar {
     }
 
     render() {
-        const { visning, antallDager } = this.props;
-        if (antallDager > 500 || !this.getTekstObjekt()) {
+        const { visning, antallDager, skalViseAktivitetskrav } = this.props;
+        const tekstObjekt = this.getTekstObjekt();
+        if (skalIkkeViseUtdrag(antallDager, tekstObjekt, skalViseAktivitetskrav)) {
             return null;
         }
         const nokkelbase = this.getNokkelbase();

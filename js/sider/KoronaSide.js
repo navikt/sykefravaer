@@ -6,13 +6,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst, post as syforestPost } from '@navikt/digisyfo-npm';
 
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
-import KoronaKvittering from './KoronaComponents/KoronaKvittering';
-import { hentSendingURL } from './KoronaComponents/koronaUtils';
+import history from '../history';
+import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
+import { get, post } from '../data/gateway-api/gatewayApi';
+
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -28,10 +30,8 @@ class KoronaContainer extends Component {
 
     componentWillMount() {
         this.setState({ isLoading: true });
-        fetch(`${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/arbeidsgivere`)
-            .then((res) => {
-                return res.json();
-            })
+        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
+        get(URL)
             .then((arbeidsgivere) => {
                 this.setState({ arbeidsgivere, isLoading: false });
             })
@@ -43,44 +43,48 @@ class KoronaContainer extends Component {
             });
     }
 
-    opprettSykmelding(sykmelding) {
+    opprettSykmelding(periode) {
         this.setState({ isLoading: true });
-        const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
-        fetch(URL, {
-            method: 'POST',
-            body: JSON.stringify(sykmelding),
-        })
+        const INVALIDATE_URL = `${hentEgenmeldtSmCacheInvalidateApiUrl()}/sykmeldinger/invaliderSesjon`;
+        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
+        post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
-                this.setState({ isLoading: false, isSent: true });
+                syforestPost(INVALIDATE_URL);
+                history.push('/sykefravaer/egensykmelding/kvittering');
             })
             .catch((error) => {
-                this.setState({ isLoading: false, error: 'Feil under innsending av egenmelding' });
+                this.setState({
+                    isLoading: false,
+                    error: 'Feil under innsending av egenmelding',
+                });
             });
     }
 
     render() {
         const { henterLedetekster, brodsmuler } = this.props;
+
+        if (this.state.error) {
+            return (
+                <Side
+                    tittel="16-dagers koronamelding"
+                    brodsmuler={brodsmuler}
+                    laster={henterLedetekster || this.state.isLoading}
+                >
+                    <p>{this.state.error}</p>
+                </Side>
+            );
+        }
+
         return (
             <Side
-                tittel="Korona"
+                tittel="16-dagers koronamelding"
                 brodsmuler={brodsmuler}
                 laster={henterLedetekster || this.state.isLoading}
             >
-                {(() => {
-                    if (this.state.error) {
-                        return <p>{this.state.error}</p>;
-                    }
-                    if (this.state.isSent) {
-                        return <KoronaKvittering />;
-                    }
-                    return (
-                        <KoronaSchema
-                            opprettSykmelding={this.opprettSykmelding}
-                            key={this.state.arbeidsgivere}
-                            arbeidsgivere={this.state.arbeidsgivere}
-                        />
-                    );
-                })()}
+                <KoronaSchema
+                    opprettSykmelding={this.opprettSykmelding}
+                    key={this.state.arbeidsgivere}
+                />
             </Side>
         );
     }
@@ -96,7 +100,7 @@ const mapStateToProps = (state, ownProps) => {
                 erKlikkbar: true,
             },
             {
-                tittel: '14-dagers egenmelding',
+                tittel: '16-dagers koronamelding',
             },
         ],
     };

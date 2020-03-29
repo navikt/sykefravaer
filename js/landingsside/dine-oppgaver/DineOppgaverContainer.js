@@ -327,10 +327,22 @@ export const mapStateToProps = (state) => {
         }
     }
     const harNyttMotebehov = erMotebehovUbesvart(state);
+<<<<<<< HEAD
     const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = skalViseAktivitetskravInformasjon(state) && getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state)
         .filter((smSykmelding) => {
+=======
+    const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(
+        state.oppfolgingsdialoger.data,
+        state.dineSykmeldinger.data,
+    );
+
+    const visAktivitetskrav = skalViseAktivitetskravInformasjon(state) && getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
+
+    const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state).filter(
+        (smSykmelding) => {
+>>>>>>> a336efaefb8684655013653dd64ec100974319b0
             return smSykmelding.bekreftetDato === null;
         });
     const visOppgaver = sykmeldinger.length > 0

@@ -25,7 +25,7 @@ bmUgY2xhc3M9InN0MCIgeDE9IjcuNSIgeTE9IjIuNSIgeDI9IjE2LjUiIHkyPSIyLjUiLz4KPGxp
 bmUgY2xhc3M9InN0MCIgeDE9IjAuNSIgeTE9IjcuNSIgeDI9IjIzLjUiIHkyPSI3LjUiLz4KPC9z
 dmc+Cg==`;
 
-const DatePicker = ({ label, value, onChange }) => {
+const EgenmeldingDatePicker = ({ label, value, onChange }) => {
     return (
         <div className="datepicker-container">
             <div className="datepicker-label">
@@ -42,9 +42,10 @@ const DatePicker = ({ label, value, onChange }) => {
                         mode: 'single',
                         enableTime: false,
                         dateFormat: 'd.m.Y',
-                        allowInput: true,
+                        allowInput: false,
                         locale: flatpickrLocale,
                         maxDate: new Date(),
+                        minDate: '2020-03-01T00:00:00Z',
                     }}
                 />
                 <span className="flatpickr-icon">
@@ -55,10 +56,10 @@ const DatePicker = ({ label, value, onChange }) => {
     );
 };
 
-DatePicker.propTypes = {
+EgenmeldingDatePicker.propTypes = {
     label: PropTypes.string,
     value: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
 };
 
-export default DatePicker;
+export default EgenmeldingDatePicker;

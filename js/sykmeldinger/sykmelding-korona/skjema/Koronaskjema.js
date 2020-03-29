@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { RadioPanelGruppe, SkjemaGruppe, Radio } from 'nav-frontend-skjema';
+import { RadioPanelGruppe } from 'nav-frontend-skjema';
 import Panel from 'nav-frontend-paneler';
-import { Knapp, Hovedknapp, Fareknapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Fareknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as sykmeldingActions from '../../data/din-sykmelding/dinSykmeldingActions';
@@ -139,7 +139,6 @@ class KoronaSkjemaComponent extends Component {
                         }
                     />
                 </Panel>
-
                 <div
                     style={{
                         textAlign: 'center',
@@ -204,9 +203,9 @@ KoronaSkjemaComponent.propTypes = {
     bekreftSykmelding: PropTypes.func,
     avbrytSykmelding: PropTypes.func,
     sender: PropTypes.bool,
-    sendingFeilet: PropTypes.bool,
+    // sendingFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,
-    avbrytFeilet: PropTypes.bool,
+    // avbrytFeilet: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {

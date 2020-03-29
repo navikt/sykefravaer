@@ -127,7 +127,7 @@ export class Container extends Component {
                                     );
                                 }
                                 default: {
-                                    return <Feilmelding tittel="Egenerklæringen har ukjent status" />;
+                                    return <Feilmelding tittel="Egenmeldingen har ukjent status" />;
                                 }
                             }
                         }

@@ -7,7 +7,7 @@ import { sykmelding as sykmeldingPt } from '../../propTypes';
 const KoronaSykmeldingAvbrutt = ({ sykmelding }) => {
     return (
         <div>
-            <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
+            <Sidetopp tittel="Utvidet egenmelding" />
             <SykmeldingStatuspanel sykmelding={sykmelding} />
             <Utvidbar
                 erApen

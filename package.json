@@ -28,7 +28,7 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "@navikt/digisyfo-npm": "17.4.2",
+    "@navikt/digisyfo-npm": "17.4.3",
     "babel-loader": "7.1.5",
     "babel-polyfill": "6.26.0",
     "classnames": "^2.2.5",
@@ -60,6 +60,7 @@
     "nav-frontend-lukknapp-style": "0.2.19",
     "nav-frontend-modal": "1.0.23",
     "nav-frontend-modal-style": "0.3.27",
+    "nav-frontend-paneler": "^2.0.1",
     "nav-frontend-paneler-style": "^0.3.14",
     "nav-frontend-skjema": "1.0.56",
     "nav-frontend-skjema-style": "1.0.37",

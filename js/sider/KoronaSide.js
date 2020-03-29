@@ -11,8 +11,9 @@ import { getLedetekst } from '@navikt/digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
-import KoronaKvittering from './KoronaComponents/KoronaKvittering';
 import { hentSendingURL } from './KoronaComponents/koronaUtils';
+import { post } from '../data/gateway-api/gatewayApi';
+import history from '../history';
 
 class KoronaContainer extends Component {
     constructor(props) {
@@ -43,15 +44,12 @@ class KoronaContainer extends Component {
             });
     }
 
-    opprettSykmelding(sykmelding) {
+    opprettSykmelding(periode) {
         this.setState({ isLoading: true });
         const URL = `${hentSendingURL()}/sykmelding/egenmeldt`;
-        fetch(URL, {
-            method: 'POST',
-            body: JSON.stringify(sykmelding),
-        })
+        post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
-                this.setState({ isLoading: false, isSent: true });
+                history.push('/sykefravaer/egensykmelding/kvittering');
             })
             .catch((error) => {
                 this.setState({ isLoading: false, error: 'Feil under innsending av egenmelding' });
@@ -60,27 +58,29 @@ class KoronaContainer extends Component {
 
     render() {
         const { henterLedetekster, brodsmuler } = this.props;
+
+        if (this.state.error) {
+            return (
+                <Side
+                    tittel="16-dagers koronamelding"
+                    brodsmuler={brodsmuler}
+                    laster={henterLedetekster || this.state.isLoading}
+                >
+                    <p>{this.state.error}</p>
+                </Side>
+            );
+        }
+
         return (
             <Side
-                tittel="Egenmeldt sykmelding"
+                tittel="16-dagers koronamelding"
                 brodsmuler={brodsmuler}
                 laster={henterLedetekster || this.state.isLoading}
             >
-                {(() => {
-                    if (this.state.error) {
-                        return <p>{this.state.error}</p>;
-                    }
-                    if (this.state.isSent) {
-                        return <KoronaKvittering />;
-                    }
-                    return (
-                        <KoronaSchema
-                            opprettSykmelding={this.opprettSykmelding}
-                            key={this.state.arbeidsgivere}
-                            arbeidsgivere={this.state.arbeidsgivere}
-                        />
-                    );
-                })()}
+                <KoronaSchema
+                    opprettSykmelding={this.opprettSykmelding}
+                    key={this.state.arbeidsgivere}
+                />
             </Side>
         );
     }
@@ -96,7 +96,7 @@ const mapStateToProps = (state, ownProps) => {
                 erKlikkbar: true,
             },
             {
-                tittel: 'Egenmeldt sykmelding',
+                tittel: '16-dagers koronamelding',
             },
         ],
     };

@@ -42,10 +42,10 @@ const EgenmeldingDatePicker = ({ label, value, onChange }) => {
                         mode: 'single',
                         enableTime: false,
                         dateFormat: 'd.m.Y',
-                        allowInput: true,
+                        allowInput: false,
                         locale: flatpickrLocale,
                         maxDate: new Date(),
-                        minDate: '2020-03-16T00:00:00Z',
+                        minDate: '2020-03-01T00:00:00Z',
                     }}
                 />
                 <span className="flatpickr-icon">

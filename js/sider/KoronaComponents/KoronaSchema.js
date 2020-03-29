@@ -9,28 +9,24 @@ import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
-import { infoSvg } from './svg/infoSvg';
-
-import FormErrorSummary from './FormComponents/FormErrorSummary';
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormVeileder from './FormComponents/FormVeileder';
 import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
+import CannotUseMelding from './FormComponents/CannotUseMelding';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
     return date;
 };
 
-const datePlus14Days = (date) => {
+const datePlus16Days = (date) => {
     const endDate = new Date();
 
-    endDate.setDate(date.getDate() + 14);
+    endDate.setDate(date.getDate() + 16);
     return endDate;
 };
 
@@ -39,22 +35,21 @@ const hasErrors = (errors) => {
 };
 
 const CORONA_CODE = 'R991';
-const OTHER_CODE = '4NN37';
 
 const INITIAL_ERRORS = {
     koronamistanke: undefined,
-    arbeidssituasjon: undefined,
-    karantene: undefined,
-    hjemmefra: undefined,
+    koronamistankeHjemmefra: undefined,
+    palagtKarantene: undefined,
+    palagtKaranteneHjemmefra: undefined,
     husstandenSmittet: undefined,
     husstandenSmittetHjemmefra: undefined,
 };
 
 const INITIAL_TOUCHED = {
     koronamistanke: undefined,
-    arbeidssituasjon: undefined,
-    karantene: undefined,
-    hjemmefra: undefined,
+    koronamistankeHjemmefra: undefined,
+    palagtKarantene: undefined,
+    palagtKaranteneHjemmefra: undefined,
     husstandenSmittet: undefined,
     husstandenSmittetHjemmefra: undefined,
 };
@@ -63,23 +58,20 @@ class KoronaSchema extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arbeidsgivere: props.arbeidsgivere,
-            valgtArbeidsgivere: [],
-            valgtArbeidssituasjon: [],
             questions: {
                 koronamistanke: undefined,
-                karantene: undefined,
-                hjemmefra: undefined,
+                koronamistankeHjemmefra: undefined,
+                palagtKarantene: undefined,
+                palagtKaranteneHjemmefra: undefined,
                 husstandenSmittet: undefined,
                 husstandenSmittetHjemmefra: undefined,
             },
-            annetSituasjon: undefined,
             bekreftet: undefined,
             tidligereSyk: false,
             periode: {
                 fom: new Date(),
                 correctedFom: undefined,
-                tom: datePlus14Days(new Date()),
+                tom: datePlus16Days(new Date()),
             },
             boxSize: {
                 formHeight: 0,
@@ -92,13 +84,9 @@ class KoronaSchema extends Component {
         this.formContainerRef = React.createRef();
         this.errorRef = {
             koronamistanke: React.createRef(),
-            arbeidssituasjon: React.createRef(),
-            karantene: React.createRef(),
-            hjemmefra: React.createRef(),
-            husstandenSmittet: React.createRef(),
-            husstandenSmittetHjemmefra: React.createRef(),
+            koronamistankeHjemmefra: React.createRef(),
+            palagtKarantene: React.createRef(),
         };
-        this.errorSummaryRef = React.createRef();
 
         this.redrawBox = this.redrawBox.bind(this);
     }
@@ -124,21 +112,6 @@ class KoronaSchema extends Component {
             this.redrawBox();
             this.validateAll();
         }
-
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.valgtArbeidsgivere !== nextState.valgtArbeidsgivere) {
-            this.validateAll();
-        }
-
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.valgtArbeidssituasjon !== nextState.valgtArbeidssituasjon) {
-            this.validateAll();
-        }
-
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.annetSituasjon !== nextState.annetSituasjon) {
-            this.validateAll();
-        }
     }
 
     componentWillUnmount() {
@@ -158,88 +131,15 @@ class KoronaSchema extends Component {
         return null;
     }
 
-    updateArbeidssituasjon(name) {
-        const { valgtArbeidssituasjon } = this.state;
-
-        if (valgtArbeidssituasjon.includes(name)) {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidssituasjon: valgtArbeidssituasjon.filter((a) => {
-                        return a !== name;
-                    }),
-                };
-            });
-        } else {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidssituasjon: [...valgtArbeidssituasjon, name],
-                };
-            });
-        }
-    }
-
-    updateAnnet(annetSituasjon) {
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.annetSituasjon === annetSituasjon) {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    annetSituasjon: undefined,
-                };
-            });
-        } else {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    annetSituasjon,
-                };
-            });
-        }
-    }
-
-    updateArbeidsgivere(arbeidsgiver) {
-        const { valgtArbeidsgivere } = this.state;
-
-        const alreadySelected = valgtArbeidsgivere.find((a) => {
-            return a.orgnummer === arbeidsgiver.orgnummer;
-        });
-
-        if (alreadySelected) {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidsgivere: valgtArbeidsgivere.filter((a) => {
-                        return a.orgnummer !== arbeidsgiver.orgnummer;
-                    }),
-                };
-            });
-        } else {
-            this.setState((state) => {
-                return {
-                    touched: { ...state.touched, arbeidssituasjon: true },
-                    valgtArbeidsgivere: [...valgtArbeidsgivere, arbeidsgiver],
-                };
-            });
-        }
-    }
-
     validateAll(submitting = false) {
         const updatedErrors = { ...INITIAL_ERRORS };
 
-        const { questions, valgtArbeidsgivere, valgtArbeidssituasjon, annetSituasjon, touched } = this.state;
+        const { questions, touched } = this.state;
 
         // If we are submitting, validate all fields ignoring touched status
         if (submitting || touched.koronamistanke) {
             if (questions.koronamistanke === undefined) {
                 updatedErrors.koronamistanke = 'Du må bekrefte om du mistenker at du er smittet av korona';
-            }
-        }
-
-        if (submitting || touched.arbeidssituasjon) {
-            if ((valgtArbeidsgivere.length === 0 && valgtArbeidssituasjon.length === 0) && annetSituasjon === undefined) {
-                updatedErrors.arbeidssituasjon = 'Du må velge en arbeidssituasjon';
             }
         }
 
@@ -255,7 +155,6 @@ class KoronaSchema extends Component {
     touchAll() {
         this.setState({ touched: {
             koronamistanke: true,
-            arbeidssituasjon: true,
         } });
     }
 
@@ -263,39 +162,54 @@ class KoronaSchema extends Component {
         this.touchAll();
         const errors = this.validateAll(true);
         if (hasErrors(errors)) {
-            this.errorSummaryRef.current.focus();
             return;
         }
 
         const {
-            valgtArbeidsgivere,
-            annetSituasjon,
             periode,
-            koronamistanke,
         } = this.state;
 
-        const sykmelding = {
-            arbeidsforhold: valgtArbeidsgivere,
-            annetSituasjon,
-            periode: {
-                fom: periode.correctedFom || periode.fom,
-                tom: periode.tom,
-            },
-            diagnose: koronamistanke ? CORONA_CODE : OTHER_CODE,
+        const submitPeriod = {
+            fom: (periode.correctedFom || periode.fom).toISOString().split('T')[0],
+            tom: periode.tom.toISOString().split('T')[0],
         };
 
         const { opprettSykmelding } = this.props;
-        opprettSykmelding(sykmelding);
+        opprettSykmelding(submitPeriod);
+    }
+
+    canUseEgenmelding() {
+        const { questions: { koronamistankeHjemmefra, palagtKaranteneHjemmefra, husstandenSmittet, husstandenSmittetHjemmefra } } = this.state;
+
+        if (koronamistankeHjemmefra === true || palagtKaranteneHjemmefra === true || husstandenSmittetHjemmefra === true) {
+            return false;
+        }
+
+        if (husstandenSmittet === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    showDiagnose() {
+        const { questions: { husstandenSmittet, koronamistankeHjemmefra, palagtKaranteneHjemmefra, husstandenSmittetHjemmefra } } = this.state;
+
+        if (husstandenSmittet === false) {
+            return false;
+        }
+
+        if (koronamistankeHjemmefra === false || palagtKaranteneHjemmefra === false || husstandenSmittetHjemmefra === false) {
+            return true;
+        }
+
+        return false;
     }
 
     render() {
         const {
-            arbeidsgivere,
-            valgtArbeidsgivere,
             questions,
             bekreftet,
-            valgtArbeidssituasjon,
-            annetSituasjon,
             tidligereSyk,
             periode,
             boxSize,
@@ -308,24 +222,20 @@ class KoronaSchema extends Component {
             return acc;
         }, []);
 
-        const canUseEgenmelding = !(
-            (questions.hjemmefra === true)
-            || (questions.husstandenSmittetHjemmefra === true)
-            || (questions.husstandenSmittet === false));
+        const canUseEgenmelding = this.canUseEgenmelding();
+        const showDiagnose = this.showDiagnose();
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>Egenmeldt sykmelding</Sidetittel>
+                <Sidetittel tag="h1" style={{ marginBottom: '2rem', textAlign: 'center' }}>16-dagers koronamelding</Sidetittel>
                 <Undertittel>
-                    Grunnet stor pågang hos helsevesenet og kontaktsentre har NAV laget en midlertidig egenmeldingstjeneste du kan benytte deg av om du er blitt syk.
+                    NAV har laget en 16-dagers sykmeldingstjeneste for selvstendig næringsdrivende og frilansere. Dette gjelder kun for sykefravær som skyldes covid-19 pandemien.
                 </Undertittel>
                 <br />
                 <Undertittel>
-                    Du kan opprette egenmeldingen via. skjemaet under uten å kontakte fastlegen eller legevakten.
+                    Du kan selv opprette og sende inn koronameldingen i skjemaet under, uten å kontakte fastlegen eller legevakten.
                 </Undertittel>
                 <br />
-
-                <Lenke href="#">Du kan lese mer om forlenget egenmelding her. (TODO: MANGLER LENKE)</Lenke>
 
                 <FormVeileder formContainerRef={this.formContainerRef} />
 
@@ -342,13 +252,13 @@ class KoronaSchema extends Component {
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
                                 marginTop: '2rem' }}>
-                                Opprett sykmelding
+                                Opprett koronamelding
                             </Systemtittel>
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <FormSeparator
-                                helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 14 dager."
-                                title="Sykmeldingsinfo"
+                                helptext="Vi har foreslått dagens dato for deg, men du kan endre på datoene. Lengden kan være maksimalt 16 dager."
+                                title="Dine opplysninger"
                             />
 
                             <div style={{ marginBottom: '2rem' }}>
@@ -372,7 +282,7 @@ class KoronaSchema extends Component {
                                         {' '}
                             •
                                         {' '}
-                                        <span>14 dager</span>
+                                        <span>16 dager</span>
                                     </p>
                                 </div>
                                 <div style={{ marginLeft: '4rem' }}>
@@ -405,11 +315,12 @@ class KoronaSchema extends Component {
                                             label="Vennligst velg dato du ble syk"
                                             value={periode.correctedFom}
                                             onChange={(date) => {
-                                                return this.setState((state) => {
+                                                if (!date) { return; }
+                                                this.setState((state) => {
                                                     return { periode: {
                                                         ...state.periode,
                                                         correctedFom: correctDateOffset(date),
-                                                        tom: datePlus14Days(date),
+                                                        tom: datePlus16Days(date),
                                                     } };
                                                 });
                                             }} />
@@ -434,8 +345,9 @@ class KoronaSchema extends Component {
                                                 },
                                                 questions: {
                                                     koronamistanke: true,
-                                                    karantene: undefined,
-                                                    hjemmefra: undefined,
+                                                    koronamistankeHjemmefra: undefined,
+                                                    palagtKarantene: undefined,
+                                                    palagtKaranteneHjemmefra: undefined,
                                                     husstandenSmittet: undefined,
                                                     husstandenSmittetHjemmefra: undefined,
                                                 },
@@ -453,9 +365,11 @@ class KoronaSchema extends Component {
                                                     ...state.touched,
                                                     koronamistanke: true,
                                                 },
-                                                questions: { koronamistanke: false,
-                                                    karantene: undefined,
-                                                    hjemmefra: undefined,
+                                                questions: {
+                                                    koronamistanke: false,
+                                                    koronamistankeHjemmefra: undefined,
+                                                    palagtKarantene: undefined,
+                                                    palagtKaranteneHjemmefra: undefined,
                                                     husstandenSmittet: undefined,
                                                     husstandenSmittetHjemmefra: undefined,
                                                 },
@@ -466,104 +380,146 @@ class KoronaSchema extends Component {
                             </FormSection>
 
                             <FormSection
-                                title="Er du i pålagt karantene?"
-                                errorKey="karantene"
+                                title="Jobber du hjemmefra?"
+                                show={questions.koronamistanke === true}
+                                errorKey="koronamistankeHjemmefra"
                                 errors={errors}
-                                show={questions.koronamistanke === false}
-                                errorRef={this.errorRef.karantene}>
+                                errorRef={this.errorRef.koronamistankeHjemmefra}>
                                 <Radio
-                                    checked={questions.karantene}
+                                    checked={questions.koronamistankeHjemmefra}
                                     label="Ja"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    karantene: true,
+                                                    koronamistankeHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    karantene: true,
-                                                    hjemmefra: undefined,
-                                                    husstandenSmittet: undefined,
-                                                    husstandenSmittetHjemmefra: undefined,
+                                                    koronamistankeHjemmefra: true,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="karanteneJa" />
+                                    name="koronamistankeHjemmefraJa" />
                                 <Radio
-                                    checked={questions.karantene === false}
+                                    checked={questions.koronamistankeHjemmefra === false}
                                     label="Nei"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    karantene: true,
+                                                    koronamistankeHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    karantene: false,
-                                                    hjemmefra: undefined,
-                                                    husstandenSmittet: undefined,
-                                                    husstandenSmittetHjemmefra: undefined,
+                                                    koronamistankeHjemmefra: false,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="karanteneNei" />
+                                    name="koronamistankeHjemmefraNei" />
+                            </FormSection>
+
+                            <FormSection
+                                title="Er du i pålagt karantene?"
+                                show={questions.koronamistanke === false}
+                                errorKey="palagtKarantene"
+                                errors={errors}
+                                errorRef={this.errorRef.palagtKarantene}>
+                                <Radio
+                                    checked={questions.palagtKarantene}
+                                    label="Ja"
+                                    onChange={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    palagtKarantene: true,
+                                                },
+                                                questions: {
+                                                    ...state.questions,
+                                                    palagtKarantene: true,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                },
+                                            };
+                                        });
+                                    }}
+                                    name="palagtKaranteneJa" />
+                                <Radio
+                                    checked={questions.palagtKarantene === false}
+                                    label="Nei"
+                                    onChange={() => {
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    palagtKarantene: true,
+                                                },
+                                                questions: {
+                                                    ...state.questions,
+                                                    palagtKarantene: false,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                },
+                                            };
+                                        });
+                                    }}
+                                    name="palagtKaranteneNei" />
                             </FormSection>
 
                             <FormSection
                                 title="Jobber du hjemmefra?"
-                                errorKey="hjemmefra"
+                                show={questions.palagtKarantene === true}
+                                errorKey="palagtKaranteneHjemmefra"
                                 errors={errors}
-                                show={questions.karantene === true}
-                                errorRef={this.errorRef.hjemmefra}>
+                                errorRef={this.errorRef.palagtKaranteneHjemmefra}>
                                 <Radio
-                                    checked={questions.hjemmefra}
+                                    checked={questions.palagtKaranteneHjemmefra}
                                     label="Ja"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    hjemmefra: true,
+                                                    palagtKaranteneHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    hjemmefra: true,
+                                                    palagtKaranteneHjemmefra: true,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="hjemmefraJa" />
+                                    name="palagtKaranteneHjemmefraJa" />
                                 <Radio
-                                    checked={questions.hjemmefra === false}
+                                    checked={questions.palagtKaranteneHjemmefra === false}
                                     label="Nei"
                                     onChange={() => {
                                         this.setState((state) => {
                                             return {
                                                 touched: {
                                                     ...state.touched,
-                                                    hjemmefra: true,
+                                                    palagtKaranteneHjemmefra: true,
                                                 },
                                                 questions: {
                                                     ...state.questions,
-                                                    hjemmefra: false,
+                                                    palagtKaranteneHjemmefra: false,
                                                 },
                                             };
                                         });
                                     }}
-                                    name="hjemmefraNei" />
+                                    name="palagtKaranteneHjemmefraNei" />
                             </FormSection>
 
                             <FormSection
                                 title="Er noen i husstanden din smittet?"
+                                show={questions.palagtKarantene === false}
                                 errorKey="husstandenSmittet"
                                 errors={errors}
-                                show={questions.karantene === false}
                                 errorRef={this.errorRef.husstandenSmittet}>
                                 <Radio
                                     checked={questions.husstandenSmittet}
@@ -574,6 +530,7 @@ class KoronaSchema extends Component {
                                                 touched: {
                                                     ...state.touched,
                                                     husstandenSmittet: true,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                                 questions: {
                                                     ...state.questions,
@@ -597,7 +554,6 @@ class KoronaSchema extends Component {
                                                 questions: {
                                                     ...state.questions,
                                                     husstandenSmittet: false,
-                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                             };
                                         });
@@ -607,9 +563,9 @@ class KoronaSchema extends Component {
 
                             <FormSection
                                 title="Jobber du hjemmefra?"
+                                show={questions.husstandenSmittet === true}
                                 errorKey="husstandenSmittetHjemmefra"
                                 errors={errors}
-                                show={questions.husstandenSmittet === true}
                                 errorRef={this.errorRef.husstandenSmittetHjemmefra}>
                                 <Radio
                                     checked={questions.husstandenSmittetHjemmefra}
@@ -649,14 +605,11 @@ class KoronaSchema extends Component {
                                     name="husstandenSmittetHjemmefraNei" />
                             </FormSection>
 
-                            {!canUseEgenmelding && <AlertStripeFeil>Kan ikke bruke egenmelding</AlertStripeFeil>}
-
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
-                                    {questions.koronamistanke && <p>COVID-19</p>}
-                                    {questions.koronamistanke === false && <p>Annet</p>}
-                                    {questions.koronamistanke === undefined && <p>-</p>}
+                                    {showDiagnose && <p>COVID-19</p>}
+                                    {!showDiagnose && <p>-</p>}
                                 </div>
                                 <div style={{ marginLeft: '8rem' }}>
                                     <div style={{ display: 'flex' }}>
@@ -668,84 +621,30 @@ class KoronaSchema extends Component {
                                             </Hjelpetekst>
                                         </div>
                                     </div>
-                                    {questions.koronamistanke && <p>{CORONA_CODE}</p>}
-                                    {questions.koronamistanke === false && <p>{OTHER_CODE}</p>}
-                                    {questions.koronamistanke === undefined && <p>-</p>}
+                                    {showDiagnose && <p>{CORONA_CODE}</p>}
+                                    {!showDiagnose && <p>-</p>}
                                 </div>
                             </div>
+
+                            {!canUseEgenmelding && (
+                                <div style={{ marginBottom: '2rem' }}>
+                                    <CannotUseMelding text="Du kan ikke bruke egenmelding" />
+                                    <br />
+                                    <Lenke href="#">Les mer om hvem som kan bruke den her TODO: href</Lenke>
+                                </div>
+                            )}
+
 
                             <FormSeparator
                                 helptext="Du kan velge en eller flere arbeidssituasjoner."
                                 title="Din arbeidssituasjon"
                             />
-
-                            <FormSection
-                                title="Jeg er sykmeldt fra"
-                                errorKey="arbeidssituasjon"
-                                errors={errors}
-                                errorRef={this.errorRef.valgtArbeidssituasjon}>
-                                {arbeidsgivere.map((arbeidsgiver) => {
-                                    return (
-                                        <div key={arbeidsgiver.orgnummer}>
-                                            <Checkbox
-                                                checked={valgtArbeidsgivere.find((a) => { return a.orgnummer === arbeidsgiver.orgnummer; })}
-                                                name={arbeidsgiver.orgnummer}
-                                                onChange={() => { return this.updateArbeidsgivere(arbeidsgiver); }}
-                                                label={arbeidsgiver.navn} />
-                                            <span
-                                                style={{ marginTop: '-1rem',
-                                                    marginLeft: '2rem',
-                                                    marginBottom: '1rem' }}
-                                                className="sekundaerLabel">
-    (Org. nummer:
-                                                {arbeidsgiver.orgnummer}
-    )
-                                            </span>
-                                        </div>
-                                    );
-                                })}
-                                <Checkbox
-                                    checked={valgtArbeidssituasjon.includes('selvstendig')}
+                            <div style={{ marginBottom: '3rem' }}>
+                                <Radio
+                                    checked
                                     name="selvstendig"
-                                    onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
                                     label="Jobb som selvstendig næringsdrivende" />
-                                <Checkbox
-                                    checked={valgtArbeidssituasjon.includes('frilanser')}
-                                    name="frilanser"
-                                    onChange={(e) => { return this.updateArbeidssituasjon(e.target.name); }}
-                                    label="Jobb som frilanser" />
-
-                                {[...valgtArbeidssituasjon, ...valgtArbeidsgivere].length >= 2 && (
-                                    <div style={{ marginTop: '2rem', marginBottom: '2rem', display: 'flex' }}>
-                                        <img
-                                            style={{ marginRight: '15px', marginTop: '-2px' }}
-                                            src={infoSvg}
-                                            alt="Info"
-                                        />
-                                            Det opprettes en sykmelding for hver arbeidssituasjon.
-                                        <br />
-                                            Husk at du må sende sykmeldinger hver for seg.
-                                    </div>
-                                )
-                                }
-
-                                <h3 className="skjema__sporsmal">Annet</h3>
-                                <Radio
-                                    checked={annetSituasjon === 'annen'}
-                                    label="Arbeidsgiver er ikke oppført"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                    name="annen" />
-                                <Radio
-                                    checked={annetSituasjon === 'arbeidsledig'}
-                                    label="Jeg er arbeidsledig"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                    name="arbeidsledig" />
-                                <Radio
-                                    checked={annetSituasjon === 'ingenting'}
-                                    label="Jeg finner ingenting som passer for meg"
-                                    onChange={(e) => { return this.updateAnnet(e.target.name); }}
-                                    name="ingenting" />
-                            </FormSection>
+                            </div>
 
                             <FormSeparator
                                 title="Bekreft og opprett"
@@ -765,16 +664,11 @@ class KoronaSchema extends Component {
                                     name="nei" />
                             </div>
 
-                            <FormErrorSummary
-                                mappedErrors={mappedErrors}
-                                errorSummaryRef={this.errorSummaryRef}
-                                refs={{ valgtArbeidssituasjon: this.errorRef.valgtArbeidssituasjon, koronamistanke: this.errorRef.koronamistanke }} />
-
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
                                     disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
                                     onClick={() => { return this.submit(); }}>
-                                Opprett egenmelding
+                                Opprett koronamelding
                                 </Hovedknapp>
                             </div>
 
@@ -785,7 +679,7 @@ class KoronaSchema extends Component {
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-TILBAKE TIL DITT SYKEFRAVÆR
+TIL DITT SYKEFRAVÆR
                     </a>
                 </p>
             </div>
@@ -796,7 +690,6 @@ TILBAKE TIL DITT SYKEFRAVÆR
 
 KoronaSchema.propTypes = {
     opprettSykmelding: PropTypes.func,
-    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
 };
 
 

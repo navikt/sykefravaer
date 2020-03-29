@@ -22,6 +22,7 @@ import history from '../../history';
 
 import { checkmarkSvg } from './svg/checkmarkSvg';
 import AvbrytRegistrering from './FormComponents/AvbrytRegistrering';
+import HjemmefraInfo from './FormComponents/HjemmefraInfo';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -64,7 +65,7 @@ class KoronaSchema extends Component {
         super(props);
         this.state = {
             questions: {
-                koronamistanke: undefined,
+                koronamistanke: true,
                 koronamistankeHjemmefra: undefined,
                 palagtKarantene: undefined,
                 palagtKaranteneHjemmefra: undefined,
@@ -236,6 +237,7 @@ class KoronaSchema extends Component {
 
         const canUseEgenmelding = this.canUseEgenmelding();
         const showDiagnose = this.showDiagnose();
+        const workFromHomeQuestionVisible = (questions.koronamistanke || questions.palagtKarantene || questions.husstandenSmittet);
 
         return (
             <div>
@@ -617,6 +619,8 @@ class KoronaSchema extends Component {
                                     }}
                                     name="husstandenSmittetHjemmefraNei" />
                             </FormSection>
+
+                            <HjemmefraInfo show={workFromHomeQuestionVisible} />
 
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>

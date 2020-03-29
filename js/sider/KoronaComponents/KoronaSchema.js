@@ -315,7 +315,8 @@ class KoronaSchema extends Component {
                                             label="Vennligst velg dato du ble syk"
                                             value={periode.correctedFom}
                                             onChange={(date) => {
-                                                return this.setState((state) => {
+                                                if (!date) { return; }
+                                                this.setState((state) => {
                                                     return { periode: {
                                                         ...state.periode,
                                                         correctedFom: correctDateOffset(date),

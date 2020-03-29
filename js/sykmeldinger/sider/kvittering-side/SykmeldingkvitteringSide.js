@@ -129,6 +129,8 @@ KvitteringSide.propTypes = {
     doHentAktuelleArbeidsgivere: PropTypes.func,
 };
 
+const erEgenmeldt = sykmelding => sykmelding.erEgenmeldt;
+
 const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
 
 const getArbeidssituasjon = sykmelding => (
@@ -218,6 +220,13 @@ const getKvitteringtype = (state, sykmeldingId) => {
 
     const soknaderRelatertTilSykmeldingen = state.soknader.data.filter(s => s.sykmeldingId === sykmelding.id);
     const nyeSoknader = soknaderRelatertTilSykmeldingen.filter(s => s.status === NY);
+
+    if (erEgenmeldt(sykmelding)) {
+        if (sykmelding.status === AVBRUTT) {
+            return kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING;
+        }
+        return kvitteringtyper.EGENMELDT_KVITTERING;
+    }
 
     if (erBehandlingsdager(sykmelding) && soknaderRelatertTilSykmeldingen.length > 0) {
         const kvittering = finnKvitteringstypeForBehandlingsdager(sykmelding, soknaderRelatertTilSykmeldingen, state.arbeidsgivere);

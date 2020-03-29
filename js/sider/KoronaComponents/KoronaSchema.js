@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -630,7 +631,10 @@ class KoronaSchema extends Component {
                                 <div style={{ marginBottom: '2rem' }}>
                                     <CannotUseMelding text="Du kan ikke bruke egenmelding" />
                                     <br />
-                                    <Lenke href="#">Les mer om hvem som kan bruke den her TODO: href</Lenke>
+
+                                    <Lenke href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
+                                        Les mer om hvem som kan bruke tjenesten her.
+                                    </Lenke>
                                 </div>
                             )}
 

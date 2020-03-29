@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { infoSvg } from '../svg/infoSvg';
 
-import './AvbrytRegistrering.less';
-
 const HjemmefraInfo = ({ show }) => {
     if (!show) {
         return null;

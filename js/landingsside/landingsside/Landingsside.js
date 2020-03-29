@@ -16,11 +16,7 @@ import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
 import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
-<<<<<<< HEAD
-import KoronaLink from '../../sider/KoronaComponents/KoronaLink';
-=======
 import ForlengetEgenmeldingLink from '../../sider/KoronaComponents/ForlengetEgenmeldingLink';
->>>>>>> a336efaefb8684655013653dd64ec100974319b0
 import InfoboksAktivitetskrav from '../../aktivitetskrav/komponenter/InfoboksAktivitetskrav';
 
 const IngenSykmeldinger = () => {

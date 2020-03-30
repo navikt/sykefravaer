@@ -18,7 +18,6 @@ import FormSeparator from './FormComponents/FormSeparator';
 import FormSection from './FormComponents/FormSection';
 import CannotUseMelding from './FormComponents/CannotUseMelding';
 import Bekreft from './FormComponents/Bekreft';
-import history from '../../history';
 
 import { checkmarkSvg } from './svg/checkmarkSvg';
 import AvbrytRegistrering from './FormComponents/AvbrytRegistrering';
@@ -96,6 +95,7 @@ class KoronaSchema extends Component {
         };
 
         this.redrawBox = this.redrawBox.bind(this);
+        this.onAvbryt = this.onAvbryt.bind(this);
     }
 
     componentDidMount() {
@@ -128,6 +128,11 @@ class KoronaSchema extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.redrawBox);
+    }
+
+    onAvbryt() {
+        const { onAvbryt } = this.props;
+        onAvbryt();
     }
 
     redrawBox() {
@@ -257,6 +262,9 @@ class KoronaSchema extends Component {
             periode,
             boxSize,
             errors } = this.state;
+        const { formError } = this.props;
+
+        console.log(formError);
 
         const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
             if (errorEntry[1]) {
@@ -720,7 +728,7 @@ class KoronaSchema extends Component {
                             {showAvbryt
                                 && (
                                     <AvbrytRegistrering
-                                        onAvbryt={() => { history.push('/sykefravaer'); }}
+                                        onAvbryt={this.onAvbryt}
                                         onAngre={() => { this.setState({ showAvbryt: false }); }}
                                     />
                                 )
@@ -742,6 +750,8 @@ TILBAKE
 
 KoronaSchema.propTypes = {
     opprettSykmelding: PropTypes.func,
+    formError: PropTypes.string,
+    onAvbryt: PropTypes.func,
 };
 
 

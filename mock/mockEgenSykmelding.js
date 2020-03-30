@@ -2,6 +2,33 @@ const mockData = require('./mockData');
 const enums = require('./mockDataEnums');
 
 function mockRegistrerEgenSykmelding(server) {
+    // Error mocks start
+    server.post(
+        '/egenmeldt-sykmelding-backend/api/v1/sykmelding/egenmeldt/formerror',
+        (req, res) => {
+            res.status(202);
+            setTimeout(() => {
+                res.send([{
+                    errorCode: 'OVERLAPPER_MED_ANDRE_SYKMELDINGSPERIODER',
+                    description: 'Du kan kun benytte egenmeldt sykmelding én gang',
+                }]);
+            }, 0);
+        },
+    );
+    server.post(
+        '/egenmeldt-sykmelding-backend/api/v1/sykmelding/egenmeldt/kvitteringerror',
+        (req, res) => {
+            res.status(202);
+            setTimeout(() => {
+                res.send([{
+                    errorCode: 'PERSON_NOT_FOUND',
+                    description: 'Person finnes ikke yo',
+                }]);
+            }, 0);
+        },
+    );
+    // Error mocks end
+
     server.post(
         '/egenmeldt-sykmelding-backend/api/v1/sykmelding/egenmeldt',
         (req, res) => {

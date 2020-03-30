@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-    getLedetekst, DineKoronaSykmeldingOpplysninger, Utvidbar, arbeidssituasjoner,
+    getLedetekst, DineKoronaSykmeldingOpplysninger, Utvidbar,
 } from '@navikt/digisyfo-npm';
 import { Sidetittel, Undertittel } from 'nav-frontend-typografi';
-import ArbeidsgiversSykmeldingContainer from '../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
-import { Vis } from '../../utils/index';
 import BekreftetSykmeldingStatuspanel from './BekreftetSykmeldingStatuspanel';
 
 const KoronaSykmeldingBekreftet = ({ dinSykmelding }) => {
@@ -25,15 +23,6 @@ const KoronaSykmeldingBekreftet = ({ dinSykmelding }) => {
                 Overskrift="h2">
                 <DineKoronaSykmeldingOpplysninger sykmelding={dinSykmelding} />
             </Utvidbar>
-            <Vis
-                hvis={dinSykmelding.valgtArbeidssituasjon === arbeidssituasjoner.ARBEIDSTAKER}
-                render={() => {
-                    return (
-                        <div className="blokk">
-                            <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
-                        </div>
-                    );
-                }} />
         </div>
     );
 };

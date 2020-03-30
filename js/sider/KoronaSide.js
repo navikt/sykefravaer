@@ -32,6 +32,7 @@ class KoronaContainer extends Component {
     constructor(props) {
         super(props);
         this.opprettSykmelding = this.opprettSykmelding.bind(this);
+        this.onAvbryt = this.onAvbryt.bind(this);
         this.state = {
             isLoading: false,
             error: undefined,
@@ -40,6 +41,7 @@ class KoronaContainer extends Component {
             formError: undefined,
             kvitteringError: undefined,
             submitSuccess: undefined,
+            avbryt: undefined,
         };
     }
 
@@ -56,6 +58,10 @@ class KoronaContainer extends Component {
                     isLoading: false,
                 });
             });
+    }
+
+    onAvbryt() {
+        this.setState({ avbryt: true });
     }
 
     opprettSykmelding(periode) {
@@ -104,8 +110,20 @@ class KoronaContainer extends Component {
     }
 
     render() {
-        const { henterLedetekster, brodsmuler, kvitteringErrorBrodsmuler, suksessBrodsmuler } = this.props;
-        const { formError, kvitteringError, submitSuccess, error } = this.state;
+        const { henterLedetekster, brodsmuler, kvitteringErrorBrodsmuler, suksessBrodsmuler, avbrytBrodsmuler } = this.props;
+        const { formError, kvitteringError, submitSuccess, error, avbryt } = this.state;
+
+        if (avbryt) {
+            return (
+                <Side
+                    tittel="Egenmeldingen ble ikke opprettet"
+                    brodsmuler={avbrytBrodsmuler}
+                    laster={henterLedetekster || this.state.isLoading}
+                >
+                    <p>avbrytkvittering</p>
+                </Side>
+            );
+        }
 
         if (error) {
             return (
@@ -153,6 +171,7 @@ class KoronaContainer extends Component {
                     opprettSykmelding={this.opprettSykmelding}
                     key={this.state.arbeidsgivere}
                     formError={formError}
+                    onAvbryt={this.onAvbryt}
                 />
             </Side>
         );
@@ -202,6 +221,21 @@ const mapStateToProps = (state, ownProps) => {
                 tittel: 'Egenmeldingen ble ikke opprettet',
             },
         ],
+        avbrytBrodsmuler: [
+            {
+                tittel: getLedetekst('landingsside.sidetittel'),
+                sti: '/',
+                erKlikkbar: true,
+            },
+            {
+                tittel: 'Opprett egenmelding',
+                sti: '/egensykmelding',
+                erKlikkbar: true,
+            },
+            {
+                tittel: 'Egenmeldingen ble ikke opprettet',
+            },
+        ],
     };
 };
 
@@ -210,6 +244,7 @@ KoronaContainer.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     kvitteringErrorBrodsmuler: PropTypes.arrayOf(brodsmulePt),
     suksessBrodsmuler: PropTypes.arrayOf(brodsmulePt),
+    avbrytBrodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 
 export default connect(mapStateToProps)(KoronaContainer);

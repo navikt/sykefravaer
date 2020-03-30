@@ -314,13 +314,6 @@ class KoronaSchema extends Component {
                                 title="Dine opplysninger"
                             />
 
-                            <div style={{ marginBottom: '2rem' }}>
-                                <h2 className="nokkelopplysning__tittel">Navn</h2>
-                                <p>
-                                    Fornavn Etternavn
-                                </p>
-                            </div>
-
                             <div style={{ display: 'flex', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Periode</h2>

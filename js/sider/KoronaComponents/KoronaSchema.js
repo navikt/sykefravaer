@@ -22,6 +22,7 @@ import history from '../../history';
 
 import { checkmarkSvg } from './svg/checkmarkSvg';
 import AvbrytRegistrering from './FormComponents/AvbrytRegistrering';
+import HjemmefraInfo from './FormComponents/HjemmefraInfo';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -71,7 +72,7 @@ class KoronaSchema extends Component {
                 husstandenSmittet: undefined,
                 husstandenSmittetHjemmefra: undefined,
             },
-            bekreftet: undefined,
+            bekreftet: false,
             showAvbryt: false,
             tidligereSyk: false,
             periode: {
@@ -151,6 +152,36 @@ class KoronaSchema extends Component {
         if (submitting || touched.koronamistanke) {
             if (questions.koronamistanke === undefined) {
                 updatedErrors.koronamistanke = 'Du må bekrefte om du mistenker at du er smittet av korona';
+            }
+        }
+
+        if (submitting || touched.koronamistankeHjemmefra) {
+            if (questions.koronamistanke === true && questions.koronamistankeHjemmefra === undefined) {
+                updatedErrors.koronamistankeHjemmefra = 'Du må bekrefte om du jobber hjemmefra';
+            }
+        }
+
+        if (submitting || touched.palagtKarantene) {
+            if (questions.koronamistanke === false && questions.palagtKarantene === undefined) {
+                updatedErrors.palagtKarantene = 'Du må bekrefte om du er i pålagt karantene';
+            }
+        }
+
+        if (submitting || touched.palagtKaranteneHjemmefra) {
+            if (questions.palagtKarantene === true && questions.palagtKaranteneHjemmefra === undefined) {
+                updatedErrors.palagtKaranteneHjemmefra = 'Du må bekrefte om du jobber hjemmefra';
+            }
+        }
+
+        if (submitting || touched.husstandenSmittet) {
+            if (questions.palagtKarantene === false && questions.husstandenSmittet === undefined) {
+                updatedErrors.husstandenSmittet = 'Du må bekrefte om noen i husstanden er smittet';
+            }
+        }
+
+        if (submitting || touched.husstandenSmittetHjemmefra) {
+            if (questions.husstandenSmittet === true && questions.husstandenSmittetHjemmefra === undefined) {
+                updatedErrors.husstandenSmittetHjemmefra = 'Du må bekrefte om du jobber hjemmefra';
             }
         }
 
@@ -236,6 +267,7 @@ class KoronaSchema extends Component {
 
         const canUseEgenmelding = this.canUseEgenmelding();
         const showDiagnose = this.showDiagnose();
+        const workFromHomeQuestionVisible = (questions.koronamistanke || questions.palagtKarantene || questions.husstandenSmittet);
 
         return (
             <div>
@@ -355,6 +387,11 @@ class KoronaSchema extends Component {
                                                 touched: {
                                                     ...state.touched,
                                                     koronamistanke: true,
+                                                    koronamistankeHjemmefra: undefined,
+                                                    palagtKarantene: undefined,
+                                                    palagtKaranteneHjemmefra: undefined,
+                                                    husstandenSmittet: undefined,
+                                                    husstandenSmittetHjemmefra: undefined,
                                                 },
                                                 questions: {
                                                     koronamistanke: true,
@@ -617,6 +654,8 @@ class KoronaSchema extends Component {
                                     }}
                                     name="husstandenSmittetHjemmefraNei" />
                             </FormSection>
+
+                            <HjemmefraInfo show={workFromHomeQuestionVisible} />
 
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>

@@ -13,6 +13,7 @@ import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
 import { get, post } from '../data/gateway-api/gatewayApi';
+import { post as egenmeldingPost } from './KoronaComponents/egenmeldingGatewayApi';
 import SuksessKvittering from './KoronaComponents/Kvitteringer/SuksessKvittering';
 import KoronaAvbruttKvittering from './KoronaComponents/kvitteringer/KoronaAvbruttKvittering';
 import KoronaFeilKvittering from './KoronaComponents/kvitteringer/KoronaFeilKvittering';
@@ -71,39 +72,44 @@ class KoronaContainer extends Component {
         this.setState({ isLoading: true });
         const INVALIDATE_URL = `${hentEgenmeldtSmCacheInvalidateApiUrl()}/sykmeldinger/invaliderSesjon`;
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
-        post(URL, { periode, arbeidsforhold: [] })
+        egenmeldingPost(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
-                if (!Array.isArray(res)) {
+                if (!res.errors) {
                     syforestPost(INVALIDATE_URL);
                     this.setState({
                         isLoading: false,
                         submitSuccess: true,
                     });
-                } else if (Array.isArray(res) && !res[0]) {
-                    this.setState({
-                        isLoading: false,
-                        error: 'Feil under innsending av egenmelding',
-                    });
-                } else if (Array.isArray(res) && res[0].errorCode) {
-                    const errorType = ERROR_CODES[res[0].errorCode];
-                    if (errorType === undefined) {
+                    return;
+                }
+
+                if (res.errors) {
+                    if (res.errors[0]) {
+                        const errorType = ERROR_CODES[res.errors[0].errorCode];
+                        if (errorType === undefined) {
+                            this.setState({
+                                isLoading: false,
+                                error: 'Feil under innsending av egenmelding',
+                            });
+                        }
+
+                        if (errorType === KVITTERING_ERROR) {
+                            this.setState({
+                                isLoading: false,
+                                kvitteringError: res.errors[0].description,
+                            });
+                        }
+
+                        if (errorType === FORM_ERROR) {
+                            this.setState({
+                                isLoading: false,
+                                formError: res.errors[0].description,
+                            });
+                        }
+                    } else {
                         this.setState({
                             isLoading: false,
                             error: 'Feil under innsending av egenmelding',
-                        });
-                    }
-
-                    if (errorType === KVITTERING_ERROR) {
-                        this.setState({
-                            isLoading: false,
-                            kvitteringError: res[0].description,
-                        });
-                    }
-
-                    if (errorType === FORM_ERROR) {
-                        this.setState({
-                            isLoading: false,
-                            formError: res[0].description,
                         });
                     }
                 } else {

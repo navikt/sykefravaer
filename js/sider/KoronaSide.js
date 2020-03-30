@@ -12,7 +12,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
-import { get, post } from '../data/gateway-api/gatewayApi';
+import { post } from '../data/gateway-api/gatewayApi';
 import SuksessKvittering from './KoronaComponents/Kvitteringer/SuksessKvittering';
 import KoronaAvbruttKvittering from './KoronaComponents/kvitteringer/KoronaAvbruttKvittering';
 import KoronaFeilKvittering from './KoronaComponents/kvitteringer/KoronaFeilKvittering';
@@ -40,27 +40,11 @@ class KoronaContainer extends Component {
             isLoading: false,
             error: undefined,
             isSent: false,
-            arbeidsgivere: [],
             formError: undefined,
             kvitteringError: undefined,
             submitSuccess: undefined,
             avbryt: undefined,
         };
-    }
-
-    componentWillMount() {
-        this.setState({ isLoading: true });
-        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/arbeidsforhold`;
-        get(URL)
-            .then((arbeidsgivere) => {
-                this.setState({ arbeidsgivere, isLoading: false });
-            })
-            .catch((error) => {
-                this.setState({
-                    error: 'Feil under henting av arbeidsgivere',
-                    isLoading: false,
-                });
-            });
     }
 
     onAvbryt() {
@@ -174,7 +158,6 @@ class KoronaContainer extends Component {
             >
                 <KoronaSchema
                     opprettSykmelding={this.opprettSykmelding}
-                    key={this.state.arbeidsgivere}
                     formError={formError}
                     onAvbryt={this.onAvbryt}
                 />

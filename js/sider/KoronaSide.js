@@ -13,7 +13,6 @@ import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
 import { get, post } from '../data/gateway-api/gatewayApi';
-import { post as egenmeldingPost } from './KoronaComponents/egenmeldingGatewayApi';
 import SuksessKvittering from './KoronaComponents/Kvitteringer/SuksessKvittering';
 import KoronaAvbruttKvittering from './KoronaComponents/kvitteringer/KoronaAvbruttKvittering';
 import KoronaFeilKvittering from './KoronaComponents/kvitteringer/KoronaFeilKvittering';
@@ -72,7 +71,7 @@ class KoronaContainer extends Component {
         this.setState({ isLoading: true });
         const INVALIDATE_URL = `${hentEgenmeldtSmCacheInvalidateApiUrl()}/sykmeldinger/invaliderSesjon`;
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
-        egenmeldingPost(URL, { periode, arbeidsforhold: [] })
+        post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
                 if (!res.errors) {
                     syforestPost(INVALIDATE_URL);

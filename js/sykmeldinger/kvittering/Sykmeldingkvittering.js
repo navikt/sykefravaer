@@ -138,7 +138,7 @@ const SykmeldingKvittering = (props) => {
             <Sidetopp tittel={tittel} />
             {
                 Component
-                    ? <EgenmeldtKvitteringSokNa sykepengesoknader={sykepengesoknader} soknader={soknader} />
+                    ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />
                     : <Feilmelding />
             }
             <LenkeTilDineSykmeldinger />

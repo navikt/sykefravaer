@@ -6,7 +6,6 @@ import { getLedetekst, getSykmelding, sykmeldingstatuser } from '@navikt/digisyf
 import Side from '../../../sider/Side';
 import NySykmelding from '../../sykmelding-ny/NySykmelding';
 import KoronaSykmeldingNy from '../../sykmelding-korona/KoronaSykmelding-Ny';
-import KoronaSykmeldingSendt from '../../sykmelding-korona/KoronaSykmelding-Sendt';
 import KoronaSykmeldingBekreftet from '../../sykmelding-korona/KoronaSykmelding-Bekreftet';
 import KoronaSykmeldingUtgaatt from '../../sykmelding-korona/KoronaSYkmelding-Utgaatt';
 import SendtSykmelding from '../../sykmelding-sendt/SendtSykmelding';
@@ -90,15 +89,6 @@ export class Container extends Component {
                         }
                         if (dinSykmelding.erEgenmeldt) {
                             switch (dinSykmelding.status) {
-                                case SENDT:
-                                case TIL_SENDING: {
-                                    return (
-                                        <div>
-                                            <KoronaSykmeldingSendt dinSykmelding={dinSykmelding} />
-                                            <LenkeTilDineSykmeldinger />
-                                        </div>
-                                    );
-                                }
                                 case BEKREFTET: {
                                     return (
                                         <div>

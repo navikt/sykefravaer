@@ -73,37 +73,42 @@ class KoronaContainer extends Component {
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
         post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
-                if (!Array.isArray(res)) {
+                if (!res.errors) {
                     syforestPost(INVALIDATE_URL);
                     this.setState({
                         isLoading: false,
                         submitSuccess: true,
                     });
-                } else if (Array.isArray(res) && !res[0]) {
-                    this.setState({
-                        isLoading: false,
-                        error: 'Feil under innsending av egenmelding',
-                    });
-                } else if (Array.isArray(res) && res[0].errorCode) {
-                    const errorType = ERROR_CODES[res[0].errorCode];
-                    if (errorType === undefined) {
+                    return;
+                }
+
+                if (res.errors) {
+                    if (res.errors[0]) {
+                        const errorType = ERROR_CODES[res.errors[0].errorCode];
+                        if (errorType === undefined) {
+                            this.setState({
+                                isLoading: false,
+                                error: 'Feil under innsending av egenmelding',
+                            });
+                        }
+
+                        if (errorType === KVITTERING_ERROR) {
+                            this.setState({
+                                isLoading: false,
+                                kvitteringError: res.errors[0].description,
+                            });
+                        }
+
+                        if (errorType === FORM_ERROR) {
+                            this.setState({
+                                isLoading: false,
+                                formError: res.errors[0].description,
+                            });
+                        }
+                    } else {
                         this.setState({
                             isLoading: false,
                             error: 'Feil under innsending av egenmelding',
-                        });
-                    }
-
-                    if (errorType === KVITTERING_ERROR) {
-                        this.setState({
-                            isLoading: false,
-                            kvitteringError: res[0].description,
-                        });
-                    }
-
-                    if (errorType === FORM_ERROR) {
-                        this.setState({
-                            isLoading: false,
-                            formError: res[0].description,
                         });
                     }
                 } else {
@@ -122,7 +127,7 @@ class KoronaContainer extends Component {
     }
 
     render() {
-        const { henterLedetekster, brodsmuler, kvitteringErrorBrodsmuler, suksessBrodsmuler, avbrytBrodsmuler } = this.props;
+        const { henterLedetekster, brodsmuler, suksessBrodsmuler } = this.props;
         const { formError, kvitteringError, submitSuccess, error, avbryt } = this.state;
 
         if (avbryt) {
@@ -206,45 +211,13 @@ const mapStateToProps = (state, ownProps) => {
                 tittel: 'Egenmeldingen opprettes',
             },
         ],
-        kvitteringErrorBrodsmuler: [
-            {
-                tittel: getLedetekst('landingsside.sidetittel'),
-                sti: '/',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Opprett egenmelding',
-                sti: '/egensykmelding',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Egenmeldingen ble ikke opprettet',
-            },
-        ],
-        avbrytBrodsmuler: [
-            {
-                tittel: getLedetekst('landingsside.sidetittel'),
-                sti: '/',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Opprett egenmelding',
-                sti: '/egensykmelding',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Egenmeldingen ble ikke opprettet',
-            },
-        ],
     };
 };
 
 KoronaContainer.propTypes = {
     henterLedetekster: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    kvitteringErrorBrodsmuler: PropTypes.arrayOf(brodsmulePt),
     suksessBrodsmuler: PropTypes.arrayOf(brodsmulePt),
-    avbrytBrodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 
 export default connect(mapStateToProps)(KoronaContainer);

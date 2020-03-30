@@ -6,24 +6,24 @@ function mockRegistrerEgenSykmelding(server) {
     server.post(
         '/egenmeldt-sykmelding-backend/api/v1/sykmelding/egenmeldt/formerror',
         (req, res) => {
-            res.status(202);
+            res.status(400);
             setTimeout(() => {
-                res.send([{
+                res.send({ errors: [{
                     errorCode: 'OVERLAPPER_MED_ANDRE_SYKMELDINGSPERIODER',
                     description: 'Du kan kun benytte egenmeldt sykmelding én gang',
-                }]);
+                }] });
             }, 0);
         },
     );
     server.post(
         '/egenmeldt-sykmelding-backend/api/v1/sykmelding/egenmeldt/kvitteringerror',
         (req, res) => {
-            res.status(202);
+            res.status(400);
             setTimeout(() => {
-                res.send([{
+                res.send({ errors: [{
                     errorCode: 'PERSON_NOT_FOUND',
                     description: 'Person finnes ikke yo',
-                }]);
+                }] });
             }, 0);
         },
     );

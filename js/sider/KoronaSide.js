@@ -41,7 +41,7 @@ class KoronaContainer extends Component {
             isSent: false,
             arbeidsgivere: [],
             formError: undefined,
-            kvitteringError: 'hello world',
+            kvitteringError: undefined,
             submitSuccess: undefined,
             avbryt: undefined,
         };

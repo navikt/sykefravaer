@@ -189,16 +189,6 @@ class KoronaSkjemaComponent extends Component {
                             >
                             Ja, jeg er sikkker
                             </Fareknapp>
-                            <Lenke
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    this.setState((prevState) => {
-                                        return { ...prevState, visAvbryt: false };
-                                    });
-                                }}
-                            >
-                            Lukk
-                            </Lenke>
                         </div>
                     </Vis>
                 </div>

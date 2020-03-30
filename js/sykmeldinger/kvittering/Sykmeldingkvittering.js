@@ -129,6 +129,8 @@ const SykmeldingKvittering = (props) => {
         tittel = 'Egenmeldingen er sendt';
     } else if (Component === EgenmeldingAvbruttKvittering) {
         tittel = 'Egenmeldingen er avbrutt';
+    } else if (Component === EgenmeldtKvitteringSokNa) {
+        tittel = 'Egenmeldingen er sendt';
     }
 
     return (

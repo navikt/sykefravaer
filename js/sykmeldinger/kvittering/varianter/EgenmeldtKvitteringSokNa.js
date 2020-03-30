@@ -4,6 +4,9 @@ import { Normaltekst, Element, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Panel from 'nav-frontend-paneler';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
+import { Knapp } from 'nav-frontend-knapper';
+import history from '../../../history';
+import { getSykepengesoknaderUrl } from '../../../utils/urlUtils';
 
 const EgenmeldtKvitteringSokNa = () => {
     return (
@@ -14,31 +17,20 @@ const EgenmeldtKvitteringSokNa = () => {
                     <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Da har du bekreftet og sendt egenmeldingen til NAV</Undertittel>
                 </div>
                 <div style={{ display: 'flex' }}>
-                    <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/blue-info.svg`} alt="informasjon" style={{ marginRight: '2rem', width: '2.5rem', alignSelf: 'flex-start' }} />
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Du kan nå søke om sykepenger</Undertittel>
+                    <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/aktivert-soknad.svg`} alt="informasjon" style={{ marginRight: '2rem', width: '2.5rem', alignSelf: 'flex-start' }} />
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Søknad om sykepenger er aktivert</Undertittel>
                         <Normaltekst style={{ marginBottom: '1rem', marginTop: '1rem' }}>
-                                Når de 16 dagene er over, får du beskjed fra oss om å fylle ut
-                                søknaden om sykepenger. Allerede nå kan du se tidspunktet under
-                            {' '}
-                            <Lenke href={`${process.env.REACT_APP_CONTEXT_ROOT}/soknader`}>planlagte søknader</Lenke>
-                            {' '}
-                                på siden din.
+                                Du kan nå fylle ut og sende inn søknaden. I søknaden må du besvare noen spørsmål vi trenger svar på for å beregne sykepengene dine.
                         </Normaltekst>
+                        <Knapp style={{ marginBottom: '2rem' }} onClick={() => { history.push(getSykepengesoknaderUrl()); }}>Søk om sykepenger</Knapp>
+                        <Element style={{ marginBottom: '0.5rem' }}>Husk: Send inntektsopplysninger så fort som mulig</Element>
                         <Normaltekst style={{ marginBottom: '1rem' }}>
-                                Du får en sms eller epost når den er klar.
-                        </Normaltekst>
-                        <Element style={{ marginBottom: '0.5rem' }}>Send inntektsopplysninger så fort som mulig</Element>
-                        <Normaltekst style={{ marginBottom: '1rem' }}>
-                                Før vi kan behandle søknaden din, må du fylle ut og sende
+                            Før vi kan behandle søknaden din, må skjema
                             {' '}
-                            <Lenke href="https://www.nav.no/soknader/nb/bedrift/inntekt-og-trekk/inntektsopplysninger-sykepenger/NAV%2008-35.01/dokumentinnsending">skjemaet for inntektsopplysninger</Lenke>
-                        </Normaltekst>
-                        <Element style={{ marginBottom: '0.5rem' }}>Hvorfor må du vente med å søke?</Element>
-                        <Normaltekst>
-                                Det er først når perioden på 16 dager er over, at du vet hvor
-                                mange dager du prukte. Når vi får beskjed om antall dager, blir
-                                utbetalingen riktig.
+                            <Lenke href="https://www.nav.no/soknader/nb/bedrift/inntekt-og-trekk/inntektsopplysninger-sykepenger/NAV%2008-35.01/dokumentinnsending">NAV 08-35.01 «Inntektsopplysninger for selvstendig næringsdrivende og/eller frilansere som skal ha sykepenger»</Lenke>
+                            {' '}
+                            fylles ut.
                         </Normaltekst>
                     </div>
                 </div>

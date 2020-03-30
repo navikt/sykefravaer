@@ -2,19 +2,38 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { getLedetekst, sykepengesoknadstatuser, sykmeldingstatuser } from '@navikt/digisyfo-npm';
+import {
+    getLedetekst,
+    sykepengesoknadstatuser,
+    sykmeldingstatuser,
+} from '@navikt/digisyfo-npm';
 import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingProptypes';
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
-import { soknadPt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes/index';
+import {
+    soknadPt,
+    sykepengesoknad as sykepengesoknadPt,
+    sykmelding as sykmeldingPt,
+} from '../../propTypes/index';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentHendelser } from '../data/hendelser/hendelserActions';
-import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../aktivitetskrav/sider/AktivitetskravvarselSide';
+import {
+    getAktivitetskravvisning,
+    NYTT_AKTIVITETSKRAVVARSEL,
+} from '../../aktivitetskrav/sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../enums/soknadstatuser';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE, ARBEIDSLEDIG } from '../../enums/soknadtyper';
+import {
+    ARBEIDSTAKERE,
+    SELVSTENDIGE_OG_FRILANSERE,
+    ARBEIDSLEDIG,
+} from '../../enums/soknadtyper';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
-import { erPaaHeroku, getSykepengesoknaderUrl, getSykepengesoknadUrl } from '../../utils/urlUtils';
+import {
+    erPaaHeroku,
+    getSykepengesoknaderUrl,
+    getSykepengesoknadUrl,
+} from '../../utils/urlUtils';
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
@@ -52,12 +71,20 @@ export const NySykmelding = ({ sykmeldinger }) => {
     const url = sykmeldinger.length === 1
         ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}`
         : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
+
     const tekst = sykmeldinger.length === 1
-        ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding')
-        : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
-            '%ANTALL%': sykmeldinger.length.toString(),
-        });
-    return (<Li url={url} tekst={tekst} />);
+        ? `Du har 1 ny ${
+            sykmeldinger[0].erEgenmeldt ? 'egenmelding' : 'sykmelding'
+        }`
+        : `Du har ${sykmeldinger.length.toString()} nye ${
+            sykmeldinger.some((sm) => {
+                return sm.erEgenmeldt;
+            })
+                ? 'sykmeldinger/egenmeldinger'
+                : 'sykmeldinger'
+        }`;
+
+    return <Li url={url} tekst={tekst} />;
 };
 
 NySykmelding.propTypes = {
@@ -78,7 +105,8 @@ export const AvvistSmSykmelding = ({ smSykmeldinger }) => {
             url={url}
             tekst={tekst}
             img="/sykefravaer/img/svg/report-problem-triangle-red.svg"
-            imgAlt="Utropstegn" />
+            imgAlt="Utropstegn"
+        />
     );
 };
 
@@ -96,7 +124,7 @@ export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
         : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
             '%ANTALL%': alleSoknader.length.toString(),
         });
-    return (<EksternLi url={url} tekst={tekst} />);
+    return <EksternLi url={url} tekst={tekst} />;
 };
 
 NySykepengesoknad.propTypes = {
@@ -108,15 +136,20 @@ export const NyttAktivitetskravvarsel = () => {
     return (
         <Li
             url={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt/`}
-            tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />
+            tekst={getLedetekst('dine-oppgaver.aktivitetskrav')}
+        />
     );
 };
 
 const nyePlanerTekst = (antall) => {
-    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall')
-        : getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.flertall', {
-            '%ANTALL%': antall,
-        });
+    return antall === 1
+        ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall')
+        : getLedetekst(
+            'dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.flertall',
+            {
+                '%ANTALL%': antall,
+            },
+        );
 };
 
 export const NyttMotebehovVarsel = () => {
@@ -129,27 +162,31 @@ export const NyttMotebehovVarsel = () => {
 };
 
 const avventendeGodkjenningerTekst = (antall) => {
-    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall')
-        : getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
-            '%ANTALL%': antall,
-        });
+    return antall === 1
+        ? getLedetekst(
+            'dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall',
+        )
+        : getLedetekst(
+            'dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall',
+            {
+                '%ANTALL%': antall,
+            },
+        );
 };
 
-const RendreOppgaver = (
-    {
-        soknader = [],
-        sykepengesoknader = [],
-        sykmeldinger = [],
-        visOppgaver,
-        mote,
-        visMerVeiledingHendelse,
-        avventendeGodkjenninger,
-        harNyttMotebehov,
-        nyePlaner,
-        visAktivitetskrav,
-        avvisteSmSykmeldinger = [],
-    },
-) => {
+const RendreOppgaver = ({
+    soknader = [],
+    sykepengesoknader = [],
+    sykmeldinger = [],
+    visOppgaver,
+    mote,
+    visMerVeiledingHendelse,
+    avventendeGodkjenninger,
+    harNyttMotebehov,
+    nyePlaner,
+    visAktivitetskrav,
+    avvisteSmSykmeldinger = [],
+}) => {
     if (!visOppgaver) {
         return null;
     }
@@ -160,16 +197,52 @@ const RendreOppgaver = (
 
     return (
         <div className="landingspanel dineOppgaver">
-            <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/oppgaver.svg`} ikonAlt="Oppgaver">
-                <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
+            <IllustrertInnhold
+                ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/oppgaver.svg`}
+                ikonAlt="Oppgaver"
+            >
+                <h2 className="dineOppgaver__tittel js-tittel">
+                    {getLedetekst('dine-oppgaver.tittel')}
+                </h2>
                 <ul className="inngangsliste">
-                    {sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} />}
-                    {avvisteSmSykmeldinger.length > 0 && <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />}
-                    {(sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />}
-                    {mote !== null && <EksternLi url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}`} tekst={getLedetekst('dine-oppgaver.mote.svar')} />}
-                    {visMerVeiledingHendelse && <Li url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} tekst={getLedetekst('ao.oppgave.inngangstekst')} />}
-                    {avventendeGodkjenninger.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />}
-                    {nyePlaner.length > 0 && <EksternLi url={OPPFOLGINGSPLANER_URL} tekst={nyePlanerTekst(nyePlaner.length)} />}
+                    {sykmeldinger.length > 0 && (
+                        <NySykmelding sykmeldinger={sykmeldinger} />
+                    )}
+                    {avvisteSmSykmeldinger.length > 0 && (
+                        <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />
+                    )}
+                    {(sykepengesoknader.length > 0 || soknader.length > 0) && (
+                        <NySykepengesoknad
+                            sykepengesoknader={sykepengesoknader}
+                            soknader={soknader}
+                        />
+                    )}
+                    {mote !== null && (
+                        <EksternLi
+                            url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}`}
+                            tekst={getLedetekst('dine-oppgaver.mote.svar')}
+                        />
+                    )}
+                    {visMerVeiledingHendelse && (
+                        <Li
+                            url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`}
+                            tekst={getLedetekst('ao.oppgave.inngangstekst')}
+                        />
+                    )}
+                    {avventendeGodkjenninger.length > 0 && (
+                        <EksternLi
+                            url={OPPFOLGINGSPLANER_URL}
+                            tekst={avventendeGodkjenningerTekst(
+                                avventendeGodkjenninger.length,
+                            )}
+                        />
+                    )}
+                    {nyePlaner.length > 0 && (
+                        <EksternLi
+                            url={OPPFOLGINGSPLANER_URL}
+                            tekst={nyePlanerTekst(nyePlaner.length)}
+                        />
+                    )}
                     {harNyttMotebehov && <NyttMotebehovVarsel />}
                     {visAktivitetskrav && <NyttAktivitetskravvarsel />}
                 </ul>
@@ -239,7 +312,11 @@ export const mapStateToProps = (state) => {
             return s.status === NY;
         })
         .filter((s) => {
-            return s.soknadstype === SELVSTENDIGE_OG_FRILANSERE || s.soknadstype === ARBEIDSTAKERE || s.soknadstype === ARBEIDSLEDIG;
+            return (
+                s.soknadstype === SELVSTENDIGE_OG_FRILANSERE
+        || s.soknadstype === ARBEIDSTAKERE
+        || s.soknadstype === ARBEIDSLEDIG
+            );
         });
 
     const mote = state.mote.data;
@@ -257,26 +334,28 @@ export const mapStateToProps = (state) => {
             return smSykmelding.bekreftetDato === null;
         });
     const visOppgaver = sykmeldinger.length > 0
-        || sykepengesoknader.length > 0
-        || soknader.length > 0
-        || moteRes !== null
-        || harNyttMotebehov
-        || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0
-        || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0
-        || visAktivitetskrav
-        || avvisteSmSykmeldinger.length > 0;
+    || sykepengesoknader.length > 0
+    || soknader.length > 0
+    || moteRes !== null
+    || harNyttMotebehov
+    || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0
+    || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0
+    || visAktivitetskrav
+    || avvisteSmSykmeldinger.length > 0;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
-        sykmeldingerHentingFeilet: state.dineSykmeldinger.hentingFeilet
-            || state.oppfolgingsdialoger.hentingFeilet,
+        sykmeldingerHentingFeilet:
+      state.dineSykmeldinger.hentingFeilet
+      || state.oppfolgingsdialoger.hentingFeilet,
         sykepengesoknader,
         soknader,
         visOppgaver,
         mote: moteRes,
         visMerVeiledingHendelse: selectHarMerVeiledningHendelse(state),
-        avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
+        avventendeGodkjenninger:
+      _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
         harNyttMotebehov,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,

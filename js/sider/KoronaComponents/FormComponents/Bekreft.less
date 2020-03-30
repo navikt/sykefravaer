@@ -1,0 +1,26 @@
+.bekreft-container {
+    line-height: 1.15;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-size: 16px;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    box-sizing: border-box;
+    padding: 1rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    border-radius: 0.25rem;
+    color: #3E3832;
+    border: 1px solid #BA3A26;
+    background-color: #f1d8d4;
+    margin-bottom: 2rem;
+}
+
+.bekreft-container-ubekreftet:extend(.bekreft-container) {
+    border: 1px solid rgb(255, 145, 0);
+    background-color: rgb(255, 233, 204);
+}
+
+.bekreft-container-bekreftet:extend(.bekreft-container) {
+    border: 1px solid rgb(6, 137, 58);
+    background-color: rgb(205, 231, 216);
+}

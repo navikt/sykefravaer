@@ -37,6 +37,7 @@ const Landingsside = ({
             <Sidebanner brodsmuler={brodsmuler} />
             <div className="begrensning blokk">
                 <ServerfeilContainer />
+
                 <AvvistSykmeldingKvittering />
                 {
                     !harSykmeldinger && <IngenSykmeldinger />

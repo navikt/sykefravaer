@@ -173,12 +173,12 @@ class KoronaSkjemaComponent extends Component {
                                 });
                             }}
                         >
-                            Jeg ønsker ikke å bruke denne koronameldingen
+                            Jeg ønsker ikke å bruke denne egenmeldingen
                         </Lenke>
                     </div>
                     <Vis hvis={this.state.visAvbryt}>
                         <div className="pekeboble" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <Normaltekst>Er du sikker på at du vil avbryte denne koronameldingen?</Normaltekst>
+                            <Normaltekst>Er du sikker på at du vil avbryte denne egenmeldingen?</Normaltekst>
                             <Fareknapp
                                 htmlType="button"
                                 onClick={() => {

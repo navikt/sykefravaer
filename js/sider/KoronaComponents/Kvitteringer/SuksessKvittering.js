@@ -12,10 +12,10 @@ const SuksessKvittering = () => {
                 className="blokk"
                 hvit
                 stor>
-                Egenmeldingen opprettes hvert øyeblikk. Du kan gå tilbake til hovedsiden: Ditt sykefravær, for å se om den er klar.
+                Egenmeldingen opprettes hvert øyeblikk. Enkelte ganger kan det ta litt tid, men du får en sms eller e-post straks den er klar til å fylles ut.
                 <br />
                 <br />
-                Enkelte ganger kan det ta litt lengre tid. Uansett vil du bli varslet over sms eller e-post straks den er klar og kan fylles ut av deg.
+                Du kan gå hit for å se om den er klar:
                 <br />
                 <br />
                 <Knapp onClick={() => { return history.push(`${process.env.REACT_APP_CONTEXT_ROOT}`); }}>Til ditt sykefravær</Knapp>

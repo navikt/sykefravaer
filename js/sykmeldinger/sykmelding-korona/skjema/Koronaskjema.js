@@ -12,6 +12,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import * as sykmeldingActions from '../../data/din-sykmelding/dinSykmeldingActions';
 import { sykmelding as sykmeldingPt } from '../../../propTypes';
 import { Vis } from '../../../utils';
+import Feilstripe from '../../../components/Feilstripe';
 
 class KoronaSkjemaComponent extends Component {
     constructor(props) {
@@ -27,6 +28,10 @@ class KoronaSkjemaComponent extends Component {
             },
             visAvbryt: false,
         };
+    }
+
+    componentDidUpdate() {
+        // TODO: scrollto & focus feilmelding
     }
 
     handleErOpplysningeneRiktigeChange(event) {
@@ -141,6 +146,7 @@ class KoronaSkjemaComponent extends Component {
                         }
                     />
                 </Panel>
+                <Feilstripe vis={this.props.sendingFeilet || this.props.avbrytFeilet} className="blokk" />
                 <div
                     style={{
                         textAlign: 'center',
@@ -206,9 +212,9 @@ KoronaSkjemaComponent.propTypes = {
     bekreftSykmelding: PropTypes.func,
     avbrytSykmelding: PropTypes.func,
     sender: PropTypes.bool,
-    // sendingFeilet: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,
-    // avbrytFeilet: PropTypes.bool,
+    avbrytFeilet: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {

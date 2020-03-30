@@ -13,6 +13,7 @@ import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
 import { get, post } from '../data/gateway-api/gatewayApi';
+import SuksessKvittering from './KoronaComponents/Kvitteringer/SuksessKvittering';
 
 const KVITTERING_ERROR = true;
 const FORM_ERROR = false;
@@ -67,11 +68,22 @@ class KoronaContainer extends Component {
     opprettSykmelding(periode) {
         this.setState({ isLoading: true });
         const INVALIDATE_URL = `${hentEgenmeldtSmCacheInvalidateApiUrl()}/sykmeldinger/invaliderSesjon`;
-        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt/formerror`;
+        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
         post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
-                if (res.errorCode) {
-                    const errorType = ERROR_CODES[res.errorCode];
+                if (!Array.isArray(res)) {
+                    syforestPost(INVALIDATE_URL);
+                    this.setState({
+                        isLoading: false,
+                        submitSuccess: true,
+                    });
+                } else if (Array.isArray(res) && !res[0]) {
+                    this.setState({
+                        isLoading: false,
+                        error: 'Feil under innsending av egenmelding',
+                    });
+                } else if (Array.isArray(res) && res[0].errorCode) {
+                    const errorType = ERROR_CODES[res[0].errorCode];
                     if (errorType === undefined) {
                         this.setState({
                             isLoading: false,
@@ -82,22 +94,20 @@ class KoronaContainer extends Component {
                     if (errorType === KVITTERING_ERROR) {
                         this.setState({
                             isLoading: false,
-                            kvitteringError: res.description,
+                            kvitteringError: res[0].description,
                         });
                     }
 
                     if (errorType === FORM_ERROR) {
                         this.setState({
                             isLoading: false,
-                            formError: res.description,
+                            formError: res[0].description,
                         });
                     }
                 } else {
-                    // show success kvittering
-                    syforestPost(INVALIDATE_URL);
                     this.setState({
                         isLoading: false,
-                        submitSuccess: true,
+                        error: 'Feil under innsending av egenmelding',
                     });
                 }
             })
@@ -156,7 +166,7 @@ class KoronaContainer extends Component {
                     brodsmuler={suksessBrodsmuler}
                     laster={henterLedetekster || this.state.isLoading}
                 >
-                    <p>suksesskvittering</p>
+                    <p>success</p>
                 </Side>
             );
         }

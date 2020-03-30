@@ -8,10 +8,10 @@ function mockRegistrerEgenSykmelding(server) {
         (req, res) => {
             res.status(202);
             setTimeout(() => {
-                res.send({
+                res.send([{
                     errorCode: 'OVERLAPPER_MED_ANDRE_SYKMELDINGSPERIODER',
                     description: 'Du kan kun benytte egenmeldt sykmelding én gang',
-                });
+                }]);
             }, 0);
         },
     );
@@ -20,10 +20,10 @@ function mockRegistrerEgenSykmelding(server) {
         (req, res) => {
             res.status(202);
             setTimeout(() => {
-                res.send({
-                    errorCode: 'TOM_ER_FOR_FOM',
-                    description: 'Tom er før fom',
-                });
+                res.send([{
+                    errorCode: 'PERSON_NOT_FOUND',
+                    description: 'Person finnes ikke yo',
+                }]);
             }, 0);
         },
     );

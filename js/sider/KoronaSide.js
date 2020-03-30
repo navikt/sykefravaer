@@ -14,6 +14,8 @@ import KoronaSchema from './KoronaComponents/KoronaSchema';
 import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
 import { get, post } from '../data/gateway-api/gatewayApi';
 import SuksessKvittering from './KoronaComponents/Kvitteringer/SuksessKvittering';
+import KoronaAvbruttKvittering from './KoronaComponents/kvitteringer/KoronaAvbruttKvittering';
+import KoronaFeilKvittering from './KoronaComponents/kvitteringer/KoronaFeilKvittering';
 
 const KVITTERING_ERROR = true;
 const FORM_ERROR = false;
@@ -125,13 +127,7 @@ class KoronaContainer extends Component {
 
         if (avbryt) {
             return (
-                <Side
-                    tittel="Egenmeldingen ble ikke opprettet"
-                    brodsmuler={avbrytBrodsmuler}
-                    laster={henterLedetekster || this.state.isLoading}
-                >
-                    <p>avbrytkvittering</p>
-                </Side>
+                <KoronaAvbruttKvittering />
             );
         }
 
@@ -149,13 +145,7 @@ class KoronaContainer extends Component {
 
         if (kvitteringError) {
             return (
-                <Side
-                    tittel="Egenmeldingen ble ikke opprettet"
-                    brodsmuler={kvitteringErrorBrodsmuler}
-                    laster={henterLedetekster || this.state.isLoading}
-                >
-                    <p>feilkvittering</p>
-                </Side>
+                <KoronaFeilKvittering kvitteringFeil={kvitteringError} />
             );
         }
 

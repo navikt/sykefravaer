@@ -222,7 +222,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
     const nyeSoknader = soknaderRelatertTilSykmeldingen.filter(s => s.status === NY);
 
     if (erEgenmeldt(sykmelding)) {
-        if (soknaderRelatertTilSykmeldingen) {
+        if (nyeSoknader && nyeSoknader.length > 0) {
             return kvitteringtyper.EGENMELDT_KVITTERING_SOK_NA;
         }
         if (sykmelding.status === AVBRUTT) {

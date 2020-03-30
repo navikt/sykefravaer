@@ -29,6 +29,7 @@ import {
 } from './varianter/SokOmSykepengerSenereArbeidsledig';
 import SendtAvventendeSykmelding from './varianter/AvventendeSykmeldingKvittering';
 import EgenmeldtKvittering from './varianter/EgenmeldtKvittering';
+import EgenmeldtKvitteringSokNa from './varianter/EgenmeldtKvitteringSokNa';
 import EgenmeldingAvbruttKvittering from './varianter/EgenmeldingAvbruttKvittering';
 
 export const kvitteringtyper = {
@@ -53,6 +54,7 @@ export const kvitteringtyper = {
     BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: 'BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG',
     SENDT_AVVENTENDE_SYKMELDING: 'SENDT_AVVENTENDE_SYKMELDING',
     EGENMELDT_KVITTERING: 'EGENMELDT_KVITTERING',
+    EGENMELDT_KVITTERING_SOK_NA: 'EGENMELDT_KVITTERING_SOK_NA',
     EGENMELDING_AVBRUTT_KVITTERING: 'EGENMELDING_AVBRUTT_KVITTERING',
 };
 
@@ -115,6 +117,7 @@ const SykmeldingKvittering = (props) => {
         [kvitteringtyper.SENDT_AVVENTENDE_SYKMELDING]: SendtAvventendeSykmelding,
         [kvitteringtyper.EGENMELDT_KVITTERING]: EgenmeldtKvittering,
         [kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING]: EgenmeldingAvbruttKvittering,
+        [kvitteringtyper.EGENMELDT_KVITTERING_SOK_NA]: EgenmeldtKvitteringSokNa,
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];
@@ -126,6 +129,8 @@ const SykmeldingKvittering = (props) => {
         tittel = 'Egenmeldingen er sendt';
     } else if (Component === EgenmeldingAvbruttKvittering) {
         tittel = 'Egenmeldingen er avbrutt';
+    } else if (Component === EgenmeldtKvitteringSokNa) {
+        tittel = 'Egenmeldingen er sendt';
     }
 
     return (

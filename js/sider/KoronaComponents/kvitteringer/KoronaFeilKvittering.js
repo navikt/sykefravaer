@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel, Element, Sidetittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import Lenke from 'nav-frontend-lenker';
 import { Knapp } from 'nav-frontend-knapper';
 import Side from '../../Side';
-import history from '../../../history';
 
 const brodsmuler = [
     {
@@ -15,8 +14,6 @@ const brodsmuler = [
     },
     {
         tittel: 'Opprett egenmelding',
-        sti: '/egensykmelding',
-        erKlikkbar: true,
     },
     {
         tittel: 'Egenmeldingen ble ikke opprettet',
@@ -30,6 +27,7 @@ const KoronaFeilKvittering = ({ kvitteringFeil }) => {
             brodsmuler={brodsmuler}
             laster={false}
         >
+            <Sidetittel tag="h1" style={{ marginBottom: '3rem', textAlign: 'center' }}>Egenmeldingen ble ikke opprettet</Sidetittel>
             <Panel style={{ marginBottom: '1rem' }}>
                 <div style={{ display: 'flex' }}>
                     <img
@@ -52,7 +50,7 @@ const KoronaFeilKvittering = ({ kvitteringFeil }) => {
                         <Normaltekst style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                             Hvis du ønsker å opprette en ny egenmelding kan du gjøre det her:
                         </Normaltekst>
-                        <Knapp onClick={() => { return history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`); }}>Opprett egenmelding</Knapp>
+                        <Knapp onClick={() => { window.location.reload(); }}>Opprett 16-dagers egenmelding nå</Knapp>
                     </div>
                 </div>
             </Panel>

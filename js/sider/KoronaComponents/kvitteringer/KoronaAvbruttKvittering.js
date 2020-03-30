@@ -1,10 +1,9 @@
 import React from 'react';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel, Sidetittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import Lenke from 'nav-frontend-lenker';
 import { Knapp } from 'nav-frontend-knapper';
 import Side from '../../Side';
-import history from '../../../history';
 
 const brodsmuler = [
     {
@@ -14,8 +13,6 @@ const brodsmuler = [
     },
     {
         tittel: 'Opprett egenmelding',
-        sti: '/egensykmelding',
-        erKlikkbar: true,
     },
     {
         tittel: 'Egenmeldingen ble ikke opprettet',
@@ -29,6 +26,7 @@ const KoronaAvbruttKvittering = () => {
             brodsmuler={brodsmuler}
             laster={false}
         >
+            <Sidetittel tag="h1" style={{ marginBottom: '3rem', textAlign: 'center' }}>Egenmeldingen ble ikke opprettet</Sidetittel>
             <Panel style={{ marginBottom: '1rem' }}>
                 <div style={{ display: 'flex' }}>
                     <img
@@ -47,7 +45,7 @@ const KoronaAvbruttKvittering = () => {
                         <Normaltekst style={{ marginBottom: '1rem' }}>
                             Vil du prøve på nytt, følger du lenken under:
                         </Normaltekst>
-                        <Knapp onClick={() => { return history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`); }}>Opprett 16-dagers egenmelding nå</Knapp>
+                        <Knapp onClick={() => { window.location.reload(); }}>Opprett 16-dagers egenmelding nå</Knapp>
                     </div>
                 </div>
             </Panel>

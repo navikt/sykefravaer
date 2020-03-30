@@ -257,6 +257,9 @@ class KoronaSchema extends Component {
             periode,
             boxSize,
             errors } = this.state;
+        const { formError } = this.props;
+
+        console.log(formError);
 
         const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
             if (errorEntry[1]) {
@@ -742,6 +745,7 @@ TILBAKE
 
 KoronaSchema.propTypes = {
     opprettSykmelding: PropTypes.func,
+    formError: PropTypes.string,
 };
 
 

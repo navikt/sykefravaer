@@ -15,7 +15,7 @@ export const flatpickrLocale = {
             'mai',
             'juni',
             'juli',
-            'aug',
+            'august',
             'september',
             'oktober',
             'november',

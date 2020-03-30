@@ -187,8 +187,6 @@ const mapStateToProps = (state, ownProps) => {
             },
             {
                 tittel: 'Opprett egenmelding',
-                sti: '/egensykmelding',
-                erKlikkbar: true,
             },
             {
                 tittel: 'Egenmeldingen opprettes',

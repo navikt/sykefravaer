@@ -122,7 +122,7 @@ class KoronaContainer extends Component {
     }
 
     render() {
-        const { henterLedetekster, brodsmuler, kvitteringErrorBrodsmuler, suksessBrodsmuler, avbrytBrodsmuler } = this.props;
+        const { henterLedetekster, brodsmuler, suksessBrodsmuler } = this.props;
         const { formError, kvitteringError, submitSuccess, error, avbryt } = this.state;
 
         if (avbryt) {
@@ -206,45 +206,13 @@ const mapStateToProps = (state, ownProps) => {
                 tittel: 'Egenmeldingen opprettes',
             },
         ],
-        kvitteringErrorBrodsmuler: [
-            {
-                tittel: getLedetekst('landingsside.sidetittel'),
-                sti: '/',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Opprett egenmelding',
-                sti: '/egensykmelding',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Egenmeldingen ble ikke opprettet',
-            },
-        ],
-        avbrytBrodsmuler: [
-            {
-                tittel: getLedetekst('landingsside.sidetittel'),
-                sti: '/',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Opprett egenmelding',
-                sti: '/egensykmelding',
-                erKlikkbar: true,
-            },
-            {
-                tittel: 'Egenmeldingen ble ikke opprettet',
-            },
-        ],
     };
 };
 
 KoronaContainer.propTypes = {
     henterLedetekster: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    kvitteringErrorBrodsmuler: PropTypes.arrayOf(brodsmulePt),
     suksessBrodsmuler: PropTypes.arrayOf(brodsmulePt),
-    avbrytBrodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 
 export default connect(mapStateToProps)(KoronaContainer);

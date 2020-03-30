@@ -88,11 +88,6 @@ class KoronaSchema extends Component {
             touched: INITIAL_TOUCHED,
         };
         this.formContainerRef = React.createRef();
-        this.errorRef = {
-            koronamistanke: React.createRef(),
-            koronamistankeHjemmefra: React.createRef(),
-            palagtKarantene: React.createRef(),
-        };
 
         this.redrawBox = this.redrawBox.bind(this);
         this.onAvbryt = this.onAvbryt.bind(this);
@@ -380,8 +375,7 @@ class KoronaSchema extends Component {
                             <FormSection
                                 title="Har du mistanke om at du er smittet av korona?"
                                 errorKey="koronamistanke"
-                                errors={errors}
-                                errorRef={this.errorRef.koronamistanke}>
+                                errors={errors}>
                                 <Radio
                                     checked={questions.koronamistanke}
                                     label="Ja"
@@ -437,8 +431,7 @@ class KoronaSchema extends Component {
                                 title="Jobber du hjemmefra på fulltid?"
                                 show={questions.koronamistanke === true}
                                 errorKey="koronamistankeHjemmefra"
-                                errors={errors}
-                                errorRef={this.errorRef.koronamistankeHjemmefra}>
+                                errors={errors}>
                                 <Radio
                                     checked={questions.koronamistankeHjemmefra}
                                     label="Ja"
@@ -481,8 +474,7 @@ class KoronaSchema extends Component {
                                 title="Er du i pålagt karantene?"
                                 show={questions.koronamistanke === false}
                                 errorKey="palagtKarantene"
-                                errors={errors}
-                                errorRef={this.errorRef.palagtKarantene}>
+                                errors={errors}>
                                 <Radio
                                     checked={questions.palagtKarantene}
                                     label="Ja"
@@ -529,8 +521,7 @@ class KoronaSchema extends Component {
                                 title="Jobber du hjemmefra på fulltid?"
                                 show={questions.palagtKarantene === true}
                                 errorKey="palagtKaranteneHjemmefra"
-                                errors={errors}
-                                errorRef={this.errorRef.palagtKaranteneHjemmefra}>
+                                errors={errors}>
                                 <Radio
                                     checked={questions.palagtKaranteneHjemmefra}
                                     label="Ja"
@@ -573,8 +564,7 @@ class KoronaSchema extends Component {
                                 title="Er noen i husstanden din smittet?"
                                 show={questions.palagtKarantene === false}
                                 errorKey="husstandenSmittet"
-                                errors={errors}
-                                errorRef={this.errorRef.husstandenSmittet}>
+                                errors={errors}>
                                 <Radio
                                     checked={questions.husstandenSmittet}
                                     label="Ja"
@@ -619,8 +609,7 @@ class KoronaSchema extends Component {
                                 title="Jobber du hjemmefra på fulltid?"
                                 show={questions.husstandenSmittet === true}
                                 errorKey="husstandenSmittetHjemmefra"
-                                errors={errors}
-                                errorRef={this.errorRef.husstandenSmittetHjemmefra}>
+                                errors={errors}>
                                 <Radio
                                     checked={questions.husstandenSmittetHjemmefra}
                                     label="Ja"

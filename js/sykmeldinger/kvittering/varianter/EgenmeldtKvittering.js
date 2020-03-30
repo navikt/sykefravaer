@@ -28,6 +28,12 @@ const EgenmeldtKvittering = () => {
                         <Normaltekst style={{ marginBottom: '1rem' }}>
                                 Du får en sms eller epost når den er klar.
                         </Normaltekst>
+                        <Element style={{ marginBottom: '0.5rem' }}>Send inntektsopplysninger så fort som mulig</Element>
+                        <Normaltekst style={{ marginBottom: '1rem' }}>
+                                Før vi kan behandle søknaden din, må du fylle ut og sende
+                            {' '}
+                            <Lenke href="https://www.nav.no/soknader/nb/bedrift/inntekt-og-trekk/inntektsopplysninger-sykepenger/NAV%2008-35.01/dokumentinnsending">skjemaet for inntektsopplysninger</Lenke>
+                        </Normaltekst>
                         <Element style={{ marginBottom: '0.5rem' }}>Hvorfor må du vente med å søke?</Element>
                         <Normaltekst>
                                 Det er først når perioden på 16 dager er over, at du vet hvor

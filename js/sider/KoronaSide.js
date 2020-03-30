@@ -13,6 +13,7 @@ import Side from './Side';
 import KoronaSchema from './KoronaComponents/KoronaSchema';
 import { hentEgenmeldtSmApiUrl, hentEgenmeldtSmCacheInvalidateApiUrl } from './KoronaComponents/koronaUtils';
 import { get, post } from '../data/gateway-api/gatewayApi';
+import SuksessKvittering from './KoronaComponents/Kvitteringer/SuksessKvittering';
 
 const KVITTERING_ERROR = true;
 const FORM_ERROR = false;
@@ -165,7 +166,7 @@ class KoronaContainer extends Component {
                     brodsmuler={suksessBrodsmuler}
                     laster={henterLedetekster || this.state.isLoading}
                 >
-                    <p>success</p>
+                    <SuksessKvittering />
                 </Side>
             );
         }

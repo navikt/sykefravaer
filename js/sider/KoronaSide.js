@@ -70,7 +70,7 @@ class KoronaContainer extends Component {
     opprettSykmelding(periode) {
         this.setState({ isLoading: true });
         const INVALIDATE_URL = `${hentEgenmeldtSmCacheInvalidateApiUrl()}/sykmeldinger/invaliderSesjon`;
-        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
+        const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt/formerror`;
         post(URL, { periode, arbeidsforhold: [] })
             .then((res) => {
                 if (!Array.isArray(res)) {

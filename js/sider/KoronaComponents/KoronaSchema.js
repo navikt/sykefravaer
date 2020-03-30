@@ -103,24 +103,29 @@ class KoronaSchema extends Component {
         this.redrawBox();
     }
 
-    componentDidUpdate(_, nextState) {
+    componentDidUpdate(prevProps, prevState) {
         // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.tidligereSyk !== nextState.tidligereSyk) {
+        if (this.state.tidligereSyk !== prevState.tidligereSyk) {
             this.redrawBox();
         }
 
         // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.showAvbryt !== nextState.showAvbryt) {
+        if (this.props.formError !== prevProps.formError) {
             this.redrawBox();
         }
 
         // eslint-disable-next-line react/destructuring-assignment
-        if (JSON.stringify(this.state.errors) !== JSON.stringify(nextState.errors)) {
+        if (this.state.showAvbryt !== prevState.showAvbryt) {
             this.redrawBox();
         }
 
         // eslint-disable-next-line react/destructuring-assignment
-        if (JSON.stringify(this.state.questions) !== JSON.stringify(nextState.questions)) {
+        if (JSON.stringify(this.state.errors) !== JSON.stringify(prevState.errors)) {
+            this.redrawBox();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (JSON.stringify(this.state.questions) !== JSON.stringify(prevState.questions)) {
             this.redrawBox();
             this.validateAll();
         }
@@ -263,8 +268,6 @@ class KoronaSchema extends Component {
             boxSize,
             errors } = this.state;
         const { formError } = this.props;
-
-        console.log(formError);
 
         const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
             if (errorEntry[1]) {
@@ -704,6 +707,13 @@ class KoronaSchema extends Component {
                                 onChange={() => { this.setState((state) => { return { bekreftet: !state.bekreftet }; }); }}
                                 value={!!bekreftet}
                             />
+
+                            {formError && (
+                                <div style={{ marginBottom: '2rem' }}>
+                                    <CannotUseMelding text={formError} />
+                                </div>
+                            )}
+
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp

@@ -719,7 +719,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
 
                             <Element>Din arbeidssituasjon</Element>
                             <div style={{ display: 'flex', marginTop: '1rem', marginBottom: '3rem', marginLeft: '2rem' }}>
-                                <img width={28} src={checkmarkSvg} alt="Hake" />
+                                <img width={28} height={28} src={checkmarkSvg} alt="Hake" />
                                 <div style={{ lineHeight: '30px', marginLeft: '1rem' }}>Jobb som selvstendig næringsdrivende eller frilanser</div>
                             </div>
 

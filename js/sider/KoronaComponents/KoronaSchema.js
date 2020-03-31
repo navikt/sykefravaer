@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Radio, Checkbox } from 'nav-frontend-skjema';
+import { Radio } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Sidetittel, Systemtittel, Undertittel, Element, Normaltekst } from 'nav-frontend-typografi';
@@ -74,11 +74,9 @@ class KoronaSchema extends Component {
             },
             bekreftet: false,
             showAvbryt: false,
-            tidligereSyk: false,
             periode: {
-                fom: new Date(),
-                correctedFom: undefined,
-                tom: datePlus16Days(new Date()),
+                fom: undefined,
+                tom: undefined,
             },
             boxSize: {
                 formHeight: 0,
@@ -100,11 +98,6 @@ class KoronaSchema extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.tidligereSyk !== prevState.tidligereSyk) {
-            this.redrawBox();
-        }
-
         // eslint-disable-next-line react/destructuring-assignment
         if (this.props.formError !== prevProps.formError) {
             this.redrawBox();
@@ -218,7 +211,7 @@ class KoronaSchema extends Component {
         } = this.state;
 
         const submitPeriod = {
-            fom: (periode.correctedFom || periode.fom).toISOString().split('T')[0],
+            fom: periode.fom.toISOString().split('T')[0],
             tom: periode.tom.toISOString().split('T')[0],
         };
 
@@ -259,7 +252,6 @@ class KoronaSchema extends Component {
             questions,
             bekreftet,
             showAvbryt,
-            tidligereSyk,
             periode,
             boxSize,
             errors } = this.state;
@@ -314,64 +306,46 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Dine opplysninger"
                             />
 
-                            <div style={{ display: 'flex', marginBottom: '2rem' }}>
-                                <div>
+                            <div style={{ marginBottom: '2rem' }}>
+                                <EgenmeldingDatePicker
+                                    label="Vennligst velg dato du ble syk"
+                                    value={periode.fom}
+                                    onChange={(date) => {
+                                        if (!date) { return; }
+                                        this.setState({ periode: {
+                                            fom: correctDateOffset(date),
+                                            tom: datePlus16Days(date),
+                                        } });
+                                    }} />
+                            </div>
+
+                            <div style={{ display: 'flex', marginBottom: '2rem', flexWrap: 'wrap' }}>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Periode</h2>
-                                    <p className="js-periode blokk-xxs">
-                                        <span>
-                                            {tilLesbarDatoUtenAarstall(periode.correctedFom || periode.fom)}
-                                            {' '}
+                                    {periode.fom ? (
+                                        <p className="js-periode blokk-xxs">
+                                            <span>
+                                                {tilLesbarDatoUtenAarstall(periode.fom)}
+                                                {' '}
                                 -
+                                                {' '}
+                                                {tilLesbarDatoMedArstall(periode.tom)}
+                                            </span>
                                             {' '}
-                                            {tilLesbarDatoMedArstall(periode.tom)}
-                                        </span>
-                                        {' '}
                             •
-                                        {' '}
-                                        <span>16 dager</span>
-                                    </p>
+                                            {' '}
+                                            <span>16 dager</span>
+
+                                        </p>
+                                    ) : <p className="js-periode blokk-xxs">-</p>}
+
                                 </div>
-                                <div style={{ marginLeft: '4rem' }}>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
                                     <p>
                                     100%
                                     </p>
                                 </div>
-                            </div>
-
-                            <div style={{ marginBottom: '3rem' }}>
-                                <Checkbox
-                                    checked={tidligereSyk}
-                                    label="Jeg ble syk på et tidligere tidspunkt"
-                                    onChange={() => {
-                                        this.setState((state) => {
-                                            return {
-                                                tidligereSyk: !state.tidligereSyk,
-                                                periode: {
-                                                    ...state.periode,
-                                                    correctedFom: state.tidligereSyk ? undefined : state.periode.correctedFom,
-                                                },
-                                            };
-                                        });
-                                    }}
-                                    name="tidligereSyk" />
-                                {tidligereSyk && (
-                                    <div style={{ marginLeft: '2rem' }}>
-                                        <EgenmeldingDatePicker
-                                            label="Vennligst velg dato du ble syk"
-                                            value={periode.correctedFom}
-                                            onChange={(date) => {
-                                                if (!date) { return; }
-                                                this.setState((state) => {
-                                                    return { periode: {
-                                                        ...state.periode,
-                                                        correctedFom: correctDateOffset(date),
-                                                        tom: datePlus16Days(date),
-                                                    } };
-                                                });
-                                            }} />
-                                    </div>
-                                )}
                             </div>
 
                             <FormSection
@@ -664,12 +638,12 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             )}
 
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
-                                <div>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                     {showDiagnose && <p>COVID-19</p>}
                                     {!showDiagnose && <p>-</p>}
                                 </div>
-                                <div style={{ marginLeft: '8rem' }}>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <div style={{ display: 'flex' }}>
                                         <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
                                         <div style={{ marginBottom: '-1rem' }}>

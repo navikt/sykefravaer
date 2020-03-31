@@ -696,6 +696,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
 
                             <Bekreft
                                 onChange={() => { this.setState((state) => { return { bekreftet: !state.bekreftet }; }); }}
+                                canUseEgenmelding={canUseEgenmelding}
                                 value={!!bekreftet}
                             />
 

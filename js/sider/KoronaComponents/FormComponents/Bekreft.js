@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import './Bekreft.less';
 import { Checkbox } from 'nav-frontend-skjema';
 
-const Bekreft = ({ value, onChange }) => {
+const Bekreft = ({ value, onChange, canUseEgenmelding }) => {
     return (
-        <div className={value ? 'bekreft-container-bekreftet' : 'bekreft-container-ubekreftet'}>
+        <div className={!canUseEgenmelding ? 'bekreft-container-cannotuse' : value ? 'bekreft-container-bekreftet' : 'bekreft-container-ubekreftet'}>
             <p>Sjekk at opplysningene du har gitt er riktige.</p>
             <Checkbox
                 checked={value}
@@ -21,6 +21,7 @@ const Bekreft = ({ value, onChange }) => {
 Bekreft.propTypes = {
     value: PropTypes.bool,
     onChange: PropTypes.func,
+    canUseEgenmelding: PropTypes.bool,
 };
 
 export default Bekreft;

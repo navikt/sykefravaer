@@ -16,7 +16,7 @@ const EgenmeldtKvitteringSokNa = () => {
                     <img className="panel-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/green-check.svg`} alt="checkmark" />
                     <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Da har du bekreftet og sendt egenmeldingen til NAV</Undertittel>
                 </div>
-                <div className="panel-innhold">
+                <div className="panel-innhold" style={{ width: '100%' }}>
                     <img className="panel-ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/aktivert-soknad.svg`} alt="informasjon" />
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Nå kan du søke om sykepenger</Undertittel>

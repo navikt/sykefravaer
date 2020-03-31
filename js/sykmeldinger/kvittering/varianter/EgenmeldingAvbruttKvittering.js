@@ -33,7 +33,7 @@ const EgenmeldingAvbruttKvittering = () => {
                         alt="informasjon"
                         className="panel-ikon"
                     />
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                         <Normaltekst style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>
                             Hvis du er usikker på hva som gjelder for deg som selvstendig
                             næringsdrivende og frilanser kan du lese

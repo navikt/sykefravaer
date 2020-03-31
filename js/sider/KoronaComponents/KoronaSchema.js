@@ -132,6 +132,12 @@ class KoronaSchema extends Component {
         }
 
         // eslint-disable-next-line react/destructuring-assignment
+        if (JSON.stringify(this.state.periode) !== JSON.stringify(prevState.periode)) {
+            this.redrawBox();
+            this.validateAll();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
         if (this.props.formError !== prevProps.formError) {
             scrollToRef(this.formErrorRef);
         }
@@ -284,6 +290,8 @@ class KoronaSchema extends Component {
             errors } = this.state;
         const { formError } = this.props;
 
+        console.log(periode);
+
         const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
             if (errorEntry[1]) {
                 return [...acc, errorEntry];
@@ -340,18 +348,32 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 <EgenmeldingDatePicker
                                     value={periode.fom}
                                     onChange={(date) => {
-                                        if (!date) { return; }
-                                        this.setState((state) => {
-                                            return {
-                                                bekreftet: false,
-                                                touched: {
-                                                    ...state.touched,
-                                                    periode: true },
-                                                periode: {
-                                                    fom: correctDateOffset(date),
-                                                    tom: datePlus16Days(date),
-                                                } };
-                                        });
+                                        if (!date) {
+                                            this.setState((state) => {
+                                                return {
+                                                    bekreftet: false,
+                                                    touched: {
+                                                        ...state.touched,
+                                                        periode: true,
+                                                    },
+                                                    periode: {
+                                                        fom: undefined,
+                                                        tom: undefined,
+                                                    } };
+                                            });
+                                        } else {
+                                            this.setState((state) => {
+                                                return {
+                                                    bekreftet: false,
+                                                    touched: {
+                                                        ...state.touched,
+                                                        periode: true },
+                                                    periode: {
+                                                        fom: correctDateOffset(date),
+                                                        tom: datePlus16Days(date),
+                                                    } };
+                                            });
+                                        }
                                     }} />
                             </FormSection>
 

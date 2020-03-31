@@ -15,7 +15,7 @@ const EgenmeldtKvittering = () => {
                 </div>
                 <div style={{ display: 'flex' }}>
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/blue-info.svg`} alt="informasjon" style={{ marginRight: '2rem', width: '2.5rem', alignSelf: 'flex-start' }} />
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                         <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Hva skjer nå?</Undertittel>
                         <Normaltekst style={{ marginBottom: '1rem', marginTop: '1rem' }}>
                                 Når de 16 dagene er over, får du beskjed fra oss om å fylle ut

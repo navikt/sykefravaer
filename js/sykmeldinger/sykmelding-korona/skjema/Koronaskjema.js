@@ -78,7 +78,7 @@ class KoronaSkjemaComponent extends Component {
                             ? 'Du må svare på om opplysningene er riktige'
                             : undefined,
                         arbeidssituasjon: !prevState.sporsmal.arbeidssituasjon
-                            ? 'Du må svare på hva du er sykmeldt fra'
+                            ? 'Du må svare på hvilket arbeid egenmeldingen gjelder.'
                             : undefined,
                     },
                 };

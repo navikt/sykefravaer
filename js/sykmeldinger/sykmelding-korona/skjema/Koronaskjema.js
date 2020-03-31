@@ -43,7 +43,7 @@ class KoronaSkjemaComponent extends Component {
                 },
                 errors: {
                     ...prevState.errors,
-                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis opplysningene ikke stemmer må du avbryte denne egenmeldingen nederst på siden og opprette en ny.' : undefined,
+                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis opplysningene ikke stemmer, avbryter du egenmeldingen nederst på siden. Da kan du starte utfyllingen på nytt igjen.' : undefined,
                 },
                 visAvbryt: event.target.value === 'nei',
             };
@@ -125,7 +125,7 @@ class KoronaSkjemaComponent extends Component {
                 <Panel>
                     <RadioPanelGruppe
                         name="arbeidssituasjon"
-                        legend="Hva er du sykmeldt fra?"
+                        legend="Hvilket arbeid gjelder egenmeldingen? Har du begge roller, velger du bare en av dem."
                         radios={[
                             {
                                 label: 'Selvstendig næringsdrivende',

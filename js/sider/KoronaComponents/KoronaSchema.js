@@ -40,6 +40,13 @@ const hasErrors = (errors) => {
     return Object.values(errors).some((error) => { return error !== undefined; });
 };
 
+const scrollToRef = (ref) => {
+    if (ref && ref.current) {
+        return window.scrollTo(0, ref.current.offsetTop);
+    }
+    return null;
+};
+
 const CORONA_CODE = 'R991';
 
 const INITIAL_ERRORS = {
@@ -89,6 +96,7 @@ class KoronaSchema extends Component {
             touched: INITIAL_TOUCHED,
         };
         this.formContainerRef = React.createRef();
+        this.formErrorRef = React.createRef();
 
         this.redrawBox = this.redrawBox.bind(this);
         this.onAvbryt = this.onAvbryt.bind(this);
@@ -121,6 +129,11 @@ class KoronaSchema extends Component {
             this.redrawBox();
             this.validateAll();
             this.resetBekreft();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.props.formError !== prevProps.formError) {
+            scrollToRef(this.formErrorRef);
         }
     }
 
@@ -703,7 +716,6 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 </div>
                             )}
 
-
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
                                     disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
@@ -717,14 +729,17 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 Avbryt
                             </Knapp>
 
-                            {showAvbryt
+                            <div ref={this.formErrorRef}>
+                                {showAvbryt
                                 && (
                                     <AvbrytRegistrering
                                         onAvbryt={this.onAvbryt}
                                         onAngre={() => { this.setState({ showAvbryt: false }); }}
                                     />
                                 )
-                            }
+                                }
+                            </div>
+
                         </div>
                     </article>
                 </div>

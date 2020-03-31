@@ -51,11 +51,11 @@ class KoronaContainer extends Component {
         this.setState({ avbryt: true });
     }
 
-    opprettSykmelding(periode) {
+    opprettSykmelding(egenmelding) {
         this.setState({ isLoading: true });
         const INVALIDATE_URL = `${hentEgenmeldtSmCacheInvalidateApiUrl()}/sykmeldinger/invaliderSesjon`;
         const URL = `${hentEgenmeldtSmApiUrl()}/api/v1/sykmelding/egenmeldt`;
-        post(URL, { periode, arbeidsforhold: [] })
+        post(URL, egenmelding)
             .then((res) => {
                 if (!res.errors) {
                     syforestPost(INVALIDATE_URL);

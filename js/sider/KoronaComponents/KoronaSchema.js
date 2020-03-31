@@ -241,6 +241,9 @@ class KoronaSchema extends Component {
 
         const {
             periode,
+            questions: {
+                koronamistanke,
+            },
         } = this.state;
 
         const submitPeriod = {
@@ -249,7 +252,7 @@ class KoronaSchema extends Component {
         };
 
         const { opprettSykmelding } = this.props;
-        opprettSykmelding(submitPeriod);
+        opprettSykmelding({ periode: submitPeriod, egenSykdom: !!koronamistanke, arbeidsforhold: [] });
     }
 
     canUseEgenmelding() {

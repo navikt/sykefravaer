@@ -75,10 +75,10 @@ class KoronaSkjemaComponent extends Component {
                     errors: {
                         ...prevState.errors,
                         erOpplysningeneRiktige: !prevState.sporsmal.erOpplysningeneRiktige
-                            ? 'Du må svare på om opplysningene er riktige'
+                            ? 'Du må svare på om opplysningene er riktige.'
                             : undefined,
                         arbeidssituasjon: !prevState.sporsmal.arbeidssituasjon
-                            ? 'Du må svare på hva du er sykmeldt fra'
+                            ? 'Du må svare på hvilket arbeid egenmeldingen gjelder.'
                             : undefined,
                     },
                 };

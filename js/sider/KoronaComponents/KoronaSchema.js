@@ -43,6 +43,7 @@ const hasErrors = (errors) => {
 const CORONA_CODE = 'R991';
 
 const INITIAL_ERRORS = {
+    periode: undefined,
     koronamistanke: undefined,
     koronamistankeHjemmefra: undefined,
     palagtKarantene: undefined,
@@ -52,6 +53,7 @@ const INITIAL_ERRORS = {
 };
 
 const INITIAL_TOUCHED = {
+    periode: undefined,
     koronamistanke: undefined,
     koronamistankeHjemmefra: undefined,
     palagtKarantene: undefined,
@@ -145,7 +147,7 @@ class KoronaSchema extends Component {
     validateAll(submitting = false) {
         const updatedErrors = { ...INITIAL_ERRORS };
 
-        const { questions, touched } = this.state;
+        const { questions, touched, periode } = this.state;
 
         // If we are submitting, validate all fields ignoring touched status
         if (submitting || touched.koronamistanke) {
@@ -181,6 +183,12 @@ class KoronaSchema extends Component {
         if (submitting || touched.husstandenSmittetHjemmefra) {
             if (questions.husstandenSmittet === true && questions.husstandenSmittetHjemmefra === undefined) {
                 updatedErrors.husstandenSmittetHjemmefra = 'Du må bekrefte om du jobber hjemmefra';
+            }
+        }
+
+        if (submitting || touched.periode) {
+            if (periode.fom === undefined) {
+                updatedErrors.periode = 'Du må velge datoen du ble syk';
             }
         }
 
@@ -306,18 +314,26 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Dine opplysninger"
                             />
 
-                            <div style={{ marginBottom: '2rem' }}>
+                            <FormSection
+                                title="Vennligst velg dato du ble syk"
+                                errorKey="periode"
+                                errors={errors}>
                                 <EgenmeldingDatePicker
-                                    label="Vennligst velg dato du ble syk"
                                     value={periode.fom}
                                     onChange={(date) => {
                                         if (!date) { return; }
-                                        this.setState({ periode: {
-                                            fom: correctDateOffset(date),
-                                            tom: datePlus16Days(date),
-                                        } });
+                                        this.setState((state) => {
+                                            return {
+                                                touched: {
+                                                    ...state.touched,
+                                                    periode: true },
+                                                periode: {
+                                                    fom: correctDateOffset(date),
+                                                    tom: datePlus16Days(date),
+                                                } };
+                                        });
                                     }} />
-                            </div>
+                            </FormSection>
 
                             <div style={{ display: 'flex', marginBottom: '2rem', flexWrap: 'wrap' }}>
                                 <div style={{ flex: '1 1 50%' }}>

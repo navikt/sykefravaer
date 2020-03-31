@@ -73,7 +73,7 @@ class KoronaFeilKvittering extends React.Component {
                                 alignSelf: 'flex-start',
                             }}
                         />
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                             <Normaltekst style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>
                             Er du usikker på hva som gjelder for deg under pandemien?
                                 {' '}

@@ -34,15 +34,11 @@ class KoronaAvbruttKvittering extends React.Component {
             >
                 <Sidetittel tag="h1" style={{ marginBottom: '3rem', textAlign: 'center' }}>Egenmeldingen ble ikke opprettet</Sidetittel>
                 <Panel style={{ marginBottom: '1rem' }}>
-                    <div style={{ display: 'flex' }}>
+                    <div className="panel-innhold">
                         <img
+                            className="panel-ikon"
                             src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/red-cancel.svg`}
                             alt="rødt kryss"
-                            style={{
-                                marginRight: '2rem',
-                                width: '2.5rem',
-                                alignSelf: 'flex-start',
-                            }}
                         />
                         <div>
                             <Undertittel tag="h2" style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>
@@ -51,20 +47,16 @@ class KoronaAvbruttKvittering extends React.Component {
                             <Normaltekst style={{ marginBottom: '1rem' }}>
                                 Vil du prøve på nytt, følger du lenken under:
                             </Normaltekst>
-                            <Knapp onClick={() => { window.location.reload(); }}>Opprett 16-dagers egenmelding nå</Knapp>
+                            <Knapp onClick={() => { window.location.reload(); }}>Opprett egenmelding</Knapp>
                         </div>
                     </div>
                 </Panel>
                 <Panel>
-                    <div style={{ display: 'flex' }}>
+                    <div className="panel-innhold">
                         <img
                             src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/blue-info.svg`}
                             alt="informasjon"
-                            style={{
-                                marginRight: '2rem',
-                                width: '2.5rem',
-                                alignSelf: 'flex-start',
-                            }}
+                            className="panel-ikon"
                         />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <Normaltekst style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>

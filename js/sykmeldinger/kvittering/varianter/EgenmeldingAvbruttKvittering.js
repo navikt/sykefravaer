@@ -11,15 +11,11 @@ const EgenmeldingAvbruttKvittering = () => {
     return (
         <div className="js-kvittering js-kvittering--frilanser-sok-senere">
             <Panel style={{ marginBottom: '2rem' }}>
-                <div style={{ display: 'flex', marginBottom: '2rem' }}>
+                <div className="panel-innhold" style={{ marginBottom: '2rem' }}>
                     <img
                         src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/red-cancel.svg`}
                         alt="rødt kryss"
-                        style={{
-                            marginRight: '2rem',
-                            width: '2.5rem',
-                            alignSelf: 'flex-start',
-                        }}
+                        className="panel-ikon"
                     />
                     <div>
                         <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>
@@ -31,15 +27,11 @@ const EgenmeldingAvbruttKvittering = () => {
                         <Knapp onClick={() => { return history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`); }}>Opprett egenmelding</Knapp>
                     </div>
                 </div>
-                <div style={{ display: 'flex' }}>
+                <div className="panel-innhold">
                     <img
                         src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/blue-info.svg`}
                         alt="informasjon"
-                        style={{
-                            marginRight: '2rem',
-                            width: '2.5rem',
-                            alignSelf: 'flex-start',
-                        }}
+                        className="panel-ikon"
                     />
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <Normaltekst style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>

@@ -43,7 +43,7 @@ class KoronaContainer extends Component {
             formError: undefined,
             kvitteringError: undefined,
             submitSuccess: undefined,
-            avbryt: true,
+            avbryt: undefined,
         };
     }
 

@@ -290,8 +290,6 @@ class KoronaSchema extends Component {
             errors } = this.state;
         const { formError } = this.props;
 
-        console.log(periode);
-
         const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
             if (errorEntry[1]) {
                 return [...acc, errorEntry];

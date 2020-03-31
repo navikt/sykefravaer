@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import Flatpickr from 'react-flatpickr';
 import React from 'react';
-import { Element } from 'nav-frontend-typografi';
 
 import { flatpickrLocale } from './flatpickrUtils';
 
@@ -25,12 +24,9 @@ bmUgY2xhc3M9InN0MCIgeDE9IjcuNSIgeTE9IjIuNSIgeDI9IjE2LjUiIHkyPSIyLjUiLz4KPGxp
 bmUgY2xhc3M9InN0MCIgeDE9IjAuNSIgeTE9IjcuNSIgeDI9IjIzLjUiIHkyPSI3LjUiLz4KPC9z
 dmc+Cg==`;
 
-const EgenmeldingDatePicker = ({ label, value, onChange }) => {
+const EgenmeldingDatePicker = ({ value, onChange }) => {
     return (
         <div className="datepicker-container">
-            <div className="datepicker-label">
-                <Element>{label}</Element>
-            </div>
             <div className="flatpickr-container">
                 <Flatpickr
                     value={value}
@@ -57,7 +53,6 @@ const EgenmeldingDatePicker = ({ label, value, onChange }) => {
 };
 
 EgenmeldingDatePicker.propTypes = {
-    label: PropTypes.string,
     value: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
 };

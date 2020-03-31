@@ -45,7 +45,7 @@ class KoronaAvbruttKvittering extends React.Component {
                                 Du har avbrutt oppretting av egenmeldingen
                             </Undertittel>
                             <Normaltekst style={{ marginBottom: '1rem' }}>
-                                Vil du prøve på nytt, følger du lenken under:
+                                Vil du prøve på nytt, trykker du på knappen under:
                             </Normaltekst>
                             <Knapp mini onClick={() => { window.location.reload(); }}>Opprett egenmelding</Knapp>
                         </div>

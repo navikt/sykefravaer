@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 import { Radio, Checkbox } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel, Ingress, Element } from 'nav-frontend-typografi';
+import { Sidetittel, Systemtittel, Undertittel, Element, Normaltekst } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
@@ -278,16 +279,17 @@ class KoronaSchema extends Component {
         return (
             <div>
                 <Sidetittel tag="h1" style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
-                <Undertittel style={{ marginBottom: '2rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
+                <Undertittel style={{ marginBottom: '3rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
 
-                <Ingress>
-                    Du kan bruke egenmelding i inntil 16 dager hvis du er smittet av koronaviruset, er mistenkt smittet, eller i pålagt karantene.
-                </Ingress>
-                <br />
-                <Ingress>
-                    Vanligvis er det en behandler som sykmelder deg og sender den inn til oss. I dette tilfellet blir du nødt til å opprette egenmeldingen før du kan sende den inn.
-                </Ingress>
-                <br />
+                <Bjorn hvit>
+                    <Normaltekst style={{ marginBottom: '2rem' }}>
+                    Hei,
+Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da kan du sende egenmelding på inntil 16 dager. Det samme gjelder hvis du er blitt pålagt å være i karantene
+                    </Normaltekst>
+                    <Knapp onClick={() => { return window.scrollTo(0, this.formContainerRef.current.offsetTop, { behaviour: 'smooth' }); }}>
+                        Gå til utfylling
+                    </Knapp>
+                </Bjorn>
 
                 <div>
                     <div style={{
@@ -297,7 +299,7 @@ class KoronaSchema extends Component {
                         zIndex: '-1',
                         marginLeft: boxSize.offsetLeft * -1,
                         position: 'absolute' }} />
-                    <article style={{ marginTop: '2rem' }} ref={this.formContainerRef}>
+                    <article style={{ marginTop: '4rem' }} ref={this.formContainerRef}>
                         <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',

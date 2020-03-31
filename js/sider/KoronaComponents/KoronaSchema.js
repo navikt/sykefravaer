@@ -194,7 +194,7 @@ class KoronaSchema extends Component {
 
         if (submitting || touched.periode) {
             if (periode.fom === undefined) {
-                updatedErrors.periode = 'Du må oppgi datoen du ble syk';
+                updatedErrors.periode = 'Du må oppgi hvilken dag du ble syk';
             }
         }
 
@@ -321,7 +321,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             />
 
                             <FormSection
-                                title="Oppgi hvilken dato du ble syk"
+                                title="Oppgi hvilken dag du ble syk"
                                 errorKey="periode"
                                 errors={errors}>
                                 <EgenmeldingDatePicker

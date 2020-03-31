@@ -1,9 +1,11 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 import {
-    DineKoronaSykmeldingOpplysninger,
+    DineKoronaSykmeldingOpplysninger, Bjorn, scrollTo,
 } from '@navikt/digisyfo-npm';
 import { Undertittel, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
+import { Knapp } from 'nav-frontend-knapper';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 import KoronaSkjema from './skjema/Koronaskjema';
@@ -17,8 +19,29 @@ class KoronaSykmeldingNy extends Component {
                         <NySykmeldingTrigger>
                             <Sidetittel style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
                             <Undertittel style={{ marginBottom: '2.5rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
-                            <Normaltekst style={{ marginBottom: '1rem' }}>Her sjekker du at opplysningene fra da du opprettet egenmeldingen stemmer. Om alt stemmer kan du bekrefte og sende inn egenmeldingen.</Normaltekst>
-                            <Normaltekst style={{ marginBottom: '2rem' }}>Vennligst se nøye over og påse at opplysningene du har oppgitt er riktige.</Normaltekst>
+                            <Bjorn
+                                className="blokk"
+                                hvit
+                                stor>
+                                <Normaltekst style={{ marginBottom: '1rem' }}>
+                                Her sjekker du at opplysningene fra når du opprettet egenmeldingen stemmer. Om alt stemmer kan du bekrefte og sende inn egenmeldingen.
+                                </Normaltekst>
+                                <Normaltekst>
+                                Vennligst se nøye over at opplysningene du har oppgitt er riktige.
+                                </Normaltekst>
+                                <div className="skjul-pa-desktop">
+                                    <Knapp
+                                        mini
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            scrollTo(this.skjema);
+                                            this.skjema.focus();
+                                        }}
+                                        style={{ marginTop: '2rem' }}>
+                                            Gå til utfyllingen
+                                    </Knapp>
+                                </div>
+                            </Bjorn>
                             <article>
                                 <header className="panelHeader panelHeader--lysebla">
                                     <img
@@ -45,7 +68,11 @@ class KoronaSykmeldingNy extends Component {
                                 tabIndex="-1"
                                 className="sykmeldingskjemaRef"
                             >
-                                <KoronaSkjema sykmelding={sykmelding} />
+                                <KoronaSkjema
+                                    ref={(c) => {
+                                        this.skjema = c;
+                                    }}
+                                    sykmelding={sykmelding} />
                             </div>
                         </NySykmeldingTrigger>
                     );

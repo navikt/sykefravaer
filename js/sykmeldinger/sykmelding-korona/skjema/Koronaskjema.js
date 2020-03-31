@@ -43,9 +43,8 @@ class KoronaSkjemaComponent extends Component {
                 },
                 errors: {
                     ...prevState.errors,
-                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis opplysningene ikke stemmer, avbryter du egenmeldingen nederst på siden. Da kan du starte utfyllingen på nytt igjen.' : undefined,
+                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis opplysningene ikke stemmer, avbryter du egenmeldingen. Da kan du starte utfyllingen på nytt igjen.' : undefined,
                 },
-                visAvbryt: event.target.value === 'nei',
             };
         });
     }
@@ -121,6 +120,21 @@ class KoronaSkjemaComponent extends Component {
                                 : null
                         }
                     />
+                    <Vis hvis={this.state.sporsmal.erOpplysningeneRiktige === 'nei'}>
+                        <div className="pekeboble" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Normaltekst>Er du sikker på at du vil avbryte denne egenmeldingen?</Normaltekst>
+                            <Fareknapp
+                                htmlType="button"
+                                onClick={() => {
+                                    this.handleCancel();
+                                }}
+                                spinner={this.props.avbryter}
+                                style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                            >
+                            Ja, jeg er sikkker
+                            </Fareknapp>
+                        </div>
+                    </Vis>
                 </Panel>
                 <Panel>
                     <RadioPanelGruppe

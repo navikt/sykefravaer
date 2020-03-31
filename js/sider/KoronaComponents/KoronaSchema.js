@@ -647,7 +647,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                     <CannotUseMelding text="Du kan ikke bruke egenmelding" />
                                     <br />
 
-                                    <Lenke href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
+                                    <Lenke target="_blank" href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
                                         Les mer om hvem som kan bruke tjenesten her.
                                     </Lenke>
                                 </div>

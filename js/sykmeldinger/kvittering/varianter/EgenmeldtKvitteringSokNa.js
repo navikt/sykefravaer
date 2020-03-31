@@ -23,7 +23,7 @@ const EgenmeldtKvitteringSokNa = () => {
                         <Normaltekst style={{ marginBottom: '1rem', marginTop: '1rem' }}>
                             I søknaden svarer du på noen spørsmål vi trenger svar på for å beregne sykepengene dine.
                         </Normaltekst>
-                        <Knapp style={{ marginBottom: '2rem' }} onClick={() => { history.push(getSykepengesoknaderUrl()); }}>Søk om sykepenger</Knapp>
+                        <Knapp mini style={{ marginBottom: '2rem' }} onClick={() => { history.push(getSykepengesoknaderUrl()); }}>Søk om sykepenger</Knapp>
                         <Element style={{ marginBottom: '0.5rem' }}>Husk: Send inntektsopplysninger så fort som mulig</Element>
                         <Normaltekst style={{ marginBottom: '1rem' }}>
                             Før vi kan behandle søknaden din, må du fylle ut og sende

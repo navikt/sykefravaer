@@ -41,13 +41,13 @@ class KoronaAvbruttKvittering extends React.Component {
                             alt="rødt kryss"
                         />
                         <div>
-                            <Undertittel tag="h2" style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>
+                            <Undertittel tag="h2" style={{ marginTop: '0.5rem', marginBottom: '2rem' }}>
                                 Du har avbrutt oppretting av egenmeldingen
                             </Undertittel>
                             <Normaltekst style={{ marginBottom: '1rem' }}>
                                 Vil du prøve på nytt, følger du lenken under:
                             </Normaltekst>
-                            <Knapp onClick={() => { window.location.reload(); }}>Opprett egenmelding</Knapp>
+                            <Knapp mini onClick={() => { window.location.reload(); }}>Opprett egenmelding</Knapp>
                         </div>
                     </div>
                 </Panel>

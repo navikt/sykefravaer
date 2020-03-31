@@ -652,6 +652,17 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
 
                             <HjemmefraInfo show={workFromHomeQuestionVisible} />
 
+                            {!canUseEgenmelding && (
+                                <div style={{ marginBottom: '2rem', marginTop: '2rem' }}>
+                                    <CannotUseMelding text="Du kan ikke bruke egenmelding" />
+                                    <br />
+
+                                    <Lenke href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
+                                        Les mer om hvem som kan bruke tjenesten her.
+                                    </Lenke>
+                                </div>
+                            )}
+
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
                                 <div>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
@@ -672,17 +683,6 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                     {!showDiagnose && <p>-</p>}
                                 </div>
                             </div>
-
-                            {!canUseEgenmelding && (
-                                <div style={{ marginBottom: '2rem' }}>
-                                    <CannotUseMelding text="Du kan ikke bruke egenmelding" />
-                                    <br />
-
-                                    <Lenke href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
-                                        Les mer om hvem som kan bruke tjenesten her.
-                                    </Lenke>
-                                </div>
-                            )}
 
                             <Element>Din arbeidssituasjon</Element>
                             <div style={{ display: 'flex', marginTop: '1rem', marginBottom: '3rem', marginLeft: '2rem' }}>

@@ -92,6 +92,7 @@ class KoronaSchema extends Component {
 
         this.redrawBox = this.redrawBox.bind(this);
         this.onAvbryt = this.onAvbryt.bind(this);
+        this.resetBekreft = this.resetBekreft.bind(this);
     }
 
     componentDidMount() {
@@ -119,6 +120,7 @@ class KoronaSchema extends Component {
         if (JSON.stringify(this.state.questions) !== JSON.stringify(prevState.questions)) {
             this.redrawBox();
             this.validateAll();
+            this.resetBekreft();
         }
     }
 
@@ -142,6 +144,10 @@ class KoronaSchema extends Component {
 
         this.setState({ boxSize: { formHeight, offsetLeft, width } });
         return null;
+    }
+
+    resetBekreft() {
+        this.setState({ bekreftet: false });
     }
 
     validateAll(submitting = false) {
@@ -324,6 +330,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                         if (!date) { return; }
                                         this.setState((state) => {
                                             return {
+                                                bekreftet: false,
                                                 touched: {
                                                     ...state.touched,
                                                     periode: true },

@@ -13,6 +13,7 @@ const Bekreft = ({ value, onChange, canUseEgenmelding }) => {
                 checked={value}
                 label="Jeg bekrefter at opplysningene jeg har oppgitt er riktige"
                 onChange={onChange}
+                disabled={!canUseEgenmelding}
                 name="opplysningeneRiktige" />
         </div>
     );

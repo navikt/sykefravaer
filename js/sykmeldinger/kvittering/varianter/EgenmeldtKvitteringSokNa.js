@@ -19,18 +19,16 @@ const EgenmeldtKvitteringSokNa = () => {
                 <div style={{ display: 'flex' }}>
                     <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/aktivert-soknad.svg`} alt="informasjon" style={{ marginRight: '2rem', width: '2.5rem', alignSelf: 'flex-start' }} />
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Søknad om sykepenger er aktivert</Undertittel>
+                        <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>Nå kan du søke om sykepenger</Undertittel>
                         <Normaltekst style={{ marginBottom: '1rem', marginTop: '1rem' }}>
-                                Du kan nå fylle ut og sende inn søknaden. I søknaden må du besvare noen spørsmål vi trenger svar på for å beregne sykepengene dine.
+                            I søknaden svarer du på noen spørsmål vi trenger svar på for å beregne sykepengene dine.
                         </Normaltekst>
                         <Knapp style={{ marginBottom: '2rem' }} onClick={() => { history.push(getSykepengesoknaderUrl()); }}>Søk om sykepenger</Knapp>
                         <Element style={{ marginBottom: '0.5rem' }}>Husk: Send inntektsopplysninger så fort som mulig</Element>
                         <Normaltekst style={{ marginBottom: '1rem' }}>
-                            Før vi kan behandle søknaden din, må skjema
+                            Før vi kan behandle søknaden din, må du fylle ut og sende
                             {' '}
-                            <Lenke href="https://www.nav.no/soknader/nb/bedrift/inntekt-og-trekk/inntektsopplysninger-sykepenger/NAV%2008-35.01/dokumentinnsending">NAV 08-35.01 «Inntektsopplysninger for selvstendig næringsdrivende og/eller frilansere som skal ha sykepenger»</Lenke>
-                            {' '}
-                            fylles ut.
+                            <Lenke href="https://www.nav.no/soknader/nb/bedrift/inntekt-og-trekk/inntektsopplysninger-sykepenger/NAV%2008-35.01/dokumentinnsending">skjemaet for inntektsopplysninger.</Lenke>
                         </Normaltekst>
                     </div>
                 </div>

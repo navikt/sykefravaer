@@ -46,7 +46,7 @@ const EgenmeldtKvittering = () => {
             <div style={{ marginBottom: '3rem' }}>
                 <Bjorn hvit>
                     <Normaltekst style={{ marginBottom: '0.5rem' }}>Folkehelseinsituttet ber alle som har symptomer på koronavirus om å melde fra. Da hjelper du til med å kartlegge situasjonen.</Normaltekst>
-                    <Lenke href="https://helsehorge.no/koronavirus/koronasmitte">Meld fra til Folkehelseinsituttet her.</Lenke>
+                    <Lenke href="https://helsenorge.no/koronavirus/koronasmitte">Meld fra til Folkehelseinsituttet her.</Lenke>
                 </Bjorn>
             </div>
         </div>

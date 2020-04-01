@@ -49,5 +49,6 @@ describe('BekreftEgenmeldingSkjema', () => {
                 target: { name: 'erOpplysningeneRiktige', value: 'nei' },
             });
         expect(component.find('.skjemaelement__feilmelding').length).to.equal(1);
+        expect(component.find('.knapp--fare').length).to.equal(1);
     });
 });

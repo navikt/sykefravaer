@@ -1238,7 +1238,7 @@ describe('SykmeldingkvitteringSide', () => {
                 .contain('Da har du bekreftet og sendt egenmeldingen til NAV');
             expect(component.text())
                 .to
-                .contain('Søknad om sykepenger er aktivert');
+                .contain('Nå kan du søke om sykepenger');
         });
     });
 

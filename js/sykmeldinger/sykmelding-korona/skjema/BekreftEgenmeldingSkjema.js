@@ -160,7 +160,6 @@ export class BekreftEgenmeldingSkjemaComponent extends Component {
                         }
                     />
                 </Panel>
-                <button type="button" onClick={() => { return console.log('button pressed'); }}>testbutton</button>
                 <Feilstripe vis={this.props.sendingFeilet || this.props.avbrytFeilet} className="blokk" />
                 <div
                     style={{

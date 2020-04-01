@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
 import { BekreftEgenmeldingSkjemaComponent } from './BekreftEgenmeldingSkjema';

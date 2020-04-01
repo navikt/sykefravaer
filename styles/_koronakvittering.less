@@ -1,0 +1,23 @@
+.panel-innhold {
+    flex-direction: column;
+    display: flex;
+}
+
+.panel-ikon {
+    align-self: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0;
+    margin-bottom: 1rem;
+}
+
+@media(min-width: @skjermLiten) {
+    .panel-innhold {
+        flex-direction: row;
+    }
+
+    .panel-ikon {
+        align-self: flex-start;
+        margin-right: 2rem;
+    }
+}

@@ -43,9 +43,8 @@ export class BekreftEgenmeldingSkjemaComponent extends Component {
                 },
                 errors: {
                     ...prevState.errors,
-                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis opplysningene ikke stemmer må du avbryte denne egenmeldingen nederst på siden og opprette en ny.' : undefined,
+                    erOpplysningeneRiktige: event.target.value === 'nei' ? 'Hvis opplysningene ikke stemmer, avbryter du egenmeldingen. Da kan du starte utfyllingen på nytt igjen.' : undefined,
                 },
-                visAvbryt: event.target.value === 'nei',
             };
         });
     }
@@ -75,10 +74,10 @@ export class BekreftEgenmeldingSkjemaComponent extends Component {
                     errors: {
                         ...prevState.errors,
                         erOpplysningeneRiktige: !prevState.sporsmal.erOpplysningeneRiktige
-                            ? 'Du må svare på om opplysningene er riktige'
+                            ? 'Du må svare på om opplysningene er riktige.'
                             : undefined,
                         arbeidssituasjon: !prevState.sporsmal.arbeidssituasjon
-                            ? 'Du må svare på hva du er sykmeldt fra'
+                            ? 'Du må svare på hvilket arbeid egenmeldingen gjelder.'
                             : undefined,
                     },
                 };
@@ -121,11 +120,26 @@ export class BekreftEgenmeldingSkjemaComponent extends Component {
                                 : null
                         }
                     />
+                    <Vis hvis={this.state.sporsmal.erOpplysningeneRiktige === 'nei'}>
+                        <div className="pekeboble" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Normaltekst>Er du sikker på at du vil avbryte denne egenmeldingen?</Normaltekst>
+                            <Fareknapp
+                                htmlType="button"
+                                onClick={() => {
+                                    this.handleCancel();
+                                }}
+                                spinner={this.props.avbryter}
+                                style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                            >
+                            Ja, jeg er sikkker
+                            </Fareknapp>
+                        </div>
+                    </Vis>
                 </Panel>
                 <Panel>
                     <RadioPanelGruppe
                         name="arbeidssituasjon"
-                        legend="Hva er du sykmeldt fra?"
+                        legend="Hvilket arbeid gjelder egenmeldingen? Har du begge roller, velger du bare en av dem."
                         radios={[
                             {
                                 label: 'Selvstendig næringsdrivende',

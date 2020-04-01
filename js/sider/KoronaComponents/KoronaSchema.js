@@ -2,14 +2,15 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Radio, Checkbox } from 'nav-frontend-skjema';
+import { Radio } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Systemtittel, Undertittel, Ingress, Element } from 'nav-frontend-typografi';
+import { Sidetittel, Systemtittel, Undertittel, Element, Normaltekst } from 'nav-frontend-typografi';
 import {
     tilLesbarDatoUtenAarstall,
 } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
@@ -39,9 +40,17 @@ const hasErrors = (errors) => {
     return Object.values(errors).some((error) => { return error !== undefined; });
 };
 
+const scrollToRef = (ref) => {
+    if (ref && ref.current) {
+        return window.scrollTo(0, ref.current.offsetTop);
+    }
+    return null;
+};
+
 const CORONA_CODE = 'R991';
 
 const INITIAL_ERRORS = {
+    periode: undefined,
     koronamistanke: undefined,
     koronamistankeHjemmefra: undefined,
     palagtKarantene: undefined,
@@ -51,6 +60,7 @@ const INITIAL_ERRORS = {
 };
 
 const INITIAL_TOUCHED = {
+    periode: undefined,
     koronamistanke: undefined,
     koronamistankeHjemmefra: undefined,
     palagtKarantene: undefined,
@@ -73,11 +83,9 @@ class KoronaSchema extends Component {
             },
             bekreftet: false,
             showAvbryt: false,
-            tidligereSyk: false,
             periode: {
-                fom: new Date(),
-                correctedFom: undefined,
-                tom: datePlus16Days(new Date()),
+                fom: undefined,
+                tom: undefined,
             },
             boxSize: {
                 formHeight: 0,
@@ -88,9 +96,11 @@ class KoronaSchema extends Component {
             touched: INITIAL_TOUCHED,
         };
         this.formContainerRef = React.createRef();
+        this.formErrorRef = React.createRef();
 
         this.redrawBox = this.redrawBox.bind(this);
         this.onAvbryt = this.onAvbryt.bind(this);
+        this.resetBekreft = this.resetBekreft.bind(this);
     }
 
     componentDidMount() {
@@ -99,11 +109,6 @@ class KoronaSchema extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // eslint-disable-next-line react/destructuring-assignment
-        if (this.state.tidligereSyk !== prevState.tidligereSyk) {
-            this.redrawBox();
-        }
-
         // eslint-disable-next-line react/destructuring-assignment
         if (this.props.formError !== prevProps.formError) {
             this.redrawBox();
@@ -123,6 +128,18 @@ class KoronaSchema extends Component {
         if (JSON.stringify(this.state.questions) !== JSON.stringify(prevState.questions)) {
             this.redrawBox();
             this.validateAll();
+            this.resetBekreft();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (JSON.stringify(this.state.periode) !== JSON.stringify(prevState.periode)) {
+            this.redrawBox();
+            this.validateAll();
+        }
+
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.props.formError !== prevProps.formError) {
+            scrollToRef(this.formErrorRef);
         }
     }
 
@@ -148,10 +165,14 @@ class KoronaSchema extends Component {
         return null;
     }
 
+    resetBekreft() {
+        this.setState({ bekreftet: false });
+    }
+
     validateAll(submitting = false) {
         const updatedErrors = { ...INITIAL_ERRORS };
 
-        const { questions, touched } = this.state;
+        const { questions, touched, periode } = this.state;
 
         // If we are submitting, validate all fields ignoring touched status
         if (submitting || touched.koronamistanke) {
@@ -190,6 +211,12 @@ class KoronaSchema extends Component {
             }
         }
 
+        if (submitting || touched.periode) {
+            if (periode.fom === undefined) {
+                updatedErrors.periode = 'Du må oppgi hvilken dag du ble syk';
+            }
+        }
+
         if (!hasErrors(updatedErrors)) {
             this.setState({ errors: INITIAL_ERRORS });
             return updatedErrors;
@@ -214,15 +241,18 @@ class KoronaSchema extends Component {
 
         const {
             periode,
+            questions: {
+                koronamistanke,
+            },
         } = this.state;
 
         const submitPeriod = {
-            fom: (periode.correctedFom || periode.fom).toISOString().split('T')[0],
+            fom: periode.fom.toISOString().split('T')[0],
             tom: periode.tom.toISOString().split('T')[0],
         };
 
         const { opprettSykmelding } = this.props;
-        opprettSykmelding(submitPeriod);
+        opprettSykmelding({ periode: submitPeriod, egenSykdom: !!koronamistanke, arbeidsforhold: [] });
     }
 
     canUseEgenmelding() {
@@ -258,7 +288,6 @@ class KoronaSchema extends Component {
             questions,
             bekreftet,
             showAvbryt,
-            tidligereSyk,
             periode,
             boxSize,
             errors } = this.state;
@@ -278,16 +307,17 @@ class KoronaSchema extends Component {
         return (
             <div>
                 <Sidetittel tag="h1" style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
-                <Undertittel style={{ marginBottom: '2rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
+                <Undertittel style={{ marginBottom: '3rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
 
-                <Ingress>
-                    Du kan bruke egenmelding i inntil 16 dager hvis du er smittet av koronaviruset, er mistenkt smittet, eller i pålagt karantene.
-                </Ingress>
-                <br />
-                <Ingress>
-                    Vanligvis er det en behandler som sykmelder deg og sender den inn til oss. I dette tilfellet blir du nødt til å opprette egenmeldingen før du kan sende den inn.
-                </Ingress>
-                <br />
+                <Bjorn hvit>
+                    <Normaltekst style={{ marginBottom: '2rem' }}>
+                    Hei,
+Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da kan du sende egenmelding på inntil 16 dager. Det samme gjelder hvis du er blitt pålagt å være i karantene
+                    </Normaltekst>
+                    <Knapp onClick={() => { return window.scrollTo(0, this.formContainerRef.current.offsetTop, { behaviour: 'smooth' }); }}>
+                        Gå til utfylling
+                    </Knapp>
+                </Bjorn>
 
                 <div>
                     <div style={{
@@ -297,7 +327,7 @@ class KoronaSchema extends Component {
                         zIndex: '-1',
                         marginLeft: boxSize.offsetLeft * -1,
                         position: 'absolute' }} />
-                    <article style={{ marginTop: '2rem' }} ref={this.formContainerRef}>
+                    <article style={{ marginTop: '4rem' }} ref={this.formContainerRef}>
                         <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
                             <FormHeaderIcon />
                             <Systemtittel style={{ textAlign: 'center',
@@ -312,64 +342,69 @@ class KoronaSchema extends Component {
                                 title="Dine opplysninger"
                             />
 
-                            <div style={{ display: 'flex', marginBottom: '2rem' }}>
-                                <div>
+                            <FormSection
+                                title="Oppgi hvilken dag du ble syk"
+                                errorKey="periode"
+                                errors={errors}>
+                                <EgenmeldingDatePicker
+                                    value={periode.fom}
+                                    onChange={(date) => {
+                                        if (!date) {
+                                            this.setState((state) => {
+                                                return {
+                                                    bekreftet: false,
+                                                    touched: {
+                                                        ...state.touched,
+                                                        periode: true,
+                                                    },
+                                                    periode: {
+                                                        fom: undefined,
+                                                        tom: undefined,
+                                                    } };
+                                            });
+                                        } else {
+                                            this.setState((state) => {
+                                                return {
+                                                    bekreftet: false,
+                                                    touched: {
+                                                        ...state.touched,
+                                                        periode: true },
+                                                    periode: {
+                                                        fom: correctDateOffset(date),
+                                                        tom: datePlus16Days(date),
+                                                    } };
+                                            });
+                                        }
+                                    }} />
+                            </FormSection>
+
+                            <div style={{ display: 'flex', marginBottom: '2rem', flexWrap: 'wrap' }}>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Periode</h2>
-                                    <p className="js-periode blokk-xxs">
-                                        <span>
-                                            {tilLesbarDatoUtenAarstall(periode.correctedFom || periode.fom)}
-                                            {' '}
+                                    {periode.fom ? (
+                                        <p className="js-periode blokk-xxs">
+                                            <span>
+                                                {tilLesbarDatoUtenAarstall(periode.fom)}
+                                                {' '}
                                 -
+                                                {' '}
+                                                {tilLesbarDatoMedArstall(periode.tom)}
+                                            </span>
                                             {' '}
-                                            {tilLesbarDatoMedArstall(periode.tom)}
-                                        </span>
-                                        {' '}
                             •
-                                        {' '}
-                                        <span>16 dager</span>
-                                    </p>
+                                            {' '}
+                                            <span>16 dager</span>
+
+                                        </p>
+                                    ) : <p className="js-periode blokk-xxs">-</p>}
+
                                 </div>
-                                <div style={{ marginLeft: '4rem' }}>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
                                     <p>
                                     100%
                                     </p>
                                 </div>
-                            </div>
-
-                            <div style={{ marginBottom: '3rem' }}>
-                                <Checkbox
-                                    checked={tidligereSyk}
-                                    label="Jeg ble syk på et tidligere tidspunkt"
-                                    onChange={() => {
-                                        this.setState((state) => {
-                                            return {
-                                                tidligereSyk: !state.tidligereSyk,
-                                                periode: {
-                                                    ...state.periode,
-                                                    correctedFom: state.tidligereSyk ? undefined : state.periode.correctedFom,
-                                                },
-                                            };
-                                        });
-                                    }}
-                                    name="tidligereSyk" />
-                                {tidligereSyk && (
-                                    <div style={{ marginLeft: '2rem' }}>
-                                        <EgenmeldingDatePicker
-                                            label="Vennligst velg dato du ble syk"
-                                            value={periode.correctedFom}
-                                            onChange={(date) => {
-                                                if (!date) { return; }
-                                                this.setState((state) => {
-                                                    return { periode: {
-                                                        ...state.periode,
-                                                        correctedFom: correctDateOffset(date),
-                                                        tom: datePlus16Days(date),
-                                                    } };
-                                                });
-                                            }} />
-                                    </div>
-                                )}
                             </div>
 
                             <FormSection
@@ -650,13 +685,24 @@ class KoronaSchema extends Component {
 
                             <HjemmefraInfo show={workFromHomeQuestionVisible} />
 
+                            {!canUseEgenmelding && (
+                                <div style={{ marginBottom: '2rem', marginTop: '2rem' }}>
+                                    <CannotUseMelding text="Du kan ikke bruke egenmelding" />
+                                    <br />
+
+                                    <Lenke target="_blank" href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
+                                        Les mer om hvem som kan bruke tjenesten her.
+                                    </Lenke>
+                                </div>
+                            )}
+
                             <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
-                                <div>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                     {showDiagnose && <p>COVID-19</p>}
                                     {!showDiagnose && <p>-</p>}
                                 </div>
-                                <div style={{ marginLeft: '8rem' }}>
+                                <div style={{ flex: '1 1 50%' }}>
                                     <div style={{ display: 'flex' }}>
                                         <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
                                         <div style={{ marginBottom: '-1rem' }}>
@@ -671,20 +717,9 @@ class KoronaSchema extends Component {
                                 </div>
                             </div>
 
-                            {!canUseEgenmelding && (
-                                <div style={{ marginBottom: '2rem' }}>
-                                    <CannotUseMelding text="Du kan ikke bruke egenmelding" />
-                                    <br />
-
-                                    <Lenke href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
-                                        Les mer om hvem som kan bruke tjenesten her.
-                                    </Lenke>
-                                </div>
-                            )}
-
                             <Element>Din arbeidssituasjon</Element>
                             <div style={{ display: 'flex', marginTop: '1rem', marginBottom: '3rem', marginLeft: '2rem' }}>
-                                <img width={28} src={checkmarkSvg} alt="Hake" />
+                                <img width={28} height={28} src={checkmarkSvg} alt="Hake" />
                                 <div style={{ lineHeight: '30px', marginLeft: '1rem' }}>Jobb som selvstendig næringsdrivende eller frilanser</div>
                             </div>
 
@@ -694,6 +729,7 @@ class KoronaSchema extends Component {
 
                             <Bekreft
                                 onChange={() => { this.setState((state) => { return { bekreftet: !state.bekreftet }; }); }}
+                                canUseEgenmelding={canUseEgenmelding}
                                 value={!!bekreftet}
                             />
 
@@ -702,7 +738,6 @@ class KoronaSchema extends Component {
                                     <CannotUseMelding text={formError} />
                                 </div>
                             )}
-
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
@@ -717,14 +752,17 @@ class KoronaSchema extends Component {
                                 Avbryt
                             </Knapp>
 
-                            {showAvbryt
+                            <div ref={this.formErrorRef}>
+                                {showAvbryt
                                 && (
                                     <AvbrytRegistrering
                                         onAvbryt={this.onAvbryt}
                                         onAngre={() => { this.setState({ showAvbryt: false }); }}
                                     />
                                 )
-                            }
+                                }
+                            </div>
+
                         </div>
                     </article>
                 </div>

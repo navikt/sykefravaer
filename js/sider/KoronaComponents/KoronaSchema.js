@@ -23,6 +23,7 @@ import Bekreft from './FormComponents/Bekreft';
 import { checkmarkSvg } from './svg/checkmarkSvg';
 import AvbrytRegistrering from './FormComponents/AvbrytRegistrering';
 import HjemmefraInfo from './FormComponents/HjemmefraInfo';
+import FormErrorSummary from './FormComponents/FormErrorSummary';
 
 const correctDateOffset = (date) => {
     date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
@@ -30,8 +31,7 @@ const correctDateOffset = (date) => {
 };
 
 const datePlus16Days = (date) => {
-    const endDate = new Date();
-
+    const endDate = new Date(date);
     endDate.setDate(date.getDate() + 16);
     return endDate;
 };
@@ -97,6 +97,16 @@ class KoronaSchema extends Component {
         };
         this.formContainerRef = React.createRef();
         this.formErrorRef = React.createRef();
+
+        this.errorRefs = {
+            periode: React.createRef(),
+            koronamistanke: React.createRef(),
+            koronamistankeHjemmefra: React.createRef(),
+            palagtKarantene: React.createRef(),
+            palagtKaranteneHjemmefra: React.createRef(),
+            husstandenSmittet: React.createRef(),
+            husstandenSmittetHjemmefra: React.createRef(),
+        };
 
         this.redrawBox = this.redrawBox.bind(this);
         this.onAvbryt = this.onAvbryt.bind(this);
@@ -228,7 +238,13 @@ class KoronaSchema extends Component {
 
     touchAll() {
         this.setState({ touched: {
+            periode: true,
             koronamistanke: true,
+            koronamistankeHjemmefra: true,
+            palagtKarantene: true,
+            palagtKaranteneHjemmefra: true,
+            husstandenSmittet: true,
+            husstandenSmittetHjemmefra: true,
         } });
     }
 
@@ -345,6 +361,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             <FormSection
                                 title="Oppgi hvilken dag du ble syk"
                                 errorKey="periode"
+                                errorRef={this.errorRefs.periode}
                                 errors={errors}>
                                 <EgenmeldingDatePicker
                                     value={periode.fom}
@@ -410,6 +427,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             <FormSection
                                 title="Har du mistanke om at du er smittet av korona?"
                                 errorKey="koronamistanke"
+                                errorRef={this.errorRefs.koronamistanke}
                                 errors={errors}>
                                 <Radio
                                     checked={questions.koronamistanke}
@@ -466,6 +484,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Jobber du hjemmefra på fulltid?"
                                 show={questions.koronamistanke === true}
                                 errorKey="koronamistankeHjemmefra"
+                                errorRef={this.errorRefs.koronamistankeHjemmefra}
                                 errors={errors}>
                                 <Radio
                                     checked={questions.koronamistankeHjemmefra}
@@ -509,6 +528,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Er du i pålagt karantene?"
                                 show={questions.koronamistanke === false}
                                 errorKey="palagtKarantene"
+                                errorRef={this.errorRefs.palagtKarantene}
                                 errors={errors}>
                                 <Radio
                                     checked={questions.palagtKarantene}
@@ -556,6 +576,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Jobber du hjemmefra på fulltid?"
                                 show={questions.palagtKarantene === true}
                                 errorKey="palagtKaranteneHjemmefra"
+                                errorRef={this.errorRefs.palagtKaranteneHjemmefra}
                                 errors={errors}>
                                 <Radio
                                     checked={questions.palagtKaranteneHjemmefra}
@@ -599,6 +620,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Er noen i husstanden din smittet?"
                                 show={questions.palagtKarantene === false}
                                 errorKey="husstandenSmittet"
+                                errorRef={this.errorRefs.husstandenSmittet}
                                 errors={errors}>
                                 <Radio
                                     checked={questions.husstandenSmittet}
@@ -644,6 +666,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Jobber du hjemmefra på fulltid?"
                                 show={questions.husstandenSmittet === true}
                                 errorKey="husstandenSmittetHjemmefra"
+                                errorRef={this.errorRefs.husstandenSmittetHjemmefra}
                                 errors={errors}>
                                 <Radio
                                     checked={questions.husstandenSmittetHjemmefra}
@@ -733,6 +756,11 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 value={!!bekreftet}
                             />
 
+                            <FormErrorSummary
+                                mappedErrors={mappedErrors}
+                                errorSummaryRef={this.errorSummaryRef}
+                                refs={this.errorRefs} />
+
                             {formError && (
                                 <div style={{ marginBottom: '2rem' }}>
                                     <CannotUseMelding text={formError} />
@@ -741,7 +769,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
-                                    disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
+                                    disabled={formError || !canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
                                     onClick={() => { return this.submit(); }}>
                                 Opprett egenmeldingen
                                 </Hovedknapp>

@@ -28,7 +28,8 @@ describe('BekreftEgenmeldingSkjema', () => {
             <BekreftEgenmeldingSkjemaComponent props={props} />,
         );
         expect(component.find(RadioPanelGruppe)).to.have.length(2);
-        // expect(component.find(RadioPanelGruppe).first().text()).to.contain('Er opplysningene riktige?');
+        expect(component.find(RadioPanelGruppe).at(0).text()).to.contain('Er opplysningene riktige?');
+        expect(component.find(RadioPanelGruppe).at(1).text()).to.contain('Hvilket arbeid gjelder egenmeldingen? Har du begge roller, velger du bare en av dem.');
         expect(
             component
                 .find('input')
@@ -42,6 +43,7 @@ describe('BekreftEgenmeldingSkjema', () => {
                 .prop('value'),
         ).to.equal('nei');
         expect(component.find('.skjemaelement__feilmelding').length).to.equal(0);
+        expect(component.find('.knapp--fare').length).to.equal(0);
         component
             .find('input')
             .at(0)

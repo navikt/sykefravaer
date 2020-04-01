@@ -51,4 +51,27 @@ describe('BekreftEgenmeldingSkjema', () => {
         expect(component.find('.skjemaelement__feilmelding').length).to.equal(1);
         expect(component.find('.knapp--fare').length).to.equal(1);
     });
+
+    // TODO: får ikke til simulate('click') på nav-knapper. Fungerer på vanlig button...
+    it.skip('Sender inn riktig skjema når bruker trykker bekreft', () => {
+        const component = mount(
+            <BekreftEgenmeldingSkjemaComponent props={props} />,
+        );
+        component
+            .find('input')
+            .at(0)
+            .simulate('change', {
+                target: { name: 'erOpplysningeneRiktige', value: 'ja' },
+            });
+        component
+            .find('input')
+            .at(3)
+            .simulate('change', {
+                target: { name: 'arbeidssituasjon', value: 'FRILANSER' },
+            });
+        component.update();
+        expect(component.find('button').text()).to.equal('Bekreft egenmeldingen');
+        expect(component.find('button').html()).to.equal('Bekreft egenmeldingen');
+        component.find('button').at(0).simulate('click', { target: { value: 1 } });
+    });
 });

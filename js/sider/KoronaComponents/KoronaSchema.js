@@ -769,7 +769,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
 
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
-                                    disabled={!canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
+                                    disabled={formError || !canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
                                     onClick={() => { return this.submit(); }}>
                                 Opprett egenmeldingen
                                 </Hovedknapp>

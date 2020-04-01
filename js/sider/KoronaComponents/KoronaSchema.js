@@ -238,7 +238,13 @@ class KoronaSchema extends Component {
 
     touchAll() {
         this.setState({ touched: {
+            periode: true,
             koronamistanke: true,
+            koronamistankeHjemmefra: true,
+            palagtKarantene: true,
+            palagtKaranteneHjemmefra: true,
+            husstandenSmittet: true,
+            husstandenSmittetHjemmefra: true,
         } });
     }
 

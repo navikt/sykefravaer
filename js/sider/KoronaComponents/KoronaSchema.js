@@ -31,8 +31,7 @@ const correctDateOffset = (date) => {
 };
 
 const datePlus16Days = (date) => {
-    const endDate = new Date();
-
+    const endDate = new Date(date);
     endDate.setDate(date.getDate() + 16);
     return endDate;
 };

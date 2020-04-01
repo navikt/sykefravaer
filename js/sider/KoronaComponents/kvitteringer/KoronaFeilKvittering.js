@@ -54,7 +54,7 @@ class KoronaFeilKvittering extends React.Component {
                             <Normaltekst style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                             Hvis du ønsker å opprette en ny egenmelding kan du gjøre det her:
                             </Normaltekst>
-                            <Knapp onClick={() => { window.location.reload(); }}>Opprett egenmelding</Knapp>
+                            <Knapp mini onClick={() => { window.location.reload(); }}>Opprett egenmelding</Knapp>
                         </div>
                     </div>
                 </Panel>

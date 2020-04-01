@@ -21,10 +21,10 @@ const EgenmeldingAvbruttKvittering = () => {
                         <Undertittel tag="h2" style={{ marginTop: '0.5rem' }}>
                             Du har avbrutt egenmeldingen
                         </Undertittel>
-                        <Normaltekst style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                        <Normaltekst style={{ marginTop: '2rem', marginBottom: '1rem' }}>
                             Hvis du ønsker å opprette en ny egenmelding kan du gjøre det her:
                         </Normaltekst>
-                        <Knapp onClick={() => { return history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`); }}>Opprett egenmelding</Knapp>
+                        <Knapp mini onClick={() => { return history.push(`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`); }}>Opprett egenmelding</Knapp>
                     </div>
                 </div>
                 <div className="panel-innhold">

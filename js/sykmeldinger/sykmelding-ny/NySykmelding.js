@@ -8,6 +8,7 @@ import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import EldreSykmeldingVarsel from '../eldre-sykmelding-varsel/EldreSykmeldingVarsel';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
+import PapirsykmeldingPanel from './PapirsykmeldingPanel';
 
 class NySykmelding extends Component {
     render() {
@@ -19,6 +20,7 @@ class NySykmelding extends Component {
                             <NySykmeldingTrigger>
                                 <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                                 <EldreSykmeldingVarsel sykmelding={sykmelding} />
+                                <PapirsykmeldingPanel />
                                 <Bjorn
                                     className="blokk"
                                     hvit

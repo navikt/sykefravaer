@@ -14,7 +14,7 @@ import { sykmelding as sykmeldingPt } from '../../../propTypes';
 import { Vis } from '../../../utils';
 import Feilstripe from '../../../components/Feilstripe';
 
-class KoronaSkjemaComponent extends Component {
+export class BekreftEgenmeldingSkjemaComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -211,7 +211,7 @@ class KoronaSkjemaComponent extends Component {
     }
 }
 
-KoronaSkjemaComponent.propTypes = {
+BekreftEgenmeldingSkjemaComponent.propTypes = {
     sykmelding: sykmeldingPt,
     bekreftSykmelding: PropTypes.func,
     avbrytSykmelding: PropTypes.func,
@@ -231,15 +231,15 @@ const mapStateToProps = (state) => {
 };
 
 const ConnectedSkjema = compose(connect(mapStateToProps, sykmeldingActions))(
-    KoronaSkjemaComponent,
+    BekreftEgenmeldingSkjemaComponent,
 );
 
-const KoronaSkjema = (props) => {
+const BekreftEgenmeldingSkjema = (props) => {
     return <ConnectedSkjema {...props} />;
 };
 
-KoronaSkjema.propTypes = {
+BekreftEgenmeldingSkjema.propTypes = {
     sykmelding: sykmeldingPt,
 };
 
-export default KoronaSkjema;
+export default BekreftEgenmeldingSkjema;

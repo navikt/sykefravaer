@@ -1191,6 +1191,78 @@ describe('SykmeldingkvitteringSide', () => {
         });
     });
 
+    describe('BEREFTET egenmelding for frilansere', () => {
+        it('Skal vise standard bekreftet-kvittering', () => {
+            state.sykepengesoknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.BEKREFTET,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                erEgenmeldt: true,
+            });
+            state.sykmeldingMeta['1'] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            };
+            state.dineSykmeldinger.data = [sykmelding];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du bekreftet og sendt egenmeldingen til NAV');
+            expect(component.text())
+                .to
+                .contain('Hva skjer nå?');
+        });
+
+        it('Skal vise soknad-nå-bekreftet-kvittering', () => {
+            state.sykepengesoknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.BEKREFTET,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                erEgenmeldt: true,
+            });
+            const soknad = getParsetSoknad({
+                sykmeldingId: '1',
+                status: sykepengesoknadstatuser.NY,
+            });
+            state.sykmeldingMeta['1'] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            };
+            state.dineSykmeldinger.data = [sykmelding];
+            state.soknader.data = [soknad];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du bekreftet og sendt egenmeldingen til NAV');
+            expect(component.text())
+                .to
+                .contain('Nå kan du søke om sykepenger');
+        });
+    });
+
+    describe('AVBRUTT egenmelding for frilanser', () => {
+        it('Skal vise avbryt-kvittering', () => {
+            state.sykepengesoknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.AVBRUTT,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                erEgenmeldt: true,
+            });
+            state.sykmeldingMeta['1'] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            };
+            state.dineSykmeldinger.data = [sykmelding];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Du har avbrutt egenmeldingen');
+        });
+    });
+
     describe('mapStateToProps', () => {
         it('Skal returnere fremtidige soknader', () => {
             const res = mapStateToProps(state, ownProps);

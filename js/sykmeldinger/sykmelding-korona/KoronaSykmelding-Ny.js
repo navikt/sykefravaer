@@ -8,7 +8,7 @@ import { Undertittel, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
-import KoronaSkjema from './skjema/Koronaskjema';
+import BekreftEgenmeldingSkjema from './skjema/BekreftEgenmeldingSkjema';
 
 class KoronaSykmeldingNy extends Component {
     render() {
@@ -68,7 +68,7 @@ class KoronaSykmeldingNy extends Component {
                                 tabIndex="-1"
                                 className="sykmeldingskjemaRef"
                             >
-                                <KoronaSkjema
+                                <BekreftEgenmeldingSkjema
                                     ref={(c) => {
                                         this.skjema = c;
                                     }}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import {
     Bjorn, DineSykmeldingOpplysninger, getLedetekst, scrollTo,
 } from '@navikt/digisyfo-npm';
@@ -11,6 +11,11 @@ import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 import PapirsykmeldingPanel from './PapirsykmeldingPanel';
 
 class NySykmelding extends Component {
+    constructor() {
+        super();
+        this.skjemaRef = createRef(document.createElement('div'));
+    }
+
     render() {
         return (
             <SykmeldingContext.Consumer>
@@ -20,7 +25,7 @@ class NySykmelding extends Component {
                             <NySykmeldingTrigger>
                                 <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                                 <EldreSykmeldingVarsel sykmelding={sykmelding} />
-                                <PapirsykmeldingPanel />
+                                <PapirsykmeldingPanel skjemaRef={this.skjemaRef} />
                                 <Bjorn
                                     className="blokk"
                                     hvit
@@ -38,8 +43,8 @@ class NySykmelding extends Component {
                                                 type="button"
                                                 onClick={(e) => {
                                                     e.preventDefault();
-                                                    scrollTo(this.skjema);
-                                                    this.skjema.focus();
+                                                    scrollTo(this.skjemaRef.current);
+                                                    this.skjemaRef.current.focus();
                                                 }}
                                                 className="knapp knapp--mini"
                                             >
@@ -64,9 +69,7 @@ class NySykmelding extends Component {
                                     </div>
                                 </article>
                                 <div
-                                    ref={(c) => {
-                                        this.skjema = c;
-                                    }}
+                                    ref={this.skjemaRef}
                                     tabIndex="-1"
                                     className="sykmeldingskjemaRef">
                                     <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />

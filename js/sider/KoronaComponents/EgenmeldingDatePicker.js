@@ -24,33 +24,45 @@ bmUgY2xhc3M9InN0MCIgeDE9IjcuNSIgeTE9IjIuNSIgeDI9IjE2LjUiIHkyPSIyLjUiLz4KPGxp
 bmUgY2xhc3M9InN0MCIgeDE9IjAuNSIgeTE9IjcuNSIgeDI9IjIzLjUiIHkyPSI3LjUiLz4KPC9z
 dmc+Cg==`;
 
-const EgenmeldingDatePicker = ({ value, onChange }) => {
-    return (
-        <div className="datepicker-container">
-            <div className="flatpickr-container">
-                <Flatpickr
-                    value={value}
-                    className="typo-normal flatpickr"
-                    placeholder="DD.MM.ÅÅÅÅ"
-                    onChange={(newDate) => { return onChange(newDate[0]); }}
-                    options={{
-                        position: 'below',
-                        mode: 'single',
-                        enableTime: false,
-                        dateFormat: 'd.m.Y',
-                        allowInput: false,
-                        locale: flatpickrLocale,
-                        maxDate: new Date(),
-                        minDate: '01.03.2020',
-                    }}
-                />
-                <span className="flatpickr-icon">
-                    <img aria-hidden="true" alt="Kalender" src={Calendar} />
-                </span>
+class EgenmeldingDatePicker extends React.Component {
+    shouldComponentUpdate(nextProps) {
+        // eslint-disable-next-line react/destructuring-assignment
+        if (this.props.value !== nextProps.value) {
+            return true;
+        }
+        return false;
+    }
+
+    render() {
+        const { value, onChange } = this.props;
+
+        return (
+            <div className="datepicker-container">
+                <div className="flatpickr-container">
+                    <Flatpickr
+                        value={value}
+                        className="typo-normal flatpickr"
+                        placeholder="DD.MM.ÅÅÅÅ"
+                        onChange={(newDate) => { return onChange(newDate[0]); }}
+                        options={{
+                            position: 'below',
+                            mode: 'single',
+                            enableTime: false,
+                            dateFormat: 'd.m.Y',
+                            allowInput: false,
+                            locale: flatpickrLocale,
+                            maxDate: new Date(),
+                            minDate: '01.03.2020',
+                        }}
+                    />
+                    <span className="flatpickr-icon">
+                        <img aria-hidden="true" alt="Kalender" src={Calendar} />
+                    </span>
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 EgenmeldingDatePicker.propTypes = {
     value: PropTypes.instanceOf(Date),

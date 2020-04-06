@@ -11,7 +11,6 @@ export const toggleSelvstendigSoknad = (state) => {
 
 import {
     AKTIVITETSKRAV_INFORMASJON,
-    DIALOGMOTE2_INFORMASJON,
     SYKMELDING_ARBEIDSSITUASJON,
     NY_ARBEIDSTAKERSOKNAD,
     NYTT_SYKMELDINGSMOTTAK,
@@ -45,9 +44,4 @@ export const toggleBrukNginxProxy = (state) => {
 export const skalViseAktivitetskravInformasjon = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[AKTIVITETSKRAV_INFORMASJON] === true;
-};
-
-export const skalViseDialogmote2Informasjon = (state) => {
-    return !state.unleashToggles.hentingFeilet
-        && state.unleashToggles.data[DIALOGMOTE2_INFORMASJON] === true;
 };

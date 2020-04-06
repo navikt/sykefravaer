@@ -10,4 +10,3 @@ export const NY_ARBEIDSTAKERSOKNAD = 'syfo.ag.soknad.ny.platform';
 export const NYTT_SYKMELDINGSMOTTAK = 'syfo.syfofront.nytt.sykmeldingsmottak';
 export const NGINX_PROXY = 'syfo.syfofront.nginx';
 export const AKTIVITETSKRAV_INFORMASJON = 'syfo.informasjon.aktivitetskrav';
-export const DIALOGMOTE2_INFORMASJON = 'syfo.informasjon.dialogmote';

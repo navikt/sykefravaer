@@ -5,13 +5,7 @@ import HendelseTittel from './HendelseTittel';
 import HendelseBoble from './HendelseBoble';
 import { tidslinjehendelse as hendelsePt } from './tidslinjePropTypes';
 
-const filterToggles = (antallDager, visAktivitetskravInformasjon, visDialogmote2Informasjon) => {
-    const erHendelseAktivitetsKravInformasjon = antallDager === 49 || antallDager === 55;
-    const erHendelseDialogmoteInformasjon = antallDager === 119 || antallDager === 181;
-    return !((erHendelseAktivitetsKravInformasjon && visAktivitetskravInformasjon === false) || (erHendelseDialogmoteInformasjon && visDialogmote2Informasjon === false));
-};
-
-const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseData, visAktivitetskravInformasjon, visDialogmote2Informasjon }) => {
+const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseData }) => {
     const nyNaermesteLederHendelseMedArbeidsgiver = (hendelse) => {
         return !(arbeidssituasjon === 'UTEN_ARBEIDSGIVER' && hendelse.type === 'NY_NAERMESTE_LEDER');
     };
@@ -20,7 +14,6 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
             {
                 hendelser
                     .filter(nyNaermesteLederHendelseMedArbeidsgiver)
-                    .filter((hendelse) => { return filterToggles(hendelse.antallDager, visAktivitetskravInformasjon, visDialogmote2Informasjon); })
                     .filter((h) => {
                         return h.type !== 'AKTIVITETSKRAV_VARSEL';
                     })
@@ -55,8 +48,6 @@ Tidslinje.propTypes = {
     ledetekster: keyValue,
     arbeidssituasjon: PropTypes.string,
     setHendelseData: PropTypes.func,
-    visAktivitetskravInformasjon: PropTypes.bool,
-    visDialogmote2Informasjon: PropTypes.bool,
 };
 
 export default Tidslinje;

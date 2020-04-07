@@ -25,7 +25,7 @@ class NySykmelding extends Component {
                             <NySykmeldingTrigger>
                                 <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                                 <EldreSykmeldingVarsel sykmelding={sykmelding} />
-                                { sykmelding.erPapir
+                                { sykmelding.erPapirsykmelding
                                     ? <PapirsykmeldingPanel sykmelding={sykmelding} skjemaRef={this.skjemaRef} />
                                     : (
                                         <Bjorn

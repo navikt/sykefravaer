@@ -15,6 +15,7 @@ import Lenke from 'nav-frontend-lenker';
 import * as sykmeldingActions from '../data/din-sykmelding/dinSykmeldingActions';
 import { Vis } from '../../utils';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
+import Feilstripe from '../../components/Feilstripe';
 
 const TilUtfylling = ({ skjemaRef }) => {
     return (
@@ -114,7 +115,6 @@ class PapirsykmeldingPanelComponent extends Component {
     }
 
     handleCancel() {
-        console.log(this.props.sykmelding);
         this.props.avbrytSykmelding(this.props.sykmelding.id);
     }
 
@@ -183,6 +183,9 @@ class PapirsykmeldingPanelComponent extends Component {
                         />
                     )}
                 </div>
+                <div ref={this.feilstripeRef} style={{ marginBottom: '1rem' }}>
+                    <Feilstripe vis={this.props.avbrytFeilet} />
+                </div>
                 <Vis hvis={this.state.visAvbryt}>
                     <div
                         style={{
@@ -230,6 +233,7 @@ PapirsykmeldingPanelComponent.propTypes = {
     ]),
     avbrytSykmelding: PropTypes.func,
     avbryter: PropTypes.bool,
+    avbrytFeilet: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {

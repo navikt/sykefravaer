@@ -23,9 +23,7 @@ import {
     ukjentHendelse,
 } from '../../aktivitetskrav/sider/AktivitetskravvarselSide.test';
 import smSykmeldinger from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldinger';
-import { AKTIVITETSKRAV_INFORMASJON } from '../../enums/unleashToggles';
 import unleashToggles from '../../data/unleash-toggles/unleashToggles';
-import { unleashTogglesHentet } from '../../data/unleash-toggles/unleashToggles_actions';
 
 chai.use(chaiEnzyme());
 const { expect } = chai;
@@ -43,9 +41,6 @@ describe('DineOppgaverComponent', () => {
             state = {
                 unleashToggles: unleashToggles(
                     unleashToggles(),
-                    unleashTogglesHentet({
-                        [AKTIVITETSKRAV_INFORMASJON]: true,
-                    }),
                 ),
                 dineSykmeldinger: {
                     data: [{

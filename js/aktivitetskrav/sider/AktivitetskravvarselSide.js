@@ -9,6 +9,7 @@ import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import Artikkel from '../komponenter/AktivitetskravArtikkel';
+import KoronaInformasjon from '../komponenter/KoronaInformasjon';
 import BekreftAktivitetskravSkjema from '../komponenter/BekreftAktivitetskravSkjema';
 import { AKTIVITETSKRAV_BEKREFTET, AKTIVITETSKRAV_VARSEL } from '../../enums/hendelsetyper';
 import { hentHendelser } from '../../landingsside/data/hendelser/hendelserActions';
@@ -83,6 +84,7 @@ class Container extends Component {
                         }
                         return (
                             <div>
+                                <KoronaInformasjon />
                                 <div
                                     aria-live="polite"
                                     role="alert"

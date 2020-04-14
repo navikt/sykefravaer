@@ -10,7 +10,6 @@ export const toggleSelvstendigSoknad = (state) => {
 */
 
 import {
-    AKTIVITETSKRAV_INFORMASJON,
     SYKMELDING_ARBEIDSSITUASJON,
     NY_ARBEIDSTAKERSOKNAD,
     NYTT_SYKMELDINGSMOTTAK,
@@ -39,9 +38,4 @@ export const unleashtogglesHentetSelector = (state) => {
 export const toggleBrukNginxProxy = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[NGINX_PROXY] === true;
-};
-
-export const skalViseAktivitetskravInformasjon = (state) => {
-    return !state.unleashToggles.hentingFeilet
-        && state.unleashToggles.data[AKTIVITETSKRAV_INFORMASJON] === true;
 };

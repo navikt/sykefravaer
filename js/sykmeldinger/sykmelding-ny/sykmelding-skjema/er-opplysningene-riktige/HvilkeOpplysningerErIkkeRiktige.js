@@ -10,7 +10,7 @@ import { fieldPropTypes } from '../../../../propTypes';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 
 const {
-    PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE,
+    PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE, SYKMELDINGSGRAD_HOY,
 } = feilaktigeOpplysningerEnums;
 
 const feilaktigeOpplysningerProp = PropTypes.arrayOf(PropTypes.shape({
@@ -35,6 +35,21 @@ export const DuTrengerNySykmelding = () => {
                 </h5>
                 <p>
                     {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst')}
+                </p>
+            </div>
+        </Tilleggsinfo>
+    );
+};
+
+export const DuKanBrukeSykmeldingenDinSykmeldingsgrad = () => {
+    return (
+        <Tilleggsinfo>
+            <div className="hode hode--informasjon">
+                <h5 className="hode__tittel">
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                </h5>
+                <p>
+                    Du kan likevel bruke denne sykmeldingen. Senere, når du skal fylle ut søknaden om sykepenger, skriver du bare inn hvor mye du faktisk jobbet.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -84,6 +99,9 @@ export const FeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = [] }) => {
     if (opplysninger.indexOf(PERIODE) > -1 || opplysninger.indexOf(SYKMELDINGSGRAD) > -1) {
         return <DuTrengerNySykmelding />;
     }
+    if (opplysninger.indexOf(SYKMELDINGSGRAD_HOY) > -1) {
+        return <DuKanBrukeSykmeldingenDinSykmeldingsgrad />;
+    }
     if (opplysninger.indexOf(ARBEIDSGIVER) > -1) {
         return <DuKanBrukeSykmeldingenDinArbeidsgiver />;
     }
@@ -100,7 +118,8 @@ FeilaktigeOpplysningerInfo.propTypes = {
 export const VelgFeilaktigeOpplysninger = ({ fields, meta }) => {
     const labels = {};
     labels[PERIODE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode');
-    labels[SYKMELDINGSGRAD] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad');
+    labels[SYKMELDINGSGRAD] = 'Sykmeldingsgraden er for lav';
+    labels[SYKMELDINGSGRAD_HOY] = 'Sykmeldingsgraden er for høy';
     labels[ARBEIDSGIVER] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.arbeidsgiver');
     labels[DIAGNOSE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose');
     labels[ANDRE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre');

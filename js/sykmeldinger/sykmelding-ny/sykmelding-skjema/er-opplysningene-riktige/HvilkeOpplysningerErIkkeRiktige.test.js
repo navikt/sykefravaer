@@ -29,7 +29,7 @@ describe('HvilkeOpplysningerErIkkeRiktige', () => {
                 error: 'Feilmelding',
                 touched: false,
             };
-            fields = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
+            fields = ['periode', 'sykmeldingsgrad', 'sykmeldingsgradHoy', 'arbeidsgiver', 'diagnose', 'andre'];
             component = shallow(<VelgFeilaktigeOpplysninger fields={fields} meta={meta} />);
         });
 
@@ -40,7 +40,7 @@ describe('HvilkeOpplysningerErIkkeRiktige', () => {
         });
 
         it('Skal inneholde ett checkbox-Field med riktig name-attributt per field', () => {
-            expect(component.find(Field)).to.have.length(5);
+            expect(component.find(Field)).to.have.length(6);
             for (let i = 0; i < feilaktigeOpplysninger.length; i += 1) {
                 const c = component.find(Field).at(i);
                 expect(c.prop('component')).to.deep.equal(Checkbox);

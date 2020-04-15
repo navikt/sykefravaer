@@ -325,7 +325,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <FormSeparator
-                                helptext="Vi oppretter en periode på 16 dager når du har valgt startdato.
+                                helptext="Vi oppretter en periode på 16 dager fra dagens dato.
                                 Senere, når du skal fylle ut sykepengesøknaden vi sender deg, oppgir du hvor mange dager du brukte."
                                 title="Dine opplysninger"
                             />

@@ -47,14 +47,14 @@ export const DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndr
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                Du kan likevel bruke denne sykmeldingen. Når du senere skal fylle ut søknaden om sykepenger, skriver du inn hvor mye du faktisk jobbet.
+                    Når du senere skal fylle ut søknaden om sykepenger, skriver du inn hvor mye du faktisk jobbet.
                 </p>
                 <p>
-                I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
-                Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
+                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -67,13 +67,13 @@ export const DuKanBrukeSykmeldingenDinArbeidsgiverDiagnoseAndre = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                Du kan likevel bruke denne sykmeldingen. I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
                 </p>
                 <p>
-                Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
+                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -86,13 +86,13 @@ export const DuKanBrukeSykmeldingenDinArbeidsgiverDiagnose = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                Du kan likevel bruke denne sykmeldingen. I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
                 </p>
                 <p>
-                Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.
+                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -105,10 +105,10 @@ export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                Du kan likevel bruke denne sykmeldingen. Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
+                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -121,13 +121,13 @@ export const DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiver = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                Du kan likevel bruke denne sykmeldingen. Når du senere skal fylle ut søknaden om sykepenger, skriver du inn hvor mye du faktisk jobbet.
+                    Når du senere skal fylle ut søknaden om sykepenger, skriver du inn hvor mye du faktisk jobbet.
                 </p>
                 <p>
-                I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -139,10 +139,10 @@ export const DuKanBrukeSykmeldingenDinSykmeldingsgradHoy = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                    Du kan likevel bruke denne sykmeldingen. Senere, når du skal fylle ut søknaden om sykepenger, skriver du bare inn hvor mye du faktisk jobbet.
+                    Senere, når du skal fylle ut søknaden om sykepenger, skriver du bare inn hvor mye du faktisk jobbet.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -154,10 +154,10 @@ export const DuKanBrukeSykmeldingenDinArbeidsgiver = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                Du kan bruke denne sykmeldingen. I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
                 </p>
             </div>
         </Tilleggsinfo>
@@ -169,7 +169,7 @@ export const DuKanBrukeSykmeldingenDinDiagnose = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
                     Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.
@@ -184,7 +184,7 @@ export const DuKanBrukeSykmeldingenDinAndre = () => {
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
+                    Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
                     Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.

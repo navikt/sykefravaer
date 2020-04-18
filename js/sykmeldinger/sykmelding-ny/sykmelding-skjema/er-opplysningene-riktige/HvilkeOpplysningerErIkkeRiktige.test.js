@@ -11,6 +11,13 @@ import {
     DuTrengerNySykmelding,
     DuKanBrukeSykmeldingenDinArbeidsgiver,
     DuKanBrukeSykmeldingenDinDiagnoseAndre,
+    DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndre,
+    DuKanBrukeSykmeldingenDinArbeidsgiverDiagnoseAndre,
+    DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiver,
+    DuKanBrukeSykmeldingenDinArbeidsgiverDiagnose,
+    DuKanBrukeSykmeldingenDinSykmeldingsgradHoy,
+    DuKanBrukeSykmeldingenDinDiagnose,
+    DuKanBrukeSykmeldingenDinAndre,
 } from './HvilkeOpplysningerErIkkeRiktige';
 import Feilomrade from '../../../../components/skjema/Feilomrade';
 import { feilaktigeOpplysninger } from './ErOpplysningeneRiktige';
@@ -76,12 +83,65 @@ describe('HvilkeOpplysningerErIkkeRiktige', () => {
             expect(comp.find(DuTrengerNySykmelding)).to.be.length(1);
         });
 
+        it('viser DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndre ved sykmeldingsgradHoy, arbeidsgiver og diagnose (+ andre)', () => {
+            const opplysninger = [{ opplysning: 'sykmeldingsgradHoy', avkrysset: true }, { opplysning: 'arbeidsgiver', avkrysset: true }, { opplysning: 'diagnose', avkrysset: true }];
+            let comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysninger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndre)).to.be.length(1);
+
+            opplysninger.push({ opplysning: 'andre', avkrysset: true });
+            comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysninger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndre)).to.be.length(1);
+        });
+
+        it('viser DuKanBrukeSykmeldingenDinArbeidsgiverDiagnoseAndre ved arbeidsgiver, diagnose og andre', () => {
+            const opplysninger = [{ opplysning: 'arbeidsgiver', avkrysset: true }, { opplysning: 'diagnose', avkrysset: true }, { opplysning: 'andre', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysninger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinArbeidsgiverDiagnoseAndre)).to.be.length(1);
+        });
+
+        it('viser DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiver ved sykmeldingsgradHoy og arbeisgiver', () => {
+            const opplysninger = [{ opplysning: 'sykmeldingsgradHoy', avkrysset: true }, { opplysning: 'arbeidsgiver', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysninger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiver)).to.be.length(1);
+        });
+
+        it('viser DuKanBrukeSykmeldingenDinArbeidsgiverDiagnose ved arbeisgiver og diagnose', () => {
+            const opplysninger = [{ opplysning: 'arbeidsgiver', avkrysset: true }, { opplysning: 'diagnose', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysninger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinArbeidsgiverDiagnose)).to.be.length(1);
+        });
+
+        it('viser DuKanBrukeSykmeldingenDinDiagnoseAndre ved diagnose og andre', () => {
+            const opplysninger = [{ opplysning: 'diagnose', avkrysset: true }, { opplysning: 'andre', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysninger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinDiagnoseAndre)).to.be.length(1);
+        });
+
+        it('viser DuKanBrukeSykmeldingenDinSykmeldingsgradHoy ved sykmeldingsgradHoy', () => {
+            const opplysninger = [{ opplysning: 'sykmeldingsgradHoy', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysninger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinSykmeldingsgradHoy)).to.be.length(1);
+        });
+
         it('viser DuKanBrukeSykmeldingenDinArbeidsgiver', () => {
-            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={[{ opplysning: 'arbeidsgiver', avkrysset: true }]} />);
+            const opplysniger = [{ opplysning: 'arbeidsgiver', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysniger} />);
             expect(comp.find(DuKanBrukeSykmeldingenDinArbeidsgiver)).to.be.length(1);
         });
 
-        it('viser DuKanBrukeSykmeldingenDinDiagnoseAndre ved diagnose eller andre', () => {
+        it('viser DuKanBrukeSykmeldingenDinDiagnose', () => {
+            const opplysniger = [{ opplysning: 'diagnose', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysniger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinDiagnose)).to.be.length(1);
+        });
+
+        it('viser DuKanBrukeSykmeldingenDinAndre', () => {
+            const opplysniger = [{ opplysning: 'andre', avkrysset: true }];
+            const comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={opplysniger} />);
+            expect(comp.find(DuKanBrukeSykmeldingenDinAndre)).to.be.length(1);
+        });
+
+        it.skip('viser DuKanBrukeSykmeldingenDinDiagnoseAndre ved diagnose eller andre', () => {
             let comp = shallow(<FeilaktigeOpplysningerInfo feilaktigeOpplysninger={[{ opplysning: 'andre', avkrysset: true }]} />);
             expect(comp.find(DuKanBrukeSykmeldingenDinDiagnoseAndre)).to.be.length(1);
 

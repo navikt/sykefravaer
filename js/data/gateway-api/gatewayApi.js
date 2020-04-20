@@ -31,6 +31,9 @@ export const hentLoginUrl = () => {
     if (window.location.href.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://loginservice.nav.no/login';
+    } if (window.location.href.indexOf('localhost:2027') > -1 || window.location.href.indexOf('localhost:2028') > -1) {
+        // Lokalt docker compose
+        return 'http://localhost:5000';
     } if (window.location.href.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/syfoapi/local/cookie';
@@ -120,6 +123,9 @@ export const hentApiUrl = () => {
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://syfoapi.nav.no/syfosoknad/api';
+    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+        // docker compose
+        return 'http://localhost:1995/syfosoknad/api';
     } if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
         return '/syfoapi/syfosoknad/api';
@@ -137,6 +143,9 @@ export const hentSyfoApiUrl = (appNavn) => {
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
         return `https://syfoapi.nav.no/${appNavn}/api`;
+    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+        // docker compose
+        return `http://localhost:1995/${appNavn}/api`;
     } if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
         return `/${appNavn}/api`;

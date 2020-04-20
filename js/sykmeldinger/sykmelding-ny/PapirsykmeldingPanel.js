@@ -174,13 +174,13 @@ class PapirsykmeldingPanelComponent extends Component {
                         />
                     </div>
                     {this.state.harGittPapirsykmelding === 'ja' && (
-                        <TilUtfylling skjemaRef={this.props.skjemaRef} />
-                    )}
-                    {this.state.harGittPapirsykmelding === 'nei' && (
                         <MedArbeidsgiver
                             skjemaRef={this.props.skjemaRef}
                             setVisAvbryt={this.setVisAvbryt}
                         />
+                    )}
+                    {this.state.harGittPapirsykmelding === 'nei' && (
+                        <TilUtfylling skjemaRef={this.props.skjemaRef} />
                     )}
                 </div>
                 <div ref={this.feilstripeRef} style={{ marginBottom: '1rem' }}>

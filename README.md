@@ -11,7 +11,7 @@ deployet automatisk. Ved vellykket bygg av docker image på master vil imaget bl
 Alle andre brancher vil kun bli rullet ut til `dev-sbs`. 
 
 ## Logger
-Denne appen bruker frontendlogger, du kan se loggen [her](https://logs.adeo.no/goto/da5c8e86da5d5151a9b3be331de093bc).
+Denne appen bruker frontendlogger. Loggen finner man her [her](https://logs.adeo.no/goto/da5c8e86da5d5151a9b3be331de093bc).
 
 ## Kjøre lokalt
 For å kjøre appen lokalt må du ha Node installert og installere npm avhengigheter, `npm install`.

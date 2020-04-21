@@ -44,18 +44,14 @@ jobs:
       - name: Push Docker image
         run: "docker push $(cat .docker_image):$(cat .docker_tag)"
       - name: deploy to dev-sbs
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-sbs
-          TEAM: teamsykefravr
           RESOURCE: naiserator-dev.yaml
       - name: deploy to prod-sbs
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-sbs
-          TEAM: teamsykefravr
           RESOURCE: naiserator-prod.yaml

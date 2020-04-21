@@ -16,7 +16,7 @@ Denne appen bruker frontendlogger. Loggen finner man her [her](https://logs.adeo
 ## Kjøre lokalt
 For å kjøre appen lokalt må du ha Node installert og installere npm avhengigheter, `npm install`.
 
-For å kjøre appen lokalt brukes `webpack-dev-server` for å serve ressurser, selve appen serves av en express server.
+For å kjøre appen lokalt brukes `webpack-dev-server` for å serve ressurser. Selve appen serves av en express server.
 Det betyr at man må ha to prosesser kjørende for å kjøre appen. 
 
 Appen startes lokalt ved å kjøre disse kommandoene i separate terminalvinduer:

@@ -45,10 +45,10 @@ jobs:
       - name: Push Docker image
         run: "docker push $(cat .docker_image):$(cat .docker_tag)"
       - name: deploy to dev-sbs
-        uses: navikt/deployment-cli/action@0.4.0
+        uses: nais/deploy/actions/deploy@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          cluster: dev-sbs
-          team: teamsykefravr
-          resources: naiserator-dev.yaml
+          CLUSTER: dev-sbs
+          TEAM: teamsykefravr
+          RESOURCE: naiserator-dev.yaml

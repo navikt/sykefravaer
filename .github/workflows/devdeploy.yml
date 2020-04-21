@@ -46,8 +46,6 @@ jobs:
         run: "docker push $(cat .docker_image):$(cat .docker_tag)"
       - name: deploy to dev-sbs
         uses: nais/deploy/actions/deploy@v1
-        #env:
-        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-sbs

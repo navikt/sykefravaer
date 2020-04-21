@@ -16,7 +16,6 @@ import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
 import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
-import InfoboksAktivitetskrav from '../../aktivitetskrav/komponenter/InfoboksAktivitetskrav';
 
 const IngenSykmeldinger = () => {
     return (
@@ -52,7 +51,6 @@ const Landingsside = ({
 
                 <DineOppgaverContainer />
                 <Utdrag />
-                <InfoboksAktivitetskrav />
                 <DinSituasjonContainer />
                 <nav className="js-navigasjon landingssideNavigasjon">
                     <Vis

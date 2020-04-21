@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
+import KoronaInformasjon from './KoronaInformasjon';
 import CheckboxSelvstendig from '../../components/skjema/CheckboxSelvstendig';
 import { bekreftAktivitetskrav } from '../data/aktivitetskravActions';
 import Feilstripe from '../../components/Feilstripe';
@@ -17,13 +18,14 @@ const Aktivitetskrav = (props) => {
             dispatch(bekreftAktivitetskrav());
         })}>
             <Feilstripe vis={bekreftFeilet} className="blokk" />
-            <div className="bekreftAktivitetskrav">
+            <div className="bekreftAktivitetskrav blokk">
                 <Field
                     name="bekreftAktivitetskrav"
                     component={CheckboxSelvstendig}
                     id="bekreftAktivitetskrav"
                     label={getLedetekst('aktivitetskrav-varsel.bekreft-label', ledetekster)} />
             </div>
+            <KoronaInformasjon />
             <div className="knapperad">
                 <button type="submit" className={`knapp${bekrefter ? ' knapp--spinner' : ''}`}>
                 Bekreft

@@ -48,7 +48,7 @@ jobs:
         uses: nais/deploy/actions/deploy@v1
         #env:
         #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
+        env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-sbs
           TEAM: teamsykefravr

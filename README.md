@@ -11,15 +11,15 @@ deployet automatisk. Ved vellykket bygg av docker image på master vil imaget bl
 Alle andre brancher vil kun bli rullet ut til `dev-sbs`. 
 
 ## Logger
-Denne appen bruker frontendlogger, du kan se loggen [her](https://logs.adeo.no/goto/da5c8e86da5d5151a9b3be331de093bc).
+Denne appen bruker frontendlogger. Loggen finner man her [her](https://logs.adeo.no/goto/da5c8e86da5d5151a9b3be331de093bc).
 
 ## Kjøre lokalt
 For å kjøre appen lokalt må du ha Node installert og installere npm avhengigheter, `npm install`.
 
-For å kjøre appen lokalt brukes `webpack-dev-server` for å serve ressurser, selve appen serves av en express server.
+For å kjøre appen lokalt brukes `webpack-dev-server` for å serve ressurser. Selve appen serves av en express server.
 Det betyr at man må ha to prosesser kjørende for å kjøre appen. 
 
-Appen startes lokalt ved å kjøre disse kommandoene:
+Appen startes lokalt ved å kjøre disse kommandoene i separate terminalvinduer:
 - `npm run dev`
 - `npm run start-local` 
 

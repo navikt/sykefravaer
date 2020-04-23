@@ -146,28 +146,37 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     this.handleSubmit(v);
                 })}>
                 <FeiloppsummeringContainer skjemanavn={getSykmeldingSkjemanavn(sykmelding.id)} />
-                <h3 className="typo-innholdstittel blokk--xxs">{getLedetekst('starte-sykmelding.tittel')}</h3>
-                <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
+                <h3 className="typo-innholdstittel blokk--xxs">
+                    {getLedetekst('starte-sykmelding.tittel')}
+                </h3>
+                <div className="redaksjonelt-innhold blokk"
+                    dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')}
+                />
                 <ErOpplysningeneRiktige untouch={untouch} sykmelding={sykmelding} />
-                <Vis
-                    hvis={modus !== modi.AVBRYT}
+                <Vis hvis={modus !== modi.AVBRYT}
                     render={() => (
                         <div className="blokk">
                             <VelgArbeidssituasjonContainer {...this.props} />
-                            <Vis
-                                hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}
-                                render={() => <StrengtFortroligInfo sykmeldingId={sykmelding.id} />} />
-                            <Vis
-                                hvis={visFrilansersporsmal}
-                                render={() => <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />} />
+                            <Vis hvis={
+                                    brukersSvarverdier.valgtArbeidssituasjon ===
+                                    ARBEIDSTAKER && harStrengtFortroligAdresse
+                                }
+                                render={() => <StrengtFortroligInfo sykmeldingId={sykmelding.id} />}
+                            />
+                            <Vis hvis={visFrilansersporsmal}
+                                render={() => <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />}
+                            />
                         </div>
                     )}
                 />
-                <Vis
-                    hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null)}
+                <Vis hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null)}
                     render={() => {
                         if (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSLEDIG) {
-                            return <Bjorn className="blokk" hvit stor nokkel="sykmelding.behandlingsdager-arbeidsledig.bjorn" />;
+                            return (
+                                <Bjorn className="blokk" hvit stor
+                                    nokkel="sykmelding.behandlingsdager-arbeidsledig.bjorn"
+                                />
+                            );
                         }
                         if (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER
                             || brukersSvarverdier.valgtArbeidssituasjon === FRILANSER
@@ -177,13 +186,17 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         return null;
                     }}
                 />
-                <Vis
-                    hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
-                    render={() => <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />} />
+                <Vis hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
+                    render={() => <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />}
+                />
                 <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
-                <Vis
-                    hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
-                    render={() => <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>} />
+                <Vis hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
+                    render={() => (
+                        <p className="dinSykmeldingSkjema__sendInfo">
+                            {getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}
+                        </p>
+                    )}
+                />
                 <div className="knapperad">
                     <p className="blokk--s">
                         <Knapp

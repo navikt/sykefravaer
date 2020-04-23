@@ -61,7 +61,12 @@ export class Skjemalaster extends Component {
             return <AppSpinner />;
         }
         if (hentingFeilet) {
-            return <Feilmelding tittel="Beklager, det oppstod en feil" melding="Du kan dessverre ikke ta i bruk sykmeldingen akkurat nå. Prøv igjen senere!" />;
+            return (
+                <Feilmelding
+                    tittel="Beklager, det oppstod en feil"
+                    melding="Du kan dessverre ikke ta i bruk sykmeldingen akkurat nå. Prøv igjen senere!"
+                />
+            );
         }
         if (vedlikehold.datospennMedTid) {
             return (
@@ -70,13 +75,15 @@ export class Skjemalaster extends Component {
                     melding={getLedetekst('under-vedlikehold.varsel.tekst', {
                         '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
                         '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
-                    })} />
+                    })}
+                />
             );
         }
         return (
             <DinSykmeldingSkjema
                 sykmelding={sykmelding}
-                visFrilansersporsmal={visFrilansersporsmal} />
+                visFrilansersporsmal={visFrilansersporsmal}
+            />
         );
     }
 }

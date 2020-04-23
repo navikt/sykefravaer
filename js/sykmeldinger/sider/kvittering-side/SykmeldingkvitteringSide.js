@@ -25,9 +25,7 @@ import { hentBrukerinfo } from '../../../data/brukerinfo/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { selectDinSykmelding } from '../../data/dine-sykmeldinger/dineSykmeldingerSelectors';
 
-const {
-    SENDT, TIL_SENDING, BEKREFTET, AVBRUTT,
-} = sykmeldingstatuser;
+const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
 const { FREMTIDIG, NY } = sykepengesoknadstatuser;
 
 export class KvitteringSide extends Component {
@@ -40,6 +38,7 @@ export class KvitteringSide extends Component {
             doHentBrukerinfo,
             doHentAktuelleArbeidsgivere,
         } = this.props;
+
         doHentDineSykmeldinger();
         doHentSykepengesoknader();
         doHentSoknader();
@@ -57,6 +56,9 @@ export class KvitteringSide extends Component {
             sykepengesoknader,
             soknader,
         } = this.props;
+
+        console.log('status', sykmelding.status); // eslint-disable-line
+
         const brodsmuler = [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -84,7 +86,8 @@ export class KvitteringSide extends Component {
                 return (
                     <Feilmelding
                         tittel="Fant ikke kvittering"
-                        melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />
+                        melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?"
+                    />
                 );
             }
             if (kvitteringtype && [SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) > -1) {
@@ -92,7 +95,8 @@ export class KvitteringSide extends Component {
                     <Sykmeldingkvittering
                         kvitteringtype={kvitteringtype}
                         sykepengesoknader={sykepengesoknader}
-                        soknader={soknader} />
+                        soknader={soknader}
+                    />
                 );
             }
             if ([SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) === -1) {

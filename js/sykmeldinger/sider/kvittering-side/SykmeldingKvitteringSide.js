@@ -431,6 +431,6 @@ const actionCreators = {
     doHentAktuelleArbeidsgivere: hentAktuelleArbeidsgivere,
 };
 
-const SykmeldingkvitteringSide = connect(mapStateToProps, actionCreators)(KvitteringSide);
+const SykmeldingKvitteringSide = connect(mapStateToProps, actionCreators)(KvitteringSide);
 
-export default SykmeldingkvitteringSide;
+export default SykmeldingKvitteringSide;

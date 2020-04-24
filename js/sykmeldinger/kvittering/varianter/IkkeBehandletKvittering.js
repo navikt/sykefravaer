@@ -26,7 +26,8 @@ const IkkeBehandletKvittering = () => {
                         <div className="js-tekst">
                             <div className="kvitteringsteg__tekst">
                                 <p>
-                                    Akkurat nå kan ikke systemet slå opp om du trenger å søke om sykepenger<br/>
+                                    Akkurat nå kan ikke systemet slå opp om du trenger å søke om sykepenger
+                                    <br />
                                     Hvis du trenger å søke, vil du få en melding fra oss når det er aktuelt.
                                 </p>
                             </div>
@@ -35,7 +36,7 @@ const IkkeBehandletKvittering = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default IkkeBehandletKvittering;

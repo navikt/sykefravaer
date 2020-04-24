@@ -62,8 +62,8 @@ export const kvitteringtyper = {
 const IkkeBehandletKvittering = () => {
     return (
         <IkkeBehandletKvittering />
-    )
-}
+    );
+};
 
 const AvbruttKvittering = () => {
     return (
@@ -125,7 +125,7 @@ const SykmeldingKvittering = (props) => {
         [kvitteringtyper.EGENMELDT_KVITTERING]: EgenmeldtKvittering,
         [kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING]: EgenmeldingAvbruttKvittering,
         [kvitteringtyper.EGENMELDT_KVITTERING_SOK_NA]: EgenmeldtKvitteringSokNa,
-        [kvitteringtyper.IKKE_BEHANDLET_KVITTERING]: IkkeBehandletKvittering
+        [kvitteringtyper.IKKE_BEHANDLET_KVITTERING]: IkkeBehandletKvittering,
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];

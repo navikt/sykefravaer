@@ -1,12 +1,10 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
-import Side from '../../../sider/Side';
-import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
+import Side from '../../../sider/Side';
 
 export class SykmeldingForsinketSide extends Component {
-
     render() {
         const { sykmeldingId } = this.props;
 
@@ -52,7 +50,8 @@ export class SykmeldingForsinketSide extends Component {
                                 <div className="js-tekst">
                                     <div className="kvitteringsteg__tekst">
                                         <p>
-                                            Akkurat nå kan ikke systemet slå opp om du trenger å søke om sykepenger<br/>
+                                            Akkurat nå kan ikke systemet slå opp om du trenger å søke om sykepenger
+                                            <br />
                                             Hvis du trenger å søke, vil du få en melding fra oss når det er aktuelt.
                                         </p>
                                     </div>
@@ -67,7 +66,7 @@ export class SykmeldingForsinketSide extends Component {
 }
 
 SykmeldingForsinketSide.propTypes = {
-    sykmeldingId: PropTypes.string
+    sykmeldingId: PropTypes.string,
 };
 
 export default SykmeldingForsinketSide;

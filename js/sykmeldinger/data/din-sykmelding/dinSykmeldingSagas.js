@@ -44,14 +44,14 @@ function sykmeldingBekreftet(sykmeldingId, callback) {
 
         fetch(
             `${hentApiUrl()}/soknader/sykmelding-behandlet?sykmeldingId=${sykmeldingId}`,
-            { credentials: 'include' }
+            { credentials: 'include' },
         ).then((response) => {
             if (response.ok) {
-                response.json().then(data => {
+                response.json().then((data) => {
                     bekreftet = data;
                 });
             }
-        })
+        });
     }, 1000);
 }
 

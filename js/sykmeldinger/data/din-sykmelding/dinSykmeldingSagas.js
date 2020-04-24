@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
-import { hentApiUrl } from '../../../data/gateway-api';
 
 const {
     ANGRE_BEKREFT_SYKMELDING_FORESPURT,
@@ -14,10 +13,6 @@ const {
     SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
     BEKREFT_SYKMELDING_FORESPURT,
 } = actions;
-
-const gaTilForsinketKvittering = (sykmeldingId) => {
-    browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldingId}/forsinket`);
-};
 
 const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldingId}/kvittering`);
@@ -31,29 +26,6 @@ const erFrilanserEllerSelvstendig = (verdier) => {
     return verdier.arbeidssituasjon === arbeidssituasjoner.FRILANSER
         || verdier.arbeidssituasjon === arbeidssituasjoner.NAERINGSDRIVENDE;
 };
-
-function sykmeldingBekreftet(sykmeldingId, callback) {
-    const startTime = new Date().getTime();
-    let bekreftet = false;
-
-    const interval = setInterval(() => {
-        if ((new Date().getTime() - startTime) > 10000 || bekreftet === true) {
-            clearInterval(interval);
-            callback(bekreftet);
-        }
-
-        fetch(
-            `${hentApiUrl()}/soknader/sykmelding-behandlet?sykmeldingId=${sykmeldingId}`,
-            { credentials: 'include' }
-        ).then((response) => {
-            if (response.ok) {
-                response.json().then(data => {
-                    bekreftet = data;
-                });
-            }
-        })
-    }, 1000);
-}
 
 export function* bekreftSykmelding(action) {
     yield put(actions.bekrefterSykmelding());
@@ -77,13 +49,7 @@ export function* bekreftSykmelding(action) {
         yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));
         yield put(actions.setArbeidssituasjon(verdier.arbeidssituasjon, sykmeldingId));
         yield put(actions.sykmeldingBekreftet(sykmeldingId));
-        sykmeldingBekreftet(sykmeldingId, (bekreftet) => {
-            if (bekreftet) {
-                gaTilKvittering(sykmeldingId);
-            } else {
-                gaTilForsinketKvittering(sykmeldingId);
-            }
-        });
+        gaTilKvittering(sykmeldingId);
     } catch (e) {
         log(e);
         yield put(actions.bekreftSykmeldingFeilet());

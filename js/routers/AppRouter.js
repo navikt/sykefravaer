@@ -8,7 +8,6 @@ import SykmeldingSkrivUtSide from '../sykmeldinger/sider/SykmeldingSkrivUtSide';
 import TidslinjeSide from '../sider/TidslinjeSide';
 import KoronaSide from '../sider/KoronaSide';
 import SykmeldingKvitteringSide from '../sykmeldinger/sider/kvittering-side/SykmeldingKvitteringSide';
-import SykmeldingForsinketSide from '../sykmeldinger/sider/kvittering-side/SykmeldingForsinketSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
 import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
 import Redirectside from '../sider/Redirectside';
@@ -24,7 +23,6 @@ const AppRouter = ({ history }) => {
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId`} component={DinSykmeldingContainer} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId/skriv-ut`} component={SykmeldingSkrivUtSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId/kvittering`} component={SykmeldingKvitteringSide} />
-            <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/:sykmeldingId/forsinket`} component={SykmeldingForsinketSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/aktivitetsplikt`} component={AktivitetskravvarselSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`} component={InfoSideFO} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykepengesoknad-utland`} component={Redirectside} />

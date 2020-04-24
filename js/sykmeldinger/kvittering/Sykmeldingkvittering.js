@@ -56,7 +56,14 @@ export const kvitteringtyper = {
     EGENMELDT_KVITTERING: 'EGENMELDT_KVITTERING',
     EGENMELDT_KVITTERING_SOK_NA: 'EGENMELDT_KVITTERING_SOK_NA',
     EGENMELDING_AVBRUTT_KVITTERING: 'EGENMELDING_AVBRUTT_KVITTERING',
+    IKKE_BEHANDLET_KVITTERING: 'IKKE_BEHANDLET_KVITTERING',
 };
+
+const IkkeBehandletKvittering = () => {
+    return (
+        <IkkeBehandletKvittering />
+    )
+}
 
 const AvbruttKvittering = () => {
     return (
@@ -118,6 +125,7 @@ const SykmeldingKvittering = (props) => {
         [kvitteringtyper.EGENMELDT_KVITTERING]: EgenmeldtKvittering,
         [kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING]: EgenmeldingAvbruttKvittering,
         [kvitteringtyper.EGENMELDT_KVITTERING_SOK_NA]: EgenmeldtKvitteringSokNa,
+        [kvitteringtyper.IKKE_BEHANDLET_KVITTERING]: IkkeBehandletKvittering
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];

@@ -7,7 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import {
-    setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser,
+    setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser
 } from '@navikt/digisyfo-npm';
 import SykmeldingKvitteringContainer, { mapStateToProps } from './SykmeldingKvitteringSide';
 import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSykmeldingkvittering';
@@ -412,12 +412,14 @@ describe('SykmeldingKvitteringSide', () => {
         it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
             state.sykepengesoknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
+            state.erBehandlet = true;
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [nySoknad2];
+            state.erBehandlet = true;
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
@@ -425,6 +427,7 @@ describe('SykmeldingKvitteringSide', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.sykepengesoknader.data = [fremtidigSoknad1];
             const component = getComponent(state, ownProps);
+            console.log('component.text()', component.text()); // eslint-disable-line
             expect(component.text())
                 .to
                 .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer.kort-sykmelding.tittel']);

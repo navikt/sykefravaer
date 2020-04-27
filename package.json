@@ -6,6 +6,7 @@
   "test": "npm run test",
   "scripts": {
     "test": "npm run default-env && mocha --require babel-core/register --require babel-polyfill --require ignore-styles  ./test/setup.js \"{js/**/*.test,test/**/*}.@(js|jsx)\"",
+    "tst": "npm run default-env && mocha --require babel-core/register --require babel-polyfill --require ignore-styles  ./test/setup.js \"./js/sykmeldinger/sider/kvittering-side/SykmeldingKvitteringSide.test.js\"",
     "test:watch": "npm run test -- --watch",
     "lint": "npm-run-all lintJs lintTest",
     "lint:fix": "npm-run-all lintJs:fix lintTest:fix",

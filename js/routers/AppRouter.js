@@ -7,7 +7,7 @@ import DinSykmeldingContainer from '../sykmeldinger/sider/sykmelding-side/Sykmel
 import SykmeldingSkrivUtSide from '../sykmeldinger/sider/SykmeldingSkrivUtSide';
 import TidslinjeSide from '../sider/TidslinjeSide';
 import KoronaSide from '../sider/KoronaSide';
-import SykmeldingKvitteringContainer from '../sykmeldinger/sider/kvittering-side/SykmeldingkvitteringSide';
+import SykmeldingKvitteringContainer from '../sykmeldinger/sider/kvittering-side/SykmeldingKvitteringSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
 import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
 import Redirectside from '../sider/Redirectside';

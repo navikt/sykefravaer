@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import {
     setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser,
 } from '@navikt/digisyfo-npm';
-import * as SykmeldingKvitteringSide from './SykmeldingKvitteringSide';
+import SykmeldingKvitteringContainer, { mapStateToProps } from './SykmeldingKvitteringSide';
 import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../kvittering/varianter/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from '../../kvittering/varianter/FrilanserUtenSoknadKvittering';
@@ -27,12 +27,10 @@ import { aktuelleArbeidsgivereHentet } from '../../data/arbeidsgivere/arbeidsgiv
 import { FREMTIDIG } from '../../../enums/soknadstatuser';
 import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
 
-const { mapStateToProps } = SykmeldingKvitteringSide;
-
 chai.use(chaiEnzyme());
 const { expect } = chai;
 
-describe('SykmeldingkvitteringSide', () => {
+describe('SykmeldingKvitteringSide', () => {
     const ownProps = {};
     const state = {};
     let nySoknad1;
@@ -303,7 +301,7 @@ describe('SykmeldingkvitteringSide', () => {
         const store = mockStore(_state);
         return mount(
             <Provider store={store}>
-                <SykmeldingKvitteringSide {..._ownProps} />
+                <SykmeldingKvitteringContainer {..._ownProps} />
             </Provider>,
         );
     };

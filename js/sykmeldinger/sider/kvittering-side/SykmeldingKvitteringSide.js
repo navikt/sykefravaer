@@ -30,14 +30,16 @@ import { hentApiUrl } from '../../../data/gateway-api';
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
 const { FREMTIDIG, NY } = sykepengesoknadstatuser;
 
-export class KvitteringSide extends Component {
+const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
+const erReisetilskudd = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.reisetilskudd);
 
+export class KvitteringSide extends Component {
     constructor(props) {
         super(props);
         this.state = {
             brodsmuler: [],
-            behandlet: undefined
-        }
+            behandlet: undefined,
+        };
     }
 
     componentWillMount() {
@@ -59,17 +61,14 @@ export class KvitteringSide extends Component {
             tittel: getLedetekst('din-sykmelding.kvittering.sidetittel'),
         }];
 
-        const ikkeBehandle = sykmelding.status === AVBRUTT ||
-            erAvventende(sykmelding) || erReisetilskudd(sykmelding);
+        const ikkeBehandle = sykmelding.status === AVBRUTT || erAvventende(sykmelding) || erReisetilskudd(sykmelding);
 
         this.setState({
-            brodsmuler: brodsmuler,
+            brodsmuler,
             behandlet: ikkeBehandle
                 ? true
-                : this.sykmeldingBehandlet(sykmeldingId, (ok) => {
-                    return ok;
-                })
-        })
+                : this.sykmeldingBehandlet(sykmeldingId, ok => ok),
+        });
     }
 
     componentDidMount() {
@@ -89,9 +88,9 @@ export class KvitteringSide extends Component {
         doHentAktuelleArbeidsgivere(sykmeldingId);
     }
 
-    sykmeldingBehandlet = (sykmeldingId, callback) => {
+    sykmeldingBehandlet(sykmeldingId, callback) {
         const startTime = new Date().getTime();
-        let behandlet = false;
+        const behandlet = false;
 
         const interval = setInterval(() => {
             if ((new Date().getTime() - startTime) > 10000 || behandlet === true) {
@@ -100,12 +99,12 @@ export class KvitteringSide extends Component {
             }
             fetch(
                 `${hentApiUrl()}/soknader/sykmelding-behandlet?sykmeldingId=${sykmeldingId}`,
-                { credentials: 'include' }
-            ).then(response => {
+                { credentials: 'include' },
+            ).then((response) => {
                 if (response.ok) {
-                    response.json().then(data => this.setState({ behandlet: data }))
+                    response.json().then(data => this.setState({ behandlet: data }));
                 }
-            })
+            });
         }, 1000);
     }
 
@@ -185,8 +184,6 @@ KvitteringSide.propTypes = {
 
 const erEgenmeldt = sykmelding => sykmelding.erEgenmeldt;
 
-const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
-const erReisetilskudd = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.reisetilskudd);
 
 const getArbeidssituasjon = sykmelding => (
     typeof sykmelding.valgtArbeidssituasjon === 'string'

@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import Sykmeldingkvittering from './Sykmeldingkvittering';
+import SykmeldingKvittering from './SykmeldingKvittering';
 import Kvitteringsteg from './felles/Kvitteringsteg';
 import SokOmSykepengerNaaKvittering from './varianter/SokOmSykepengerNaaKvittering';
 
@@ -17,7 +17,7 @@ describe('Sykmeldingkvittering', () => {
     });
 
     it('Skal vise en SokOmSykepengerNaaKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_NÅ', () => {
-        const comp = shallow(<Sykmeldingkvittering kvitteringtype="KVITTERING_MED_SYKEPENGER_SØK_NÅ" />);
+        const comp = shallow(<SykmeldingKvittering kvitteringtype="KVITTERING_MED_SYKEPENGER_SØK_NÅ" />);
         expect(comp.find(SokOmSykepengerNaaKvittering)).to.have.length(1);
     });
 

@@ -12,7 +12,7 @@ import {
     tilLesbarDatoMedArstall,
 } from '@navikt/digisyfo-npm';
 import Side from '../../../sider/Side';
-import Sykmeldingkvittering, { kvitteringtyper } from '../../kvittering/Sykmeldingkvittering';
+import SykmeldingKvittering, { kvitteringtyper } from '../../kvittering/SykmeldingKvittering';
 import AppSpinner from '../../../components/AppSpinner';
 import Feilmelding from '../../../components/Feilmelding';
 import { soknadPt, sykmelding as sykmeldingPt } from '../../../propTypes';
@@ -24,12 +24,12 @@ import { hentSoknader } from '../../../data/soknader/soknaderActions';
 import { hentBrukerinfo } from '../../../data/brukerinfo/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { selectDinSykmelding } from '../../data/dine-sykmeldinger/dineSykmeldingerSelectors';
-import IkkeBehandletKvittering from '../../kvittering/varianter/IkkeBehandletKvittering';
 import { hentApiUrl } from '../../../data/gateway-api';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
 const { FREMTIDIG, NY } = sykepengesoknadstatuser;
 
+const erEgenmeldt = sykmelding => sykmelding.erEgenmeldt;
 const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
 const erReisetilskudd = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.reisetilskudd);
 
@@ -38,7 +38,7 @@ export class KvitteringSide extends Component {
         super(props);
         this.state = {
             brodsmuler: [],
-            behandlet: undefined,
+            erBehandlet: undefined,
         };
     }
 
@@ -65,7 +65,7 @@ export class KvitteringSide extends Component {
 
         this.setState({
             brodsmuler,
-            behandlet: ikkeBehandle
+            erBehandlet: ikkeBehandle
                 ? true
                 : this.sykmeldingBehandlet(sykmeldingId, ok => ok),
         });
@@ -102,7 +102,7 @@ export class KvitteringSide extends Component {
                 { credentials: 'include' },
             ).then((response) => {
                 if (response.ok) {
-                    response.json().then(data => this.setState({ behandlet: data }));
+                    response.json().then(data => this.setState({ erBehandlet: data }));
                 }
             });
         }, 1000);
@@ -118,7 +118,21 @@ export class KvitteringSide extends Component {
             soknader,
         } = this.props;
 
+        const { brodsmuler, erBehandlet } = this.state;
+
         const innhold = (() => {
+            if (erBehandlet === undefined) {
+                return <AppSpinner />;
+            }
+            if (erBehandlet === false) {
+                return (
+                    <SykmeldingKvittering
+                        sykepengesoknader={sykepengesoknader}
+                        soknader={soknader}
+                        kvitteringtype={kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER}
+                    />
+                );
+            }
             if (henter) {
                 return <AppSpinner />;
             }
@@ -135,7 +149,7 @@ export class KvitteringSide extends Component {
             }
             if (kvitteringtype && [SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) > -1) {
                 return (
-                    <Sykmeldingkvittering
+                    <SykmeldingKvittering
                         kvitteringtype={kvitteringtype}
                         sykepengesoknader={sykepengesoknader}
                         soknader={soknader}
@@ -154,13 +168,8 @@ export class KvitteringSide extends Component {
         })();
 
         return (
-            <Side tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} brodsmuler={this.state.brodsmuler}>
-                {this.state.behandlet === undefined
-                    ? <AppSpinner />
-                    : this.state.behandlet === true
-                        ? innhold
-                        : <IkkeBehandletKvittering />
-                }
+            <Side tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} brodsmuler={brodsmuler}>
+                {innhold}
             </Side>
         );
     }
@@ -174,16 +183,12 @@ KvitteringSide.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
     kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)),
-    fortroligAddresse: PropTypes.bool,
     doHentDineSykmeldinger: PropTypes.func,
     doHentSykepengesoknader: PropTypes.func,
     doHentSoknader: PropTypes.func,
     doHentBrukerinfo: PropTypes.func,
     doHentAktuelleArbeidsgivere: PropTypes.func,
 };
-
-const erEgenmeldt = sykmelding => sykmelding.erEgenmeldt;
-
 
 const getArbeidssituasjon = sykmelding => (
     typeof sykmelding.valgtArbeidssituasjon === 'string'
@@ -210,10 +215,9 @@ const erBehandlingsdager = sykmelding => sykmelding
     && sykmelding.mulighetForArbeid.perioder
         .some(periode => periode.behandlingsdager);
 
-function getForskuttererArbeidsgiver(sykmelding, arbeidsgivere) {
+function getForskuttererArbeidsgiver(sykmelding, givere) {
     const mottakendeArbeidsgiver = sykmelding.mottakendeArbeidsgiver
-        ? arbeidsgivere.data.find(arbeidsgiver =>
-            arbeidsgiver.orgnummer === sykmelding.mottakendeArbeidsgiver.virksomhetsnummer)
+        ? givere.data.find(giver => giver.orgnummer === sykmelding.mottakendeArbeidsgiver.virksomhetsnummer)
         : null;
     return mottakendeArbeidsgiver
     && mottakendeArbeidsgiver.naermesteLeder
@@ -267,9 +271,7 @@ const finnKvitteringstypeForBehandlingsdager = (sykmelding, soknader, arbeidsgiv
     return null;
 };
 
-const arbeidstakerHarFortroligAdresse = (state, sykmelding) => {
-    return harStrengtFortroligAdresseSelector(state) && erArbeidstaker(sykmelding);
-}
+const harFortroligAdresse = (state, sykmelding) => harStrengtFortroligAdresseSelector(state) && erArbeidstaker(sykmelding);
 
 const getKvitteringtype = (state, sykmeldingId) => {
     const sykmelding = state.dineSykmeldinger.data.find(s => s.id === sykmeldingId);
@@ -293,7 +295,8 @@ const getKvitteringtype = (state, sykmeldingId) => {
 
     if (erBehandlingsdager(sykmelding) && soknaderRelatertTilSykmeldingen.length > 0) {
         const kvittering = finnKvitteringstypeForBehandlingsdager(
-            sykmelding, soknaderRelatertTilSykmeldingen, state.arbeidsgivere);
+            sykmelding, soknaderRelatertTilSykmeldingen, state.arbeidsgivere,
+        );
         if (kvittering) {
             return kvittering;
         }
@@ -320,12 +323,11 @@ const getKvitteringtype = (state, sykmeldingId) => {
         ...arbeidstakersoknader,
     ].filter(s => s.sykmeldingId === sykmeldingId);
 
-    const nyeSykepengesoknaderForDenneSykmeldingen =
-        denneSykmeldingensSykepengesoknader.filter(s => s.status === NY);
-    const fremtidigeSykepengesoknaderForDenneSykmeldingen =
-        denneSykmeldingensSykepengesoknader.filter(s => s.status === FREMTIDIG);
+    const nyeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter(s => s.status === NY);
+    const fremtidigeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter(s => s.status === FREMTIDIG);
     const denneSykmeldingensSoknader = state.soknader.data.filter(
-        s => s.sykmeldingId === sykmelding.id && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE);
+        s => s.sykmeldingId === sykmelding.id && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE,
+    );
     const nyeSoknaderForDenneSykmeldingen = denneSykmeldingensSoknader.filter(s => s.status === NY);
     const { skalOppretteSoknad } = state.sykmeldingMeta[sykmeldingId] || {};
     const forskuttererArbeidsgiver = getForskuttererArbeidsgiver(sykmelding, state.arbeidsgivere);
@@ -365,8 +367,8 @@ const getKvitteringtype = (state, sykmeldingId) => {
             if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER;
             }
-            if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ANNET ||
-                getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSLEDIG) {
+            if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ANNET
+                || getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSLEDIG) {
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG;
             }
             if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)
@@ -405,7 +407,7 @@ export function mapStateToProps(state, ownProps) {
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const kvitteringtype = getKvitteringtype(state, sykmeldingId);
     const soknadErFremtidig = s => s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
-    const harFortroligAddresse = arbeidstakerHarFortroligAdresse(state, sykmelding);
+    const harFortroligAddresse = harFortroligAdresse(state, sykmelding);
 
     return {
         henter,
@@ -415,7 +417,7 @@ export function mapStateToProps(state, ownProps) {
         sykepengesoknader: state.sykepengesoknader.data.filter(soknadErFremtidig),
         soknader: state.soknader.data.filter(soknadErFremtidig),
         kvitteringtype,
-        harFortroligAddresse: harFortroligAddresse,
+        harFortroligAddresse,
         tom: sykmelding ? tilLesbarDatoMedArstall(senesteTom(sykmelding.mulighetForArbeid.perioder)) : null,
     };
 }

@@ -33,39 +33,24 @@ const erEgenmeldt = sykmelding => sykmelding.erEgenmeldt;
 const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
 const erReisetilskudd = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.reisetilskudd);
 
+export const testState = {
+    erLokalBehandling: true,
+};
+
 export class KvitteringSide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            brodsmuler: [],
             erBehandlet: undefined,
         };
     }
 
     componentWillMount() {
         const { sykmelding, sykmeldingId } = this.props;
-
-        const brodsmuler = [{
-            tittel: getLedetekst('landingsside.sidetittel'),
-            sti: '/',
-            erKlikkbar: true,
-        }, {
-            tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
-            sti: '/sykmeldinger',
-            erKlikkbar: true,
-        }, {
-            tittel: getLedetekst('din-sykmelding.sidetittel'),
-            sti: `/sykmeldinger/${sykmeldingId}`,
-            erKlikkbar: true,
-        }, {
-            tittel: getLedetekst('din-sykmelding.kvittering.sidetittel'),
-        }];
-
         const ikkeBehandle = sykmelding.status === AVBRUTT || erAvventende(sykmelding) || erReisetilskudd(sykmelding);
 
         this.setState({
-            brodsmuler,
-            erBehandlet: ikkeBehandle
+            erBehandlet: ikkeBehandle || testState.erLokalBehandling
                 ? true
                 : this.sykmeldingBehandlet(sykmeldingId, ok => ok),
         });
@@ -102,7 +87,9 @@ export class KvitteringSide extends Component {
                 { credentials: 'include' },
             ).then((response) => {
                 if (response.ok) {
-                    response.json().then(data => this.setState({ erBehandlet: data }));
+                    response.json().then((data) => {
+                        this.setState({ erBehandlet: data });
+                    });
                 }
             });
         }, 1000);
@@ -118,7 +105,23 @@ export class KvitteringSide extends Component {
             soknader,
         } = this.props;
 
-        const { brodsmuler, erBehandlet } = this.state;
+        const { erBehandlet } = this.state;
+
+        const brodsmuler = [{
+            tittel: getLedetekst('landingsside.sidetittel'),
+            sti: '/',
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
+            sti: '/sykmeldinger',
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('din-sykmelding.sidetittel'),
+            sti: `/sykmeldinger/${sykmelding.id}`,
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('din-sykmelding.kvittering.sidetittel'),
+        }];
 
         const innhold = (() => {
             if (erBehandlet === undefined) {

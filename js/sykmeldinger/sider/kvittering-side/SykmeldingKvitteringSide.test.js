@@ -7,9 +7,9 @@ import createSagaMiddleware from 'redux-saga';
 import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import {
-    setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser
+    setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser,
 } from '@navikt/digisyfo-npm';
-import SykmeldingKvitteringContainer, { mapStateToProps } from './SykmeldingKvitteringSide';
+import SykmeldingKvitteringContainer, { testState, mapStateToProps } from './SykmeldingKvitteringSide';
 import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../kvittering/varianter/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from '../../kvittering/varianter/FrilanserUtenSoknadKvittering';
@@ -29,6 +29,8 @@ import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidst
 
 chai.use(chaiEnzyme());
 const { expect } = chai;
+
+testState.erLokalBehandling = true;
 
 describe('SykmeldingKvitteringSide', () => {
     const ownProps = {};

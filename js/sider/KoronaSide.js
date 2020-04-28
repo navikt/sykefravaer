@@ -29,6 +29,7 @@ const ERROR_CODES = {
     PERSON_NOT_FOUND: KVITTERING_ERROR,
     AKTOR_NOT_FOUND: KVITTERING_ERROR,
     FORBIDDEN: KVITTERING_ERROR,
+    FOR_MANGE_SYKMELDINGER_I_PERIODE: KVITTERING_ERROR,
 };
 
 class KoronaContainer extends Component {
@@ -69,10 +70,11 @@ class KoronaContainer extends Component {
                 if (res.errors) {
                     if (res.errors[0]) {
                         const errorType = ERROR_CODES[res.errors[0].errorCode];
+                        // No mapping for this error code was found. Showing a formError by default.
                         if (errorType === undefined) {
                             this.setState({
                                 isLoading: false,
-                                error: 'Feil under innsending av egenmelding',
+                                formError: res.errors[0].description,
                             });
                         }
 

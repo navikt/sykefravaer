@@ -20,7 +20,7 @@ import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknad
 import { harStrengtFortroligAdresseSelector } from '../../../data/brukerinfo/brukerinfoSelectors';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentSykepengesoknader } from '../../../data/sykepengesoknader/sykepengesoknader_actions';
-import { hentSoknader } from '../../../data/soknader/soknaderActions';
+import { hentSoknader, oppdaterSoknader } from '../../../data/soknader/soknaderActions';
 import { hentBrukerinfo } from '../../../data/brukerinfo/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { selectDinSykmelding } from '../../data/dine-sykmeldinger/dineSykmeldingerSelectors';
@@ -36,7 +36,7 @@ const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(pe
 const erReisetilskudd = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.reisetilskudd);
 
 export const testState = {
-    erLokalBehandling: true,
+    erLokalBehandling: false,
 };
 
 export class KvitteringSide extends Component {
@@ -44,20 +44,12 @@ export class KvitteringSide extends Component {
         super(props);
         this.state = {
             erBehandlet: undefined,
+            aktivBehandletFetching: false,
         };
     }
 
     componentWillMount() {
-        const { sykmelding, sykmeldingId } = this.props;
-        const ikkeBehandle = sykmelding.status === AVBRUTT
-            || erAvventende(sykmelding)
-            || erReisetilskudd(sykmelding);
-
-        this.setState({
-            erBehandlet: ikkeBehandle || testState.erLokalBehandling
-                ? true
-                : this.sykmeldingBehandlet(sykmeldingId, ok => ok),
-        });
+        this.startBehandletFetching();
     }
 
     componentDidMount() {
@@ -77,14 +69,39 @@ export class KvitteringSide extends Component {
         doHentAktuelleArbeidsgivere(sykmeldingId);
     }
 
-    sykmeldingBehandlet(sykmeldingId, callback) {
-        const startTime = new Date().getTime();
-        const behandlet = false;
+    componentDidUpdate() {
+        this.startBehandletFetching();
+    }
 
+    startBehandletFetching() {
+        const { sykmelding, sykmeldingId } = this.props;
+        const { aktivBehandletFetching, erBehandlet } = this.state;
+        if (sykmelding && erBehandlet === undefined && !aktivBehandletFetching) {
+            const ikkeBehandle = sykmelding && (sykmelding.status === AVBRUTT
+                || erAvventende(sykmelding)
+                || erReisetilskudd(sykmelding));
+
+
+            this.setState({
+                erBehandlet: ikkeBehandle || testState.erLokalBehandling
+                    ? true
+                    : this.sykmeldingBehandlet(sykmeldingId),
+            });
+        }
+    }
+
+    sykmeldingBehandlet(sykmeldingId) {
+        const startTime = new Date().getTime();
+
+        this.setState({
+            aktivBehandletFetching: true,
+        });
         const interval = setInterval(() => {
-            if ((new Date().getTime() - startTime) > 10000 || behandlet === true) {
+            if ((new Date().getTime() - startTime) > 10000) {
                 clearInterval(interval);
-                callback(behandlet);
+                this.setState({
+                    aktivBehandletFetching: false,
+                });
             }
             fetch(
                 `${hentApiUrl()}/soknader/sykmelding-behandlet?sykmeldingId=${sykmeldingId}`,
@@ -94,7 +111,20 @@ export class KvitteringSide extends Component {
                     if (response.ok) {
                         response.json()
                             .then((data) => {
-                                this.setState({ erBehandlet: data });
+                                if (data === true) {
+                                    clearInterval(interval);
+                                    this.setState({
+                                        aktivBehandletFetching: false,
+                                        erBehandlet: true,
+                                    });
+                                    const {
+                                        doOppdaterSoknader,
+                                    } = this.props;
+
+                                    doOppdaterSoknader();
+                                } else {
+                                    this.setState({ erBehandlet: false });
+                                }
                             });
                     }
                 });
@@ -112,7 +142,7 @@ export class KvitteringSide extends Component {
             soknader,
         } = this.props;
 
-        const { erBehandlet } = this.state;
+        const { erBehandlet, aktivBehandletFetching } = this.state;
 
         const brodsmuler = [{
             tittel: getLedetekst('landingsside.sidetittel'),
@@ -131,7 +161,10 @@ export class KvitteringSide extends Component {
         }];
 
         const innhold = (() => {
-            if (erBehandlet === undefined) {
+            if (erBehandlet === undefined || aktivBehandletFetching) {
+                return <AppSpinner />;
+            }
+            if (henter) {
                 return <AppSpinner />;
             }
             if (erBehandlet === false) {
@@ -142,9 +175,6 @@ export class KvitteringSide extends Component {
                         kvitteringtype={kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER}
                     />
                 );
-            }
-            if (henter) {
-                return <AppSpinner />;
             }
             if (hentingFeilet) {
                 return <Feilmelding />;
@@ -196,6 +226,7 @@ KvitteringSide.propTypes = {
     doHentSoknader: PropTypes.func,
     doHentBrukerinfo: PropTypes.func,
     doHentAktuelleArbeidsgivere: PropTypes.func,
+    doOppdaterSoknader: PropTypes.func,
 };
 
 const getArbeidssituasjon = sykmelding => (
@@ -427,6 +458,7 @@ const actionCreators = {
     doHentSoknader: hentSoknader,
     doHentBrukerinfo: hentBrukerinfo,
     doHentAktuelleArbeidsgivere: hentAktuelleArbeidsgivere,
+    doOppdaterSoknader: oppdaterSoknader,
 };
 
 const SykmeldingkvitteringSide = connect(mapStateToProps, actionCreators)(KvitteringSide);

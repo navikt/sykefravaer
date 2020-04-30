@@ -10,7 +10,7 @@ import logger from '../../logging';
 import { skalHenteSoknader, skalHenteSoknaderHvisIkkeHenter } from './soknaderSelectors';
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 import {
-    HENT_SOKNADER_FORESPURT,
+    HENT_SOKNADER_FORESPURT, OPPDATER_SOKNADER_FORESPURT,
 } from './soknaderActiontyper';
 import { SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../../sykmeldinger/data/din-sykmelding/dinSykmeldingActions';
 
@@ -54,6 +54,7 @@ function* watchOppdaterSoknader() {
     yield takeEvery([
         SYKMELDING_BEKREFTET,
         SYKMELDING_SENDT,
+        OPPDATER_SOKNADER_FORESPURT,
     ], oppdaterSoknader);
 }
 

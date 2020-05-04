@@ -4,13 +4,7 @@ const request = require('request');
 
 const { JSDOM } = jsdom;
 
-const requestDecorator = (callback) =>
-    request(
-        `${
-            process.env.APPRES_CMS_URL
-            }`,
-        callback
-    );
+const requestDecorator = (callback) => request(process.env.DECORATOR_URL, callback);
 
 const getDecorator = () =>
     new Promise((resolve, reject) => {

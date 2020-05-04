@@ -54,4 +54,4 @@ spec:
     - name: SYFOUNLEASHAPI_URL
       value: https://syfounleash.nais.oera-q.local
     - name: DECORATOR_URL
-      value: https://www-q1.nav.no/dekoratoren/
+      value: https://www-q1.nav.no/dekoratoren

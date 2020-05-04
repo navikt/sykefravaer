@@ -12,7 +12,6 @@ import {
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
-import EgenmeldingDatePicker from './EgenmeldingDatePicker';
 
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
 import FormSeparator from './FormComponents/FormSeparator';
@@ -24,11 +23,6 @@ import { checkmarkSvg } from './svg/checkmarkSvg';
 import AvbrytRegistrering from './FormComponents/AvbrytRegistrering';
 import HjemmefraInfo from './FormComponents/HjemmefraInfo';
 import FormErrorSummary from './FormComponents/FormErrorSummary';
-
-const correctDateOffset = (date) => {
-    date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
-    return date;
-};
 
 const datePlus16Days = (date) => {
     const endDate = new Date(date);
@@ -50,7 +44,6 @@ const scrollToRef = (ref) => {
 const CORONA_CODE = 'R991';
 
 const INITIAL_ERRORS = {
-    periode: undefined,
     koronamistanke: undefined,
     koronamistankeHjemmefra: undefined,
     palagtKarantene: undefined,
@@ -60,7 +53,6 @@ const INITIAL_ERRORS = {
 };
 
 const INITIAL_TOUCHED = {
-    periode: undefined,
     koronamistanke: undefined,
     koronamistankeHjemmefra: undefined,
     palagtKarantene: undefined,
@@ -83,10 +75,6 @@ class KoronaSchema extends Component {
             },
             bekreftet: false,
             showAvbryt: false,
-            periode: {
-                fom: undefined,
-                tom: undefined,
-            },
             boxSize: {
                 formHeight: 0,
                 offsetLeft: 0,
@@ -99,7 +87,6 @@ class KoronaSchema extends Component {
         this.formErrorRef = React.createRef();
 
         this.errorRefs = {
-            periode: React.createRef(),
             koronamistanke: React.createRef(),
             koronamistankeHjemmefra: React.createRef(),
             palagtKarantene: React.createRef(),
@@ -142,12 +129,6 @@ class KoronaSchema extends Component {
         }
 
         // eslint-disable-next-line react/destructuring-assignment
-        if (JSON.stringify(this.state.periode) !== JSON.stringify(prevState.periode)) {
-            this.redrawBox();
-            this.validateAll();
-        }
-
-        // eslint-disable-next-line react/destructuring-assignment
         if (this.props.formError !== prevProps.formError) {
             scrollToRef(this.formErrorRef);
         }
@@ -182,7 +163,7 @@ class KoronaSchema extends Component {
     validateAll(submitting = false) {
         const updatedErrors = { ...INITIAL_ERRORS };
 
-        const { questions, touched, periode } = this.state;
+        const { questions, touched } = this.state;
 
         // If we are submitting, validate all fields ignoring touched status
         if (submitting || touched.koronamistanke) {
@@ -221,12 +202,6 @@ class KoronaSchema extends Component {
             }
         }
 
-        if (submitting || touched.periode) {
-            if (periode.fom === undefined) {
-                updatedErrors.periode = 'Du må oppgi hvilken dag du ble syk';
-            }
-        }
-
         if (!hasErrors(updatedErrors)) {
             this.setState({ errors: INITIAL_ERRORS });
             return updatedErrors;
@@ -238,7 +213,6 @@ class KoronaSchema extends Component {
 
     touchAll() {
         this.setState({ touched: {
-            periode: true,
             koronamistanke: true,
             koronamistankeHjemmefra: true,
             palagtKarantene: true,
@@ -256,15 +230,14 @@ class KoronaSchema extends Component {
         }
 
         const {
-            periode,
             questions: {
                 koronamistanke,
             },
         } = this.state;
 
         const submitPeriod = {
-            fom: periode.fom.toISOString().split('T')[0],
-            tom: periode.tom.toISOString().split('T')[0],
+            fom: new Date().toISOString().split('T')[0],
+            tom: datePlus16Days(new Date()).toISOString().split('T')[0],
         };
 
         const { opprettSykmelding } = this.props;
@@ -304,7 +277,6 @@ class KoronaSchema extends Component {
             questions,
             bekreftet,
             showAvbryt,
-            periode,
             boxSize,
             errors } = this.state;
         const { formError } = this.props;
@@ -353,67 +325,28 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             <hr style={{ width: '10rem', marginBottom: '2rem' }} />
 
                             <FormSeparator
-                                helptext="Vi oppretter en periode på 16 dager når du har valgt startdato.
+                                helptext="Vi oppretter en periode på 16 dager fra dagens dato.
                                 Senere, når du skal fylle ut sykepengesøknaden vi sender deg, oppgir du hvor mange dager du brukte."
                                 title="Dine opplysninger"
                             />
 
-                            <FormSection
-                                title="Oppgi hvilken dag du ble syk"
-                                errorKey="periode"
-                                errorRef={this.errorRefs.periode}
-                                errors={errors}>
-                                <EgenmeldingDatePicker
-                                    value={periode.fom}
-                                    onChange={(date) => {
-                                        if (!date) {
-                                            this.setState((state) => {
-                                                return {
-                                                    bekreftet: false,
-                                                    touched: {
-                                                        ...state.touched,
-                                                        periode: true,
-                                                    },
-                                                    periode: {
-                                                        fom: undefined,
-                                                        tom: undefined,
-                                                    } };
-                                            });
-                                        } else {
-                                            this.setState((state) => {
-                                                return {
-                                                    bekreftet: false,
-                                                    touched: {
-                                                        ...state.touched,
-                                                        periode: true },
-                                                    periode: {
-                                                        fom: correctDateOffset(date),
-                                                        tom: datePlus16Days(date),
-                                                    } };
-                                            });
-                                        }
-                                    }} />
-                            </FormSection>
-
                             <div style={{ display: 'flex', marginBottom: '2rem', flexWrap: 'wrap' }}>
                                 <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Periode</h2>
-                                    {periode.fom ? (
-                                        <p className="js-periode blokk-xxs">
-                                            <span>
-                                                {tilLesbarDatoUtenAarstall(periode.fom)}
-                                                {' '}
+                                    <p className="js-periode blokk-xxs">
+                                        <span>
+                                            {tilLesbarDatoUtenAarstall(new Date())}
+                                            {' '}
                                 -
-                                                {' '}
-                                                {tilLesbarDatoMedArstall(periode.tom)}
-                                            </span>
                                             {' '}
+                                            {tilLesbarDatoMedArstall(datePlus16Days(new Date()))}
+                                        </span>
+                                        {' '}
                             •
-                                            {' '}
-                                            <span>16 dager</span>
+                                        {' '}
+                                        <span>16 dager</span>
 
-                                        </p>
-                                    ) : <p className="js-periode blokk-xxs">-</p>}
+                                    </p>
 
                                 </div>
                                 <div style={{ flex: '1 1 50%' }}>

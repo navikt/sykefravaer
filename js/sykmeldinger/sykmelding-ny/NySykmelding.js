@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import {
     Bjorn, DineSykmeldingOpplysninger, getLedetekst, scrollTo,
 } from '@navikt/digisyfo-npm';
@@ -8,8 +8,14 @@ import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import EldreSykmeldingVarsel from '../eldre-sykmelding-varsel/EldreSykmeldingVarsel';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
+import PapirsykmeldingPanel from './PapirsykmeldingPanel';
 
 class NySykmelding extends Component {
+    constructor() {
+        super();
+        this.skjemaRef = createRef();
+    }
+
     render() {
         return (
             <SykmeldingContext.Consumer>
@@ -19,33 +25,38 @@ class NySykmelding extends Component {
                             <NySykmeldingTrigger>
                                 <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                                 <EldreSykmeldingVarsel sykmelding={sykmelding} />
-                                <Bjorn
-                                    className="blokk"
-                                    hvit
-                                    stor>
-                                    <div>
-                                        <p>
-                                            {
-                                                getLedetekst('din-sykmelding.introtekst.bjorn', {
-                                                    '%NAVN%': getSykmeldtFornavn(sykmelding),
-                                                })
-                                            }
-                                        </p>
-                                        <p className="introtekst__knapperad">
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    scrollTo(this.skjema);
-                                                    this.skjema.focus();
-                                                }}
-                                                className="knapp knapp--mini"
-                                            >
+                                { sykmelding.erPapirsykmelding
+                                    ? <PapirsykmeldingPanel sykmelding={sykmelding} skjemaRef={this.skjemaRef} />
+                                    : (
+                                        <Bjorn
+                                            className="blokk"
+                                            hvit
+                                            stor>
+                                            <div>
+                                                <p>
+                                                    {
+                                                        getLedetekst('din-sykmelding.introtekst.bjorn', {
+                                                            '%NAVN%': getSykmeldtFornavn(sykmelding),
+                                                        })
+                                                    }
+                                                </p>
+                                                <p className="introtekst__knapperad">
+                                                    <button
+                                                        type="button"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            scrollTo(this.skjemaRef.current);
+                                                            this.skjemaRef.current.focus();
+                                                        }}
+                                                        className="knapp knapp--mini"
+                                                    >
                                                 Gå til utfyllingen
-                                            </button>
-                                        </p>
-                                    </div>
-                                </Bjorn>
+                                                    </button>
+                                                </p>
+                                            </div>
+                                        </Bjorn>
+                                    )
+                                }
                                 <article>
                                     <header className="panelHeader panelHeader--lysebla">
                                         <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />
@@ -62,9 +73,7 @@ class NySykmelding extends Component {
                                     </div>
                                 </article>
                                 <div
-                                    ref={(c) => {
-                                        this.skjema = c;
-                                    }}
+                                    ref={this.skjemaRef}
                                     tabIndex="-1"
                                     className="sykmeldingskjemaRef">
                                     <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />

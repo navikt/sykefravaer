@@ -5,10 +5,22 @@ import * as actions from './unleashToggles_actions';
 import { post } from '../gateway-api/index';
 import * as toggles from '../../enums/unleashToggles';
 
+function hentUnleashUrl() {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+        return 'http://localhost:1956/syfounleash';
+    }
+    return '/syfounleash/';
+}
+
 export function* hentUnleashToggles() {
     yield put(actions.henterUnleashToggles());
     try {
-        const data = yield call(post, '/syfounleash/', Object.values(toggles));
+        const data = yield call(post, hentUnleashUrl(), Object.values(toggles));
         yield put(actions.unleashTogglesHentet(data));
     } catch (e) {
         yield put(actions.hentUnleashTogglesFeilet());

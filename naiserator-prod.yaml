@@ -53,3 +53,5 @@ spec:
       value: https://restoppfoelgingsdialog.nais.oera.no/restoppfoelgingsdialog/api
     - name: SYFOUNLEASHAPI_URL
       value: https://syfounleash.nais.oera.no
+    - name: DECORATOR_URL
+      value: https://www.nav.no/dekoratoren

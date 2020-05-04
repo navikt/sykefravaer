@@ -53,7 +53,7 @@ export const DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndr
                     Når du senere skal fylle ut søknaden om sykepenger, skriver du inn hvor mye du faktisk jobbet.
                 </p>
                 <p>
-                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    I neste trinn velger du riktig arbeidsgiver.
                     Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
                 </p>
             </div>
@@ -70,7 +70,7 @@ export const DuKanBrukeSykmeldingenDinArbeidsgiverDiagnoseAndre = () => {
                     Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    I neste trinn velger du riktig arbeidsgiver.
                 </p>
                 <p>
                     Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
@@ -89,7 +89,7 @@ export const DuKanBrukeSykmeldingenDinArbeidsgiverDiagnose = () => {
                     Du kan likevel bruke denne sykmeldingen
                 </h5>
                 <p>
-                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    I neste trinn velger du riktig arbeidsgiver.
                 </p>
                 <p>
                     Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.

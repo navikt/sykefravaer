@@ -108,8 +108,6 @@ describe('DinSykmeldingSkjema -', () => {
                 }, {
                     opplysning: 'sykmeldingsgrad',
                 }, {
-                    opplysning: 'sykmeldingsgradHoy',
-                }, {
                     opplysning: 'arbeidsgiver',
                 }, {
                     opplysning: 'diagnose',
@@ -376,7 +374,7 @@ describe('DinSykmeldingSkjema -', () => {
 
         it('Sender feilaktigeOpplysninger til arbeidsgiver', () => {
             const f = [...feilaktigeOpplysninger];
-            f[5] = Object.assign({}, f[5], {
+            f[4] = Object.assign({}, f[4], {
                 avkrysset: true,
             });
             values.feilaktigeOpplysninger = f;
@@ -398,7 +396,7 @@ describe('DinSykmeldingSkjema -', () => {
 
         it('Sender feilaktigeOpplysninger og valgt arbeidssituasjon når sykmeldingen bekreftes', () => {
             const f = [...feilaktigeOpplysninger];
-            f[5] = Object.assign({}, f[5], {
+            f[4] = Object.assign({}, f[4], {
                 avkrysset: true,
             });
             values.feilaktigeOpplysninger = f;

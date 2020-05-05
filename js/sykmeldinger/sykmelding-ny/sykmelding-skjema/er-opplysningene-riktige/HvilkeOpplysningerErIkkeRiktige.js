@@ -10,7 +10,7 @@ import { fieldPropTypes } from '../../../../propTypes';
 import { getSykmeldingSkjemanavn } from '../../../../enums/skjemanavn';
 
 const {
-    PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE, SYKMELDINGSGRAD_HOY,
+    PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE,
 } = feilaktigeOpplysningerEnums;
 
 const feilaktigeOpplysningerProp = PropTypes.arrayOf(PropTypes.shape({
@@ -41,153 +41,30 @@ export const DuTrengerNySykmelding = () => {
     );
 };
 
-// SykmeldingsgradHoy + arbeidsgiver + diagnose + (andre)
-export const DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndre = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
-                </h5>
-                <p>
-                    Når du senere skal fylle ut søknaden om sykepenger, skriver du inn hvor mye du faktisk jobbet.
-                </p>
-                <p>
-                    I neste trinn velger du riktig arbeidsgiver.
-                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
-
-// Arbeidsgiver + diagnose + andre
-export const DuKanBrukeSykmeldingenDinArbeidsgiverDiagnoseAndre = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
-                </h5>
-                <p>
-                    I neste trinn velger du riktig arbeidsgiver.
-                </p>
-                <p>
-                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
-
-// arbeidsgiver + diagnose
-export const DuKanBrukeSykmeldingenDinArbeidsgiverDiagnose = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
-                </h5>
-                <p>
-                    I neste trinn velger du riktig arbeidsgiver.
-                </p>
-                <p>
-                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
-
-// diagnose + andre
-export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
-                </h5>
-                <p>
-                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
-
-// sykmeldingsgradHoy + arbeidsgiver
-export const DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiver = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
-                </h5>
-                <p>
-                    Når du senere skal fylle ut søknaden om sykepenger, skriver du inn hvor mye du faktisk jobbet.
-                </p>
-                <p>
-                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
-
-export const DuKanBrukeSykmeldingenDinSykmeldingsgradHoy = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
-                </h5>
-                <p>
-                    Senere, når du skal fylle ut søknaden om sykepenger, skriver du bare inn hvor mye du faktisk jobbet.
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
-
 export const DuKanBrukeSykmeldingenDinArbeidsgiver = () => {
     return (
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
                 </h5>
                 <p>
-                    I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst')}
                 </p>
             </div>
         </Tilleggsinfo>
     );
 };
 
-export const DuKanBrukeSykmeldingenDinDiagnose = () => {
+export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => {
     return (
         <Tilleggsinfo>
             <div className="hode hode--informasjon">
                 <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
                 </h5>
                 <p>
-                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.
-                </p>
-            </div>
-        </Tilleggsinfo>
-    );
-};
-
-export const DuKanBrukeSykmeldingenDinAndre = () => {
-    return (
-        <Tilleggsinfo>
-            <div className="hode hode--informasjon">
-                <h5 className="hode__tittel">
-                    Du kan likevel bruke denne sykmeldingen
-                </h5>
-                <p>
-                    Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.
+                    {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst')}
                 </p>
             </div>
         </Tilleggsinfo>
@@ -206,24 +83,12 @@ export const FeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = [] }) => {
     const opplysninger = getAvkryssedeOpplysninger(feilaktigeOpplysninger);
     if (opplysninger.indexOf(PERIODE) > -1 || opplysninger.indexOf(SYKMELDINGSGRAD) > -1) {
         return <DuTrengerNySykmelding />;
-    } if (opplysninger.indexOf(SYKMELDINGSGRAD_HOY) > -1 && opplysninger.indexOf(ARBEIDSGIVER) > -1 && opplysninger.indexOf(DIAGNOSE) > -1) {
-        return <DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiverDiagnoseAndre />;
-    } if (opplysninger.indexOf(ARBEIDSGIVER) > -1 && opplysninger.indexOf(DIAGNOSE) > -1 && opplysninger.indexOf(ANDRE) > -1) {
-        return <DuKanBrukeSykmeldingenDinArbeidsgiverDiagnoseAndre />;
-    } if (opplysninger.indexOf(SYKMELDINGSGRAD_HOY) > -1 && opplysninger.indexOf(ARBEIDSGIVER) > -1) {
-        return <DuKanBrukeSykmeldingenDinSykmeldingsgradHoyArbeidsgiver />;
-    } if (opplysninger.indexOf(ARBEIDSGIVER) > -1 && opplysninger.indexOf(DIAGNOSE) > -1) {
-        return <DuKanBrukeSykmeldingenDinArbeidsgiverDiagnose />;
-    } if (opplysninger.indexOf(DIAGNOSE) > -1 && opplysninger.indexOf(ANDRE) > -1) {
-        return <DuKanBrukeSykmeldingenDinDiagnoseAndre />;
-    } if (opplysninger.indexOf(SYKMELDINGSGRAD_HOY) > -1) {
-        return <DuKanBrukeSykmeldingenDinSykmeldingsgradHoy />;
-    } if (opplysninger.indexOf(ARBEIDSGIVER) > -1) {
+    }
+    if (opplysninger.indexOf(ARBEIDSGIVER) > -1) {
         return <DuKanBrukeSykmeldingenDinArbeidsgiver />;
-    } if (opplysninger.indexOf(DIAGNOSE) > -1) {
-        return <DuKanBrukeSykmeldingenDinDiagnose />;
-    } if (opplysninger.indexOf(ANDRE) > -1) {
-        return <DuKanBrukeSykmeldingenDinAndre />;
+    }
+    if (opplysninger.indexOf(DIAGNOSE) > -1 || opplysninger.indexOf(ANDRE) > -1) {
+        return <DuKanBrukeSykmeldingenDinDiagnoseAndre />;
     }
     return null;
 };
@@ -235,8 +100,7 @@ FeilaktigeOpplysningerInfo.propTypes = {
 export const VelgFeilaktigeOpplysninger = ({ fields, meta }) => {
     const labels = {};
     labels[PERIODE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode');
-    labels[SYKMELDINGSGRAD] = 'Sykmeldingsgraden er for lav';
-    labels[SYKMELDINGSGRAD_HOY] = 'Sykmeldingsgraden er for høy';
+    labels[SYKMELDINGSGRAD] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad');
     labels[ARBEIDSGIVER] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.arbeidsgiver');
     labels[DIAGNOSE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose');
     labels[ANDRE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre');

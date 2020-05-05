@@ -19,7 +19,7 @@ For å kjøre appen lokalt må du ha Node installert og installere npm avhengigh
 For å kjøre appen lokalt brukes `webpack-dev-server` for å serve ressurser. Selve appen serves av en express server.
 Det betyr at man må ha to prosesser kjørende for å kjøre appen. 
 
-Appen startes lokalt ved å kjøre disse kommandoene i to separate terminalvinduer:
+Appen startes lokalt ved å kjøre disse kommandoene i separate terminalvinduer:
 - `npm run dev`
 - `npm run start-local` 
 

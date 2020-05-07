@@ -13,7 +13,6 @@ import vedlikehold from './vedlikehold/vedlikehold';
 import hendelser from '../landingsside/data/hendelser/hendelser';
 import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav';
 import reduxFormMeta from './redux-form-meta/reduxFormMeta';
-import oppfolgingsforlopsPerioder from './oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder';
 import sykeforloep from './sykeforloep/sykeforloep';
 import sykeforloepMetadata from './sykeforloep-metadata/sykeforloepMetadata';
 import sykmeldingMeta from '../sykmeldinger/data/sykmelding-meta/sykmeldingMeta';
@@ -37,7 +36,6 @@ const reducers = {
     merVeiledning,
     mote,
     motebehov,
-    oppfolgingsforlopsPerioder,
     sykepengesoknader,
     toggles,
     tidslinjer,

@@ -2,17 +2,13 @@ import { expect } from 'chai';
 import * as actions from './motebehov_actions';
 
 describe('actions', () => {
-    let virksomhetsnummer;
-
     beforeEach(() => {
-        virksomhetsnummer = '1234';
         window = window || {};
     });
 
     it('Skal ha en hentMotebehov()-funksjon som returnerer riktig action', () => {
-        expect(actions.hentMotebehov(virksomhetsnummer)).to.deep.equal({
+        expect(actions.hentMotebehov()).to.deep.equal({
             type: actions.HENT_MOTEBEHOV_FORESPURT,
-            virksomhetsnummer,
         });
     });
 

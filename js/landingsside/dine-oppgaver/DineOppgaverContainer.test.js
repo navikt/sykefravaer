@@ -68,6 +68,9 @@ describe('DineOppgaverComponent', () => {
                 mote: {
                     data: null,
                 },
+                motebehov: {
+                    data: {},
+                },
                 oppfolgingsdialoger: {
                     data: [],
                     hentet: true,

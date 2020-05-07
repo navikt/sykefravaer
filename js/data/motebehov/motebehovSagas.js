@@ -20,7 +20,7 @@ import { skalHenteMotebehov } from './motebehovSelectors';
 export function* hentMotebehov() {
     yield put(actions.hentMotebehovHenter());
     try {
-        const url = `${hentSyfoApiUrl(API_NAVN.SYFOMOTEBEHOV)}/motebehov?fnr=${''}&virksomhetsnummer=${''}`;
+        const url = `${hentSyfoApiUrl(API_NAVN.SYFOMOTEBEHOV)}/v2/arbeidstaker/motebehov`;
         const data = yield call(get, url);
         yield put(actions.hentMotebehovHentet(data));
     } catch (e) {

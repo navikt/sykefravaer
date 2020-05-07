@@ -18,16 +18,9 @@ import { hentLedere } from '../data/ledere/ledereActions';
 import { hentMotebehov } from '../../data/motebehov/motebehov_actions';
 import { hentSykeforloep } from '../../data/sykeforloep/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
-import { skalViseMotebehovMedOppfolgingsforlopListe } from '../../utils/motebehovUtils';
+import { erMotebehovTilgjengelig } from '../../utils/motebehovUtils';
 import { hentSoknader } from '../../data/soknader/soknaderActions';
-import { hentOppfolgingsforlopsPerioder } from '../../data/oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
 import { hentOppfolging, hentSykmeldtinfodata } from '../../data/brukerinfo/brukerinfo_actions';
-import {
-    finnOgHentManglendeOppfolgingsforlopsPerioder,
-    finnOppfolgingsforlopsPerioderForAktiveSykmeldinger,
-    finnVirksomheterMedAktivSykmelding,
-    forsoektHentetOppfolgingsPerioder,
-} from '../../utils/oppfolgingsforlopsperioderUtils';
 import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
@@ -79,17 +72,8 @@ export class Container extends Component {
     componentDidMount() {
         const {
             doHentMotebehov,
-            doHentOppfolgingsforlopsPerioder,
-            oppfolgingsforlopsPerioderReducerListe,
-            virksomhetsnrListe,
         } = this.props;
         doHentMotebehov();
-        finnOgHentManglendeOppfolgingsforlopsPerioder(doHentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { doHentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe } = nextProps;
-        finnOgHentManglendeOppfolgingsforlopsPerioder(doHentOppfolgingsforlopsPerioder, oppfolgingsforlopsPerioderReducerListe, virksomhetsnrListe);
     }
 
     render() {
@@ -149,8 +133,6 @@ Container.propTypes = {
     skalViseAktivitetsplan: PropTypes.bool,
     skalHenteLedere: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
-    oppfolgingsforlopsPerioderReducerListe: PropTypes.arrayOf(PropTypes.shape()),
-    virksomhetsnrListe: PropTypes.arrayOf(PropTypes.string),
     doHentMote: PropTypes.func,
     doHentMotebehov: PropTypes.func,
     doHentLedere: PropTypes.func,
@@ -159,7 +141,6 @@ Container.propTypes = {
     doHentSykeforloep: PropTypes.func,
     doHentSykeforloepMetadata: PropTypes.func,
     doHentOppfolgingsdialoger: PropTypes.func,
-    doHentOppfolgingsforlopsPerioder: PropTypes.func,
     doHentSoknader: PropTypes.func,
     doHentOppfolging: PropTypes.func,
     doHentSykmeldtinfodata: PropTypes.func,
@@ -190,30 +171,21 @@ export function mapStateToProps(state) {
         'soknader',
         'smSykmeldinger',
     ];
-
-    const virksomhetsnrListe = finnVirksomheterMedAktivSykmelding(state.dineSykmeldinger.data, state.ledere.data);
-    const oppfolgingsforlopsPerioderReducerListe = finnOppfolgingsforlopsPerioderForAktiveSykmeldinger(state, virksomhetsnrListe);
-
     return {
         skalHenteLedere: skalHente('ledere'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
         skalHenteNoe: reducere.reduce((acc, val) => acc || skalHente(val), false),
-        henter: reducere.reduce((acc, val) => acc || henter(val), false)
-            || !forsoektHentetOppfolgingsPerioder(oppfolgingsforlopsPerioderReducerListe),
+        henter: reducere.reduce((acc, val) => acc || henter(val), false),
         harDialogmote: state.mote.data !== null,
         harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
         harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
-        skalViseMotebehov: !state.dineSykmeldinger.hentingFeilet
-            && !state.ledere.hentingFeilet
-            && skalViseMotebehovMedOppfolgingsforlopListe(oppfolgingsforlopsPerioderReducerListe, state.motebehov, state.mote),
+        skalViseMotebehov: erMotebehovTilgjengelig(state.motebehov),
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet
             && !state.oppfolgingsdialoger.hentingFeilet
             && !state.ledere.hentingFeilet
             && skalViseOppfoelgingsdialogLenke(state.dineSykmeldinger.data, state.oppfolgingsdialoger),
         skalViseAktivitetsplan: state.brukerinfo.oppfolging.data.underOppfolging,
         hentingFeilet: state.ledetekster.hentingFeilet,
-        oppfolgingsforlopsPerioderReducerListe,
-        virksomhetsnrListe,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -228,7 +200,6 @@ const actionCreators = {
     doHentLedere: hentLedere,
     doHentDineSykmeldinger: hentDineSykmeldinger,
     doHentOppfolgingsdialoger: hentOppfolgingsdialoger,
-    doHentOppfolgingsforlopsPerioder: hentOppfolgingsforlopsPerioder,
     doHentSykeforloep: hentSykeforloep,
     doHentSykeforloepMetadata: hentSykeforloepMetadata,
     doHentSoknader: hentSoknader,

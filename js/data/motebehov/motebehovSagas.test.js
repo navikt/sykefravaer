@@ -18,7 +18,7 @@ describe('motebehovSagas', () => {
     let apiUrlBase;
 
     describe('hentMotebehov', () => {
-        apiUrlBase = hentSyfoApiUrl(API_NAVN.SYFOMOTEBEHOV);
+        apiUrlBase = `${hentSyfoApiUrl(API_NAVN.SYFOMOTEBEHOV)}/v2/arbeidstaker`;
         const generator = hentMotebehov({
             id: 1,
         });
@@ -31,7 +31,7 @@ describe('motebehovSagas', () => {
         });
 
         it('Skal dernest kalle resttjenesten', () => {
-            const nextCall = call(get, `${apiUrlBase}/motebehov?fnr=${''}&virksomhetsnummer=${''}`);
+            const nextCall = call(get, `${apiUrlBase}/motebehov`);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

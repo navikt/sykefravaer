@@ -2,9 +2,6 @@ import {
     call, put, fork, takeEvery, select, all,
 } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
-import {
-    HENT_OPPFOLGINGSFORLOPSPERIODER_FORESPURT,
-} from '../oppfolgingsforlopsperioder/oppfolgingsforlopsPerioder_actions';
 import { skalHenteSykeforloep } from './sykeforloepSelectors';
 import {
     henterSykeforloep, sykeforloepHentet, hentSykeforloepFeilet, HENT_SYKEFORLOEP_FORESPURT,
@@ -40,7 +37,6 @@ function* watchOppdaterSykeforloep() {
         SYKMELDING_SENDT,
         SYKMELDING_BEKREFTET,
         SYKMELDING_GJENAAPNET,
-        HENT_OPPFOLGINGSFORLOPSPERIODER_FORESPURT,
     ], oppdaterSykeforloep);
 }
 

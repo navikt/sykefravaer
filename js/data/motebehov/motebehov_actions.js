@@ -4,10 +4,9 @@ export const HENT_MOTEBEHOV_HENTET = 'HENT_MOTEBEHOV_HENTET';
 export const HENT_MOTEBEHOV_FEILET = 'HENT_MOTEBEHOV_FEILET';
 export const HENT_MOTEBEHOV_FORBUDT = 'HENT_MOTEBEHOV_FORBUDT';
 
-export function hentMotebehov(virksomhetsnummer) {
+export function hentMotebehov() {
     return {
         type: HENT_MOTEBEHOV_FORESPURT,
-        virksomhetsnummer,
     };
 }
 

@@ -4,7 +4,6 @@ const ARBEIDSGIVERE = 'arbeidsgivere';
 const METADATA = 'metadata';
 const NAERMESTELEDERE = 'naermesteledere';
 const FORRIGE_LEDER = 'forrigeLeder';
-const MOTEBEHOV = 'motebehov';
 const OPPFOELGINGSDIALOGER = 'oppfoelgingsdialoger';
 const SOKNADER = 'soknader';
 const SYFOUNLEASH = 'syfounleash';
@@ -34,7 +33,6 @@ module.exports = {
     METADATA,
     NAERMESTELEDERE,
     FORRIGE_LEDER,
-    MOTEBEHOV,
     OPPFOELGINGSDIALOGER,
     SOKNADER,
     SYFOUNLEASH,

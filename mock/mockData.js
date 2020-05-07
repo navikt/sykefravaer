@@ -15,7 +15,6 @@ lastFilTilMinne(enums.ARBEIDSGIVERS_SYKMELDINGER);
 lastFilTilMinne(enums.NY_SOKNAD_UTLAND);
 lastFilTilMinne(enums.ARBEIDSGIVERE);
 lastFilTilMinne(enums.METADATA);
-lastFilTilMinne(enums.MOTEBEHOV);
 lastFilTilMinne(enums.NAERMESTELEDERE);
 lastFilTilMinne(enums.OPPFOELGINGSDIALOGER);
 lastFilTilMinne(enums.SOKNADER);

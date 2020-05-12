@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import {
     setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser,
 } from '@navikt/digisyfo-npm';
-import SykmeldingKvitteringContainer, { mapStateToProps } from './SykmeldingkvitteringSide';
+import SykmeldingKvitteringContainer, { testState, mapStateToProps } from './SykmeldingkvitteringSide';
 import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../kvittering/varianter/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from '../../kvittering/varianter/FrilanserUtenSoknadKvittering';
@@ -30,7 +30,9 @@ import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidst
 chai.use(chaiEnzyme());
 const { expect } = chai;
 
-describe('SykmeldingkvitteringSide', () => {
+testState.erLokalBehandling = true;
+
+describe('SykmeldingKvitteringSide', () => {
     const ownProps = {};
     const state = {};
     let nySoknad1;

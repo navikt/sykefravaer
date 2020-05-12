@@ -17,7 +17,6 @@ import moteSagas from './moter/moteSagas';
 import motebehovSagas from './motebehov/motebehovSagas';
 import hendelserSagas from '../landingsside/data/hendelser/hendelserSagas';
 import aktivitetskravSagas from '../aktivitetskrav/data/aktivitetskravSagas';
-import oppfolgingsforlopsPerioderSagas from './oppfolgingsforlopsperioder/oppfolgingsforlopsPerioderSagas';
 import sykeforloepSagas from './sykeforloep/sykeforloepSagas';
 import sykmeldingMetaSagas from '../sykmeldinger/data/sykmelding-meta/sykmeldingMetaSagas';
 import sykeforloepMetadataSagas from './sykeforloep-metadata/sykeforloepMetadataSagas';
@@ -45,7 +44,6 @@ export default function* rootSaga() {
         togglesSagas(),
         hendelserSagas(),
         aktivitetskravSagas(),
-        oppfolgingsforlopsPerioderSagas(),
         sykeforloepMetadataSagas(),
         sykeforlopsPerioderSagas(),
         sykeforloepSagas(),

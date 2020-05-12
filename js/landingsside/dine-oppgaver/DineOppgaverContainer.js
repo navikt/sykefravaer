@@ -325,7 +325,7 @@ export const mapStateToProps = (state) => {
             moteRes = 'TRENGER_SVAR';
         }
     }
-    const harNyttMotebehov = erMotebehovUbesvart(state);
+    const harNyttMotebehov = erMotebehovUbesvart(state.motebehov);
     const _oppgaverOppfoelgingsdialoger = beregnOppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state)

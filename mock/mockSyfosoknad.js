@@ -13,7 +13,7 @@ function mockOppdaterSporsmalLokal(server) {
     const tilNyId = (sporsmal) => {
         return {
             ...sporsmal,
-            id: Math.round(Math.random() * 100000) + '',
+            id: `${Math.round(Math.random() * 100000)}`,
             undersporsmal: sporsmal.undersporsmal.map(tilNyId),
         };
     };
@@ -34,7 +34,6 @@ function mockOppdaterSporsmalLokal(server) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(soknadMedNyeSporsmalIder));
     });
-
 }
 
 function mockOppdaterSporsmalOpplaeringsmiljo(server) {
@@ -55,6 +54,10 @@ function mockSyfosoknadLokalt(server) {
 
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[enums.NY_SOKNAD_UTLAND]));
+    });
+
+    server.get('/syfoapi/syfosoknad/api/soknader/sykmelding-behandlet', (req, res) => {
+        res.json(true);
     });
 
     server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {

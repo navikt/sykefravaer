@@ -14,6 +14,7 @@ import hendelser from '../landingsside/data/hendelser/hendelser';
 import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav';
 import reduxFormMeta from './redux-form-meta/reduxFormMeta';
 import sykeforloep from './sykeforloep/sykeforloep';
+import sykeforloepSyfosoknad from './sykeforloep-syfosoknad/sykeforloepSyfosoknad';
 import sykeforloepMetadata from './sykeforloep-metadata/sykeforloepMetadata';
 import sykmeldingMeta from '../sykmeldinger/data/sykmelding-meta/sykmeldingMeta';
 import soknader from './soknader/soknader';
@@ -47,6 +48,7 @@ const reducers = {
     form: formReducer,
     formMeta: reduxFormMeta,
     sykeforloep,
+    sykeforloepSyfosoknad,
     sykeforloepMetadata,
     sykmeldingMeta,
     soknader,

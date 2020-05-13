@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { post } from '@navikt/digisyfo-npm';
+import { get } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import { hentVentetid } from './sykmeldingMetaSagas';
 import * as actions from './sykmeldingMetaActions';
@@ -15,7 +15,7 @@ describe('ventetidSagas', () => {
     });
 
     it('Skal hente ventetid', () => {
-        const nextCall = call(post, '/syforest/sykmeldinger/4354ERWERHKQWJEHR387432434CDF/actions/erUtenforVentetid');
+        const nextCall = call(get, 'https://syfoapi-q.nav.no/syfosoknad/api/sykmeldinger/4354ERWERHKQWJEHR387432434CDF/actions/erUtenforVentetid');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

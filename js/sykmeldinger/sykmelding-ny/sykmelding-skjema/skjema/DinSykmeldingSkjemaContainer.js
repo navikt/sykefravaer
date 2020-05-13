@@ -12,6 +12,7 @@ import { hentArbeidsgiversSykmeldinger } from '../../../data/arbeidsgivers-sykme
 import { hentVentetid } from '../../../data/sykmelding-meta/sykmeldingMetaActions';
 import { skalViseFrilansersporsmal } from './sykmeldingSkjemaUtils';
 import { hentSykeforloep } from '../../../../data/sykeforloep/sykeforloep_actions';
+import { hentSykeforloepSyfosoknad } from '../../../../data/sykeforloep-syfosoknad/sykeforloepSyfosoknad_actions';
 import * as sykmeldingSelectors from '../../../data/sykmelding-meta/sykmeldingMetaSelectors';
 import * as brukerinfoSelectors from '../../../../data/brukerinfo/brukerinfoSelectors';
 import * as arbeidsgivereSelectors from '../../../data/arbeidsgivere/arbeidsgivereSelectors';
@@ -38,6 +39,7 @@ export class Skjemalaster extends Component {
             doHentArbeidsgiversSykmeldinger,
             doHentVentetid,
             doHentSykeforloep,
+            doHentSykeforloepSyfosoknad,
         } = this.props;
 
         if (skalHenteArbeidsgivere) {
@@ -51,6 +53,7 @@ export class Skjemalaster extends Component {
             doHentVentetid(sykmeldingId);
         }
         doHentSykeforloep();
+        doHentSykeforloepSyfosoknad();
     }
 
     render() {
@@ -94,6 +97,7 @@ Skjemalaster.propTypes = {
     skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
     skalHenteVentetid: PropTypes.bool,
     doHentSykeforloep: PropTypes.func,
+    doHentSykeforloepSyfosoknad: PropTypes.func,
     doHentAktuelleArbeidsgivere: PropTypes.func,
     doHentBrukerinfo: PropTypes.func,
     doHentArbeidsgiversSykmeldinger: PropTypes.func,
@@ -144,6 +148,7 @@ const actionCreators = {
     doHentBrukerinfo: hentBrukerinfo,
     doHentVentetid: hentVentetid,
     doHentSykeforloep: hentSykeforloep,
+    doHentSykeforloepSyfosoknad: hentSykeforloepSyfosoknad,
 };
 
 const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(Skjemalaster);

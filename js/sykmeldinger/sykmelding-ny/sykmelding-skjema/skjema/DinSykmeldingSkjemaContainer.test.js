@@ -371,6 +371,7 @@ describe('DinSykmeldingSkjemaContainer', () => {
         let doHentBrukerinfo;
         let doHentVentetid;
         let doHentSykeforloep;
+        let doHentSykeforloepSyfosoknad;
 
         beforeEach(() => {
             doHentBrukerinfo = sinon.spy();
@@ -378,8 +379,9 @@ describe('DinSykmeldingSkjemaContainer', () => {
             doHentArbeidsgiversSykmeldinger = sinon.spy();
             doHentVentetid = sinon.spy();
             doHentSykeforloep = sinon.spy();
+            doHentSykeforloepSyfosoknad = sinon.spy();
             actions = {
-                doHentBrukerinfo, doHentAktuelleArbeidsgivere, doHentArbeidsgiversSykmeldinger, doHentVentetid, doHentSykeforloep,
+                doHentBrukerinfo, doHentAktuelleArbeidsgivere, doHentArbeidsgiversSykmeldinger, doHentVentetid, doHentSykeforloep, doHentSykeforloepSyfosoknad
             };
         });
 

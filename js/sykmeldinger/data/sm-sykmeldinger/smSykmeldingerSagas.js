@@ -13,20 +13,16 @@ import {
     smSykmeldingerHentet,
 } from './smSykmeldingerActions';
 import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
-import { API_NAVN, get, hentSyfoApiUrl, post } from '../../../data/gateway-api';
-import { toggleBrukNginxProxy, toggleNyttSykmeldingsmottak, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
+import { get, post } from '../../../data/gateway-api';
+import { toggleNyttSykmeldingsmottak } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
 
-export const hentSykmeldingsregisterUrl = (brukNginxProxy) => {
+export const hentSykmeldingsregisterUrl = () => {
     const url = window
     && window.location
     && window.location.href
         ? window.location.href
         : '';
-
-    if (!brukNginxProxy) {
-        return hentSyfoApiUrl(API_NAVN.SYFOSMREGISTER);
-    }
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
@@ -49,20 +45,13 @@ export const hentSykmeldingsregisterUrl = (brukNginxProxy) => {
 };
 
 export function* oppdaterSmSykmeldinger() {
-    const toggle = yield select(toggleNyttSykmeldingsmottak);
-    const toggleHentet = yield select(unleashtogglesHentetSelector);
-    const brukNginxProxyToggle = yield select(toggleBrukNginxProxy);
-    if (toggle && toggleHentet) {
-        yield put(henterSmSykmeldinger());
-        try {
-            const data = yield call(get, `${hentSykmeldingsregisterUrl(brukNginxProxyToggle)}/v1/sykmeldinger`);
-            yield put(smSykmeldingerHentet(data));
-        } catch (e) {
-            log(e);
-            yield put(hentSmSykmeldingerFeilet());
-        }
-    } else if (toggleHentet) {
-        yield put(smSykmeldingerHentet([]));
+    yield put(henterSmSykmeldinger());
+    try {
+        const data = yield call(get, `${hentSykmeldingsregisterUrl()}/v1/sykmeldinger`);
+        yield put(smSykmeldingerHentet(data));
+    } catch (e) {
+        log(e);
+        yield put(hentSmSykmeldingerFeilet());
     }
 }
 

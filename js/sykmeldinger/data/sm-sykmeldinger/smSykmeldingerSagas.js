@@ -63,9 +63,8 @@ export function* hentSmSykmeldingerHvisIkkeHentet() {
 }
 
 export function* bekreftSmSykmeldingLestSaga(action) {
-    const toggle = yield select(toggleNyttSykmeldingsmottak);
     const skalBekrefte = yield select(skalBekrefteSmSykmeldingSelector);
-    if (toggle && skalBekrefte) {
+    if (skalBekrefte) {
         yield put(bekrefterLestSmSykmelding());
         try {
             yield call(post, `${hentSykmeldingsregisterUrl()}/v1/sykmeldinger/${action.smSykmelding.id}/bekreft`);

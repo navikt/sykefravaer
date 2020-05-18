@@ -14,7 +14,6 @@ import {
 } from './smSykmeldingerActions';
 import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
 import { get, post } from '../../../data/gateway-api';
-import { toggleNyttSykmeldingsmottak } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
 
 export const hentSykmeldingsregisterUrl = () => {

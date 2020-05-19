@@ -26,6 +26,8 @@ import {
     ARBEIDSTAKERE,
     SELVSTENDIGE_OG_FRILANSERE,
     ARBEIDSLEDIG,
+    ANNET_ARBEIDSFORHOLD,
+    BEHANDLINGSDAGER,
 } from '../../enums/soknadtyper';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
@@ -315,6 +317,8 @@ export const mapStateToProps = (state) => {
                 s.soknadstype === SELVSTENDIGE_OG_FRILANSERE
         || s.soknadstype === ARBEIDSTAKERE
         || s.soknadstype === ARBEIDSLEDIG
+        || s.soknadstype === ANNET_ARBEIDSFORHOLD
+        || s.soknadstype === BEHANDLINGSDAGER
             );
         });
 

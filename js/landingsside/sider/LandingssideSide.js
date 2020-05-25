@@ -17,6 +17,7 @@ import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/
 import { hentLedere } from '../data/ledere/ledereActions';
 import { hentMotebehov } from '../../data/motebehov/motebehov_actions';
 import { hentSykeforloep } from '../../data/sykeforloep/sykeforloep_actions';
+import { hentSykeforloepSyfosoknad } from '../../data/sykeforloep-syfosoknad/sykeforloepSyfosoknad_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import { erMotebehovTilgjengelig } from '../../utils/motebehovUtils';
 import { hentSoknader } from '../../data/soknader/soknaderActions';
@@ -42,6 +43,7 @@ export class Container extends Component {
             doHentSykepengesoknader,
             doHentDineSykmeldinger,
             doHentSykeforloep,
+            doHentSykeforloepSyfosoknad,
             doHentSykeforloepMetadata,
             doHentSoknader,
             doHentOppfolging,
@@ -62,6 +64,7 @@ export class Container extends Component {
         doHentSykepengesoknader();
         doHentDineSykmeldinger();
         doHentSykeforloep();
+        doHentSykeforloepSyfosoknad();
         doHentSykeforloepMetadata();
         doHentSoknader();
         doHentOppfolging();
@@ -139,6 +142,7 @@ Container.propTypes = {
     doHentSykepengesoknader: PropTypes.func,
     doHentDineSykmeldinger: PropTypes.func,
     doHentSykeforloep: PropTypes.func,
+    doHentSykeforloepSyfosoknad: PropTypes.func,
     doHentSykeforloepMetadata: PropTypes.func,
     doHentOppfolgingsdialoger: PropTypes.func,
     doHentSoknader: PropTypes.func,
@@ -165,6 +169,7 @@ export function mapStateToProps(state) {
         'ledere',
         'dineSykmeldinger',
         'sykeforloep',
+        'sykeforloepSyfosoknad',
         'sykeforloepMetadata',
         'oppfolgingsdialoger',
         'ledetekster',
@@ -201,6 +206,7 @@ const actionCreators = {
     doHentDineSykmeldinger: hentDineSykmeldinger,
     doHentOppfolgingsdialoger: hentOppfolgingsdialoger,
     doHentSykeforloep: hentSykeforloep,
+    doHentSykeforloepSyfosoknad: hentSykeforloepSyfosoknad,
     doHentSykeforloepMetadata: hentSykeforloepMetadata,
     doHentSoknader: hentSoknader,
     doHentOppfolging: hentOppfolging,

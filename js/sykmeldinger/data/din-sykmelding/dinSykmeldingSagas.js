@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
+import { hentApiUrl } from '../../../data/gateway-api';
 
 const {
     ANGRE_BEKREFT_SYKMELDING_FORESPURT,
@@ -42,7 +43,7 @@ export function* bekreftSykmelding(action) {
                 ? verdier.egenmeldingsperioder : null,
         };
         yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
-        const skalOppretteSoknad = yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
+        const skalOppretteSoknad = yield call(post, `${hentApiUrl()}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
             harForsikring: verdier.harForsikring,
             egenmeldingsperioder: verdier.egenmeldingsperioder,
         });

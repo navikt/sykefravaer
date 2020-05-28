@@ -23,7 +23,7 @@ export const Utlogget = () => (
 const LenkeTilSykefravaerArbeidsgiver = () => (erNaisLabsDemo()
     ? (
         <div className="side__innhold side__innhold--begrenset">
-            <a className="tilbakelenke" href="https://sykefravaerarbeidsgiver.herokuapp.com">Gå til øvingssiden Dine sykmeldte</a>
+            <a className="tilbakelenke" href="https://sykefravaerarbeidsgiver.labs.nais.io">Gå til øvingssiden Dine sykmeldte</a>
         </div>
     )
     : null);

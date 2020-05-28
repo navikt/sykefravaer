@@ -1,0 +1,31 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: sykefravaer
+  namespace: teamsykefravr
+  labels:
+    team: teamsykefravr
+spec:
+  image: {{ image }}
+  port: 8080
+  ingresses:
+    - "https://sykefravaer.labs.nais.io/"
+  liveness:
+    path: /is_alive
+    initialDelay: 10
+    timeout: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /is_ready
+    initialDelay: 30
+    periodSeconds: 5
+    timeout: 5
+  env:
+    - name: DECORATOR_URL
+      value: https://www.nav.no/dekoratoren
+  accessPolicy:
+    outbound:
+      external:
+        - host: www.nav.no
+        - host: syfoapi.nav.no

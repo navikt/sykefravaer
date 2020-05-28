@@ -10,6 +10,7 @@ import Feilmelding from '../components/Feilmelding';
 import * as actions from '../data/brukerinfo/brukerinfo_actions';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import { toggleHeleAppen } from '../toggles';
+import { erNaisLabsDemo } from '../utils/urlUtils';
 
 const DocumentTitle = require('react-document-title');
 
@@ -19,16 +20,13 @@ export const Utlogget = () => (
         melding="Hvis du vil fortsette å bruke denne tjenesten, må du logge deg inn på nytt." />
 );
 
-const LenkeTilSykefravaerArbeidsgiver = () => {
-    const erHeroku = window.location.href.indexOf('herokuapp') > -1;
-    return erHeroku
-        ? (
-            <div className="side__innhold side__innhold--begrenset">
-                <a className="tilbakelenke" href="https://sykefravaerarbeidsgiver.herokuapp.com">Gå til øvingssiden Dine sykmeldte</a>
-            </div>
-        )
-        : null;
-};
+const LenkeTilSykefravaerArbeidsgiver = () => (erNaisLabsDemo()
+    ? (
+        <div className="side__innhold side__innhold--begrenset">
+            <a className="tilbakelenke" href="https://sykefravaerarbeidsgiver.herokuapp.com">Gå til øvingssiden Dine sykmeldte</a>
+        </div>
+    )
+    : null);
 
 export const setAppClass = (laster, erInnlogget) => {
     const el = document.getElementById('maincontent');
@@ -110,7 +108,7 @@ export class SideComponent extends Component {
         return (
             <DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
                 <div className={sideClassNames} aria-busy={laster}>
-                    { hvit && <Hvitstyle /> }
+                    {hvit && <Hvitstyle />}
                     <TimeoutBox />
                     {
                         visSpinnerIDom && (

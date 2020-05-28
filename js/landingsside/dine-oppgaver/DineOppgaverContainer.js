@@ -32,7 +32,7 @@ import {
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import {
-    erPaaHeroku,
+    erNaisLabsDemo,
     getSykepengesoknaderUrl,
     getSykepengesoknadUrl,
 } from '../../utils/urlUtils';
@@ -192,7 +192,7 @@ const RendreOppgaver = ({
         return null;
     }
 
-    const OPPFOLGINGSPLANER_URL = erPaaHeroku()
+    const OPPFOLGINGSPLANER_URL = erNaisLabsDemo()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
         : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 

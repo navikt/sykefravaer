@@ -1,6 +1,7 @@
 import { log } from '@navikt/digisyfo-npm';
 import ponyfill from 'fetch-ponyfill';
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
+import { erNaisLabsDemo } from '../../utils/urlUtils';
 
 const ponyfills = ponyfill();
 export const REDIRECT_ETTER_LOGIN = 'REDIRECT_ETTER_LOGIN';
@@ -126,7 +127,7 @@ export const hentApiUrl = () => {
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
         return 'http://localhost:1995/syfosoknad/api';
-    } if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+    } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
         return '/syfoapi/syfosoknad/api';
     }
@@ -146,7 +147,7 @@ export const hentSyfoApiUrl = (appNavn) => {
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
         return `http://localhost:1995/${appNavn}/api`;
-    } if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+    } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
         return `/${appNavn}/api`;
     }

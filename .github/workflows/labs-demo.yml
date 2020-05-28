@@ -1,0 +1,39 @@
+name: Build and deploy demo to labs
+on:
+  push:
+    branches:
+      - 'master'
+      - 'feature/labs-demo'
+jobs:
+  build-push-deploy:
+    name: Build and deploy to labs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Use Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install deps
+        run: npm install
+      - name: Build
+        run: npm run nais-build
+      - run: |
+          TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
+          COMMIT=$(git rev-parse --short=8 HEAD)
+          VERSION=$TIME-$COMMIT
+          echo "::set-env name=IMAGE::"docker.pkg.github.com/${GITHUB_REPOSITORY}/sykefravaer-demo:$$VERSION""
+      - name: Build and publish Docker image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        run: |
+          docker build -t ${IMAGE}  -f Dockerfile.web --build-arg BASE_IMAGE_PREFIX=node .
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker push ${IMAGE}
+      - name: Deploy to dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: labs-gcp
+          RESOURCE: naiserator-demo.yaml

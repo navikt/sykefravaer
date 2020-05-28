@@ -15,6 +15,7 @@ import {
 import { skalBekrefteSmSykmeldingSelector, skalHenteSmSykmeldingerSelector } from './smSykmeldingerSelectors';
 import { get, post } from '../../../data/gateway-api';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
+import { erNaisLabsDemo } from '../../../utils/urlUtils';
 
 export const hentSykmeldingsregisterUrl = () => {
     const url = window
@@ -35,7 +36,7 @@ export const hentSykmeldingsregisterUrl = () => {
         // docker compose
         return 'http://localhost:2043/api';
     }
-    if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
         return '/syfosmregister';
     }

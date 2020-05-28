@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import { string, node } from 'prop-types';
 import { log } from '@navikt/digisyfo-npm';
+import { erNaisLabsDemo } from '../utils/urlUtils';
 
 export default class HotjarTrigger extends Component {
     componentDidMount() {
         const { hotjarTrigger } = this.props;
         if (typeof window.hj === 'function'
-            && window.location.href.indexOf('herokuapp') === -1) {
+            && !erNaisLabsDemo()) {
             window.hj('trigger', hotjarTrigger);
         }
         log(`Trigger hotjar: ${hotjarTrigger}`);

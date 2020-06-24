@@ -11,13 +11,14 @@ import {
     SYKMELDING_GJENAAPNET,
     SYKMELDING_SENDT,
 } from '../din-sykmelding/dinSykmeldingActions';
+import { hentSykmeldingsregisterUrl } from '../sm-sykmeldinger/smSykmeldingerSagas';
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
 export function* oppdaterDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
     try {
-        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger`);
+        const data = yield call(get, `${hentSykmeldingsregisterUrl(true)}/api/v1/syforest/sykmeldinger`);
         yield put(actions.setDineSykmeldinger(data));
     } catch (e) {
         log(e);

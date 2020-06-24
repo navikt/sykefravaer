@@ -15,6 +15,42 @@ import { hentSykmeldingsregisterUrl } from '../sm-sykmeldinger/smSykmeldingerSag
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
+export const hentSykmeldingerBackendUrl = (brukNginxProxy) => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+
+    if (!brukNginxProxy) {
+        if (url.indexOf('tjenester.nav') > -1) {
+            // Prod
+            return 'https://syfosmregisterproxy.nav.no';
+        }
+        // Preprod
+        return 'https://syfosmregisterproxy-q.nav.no';
+    }
+
+    if (url.indexOf('tjenester.nav') > -1) {
+        // Prod
+        return 'https://sykmeldinger-backendproxy.nav.no';
+    }
+    if (url.indexOf('localhost:2027') > -1) {
+        // docker compose
+        return 'http://localhost:2042/api';
+    }
+    if (url.indexOf('localhost:2028') > -1) {
+        // docker compose
+        return 'http://localhost:2043/api';
+    }
+    if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+        // Lokalt
+        return '/sykmeldingerBackend';
+    }
+    // Preprod
+    return 'https://sykmeldinger-backendproxy-q.nav.no';
+};
+
 export function* oppdaterDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
     try {

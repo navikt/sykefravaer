@@ -25,14 +25,6 @@ export const hentSykmeldingerBackendUrl = () => {
         // Prod
         return 'https://sykmeldinger-backendproxy.nav.no';
     }
-    if (url.indexOf('localhost:2027') > -1) {
-        // docker compose
-        return 'http://localhost:2042/api';
-    }
-    if (url.indexOf('localhost:2028') > -1) {
-        // docker compose
-        return 'http://localhost:2043/api';
-    }
     if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
         return '/sykmeldinger-backend';

@@ -11,6 +11,7 @@ const mockVeilarboppfolging = require('./mockVeilarboppfolging');
 const mockVeilarbregistrering = require('./mockVeilarbregistrering');
 const mockSmSykmeldinger = require('./mockSmSykmeldinger');
 const mockRegistrerEgenSykmelding = require('./mockEgenSykmelding');
+const mockSykmeldingerBackend = require('./mockSykmeldingerBackend');
 
 function mockEndepunkter(server, erLokal) {
     server.use(express.json());
@@ -37,6 +38,7 @@ function mockEndepunkter(server, erLokal) {
         mockVeilarbregistrering,
         mockSmSykmeldinger,
         mockRegistrerEgenSykmelding,
+        mockSykmeldingerBackend,
     ].forEach((func) => {
         func(server, erLokal);
     });

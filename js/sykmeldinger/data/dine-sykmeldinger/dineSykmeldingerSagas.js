@@ -14,21 +14,12 @@ import {
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
-export const hentSykmeldingerBackendUrl = (brukNginxProxy) => {
+export const hentSykmeldingerBackendUrl = () => {
     const url = window
     && window.location
     && window.location.href
         ? window.location.href
         : '';
-
-    if (!brukNginxProxy) {
-        if (url.indexOf('tjenester.nav') > -1) {
-            // Prod
-            return 'https://syfosmregisterproxy.nav.no';
-        }
-        // Preprod
-        return 'https://syfosmregisterproxy-q.nav.no';
-    }
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
@@ -44,7 +35,7 @@ export const hentSykmeldingerBackendUrl = (brukNginxProxy) => {
     }
     if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
-        return '/sykmeldingerBackend';
+        return '/sykmeldinger-backend';
     }
     // Preprod
     return 'https://sykmeldinger-backendproxy-q.nav.no';
@@ -53,7 +44,7 @@ export const hentSykmeldingerBackendUrl = (brukNginxProxy) => {
 export function* oppdaterDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
     try {
-        const data = yield call(get, `${hentSykmeldingerBackendUrl(true)}/api/v1/syforest/sykmeldinger`);
+        const data = yield call(get, `${hentSykmeldingerBackendUrl()}/api/v1/syforest/sykmeldinger`);
         yield put(actions.setDineSykmeldinger(data));
     } catch (e) {
         log(e);

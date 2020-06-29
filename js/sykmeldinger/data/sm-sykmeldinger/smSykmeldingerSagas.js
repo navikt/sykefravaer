@@ -29,12 +29,12 @@ export const hentSykmeldingsregisterUrl = () => {
         return 'https://syfosmregisterproxy.nav.no';
     }
     if (url.indexOf('localhost:2027') > -1) {
-        // docker compose
-        return 'http://localhost:2042/api';
+        // docker compose container
+        return 'http://localhost:6969/syfosmregister/api';
     }
     if (url.indexOf('localhost:2028') > -1) {
-        // docker compose
-        return 'http://localhost:2043/api';
+        // docker compose node prosess
+        return 'http://localhost:6969/syfosmregister/api';
     }
     if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt

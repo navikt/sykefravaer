@@ -10,7 +10,7 @@ export const erNaisLabsDemo = () => {
 
 export const getSykepengesoknaderUrl = () => {
     if (erNaisLabsDemo()) {
-        return 'https://sykepengesoknad-old.labs.nais.io';
+        return 'https://sykepengesoknad.labs.nais.io';
     }
     return process.env.REACT_APP_SYKEPENGESOKNAD_ROOT;
 };

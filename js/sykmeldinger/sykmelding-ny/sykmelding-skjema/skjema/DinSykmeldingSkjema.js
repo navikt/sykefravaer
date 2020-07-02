@@ -164,7 +164,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     )}
                 />
                 <Vis
-                    hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null)}
+                    hvis={sykmelding.mulighetForArbeid.perioder.some(periode => periode.behandlingsdager !== null && periode.behandlingsdager !== 0)}
                     render={() => {
                         if (brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSLEDIG) {
                             return <Bjorn className="blokk" hvit stor nokkel="sykmelding.behandlingsdager-arbeidsledig.bjorn" />;

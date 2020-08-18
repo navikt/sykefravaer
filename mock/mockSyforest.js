@@ -97,6 +97,11 @@ const mockSyforest = (server, erLokal) => {
         res.send(JSON.stringify(mockData[enums.SYKEPENGESOKNADER]));
     });
 
+    server.get('/syforest/vedtaker', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockData[enums.VEDTAKER]));
+    });
+
     server.get('/syforest/naermesteledere', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[enums.NAERMESTELEDERE]));

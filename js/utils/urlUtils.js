@@ -19,6 +19,17 @@ export const getSykepengesoknadUrl = (soknadId) => {
     return `${getSykepengesoknaderUrl()}/soknader/${soknadId}`;
 };
 
+export const getBehandledeSoknaderUrl = () => {
+    if (erNaisLabsDemo()) {
+        return 'https://spvedtak.labs.nais.io';
+    }
+    return process.env.REACT_APP_SPINNSYN_ROOT;
+};
+
+export const getBehandletSoknadUrl = (vedtaksId) => {
+    return `${getBehandledeSoknaderUrl()}/vedtaker/${vedtaksId}`;
+};
+
 export const hentDialogmoteUrl = (sidevisning = '') => {
     const sluttUrl = `${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}${sidevisning}`;
     return erNaisLabsDemo()

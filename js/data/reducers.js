@@ -18,6 +18,7 @@ import sykeforloepSyfosoknad from './sykeforloep-syfosoknad/sykeforloepSyfosokna
 import sykeforloepMetadata from './sykeforloep-metadata/sykeforloepMetadata';
 import sykmeldingMeta from '../sykmeldinger/data/sykmelding-meta/sykmeldingMeta';
 import soknader from './soknader/soknader';
+import vedtaker from './vedtaker/vedtaker';
 import unleashToggles from './unleash-toggles/unleashToggles';
 import metrikker from './metrikker/metrikker';
 import mote from './moter/mote';
@@ -52,6 +53,7 @@ const reducers = {
     sykeforloepMetadata,
     sykmeldingMeta,
     soknader,
+    vedtaker,
     unleashToggles,
     metrikker,
     oppfolgingsdialoger,

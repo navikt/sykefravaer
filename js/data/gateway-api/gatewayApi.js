@@ -155,6 +155,27 @@ export const hentSyfoApiUrl = (appNavn) => {
     return `https://syfoapi-q.nav.no/${appNavn}/api`;
 };
 
+export const hentVedtakApiUrl = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    if (url.indexOf('tjenester.nav') > -1) {
+        // Prod
+        // TODO: Legg til riktig PROD og PREPROD lenke
+        return '';
+    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+        // docker compose
+        return 'http://localhost:6932/api/v1/vedtak';
+    } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+        // Lokalt
+        return `${process.env.REACT_APP_SYFOREST_ROOT}/vedtaker`;
+    }
+    // Preprod
+    return '';
+};
+
 export const API_NAVN = {
     SYFOMOTEADMIN: 'syfomoteadmin',
     SYFOMOTEBEHOV: 'syfomotebehov',

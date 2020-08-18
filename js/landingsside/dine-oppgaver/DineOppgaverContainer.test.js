@@ -65,6 +65,14 @@ describe('DineOppgaverComponent', () => {
                         id: '4',
                     }],
                 },
+                vedtaker: {
+                    data: [{
+                        id: '1',
+                        lest: false,
+                        vedtaker: [],
+                    }],
+                    hentet: true,
+                },
                 mote: {
                     data: null,
                 },
@@ -113,6 +121,15 @@ describe('DineOppgaverComponent', () => {
             }]);
         });
 
+        it('Skal returnere NYE vedtaker', () => {
+            const res = mapStateToProps(state);
+            expect(res.vedtaker).to.deep.equal([{
+                id: '1',
+                lest: false,
+                vedtaker: [],
+            }]);
+        });
+
         it('Skal returnere visOppgaver === true hvis det finnes oppgaver', () => {
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(true);
@@ -121,6 +138,7 @@ describe('DineOppgaverComponent', () => {
         it('Skal returnere visOppgaver === false hvis det ikke finnes oppgaver', () => {
             state.dineSykmeldinger.data = [];
             state.sykepengesoknader.data = [];
+            state.vedtaker.data = [];
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(false);
         });
@@ -181,6 +199,7 @@ describe('DineOppgaverComponent', () => {
             state.hendelser.data = hendelser;
             state.dineSykmeldinger.data = [];
             state.sykepengesoknader.data = [];
+            state.vedtaker.data = [];
             state.mote.data = null;
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(true);
@@ -190,6 +209,7 @@ describe('DineOppgaverComponent', () => {
             beforeEach(() => {
                 state.dineSykmeldinger.data = [];
                 state.sykepengesoknader.data = [];
+                state.vedtaker.data = [];
             });
 
             it('Skal returnere mote: null hvis møte ikke finnes', () => {
@@ -250,6 +270,8 @@ describe('DineOppgaverComponent', () => {
                 'dine-oppgaver.tittel': 'Oppgaver som venter på deg',
                 'dine-oppgaver.sykepengesoknader.en-soknad': 'Du har 1 ny søknad',
                 'dine-oppgaver.sykepengesoknader.flere-soknader': 'Du har %ANTALL% nye søknader',
+                'dine-oppgaver.vedtaker.et-vedtak': 'Du har 1 nytt vedtak',
+                'dine-oppgaver.vedtaker.flere-vedtaker': 'Du har %ANTALL% nye vedtaker',
                 'dine-oppgaver.sykmeldinger.en-sykmelding': 'Du har 1 ny sykmelding',
                 'dine-oppgaver.sykmeldinger.flere-sykmeldinger': 'Du har %ANTALL% nye sykmeldinger',
                 'dine-oppgaver.mote.svar': 'Svar på NAVs spørsmål om dialogmøte',
@@ -273,6 +295,7 @@ describe('DineOppgaverComponent', () => {
                     hendelserHentet
                     visOppgaver
                     sykepengesoknader={[{ id: '1' }]}
+                    vedtaker={[{ id: '1' }]}
                     sykmeldinger={[{}, {}]}
                     avvisteSmSykmeldinger={[]}
                     avventendeGodkjenninger={[]}
@@ -290,6 +313,7 @@ describe('DineOppgaverComponent', () => {
                     hendelserHentet
                     visOppgaver
                     sykepengesoknader={[]}
+                    vedtaker={[]}
                     sykmeldinger={[]}
                     avvisteSmSykmeldinger={[{}]}
                     avventendeGodkjenninger={[]}
@@ -304,6 +328,7 @@ describe('DineOppgaverComponent', () => {
                     hendelserHentet
                     visOppgaver
                     sykepengesoknader={[{ id: '1' }]}
+                    vedtaker={[]}
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
@@ -318,6 +343,7 @@ describe('DineOppgaverComponent', () => {
                     hendelserHentet
                     visOppgaver
                     sykepengesoknader={[{ id: '1' }, {}]}
+                    vedtaker={[]}
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
@@ -332,6 +358,7 @@ describe('DineOppgaverComponent', () => {
                     hendelserHentet
                     visOppgaver
                     sykepengesoknader={[{ id: '1' }]}
+                    vedtak={[]}
                     sykmeldinger={[{ id: 1 }]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
@@ -346,6 +373,7 @@ describe('DineOppgaverComponent', () => {
                     hendelserHentet
                     visOppgaver
                     sykepengesoknader={[{ id: '1' }, {}]}
+                    vedtak={[]}
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);

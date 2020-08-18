@@ -11,6 +11,7 @@ import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingPropty
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
 import {
     soknadPt,
+    vedtakPt,
     sykepengesoknad as sykepengesoknadPt,
     sykmelding as sykmeldingPt,
 } from '../../propTypes/index';
@@ -35,6 +36,8 @@ import {
     erNaisLabsDemo,
     getSykepengesoknaderUrl,
     getSykepengesoknadUrl,
+    getBehandletSoknadUrl,
+    getBehandledeSoknaderUrl,
 } from '../../utils/urlUtils';
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
@@ -133,6 +136,23 @@ NySykepengesoknad.propTypes = {
     soknader: PropTypes.arrayOf(soknadPt),
 };
 
+export const NyBehandletSoknad = ({ vedtaker }) => {
+    const alleVedtaker = [...vedtaker];
+    const url = alleVedtaker.length === 1
+        ? getBehandletSoknadUrl(alleVedtaker[0].id)
+        : getBehandledeSoknaderUrl();
+    const tekst = alleVedtaker.length === 1
+        ? getLedetekst('dine-oppgaver.vedtak.et-vedtak')
+        : getLedetekst('dine-oppgaver.vedtaker.flere-vedtak', {
+            '%ANTALL%': alleVedtaker.length.toString(),
+        });
+    return <EksternLi url={url} tekst={tekst} />;
+};
+
+NyBehandletSoknad.propTypes = {
+    vedtaker: PropTypes.arrayOf(vedtakPt),
+};
+
 export const NyttAktivitetskravvarsel = () => {
     return (
         <Li
@@ -178,6 +198,7 @@ const avventendeGodkjenningerTekst = (antall) => {
 const RendreOppgaver = ({
     soknader = [],
     sykepengesoknader = [],
+    vedtaker = [],
     sykmeldinger = [],
     visOppgaver,
     mote,
@@ -216,6 +237,11 @@ const RendreOppgaver = ({
                         <NySykepengesoknad
                             sykepengesoknader={sykepengesoknader}
                             soknader={soknader}
+                        />
+                    )}
+                    {(vedtaker.length > 0) && (
+                        <NyBehandletSoknad
+                            vedtaker={vedtaker}
                         />
                     )}
                     {mote !== null && (
@@ -257,6 +283,7 @@ RendreOppgaver.propTypes = {
     nyePlaner: PropTypes.arrayOf(oppfolgingsdialogPt),
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    vedtaker: PropTypes.arrayOf(vedtakPt),
     soknader: PropTypes.arrayOf(soknadPt),
     harNyttMotebehov: PropTypes.bool,
     visOppgaver: PropTypes.bool,
@@ -308,6 +335,9 @@ export const mapStateToProps = (state) => {
     const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
         return s.status === sykepengesoknadstatuser.NY;
     });
+    const vedtaker = state.vedtaker.data.filter((v) => {
+        return v.lest === false;
+    });
     const soknader = state.soknader.data
         .filter((s) => {
             return s.status === NY;
@@ -338,6 +368,7 @@ export const mapStateToProps = (state) => {
         });
     const visOppgaver = sykmeldinger.length > 0
     || sykepengesoknader.length > 0
+    || vedtaker.length > 0
     || soknader.length > 0
     || moteRes !== null
     || harNyttMotebehov
@@ -353,6 +384,7 @@ export const mapStateToProps = (state) => {
       state.dineSykmeldinger.hentingFeilet
       || state.oppfolgingsdialoger.hentingFeilet,
         sykepengesoknader,
+        vedtaker,
         soknader,
         visOppgaver,
         mote: moteRes,

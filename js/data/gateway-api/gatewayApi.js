@@ -164,7 +164,7 @@ export const hentVedtakApiUrl = () => {
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
         // TODO: Legg til riktig PROD og PREPROD lenke
-        return '';
+        return '/syforest/vedtaker';
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
         return 'http://localhost:6932/api/v1/vedtak';
@@ -173,7 +173,7 @@ export const hentVedtakApiUrl = () => {
         return `${process.env.REACT_APP_SYFOREST_ROOT}/vedtaker`;
     }
     // Preprod
-    return '';
+    return '/syforest/vedtaker';
 };
 
 export const API_NAVN = {

@@ -55,9 +55,7 @@ function nocache(req, res, next) {
 }
 
 function noIndex(req, res, next) {
-    if (env === 'opplaering') {
-        res.header('X-Robots-Tag', 'noindex');
-    }
+    res.header('X-Robots-Tag', 'noindex');
     next();
 }
 

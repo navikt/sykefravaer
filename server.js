@@ -4,12 +4,12 @@ const express = require('express');
 const path = require('path');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
-const getDecorator = require('./decorator');
 const prometheus = require('prom-client');
+const getDecorator = require('./decorator');
 
 // Prometheus metrics
-const collectDefaultMetrics = prometheus.collectDefaultMetrics;
-collectDefaultMetrics({timeout: 5000});
+const { collectDefaultMetrics } = prometheus;
+collectDefaultMetrics({ timeout: 5000 });
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
     name: 'http_request_duration_ms',
@@ -21,7 +21,7 @@ const httpRequestDurationMicroseconds = new prometheus.Histogram({
 const server = express();
 
 const env = process.argv[2];
-const settings = env === 'local' ? {isProd: false} : require('./settings.json');
+const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');
@@ -54,6 +54,13 @@ function nocache(req, res, next) {
     next();
 }
 
+function noIndex(req, res, next) {
+    if (env === 'opplaering') {
+        res.header('X-Robots-Tag', 'noindex');
+    }
+    next();
+}
+
 const startServer = (html) => {
     server.use(
         '/sykefravaer/resources',
@@ -68,6 +75,7 @@ const startServer = (html) => {
     server.get(
         ['/', '/sykefravaer/?', /^\/sykefravaer\/(?!(resources|img)).*$/],
         nocache,
+        noIndex,
         (req, res) => {
             res.send(html);
             httpRequestDurationMicroseconds

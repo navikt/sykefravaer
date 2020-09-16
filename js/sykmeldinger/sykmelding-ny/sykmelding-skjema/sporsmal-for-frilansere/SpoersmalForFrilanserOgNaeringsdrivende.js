@@ -79,7 +79,7 @@ Spoersmal.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        oppfolgingstilfelleStartdato: getOppfolgingstilfelleStartdato(state.sykeforloep.data, ownProps.sykmeldingId),
+        oppfolgingstilfelleStartdato: getOppfolgingstilfelleStartdato(state.sykeforloepSyfosoknad.data, ownProps.sykmeldingId),
     };
 };
 

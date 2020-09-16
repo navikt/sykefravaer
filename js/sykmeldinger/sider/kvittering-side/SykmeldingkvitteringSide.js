@@ -104,7 +104,7 @@ export class KvitteringSide extends Component {
                 });
             }
             fetch(
-                `${hentApiUrl()}/soknader/sykmelding-behandlet?sykmeldingId=${sykmeldingId}`,
+                `${hentApiUrl()}/sykmeldinger/${sykmeldingId}/actions/behandlet`,
                 { credentials: 'include' },
             )
                 .then((response) => {

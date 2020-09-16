@@ -56,10 +56,6 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify(mockData[enums.NY_SOKNAD_UTLAND]));
     });
 
-    server.get('/syfoapi/syfosoknad/api/soknader/sykmelding-behandlet', (req, res) => {
-        res.json(true);
-    });
-
     server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
         const soknadId = req.params.id;
         const soknad = mockData[enums.SOKNADER].find((s) => {
@@ -118,6 +114,18 @@ function mockSyfosoknadLokalt(server) {
         });
 
         res.send(200);
+    });
+
+    server.get('/syfoapi/syfosoknad/api/sykmeldinger/:id/actions/erUtenforVentetid', (req, res) => {
+        res.json(false);
+    });
+
+    server.get('/syfoapi/syfosoknad/api/sykmeldinger/:id/actions/behandlet', (req, res) => {
+        res.json(true);
+    });
+
+    server.post('/syfoapi/syfosoknad/api/sykmeldinger/:id/actions/skalOppretteSoknad', (req, res) => {
+        res.json(true);
     });
 
     server.post('/syfoapi/syfosoknad/api/soknader/:id/gjenapne', (req, res) => {
@@ -198,6 +206,31 @@ function mockSyfosoknadOpplaringsmiljoOgLokalt(server) {
         res.send(JSON.stringify({
             mottaker: 'ARBEIDSGIVER_OG_NAV',
         }));
+    });
+
+    server.get('/syfoapi/syfosoknad/api/sykeforloep', (req, res) => {
+        const soknadId = req.params.id;
+        const sykmeldinger = mockData[enums.SYKMELDINGER].map((sykmelding) => {
+            return {
+                id: sykmelding.id,
+                fom: '2020-05-03',
+                tom: '2020-05-18',
+            };
+        });
+
+        mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
+            return s.id === soknadId
+                ? {
+                    ...s,
+                    avbruttDato: null,
+                    status: 'NY',
+                }
+                : s;
+        });
+        res.json([{
+            sykmeldinger,
+            oppfolgingsdato: '2018-05-01',
+        }]);
     });
 }
 

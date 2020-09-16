@@ -1,3 +1,5 @@
+import { erNaisLabsDemo } from '../../utils/urlUtils';
+
 export const hentEgenmeldtSmApiUrl = () => {
     const url = window
     && window.location
@@ -9,7 +11,7 @@ export const hentEgenmeldtSmApiUrl = () => {
         // Prod
         return 'https://egenmeldt-sm-backendproxy.nav.no';
     }
-    if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
         return '/egenmeldt-sykmelding-backend';
     }
@@ -28,7 +30,7 @@ export const hentEgenmeldtSmCacheInvalidateApiUrl = () => {
         // Prod
         return 'https://tjenester.nav.no/syforest';
     }
-    if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
         return '/egenmeldt-sykmelding-backend';
     }

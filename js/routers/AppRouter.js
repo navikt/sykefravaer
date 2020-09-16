@@ -6,17 +6,19 @@ import LandingssideSide from '../landingsside/sider/LandingssideSide';
 import DinSykmeldingContainer from '../sykmeldinger/sider/sykmelding-side/SykmeldingSide';
 import SykmeldingSkrivUtSide from '../sykmeldinger/sider/SykmeldingSkrivUtSide';
 import TidslinjeSide from '../sider/TidslinjeSide';
-import KoronaSide from '../sider/KoronaSide';
 import SykmeldingKvitteringContainer from '../sykmeldinger/sider/kvittering-side/SykmeldingkvitteringSide';
 import AktivitetskravvarselSide from '../aktivitetskrav/sider/AktivitetskravvarselSide';
 import InfoSideFO from '../arbeidsrettet-oppfolging/ArbeidsrettetOppfolgingSide';
 import Redirectside from '../sider/Redirectside';
+import EgenmeldingPlaceholder from '../sider/EgenmeldingPlaceholder';
+
+// 01.06.20 - Egensykmeldingsside er erstattet med en infoboks om at tjenesten er avviklet. Koden for egenmeldingsløsningen er ikke fjernet.
 
 const AppRouter = ({ history }) => {
     return (
         <Router history={history}>
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}`} component={LandingssideSide} />
-            <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`} component={KoronaSide} />
+            <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/egensykmelding`} component={EgenmeldingPlaceholder} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen`} component={TidslinjeSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/tidslinjen/:arbeidssituasjon`} component={TidslinjeSide} />
             <Route path={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`} component={DineSykmeldingerContainer} />

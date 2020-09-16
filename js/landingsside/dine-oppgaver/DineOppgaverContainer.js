@@ -26,11 +26,13 @@ import {
     ARBEIDSTAKERE,
     SELVSTENDIGE_OG_FRILANSERE,
     ARBEIDSLEDIG,
+    ANNET_ARBEIDSFORHOLD,
+    BEHANDLINGSDAGER,
 } from '../../enums/soknadtyper';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import {
-    erPaaHeroku,
+    erNaisLabsDemo,
     getSykepengesoknaderUrl,
     getSykepengesoknadUrl,
 } from '../../utils/urlUtils';
@@ -190,7 +192,7 @@ const RendreOppgaver = ({
         return null;
     }
 
-    const OPPFOLGINGSPLANER_URL = erPaaHeroku()
+    const OPPFOLGINGSPLANER_URL = erNaisLabsDemo()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
         : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 
@@ -315,6 +317,8 @@ export const mapStateToProps = (state) => {
                 s.soknadstype === SELVSTENDIGE_OG_FRILANSERE
         || s.soknadstype === ARBEIDSTAKERE
         || s.soknadstype === ARBEIDSLEDIG
+        || s.soknadstype === ANNET_ARBEIDSFORHOLD
+        || s.soknadstype === BEHANDLINGSDAGER
             );
         });
 

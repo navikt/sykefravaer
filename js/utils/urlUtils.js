@@ -1,12 +1,18 @@
-export const erPaaHeroku = () => {
-    const url = window.location.href;
-    return url.indexOf('heroku') > -1;
+export const erNaisLabsDemo = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    return url.indexOf('labs.nais.io') > -1;
 };
 
+
 export const getSykepengesoknaderUrl = () => {
-    return erPaaHeroku()
-        ? 'https://sykepengesoknad.herokuapp.com/sykepengesoknad'
-        : process.env.REACT_APP_SYKEPENGESOKNAD_ROOT;
+    if (erNaisLabsDemo()) {
+        return 'https://sykepengesoknad.labs.nais.io';
+    }
+    return process.env.REACT_APP_SYKEPENGESOKNAD_ROOT;
 };
 
 export const getSykepengesoknadUrl = (soknadId) => {
@@ -15,13 +21,13 @@ export const getSykepengesoknadUrl = (soknadId) => {
 
 export const hentDialogmoteUrl = (sidevisning = '') => {
     const sluttUrl = `${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}${sidevisning}`;
-    return erPaaHeroku()
+    return erNaisLabsDemo()
         ? `https://dialogmote.herokuapp.com${sluttUrl}`
         : sluttUrl;
 };
 
 export const getOppfolgingsplanerUrl = () => {
-    return erPaaHeroku()
+    return erNaisLabsDemo()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
         : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
 };

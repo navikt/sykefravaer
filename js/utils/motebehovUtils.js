@@ -17,11 +17,24 @@ export const erMotebehovTilgjengelig = (motebehovReducer) => {
     return motebehovReducer
         && motebehovReducer.data
         && motebehovReducer.data.visMotebehov
+        && (
+            motebehovReducer.data.skjemaType === MOTEBEHOV_SKJEMATYPE.MELD_BEHOV
+            || motebehovReducer.data.skjemaType === MOTEBEHOV_SKJEMATYPE.SVAR_BEHOV
+        );
+};
+
+export const erSvarMotebehovTilgjengelig = (motebehovReducer) => {
+    if (motebehovReducer && motebehovReducer.hentingForbudt === true) {
+        return false;
+    }
+    return motebehovReducer
+        && motebehovReducer.data
+        && motebehovReducer.data.visMotebehov
         && motebehovReducer.data.skjemaType === MOTEBEHOV_SKJEMATYPE.SVAR_BEHOV;
 };
 
 export const erMotebehovUbesvart = (motebehovReducer) => {
-    const skalVise = erMotebehovTilgjengelig(motebehovReducer);
+    const skalVise = erSvarMotebehovTilgjengelig(motebehovReducer);
     if (skalVise) {
         return !motebehovReducer.data.motebehov;
     }

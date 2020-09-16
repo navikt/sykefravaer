@@ -31,16 +31,10 @@ regler.
 * Kjør tester med `npm test`, watch med `npm test:watch`
 * Lint JS-kode med `npm run lint`. For å fikse enkle lint feil kan du kjøre `npm run lint:fix`
 
-## Deploy mock app til Heroku
-Installer heroku, på mac kan du bruke brew: `$ brew install heroku/brew/heroku`.
+## Deploy mock app til Labs
+Dette skjer automatisk ved push til master. 
+Tidligere har denne blitt deployet på heroku: https://sykefravaer.herokuapp.com/sykefravaer . Denne har nå en 302 redirect til labs.
 
-For å kunne deploye til Heroku må du først logge inn: 
-* `$ heroku login`
-* `$ heroku container:login`
-
-Deploy til heroku ved å kjøre deployscript: `$ sh deploy-heroku.sh`.
-
-Appen deployes her: https://sykefravaer.herokuapp.com/sykefravaer
 
 ## Logge på i Q1-miljø
 Se denne siden for [testdata](https://confluence.adeo.no/pages/viewpage.action?pageId=228580060) (NAV-intern lenke).

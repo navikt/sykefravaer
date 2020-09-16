@@ -3,7 +3,7 @@
 
 Sykefravaer er landingssiden for sykefraværsoppfølging. Den henter data om sykmeldinger og sykepengesøknader og lar den 
 sykmeldte navigere til sider hvor dataen vises. Appen skal videreutvikles til å bare være et skall som lenker videre til
-egne appers om er ansvarlige for å vise og behandle data for forskjellige områder. 
+egne appers om er ansvarlige for å vise og behandle data for forskjellige områder.
 
 ## CI
 Appen bygges og deployes på [GITHUB](https://github.com/navikt/sykefravaer/actions). Det er kun `master` som vil bli 

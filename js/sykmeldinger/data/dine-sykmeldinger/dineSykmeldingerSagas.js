@@ -23,14 +23,14 @@ export const hentSykmeldingerBackendUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://sykmeldinger-backendproxy.nav.no';
+        return 'https://sykmeldinger-backend-proxy.nav.no';
     }
     if (url.indexOf('localhost') > -1 || url.indexOf('herokuapp') > -1) {
         // Lokalt
         return '/sykmeldinger-backend';
     }
     // Preprod
-    return 'https://sykmeldinger-backendproxy-q.nav.no';
+    return 'https://sykmeldinger-backend-proxy.dev.nav.no';
 };
 
 export function* oppdaterDineSykmeldinger() {

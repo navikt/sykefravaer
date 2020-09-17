@@ -18,7 +18,7 @@ const setupMetrics = () => {
     const register = new Registry();
 
     register.registerMetric(counters.httpRequestDurationMicroseconds);
-    register.registerMetric(counters.userFilterMotebehovCounter);
+    register.registerMetric(counters.userKlikkMotebehovCounter);
 
     collectDefaultMetrics({ register });
     return register;

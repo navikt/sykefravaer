@@ -18,7 +18,8 @@ const setupMetrics = () => {
     const register = new Registry();
 
     register.registerMetric(counters.httpRequestDurationMicroseconds);
-    register.registerMetric(counters.userKlikkMotebehovCounter);
+    register.registerMetric(counters.userKlikkJaMotebehovCounter);
+    register.registerMetric(counters.userKlikkNeiMotebehovCounter);
 
     collectDefaultMetrics({ register });
     return register;
@@ -28,7 +29,7 @@ const prometheus = setupMetrics();
 const server = express();
 
 const env = process.argv[2];
-const settings = env === 'local' ? {isProd: false} : require('./settings.json');
+const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');

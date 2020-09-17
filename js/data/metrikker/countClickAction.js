@@ -1,8 +1,8 @@
 import { post } from '../gateway-api';
 
 export const CountClickActionTypes = {
-    JA_KLIKK: 'ja_klikk',
-    NEI_KLIKK: 'nei_klikk',
+    JA_KLIKK: 'motebehov_ja',
+    NEI_KLIKK: 'motebehov_nei',
 };
 
 function* countClickAction(value) {

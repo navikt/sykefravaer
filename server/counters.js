@@ -18,9 +18,14 @@ const httpRequestDurationMicroseconds = new Histogram({
     buckets: [0.10, 5, 15, 50, 100, 200, 300, 400, 500],
 });
 
-const userKlikkMotebehovCounter = new Counter({
-    name: getMetricName(METRIC_FILTER_INFIX, 'motebehov'),
-    help: 'Number of times users has answered the need for a meeting',
+const userKlikkJaMotebehovCounter = new Counter({
+    name: getMetricName(METRIC_FILTER_INFIX, 'motebehov_ja'),
+    help: 'Number of times users has answered yes to the need for a meeting',
+});
+
+const userKlikkNeiMotebehovCounter = new Counter({
+    name: getMetricName(METRIC_FILTER_INFIX, 'motebehov_nei'),
+    help: 'Number of times users has answered no to the need for a meeting',
 });
 
 module.exports = {
@@ -28,5 +33,6 @@ module.exports = {
     APP_METRIC_PREFIX,
     METRIC_FILTER_INFIX,
     httpRequestDurationMicroseconds,
-    userKlikkMotebehovCounter,
+    userKlikkJaMotebehovCounter,
+    userKlikkNeiMotebehovCounter,
 };

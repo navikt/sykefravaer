@@ -85,7 +85,7 @@ const Landingsside = ({
                                     to={getBehandledeSoknaderUrl()}
                                     ikon="behandlede"
                                     ikonAlt="Behandlede søknader"
-                                    tittel="Behandlede søknader" />
+                                    tittel="Utbetaling av sykepenger" />
                             );
                         }} />
                     <Vis

@@ -26,10 +26,6 @@ export const getBehandledeSoknaderUrl = () => {
     return process.env.REACT_APP_SPINNSYN_ROOT;
 };
 
-export const getBehandletSoknadUrl = (vedtaksId) => {
-    return `${getBehandledeSoknaderUrl()}/vedtaker/${vedtaksId}`;
-};
-
 export const hentDialogmoteUrl = (sidevisning = '') => {
     const sluttUrl = `${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}${sidevisning}`;
     return erNaisLabsDemo()

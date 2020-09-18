@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import * as dokumentTyper from '../enums/dokumentTyper';
 
 export const utbetalingslinjeDto = PropTypes.shape({
     fom: PropTypes.string,
@@ -17,18 +16,13 @@ export const utbetalingDto = PropTypes.shape({
     utbetalingslinjer: PropTypes.arrayOf(utbetalingslinjeDto),
 });
 
-export const dokument = PropTypes.shape({
-    dokumentId: PropTypes.string,
-    type: PropTypes.oneOf(Object.values(dokumentTyper)),
-});
-
 export const vedtakDto = PropTypes.shape({
     fom: PropTypes.string,
     tom: PropTypes.string,
     forbrukteSykedager: PropTypes.number,
     gjenståendeSykedager: PropTypes.number,
     utbetalinger: PropTypes.arrayOf(utbetalingDto),
-    dokumenter: PropTypes.arrayOf(dokument),
+    dokumenter: PropTypes.object,
 });
 
 export const vedtakPt = PropTypes.shape({

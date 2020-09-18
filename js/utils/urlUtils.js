@@ -20,10 +20,19 @@ export const getSykepengesoknadUrl = (soknadId) => {
 };
 
 export const getBehandledeSoknaderUrl = () => {
-    if (erNaisLabsDemo()) {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    if (url.indexOf('tjenester.nav') > -1) {
+        return 'https://www.nav.no/syk/sykepenger';
+    } if (erNaisLabsDemo()) {
         return 'https://spvedtak.labs.nais.io';
+    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028')) {
+        return process.env.REACT_APP_SPINNSYN_ROOT;
     }
-    return process.env.REACT_APP_SPINNSYN_ROOT;
+    return 'https://www-q1.dev.nav.no/syk/sykepenger';
 };
 
 export const hentDialogmoteUrl = (sidevisning = '') => {

@@ -155,7 +155,7 @@ export const hentSyfoApiUrl = (appNavn) => {
     return `https://syfoapi-q.nav.no/${appNavn}/api`;
 };
 
-export const hentVedtakApiUrl = () => {
+export const hentSpinnsynBackendUrl = () => {
     const url = window
     && window.location
     && window.location.href
@@ -163,17 +163,16 @@ export const hentVedtakApiUrl = () => {
         : '';
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        // TODO: Legg til riktig PROD og PREPROD lenke
-        return '/syforest/vedtaker';
+        return 'https://spinnsyn-backend-proxy.nav.no/api/v1/vedtak';
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
         return 'http://localhost:6932/api/v1/vedtak';
     } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
-        return `${process.env.REACT_APP_SYFOREST_ROOT}/vedtaker`;
+        return `${process.env.REACT_APP_SYFOREST_ROOT}/vedtak`;
     }
     // Preprod
-    return '/syforest/vedtaker';
+    return 'https://spinnsyn-backend-proxy.dev.nav.no/api/v1/vedtak';
 };
 
 export const API_NAVN = {

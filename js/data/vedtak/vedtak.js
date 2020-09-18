@@ -1,4 +1,4 @@
-import { HENT_VEDTAKER_FEILET, HENTER_VEDTAKER, VEDTAKER_HENTET } from './vedtaker_actions';
+import { HENT_VEDTAK_FEILET, HENTER_VEDTAK, VEDTAK_HENTET } from './vedtak_actions';
 
 const initiellState = {
     data: [],
@@ -9,10 +9,10 @@ const initiellState = {
 
 export default (state = initiellState, action = {}) => {
     switch (action.type) {
-        case VEDTAKER_HENTET: {
+        case VEDTAK_HENTET: {
             return {
                 ...state,
-                data: action.vedtaker.map((vedtak) => {
+                data: action.vedtak.map((vedtak) => {
                     return { ...vedtak };
                 }),
                 henter: false,
@@ -20,7 +20,7 @@ export default (state = initiellState, action = {}) => {
                 hentet: true,
             };
         }
-        case HENTER_VEDTAKER: {
+        case HENTER_VEDTAK: {
             return {
                 ...state,
                 henter: true,
@@ -28,7 +28,7 @@ export default (state = initiellState, action = {}) => {
                 hentet: false,
             };
         }
-        case HENT_VEDTAKER_FEILET: {
+        case HENT_VEDTAK_FEILET: {
             return {
                 ...state,
                 henter: false,

@@ -28,7 +28,7 @@ const IngenSykmeldinger = () => {
 };
 
 const Landingsside = ({
-    brodsmuler, harSykepengesoknader, harVedtaker, harDialogmote, harSykmeldinger,
+    brodsmuler, harSykepengesoknader, harVedtak, harDialogmote, harSykmeldinger,
     skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
 }) => {
     return (
@@ -77,7 +77,7 @@ const Landingsside = ({
                             );
                         }} />
                     <Vis
-                        hvis={harVedtaker}
+                        hvis={harVedtak}
                         render={() => {
                             return (
                                 <Peker
@@ -143,7 +143,7 @@ const Landingsside = ({
 
 Landingsside.propTypes = {
     harSykepengesoknader: PropTypes.bool,
-    harVedtaker: PropTypes.bool,
+    harVedtak: PropTypes.bool,
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,
     skalViseOppfolgingsdialog: PropTypes.bool,

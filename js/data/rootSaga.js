@@ -27,7 +27,7 @@ import metrikkerSagas from './metrikker/metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
 import merVeiledningSagas from '../arbeidsrettet-oppfolging/data/merVeiledningSagas';
 import smSykmeldingerSagas from '../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSagas';
-import vedtakSagas from './vedtaker/vedtakSagas';
+import vedtakSagas from './vedtak/vedtakSagas';
 
 export default function* rootSaga() {
     yield all([

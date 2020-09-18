@@ -20,7 +20,7 @@ import { hentUnleashToggles } from './data/unleash-toggles/unleashToggles_action
 import { hentSoknader } from './data/soknader/soknaderActions';
 import setPerformOnOppDialogHttpCalls from './oppfolgingsdialogNpm/setPerformOnOppDialogHttpCalls';
 import reducers from './data/reducers';
-import { hentVedtaker } from './data/vedtaker/vedtaker_actions';
+import { hentAlleVedtak } from './data/vedtak/vedtak_actions';
 
 const rootReducer = combineReducers(reducers);
 
@@ -39,7 +39,7 @@ store.dispatch(hentVedlikehold());
 store.dispatch(forlengInnloggetSesjon());
 store.dispatch(hentUnleashToggles());
 store.dispatch(hentSoknader());
-store.dispatch(hentVedtaker());
+store.dispatch(hentAlleVedtak());
 // </OBS>
 
 setPerformOnHttpCalls(() => {

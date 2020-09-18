@@ -97,7 +97,7 @@ const mockSyforest = (server, erLokal) => {
         res.send(JSON.stringify(mockData[enums.SYKEPENGESOKNADER]));
     });
 
-    server.get('/syforest/vedtak', (req, res) => {
+    server.get('/vedtak', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[enums.VEDTAK]));
     });

@@ -29,7 +29,7 @@ describe('vedtakSagas', () => {
         });
 
         it('Skal dernest hente vedtak', () => {
-            const nextCall = call(get, '/syforest/vedtak');
+            const nextCall = call(get, 'https://spinnsyn-backend-proxy.dev.nav.no/api/v1/vedtak');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

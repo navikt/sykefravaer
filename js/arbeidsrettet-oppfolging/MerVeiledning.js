@@ -12,6 +12,7 @@ import Feilstripe from '../components/Feilstripe';
 import hentArbeidsrettetOppfolgingBilde from './hentArbeidsrettetOppfolgingBilde';
 import AppSpinner from '../components/AppSpinner';
 import { pushToDataAOLayer } from './pushToAODataLayer';
+import countClickAction, { CountClickActionTypes } from '../data/metrikker/countClickAction';
 
 class MerVeiledning extends Component {
     constructor(props) {
@@ -38,6 +39,7 @@ class MerVeiledning extends Component {
 
     handleNeiBtnClicked() {
         pushToDataAOLayer('KLIKK_NEI');
+        countClickAction(CountClickActionTypes.NEI_KLIKK).next();
         this.bekreftAlleMerVeiledninghendelser(() => {
             return history.push('/sykefravaer');
         });
@@ -45,6 +47,7 @@ class MerVeiledning extends Component {
 
     handleJaBtnClicked() {
         pushToDataAOLayer('KLIKK_JA');
+        countClickAction(CountClickActionTypes.JA_KLIKK).next();
         this.bekreftAlleMerVeiledninghendelser(() => {
             return window.location.assign('/arbeidssokerregistrering/start?fraSykefravaer=true');
         });

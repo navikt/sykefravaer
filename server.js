@@ -4,24 +4,30 @@ const express = require('express');
 const path = require('path');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
+const promClient = require('prom-client');
 const getDecorator = require('./decorator');
-const prometheus = require('prom-client');
+const counters = require('./server/counters');
 
 // Prometheus metrics
-const collectDefaultMetrics = prometheus.collectDefaultMetrics;
-collectDefaultMetrics({timeout: 5000});
+const setupMetrics = () => {
+    const { collectDefaultMetrics, Registry } = promClient;
+    collectDefaultMetrics({ timeout: 5000 });
 
-const httpRequestDurationMicroseconds = new prometheus.Histogram({
-    name: 'http_request_duration_ms',
-    help: 'Duration of HTTP requests in ms',
-    labelNames: ['route'],
-    // buckets for response time from 0.1ms to 500ms
-    buckets: [0.10, 5, 15, 50, 100, 200, 300, 400, 500],
-});
+    const register = new Registry();
+
+    register.registerMetric(counters.httpRequestDurationMicroseconds);
+    register.registerMetric(counters.userKlikkJaMotebehovCounter);
+    register.registerMetric(counters.userKlikkNeiMotebehovCounter);
+
+    collectDefaultMetrics({ register });
+    return register;
+};
+const prometheus = setupMetrics();
+
 const server = express();
 
 const env = process.argv[2];
-const settings = env === 'local' ? {isProd: false} : require('./settings.json');
+const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');
@@ -70,15 +76,24 @@ const startServer = (html) => {
         nocache,
         (req, res) => {
             res.send(html);
-            httpRequestDurationMicroseconds
+            counters.httpRequestDurationMicroseconds
                 .labels(req.route.path)
                 .observe(10);
         },
     );
 
     server.get('/prometheus', (req, res) => {
-        res.set('Content-Type', prometheus.register.contentType);
-        res.end(prometheus.register.metrics());
+        res.set('Content-Type', prometheus.contentType);
+        res.end(prometheus.metrics());
+    });
+
+    server.post('/sykefravaer/metrics/actions/links/:type', (req, res) => {
+        const counterPostfix = req.params.type
+            ? req.params.type
+            : '';
+        const counterKey = counters.getMetricName(counters.METRIC_FILTER_INFIX, counterPostfix);
+        prometheus.getSingleMetric(counterKey).inc(1, new Date());
+        res.sendStatus(200);
     });
 
     server.get('/is_alive', (req, res) => {

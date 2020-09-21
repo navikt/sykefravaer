@@ -16,6 +16,7 @@ import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
 import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
+import countClickAction, { CountClickActionTypes } from '../../data/metrikker/countClickAction';
 
 const IngenSykmeldinger = () => {
     return (
@@ -25,6 +26,14 @@ const IngenSykmeldinger = () => {
             </IllustrertInnhold>
         </div>
     );
+};
+
+const logAndRedirect = (e) => {
+    e.preventDefault();
+    const { href } = e.target;
+    new Promise((resolve) => { return resolve(countClickAction(CountClickActionTypes.AKTIVITETSPLAN).next()); })
+        // eslint-disable-next-line no-unused-vars
+        .then((_) => { window.location.href = href; });
 };
 
 const Landingsside = ({
@@ -111,7 +120,8 @@ const Landingsside = ({
                                     ikon="aktivitetsplan"
                                     ikonAlt="Aktivitetsplan"
                                     tittel="Aktivitetsplan"
-                                    undertittel="For deg og NAV" />
+                                    undertittel="For deg og NAV"
+                                    onClick={logAndRedirect} />
                             );
                         }} />
                     <Peker

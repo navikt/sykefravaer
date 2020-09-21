@@ -18,6 +18,7 @@ const setupMetrics = () => {
     register.registerMetric(counters.httpRequestDurationMicroseconds);
     register.registerMetric(counters.userKlikkJaMotebehovCounter);
     register.registerMetric(counters.userKlikkNeiMotebehovCounter);
+    register.registerMetric(counters.userKlikkAktivitetsplan);
 
     collectDefaultMetrics({ register });
     return register;

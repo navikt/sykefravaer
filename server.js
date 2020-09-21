@@ -4,15 +4,13 @@ const express = require('express');
 const path = require('path');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
-// eslint-disable-next-line camelcase
-const prom_client = require('prom-client');
+const promClient = require('prom-client');
 const getDecorator = require('./decorator');
 const counters = require('./server/counters');
 
 // Prometheus metrics
 const setupMetrics = () => {
-    // eslint-disable-next-line camelcase
-    const { collectDefaultMetrics, Registry } = prom_client;
+    const { collectDefaultMetrics, Registry } = promClient;
     collectDefaultMetrics({ timeout: 5000 });
 
     const register = new Registry();

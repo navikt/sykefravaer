@@ -3,6 +3,7 @@ import { post } from '../gateway-api';
 export const CountClickActionTypes = {
     JA_KLIKK: 'motebehov_ja',
     NEI_KLIKK: 'motebehov_nei',
+    AKTIVITETSPLAN: 'aktivitetsplan',
 };
 
 function* countClickAction(value) {
@@ -13,6 +14,9 @@ function* countClickAction(value) {
             break;
         case CountClickActionTypes.NEI_KLIKK:
             key = CountClickActionTypes.NEI_KLIKK;
+            break;
+        case CountClickActionTypes.AKTIVITETSPLAN:
+            key = CountClickActionTypes.AKTIVITETSPLAN;
             break;
         default: key = '';
     }

@@ -4,7 +4,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
-import { brodsmule as brodsmulePt } from '../../propTypes/index';
+import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';
 import DineOppgaverContainer from '../dine-oppgaver/DineOppgaverContainer';
 import DinSituasjonContainer from '../din-situasjon/DinSituasjonContainer';
 import ServerfeilContainer from '../ai-ai-ai/AiAiAiContainer';
@@ -17,7 +17,6 @@ import Sidebanner from '../../components/Sidebanner';
 import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
 import { countClickAktivitetsplan } from '../../data/metrikker/countClickAction';
-import { sykeforloepMetadataPt } from "../../propTypes";
 
 const IngenSykmeldinger = () => {
     return (

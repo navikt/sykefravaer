@@ -97,6 +97,15 @@ const startServer = (html) => {
         res.sendStatus(200);
     });
 
+    server.post('/sykefravaer/metrics/actions/aktivitetsplan/:antallSykedager', (req, res) => {
+        const antallSykedager = req.params.antallSykedager
+            ? req.params.antallSykedager
+            : -1;
+        const counterKey = counters.getMetricName(counters.METRIC_FILTER_INFIX, 'aktivitetsplan');
+        prometheus.getSingleMetric(counterKey).labels(antallSykedager).inc(1, new Date());
+        res.sendStatus(200);
+    });
+
     server.get('/is_alive', (req, res) => {
         res.sendStatus(200);
     });

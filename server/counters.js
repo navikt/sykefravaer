@@ -31,6 +31,7 @@ const userKlikkNeiMotebehovCounter = new Counter({
 const userKlikkAktivitetsplan = new Counter({
     name: getMetricName(METRIC_FILTER_INFIX, 'aktivitetsplan'),
     help: 'Number of times users has clicked link to aktivitetsplan',
+    labelNames: ['antallSykedager'],
 });
 
 module.exports = {

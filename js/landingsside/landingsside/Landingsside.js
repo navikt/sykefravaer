@@ -16,7 +16,8 @@ import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
 import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
-import countClickAction, { CountClickActionTypes } from '../../data/metrikker/countClickAction';
+import { countClickAktivitetsplan } from '../../data/metrikker/countClickAction';
+import { sykeforloepMetadataPt } from "../../propTypes";
 
 const IngenSykmeldinger = () => {
     return (
@@ -28,10 +29,20 @@ const IngenSykmeldinger = () => {
     );
 };
 
-const logAndRedirect = (e) => {
+const finnAntallSykedager = (erSykmeldt, dato) => {
+    if (!erSykmeldt || !dato) return -1;
+
+    const MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const difference = (new Date() - new Date(dato)) / MS_PER_DAY;
+    return Math.round(difference);
+};
+
+const logAndRedirect = (e, sykeforloepMetadata) => {
+    const { erSykmeldt, sykmeldtFraDato } = sykeforloepMetadata.data;
     e.preventDefault();
     const { href } = e.target;
-    new Promise((resolve) => { return resolve(countClickAction(CountClickActionTypes.AKTIVITETSPLAN).next()); })
+    const antallSykedager = finnAntallSykedager(erSykmeldt, sykmeldtFraDato);
+    new Promise((resolve) => { return resolve(countClickAktivitetsplan(antallSykedager).next()); })
         // eslint-disable-next-line no-unused-vars
         .then((_) => { window.location.href = href; });
 };
@@ -39,6 +50,7 @@ const logAndRedirect = (e) => {
 const Landingsside = ({
     brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger,
     skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
+    sykeforloepMetadata,
 }) => {
     return (
         <React.Fragment>
@@ -121,7 +133,7 @@ const Landingsside = ({
                                     ikonAlt="Aktivitetsplan"
                                     tittel="Aktivitetsplan"
                                     undertittel="For deg og NAV"
-                                    onClick={logAndRedirect} />
+                                    onClick={(e) => { logAndRedirect(e, sykeforloepMetadata); }} />
                             );
                         }} />
                     <Peker
@@ -147,6 +159,7 @@ Landingsside.propTypes = {
     skalViseAktivitetsplan: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    sykeforloepMetadata: sykeforloepMetadataPt,
 };
 
 export default Landingsside;

@@ -11,7 +11,7 @@ import SideStrippet from '../../sider/SideStrippet';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { brodsmule as brodsmulePt } from '../../propTypes/index';
+import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';
 import { hentSykepengesoknader } from '../../data/sykepengesoknader/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../data/ledere/ledereActions';
@@ -91,10 +91,10 @@ export class Container extends Component {
             skalViseMotebehov,
             skalViseOppfolgingsdialog,
             skalViseAktivitetsplan,
+            sykeforloepMetadata,
         } = this.props;
         const Sidetype = hentingFeilet ? Side : SideStrippet;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
-
         return (
             <Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || skalHenteNoe}>
                 {
@@ -114,6 +114,7 @@ export class Container extends Component {
                                 skalViseMotebehov={skalViseMotebehov}
                                 skalViseOppfolgingsdialog={skalViseOppfolgingsdialog}
                                 skalViseAktivitetsplan={skalViseAktivitetsplan}
+                                sykeforloepMetadata={sykeforloepMetadata}
                             />
                         );
                     })()
@@ -149,6 +150,7 @@ Container.propTypes = {
     doHentOppfolging: PropTypes.func,
     doHentSykmeldtinfodata: PropTypes.func,
     doHentSmSykmeldinger: PropTypes.func,
+    sykeforloepMetadata: sykeforloepMetadataPt,
 };
 
 export function mapStateToProps(state) {
@@ -195,6 +197,7 @@ export function mapStateToProps(state) {
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
+        sykeforloepMetadata: state.sykeforloepMetadata,
     };
 }
 

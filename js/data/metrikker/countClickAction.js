@@ -3,7 +3,6 @@ import { post } from '../gateway-api';
 export const CountClickActionTypes = {
     JA_KLIKK: 'motebehov_ja',
     NEI_KLIKK: 'motebehov_nei',
-    AKTIVITETSPLAN: 'aktivitetsplan',
 };
 
 function* countClickAction(value) {
@@ -15,12 +14,13 @@ function* countClickAction(value) {
         case CountClickActionTypes.NEI_KLIKK:
             key = CountClickActionTypes.NEI_KLIKK;
             break;
-        case CountClickActionTypes.AKTIVITETSPLAN:
-            key = CountClickActionTypes.AKTIVITETSPLAN;
-            break;
         default: key = '';
     }
     yield (post(`/sykefravaer/metrics/actions/links/${key}`, {}));
+}
+
+export function* countClickAktivitetsplan(antallSykedager) {
+    yield (post(`/sykefravaer/metrics/actions/aktivitetsplan/${antallSykedager}`), {});
 }
 
 export default countClickAction;

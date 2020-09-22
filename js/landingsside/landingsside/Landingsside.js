@@ -38,10 +38,12 @@ const finnAntallSykedager = (erSykmeldt, dato) => {
 };
 
 const logAndRedirect = (e, sykeforloepMetadata) => {
-    const { erSykmeldt, sykmeldtFraDato } = sykeforloepMetadata.data;
     e.preventDefault();
-    const { href } = e.target;
+
+    const { erSykmeldt, sykmeldtFraDato } = sykeforloepMetadata.data;
     const antallSykedager = finnAntallSykedager(erSykmeldt, sykmeldtFraDato);
+
+    const { href } = e.target;
     new Promise((resolve) => { return resolve(countClickAktivitetsplan(antallSykedager).next()); })
         // eslint-disable-next-line no-unused-vars
         .then((_) => { window.location.href = href; });

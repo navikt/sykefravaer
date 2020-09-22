@@ -26,7 +26,7 @@ Appen startes lokalt ved å kjøre disse kommandoene i to separate terminalvindu
 ## Test og lint
 Appen testes med chai + mocha. Foretrukket plassering av tester er i samme mappe som filen den tester med navneformat:
 `<fil-som-testes>.test.js`. Vi bruker eslint for å håndheve kodestil. Stilen er en gatemiks av air-bnb og hjemmesnekra
-regler. 
+regler.
 
 * Kjør tester med `npm test`, watch med `npm test:watch`
 * Lint JS-kode med `npm run lint`. For å fikse enkle lint feil kan du kjøre `npm run lint:fix`

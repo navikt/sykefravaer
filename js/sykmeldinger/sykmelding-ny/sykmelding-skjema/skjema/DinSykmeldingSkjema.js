@@ -197,52 +197,50 @@ export class DinSykmeldingSkjemaComponent extends Component {
                             {getLedetekst(`starte-sykmelding.knapp.${modus}`)}
                         </Knapp>
                     </p>
-                    <Vis hvis={!sykmelding.erPapirsykmelding}>
-                        <div className="avbrytDialog">
-                            <Vis
-                                hvis={modus !== modi.AVBRYT}
-                                render={() => (
-                                    <p className="blokk">
-                                        {/* TODO: Bruk knappelenkestyling i stedet for <a/> som knapp */}
-                                        {/* eslint-disable-next-line */}
-                                        <a
-                                            href="#"
-                                            role="button"
-                                            tabIndex="0"
-                                            aria-pressed={visAvbrytDialog}
-                                            className="lenke"
-                                            ref={(c) => {
-                                                this.triggAvbrytdialogKnapp = c;
-                                            }}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                this.setState({
-                                                    visAvbrytDialog: !visAvbrytDialog,
-                                                });
-                                            }}
-                                        >
-                                            {getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}
-                                        </a>
-                                    </p>
-                                )} />
-                            <AvbrytDialog
-                                vis={visAvbrytDialog}
-                                avbryter={avbryter}
-                                avbrytHandler={() => {
-                                    this.setState({
-                                        visAvbrytDialog: false,
-                                    });
-                                    if (this.triggAvbrytdialogKnapp) {
-                                        this.triggAvbrytdialogKnapp.focus();
-                                    } else if (this.submitknapp) {
-                                        this.submitknapp.focus();
-                                    }
-                                }}
-                                bekreftHandler={() => {
-                                    this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
-                                }} />
-                        </div>
-                    </Vis>
+                    <div className="avbrytDialog">
+                        <Vis
+                            hvis={modus !== modi.AVBRYT}
+                            render={() => (
+                                <p className="blokk">
+                                    {/* TODO: Bruk knappelenkestyling i stedet for <a/> som knapp */}
+                                    {/* eslint-disable-next-line */}
+                                    <a
+                                        href="#"
+                                        role="button"
+                                        tabIndex="0"
+                                        aria-pressed={visAvbrytDialog}
+                                        className="lenke"
+                                        ref={(c) => {
+                                            this.triggAvbrytdialogKnapp = c;
+                                        }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            this.setState({
+                                                visAvbrytDialog: !visAvbrytDialog,
+                                            });
+                                        }}
+                                    >
+                                        {getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}
+                                    </a>
+                                </p>
+                            )} />
+                        <AvbrytDialog
+                            vis={visAvbrytDialog}
+                            avbryter={avbryter}
+                            avbrytHandler={() => {
+                                this.setState({
+                                    visAvbrytDialog: false,
+                                });
+                                if (this.triggAvbrytdialogKnapp) {
+                                    this.triggAvbrytdialogKnapp.focus();
+                                } else if (this.submitknapp) {
+                                    this.submitknapp.focus();
+                                }
+                            }}
+                            bekreftHandler={() => {
+                                this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
+                            }} />
+                    </div>
                 </div>
             </form>
         );

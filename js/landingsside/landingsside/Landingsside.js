@@ -14,7 +14,7 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Vis } from '../../utils/index';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
-import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
+import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl, getBehandledeSoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
 
 const IngenSykmeldinger = () => {
@@ -28,7 +28,7 @@ const IngenSykmeldinger = () => {
 };
 
 const Landingsside = ({
-    brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger,
+    brodsmuler, harSykepengesoknader, harVedtak, harDialogmote, harSykmeldinger,
     skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
 }) => {
     return (
@@ -74,6 +74,18 @@ const Landingsside = ({
                                     ikon="soknader"
                                     ikonAlt="Søknader"
                                     tittel="Søknader om sykepenger" />
+                            );
+                        }} />
+                    <Vis
+                        hvis={harVedtak}
+                        render={() => {
+                            return (
+                                <Peker
+                                    ekstern
+                                    to={getBehandledeSoknaderUrl()}
+                                    ikon="behandlede"
+                                    ikonAlt="Behandlede søknader"
+                                    tittel="Utbetaling av sykepenger" />
                             );
                         }} />
                     <Vis
@@ -131,6 +143,7 @@ const Landingsside = ({
 
 Landingsside.propTypes = {
     harSykepengesoknader: PropTypes.bool,
+    harVedtak: PropTypes.bool,
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,
     skalViseOppfolgingsdialog: PropTypes.bool,

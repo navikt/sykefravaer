@@ -19,6 +19,26 @@ export const getSykepengesoknadUrl = (soknadId) => {
     return `${getSykepengesoknaderUrl()}/soknader/${soknadId}`;
 };
 
+export const getBehandledeSoknaderUrl = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    if (url.indexOf('tjenester.nav') > -1) {
+        // prod
+        return 'https://www.nav.no/syk/sykepenger';
+    } if (erNaisLabsDemo()) {
+        // Nais labs
+        return 'https://spvedtak.labs.nais.io';
+    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028')) {
+        // docker-compose
+        return 'http://localhost:3021/syk/sykepenger/';
+    }
+    // preprod
+    return 'https://www-q1.dev.nav.no/syk/sykepenger';
+};
+
 export const hentDialogmoteUrl = (sidevisning = '') => {
     const sluttUrl = `${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}${sidevisning}`;
     return erNaisLabsDemo()

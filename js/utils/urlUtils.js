@@ -36,7 +36,7 @@ export const getBehandledeSoknaderUrl = () => {
         return 'http://localhost:3021/syk/sykepenger/';
     }
     // preprod
-    return 'https://www-q1.dev.nav.no/syk/sykepenger';
+    return 'https://www-gcp.dev.nav.no/syk/sykepenger';
 };
 
 export const hentDialogmoteUrl = (sidevisning = '') => {

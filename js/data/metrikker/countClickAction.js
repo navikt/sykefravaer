@@ -19,4 +19,8 @@ function* countClickAction(value) {
     yield (post(`/sykefravaer/metrics/actions/links/${key}`, {}));
 }
 
+export function* countClickAktivitetsplan(antallSykedager) {
+    yield (post(`/sykefravaer/metrics/actions/aktivitetsplan/${antallSykedager}`), {});
+}
+
 export default countClickAction;

@@ -28,6 +28,12 @@ const userKlikkNeiMotebehovCounter = new Counter({
     help: 'Number of times users has answered no to the need for a meeting',
 });
 
+const userKlikkAktivitetsplan = new Counter({
+    name: getMetricName(METRIC_FILTER_INFIX, 'aktivitetsplan'),
+    help: 'Number of times users has clicked link to aktivitetsplan',
+    labelNames: ['antallSykedager'],
+});
+
 module.exports = {
     getMetricName,
     APP_METRIC_PREFIX,
@@ -35,4 +41,5 @@ module.exports = {
     httpRequestDurationMicroseconds,
     userKlikkJaMotebehovCounter,
     userKlikkNeiMotebehovCounter,
+    userKlikkAktivitetsplan,
 };

@@ -18,6 +18,7 @@ const setupMetrics = () => {
     register.registerMetric(counters.httpRequestDurationMicroseconds);
     register.registerMetric(counters.userKlikkJaMotebehovCounter);
     register.registerMetric(counters.userKlikkNeiMotebehovCounter);
+    register.registerMetric(counters.userKlikkAktivitetsplan);
 
     collectDefaultMetrics({ register });
     return register;
@@ -93,6 +94,15 @@ const startServer = (html) => {
             : '';
         const counterKey = counters.getMetricName(counters.METRIC_FILTER_INFIX, counterPostfix);
         prometheus.getSingleMetric(counterKey).inc(1, new Date());
+        res.sendStatus(200);
+    });
+
+    server.post('/sykefravaer/metrics/actions/aktivitetsplan/:antallSykedager', (req, res) => {
+        const antallSykedager = req.params.antallSykedager
+            ? req.params.antallSykedager
+            : -1;
+        const counterKey = counters.getMetricName(counters.METRIC_FILTER_INFIX, 'aktivitetsplan');
+        prometheus.getSingleMetric(counterKey).labels(antallSykedager).inc(1, new Date());
         res.sendStatus(200);
     });
 

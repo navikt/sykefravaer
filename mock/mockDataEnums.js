@@ -9,6 +9,7 @@ const SOKNADER = 'soknader';
 const SYFOUNLEASH = 'syfounleash';
 const SYKEFORLOEAP = 'sykeforloep';
 const SYKEPENGESOKNADER = 'sykepengesoknader';
+const VEDTAK = 'vedtak';
 const SYKMELDINGER = 'sykmeldinger';
 const TEKSTER = 'tekster';
 const VARSLER = 'varsler';
@@ -38,6 +39,7 @@ module.exports = {
     SYFOUNLEASH,
     SYKEFORLOEAP,
     SYKEPENGESOKNADER,
+    VEDTAK,
     SYKMELDINGER,
     TEKSTER,
     VARSLER,

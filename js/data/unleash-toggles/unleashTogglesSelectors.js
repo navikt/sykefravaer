@@ -14,6 +14,7 @@ import {
     NY_ARBEIDSTAKERSOKNAD,
     NYTT_SYKMELDINGSMOTTAK,
     NGINX_PROXY,
+    SYKMELDINGER_BACKEND,
 } from '../../enums/unleashToggles';
 
 export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
@@ -38,4 +39,9 @@ export const unleashtogglesHentetSelector = (state) => {
 export const toggleBrukNginxProxy = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[NGINX_PROXY] === true;
+};
+
+export const toggleSykmeldingerBackend = (state) => {
+    return !state.unleashToggles.hentingFeilet
+            && state.unleashToggles.data[SYKMELDINGER_BACKEND] === true;
 };

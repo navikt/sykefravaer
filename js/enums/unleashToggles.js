@@ -9,3 +9,4 @@ export const SELVSTENDIG_KORRIGER = 'syfo.syfofront.korriger.selvstendig.soknad'
 export const NY_ARBEIDSTAKERSOKNAD = 'syfo.ag.soknad.ny.platform';
 export const NYTT_SYKMELDINGSMOTTAK = 'syfo.syfofront.nytt.sykmeldingsmottak';
 export const NGINX_PROXY = 'syfo.syfofront.nginx';
+export const SYKMELDINGER_BACKEND = 'syfo.syfofront.sykmeldinger.backend';

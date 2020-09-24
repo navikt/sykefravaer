@@ -91,3 +91,12 @@ export const oppsummeringSporsmal = {
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
 };
+
+export const sykeforloepMetadataPt = PropTypes.shape({
+    data: PropTypes.shape({
+        erSykmeldt: PropTypes.bool,
+        sykmeldtFraDato: PropTypes.string,
+        arbeidsSituasjonIAktiveSykmeldinger: PropTypes.array,
+        erArbeidsrettetOppfolgingSykmeldtInngangAktiv: PropTypes.bool,
+    }),
+});

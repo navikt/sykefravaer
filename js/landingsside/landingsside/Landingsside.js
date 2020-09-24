@@ -4,7 +4,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
-import { brodsmule as brodsmulePt } from '../../propTypes/index';
+import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';
 import DineOppgaverContainer from '../dine-oppgaver/DineOppgaverContainer';
 import DinSituasjonContainer from '../din-situasjon/DinSituasjonContainer';
 import ServerfeilContainer from '../ai-ai-ai/AiAiAiContainer';
@@ -14,8 +14,9 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Vis } from '../../utils/index';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
-import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl } from '../../utils/urlUtils';
+import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl, getBehandledeSoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
+import { countClickAktivitetsplan } from '../../data/metrikker/countClickAction';
 
 const IngenSykmeldinger = () => {
     return (
@@ -27,9 +28,30 @@ const IngenSykmeldinger = () => {
     );
 };
 
+const finnAntallSykedager = (erSykmeldt, dato) => {
+    if (!erSykmeldt || !dato) return -1;
+
+    const MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const difference = (new Date() - new Date(dato)) / MS_PER_DAY;
+    return Math.round(difference);
+};
+
+const logAndRedirect = (e, sykeforloepMetadata) => {
+    e.preventDefault();
+
+    const { erSykmeldt, sykmeldtFraDato } = sykeforloepMetadata.data;
+    const antallSykedager = finnAntallSykedager(erSykmeldt, sykmeldtFraDato);
+
+    const { href } = e.target;
+    new Promise((resolve) => { return resolve(countClickAktivitetsplan(antallSykedager).next()); })
+        // eslint-disable-next-line no-unused-vars
+        .then((_) => { window.location.href = href; });
+};
+
 const Landingsside = ({
-    brodsmuler, harSykepengesoknader, harDialogmote, harSykmeldinger,
+    brodsmuler, harSykepengesoknader, harVedtak, harDialogmote, harSykmeldinger,
     skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
+    sykeforloepMetadata,
 }) => {
     return (
         <React.Fragment>
@@ -77,6 +99,18 @@ const Landingsside = ({
                             );
                         }} />
                     <Vis
+                        hvis={harVedtak}
+                        render={() => {
+                            return (
+                                <Peker
+                                    ekstern
+                                    to={getBehandledeSoknaderUrl()}
+                                    ikon="behandlede"
+                                    ikonAlt="Behandlede søknader"
+                                    tittel="Utbetaling av sykepenger" />
+                            );
+                        }} />
+                    <Vis
                         hvis={harDialogmote || skalViseMotebehov}
                         render={() => {
                             return (
@@ -111,7 +145,8 @@ const Landingsside = ({
                                     ikon="aktivitetsplan"
                                     ikonAlt="Aktivitetsplan"
                                     tittel="Aktivitetsplan"
-                                    undertittel="For deg og NAV" />
+                                    undertittel="For deg og NAV"
+                                    onClick={(e) => { logAndRedirect(e, sykeforloepMetadata); }} />
                             );
                         }} />
                     <Peker
@@ -131,12 +166,14 @@ const Landingsside = ({
 
 Landingsside.propTypes = {
     harSykepengesoknader: PropTypes.bool,
+    harVedtak: PropTypes.bool,
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,
     skalViseOppfolgingsdialog: PropTypes.bool,
     skalViseAktivitetsplan: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    sykeforloepMetadata: sykeforloepMetadataPt,
 };
 
 export default Landingsside;

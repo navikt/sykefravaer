@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const Peker = ({
-    ekstern, to, tittel, undertittel, ikon, ikonAlt,
+    ekstern, to, tittel, undertittel, ikon, ikonAlt, onClick,
 }) => {
     const Tag = ekstern ? 'a' : Link;
     return (
         <Tag
             className="peker"
             href={ekstern ? to : null}
-            to={ekstern ? null : to}>
+            to={ekstern ? null : to}
+            onClick={onClick}>
             <div className="peker__ikon">
                 <img
                     className="peker__ikonBilde peker__ikonBilde--standard"
@@ -38,6 +39,7 @@ Peker.propTypes = {
     to: PropTypes.string.isRequired,
     ekstern: PropTypes.bool,
     undertittel: PropTypes.string,
+    onClick: PropTypes.func,
 };
 
 export default Peker;

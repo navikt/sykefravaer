@@ -11,7 +11,7 @@ import SideStrippet from '../../sider/SideStrippet';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { brodsmule as brodsmulePt } from '../../propTypes/index';
+import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';
 import { hentSykepengesoknader } from '../../data/sykepengesoknader/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../data/ledere/ledereActions';
@@ -21,6 +21,7 @@ import { hentSykeforloepSyfosoknad } from '../../data/sykeforloep-syfosoknad/syk
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import { erMotebehovTilgjengelig } from '../../utils/motebehovUtils';
 import { hentSoknader } from '../../data/soknader/soknaderActions';
+import { hentAlleVedtak } from '../../data/vedtak/vedtak_actions';
 import { hentOppfolging, hentSykmeldtinfodata } from '../../data/brukerinfo/brukerinfo_actions';
 import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
@@ -46,6 +47,7 @@ export class Container extends Component {
             doHentSykeforloepSyfosoknad,
             doHentSykeforloepMetadata,
             doHentSoknader,
+            dohentAlleVedtak,
             doHentOppfolging,
             doHentSykmeldtinfodata,
             doHentSmSykmeldinger,
@@ -67,6 +69,7 @@ export class Container extends Component {
         doHentSykeforloepSyfosoknad();
         doHentSykeforloepMetadata();
         doHentSoknader();
+        dohentAlleVedtak();
         doHentOppfolging();
         doHentSykmeldtinfodata();
         doHentSmSykmeldinger();
@@ -86,15 +89,16 @@ export class Container extends Component {
             skalHenteNoe,
             hentingFeilet,
             harSykepengesoknader,
+            harVedtak,
             harDialogmote,
             harSykmeldinger,
             skalViseMotebehov,
             skalViseOppfolgingsdialog,
             skalViseAktivitetsplan,
+            sykeforloepMetadata,
         } = this.props;
         const Sidetype = hentingFeilet ? Side : SideStrippet;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
-
         return (
             <Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || skalHenteNoe}>
                 {
@@ -109,11 +113,13 @@ export class Container extends Component {
                             <Landingsside
                                 brodsmuler={brodsmuler}
                                 harSykepengesoknader={harSykepengesoknader}
+                                harVedtak={harVedtak}
                                 harDialogmote={harDialogmote}
                                 harSykmeldinger={harSykmeldinger}
                                 skalViseMotebehov={skalViseMotebehov}
                                 skalViseOppfolgingsdialog={skalViseOppfolgingsdialog}
                                 skalViseAktivitetsplan={skalViseAktivitetsplan}
+                                sykeforloepMetadata={sykeforloepMetadata}
                             />
                         );
                     })()
@@ -129,6 +135,7 @@ Container.propTypes = {
     skalHenteNoe: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     harSykepengesoknader: PropTypes.bool,
+    harVedtak: PropTypes.bool,
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,
     skalViseMotebehov: PropTypes.bool,
@@ -146,9 +153,11 @@ Container.propTypes = {
     doHentSykeforloepMetadata: PropTypes.func,
     doHentOppfolgingsdialoger: PropTypes.func,
     doHentSoknader: PropTypes.func,
+    dohentAlleVedtak: PropTypes.func,
     doHentOppfolging: PropTypes.func,
     doHentSykmeldtinfodata: PropTypes.func,
     doHentSmSykmeldinger: PropTypes.func,
+    sykeforloepMetadata: sykeforloepMetadataPt,
 };
 
 export function mapStateToProps(state) {
@@ -174,6 +183,7 @@ export function mapStateToProps(state) {
         'oppfolgingsdialoger',
         'ledetekster',
         'soknader',
+        'vedtak',
         'smSykmeldinger',
     ];
     return {
@@ -183,6 +193,7 @@ export function mapStateToProps(state) {
         henter: reducere.reduce((acc, val) => acc || henter(val), false),
         harDialogmote: state.mote.data !== null,
         harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
+        harVedtak: state.vedtak.data.length > 0,
         harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
         skalViseMotebehov: erMotebehovTilgjengelig(state.motebehov),
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet
@@ -195,6 +206,7 @@ export function mapStateToProps(state) {
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
+        sykeforloepMetadata: state.sykeforloepMetadata,
     };
 }
 
@@ -209,6 +221,7 @@ const actionCreators = {
     doHentSykeforloepSyfosoknad: hentSykeforloepSyfosoknad,
     doHentSykeforloepMetadata: hentSykeforloepMetadata,
     doHentSoknader: hentSoknader,
+    dohentAlleVedtak: hentAlleVedtak,
     doHentOppfolging: hentOppfolging,
     doHentSykmeldtinfodata: hentSykmeldtinfodata,
     doHentSmSykmeldinger: hentSmSykmeldinger,

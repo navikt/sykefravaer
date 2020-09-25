@@ -169,7 +169,7 @@ export const hentSpinnsynBackendUrl = () => {
         return 'http://localhost:6932/api/v1/vedtak';
     } if (erNaisLabsDemo()) {
         // Nais labs
-        return 'http://localhost:8080/vedtak';
+        return 'https://sykefravaer.labs.nais.io/spinnsyn-backend-mock/api/v1/vedtak';
     } if (url.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/vedtak';

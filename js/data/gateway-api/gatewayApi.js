@@ -167,9 +167,12 @@ export const hentSpinnsynBackendUrl = () => {
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
         return 'http://localhost:6932/api/v1/vedtak';
-    } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+    } if (erNaisLabsDemo()) {
+        // Nais labs
+        return '/spinnsyn-backend-mock/api/v1/vedtak';
+    } if (url.indexOf('localhost') > -1) {
         // Lokalt
-        return `${process.env.REACT_APP_SYFOREST_ROOT}/vedtak`;
+        return 'http://localhost:8080/vedtak';
     }
     // Preprod
     return 'https://spinnsyn-backend-proxy.dev.nav.no/api/v1/vedtak';

@@ -105,8 +105,8 @@ const Landingsside = ({
                                 <Peker
                                     ekstern
                                     to={getBehandledeSoknaderUrl()}
-                                    ikon="behandlede"
-                                    ikonAlt="Behandlede søknader"
+                                    ikon="coin"
+                                    ikonAlt="coin"
                                     tittel="Utbetaling av sykepenger" />
                             );
                         }} />

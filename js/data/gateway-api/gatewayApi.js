@@ -169,7 +169,7 @@ export const hentSpinnsynBackendUrl = () => {
         return 'http://localhost:6932/api/v1/vedtak';
     } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
-        return `${process.env.REACT_APP_SYFOREST_ROOT}/vedtak`;
+        return 'http://localhost:8080/vedtak';
     }
     // Preprod
     return 'https://spinnsyn-backend-proxy.dev.nav.no/api/v1/vedtak';

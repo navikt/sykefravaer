@@ -167,7 +167,10 @@ export const hentSpinnsynBackendUrl = () => {
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
         return 'http://localhost:6932/api/v1/vedtak';
-    } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+    } if (erNaisLabsDemo()) {
+        // Nais labs
+        return 'http://localhost:8080/vedtak';
+    } if (url.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/vedtak';
     }

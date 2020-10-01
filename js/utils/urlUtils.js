@@ -31,7 +31,7 @@ export const getBehandledeSoknaderUrl = () => {
     } if (erNaisLabsDemo()) {
         // Nais labs
         return 'https://spvedtak.labs.nais.io';
-    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028')) {
+    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker-compose
         return 'http://localhost:3021/syk/sykepenger/';
     }

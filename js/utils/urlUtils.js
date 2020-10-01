@@ -27,7 +27,7 @@ export const getBehandledeSoknaderUrl = () => {
         : '';
     if (url.indexOf('tjenester.nav') > -1) {
         // prod
-        return 'https://www.nav.no/syk/sykepenger';
+        return 'https://www.nav.no/syk/sykepenger/';
     } if (erNaisLabsDemo()) {
         // Nais labs
         return 'https://spvedtak.labs.nais.io';
@@ -36,7 +36,7 @@ export const getBehandledeSoknaderUrl = () => {
         return 'http://localhost:3021/syk/sykepenger/';
     }
     // preprod
-    return 'https://www-gcp.dev.nav.no/syk/sykepenger';
+    return 'https://www-gcp.dev.nav.no/syk/sykepenger/';
 };
 
 export const hentDialogmoteUrl = (sidevisning = '') => {

@@ -30,7 +30,7 @@ export const getBehandledeSoknaderUrl = () => {
         return 'https://www.nav.no/syk/sykepenger/';
     } if (erNaisLabsDemo()) {
         // Nais labs
-        return 'https://spvedtak.labs.nais.io';
+        return 'https://sykepenger.labs.nais.io/syk/sykepenger/';
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker-compose
         return 'http://localhost:3021/syk/sykepenger/';

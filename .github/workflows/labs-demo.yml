@@ -23,7 +23,7 @@ jobs:
           TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
           COMMIT=$(git rev-parse --short=8 HEAD)
           VERSION=$TIME-$COMMIT
-          echo "::set-env name=IMAGE::"docker.pkg.github.com/${GITHUB_REPOSITORY}/sykefravaer-demo:$$VERSION""
+          echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/sykefravaer-demo:$VERSION" >> $GITHUB_ENV
       - name: Build and publish Docker image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

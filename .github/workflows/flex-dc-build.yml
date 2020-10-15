@@ -20,7 +20,7 @@ jobs:
       - name: Build
         run: |
           npm run flex-dc-build
-      - run: echo "::set-env name=IMAGE::"docker.pkg.github.com/${GITHUB_REPOSITORY}/sykefravaer-flex-dc:latest""
+      - run: echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/sykefravaer-flex-dc:latest" >> $GITHUB_ENV
       - name: Build and publish Docker image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

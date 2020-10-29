@@ -1005,7 +1005,7 @@ describe('SykmeldingKvitteringSide', () => {
                 skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
             });
 
-            it('Skal vise info om at bruker kan søke selv om bruker er kode6', () => {
+            it('Skal ikke vise info om at bruker kan søke når bruker er kode6', () => {
                 state.sykepengesoknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
@@ -1026,7 +1026,13 @@ describe('SykmeldingKvitteringSide', () => {
                     erUtenforVentetid: true,
                     skalOppretteSoknad: true,
                 };
-                skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
+                const component = getComponent(state, ownProps);
+                expect(component.text())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel']);
+                expect(component.html())
+                    .to
+                    .contain(ledetekster['bekreft-sykmelding.skjermingskode-6.kvittering.undertekst']);
             });
 
             it('Skal vise info om at bruker kan søke om sykepenger', () => {

@@ -234,9 +234,6 @@ const getArbeidssituasjon = sykmelding => (
         ? sykmelding.valgtArbeidssituasjon.toUpperCase()
         : ''
 );
-const erArbeidstaker = sykmelding => (
-    [arbeidssituasjoner.ARBEIDSTAKER].indexOf(getArbeidssituasjon(sykmelding)) > -1
-);
 
 const erFrilanserEllerSelvstendigNaringsdrivende = sykmelding => (
     [arbeidssituasjoner.FRILANSER, arbeidssituasjoner.NAERINGSDRIVENDE]
@@ -393,7 +390,7 @@ const getKvitteringtype = (state, sykmeldingId) => {
             })();
         }
         case BEKREFTET: {
-            if (harStrengtFortroligAdresseSelector(state) && erArbeidstaker(sykmelding)) {
+            if (harStrengtFortroligAdresseSelector(state)) {
                 return kvitteringtyper.STRENGT_FORTROLIG_ADRESSE;
             }
             if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {

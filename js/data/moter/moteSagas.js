@@ -21,7 +21,7 @@ export function* hentMote() {
         const mote = yield call(get, url);
         yield put(actions.moteHentet(mote));
     } catch (e) {
-        if (e.message === '404') {
+        if (e.message === '404' || e.message === '204') {
             yield put(actions.moteIkkeFunnet());
         } else {
             log(e);

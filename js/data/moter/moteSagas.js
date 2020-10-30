@@ -22,7 +22,10 @@ export function* hentMote() {
         console.log('Mote: ' + mote);
         yield put(actions.moteHentet(mote));
     } catch (e) {
-        if (e.message === '404') {
+        if (e.message === '204') {
+            console.log('No content');
+            yield put(actions.moteIkkeFunnet());
+        } else if (e.message === '404') {
             yield put(actions.moteIkkeFunnet());
         } else {
             log(e);

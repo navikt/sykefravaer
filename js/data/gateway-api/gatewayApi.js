@@ -54,11 +54,13 @@ export function get(url, headers = null) {
     const customFetch = getFetch();
     const CustomHeaders = getHeaders();
     const headersArg = headers || new CustomHeaders();
+    console.log('url: ' + url);
     return customFetch(leggTilCacheBuster(url), {
         credentials: 'include',
         headers: headersArg,
     })
         .then((res) => {
+            console.log('URL: ' + url + ' | status: ' + res.status);
             if (res.status === 401) {
                 log(res, 'Redirect til login');
                 window.location.href = `${hentLoginUrl()}?redirect=${window.location.origin}/sykefravaer`;
@@ -72,6 +74,9 @@ export function get(url, headers = null) {
             } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');
+            } else if (res.status === 204) {
+                log(res);
+                throw new Error('204');
             }
             return res.json();
         })

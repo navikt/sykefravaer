@@ -19,9 +19,10 @@ export function* hentMote() {
     try {
         const url = `${hentSyfoApiUrl(API_NAVN.SYFOMOTEADMIN)}/bruker/arbeidstaker/moter/siste`;
         const mote = yield call(get, url);
+        console.log('Mote: ' + mote);
         yield put(actions.moteHentet(mote));
     } catch (e) {
-        if (e.message === '404' || e.message === '204') {
+        if (e.message === '404') {
             yield put(actions.moteIkkeFunnet());
         } else {
             log(e);

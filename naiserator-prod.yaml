@@ -45,8 +45,8 @@ spec:
       value: https://syfoapi.nais.oera.no/syfomoteadmin/api
     - name: SYFOAPI_SYFOTEKSTERAPI_URL
       value: https://syfoapi.nais.oera.no/syfotekster/api/tekster
-    - name: SYFOAPI_SYFOSOKNADAPI_URL
-      value: https://syfoapi.nais.oera.no/syfosoknad/api
+    - name: SYFOSOKNAD_PROXY_URL
+      value: https://syfosoknad-proxy.nav.no
     - name: SYKEFRAVAERAPI_URL
       value: https://itjenester.oera.no/syforest
     - name: OPPFOELGINGSDIALOGAPI_URL

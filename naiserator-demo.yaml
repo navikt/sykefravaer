@@ -29,4 +29,3 @@ spec:
       external:
         - host: www.nav.no
         - host: syfoapi.nav.no
-        - host: syfosoknad-proxy.nav.no

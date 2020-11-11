@@ -18,7 +18,7 @@ function mockOppdaterSporsmalLokal(server) {
         };
     };
 
-    server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:soknadId/sporsmal/:sporsmalId', (req, res) => {
         const soknad = req.body;
         const soknadMedNyeSporsmalIder = {
             ...soknad,
@@ -37,7 +37,7 @@ function mockOppdaterSporsmalLokal(server) {
 }
 
 function mockOppdaterSporsmalOpplaeringsmiljo(server) {
-    server.post('/syfoapi/syfosoknad/api/oppdaterSporsmal', (req, res) => {
+    server.post('/syfosoknad-proxy/api/oppdaterSporsmal', (req, res) => {
         const soknad = req.body;
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(soknad));
@@ -45,7 +45,7 @@ function mockOppdaterSporsmalOpplaeringsmiljo(server) {
 }
 
 function mockSyfosoknadLokalt(server) {
-    server.post('/syfoapi/syfosoknad/api/opprettSoknadUtland', (req, res) => {
+    server.post('/syfosoknad-proxy/api/opprettSoknadUtland', (req, res) => {
         if (!mockData[enums.SOKNADER].find((soknad) => {
             return soknad.id === mockData[enums.NY_SOKNAD_UTLAND].id;
         })) {
@@ -56,7 +56,7 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify(mockData[enums.NY_SOKNAD_UTLAND]));
     });
 
-    server.post('/syfoapi/syfosoknad/api/soknader/:id/avbryt', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:id/avbryt', (req, res) => {
         const soknadId = req.params.id;
         const soknad = mockData[enums.SOKNADER].find((s) => {
             return s.id === soknadId;
@@ -80,7 +80,7 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify({}));
     });
 
-    server.post('/syfoapi/syfosoknad/api/soknader/:id/ettersendTilNav', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:id/ettersendTilNav', (req, res) => {
         const soknadId = req.params.id;
         const soknad = mockData[enums.SOKNADER].find((s) => {
             return s.id === soknadId;
@@ -98,7 +98,7 @@ function mockSyfosoknadLokalt(server) {
         res.send(200);
     });
 
-    server.post('/syfoapi/syfosoknad/api/soknader/:id/ettersendTilArbeidsgiver', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:id/ettersendTilArbeidsgiver', (req, res) => {
         const soknadId = req.params.id;
         const soknad = mockData[enums.SOKNADER].find((s) => {
             return s.id === soknadId;
@@ -116,19 +116,19 @@ function mockSyfosoknadLokalt(server) {
         res.send(200);
     });
 
-    server.get('/syfoapi/syfosoknad/api/sykmeldinger/:id/actions/erUtenforVentetid', (req, res) => {
+    server.get('/syfosoknad-proxy/api/sykmeldinger/:id/actions/erUtenforVentetid', (req, res) => {
         res.json(false);
     });
 
-    server.get('/syfoapi/syfosoknad/api/sykmeldinger/:id/actions/behandlet', (req, res) => {
+    server.get('/syfosoknad-proxy/api/sykmeldinger/:id/actions/behandlet', (req, res) => {
         res.json(true);
     });
 
-    server.post('/syfoapi/syfosoknad/api/sykmeldinger/:id/actions/skalOppretteSoknad', (req, res) => {
+    server.post('/syfosoknad-proxy/api/sykmeldinger/:id/actions/skalOppretteSoknad', (req, res) => {
         res.json(true);
     });
 
-    server.post('/syfoapi/syfosoknad/api/soknader/:id/gjenapne', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:id/gjenapne', (req, res) => {
         const soknadId = req.params.id;
         mockData[enums.SOKNADER] = mockData[enums.SOKNADER].map((s) => {
             return s.id === soknadId
@@ -142,7 +142,7 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify({}));
     });
 
-    server.post('/syfoapi/syfosoknad/api/sendSoknad', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:id/send', (req, res) => {
         const { id, sporsmal } = req.body;
 
         const soknadTilInnsending = mockData[enums.SOKNADER].find((soknad) => {
@@ -170,7 +170,7 @@ function mockSyfosoknadLokalt(server) {
         res.send(JSON.stringify({}));
     });
 
-    server.post('/syfoapi/syfosoknad/api/soknader/:id/korriger', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:id/korriger', (req, res) => {
         const { id } = req.params;
         const soknadSomKorrigeres = mockData[enums.SOKNADER].find((soknad) => {
             return soknad.id === id;
@@ -196,19 +196,19 @@ function mockSyfosoknadLokalt(server) {
 }
 
 function mockSyfosoknadOpplaringsmiljoOgLokalt(server) {
-    server.get('/syfoapi/syfosoknad/api/soknader', (req, res) => {
+    server.get('/syfosoknad-proxy/api/soknader', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[enums.SOKNADER]));
     });
 
-    server.post('/syfoapi/syfosoknad/api/soknader/:id/mottaker', (req, res) => {
+    server.post('/syfosoknad-proxy/api/soknader/:id/mottaker', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
             mottaker: 'ARBEIDSGIVER_OG_NAV',
         }));
     });
 
-    server.get('/syfoapi/syfosoknad/api/sykeforloep', (req, res) => {
+    server.get('/syfosoknad-proxy/api/sykeforloep', (req, res) => {
         const soknadId = req.params.id;
         const sykmeldinger = mockData[enums.SYKMELDINGER].map((sykmelding) => {
             return {

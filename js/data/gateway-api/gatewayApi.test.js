@@ -17,13 +17,13 @@ describe('gatewayApi', () => {
 
     describe('cacheBuster', () => {
         it('Skal legge til ?_ts=timestamp bak URL når URL ikke inneholder parametre', () => {
-            const url = 'http://localhost:8080/syfosoknad-proxy/api/soknader';
+            const url = 'http://localhost:8080/syfoapi/syfosoknad/api/soknader';
             const res = leggTilCacheBuster(url);
             expect(res).to.equal(`${url}?_ts=${now}`);
         });
 
         it('Skal legge til &_ts=timestamp bak URL når URL inneholder parametre', () => {
-            const url = 'http://localhost:8080/syfosoknad-proxy/api/soknader?brukernavn=OLE';
+            const url = 'http://localhost:8080/syfoapi/syfosoknad/api/soknader?brukernavn=OLE';
             const res = leggTilCacheBuster(url);
             expect(res).to.equal(`${url}&_ts=${now}`);
         });

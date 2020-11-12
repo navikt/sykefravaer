@@ -18,7 +18,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal hente søknader', () => {
-            const nextCall = call(get, 'https://syfosoknad-proxy.dev.nav.no/api/soknader');
+            const nextCall = call(get, 'https://syfoapi-q.nav.no/syfosoknad/api/soknader');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

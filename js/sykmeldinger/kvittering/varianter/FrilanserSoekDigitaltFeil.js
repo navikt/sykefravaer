@@ -2,6 +2,7 @@ import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from '../felles/Kvitteringsteg';
 import { FrilanserSelvstendigKvitteringstegEn } from './FrilanserSoekDigitaltNaa';
+import BjornMedUndersokelse from '../felles/BjornMedUndersokelse';
 
 export default () => {
     return (
@@ -17,6 +18,7 @@ export default () => {
                         nokkel="bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst" />
                 </Kvitteringsteg>
             </StegvisKvittering>
+            <BjornMedUndersokelse />
         </div>
     );
 };

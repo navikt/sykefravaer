@@ -3,7 +3,6 @@ import {
     sykepengesoknad as sykepengesoknadPt,
     getLedetekst,
     Video,
-    Bjorn,
     tilLesbarDatoMedArstall,
 } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';

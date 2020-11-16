@@ -30,7 +30,7 @@ export default () => {
                     </Kvitteringsteg>
                 </StegvisKvittering>
             </div>
-            <BjornMedUndersokelse />    
+            <BjornMedUndersokelse />
         </React.Fragment>
     );
 };

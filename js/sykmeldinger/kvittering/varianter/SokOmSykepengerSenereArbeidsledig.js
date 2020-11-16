@@ -2,7 +2,6 @@ import React from 'react';
 import {
     sykepengesoknad as sykepengesoknadPt,
     getLedetekst,
-    Bjorn,
 } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';

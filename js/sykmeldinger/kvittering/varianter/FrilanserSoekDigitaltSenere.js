@@ -5,6 +5,7 @@ import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitte
 import { soknadsdatoremse } from '../felles/Soknadsdatoliste';
 import { soknadPt } from '../../../propTypes/index';
 import { FrilanserSelvstendigKvitteringstegEn } from './FrilanserSoekDigitaltNaa';
+import BjornMedUndersokelse from '../felles/BjornMedUndersokelse';
 
 const FrilanserSoekDigitaltSenere = ({ soknader }) => {
     return (
@@ -23,6 +24,7 @@ const FrilanserSoekDigitaltSenere = ({ soknader }) => {
                     </Kvitteringsteg>
                 </StegvisKvittering>
             </div>
+            <BjornMedUndersokelse />
         </div>
     );
 };

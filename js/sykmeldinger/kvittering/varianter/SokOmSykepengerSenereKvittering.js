@@ -11,6 +11,7 @@ import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitte
 import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from '../felles/Soknadsdatoliste';
 import { soknadPt } from '../../../propTypes/soknadProptype';
 import { SOKNAD_SYKEPENGER } from '../../../enums/filmer';
+import BjornMedUndersokelse from '../felles/BjornMedUndersokelse';
 
 const SokOmSykepengerSenereKvittering = ({
     sykepengesoknader, soknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer',
@@ -40,11 +41,7 @@ const SokOmSykepengerSenereKvittering = ({
                     </Kvitteringsteg>
                 </StegvisKvittering>
             </div>
-            <Bjorn
-                className="blokk"
-                hvit
-                stor
-                nokkel="sykmelding.kvittering.sok-senere.bjorn" />
+            <BjornMedUndersokelse />
             <div className="blokk">
                 <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
                 <Video film={SOKNAD_SYKEPENGER} />

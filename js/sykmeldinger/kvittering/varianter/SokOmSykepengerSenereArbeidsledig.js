@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadPt } from '../../../propTypes/soknadProptype';
+import BjornMedUndersokelse from '../felles/BjornMedUndersokelse';
 
 const SokOmSykepengerSenereArbeidsledig = ({ sykmeldingstype = 'lang' }) => {
     return (
@@ -32,12 +33,7 @@ const SokOmSykepengerSenereArbeidsledig = ({ sykmeldingstype = 'lang' }) => {
                     </Kvitteringsteg>
                 </StegvisKvittering>
             </div>
-            <Bjorn
-                className="blokk"
-                hvit
-                stor
-                nokkel="sykmelding.kvittering.sok-senere.bjorn"
-            />
+            <BjornMedUndersokelse />
         </div>
     );
 };

@@ -6,19 +6,21 @@ import BjornMedUndersokelse from '../felles/BjornMedUndersokelse';
 
 export default () => {
     return (
-        <div className="panel blokk js-kvittering js-kvittering--sok-naa-frilanser">
-            <StegvisKvittering>
-                <FrilanserSelvstendigKvitteringstegEn />
-                <Kvitteringsteg
-                    nummer="2"
-                    feil
-                    tittel={getLedetekst('bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tittel')}>
-                    <HtmlAvsnitt
-                        tag="div"
-                        nokkel="bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst" />
-                </Kvitteringsteg>
-            </StegvisKvittering>
+        <React.Fragment>
+            <div className="panel blokk js-kvittering js-kvittering--sok-naa-frilanser">
+                <StegvisKvittering>
+                    <FrilanserSelvstendigKvitteringstegEn />
+                    <Kvitteringsteg
+                        nummer="2"
+                        feil
+                        tittel={getLedetekst('bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tittel')}>
+                        <HtmlAvsnitt
+                            tag="div"
+                            nokkel="bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst" />
+                    </Kvitteringsteg>
+                </StegvisKvittering>
+            </div>
             <BjornMedUndersokelse />
-        </div>
+        </React.Fragment>
     );
 };

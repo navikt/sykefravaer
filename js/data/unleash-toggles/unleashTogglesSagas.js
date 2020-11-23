@@ -13,8 +13,10 @@ function hentUnleashUrl() {
         : '';
     if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         return 'http://localhost:1956/syfounleash';
+    } if (url.indexOf('localhost:8080')) {
+        return '/syfounleash/';
     }
-    return '/syfounleash/';
+    return 'http://unleash.nais.io/';
 }
 
 export function* hentUnleashToggles() {

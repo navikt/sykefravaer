@@ -283,11 +283,11 @@ describe('SykmeldingKvitteringSide', () => {
             'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel': 'Nå har du levert første del',
             'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.kort-sykmelding.undertekst': 'Du har sendt sykmeldingen til arbeidsgiveren din.',
             'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel': 'Når sykmeldingen er utløpt, kan du fylle ut søknaden om sykepenger',
-            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss med lenke til søknaden om sykepenger.</p><p>Minn gjerne arbeidsgiveren din på å sende inntektsopplysninger så tidlig som mulig. Da går saksbehandlingen fortere.</p>',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss om at du kan logge deg inn på Ditt NAV.</p><p>Minn gjerne arbeidsgiveren din på å sende inntektsopplysninger så tidlig som mulig. Da går saksbehandlingen fortere.</p>',
             'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel': 'Nå har du levert første del',
             'sykmelding.kvittering.sok-senere.steg-1.arbeidsgiver-forskutterer-ikke.lang-sykmelding.undertekst': '<p>Du har sendt sykmeldingen til arbeidsgiveren din.</p>',
             'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.lang-sykmelding.tittel': 'Senere kan du fylle ut søknaden om sykepenger',
-            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.lang-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss med lenke til søknaden om sykepenger.</p><p>Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.</p>',
+            'sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.lang-sykmelding.undertekst': '<p><strong>%DATO%</strong> får du en melding fra oss om at du kan logge deg inn på Ditt NAV.</p><p>Siden sykmeldingen din er lang, får du lenken før hele sykmeldingen er utløpt.</p>',
 
         };
         /* eslint-enable max-len */

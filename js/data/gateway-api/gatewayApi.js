@@ -123,16 +123,16 @@ export const hentApiUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://syfoapi.nav.no/syfosoknad/api';
+        return 'https://syfosoknad-proxy.nav.no/api';
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
-        return 'http://localhost:1995/syfosoknad/api';
+        return 'http://localhost:1996/api';
     } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
-        return '/syfoapi/syfosoknad/api';
+        return '/syfosoknad-proxy/api';
     }
     // Preprod
-    return 'https://syfoapi-q.nav.no/syfosoknad/api';
+    return 'https://syfosoknad-proxy.dev.nav.no/api';
 };
 
 export const hentSyfoApiUrl = (appNavn) => {
@@ -182,7 +182,6 @@ export const API_NAVN = {
     SYFOMOTEADMIN: 'syfomoteadmin',
     SYFOMOTEBEHOV: 'syfomotebehov',
     SYFOOPPFOLGINGSPLANSERVICE: 'syfooppfolgingsplanservice',
-    SYFOSOKNAD: 'syfosoknad',
     SYFOSERVICESTRANGLER: 'syfoservicestrangler',
     SYFOSMREGISTER: 'syfosmregister',
 };

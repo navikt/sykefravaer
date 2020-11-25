@@ -15,7 +15,7 @@ const BjornMedUndersokelse = () => {
             </p>
             <p>
                 <a
-                    href="https://response.questback.com/isa/qbv.dll/ShowQuest?questid=5511835&sid=HWfcgPoSbG"
+                    href="https://response.questback.com/universitetssykehusetnordnor/xn3zsvipyw"
                     target="_blank"
                     rel="noopener noreferrer"
                 >

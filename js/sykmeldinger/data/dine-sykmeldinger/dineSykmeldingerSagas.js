@@ -13,8 +13,39 @@ import {
 } from '../din-sykmelding/dinSykmeldingActions';
 import { toggleSykmeldingerBackend, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
+import { erNaisLabsDemo } from '../../../utils/urlUtils';
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
+
+// Because envvars can not easily be injected in build
+const getSykmeldingerBackendUrl = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+
+    if (url.indexOf('tjenester.nav') > -1) {
+        // Prod
+        return 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/syforest';
+    }
+    if (url.indexOf('localhost:2027') > -1) {
+        // docker compose container
+        // TODO
+        // return 'http://localhost:6969/syfosmregister/api';
+    }
+    if (url.indexOf('localhost:2028') > -1) {
+        // docker compose node prosess
+        // TODO
+        // return 'http://localhost:6969/syfosmregister/api';
+    }
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+        // Lokalt
+        return '/sykmeldinger-backend';
+    }
+    // Preprod
+    return 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/syforest';
+};
 
 export function* oppdaterDineSykmeldinger() {
     const togglesHentet = yield select(unleashtogglesHentetSelector);
@@ -22,7 +53,7 @@ export function* oppdaterDineSykmeldinger() {
 
     if (togglesHentet) {
         yield put(actions.henterDineSykmeldinger());
-        const URL = toggleNewUrl ? `${process.env.REACT_APP_SYKMELDINGER_BACKEND}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
+        const URL = toggleNewUrl ? `${getSykmeldingerBackendUrl()}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
         if (toggleNewUrl) {
             console.log('Sykmeldinger hentes fra ny url');
         }

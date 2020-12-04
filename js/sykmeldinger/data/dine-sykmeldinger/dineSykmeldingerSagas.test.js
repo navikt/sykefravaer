@@ -6,7 +6,7 @@ import { HENTER_DINE_SYKMELDINGER, SET_DINE_SYKMELDINGER } from './dineSykmeldin
 import { toggleSykmeldingerBackend, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 
 describe('dineSykmeldingerSagas', () => {
-    describe('Skal hente sykmeldinger fra sykmeldinger-backend', () => { 
+    describe('Skal hente sykmeldinger fra sykmeldinger-backend', () => {
         const generator = oppdaterDineSykmeldinger();
 
         it('Skal sjekke toggles', () => {

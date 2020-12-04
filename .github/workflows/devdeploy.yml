@@ -29,8 +29,6 @@ jobs:
         run: |
           npm run lint
       - name: Build
-        env:
-          REACT_APP_SYKMELDINGER_BACKEND: https://sykmeldinger-backend-proxy.dev.nav.no
         run: |
           npm run nais-build
       - name: Build and publish Docker image

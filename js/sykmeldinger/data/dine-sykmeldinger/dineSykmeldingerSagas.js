@@ -54,10 +54,6 @@ export function* oppdaterDineSykmeldinger() {
     if (togglesHentet) {
         yield put(actions.henterDineSykmeldinger());
         const URL = toggleNewUrl ? `${getSykmeldingerBackendUrl()}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
-        if (toggleNewUrl) {
-            console.log('Sykmeldinger hentes fra ny url');
-        }
-
         try {
             const data = yield call(get, `${URL}/sykmeldinger`);
             yield put(actions.setDineSykmeldinger(data));

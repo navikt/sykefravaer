@@ -11,19 +11,29 @@ import {
     SYKMELDING_GJENAAPNET,
     SYKMELDING_SENDT,
 } from '../din-sykmelding/dinSykmeldingActions';
-import { toggleSykmeldingerBackend } from '../../../data/unleash-toggles/unleashTogglesSelectors';
+import { toggleSykmeldingerBackend, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
+import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
 export function* oppdaterDineSykmeldinger() {
-    yield put(actions.henterDineSykmeldinger());
-    try {
-        const URL = toggleSykmeldingerBackend ? `${process.env.REACT_APP_SYKMELDINGER_BACKEND}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
-        const data = yield call(get, `${URL}/sykmeldinger`);
-        yield put(actions.setDineSykmeldinger(data));
-    } catch (e) {
-        log(e);
-        yield put(actions.hentDineSykmeldingerFeilet());
+    const togglesHentet = yield select(unleashtogglesHentetSelector);
+    const toggleNewUrl = yield select(toggleSykmeldingerBackend);
+
+    if (togglesHentet) {
+        yield put(actions.henterDineSykmeldinger());
+        const URL = toggleNewUrl ? `${process.env.REACT_APP_SYKMELDINGER_BACKEND}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
+        if (toggleNewUrl) {
+            console.log('Sykmeldinger hentes fra ny url');
+        }
+
+        try {
+            const data = yield call(get, `${URL}/sykmeldinger`);
+            yield put(actions.setDineSykmeldinger(data));
+        } catch (e) {
+            log(e);
+            yield put(actions.hentDineSykmeldingerFeilet());
+        }
     }
 }
 
@@ -41,6 +51,7 @@ function* watchOppdaterDineSykmeldinger() {
         SYKMELDING_AVBRUTT,
         SYKMELDING_GJENAAPNET,
         BEKREFT_SYKMELDING_ANGRET,
+        HENTET_UNLEASH_TOGGLES,
     ], oppdaterDineSykmeldinger);
 }
 

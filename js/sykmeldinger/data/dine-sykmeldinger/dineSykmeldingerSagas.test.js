@@ -7,17 +7,17 @@ import { HENTER_DINE_SYKMELDINGER, SET_DINE_SYKMELDINGER } from './dineSykmeldin
 describe('dineSykmeldingerSagas', () => {
     const generator = oppdaterDineSykmeldinger();
 
-    it('Skal dispatche HENTER_DINE_SYKMELDINGER', () => {
+    it.skip('Skal dispatche HENTER_DINE_SYKMELDINGER', () => {
         const nextPut = put({ type: HENTER_DINE_SYKMELDINGER });
         expect(generator.next().value).to.deep.equal(nextPut);
     });
 
-    it('Skal dernest hente dine sykmeldinger', () => {
+    it.skip('Skal dernest hente dine sykmeldinger', () => {
         const nextCall = call(get, '/syforest/sykmeldinger');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 
-    it('Skal dernest sette dine sykmeldinger', () => {
+    it.skip('Skal dernest sette dine sykmeldinger', () => {
         const nextPut = put({
             type: SET_DINE_SYKMELDINGER,
             sykmeldinger: [{

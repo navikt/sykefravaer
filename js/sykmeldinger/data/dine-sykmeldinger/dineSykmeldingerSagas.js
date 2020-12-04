@@ -11,13 +11,15 @@ import {
     SYKMELDING_GJENAAPNET,
     SYKMELDING_SENDT,
 } from '../din-sykmelding/dinSykmeldingActions';
+import { toggleSykmeldingerBackend } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
 export function* oppdaterDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
     try {
-        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger`);
+        const URL = toggleSykmeldingerBackend ? `${process.env.REACT_APP_SYKMELDINGER_BACKEND}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
+        const data = yield call(get, `${URL}/sykmeldinger`);
         yield put(actions.setDineSykmeldinger(data));
     } catch (e) {
         log(e);

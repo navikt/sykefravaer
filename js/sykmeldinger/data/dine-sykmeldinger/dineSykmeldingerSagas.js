@@ -27,17 +27,13 @@ const getSykmeldingerBackendUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/syforest';
+        return 'https://sykmeldinger-backend-proxy.nav.no/api/v1/syforest';
     }
     if (url.indexOf('localhost:2027') > -1) {
-        // docker compose container
-        // TODO
-        // return 'http://localhost:6969/syfosmregister/api';
+	return 'http://localhost:6998/api/v1/syforest'
     }
     if (url.indexOf('localhost:2028') > -1) {
-        // docker compose node prosess
-        // TODO
-        // return 'http://localhost:6969/syfosmregister/api';
+	return 'http://localhost:6998/api/v1/syforest'
     }
     if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt

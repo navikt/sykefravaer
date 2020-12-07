@@ -97,7 +97,7 @@ export class KvitteringSide extends Component {
             aktivBehandletFetching: true,
         });
         const interval = setInterval(() => {
-            if ((new Date().getTime() - startTime) > 10000) {
+            if ((new Date().getTime() - startTime) > 15000) {
                 clearInterval(interval);
                 this.setState({
                     aktivBehandletFetching: false,

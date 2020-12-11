@@ -21,6 +21,7 @@ import { hentSykeforloepSyfosoknad } from '../../data/sykeforloep-syfosoknad/syk
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import { erMotebehovTilgjengelig } from '../../utils/motebehovUtils';
 import { hentSoknader } from '../../data/soknader/soknaderActions';
+import { hentReisetilskuddSoknader } from '../../data/reisetilskuddSoknader/reisetilskuddSoknader_actions';
 import { hentAlleVedtak } from '../../data/vedtak/vedtak_actions';
 import { hentOppfolging, hentSykmeldtinfodata } from '../../data/brukerinfo/brukerinfo_actions';
 import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
@@ -47,6 +48,7 @@ export class Container extends Component {
             doHentSykeforloepSyfosoknad,
             doHentSykeforloepMetadata,
             doHentSoknader,
+            doHentReisetilskuddSoknader,
             dohentAlleVedtak,
             doHentOppfolging,
             doHentSykmeldtinfodata,
@@ -69,6 +71,7 @@ export class Container extends Component {
         doHentSykeforloepSyfosoknad();
         doHentSykeforloepMetadata();
         doHentSoknader();
+        doHentReisetilskuddSoknader();
         dohentAlleVedtak();
         doHentOppfolging();
         doHentSykmeldtinfodata();
@@ -89,6 +92,7 @@ export class Container extends Component {
             skalHenteNoe,
             hentingFeilet,
             harSykepengesoknader,
+            harReisetilskuddSoknader,
             harVedtak,
             harDialogmote,
             harSykmeldinger,
@@ -114,6 +118,7 @@ export class Container extends Component {
                                 brodsmuler={brodsmuler}
                                 harSykepengesoknader={harSykepengesoknader}
                                 harVedtak={harVedtak}
+                                harReisetilskuddSoknader={harReisetilskuddSoknader}
                                 harDialogmote={harDialogmote}
                                 harSykmeldinger={harSykmeldinger}
                                 skalViseMotebehov={skalViseMotebehov}
@@ -135,6 +140,7 @@ Container.propTypes = {
     skalHenteNoe: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     harSykepengesoknader: PropTypes.bool,
+    harReisetilskuddSoknader: PropTypes.bool,
     harVedtak: PropTypes.bool,
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,
@@ -153,6 +159,7 @@ Container.propTypes = {
     doHentSykeforloepMetadata: PropTypes.func,
     doHentOppfolgingsdialoger: PropTypes.func,
     doHentSoknader: PropTypes.func,
+    doHentReisetilskuddSoknader: PropTypes.func,
     dohentAlleVedtak: PropTypes.func,
     doHentOppfolging: PropTypes.func,
     doHentSykmeldtinfodata: PropTypes.func,
@@ -183,6 +190,7 @@ export function mapStateToProps(state) {
         'oppfolgingsdialoger',
         'ledetekster',
         'soknader',
+        'reisetilskuddSoknader',
         'vedtak',
         'smSykmeldinger',
     ];
@@ -193,6 +201,7 @@ export function mapStateToProps(state) {
         henter: reducere.reduce((acc, val) => acc || henter(val), false),
         harDialogmote: state.mote.data !== null,
         harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
+        harReisetilskuddSoknader: state.reisetilskuddSoknader.data.length > 0,
         harVedtak: state.vedtak.data.length > 0,
         harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
         skalViseMotebehov: erMotebehovTilgjengelig(state.motebehov),
@@ -221,6 +230,7 @@ const actionCreators = {
     doHentSykeforloepSyfosoknad: hentSykeforloepSyfosoknad,
     doHentSykeforloepMetadata: hentSykeforloepMetadata,
     doHentSoknader: hentSoknader,
+    doHentReisetilskuddSoknader: hentReisetilskuddSoknader,
     dohentAlleVedtak: hentAlleVedtak,
     doHentOppfolging: hentOppfolging,
     doHentSykmeldtinfodata: hentSykmeldtinfodata,

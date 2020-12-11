@@ -35,6 +35,7 @@ describe('LandingssideSide', () => {
     let doHentSykepengesoknader;
     let dohentAlleVedtak;
     let doHentSoknader;
+    let doHentReisetilskuddSoknader;
     let doHentLedere;
     let doHentDineSykmeldinger;
     let doHentSykeforloep;
@@ -61,6 +62,7 @@ describe('LandingssideSide', () => {
         doHentOppfolgingsdialoger = sinon.spy();
         doHentOppfolgingsforlopsPerioder = sinon.spy();
         doHentSoknader = sinon.spy();
+        doHentReisetilskuddSoknader = sinon.spy();
         doHentOppfolging = sinon.spy();
         doHentSykmeldtinfodata = sinon.spy();
         doHentSmSykmeldinger = sinon.spy();
@@ -70,6 +72,9 @@ describe('LandingssideSide', () => {
                 data: [],
             },
             sykepengesoknader: {
+                data: [],
+            },
+            reisetilskuddSoknader: {
                 data: [],
             },
             vedtak: {
@@ -830,259 +835,270 @@ describe('LandingssideSide', () => {
             });
         });
 
-        describe('harVedtak', () => {
-            it('Skal være true hvis bruker har vedtak', () => {
-                state.vedtak.data = [{}];
+        describe('harReisetilskuddSoknader', () => {
+            it('Skal være true hvis bruker har reisetilskuddSoknader', () => {
+                state.reisetilskuddSoknader.data = [{}];
                 const props = mapStateToProps(state);
                 expect(props.harVedtak)
                     .to
                     .equal(true);
             });
 
-            it('Skal være false hvis bruker ikke har vedtak', () => {
-                state.vedtak.data = [];
-                const props = mapStateToProps(state);
-                expect(props.harVedtak)
-                    .to
-                    .equal(false);
+            describe('harVedtak', () => {
+                it('Skal være true hvis bruker har vedtak', () => {
+                    state.vedtak.data = [{}];
+                    const props = mapStateToProps(state);
+                    expect(props.harVedtak)
+                        .to
+                        .equal(true);
+                });
+
+                it('Skal være false hvis bruker ikke har vedtak', () => {
+                    state.vedtak.data = [];
+                    const props = mapStateToProps(state);
+                    expect(props.harVedtak)
+                        .to
+                        .equal(false);
+                });
+
+                it('Skal være false hvis henting av vedtak har feilet', () => {
+                    state.vedtak.hentingFeilet = true;
+                    const props = mapStateToProps(state);
+                    expect(props.harVedtak)
+                        .to
+                        .equal(false);
+                });
             });
 
-            it('Skal være false hvis henting av vedtak har feilet', () => {
-                state.vedtak.hentingFeilet = true;
-                const props = mapStateToProps(state);
-                expect(props.harVedtak)
-                    .to
-                    .equal(false);
-            });
-        });
+            describe('skalViseOppfolgingsdialog', () => {
+                let clock;
+                let getSykmeldingMedTomDato;
+                let utgaattSykmelding;
+                let fremtidigSykmelding;
+                let fremtidigSykmeldingUtenArbeidsgiver;
+                let sykmeldingSomErUtgaattForMindreEnnFireManederSiden;
+                let sykmeldingSomNettoppErUtgaatt;
 
-        describe('skalViseOppfolgingsdialog', () => {
-            let clock;
-            let getSykmeldingMedTomDato;
-            let utgaattSykmelding;
-            let fremtidigSykmelding;
-            let fremtidigSykmeldingUtenArbeidsgiver;
-            let sykmeldingSomErUtgaattForMindreEnnFireManederSiden;
-            let sykmeldingSomNettoppErUtgaatt;
+                beforeEach(() => {
+                    clock = sinon.useFakeTimers(new Date('2018-05-01').getTime());
+                    getSykmeldingMedTomDato = (tomdato) => {
+                        const fom = new Date(tomdato);
+                        fom.setDate(fom.getTime() - 18);
+                        return getSykmelding({
+                            orgnummer: '123',
+                            mulighetForArbeid: {
+                                perioder: [{
+                                    fom,
+                                    tom: tomdato,
+                                }],
+                            },
+                        });
+                    };
 
-            beforeEach(() => {
-                clock = sinon.useFakeTimers(new Date('2018-05-01').getTime());
-                getSykmeldingMedTomDato = (tomdato) => {
-                    const fom = new Date(tomdato);
-                    fom.setDate(fom.getTime() - 18);
-                    return getSykmelding({
+                    utgaattSykmelding = getSykmeldingMedTomDato(new Date('2017-12-22'));
+                    fremtidigSykmelding = getSykmeldingMedTomDato(new Date('2018-06-13'));
+                    fremtidigSykmeldingUtenArbeidsgiver = getSykmeldingMedTomDato(new Date('2018-06-13'));
+                    fremtidigSykmeldingUtenArbeidsgiver.orgnummer = null;
+                    sykmeldingSomErUtgaattForMindreEnnFireManederSiden = getSykmeldingMedTomDato(new Date('2018-01-01'));
+                    sykmeldingSomNettoppErUtgaatt = getSykmeldingMedTomDato(new Date('2017-31-12'));
+                });
+
+                afterEach(() => {
+                    clock.restore();
+                });
+
+                it('Skal være true om vi har en oppfolgingsdialog, men ingen sykmeldinger', () => {
+                    state.oppfolgingsdialoger.data = [{}];
+                    state.dineSykmeldinger.data = [];
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(true);
+                });
+
+                it('Skal være true om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for mindre enn fire måneder siden', () => {
+                    state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomErUtgaattForMindreEnnFireManederSiden];
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(true);
+                });
+
+                it('Skal være false om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for fire måneder og én dag siden', () => {
+                    state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomNettoppErUtgaatt];
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(false);
+                });
+
+                it('Skal være false om det finnes fremtidig sykmelding uten arbeidsgiver', () => {
+                    state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(false);
+                });
+
+                it('Skal være true om det finnes fremtidig sykmelding med arbeidsgiver', () => {
+                    state.dineSykmeldinger.data = [fremtidigSykmelding];
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(true);
+                });
+
+                it('Skal være false om det eksisterer 1 sykmelding uten orgnummer', () => {
+                    state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(false);
+                });
+
+                it('Skal være false om henting av oppfølgingsdialoger har feilet', () => {
+                    state.dineSykmeldinger.data = [{
                         orgnummer: '123',
                         mulighetForArbeid: {
-                            perioder: [{
-                                fom,
-                                tom: tomdato,
-                            }],
+                            perioder: [],
                         },
-                    });
-                };
+                    }];
+                    state.oppfolgingsdialoger.data = [];
+                    state.oppfolgingsdialoger.hentingFeilet = true;
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(false);
+                });
 
-                utgaattSykmelding = getSykmeldingMedTomDato(new Date('2017-12-22'));
-                fremtidigSykmelding = getSykmeldingMedTomDato(new Date('2018-06-13'));
-                fremtidigSykmeldingUtenArbeidsgiver = getSykmeldingMedTomDato(new Date('2018-06-13'));
-                fremtidigSykmeldingUtenArbeidsgiver.orgnummer = null;
-                sykmeldingSomErUtgaattForMindreEnnFireManederSiden = getSykmeldingMedTomDato(new Date('2018-01-01'));
-                sykmeldingSomNettoppErUtgaatt = getSykmeldingMedTomDato(new Date('2017-31-12'));
+                it('Skal være false om henting av sykmeldinger har feilet', () => {
+                    state.dineSykmeldinger.data = [];
+                    state.dineSykmeldinger.hentingFeilet = true;
+                    state.oppfolgingsdialoger.data = [{}];
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(false);
+                });
+
+                it('Skal være false om henting av ledere har feilet', () => {
+                    state.dineSykmeldinger.data = [fremtidigSykmelding];
+                    state.oppfolgingsdialoger.data = [{}];
+                    state.ledere.hentingFeilet = true;
+                    const props = mapStateToProps(state);
+                    expect(props.skalViseOppfolgingsdialog)
+                        .to
+                        .equal(false);
+                });
             });
 
-            afterEach(() => {
-                clock.restore();
+            describe('hentingFeilet', () => {
+                it('Skal være false om henting av ledetekster var vellykket', () => {
+                    state.ledetekster.hentingFeilet = false;
+                    const props = mapStateToProps(state);
+                    expect(props.hentingFeilet)
+                        .to
+                        .equal(false);
+                });
+
+                it('Skal være false om henting av ledetekster feilet', () => {
+                    state.ledetekster.hentingFeilet = true;
+                    const props = mapStateToProps(state);
+                    expect(props.hentingFeilet)
+                        .to
+                        .equal(true);
+                });
             });
 
-            it('Skal være true om vi har en oppfolgingsdialog, men ingen sykmeldinger', () => {
-                state.oppfolgingsdialoger.data = [{}];
-                state.dineSykmeldinger.data = [];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(true);
-            });
+            describe('redirect etter innlogging', () => {
+                it('Redirecter om en url er satt i localStorage', () => {
+                    _localStorage.setItem(REDIRECT_ETTER_LOGIN, 'https://tjenester.nav.no/sykefravaer');
 
-            it('Skal være true om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for mindre enn fire måneder siden', () => {
-                state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomErUtgaattForMindreEnnFireManederSiden];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(true);
-            });
+                    const spy = sinon.spy();
+                    router.browserHistory = { push: spy };
 
-            it('Skal være false om vi har ingen oppfolgingsdialogerSagas, men en sykmelding som gikk ut for fire måneder og én dag siden', () => {
-                state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomNettoppErUtgaatt];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(false);
-            });
+                    const props = mapStateToProps(deepFreeze(state));
+                    shallow(<Container
+                        {...props}
+                        doHentMote={doHentMote}
+                        doHentMotebehov={doHentMotebehov}
+                        doHentSykepengesoknader={doHentSykepengesoknader}
+                        dohentAlleVedtak={dohentAlleVedtak}
+                        doHentSoknader={doHentSoknader}
+                        doHentLedere={doHentLedere}
+                        doHentDineSykmeldinger={doHentDineSykmeldinger}
+                        doHentSykeforloep={doHentSykeforloep}
+                        doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
+                        doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                        doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                        doHentOppfolging={doHentOppfolging}
+                        doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                        doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                        doHentSmSykmeldinger={doHentSmSykmeldinger} />);
 
-            it('Skal være false om det finnes fremtidig sykmelding uten arbeidsgiver', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(false);
-            });
+                    expect(spy.withArgs('https://tjenester.nav.no/sykefravaer').calledOnce).to.equal(true);
+                });
 
-            it('Skal være true om det finnes fremtidig sykmelding med arbeidsgiver', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmelding];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(true);
-            });
+                it('Redirecter ikke om en url ikke er satt i localStorage', () => {
+                    _localStorage.setItem(REDIRECT_ETTER_LOGIN, undefined);
 
-            it('Skal være false om det eksisterer 1 sykmelding uten orgnummer', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(false);
-            });
+                    const spy = sinon.spy();
+                    router.browserHistory = { push: spy };
 
-            it('Skal være false om henting av oppfølgingsdialoger har feilet', () => {
-                state.dineSykmeldinger.data = [{
-                    orgnummer: '123',
-                    mulighetForArbeid: {
-                        perioder: [],
-                    },
-                }];
-                state.oppfolgingsdialoger.data = [];
-                state.oppfolgingsdialoger.hentingFeilet = true;
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(false);
-            });
+                    const props = mapStateToProps(deepFreeze(state));
+                    shallow(<Container
+                        {...props}
+                        doHentMote={doHentMote}
+                        doHentMotebehov={doHentMotebehov}
+                        doHentSykepengesoknader={doHentSykepengesoknader}
+                        dohentAlleVedtak={dohentAlleVedtak}
+                        doHentSoknader={doHentSoknader}
+                        doHentLedere={doHentLedere}
+                        doHentDineSykmeldinger={doHentDineSykmeldinger}
+                        doHentSykeforloep={doHentSykeforloep}
+                        doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
+                        doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                        doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                        doHentOppfolging={doHentOppfolging}
+                        doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                        doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                        doHentSmSykmeldinger={doHentSmSykmeldinger} />);
 
-            it('Skal være false om henting av sykmeldinger har feilet', () => {
-                state.dineSykmeldinger.data = [];
-                state.dineSykmeldinger.hentingFeilet = true;
-                state.oppfolgingsdialoger.data = [{}];
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(false);
-            });
+                    expect(spy.withArgs('https://tjenester.nav.no/sykefravaer').notCalled).to.equal(true);
+                });
 
-            it('Skal være false om henting av ledere har feilet', () => {
-                state.dineSykmeldinger.data = [fremtidigSykmelding];
-                state.oppfolgingsdialoger.data = [{}];
-                state.ledere.hentingFeilet = true;
-                const props = mapStateToProps(state);
-                expect(props.skalViseOppfolgingsdialog)
-                    .to
-                    .equal(false);
-            });
-        });
+                it('Redirecter ikke om url som er satt i localStorage ikke inneholder sykefravaer', () => {
+                    _localStorage.setItem(REDIRECT_ETTER_LOGIN, 'www.vg.no');
 
-        describe('hentingFeilet', () => {
-            it('Skal være false om henting av ledetekster var vellykket', () => {
-                state.ledetekster.hentingFeilet = false;
-                const props = mapStateToProps(state);
-                expect(props.hentingFeilet)
-                    .to
-                    .equal(false);
-            });
+                    const spy = sinon.spy();
+                    router.browserHistory = { push: spy };
 
-            it('Skal være false om henting av ledetekster feilet', () => {
-                state.ledetekster.hentingFeilet = true;
-                const props = mapStateToProps(state);
-                expect(props.hentingFeilet)
-                    .to
-                    .equal(true);
-            });
-        });
+                    const props = mapStateToProps(deepFreeze(state));
+                    shallow(<Container
+                        {...props}
+                        doHentMote={doHentMote}
+                        doHentMotebehov={doHentMotebehov}
+                        doHentSykepengesoknader={doHentSykepengesoknader}
+                        dohentAlleVedtak={dohentAlleVedtak}
+                        doHentSoknader={doHentSoknader}
+                        doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
+                        doHentLedere={doHentLedere}
+                        doHentDineSykmeldinger={doHentDineSykmeldinger}
+                        doHentSykeforloep={doHentSykeforloep}
+                        doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
+                        doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                        doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                        doHentOppfolging={doHentOppfolging}
+                        doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                        doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                        doHentSmSykmeldinger={doHentSmSykmeldinger} />);
 
-        describe('redirect etter innlogging', () => {
-            it('Redirecter om en url er satt i localStorage', () => {
-                _localStorage.setItem(REDIRECT_ETTER_LOGIN, 'https://tjenester.nav.no/sykefravaer');
-
-                const spy = sinon.spy();
-                router.browserHistory = { push: spy };
-
-                const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container
-                    {...props}
-                    doHentMote={doHentMote}
-                    doHentMotebehov={doHentMotebehov}
-                    doHentSykepengesoknader={doHentSykepengesoknader}
-                    dohentAlleVedtak={dohentAlleVedtak}
-                    doHentSoknader={doHentSoknader}
-                    doHentLedere={doHentLedere}
-                    doHentDineSykmeldinger={doHentDineSykmeldinger}
-                    doHentSykeforloep={doHentSykeforloep}
-                    doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
-                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
-                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
-                    doHentOppfolging={doHentOppfolging}
-                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
-                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
-                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
-
-                expect(spy.withArgs('https://tjenester.nav.no/sykefravaer').calledOnce).to.equal(true);
-            });
-
-            it('Redirecter ikke om en url ikke er satt i localStorage', () => {
-                _localStorage.setItem(REDIRECT_ETTER_LOGIN, undefined);
-
-                const spy = sinon.spy();
-                router.browserHistory = { push: spy };
-
-                const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container
-                    {...props}
-                    doHentMote={doHentMote}
-                    doHentMotebehov={doHentMotebehov}
-                    doHentSykepengesoknader={doHentSykepengesoknader}
-                    dohentAlleVedtak={dohentAlleVedtak}
-                    doHentSoknader={doHentSoknader}
-                    doHentLedere={doHentLedere}
-                    doHentDineSykmeldinger={doHentDineSykmeldinger}
-                    doHentSykeforloep={doHentSykeforloep}
-                    doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
-                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
-                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
-                    doHentOppfolging={doHentOppfolging}
-                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
-                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
-                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
-
-                expect(spy.withArgs('https://tjenester.nav.no/sykefravaer').notCalled).to.equal(true);
-            });
-
-            it('Redirecter ikke om url som er satt i localStorage ikke inneholder sykefravaer', () => {
-                _localStorage.setItem(REDIRECT_ETTER_LOGIN, 'www.vg.no');
-
-                const spy = sinon.spy();
-                router.browserHistory = { push: spy };
-
-                const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container
-                    {...props}
-                    doHentMote={doHentMote}
-                    doHentMotebehov={doHentMotebehov}
-                    doHentSykepengesoknader={doHentSykepengesoknader}
-                    dohentAlleVedtak={dohentAlleVedtak}
-                    doHentSoknader={doHentSoknader}
-                    doHentLedere={doHentLedere}
-                    doHentDineSykmeldinger={doHentDineSykmeldinger}
-                    doHentSykeforloep={doHentSykeforloep}
-                    doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
-                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
-                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
-                    doHentOppfolging={doHentOppfolging}
-                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
-                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
-                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
-
-                expect(spy.withArgs('www.vg.no').notCalled).to.equal(true);
+                    expect(spy.withArgs('www.vg.no').notCalled).to.equal(true);
+                });
             });
         });
-    });
-    afterEach(() => {
-        global.window = _originalWindow;
+        afterEach(() => {
+            global.window = _originalWindow;
+        });
     });
 });

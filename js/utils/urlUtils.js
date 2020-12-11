@@ -19,6 +19,26 @@ export const getSykepengesoknadUrl = (soknadId) => {
     return `${getSykepengesoknaderUrl()}/soknader/${soknadId}`;
 };
 
+export const getReisetilskuddSoknaderUrl = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    if (url.indexOf('tjenester.nav') > -1) {
+        // prod
+        return 'https://www.nav.no/syk/reisetilskudd';
+    } if (erNaisLabsDemo()) {
+        // Nais labs
+        return 'https://reisetilskudd.labs.nais.io/syk/reisetilskudd';
+    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+        // docker-compose
+        return 'http://localhost:4115/syk/reisetilskudd';
+    }
+    // preprod
+    return 'https://www-gcp.dev.nav.no/syk/reisetilskudd';
+};
+
 export const getBehandledeSoknaderUrl = () => {
     const url = window
     && window.location

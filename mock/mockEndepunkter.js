@@ -11,6 +11,7 @@ const mockVeilarboppfolging = require('./mockVeilarboppfolging');
 const mockVeilarbregistrering = require('./mockVeilarbregistrering');
 const mockSmSykmeldinger = require('./mockSmSykmeldinger');
 const mockSpinnsynBackend = require('./mockSpinnsynBackend');
+const mockReisetilskuddBackend = require('./mockReisetilskuddBackend');
 const mockRegistrerEgenSykmelding = require('./mockEgenSykmelding');
 const mockSykmeldingerBackend = require('./mockSykmeldingerBackend');
 
@@ -39,6 +40,7 @@ function mockEndepunkter(server, erLokal) {
         mockVeilarbregistrering,
         mockSmSykmeldinger,
         mockSpinnsynBackend,
+        mockReisetilskuddBackend,
         mockRegistrerEgenSykmelding,
         mockSykmeldingerBackend,
     ].forEach((func) => {

@@ -118,6 +118,7 @@ describe('LandingssideSide', () => {
                     doHentMote={doHentMote}
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
@@ -173,6 +174,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -226,6 +228,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -279,6 +282,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -323,6 +327,60 @@ describe('LandingssideSide', () => {
             });
         });
 
+        describe('Reisetilskuddsøknader', () => {
+            it('Skal hente reisetilskuddsøknader dersom vedtak ikke er hentet', () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<Container
+                    {...props}
+                    doHentMote={doHentMote}
+                    doHentMotebehov={doHentMotebehov}
+                    doHentSykepengesoknader={doHentSykepengesoknader}
+                    dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
+                    doHentSoknader={doHentSoknader}
+                    doHentLedere={doHentLedere}
+                    doHentDineSykmeldinger={doHentDineSykmeldinger}
+                    doHentSykeforloep={doHentSykeforloep}
+                    doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
+                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
+                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
+                    doHentOppfolging={doHentOppfolging}
+                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
+                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
+                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
+                expect(doHentReisetilskuddSoknader.calledOnce)
+                    .to
+                    .equal(true);
+                expect(props.henter)
+                    .to
+                    .equal(false);
+            });
+
+            it('Skal sette henter dersom reisetilskuddsøknader er hentet', () => {
+                state.reisetilskuddSoknader.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter)
+                    .to
+                    .equal(false);
+            });
+
+            it('Skal sette henter reisetilskuddsøknader hentes nå', () => {
+                state.reisetilskuddSoknader.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter)
+                    .to
+                    .equal(true);
+            });
+
+            it('Skal sette henter dersom henting av reisetilskuddsøknader har feilet', () => {
+                state.reisetilskuddSoknader.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter)
+                    .to
+                    .equal(false);
+            });
+        });
+
         describe('Søknader', () => {
             it('Skal hente søknader dersom søknader ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
@@ -331,6 +389,7 @@ describe('LandingssideSide', () => {
                     doHentMote={doHentMote}
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
@@ -385,6 +444,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -413,6 +473,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -441,6 +502,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -468,6 +530,7 @@ describe('LandingssideSide', () => {
                     doHentMote={doHentMote}
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
@@ -498,6 +561,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -551,6 +615,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -580,6 +645,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -633,6 +699,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -661,6 +728,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -689,6 +757,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -718,6 +787,7 @@ describe('LandingssideSide', () => {
                     doHentMotebehov={doHentMotebehov}
                     doHentSykepengesoknader={doHentSykepengesoknader}
                     dohentAlleVedtak={dohentAlleVedtak}
+                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                     doHentSoknader={doHentSoknader}
                     doHentLedere={doHentLedere}
                     doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -839,7 +909,7 @@ describe('LandingssideSide', () => {
             it('Skal være true hvis bruker har reisetilskuddSoknader', () => {
                 state.reisetilskuddSoknader.data = [{}];
                 const props = mapStateToProps(state);
-                expect(props.harVedtak)
+                expect(props.harReisetilskuddSoknader)
                     .to
                     .equal(true);
             });
@@ -1024,6 +1094,7 @@ describe('LandingssideSide', () => {
                         doHentMotebehov={doHentMotebehov}
                         doHentSykepengesoknader={doHentSykepengesoknader}
                         dohentAlleVedtak={dohentAlleVedtak}
+                        doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                         doHentSoknader={doHentSoknader}
                         doHentLedere={doHentLedere}
                         doHentDineSykmeldinger={doHentDineSykmeldinger}
@@ -1052,6 +1123,7 @@ describe('LandingssideSide', () => {
                         doHentMotebehov={doHentMotebehov}
                         doHentSykepengesoknader={doHentSykepengesoknader}
                         dohentAlleVedtak={dohentAlleVedtak}
+                        doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
                         doHentSoknader={doHentSoknader}
                         doHentLedere={doHentLedere}
                         doHentDineSykmeldinger={doHentDineSykmeldinger}

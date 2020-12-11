@@ -24,13 +24,13 @@ describe('reisetilskuddSoknader', () => {
 
     describe('henter', () => {
         it('Håndterer henter', () => {
-            const action = actions.hentReisetilskuddSoknader();
+            const action = actions.henterReisetilskuddSoknader();
             const initState = reisetilskuddSoknader();
             const state = reisetilskuddSoknader(deepFreeze(initState), action);
             expect(state.henter).to.equal(true);
         });
 
-        it('Håndterer hentVedtakFeilet', () => {
+        it('Håndterer hentReisetilskuddSoknaderFeilet', () => {
             const action = actions.hentReisetilskuddSoknaderFeilet();
             const initState = reisetilskuddSoknader();
             const state = reisetilskuddSoknader(deepFreeze(initState), action);
@@ -39,7 +39,7 @@ describe('reisetilskuddSoknader', () => {
             expect(state.hentet).to.equal(true);
         });
 
-        it('Håndterer alleVedtakHentet', () => {
+        it('Håndterer reisetilskuddSoknaderHentet', () => {
             const state = getStateMedDataHentet();
             expect(state.hentingFeilet).to.equal(false);
             expect(state.henter).to.equal(false);

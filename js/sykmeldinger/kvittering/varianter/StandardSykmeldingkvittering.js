@@ -2,7 +2,6 @@ import React from 'react';
 import { sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import BjornMedUndersokelse from '../felles/BjornMedUndersokelse';
 
 const StandardSykmeldingkvittering = (props) => {
     const { tittel, brodtekst, status } = props;
@@ -12,18 +11,15 @@ const StandardSykmeldingkvittering = (props) => {
         'illustrertTittel__img--mikro': status === sykmeldingstatuser.AVBRUTT,
     });
     return (
-        <React.Fragment>
-            <div className="panel blokk js-kvittering js-kvittering--standard">
-                <div className="illustrertTittel">
-                    <img className={ikonKlasser} src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${ikon}`} alt="" />
-                    <h2 className="illustrertTittel__tittel">
-                        {tittel}
-                    </h2>
-                </div>
-                <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={brodtekst} />
+        <div className="panel blokk js-kvittering js-kvittering--standard">
+            <div className="illustrertTittel">
+                <img className={ikonKlasser} src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${ikon}`} alt="" />
+                <h2 className="illustrertTittel__tittel">
+                    {tittel}
+                </h2>
             </div>
-            <BjornMedUndersokelse />
-        </React.Fragment>
+            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={brodtekst} />
+        </div>
     );
 };
 

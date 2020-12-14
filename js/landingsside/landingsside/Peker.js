@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const Peker = ({
-    ekstern, to, tittel, undertittel, ikon, ikonAlt, onClick,
+    ekstern, to, tittel, undertittel, ikon, ikonAlt, onClick, ikonStyling, ikonHoverStyling,
 }) => {
     const Tag = ekstern ? 'a' : Link;
     return (
@@ -14,12 +14,12 @@ const Peker = ({
             onClick={onClick}>
             <div className="peker__ikon">
                 <img
-                    className="peker__ikonBilde peker__ikonBilde--standard"
+                    className={ikonStyling ? `${ikonStyling}` : 'peker__ikonBilde peker__ikonBilde--standard'}
                     src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${ikon}.svg`}
                     alt={ikonAlt}
                 />
                 <img
-                    className="peker__ikonBilde peker__ikonBilde--hover"
+                    className={ikonStyling ? `${ikonHoverStyling}` : 'peker__ikonBilde peker__ikonBilde--hover'}
                     src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/${ikon}_hover.svg`}
                     alt={ikonAlt}
                 />
@@ -40,6 +40,8 @@ Peker.propTypes = {
     ekstern: PropTypes.bool,
     undertittel: PropTypes.string,
     onClick: PropTypes.func,
+    ikonStyling: PropTypes.func,
+    ikonHoverStyling: PropTypes.func,
 };
 
 export default Peker;

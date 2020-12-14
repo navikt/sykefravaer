@@ -107,6 +107,8 @@ const Landingsside = ({
                                     to={getReisetilskuddSoknaderUrl()}
                                     ikon="transport"
                                     ikonAlt="transport"
+                                    ikonStyling="peker__ikonTilpasset peker__ikonTilpasset--standard"
+                                    ikonHoverStyling="peker__ikonHoverTilpasset peker__ikonTilpasset--hover"
                                     tittel="Søknader om reisetilskudd" />
                             );
                         }} />

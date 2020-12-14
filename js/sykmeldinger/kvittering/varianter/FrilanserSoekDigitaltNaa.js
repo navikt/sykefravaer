@@ -2,7 +2,6 @@ import React from 'react';
 import { getLedetekst } from '@navikt/digisyfo-npm';
 import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from '../felles/Kvitteringsteg';
 import { getSykepengesoknaderUrl } from '../../../utils/urlUtils';
-import BjornMedUndersokelse from '../felles/BjornMedUndersokelse';
 
 export const FrilanserSelvstendigKvitteringstegEn = () => {
     return (
@@ -19,30 +18,27 @@ export const FrilanserSelvstendigKvitteringstegEn = () => {
 
 export default () => {
     return (
-        <React.Fragment>
-            <div className="panel blokk js-kvittering js-kvittering--sok-naa-frilanser">
-                <StegvisKvittering>
-                    <FrilanserSelvstendigKvitteringstegEn />
-                    <Kvitteringsteg
-                        nummer="2"
-                        aktiv
-                        tittel={getLedetekst('bekreft-sykmelding.kvittering.sok-na.steg-2.tittel')}>
-                        <HtmlAvsnitt
-                            tag="div"
-                            nokkel="bekreft-sykmelding.kvittering.sok-na.steg-2.tekst" />
-                        <p className="kvitteringsteg__handling">
-                            <a
-                                href={getSykepengesoknaderUrl()}
-                                className="js-sok knapp knapp--mini">
-                                {getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}
-                            </a>
-                        </p>
-                        <HtmlAvsnitt
-                            nokkel="sykmelding.kvittering.sok-na.papir.tekst" />
-                    </Kvitteringsteg>
-                </StegvisKvittering>
-            </div>
-            <BjornMedUndersokelse />
-        </React.Fragment>
+        <div className="panel blokk js-kvittering js-kvittering--sok-naa-frilanser">
+            <StegvisKvittering>
+                <FrilanserSelvstendigKvitteringstegEn />
+                <Kvitteringsteg
+                    nummer="2"
+                    aktiv
+                    tittel={getLedetekst('bekreft-sykmelding.kvittering.sok-na.steg-2.tittel')}>
+                    <HtmlAvsnitt
+                        tag="div"
+                        nokkel="bekreft-sykmelding.kvittering.sok-na.steg-2.tekst" />
+                    <p className="kvitteringsteg__handling">
+                        <a
+                            href={getSykepengesoknaderUrl()}
+                            className="js-sok knapp knapp--mini">
+                            {getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}
+                        </a>
+                    </p>
+                    <HtmlAvsnitt
+                        nokkel="sykmelding.kvittering.sok-na.papir.tekst" />
+                </Kvitteringsteg>
+            </StegvisKvittering>
+        </div>
     );
 };

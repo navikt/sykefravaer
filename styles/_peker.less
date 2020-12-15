@@ -50,6 +50,15 @@
   display: none;
 }
 
+.peker__ikonTilpasset {
+  width: 3rem;
+  height: 3rem;
+}
+
+.peker__ikonHoverTilpasset {
+  display: none;
+}
+
 .peker__tittel {
   .typo-undertittel-mixin();
 }
@@ -89,8 +98,18 @@
     display: flex;
   }
 
+  .peker__ikonTilpasset {
+    width: 3rem;
+    height: 3rem;
+  }
+
   .peker__ikonBilde--hover {
     display: none;
+  }
+
+  .peker__ikonTilpasset--hover {
+    width: 3rem;
+    height: 3rem;
   }
 
   .peker:hover {
@@ -100,6 +119,14 @@
     }
 
     .peker__ikonBilde--hover {
+      display: flex;
+    }
+
+    .peker__ikonTilpasset--standard {
+      display: none;
+    }
+
+    .peker__ikonTilpasset--hover {
       display: flex;
     }
 

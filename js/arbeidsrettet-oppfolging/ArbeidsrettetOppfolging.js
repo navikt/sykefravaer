@@ -12,6 +12,7 @@ import Forsikring from './Forsikring';
 import HvaKanDuGjoreNa from './HvaKanDuGjoreNa';
 import { pushToDataAOLayer } from './pushToAODataLayer';
 import HotjarTrigger from '../components/HotjarTrigger';
+import SidebannerLiten from '../components/SidebannerLiten';
 
 class ArbeidsrettetOppfolging extends Component {
     componentDidMount() {
@@ -29,7 +30,7 @@ class ArbeidsrettetOppfolging extends Component {
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('ao.sidetittel'),
+            tittel: 'Varsling',
         }];
         const hotjarTrigger = underOppfolging
             ? 'ARBEIDSRETTET_OPPFOLGING_UNDER_OPPFOLGING'
@@ -37,6 +38,7 @@ class ArbeidsrettetOppfolging extends Component {
 
         return (
             <HotjarTrigger hotjarTrigger={hotjarTrigger}>
+                <SidebannerLiten />
                 <div className="begrensning begrensning--bred brodsmulerWrapper">
                     <Brodsmuler brodsmuler={brodsmuler} />
                 </div>

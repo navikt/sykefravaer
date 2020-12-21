@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ArbeidsrettetOppfolgingRad = ({ tittel, children }) => {
     return (
         <div className="arbeidsrettetOppfolgingRad">
-            { tittel && <h2 className="panel__tittel">{tittel}</h2> }
+            { tittel && <h2 className="panel__tittel arbeidsrettetOppfolgingRad__tittel">{tittel}</h2> }
             {children}
         </div>
     );

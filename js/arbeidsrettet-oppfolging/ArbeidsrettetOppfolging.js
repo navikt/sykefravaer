@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from '@navikt/digisyfo-npm';
+import { Sidetittel, Undertittel, Normaltekst } from 'nav-frontend-typografi';
+import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import Sidetopp from '../components/Sidetopp';
 import Brodsmuler from '../components/Brodsmuler';
 import HarAlleredeOppfolgingAlertstripe from './HarAlleredeOppfolgingAlertstripe';
@@ -36,13 +38,43 @@ class ArbeidsrettetOppfolging extends Component {
             ? 'ARBEIDSRETTET_OPPFOLGING_UNDER_OPPFOLGING'
             : 'ARBEIDSRETTET_OPPFOLGING_IKKE_UNDER_OPPFOLGING';
 
+
+        // TODO: Get arbeidsgiver status
+        const harArbeidsgiver = false;
+
         return (
             <HotjarTrigger hotjarTrigger={hotjarTrigger}>
                 <SidebannerLiten />
                 <div className="begrensning begrensning--bred brodsmulerWrapper">
                     <Brodsmuler brodsmuler={brodsmuler} />
                 </div>
-                <div className="begrensning begrensning--bred begrensning--hvit">
+                <div className="begrensning begrensning--bred">
+                    <div style={{ marginBottom: '3rem' }}>
+                        <Bjorn>
+                            <Normaltekst>
+                        Det begynner å nærme seg datoen du ikke lenger kan få sykepenger. Tror du at du snart er tilbake i jobb, eller vil du trenge noe mer fra NAV? Her kan du se hvilke muligheter du har.
+                            </Normaltekst>
+                        </Bjorn>
+                    </div>
+
+                    <HvaKanDuGjoreNa harArbeidsgiver={harArbeidsgiver} />
+
+                    <h2 className="panel__tittel">Andre muligheter</h2>
+                </div>
+            </HotjarTrigger>
+        );
+    }
+}
+
+ArbeidsrettetOppfolging.propTypes = {
+    underOppfolging: PropTypes.bool,
+    maksDato: PropTypes.string,
+};
+
+export default ArbeidsrettetOppfolging;
+
+/*
+<div className="begrensning begrensning--bred begrensning--hvit">
                     <div className="arbeidsrettetOppfolging">
                         { underOppfolging ? <HarAlleredeOppfolgingAlertstripe /> : null }
                         <Sidetopp
@@ -56,14 +88,4 @@ class ArbeidsrettetOppfolging extends Component {
                         <Forsikring />
                     </div>
                 </div>
-            </HotjarTrigger>
-        );
-    }
-}
-
-ArbeidsrettetOppfolging.propTypes = {
-    underOppfolging: PropTypes.bool,
-    maksDato: PropTypes.string,
-};
-
-export default ArbeidsrettetOppfolging;
+                */

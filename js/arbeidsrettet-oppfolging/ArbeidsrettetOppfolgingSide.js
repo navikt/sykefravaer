@@ -29,7 +29,7 @@ class ArbeidsrettetOppfolgingSide extends Component {
             henter, hentingFeilet, underOppfolging, maksDatoString,
         } = this.props;
         return (
-            <Side tittel={getLedetekst('ao.sidetittel')} laster={henter}>
+            <Side hvit tittel={getLedetekst('ao.sidetittel')} laster={henter}>
                 {
                     (() => {
                         if (henter) {

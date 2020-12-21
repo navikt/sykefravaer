@@ -39,6 +39,7 @@ import {
 import { selectHarMerVeiledningHendelse } from '../data/hendelser/hendelser';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
+import { selectSykepengerVarsel } from '../../data/sykepengerVarsel/sykepengerVarselSelectors';
 
 const Li = ({ tekst, url, img, imgAlt }) => {
     return (
@@ -182,6 +183,7 @@ const RendreOppgaver = ({
     visOppgaver,
     mote,
     visMerVeiledingHendelse,
+    visSykepengerVarsel,
     avventendeGodkjenninger,
     harNyttMotebehov,
     nyePlaner,
@@ -224,7 +226,7 @@ const RendreOppgaver = ({
                             tekst={getLedetekst('dine-oppgaver.mote.svar')}
                         />
                     )}
-                    {visMerVeiledingHendelse && (
+                    {visSykepengerVarsel && (
                         <Li
                             url={`${process.env.REACT_APP_CONTEXT_ROOT}/arbeidsrettet-oppfolging`}
                             tekst={getLedetekst('ao.oppgave.inngangstekst')}
@@ -262,6 +264,7 @@ RendreOppgaver.propTypes = {
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     visMerVeiledingHendelse: PropTypes.bool,
+    visSykepengerVarsel: PropTypes.bool,
     visAktivitetskrav: PropTypes.bool,
     avvisteSmSykmeldinger: smSykmeldingerPt,
 };
@@ -357,6 +360,7 @@ export const mapStateToProps = (state) => {
         visOppgaver,
         mote: moteRes,
         visMerVeiledingHendelse: selectHarMerVeiledningHendelse(state),
+        visSykepengerVarsel: selectSykepengerVarsel(state),
         avventendeGodkjenninger:
       _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,

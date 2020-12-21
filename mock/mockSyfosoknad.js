@@ -232,6 +232,10 @@ function mockSyfosoknadOpplaringsmiljoOgLokalt(server) {
             oppfolgingsdato: '2018-05-01',
         }]);
     });
+
+    server.get('/syfosoknad-proxy/api/syfosyketilfelle/39ukersvarsel', (req, res) => {
+        res.json(true);
+    });
 }
 
 const mockSyfosoknad = (server, erLokal) => {

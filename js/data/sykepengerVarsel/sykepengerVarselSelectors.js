@@ -6,4 +6,4 @@ export const skalHenteSykepengerVarsel = (state) => {
 
 export const selectSykepengerVarsel = (state) => {
     return state.sykepengerVarsel.data;
-}
+};

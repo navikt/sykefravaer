@@ -38,7 +38,7 @@ function* watchHentSykepengerVarsel() {
     yield takeEvery(HENT_SYKEPENGERVARSEL_FORESPURT, hentSykepengerVarsel);
 }
 
-export default function* sykepengervarselSagas() {
+export default function* sykepengerVarselSagas() {
     yield all([
         fork(watchHentSykepengerVarsel),
     ]);

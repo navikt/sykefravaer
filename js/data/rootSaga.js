@@ -22,7 +22,7 @@ import sykeforloepSyfosoknadSagas from './sykeforloep-syfosoknad/sykeforloepSyfo
 import sykmeldingMetaSagas from '../sykmeldinger/data/sykmelding-meta/sykmeldingMetaSagas';
 import sykeforloepMetadataSagas from './sykeforloep-metadata/sykeforloepMetadataSagas';
 import soknaderSagas from './soknader/soknaderSagas';
-import sykepengervarselSagas from './sykepengerVarsel/sykepengervarselSagas';
+import sykepengerVarselSagas from './sykepengerVarsel/sykepengerVarselSagas';
 import unleashTogglesSagas from './unleash-toggles/unleashTogglesSagas';
 import metrikkerSagas from './metrikker/metrikkerSagas';
 import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialogerSagas';
@@ -56,7 +56,7 @@ export default function* rootSaga() {
         sykeforloepSyfosoknadSagas(),
         sykmeldingMetaSagas(),
         soknaderSagas(),
-        sykepengervarselSagas(),
+        sykepengerVarselSagas(),
         unleashTogglesSagas(),
         metrikkerSagas(),
         oppfolgingsdialogerSagas(),

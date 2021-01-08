@@ -15,6 +15,7 @@ export function* hentSykepengerVarsel() {
         yield put(actions.sykepengerVarselHentet(data));
     } catch (e) {
         log(e);
+        yield put(actions.hentSykepengerVarselFeilet());
         logger.error(`Kunne ikke hente status på sykepengervarsel fra syfosyketilfelle. URL: ${window.location.href} - ${e.message}`);
     }
 }

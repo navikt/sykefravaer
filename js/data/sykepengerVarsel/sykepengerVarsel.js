@@ -2,7 +2,6 @@ import {
     HENT_SYKEPENGERVARSEL_FORESPURT,
     SYKEPENGERVARSEL_HENTET,
     HENTER_SYKEPENGEVARSEL,
-    HENT_SYKEPENGERVARSEL_FEILET,
 } from './sykepengerVarselActionTyper';
 
 const initiellState = {
@@ -22,19 +21,11 @@ export default (state = initiellState, action = {}) => {
                 hentingFeilet: false,
             };
         }
-        case HENT_SYKEPENGERVARSEL_FEILET: {
-            return {
-                data: action.data,
-                hentet: false,
-                henter: false,
-                hentingFeilet: false,
-            };
-        }
         case HENTER_SYKEPENGEVARSEL: {
             return {
                 data: action.data,
                 hentet: false,
-                henter: false,
+                henter: true,
                 hentingFeilet: false,
             };
         }

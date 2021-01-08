@@ -5,7 +5,6 @@ import { log } from '@navikt/digisyfo-npm';
 import { get, hentApiUrl } from '../gateway-api/index';
 import * as actions from './sykepengerVarselActions';
 import logger from '../../logging';
-import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 import {
     HENT_SYKEPENGERVARSEL_FORESPURT,
 } from './sykepengerVarselActionTyper';
@@ -18,12 +17,8 @@ export function* hentSykepengerVarsel() {
         yield put(actions.sykepengerVarselHentet(data));
     } catch (e) {
         log(e);
-        if (e.message === MANGLER_OIDC_TOKEN) {
-            yield put(actions.henterSykepengerVarsel());
-        } else {
-            logger.error(`Kunne ikke hente status på sykepengervarsel fra syfosoknad. URL: ${window.location.href} - ${e.message}`);
-            yield put(actions.hentSykepengerVarselFeilet());
-        }
+        logger.error(`Kunne ikke hente status på sykepengervarsel fra syfosoknad. URL: ${window.location.href} - ${e.message}`);
+        yield put(actions.hentSykepengerVarselFeilet());
     }
 }
 

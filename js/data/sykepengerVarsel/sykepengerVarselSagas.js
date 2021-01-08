@@ -11,14 +11,12 @@ import {
 import { skalHenteSykepengerVarsel } from './sykepengerVarselSelectors';
 
 export function* hentSykepengerVarsel() {
-    yield put(actions.henterSykepengerVarsel());
     try {
         const data = yield call(get, `${hentApiUrl()}/syfosyketilfelle/39ukersvarsel`);
         yield put(actions.sykepengerVarselHentet(data));
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke hente status på sykepengervarsel fra syfosoknad. URL: ${window.location.href} - ${e.message}`);
-        yield put(actions.hentSykepengerVarselFeilet());
+        logger.error(`Kunne ikke hente status på sykepengervarsel fra syfosyketilfelle. URL: ${window.location.href} - ${e.message}`);
     }
 }
 

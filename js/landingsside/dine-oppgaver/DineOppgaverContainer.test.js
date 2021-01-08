@@ -78,6 +78,9 @@ describe('DineOppgaverComponent', () => {
                 soknader: {
                     data: [],
                 },
+                sykepengerVarsel: {
+                    data: null,
+                },
                 smSykmeldinger: smSykmeldinger(),
             };
         });

@@ -24,23 +24,32 @@ Tiltak.propTypes = {
     bildeAlt: PropTypes.string,
 };
 
-const HvaKanDuGjoreNa = () => {
+const HvaKanDuGjoreNa = ({ harArbeidsgiver }) => {
     return (
         <ArbeidsrettetOppfolgingRad tittel={getLedetekst('ao.hva-na.tittel')}>
-            <Tiltak
-                ledetekstNokkel="snakk-med-arbeidsgiver"
-                bildeAlt="Arbeidsgiver"
-                bilde={hentArbeidsrettetOppfolgingBilde('arbeidsgiver.svg')} />
-            <Tiltak
-                ledetekstNokkel="aktivitetsplan"
-                bildeAlt="Dialog"
-                bilde={hentArbeidsrettetOppfolgingBilde('dialog.svg')} />
+            {harArbeidsgiver
+            && (
+                <Tiltak
+                    ledetekstNokkel="snakk-med-arbeidsgiver"
+                    bildeAlt="Arbeidsgiver"
+                    bilde={hentArbeidsrettetOppfolgingBilde('arbeidsgiver.svg')} />
+            )}
+            {!harArbeidsgiver && (
+                <Tiltak
+                    ledetekstNokkel="aktivitetsplan"
+                    bildeAlt="Dialog"
+                    bilde={hentArbeidsrettetOppfolgingBilde('dialog.svg')} />
+            )}
             <Tiltak
                 ledetekstNokkel="okonomi"
                 bildeAlt="Økonomi"
                 bilde={hentArbeidsrettetOppfolgingBilde('okonomi.svg')} />
         </ArbeidsrettetOppfolgingRad>
     );
+};
+
+HvaKanDuGjoreNa.propTypes = {
+    harArbeidsgiver: PropTypes.bool,
 };
 
 export default HvaKanDuGjoreNa;

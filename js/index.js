@@ -18,6 +18,7 @@ import '../styles/styles.less';
 import './logging';
 import { hentUnleashToggles } from './data/unleash-toggles/unleashToggles_actions';
 import { hentSoknader } from './data/soknader/soknaderActions';
+import { hentSykepengerVarsel } from './data/sykepengerVarsel/sykepengerVarselActions';
 import { hentReisetilskuddSoknader } from './data/reisetilskuddSoknader/reisetilskuddSoknader_actions';
 import setPerformOnOppDialogHttpCalls from './oppfolgingsdialogNpm/setPerformOnOppDialogHttpCalls';
 import reducers from './data/reducers';
@@ -40,6 +41,7 @@ store.dispatch(hentVedlikehold());
 store.dispatch(forlengInnloggetSesjon());
 store.dispatch(hentUnleashToggles());
 store.dispatch(hentSoknader());
+store.dispatch(hentSykepengerVarsel());
 store.dispatch(hentReisetilskuddSoknader());
 store.dispatch(hentAlleVedtak());
 // </OBS>

@@ -14,22 +14,26 @@ import {
     selectOppfolgingHentingFeilet,
     selectSykmeldtinfodataHenter,
     selectSykmeldtinfodataHentingFeilet,
-    selectSykmeldtinfodataMaksdatoString,
 } from '../data/brukerinfo/brukerinfo';
+import { hentDineSykmeldinger } from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
+import { hentLedere } from '../landingsside/data/ledere/ledereActions';
+import { selectArbeidsgivereTilDinSituasjon } from '../landingsside/din-situasjon/DinSituasjonContainer';
 
 class ArbeidsrettetOppfolgingSide extends Component {
     componentDidMount() {
-        const { doHentOppfolging, doHentSykmeldtinfodata } = this.props;
+        const { doHentOppfolging, doHentSykmeldtinfodata, doHentLedere, doHentDineSykmeldinger } = this.props;
         doHentOppfolging();
         doHentSykmeldtinfodata();
+        doHentLedere();
+        doHentDineSykmeldinger();
     }
 
     render() {
         const {
-            henter, hentingFeilet, underOppfolging, maksDatoString,
+            henter, hentingFeilet, underOppfolging, arbeidsgivere,
         } = this.props;
         return (
-            <Side tittel={getLedetekst('ao.sidetittel')} laster={henter}>
+            <Side hvit tittel={getLedetekst('ao.sidetittel')} laster={henter}>
                 {
                     (() => {
                         if (henter) {
@@ -40,7 +44,7 @@ class ArbeidsrettetOppfolgingSide extends Component {
                         return (
                             <ArbeidsrettetOppfolging
                                 underOppfolging={underOppfolging}
-                                maksDato={maksDatoString}
+                                harArbeidsgiver={arbeidsgivere.length > 0}
                             />
                         );
                     })()
@@ -53,14 +57,19 @@ class ArbeidsrettetOppfolgingSide extends Component {
 ArbeidsrettetOppfolgingSide.propTypes = {
     doHentOppfolging: PropTypes.func,
     doHentSykmeldtinfodata: PropTypes.func,
+    doHentLedere: PropTypes.func,
+    doHentDineSykmeldinger: PropTypes.func,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     underOppfolging: PropTypes.bool,
-    maksDatoString: PropTypes.string,
+    arbeidsgivere: PropTypes.arrayOf(PropTypes.string),
 };
 
 const mapStateToProps = (state) => {
+    const arbeidsgivere = selectArbeidsgivereTilDinSituasjon(state);
+
     return {
+        arbeidsgivere,
         henter: selectLedeteksterHenter(state)
             || selectOppfolgingHenter(state)
             || selectSykmeldtinfodataHenter(state),
@@ -68,13 +77,14 @@ const mapStateToProps = (state) => {
             || selectOppfolgingHentingFeilet(state)
             || selectSykmeldtinfodataHentingFeilet(state),
         underOppfolging: selectOppfolgingErUnderOppfolging(state),
-        maksDatoString: selectSykmeldtinfodataMaksdatoString(state),
     };
 };
 
 const actionCreators = {
     doHentOppfolging: hentOppfolging,
     doHentSykmeldtinfodata: hentSykmeldtinfodata,
+    doHentLedere: hentLedere,
+    doHentDineSykmeldinger: hentDineSykmeldinger,
 };
 
 export default connect(mapStateToProps, actionCreators)(ArbeidsrettetOppfolgingSide);

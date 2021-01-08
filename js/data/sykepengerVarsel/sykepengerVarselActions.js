@@ -1,7 +1,6 @@
 import {
     HENT_SYKEPENGERVARSEL_FORESPURT,
     SYKEPENGERVARSEL_HENTET,
-    HENTER_SYKEPENGEVARSEL,
 } from './sykepengerVarselActionTyper';
 
 export const hentSykepengerVarsel = () => {
@@ -14,11 +13,5 @@ export const sykepengerVarselHentet = (data) => {
     return {
         type: SYKEPENGERVARSEL_HENTET,
         data,
-    };
-};
-
-export const henterSykepengerVarsel = () => {
-    return {
-        type: HENTER_SYKEPENGEVARSEL,
     };
 };

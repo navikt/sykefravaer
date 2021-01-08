@@ -1,5 +1,5 @@
 import {
-    call, fork, put, select, takeEvery, all,
+    call, fork, put, takeEvery, all,
 } from 'redux-saga/effects';
 import { log } from '@navikt/digisyfo-npm';
 import { get, hentApiUrl } from '../gateway-api/index';
@@ -8,7 +8,6 @@ import logger from '../../logging';
 import {
     HENT_SYKEPENGERVARSEL_FORESPURT,
 } from './sykepengerVarselActionTyper';
-import { skalHenteSykepengerVarsel } from './sykepengerVarselSelectors';
 
 export function* hentSykepengerVarsel() {
     try {
@@ -17,13 +16,6 @@ export function* hentSykepengerVarsel() {
     } catch (e) {
         log(e);
         logger.error(`Kunne ikke hente status på sykepengervarsel fra syfosyketilfelle. URL: ${window.location.href} - ${e.message}`);
-    }
-}
-
-export function* hentSykepengerVarselHvisIkkeHentet() {
-    const skalHente = yield select(skalHenteSykepengerVarsel);
-    if (skalHente) {
-        yield hentSykepengerVarsel();
     }
 }
 

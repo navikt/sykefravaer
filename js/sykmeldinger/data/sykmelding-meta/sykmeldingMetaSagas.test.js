@@ -15,7 +15,7 @@ describe('ventetidSagas', () => {
     });
 
     it('Skal hente ventetid', () => {
-        const nextCall = call(get, 'https://syfosoknad-proxy.dev.nav.no/api/sykmeldinger/4354ERWERHKQWJEHR387432434CDF/actions/erUtenforVentetid');
+        const nextCall = call(get, 'https://flex-gateway.dev.nav.no/syfosoknad/api/sykmeldinger/4354ERWERHKQWJEHR387432434CDF/actions/erUtenforVentetid');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

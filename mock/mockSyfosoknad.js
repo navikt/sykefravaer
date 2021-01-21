@@ -208,6 +208,11 @@ function mockSyfosoknadOpplaringsmiljoOgLokalt(server) {
         }));
     });
 
+    server.get('/syfosoknad/api/syfosyketilfelle/39ukersvarsel', (req, res) => {
+        res.json(true);
+    });
+
+
     server.get('/syfosoknad/api/sykeforloep', (req, res) => {
         const soknadId = req.params.id;
         const sykmeldinger = mockData[enums.SYKMELDINGER].map((sykmelding) => {

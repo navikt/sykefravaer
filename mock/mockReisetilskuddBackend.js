@@ -2,7 +2,7 @@ const mockData = require('./mockData');
 const enums = require('./mockDataEnums');
 
 const urlLokalt = '/reisetilskudd';
-const urlOpplaeringsmiljo = '/reisetilskudd-backend-mock/api/v1/reisetilskudd';
+const urlOpplaeringsmiljo = '/flex-reisetilskudd-backend-mock/api/v1/reisetilskudd';
 
 function hentReisetilskuddSoknader(server, miljo) {
     server.get(miljo, (req, res) => {

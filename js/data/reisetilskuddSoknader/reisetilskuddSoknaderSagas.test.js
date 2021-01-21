@@ -29,7 +29,7 @@ describe('reisetilskuddSoknaderSagas', () => {
         });
 
         it('Skal dernest hente reisetilskuddSoknader', () => {
-            const nextCall = call(get, 'https://flex-reisetilskudd-backend-proxy.dev.nav.no/api/v1/reisetilskudd');
+            const nextCall = call(get, 'https://flex-gateway.dev.nav.no/flex-reisetilskudd-backend/api/v1/reisetilskudd');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

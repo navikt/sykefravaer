@@ -123,16 +123,16 @@ export const hentApiUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://syfosoknad-proxy.nav.no/api';
+        return 'https://flex-gateway.nav.no/syfosoknad/api';
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
-        return 'http://localhost:1996/api';
+        return 'http://localhost:33333/syfosoknad/api';
     } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
-        return '/syfosoknad-proxy/api';
+        return '/syfosoknad/api';
     }
     // Preprod
-    return 'https://syfosoknad-proxy.dev.nav.no/api';
+    return 'https://flex-gateway.dev.nav.no/syfosoknad/api';
 };
 
 export const hentSyfoApiUrl = (appNavn) => {
@@ -163,10 +163,10 @@ export const hentReisetilskuddBackendUrl = () => {
         : '';
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://flex-reisetilskudd-backend-proxy.nav.no/api/v1/reisetilskudd';
+        return 'https://flex-gateway.nav.no/flex-reisetilskudd-backend/api/v1/reisetilskudd';
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
-        return 'http://localhost:6937/api/v1/reisetilskudd';
+        return 'http://localhost:33333/flex-reisetilskudd-backend/api/v1/reisetilskudd';
     } if (erNaisLabsDemo()) {
         // Nais labs
         return '/flex-reisetilskudd-backend-mock/api/v1/reisetilskudd';
@@ -175,7 +175,7 @@ export const hentReisetilskuddBackendUrl = () => {
         return 'http://localhost:8080/reisetilskudd';
     }
     // Preprod
-    return 'https://flex-reisetilskudd-backend-proxy.dev.nav.no/api/v1/reisetilskudd';
+    return 'https://flex-gateway.dev.nav.no/flex-reisetilskudd-backend/api/v1/reisetilskudd';
 };
 
 export const hentSpinnsynBackendUrl = () => {
@@ -186,10 +186,10 @@ export const hentSpinnsynBackendUrl = () => {
         : '';
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://spinnsyn-backend-proxy.nav.no/api/v1/vedtak';
+        return 'https://flex-gateway.nav.no/spinnsyn-backend/api/v1/vedtak';
     } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
-        return 'http://localhost:6932/api/v1/vedtak';
+        return 'http://localhost:33333/spinnsyn-backend/api/v1/vedtak';
     } if (erNaisLabsDemo()) {
         // Nais labs
         return '/spinnsyn-backend-mock/api/v1/vedtak';
@@ -198,7 +198,7 @@ export const hentSpinnsynBackendUrl = () => {
         return 'http://localhost:8080/vedtak';
     }
     // Preprod
-    return 'https://spinnsyn-backend-proxy.dev.nav.no/api/v1/vedtak';
+    return 'https://flex-gateway.dev.nav.no/spinnsyn-backend/api/v1/vedtak';
 };
 
 export const API_NAVN = {

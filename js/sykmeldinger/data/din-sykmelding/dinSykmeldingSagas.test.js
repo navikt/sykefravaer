@@ -45,7 +45,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest sjekke om det skal opprettes søknad', () => {
-            const nextCall = call(post, 'https://syfosoknad-proxy.dev.nav.no/api/sykmeldinger/123/actions/skalOppretteSoknad', {
+            const nextCall = call(post, 'https://flex-gateway.dev.nav.no/syfosoknad/api/sykmeldinger/123/actions/skalOppretteSoknad', {
                 egenmeldingsperioder: null,
                 harForsikring: false,
             });
@@ -106,7 +106,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest sjekke om det skulle ha vært opprettet søknad', () => {
-            const nextCall = call(post, 'https://syfosoknad-proxy.dev.nav.no/api/sykmeldinger/123/actions/skalOppretteSoknad', {
+            const nextCall = call(post, 'https://flex-gateway.dev.nav.no/syfosoknad/api/sykmeldinger/123/actions/skalOppretteSoknad', {
                 egenmeldingsperioder: [{
                     fom: new Date('2018-01-02'),
                     tom: new Date('2018-01-08'),

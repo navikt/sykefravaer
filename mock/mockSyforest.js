@@ -92,11 +92,6 @@ const mockSyforest = (server, erLokal) => {
         }));
     });
 
-    server.get('/syforest/soknader', (req, res) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockData[enums.SYKEPENGESOKNADER]));
-    });
-
     server.get('/syforest/naermesteledere', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(mockData[enums.NAERMESTELEDERE]));

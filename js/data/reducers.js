@@ -8,7 +8,6 @@ import arbeidsgiversSykmeldinger from '../sykmeldinger/data/arbeidsgivers-sykmel
 import brukerinfo from './brukerinfo/brukerinfo';
 import dineSykmeldinger from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldinger';
 import ledere from '../landingsside/data/ledere/ledere';
-import sykepengesoknader from './sykepengesoknader/sykepengesoknader';
 import vedlikehold from './vedlikehold/vedlikehold';
 import hendelser from '../landingsside/data/hendelser/hendelser';
 import aktivitetskrav from '../aktivitetskrav/data/aktivitetskrav';
@@ -40,7 +39,6 @@ const reducers = {
     merVeiledning,
     mote,
     motebehov,
-    sykepengesoknader,
     toggles,
     tidslinjer,
     vedlikehold,

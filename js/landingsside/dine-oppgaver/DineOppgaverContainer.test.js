@@ -56,13 +56,15 @@ describe('DineOppgaverComponent', () => {
                     data: [],
                     hentet: true,
                 },
-                sykepengesoknader: {
+                soknader: {
                     data: [{
                         status: 'NY',
                         id: '3',
+                        soknadstype: 'ARBEIDSTAKERE',
                     }, {
                         status: 'SENDT',
                         id: '4',
+                        soknadstype: 'ARBEIDSTAKERE',
                     }],
                 },
                 mote: {
@@ -74,9 +76,6 @@ describe('DineOppgaverComponent', () => {
                 oppfolgingsdialoger: {
                     data: [],
                     hentet: true,
-                },
-                soknader: {
-                    data: [],
                 },
                 sykepengerVarsel: {
                     data: null,
@@ -110,9 +109,10 @@ describe('DineOppgaverComponent', () => {
 
         it('Skal returnere NYE sykepengesoknader', () => {
             const res = mapStateToProps(state);
-            expect(res.sykepengesoknader).to.deep.equal([{
+            expect(res.soknader).to.deep.equal([{
                 status: 'NY',
                 id: '3',
+                soknadstype: 'ARBEIDSTAKERE',
             }]);
         });
 
@@ -123,14 +123,14 @@ describe('DineOppgaverComponent', () => {
 
         it('Skal returnere visOppgaver === false hvis det ikke finnes oppgaver', () => {
             state.dineSykmeldinger.data = [];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(false);
         });
 
         it('Skal returnere visOppgaver === true hvis det finnes møte, men ingen sykmeldinger/sykepengesoknader', () => {
             state.dineSykmeldinger.data = [];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.mote.data = moteIkkeBesvart;
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(true);
@@ -183,7 +183,7 @@ describe('DineOppgaverComponent', () => {
             ];
             state.hendelser.data = hendelser;
             state.dineSykmeldinger.data = [];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.mote.data = null;
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(true);
@@ -192,7 +192,7 @@ describe('DineOppgaverComponent', () => {
         describe('Møte', () => {
             beforeEach(() => {
                 state.dineSykmeldinger.data = [];
-                state.sykepengesoknader.data = [];
+                state.soknader.data = [];
             });
 
             it('Skal returnere mote: null hvis møte ikke finnes', () => {
@@ -306,7 +306,7 @@ describe('DineOppgaverComponent', () => {
                     oppfolgingsdialogerHentet
                     hendelserHentet
                     visOppgaver
-                    sykepengesoknader={[{ id: '1' }]}
+                    soknader={[{ id: '1' }]}
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
@@ -320,7 +320,7 @@ describe('DineOppgaverComponent', () => {
                     oppfolgingsdialogerHentet
                     hendelserHentet
                     visOppgaver
-                    sykepengesoknader={[{ id: '1' }, {}]}
+                    soknader={[{ id: '1' }, {}]}
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
@@ -334,7 +334,7 @@ describe('DineOppgaverComponent', () => {
                     oppfolgingsdialogerHentet
                     hendelserHentet
                     visOppgaver
-                    sykepengesoknader={[{ id: '1' }]}
+                    soknader={[{ id: '1' }]}
                     sykmeldinger={[{ id: 1 }]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
@@ -348,7 +348,7 @@ describe('DineOppgaverComponent', () => {
                     oppfolgingsdialogerHentet
                     hendelserHentet
                     visOppgaver
-                    sykepengesoknader={[{ id: '1' }, {}]}
+                    soknader={[{ id: '1' }, {}]}
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);

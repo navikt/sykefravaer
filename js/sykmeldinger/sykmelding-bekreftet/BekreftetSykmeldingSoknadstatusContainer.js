@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sykmeldingstatuser, arbeidssituasjoner } from '@navikt/digisyfo-npm';
 import SykmeldingSoknadsinfo from '../soknadsinfo/SykmeldingSoknadsinfo';
-import * as sykepengesoknaderActions from '../../data/sykepengesoknader/sykepengesoknader_actions';
 import * as soknaderActions from '../../data/soknader/soknaderActions';
 import { skalHenteSoknader as skalHenteSoknaderSelector } from '../../data/soknader/soknaderSelectors';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
@@ -94,7 +93,6 @@ export const mapStateToProps = (state, ownProps) => {
 };
 
 const BekreftetSykmeldingSoknadstatusContainer = connect(mapStateToProps, {
-    hentSykepengesoknader: sykepengesoknaderActions.hentSykepengesoknader,
     hentSoknader: soknaderActions.hentSoknader,
 })(Container);
 

@@ -6,7 +6,6 @@ import {
     arbeidssituasjoner,
     getLedetekst,
     senesteTom,
-    sykepengesoknad as sykepengesoknadPt,
     sykepengesoknadstatuser,
     sykmeldingstatuser,
     tilLesbarDatoMedArstall,
@@ -19,7 +18,6 @@ import { soknadPt, sykmelding as sykmeldingPt } from '../../../propTypes';
 import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
 import { harStrengtFortroligAdresseSelector } from '../../../data/brukerinfo/brukerinfoSelectors';
 import { hentDineSykmeldinger } from '../../data/dine-sykmeldinger/dineSykmeldingerActions';
-import { hentSykepengesoknader } from '../../../data/sykepengesoknader/sykepengesoknader_actions';
 import { hentSoknader, oppdaterSoknader } from '../../../data/soknader/soknaderActions';
 import { hentBrukerinfo } from '../../../data/brukerinfo/brukerinfo_actions';
 import { hentAktuelleArbeidsgivere } from '../../data/arbeidsgivere/arbeidsgivereActions';
@@ -56,14 +54,12 @@ export class KvitteringSide extends Component {
         const {
             sykmeldingId,
             doHentDineSykmeldinger,
-            doHentSykepengesoknader,
             doHentSoknader,
             doHentBrukerinfo,
             doHentAktuelleArbeidsgivere,
         } = this.props;
 
         doHentDineSykmeldinger();
-        doHentSykepengesoknader();
         doHentSoknader();
         doHentBrukerinfo();
         doHentAktuelleArbeidsgivere(sykmeldingId);
@@ -138,7 +134,6 @@ export class KvitteringSide extends Component {
             henter,
             hentingFeilet,
             kvitteringtype,
-            sykepengesoknader,
             soknader,
         } = this.props;
 
@@ -170,7 +165,6 @@ export class KvitteringSide extends Component {
             if (erBehandlet === false) {
                 return (
                     <Sykmeldingkvittering
-                        sykepengesoknader={sykepengesoknader}
                         soknader={soknader}
                         kvitteringtype={kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER}
                     />
@@ -190,7 +184,6 @@ export class KvitteringSide extends Component {
                 return (
                     <Sykmeldingkvittering
                         kvitteringtype={kvitteringtype}
-                        sykepengesoknader={sykepengesoknader}
                         soknader={soknader} />
                 );
             }
@@ -218,11 +211,9 @@ KvitteringSide.propTypes = {
     sykmeldingId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
     kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)),
     doHentDineSykmeldinger: PropTypes.func,
-    doHentSykepengesoknader: PropTypes.func,
     doHentSoknader: PropTypes.func,
     doHentBrukerinfo: PropTypes.func,
     doHentAktuelleArbeidsgivere: PropTypes.func,
@@ -353,7 +344,6 @@ const getKvitteringtype = (state, sykmeldingId) => {
 
     const arbeidstakersoknader = state.soknader.data.filter(s => s.soknadstype === ARBEIDSTAKERE);
     const denneSykmeldingensSykepengesoknader = [
-        ...state.sykepengesoknader.data,
         ...arbeidstakersoknader,
     ].filter(s => s.sykmeldingId === sykmeldingId);
 
@@ -434,7 +424,6 @@ export function mapStateToProps(state, ownProps) {
     const sykmelding = selectDinSykmelding(state, sykmeldingId);
     const henter = state.dineSykmeldinger.henter
         || state.ledetekster.henter
-        || state.sykepengesoknader.henter
         || state.soknader.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const kvitteringtype = getKvitteringtype(state, sykmeldingId);
@@ -445,7 +434,6 @@ export function mapStateToProps(state, ownProps) {
         hentingFeilet,
         sykmeldingId,
         sykmelding,
-        sykepengesoknader: state.sykepengesoknader.data.filter(soknadErFremtidig),
         soknader: state.soknader.data.filter(soknadErFremtidig),
         kvitteringtype,
         tom: sykmelding ? tilLesbarDatoMedArstall(senesteTom(sykmelding.mulighetForArbeid.perioder)) : null,
@@ -454,7 +442,6 @@ export function mapStateToProps(state, ownProps) {
 
 const actionCreators = {
     doHentDineSykmeldinger: hentDineSykmeldinger,
-    doHentSykepengesoknader: hentSykepengesoknader,
     doHentSoknader: hentSoknader,
     doHentBrukerinfo: hentBrukerinfo,
     doHentAktuelleArbeidsgivere: hentAktuelleArbeidsgivere,

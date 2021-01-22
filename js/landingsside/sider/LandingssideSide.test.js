@@ -219,60 +219,6 @@ describe('LandingssideSide', () => {
             });
         });
 
-        describe('Sykepengesøknader', () => {
-            it('Skal hente sykepengesøknader dersom sykepengesøknader ikke er hentet', () => {
-                const props = mapStateToProps(deepFreeze(state));
-                shallow(<Container
-                    {...props}
-                    doHentMote={doHentMote}
-                    doHentMotebehov={doHentMotebehov}
-                    doHentSykepengesoknader={doHentSykepengesoknader}
-                    dohentAlleVedtak={dohentAlleVedtak}
-                    doHentReisetilskuddSoknader={doHentReisetilskuddSoknader}
-                    doHentSoknader={doHentSoknader}
-                    doHentLedere={doHentLedere}
-                    doHentDineSykmeldinger={doHentDineSykmeldinger}
-                    doHentSykeforloep={doHentSykeforloep}
-                    doHentSykeforloepSyfosoknad={doHentSykeforloepSyfosoknad}
-                    doHentSykeforloepMetadata={doHentSykeforloepMetadata}
-                    doHentOppfolgingsdialoger={doHentOppfolgingsdialoger}
-                    doHentOppfolging={doHentOppfolging}
-                    doHentOppfolgingsforlopsPerioder={doHentOppfolgingsforlopsPerioder}
-                    doHentSykmeldtinfodata={doHentSykmeldtinfodata}
-                    doHentSmSykmeldinger={doHentSmSykmeldinger} />);
-                expect(doHentSykepengesoknader.calledOnce)
-                    .to
-                    .equal(true);
-                expect(props.henter)
-                    .to
-                    .equal(false);
-            });
-
-            it('Skal sette henter dersom sykepengesøknader er hentet', () => {
-                state.sykepengesoknader.hentet = true;
-                const props = mapStateToProps(deepFreeze(state));
-                expect(props.henter)
-                    .to
-                    .equal(false);
-            });
-
-            it('Skal sette henter sykepengesøknader hentes nå', () => {
-                state.sykepengesoknader.henter = true;
-                const props = mapStateToProps(deepFreeze(state));
-                expect(props.henter)
-                    .to
-                    .equal(true);
-            });
-
-            it('Skal sette henter dersom henting av sykepengesøknader har feilet', () => {
-                state.sykepengesoknader.hentingFeilet = true;
-                const props = mapStateToProps(deepFreeze(state));
-                expect(props.henter)
-                    .to
-                    .equal(false);
-            });
-        });
-
         describe('Vedtak', () => {
             it('Skal hente vedtak dersom vedtak ikke er hentet', () => {
                 const props = mapStateToProps(deepFreeze(state));
@@ -881,7 +827,7 @@ describe('LandingssideSide', () => {
 
         describe('harSykepengesoknader', () => {
             it('Skal være true hvis bruker har sykepengesoknader', () => {
-                state.sykepengesoknader.data = [{}];
+                state.soknader.data = [{}];
                 const props = mapStateToProps(state);
                 expect(props.harSykepengesoknader)
                     .to
@@ -889,7 +835,7 @@ describe('LandingssideSide', () => {
             });
 
             it('Skal være false hvis bruker ikke har sykepengesoknader', () => {
-                state.sykepengesoknader.data = [];
+                state.soknader.data = [];
                 const props = mapStateToProps(state);
                 expect(props.harSykepengesoknader)
                     .to

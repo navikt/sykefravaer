@@ -17,7 +17,6 @@ import SendtSykmeldingMedPapirSoknadKvittering from '../../kvittering/varianter/
 import AvventendeSykmeldingKvittering from '../../kvittering/varianter/AvventendeSykmeldingKvittering';
 
 import getSykmelding from '../../../../test/mock/mockSykmeldinger';
-import { getParsetSoknad } from '../../../../test/mock/mockSykepengesoknader';
 import FrilanserSoekDigitaltNaa from '../../kvittering/varianter/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../kvittering/varianter/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
@@ -148,32 +147,32 @@ describe('SykmeldingKvitteringSide', () => {
             },
         }];
 
-        nySoknad1 = getParsetSoknad({
+        nySoknad1 = mockNySoknadArbeidstaker({
             sykmeldingId: '1',
             status: sykepengesoknadstatuser.NY,
         });
 
-        nySoknad2 = getParsetSoknad({
+        nySoknad2 = mockNySoknadArbeidstaker({
             sykmeldingId: '2',
             status: sykepengesoknadstatuser.NY,
         });
 
-        nySoknad3 = getParsetSoknad({
+        nySoknad3 = mockNySoknadArbeidstaker({
             sykmeldingId: '1',
             status: sykepengesoknadstatuser.NY,
         });
 
-        nySoknad4 = getParsetSoknad({
+        nySoknad4 = mockNySoknadArbeidstaker({
             sykmeldingId: '1',
             status: sykepengesoknadstatuser.NY,
         });
 
-        fremtidigSoknad1 = getParsetSoknad({
+        fremtidigSoknad1 = mockNySoknadArbeidstaker({
             sykmeldingId: '1',
             status: sykepengesoknadstatuser.FREMTIDIG,
         });
 
-        fremtidigSoknad2 = getParsetSoknad({
+        fremtidigSoknad2 = mockNySoknadArbeidstaker({
             sykmeldingId: '1',
             status: sykepengesoknadstatuser.FREMTIDIG,
         });
@@ -210,11 +209,8 @@ describe('SykmeldingKvitteringSide', () => {
                 hentingFeilet: false,
             },
         };
-        state.sykepengesoknader = {
-            data: [nySoknad1, nySoknad2, nySoknad3, nySoknad4, fremtidigSoknad1],
-        };
         state.soknader = {
-            data: [],
+            data: [nySoknad1, nySoknad2, nySoknad3, nySoknad4, fremtidigSoknad1],
             henter: false,
             hentingFeilet: false,
             hentet: true,
@@ -412,20 +408,20 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [nySoknad2];
+            state.soknader.data = [nySoknad2];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [fremtidigSoknad1];
+            state.soknader.data = [fremtidigSoknad1];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to
@@ -438,12 +434,12 @@ describe('SykmeldingKvitteringSide', () => {
                 .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer.kort-sykmelding.tittel']);
             expect(component.html())
                 .to
-                .contain('<strong>25. januar 2017</strong> får du en melding');
+                .contain('<strong>11. februar 2019</strong> får du en melding');
         });
 
         it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad på ny plattform som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.soknader.data = [mockNySoknadArbeidstaker({
                 sykmeldingId: sykmelding.id,
                 status: FREMTIDIG,
@@ -467,7 +463,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [fremtidigSoknad1, fremtidigSoknad2];
+            state.soknader.data = [fremtidigSoknad1, fremtidigSoknad2];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to
@@ -485,7 +481,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.soknader.data = [fremtidigSoknadNyPlattform1, fremtidigSoknadNyPlattform2];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -504,7 +500,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [nySoknad4];
+            state.soknader.data = [nySoknad4];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to
@@ -516,7 +512,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.soknader.data = [mockNySoknadArbeidstaker({
                 sykmeldingId: sykmelding.id,
             })];
@@ -530,7 +526,7 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise avventendeSykmelding-kvittering om sykmeldingen er avventende', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.SENDT,
@@ -583,20 +579,20 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [nySoknad2];
+            state.soknader.data = [nySoknad2];
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [fremtidigSoknad1];
+            state.soknader.data = [fremtidigSoknad1];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to
@@ -609,12 +605,12 @@ describe('SykmeldingKvitteringSide', () => {
                 .contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.arbeidsgiver-forskutterer-ikke.kort-sykmelding.tittel']);
             expect(component.html())
                 .to
-                .contain('<strong>25. januar 2017</strong> får du en melding');
+                .contain('<strong>11. februar 2019</strong> får du en melding');
         });
 
         it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad på ny plattform som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.soknader.data = [fremtidigSoknadNyPlattform1];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -633,7 +629,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [fremtidigSoknad1, fremtidigSoknad2];
+            state.soknader.data = [fremtidigSoknad1, fremtidigSoknad2];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to
@@ -651,7 +647,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes 2 fremtidige sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.soknader.data = [fremtidigSoknadNyPlattform1, fremtidigSoknadNyPlattform2];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -670,7 +666,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [nySoknad4];
+            state.soknader.data = [nySoknad4];
             const component = getComponent(state, ownProps);
             expect(component.text())
                 .to
@@ -683,7 +679,7 @@ describe('SykmeldingKvitteringSide', () => {
 
         it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader på ny plattform som tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.soknader.data = [mockNySoknadArbeidstaker({
                 sykmeldingId: sykmelding.id,
             })];
@@ -706,7 +702,7 @@ describe('SykmeldingKvitteringSide', () => {
                 erUtenforVentetid: true,
                 skalOppretteSoknad: true,
             });
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -726,7 +722,7 @@ describe('SykmeldingKvitteringSide', () => {
                 skalOppretteSoknad: true,
             });
             state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -773,7 +769,7 @@ describe('SykmeldingKvitteringSide', () => {
         };
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen er avventende', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -793,7 +789,7 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen har reisetilskudd', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -811,7 +807,7 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen har behandlingsdager', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -838,7 +834,7 @@ describe('SykmeldingKvitteringSide', () => {
             });
 
             it('Skal vise info om at bruker ikke trenger å søke hvis skalOppretteSoknad === false', () => {
-                state.sykepengesoknader.data = [];
+                state.soknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
@@ -873,7 +869,7 @@ describe('SykmeldingKvitteringSide', () => {
             });
 
             it('Skal vise info om at bruker kan søke hvis skalOppretteSoknad === true', () => {
-                state.sykepengesoknader.data = [];
+                state.soknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
@@ -896,7 +892,7 @@ describe('SykmeldingKvitteringSide', () => {
 
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen har reisetilskudd', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -914,7 +910,7 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen har behandlingsdager', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -932,7 +928,7 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise info om at det ikke er nødvendig å søke dersom sykmeldingen ikke genererer søknader og skalOppretteSoknad = false', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -983,7 +979,6 @@ describe('SykmeldingKvitteringSide', () => {
             });
 
             it('Skal vise info om at bruker kan søke om sykepenger', () => {
-                state.sykepengesoknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
@@ -1006,7 +1001,6 @@ describe('SykmeldingKvitteringSide', () => {
             });
 
             it('Skal vise info om at bruker kan søke selv om bruker er kode6', () => {
-                state.sykepengesoknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
@@ -1030,7 +1024,6 @@ describe('SykmeldingKvitteringSide', () => {
             });
 
             it('Skal vise info om at bruker kan søke om sykepenger', () => {
-                state.sykepengesoknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
@@ -1062,7 +1055,6 @@ describe('SykmeldingKvitteringSide', () => {
             });
 
             it('Skal vise info om at bruker kan søke om sykepenger senere', () => {
-                state.sykepengesoknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
@@ -1085,7 +1077,6 @@ describe('SykmeldingKvitteringSide', () => {
             });
 
             it('Skal vise info om at bruker kan søke om sykepenger', () => {
-                state.sykepengesoknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
@@ -1153,7 +1144,7 @@ describe('SykmeldingKvitteringSide', () => {
                 valgtArbeidssituasjon: arbeidssituasjoner.ANNET,
                 erUtenforVentetid: false,
             });
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             skalViseAnnetArbeidsledigKvittering(state, ownProps);
         });
@@ -1167,7 +1158,7 @@ describe('SykmeldingKvitteringSide', () => {
                 valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSLEDIG,
                 erUtenforVentetid: false,
             });
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             skalViseAnnetArbeidsledigKvittering(state, ownProps);
         });
@@ -1181,7 +1172,7 @@ describe('SykmeldingKvitteringSide', () => {
                 erUtenforVentetid: true,
                 skalOppretteSoknad: true,
             });
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -1195,7 +1186,7 @@ describe('SykmeldingKvitteringSide', () => {
 
     describe('BEREFTET egenmelding for frilansere', () => {
         it('Skal vise standard bekreftet-kvittering', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -1217,14 +1208,14 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal vise soknad-nå-bekreftet-kvittering', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 erEgenmeldt: true,
             });
-            const soknad = getParsetSoknad({
+            const soknad = mockNySoknadArbeidstaker({
                 sykmeldingId: '1',
                 status: sykepengesoknadstatuser.NY,
             });
@@ -1246,7 +1237,7 @@ describe('SykmeldingKvitteringSide', () => {
 
     describe('AVBRUTT egenmelding for frilanser', () => {
         it('Skal vise avbryt-kvittering', () => {
-            state.sykepengesoknader.data = [];
+            state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.AVBRUTT,
@@ -1268,7 +1259,7 @@ describe('SykmeldingKvitteringSide', () => {
     describe('mapStateToProps', () => {
         it('Skal returnere fremtidige soknader', () => {
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykepengesoknader)
+            expect(res.soknader)
                 .to
                 .deep
                 .equal([fremtidigSoknad1]);
@@ -1292,7 +1283,7 @@ describe('SykmeldingKvitteringSide', () => {
         });
 
         it('Skal returnere henter === true dersom sykepengesoknader hentes', () => {
-            state.sykepengesoknader.henter = true;
+            state.soknader.henter = true;
             const res = mapStateToProps(state, ownProps);
             expect(res.henter)
                 .to

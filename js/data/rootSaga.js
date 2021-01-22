@@ -10,7 +10,6 @@ import brukerinfoSagas from './brukerinfo/brukerinfoSagas';
 import dineArbeidsgivereSagas from '../sykmeldinger/data/arbeidsgivere/arbeidsgivereSagas';
 import dineSykmeldingerSagas from '../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSagas';
 import dinSykmeldingSagas from '../sykmeldinger/data/din-sykmelding/dinSykmeldingSagas';
-import sykepengesoknadSagas from './sykepengesoknader/sykepengesoknadSagas';
 import ledereSagas from '../landingsside/data/ledere/ledereSagas';
 import vedlikeholdSagas from './vedlikehold/vedlikeholdSagas';
 import moteSagas from './moter/moteSagas';
@@ -38,7 +37,6 @@ export default function* rootSaga() {
         dineArbeidsgivereSagas(),
         dineSykmeldingerSagas(),
         dinSykmeldingSagas(),
-        sykepengesoknadSagas(),
         reisetilskuddSoknaderSagas(),
         vedtakSagas(),
         ledeteksterSagas(),

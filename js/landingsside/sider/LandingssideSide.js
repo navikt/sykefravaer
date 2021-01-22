@@ -12,7 +12,6 @@ import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';
-import { hentSykepengesoknader } from '../../data/sykepengesoknader/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
 import { hentLedere } from '../data/ledere/ledereActions';
 import { hentMotebehov } from '../../data/motebehov/motebehov_actions';
@@ -42,7 +41,6 @@ export class Container extends Component {
             skalHenteLedere,
             skalHenteOppfolgingsdialoger,
             doHentMote,
-            doHentSykepengesoknader,
             doHentDineSykmeldinger,
             doHentSykeforloep,
             doHentSykeforloepSyfosoknad,
@@ -65,7 +63,6 @@ export class Container extends Component {
             doHentOppfolgingsdialoger();
         }
         doHentMote();
-        doHentSykepengesoknader();
         doHentDineSykmeldinger();
         doHentSykeforloep();
         doHentSykeforloepSyfosoknad();
@@ -152,7 +149,6 @@ Container.propTypes = {
     doHentMote: PropTypes.func,
     doHentMotebehov: PropTypes.func,
     doHentLedere: PropTypes.func,
-    doHentSykepengesoknader: PropTypes.func,
     doHentDineSykmeldinger: PropTypes.func,
     doHentSykeforloep: PropTypes.func,
     doHentSykeforloepSyfosoknad: PropTypes.func,
@@ -181,7 +177,6 @@ export function mapStateToProps(state) {
     const reducere = [
         'mote',
         'motebehov',
-        'sykepengesoknader',
         'ledere',
         'dineSykmeldinger',
         'sykeforloep',
@@ -200,7 +195,7 @@ export function mapStateToProps(state) {
         skalHenteNoe: reducere.reduce((acc, val) => acc || skalHente(val), false),
         henter: reducere.reduce((acc, val) => acc || henter(val), false),
         harDialogmote: state.mote.data !== null,
-        harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
+        harSykepengesoknader: state.soknader.data.length > 0,
         harReisetilskuddSoknader: state.reisetilskuddSoknader.data.length > 0,
         harVedtak: state.vedtak.data.length > 0,
         harSykmeldinger: state.dineSykmeldinger.data.length > 0 || avvisteSmSykmeldingerDataSelector(state).length > 0,
@@ -222,7 +217,6 @@ export function mapStateToProps(state) {
 const actionCreators = {
     doHentMote: hentMote,
     doHentMotebehov: hentMotebehov,
-    doHentSykepengesoknader: hentSykepengesoknader,
     doHentLedere: hentLedere,
     doHentDineSykmeldinger: hentDineSykmeldinger,
     doHentOppfolgingsdialoger: hentOppfolgingsdialoger,

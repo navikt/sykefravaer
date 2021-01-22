@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import {
     getLedetekst,
-    sykepengesoknadstatuser,
     sykmeldingstatuser,
 } from '@navikt/digisyfo-npm';
 import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingProptypes';
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
 import {
     soknadPt,
-    sykepengesoknad as sykepengesoknadPt,
     sykmelding as sykmeldingPt,
 } from '../../propTypes/index';
 import { hentDineSykmeldinger } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerActions';
@@ -115,8 +113,8 @@ AvvistSmSykmelding.propTypes = {
     smSykmeldinger: smSykmeldingerPt,
 };
 
-export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
-    const alleSoknader = [...sykepengesoknader, ...soknader];
+export const NySykepengesoknad = ({ soknader }) => {
+    const alleSoknader = [...soknader];
     const url = alleSoknader.length === 1
         ? getSykepengesoknadUrl(alleSoknader[0].id)
         : getSykepengesoknaderUrl();
@@ -129,7 +127,6 @@ export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
 };
 
 NySykepengesoknad.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
 };
 
@@ -177,7 +174,6 @@ const avventendeGodkjenningerTekst = (antall) => {
 
 const RendreOppgaver = ({
     soknader = [],
-    sykepengesoknader = [],
     sykmeldinger = [],
     visOppgaver,
     mote,
@@ -212,9 +208,8 @@ const RendreOppgaver = ({
                     {avvisteSmSykmeldinger.length > 0 && (
                         <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />
                     )}
-                    {(sykepengesoknader.length > 0 || soknader.length > 0) && (
+                    {(soknader.length > 0) && (
                         <NySykepengesoknad
-                            sykepengesoknader={sykepengesoknader}
                             soknader={soknader}
                         />
                     )}
@@ -256,7 +251,6 @@ RendreOppgaver.propTypes = {
     avventendeGodkjenninger: PropTypes.arrayOf(oppfolgingsdialogPt),
     nyePlaner: PropTypes.arrayOf(oppfolgingsdialogPt),
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
     harNyttMotebehov: PropTypes.bool,
     visOppgaver: PropTypes.bool,
@@ -305,9 +299,7 @@ export const mapStateToProps = (state) => {
     const sykmeldinger = state.dineSykmeldinger.data.filter((s) => {
         return s.status === sykmeldingstatuser.NY;
     });
-    const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
-        return s.status === sykepengesoknadstatuser.NY;
-    });
+
     const soknader = state.soknader.data
         .filter((s) => {
             return s.status === NY;
@@ -337,7 +329,6 @@ export const mapStateToProps = (state) => {
             return smSykmelding.bekreftetDato === null;
         });
     const visOppgaver = sykmeldinger.length > 0
-    || sykepengesoknader.length > 0
     || soknader.length > 0
     || moteRes !== null
     || harNyttMotebehov
@@ -352,7 +343,6 @@ export const mapStateToProps = (state) => {
         sykmeldingerHentingFeilet:
       state.dineSykmeldinger.hentingFeilet
       || state.oppfolgingsdialoger.hentingFeilet,
-        sykepengesoknader,
         soknader,
         visOppgaver,
         mote: moteRes,

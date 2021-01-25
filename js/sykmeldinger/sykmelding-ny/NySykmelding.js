@@ -9,6 +9,10 @@ import SykmeldingContext from '../contexts/SykmeldingContext';
 import EldreSykmeldingVarsel from '../eldre-sykmelding-varsel/EldreSykmeldingVarsel';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 import PapirsykmeldingPanel from './PapirsykmeldingPanel';
+import Veilederpanel from 'nav-frontend-veilederpanel';
+import MannNoytral from '../../components/svg/MannNoytral';
+
+const harMerknad = (sykmelding, merknadType) => sykmelding.merknad && sykmelding.merknad.some(merknad => merknad.type === merknadType)
 
 class NySykmelding extends Component {
     constructor() {
@@ -25,38 +29,69 @@ class NySykmelding extends Component {
                             <NySykmeldingTrigger>
                                 <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                                 <EldreSykmeldingVarsel sykmelding={sykmelding} />
-                                { sykmelding.erPapirsykmelding
-                                    ? <PapirsykmeldingPanel sykmelding={sykmelding} skjemaRef={this.skjemaRef} />
-                                    : (
-                                        <Bjorn
-                                            className="blokk"
-                                            hvit
-                                            stor>
-                                            <div>
-                                                <p>
-                                                    {
-                                                        getLedetekst('din-sykmelding.introtekst.bjorn', {
-                                                            '%NAVN%': getSykmeldtFornavn(sykmelding),
-                                                        })
-                                                    }
-                                                </p>
-                                                <p className="introtekst__knapperad">
-                                                    <button
-                                                        type="button"
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            scrollTo(this.skjemaRef.current);
-                                                            this.skjemaRef.current.focus();
-                                                        }}
-                                                        className="knapp knapp--mini"
-                                                    >
-                                                Gå til utfyllingen
-                                                    </button>
-                                                </p>
-                                            </div>
-                                        </Bjorn>
-                                    )
+
+                                { harMerknad(sykmelding, 'UGYLDING_TILBAKEDATERING') &&
+                                    <div style={{ paddingTop: '1rem', marginBottom: '2rem' }}>
+                                        <Veilederpanel
+                                            fargetema="advarsel"
+                                            type="plakat"
+                                            center
+                                            kompakt
+                                            svg={<MannNoytral />}
+                                        >
+                                            <h2>
+                                                Tilbakedateringen kan ikke godkjennes
+                                            </h2>
+                                            <p>
+                                                Vanligvis starter sykmeldingen den datoen du er hos behandleren. I enkelte tilfeller kan datoen i sykmeldingen settes tilbake i tid, det vi kaller tilbakedatering. NAV vurderer om det er en gyldig grunn for tilbakedateringen.   
+                                            </p>
+                                            <p>
+                                                Sykmeldingen din er datert til før du oppsøkte behandleren, og det er ikke oppgitt noen gyldig grunn. Derfor vil du ikke få sykepenger for disse dagene.
+                                            </p>
+                                            <h2>
+                                                Hva gjør jeg nå?
+                                            </h2>
+                                            <p>
+                                                Du kan likevel sende inn sykmeldingen. Når perioden er over, sender du søknaden om sykepenger. Når søknaden er behandlet, vil du få en begrunnelse for hvorfor du ikke kan få sykepenger for de dagene, og du får samtidig mulighet til å klage.
+                                            </p>
+                                        </Veilederpanel>
+                                    </div>
                                 }
+
+                                { sykmelding.erPapirsykmelding &&
+                                    <PapirsykmeldingPanel sykmelding={sykmelding} skjemaRef={this.skjemaRef} />
+                                }
+
+                                { !sykmelding.erPapirsykmelding && !harMerknad(sykmelding, 'UGYLDING_TILBAKEDATERING') &&
+                                    <Bjorn
+                                        className="blokk"
+                                        hvit
+                                        stor>
+                                        <div>
+                                            <p>
+                                                {
+                                                    getLedetekst('din-sykmelding.introtekst.bjorn', {
+                                                        '%NAVN%': getSykmeldtFornavn(sykmelding),
+                                                    })
+                                                }
+                                            </p>
+                                            <p className="introtekst__knapperad">
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        scrollTo(this.skjemaRef.current);
+                                                        this.skjemaRef.current.focus();
+                                                    }}
+                                                    className="knapp knapp--mini"
+                                                >
+                                            Gå til utfyllingen
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </Bjorn>
+                                }
+                                
                                 <article>
                                     <header className="panelHeader panelHeader--lysebla">
                                         <img className="panelHeader__ikon" src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" />

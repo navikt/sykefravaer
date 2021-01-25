@@ -31,7 +31,7 @@ class NySykmelding extends Component {
                                 <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
                                 <EldreSykmeldingVarsel sykmelding={sykmelding} />
 
-                                { harMerknad(sykmelding, 'UGYLDING_TILBAKEDATERING')
+                                { harMerknad(sykmelding, 'UGYLDIG_TILBAKEDATERING')
                                     && (
                                         <div style={{ paddingTop: '1rem', marginBottom: '2rem' }}>
                                             <Veilederpanel
@@ -65,7 +65,7 @@ class NySykmelding extends Component {
                                     && <PapirsykmeldingPanel sykmelding={sykmelding} skjemaRef={this.skjemaRef} />
                                 }
 
-                                { !sykmelding.erPapirsykmelding && !harMerknad(sykmelding, 'UGYLDING_TILBAKEDATERING')
+                                { !sykmelding.erPapirsykmelding && !harMerknad(sykmelding, 'UGYLDIG_TILBAKEDATERING')
                                     && (
                                         <Bjorn
                                             className="blokk"

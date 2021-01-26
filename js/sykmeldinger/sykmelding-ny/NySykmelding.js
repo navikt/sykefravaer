@@ -12,7 +12,7 @@ import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 import PapirsykmeldingPanel from './PapirsykmeldingPanel';
 import MannNoytral from '../../components/svg/MannNoytral';
 
-const harMerknad = (sykmelding, merknadType) => { return true ||sykmelding.merknader && sykmelding.merknader.some((merknad) => { return merknad.type === merknadType; }); };
+const harMerknad = (sykmelding, merknadType) => { return sykmelding.merknader && sykmelding.merknader.some((merknad) => { return merknad.type === merknadType; }); };
 
 /* eslint-disable max-len */
 class NySykmelding extends Component {

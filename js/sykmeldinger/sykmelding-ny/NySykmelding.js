@@ -12,7 +12,7 @@ import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 import PapirsykmeldingPanel from './PapirsykmeldingPanel';
 import MannNoytral from '../../components/svg/MannNoytral';
 
-const harMerknad = (sykmelding, merknadType) => { return sykmelding.merknader && sykmelding.merknader.some((merknad) => { return merknad.type === merknadType; }); };
+const harMerknad = (sykmelding, merknadType) => { return true ||sykmelding.merknader && sykmelding.merknader.some((merknad) => { return merknad.type === merknadType; }); };
 
 /* eslint-disable max-len */
 class NySykmelding extends Component {
@@ -28,7 +28,7 @@ class NySykmelding extends Component {
                     ({ sykmelding }) => {
                         return (
                             <NySykmeldingTrigger>
-                                <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
+                                <Sidetopp tittel={harMerknad(sykmelding, 'UGYLDIG_TILBAKEDATERING') ? 'Tilbakedatert sykmelding' : 'Sykmelding'} />
                                 <EldreSykmeldingVarsel sykmelding={sykmelding} />
 
                                 { harMerknad(sykmelding, 'UGYLDIG_TILBAKEDATERING')
@@ -56,6 +56,17 @@ class NySykmelding extends Component {
                                                 <p>
                                                 Du kan likevel sende inn sykmeldingen. Når perioden er over, sender du søknaden om sykepenger. Når søknaden er behandlet, vil du få en begrunnelse for hvorfor du ikke kan få sykepenger for de dagene, og du får samtidig mulighet til å klage.
                                                 </p>
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        scrollTo(this.skjemaRef.current);
+                                                        this.skjemaRef.current.focus();
+                                                    }}
+                                                    className="knapp knapp--mini"
+                                                >
+                                                    Gå til utfyllingen
+                                                </button>
                                             </Veilederpanel>
                                         </div>
                                     )

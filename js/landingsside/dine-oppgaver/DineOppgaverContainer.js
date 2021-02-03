@@ -320,7 +320,7 @@ export const mapStateToProps = (state) => {
         return s.status === sykmeldingstatuser.NY;
     });
 
-    const reisetilskudd = state.reisetilskuddSoknader.data
+    const reisetilskudd = state.reisetilskuddSoknader.data;
 
     const soknader = state.soknader.data
         .filter((s) => {

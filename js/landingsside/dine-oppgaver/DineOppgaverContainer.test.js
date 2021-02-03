@@ -36,7 +36,8 @@ describe('DineOppgaverComponent', () => {
         beforeEach(() => {
             clock = sinon.useFakeTimers(1485524800000); // in a distant future in a galaxy far, far away
             window.dataLayer = {
-                push: () => {},
+                push: () => {
+                },
             };
             state = {
                 unleashToggles: unleashToggles(
@@ -55,6 +56,23 @@ describe('DineOppgaverComponent', () => {
                 hendelser: {
                     data: [],
                     hentet: true,
+                },
+                reisetilskuddSoknader: {
+                    data: [{
+                        "fnr": "01010112345",
+                        "fom": "2020-08-03",
+                        "tom": "2020-08-03",
+                        "orgNavn": "Mock Arbeid AS",
+                        "orgNummer": "123123123",
+                        "utbetalingTilArbeidsgiver": false,
+                        "går": false,
+                        "sykler": false,
+                        "kollektivtransport": 0,
+                        "egenBil": 0,
+                        "reisetilskuddId": "28fa10b8-c9af-4a7a-a0b2-90caed65ab4c",
+                        "sykmeldingId": "7e90121c-b64b-4a1c-b7a5-93c9d95aba47",
+                        "kvitteringer": []
+                    }]
                 },
                 soknader: {
                     data: [{
@@ -124,6 +142,7 @@ describe('DineOppgaverComponent', () => {
         it('Skal returnere visOppgaver === false hvis det ikke finnes oppgaver', () => {
             state.dineSykmeldinger.data = [];
             state.soknader.data = [];
+            state.reisetilskuddSoknader.data = [];
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(false);
         });
@@ -131,6 +150,7 @@ describe('DineOppgaverComponent', () => {
         it('Skal returnere visOppgaver === true hvis det finnes møte, men ingen sykmeldinger/sykepengesoknader', () => {
             state.dineSykmeldinger.data = [];
             state.soknader.data = [];
+            state.reisetilskuddSoknader.data = [];
             state.mote.data = moteIkkeBesvart;
             const res = mapStateToProps(state);
             expect(res.visOppgaver).to.equal(true);
@@ -193,16 +213,19 @@ describe('DineOppgaverComponent', () => {
             beforeEach(() => {
                 state.dineSykmeldinger.data = [];
                 state.soknader.data = [];
+                state.reisetilskuddSoknader.data = [];
             });
 
             it('Skal returnere mote: null hvis møte ikke finnes', () => {
                 const res = mapStateToProps(state);
+                state.reisetilskuddSoknader.data = [];
                 expect(res.mote).to.equal(null);
                 expect(res.visOppgaver).to.equal(false);
             });
 
             it('Skal returnere mote: null hvis møtet er bekreftet', () => {
                 state.mote.data = moteBekreftet;
+                state.reisetilskuddSoknader.data = [];
                 const res = mapStateToProps(state);
                 expect(res.mote).to.equal(null);
                 expect(res.visOppgaver).to.equal(false);
@@ -210,6 +233,7 @@ describe('DineOppgaverComponent', () => {
 
             it('Skal returnere mote: null hvis møte er avbrutt', () => {
                 state.mote.data = moteAvbrutt;
+                state.reisetilskuddSoknader.data = [];
                 const res = mapStateToProps(state);
                 expect(res.mote).to.equal(null);
                 expect(res.visOppgaver).to.equal(false);
@@ -224,6 +248,7 @@ describe('DineOppgaverComponent', () => {
 
             it('Skal returnere mote: null hvis møte er besvart', () => {
                 state.mote.data = moteBesvartAlleAlternativer;
+                state.reisetilskuddSoknader.data = [];
                 const res = mapStateToProps(state);
                 expect(res.mote).to.equal(null);
                 expect(res.visOppgaver).to.equal(false);
@@ -231,6 +256,7 @@ describe('DineOppgaverComponent', () => {
 
             it('Skal returnere mote: null hvis møte er besvart med nye alternativer besvart', () => {
                 state.mote.data = moteBesvartMedNyeAlternativerBesvart;
+                state.reisetilskuddSoknader.data = [];
                 const res = mapStateToProps(state);
                 expect(res.mote).to.equal(null);
                 expect(res.visOppgaver).to.equal(false);

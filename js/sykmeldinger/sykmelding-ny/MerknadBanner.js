@@ -62,16 +62,16 @@ const MerknadBanner = ({ sykmelding, skjemaRef }) => {
           tilbakedateringen.
                 </p>
                 <p>
-          Sykmeldingen din er datert til før du oppsøkte behandleren, og det er
-          ikke oppgitt noen gyldig grunn. Derfor vil du ikke få sykepenger for
-          disse dagene.
+          Sykmeldingen din startet før du oppsøkte behandleren, og det er ikke
+          oppgitt noen gyldig grunn. Derfor vil du ikke få sykepenger for disse
+          dagene.
                 </p>
                 <h2>Hva gjør jeg nå?</h2>
                 <p>
           Du kan likevel sende inn sykmeldingen. Når perioden er over, sender du
           søknaden om sykepenger. Når søknaden er behandlet, vil du få en
-          begrunnelse for hvorfor du ikke kan få sykepenger for de dagene, og du
-          får samtidig mulighet til å klage.
+          begrunnelse for hvorfor du ikke kan få sykepenger for de
+          tilbakedaterte dagene, og du får samtidig mulighet til å klage.
                 </p>
             </VeilederpanelWrapper>
         );
@@ -88,7 +88,7 @@ const MerknadBanner = ({ sykmelding, skjemaRef }) => {
                 </p>
                 <p>
           Du kan likevel sende inn søknaden om sykepenger. Avhengig av hvilke
-          opplysninger vi før fra behandleren din, kan det hende du ikke før
+          opplysninger vi får fra behandleren din, kan det hende du ikke får
           sykepenger for dagene før sykmeldingstidspunktet.
                 </p>
             </VeilederpanelWrapper>

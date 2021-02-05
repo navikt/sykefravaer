@@ -24,7 +24,7 @@ describe('MerknadBanner', () => {
         const sykmelding = {
             merknader: [
                 {
-                    type: 'KREVER_FLERE_OPPLYSNINGER',
+                    type: 'TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER',
                 },
             ],
         };

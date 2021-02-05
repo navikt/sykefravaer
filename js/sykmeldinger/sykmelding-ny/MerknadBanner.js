@@ -77,7 +77,7 @@ const MerknadBanner = ({ sykmelding, skjemaRef }) => {
         );
     }
 
-    if (harMerknad(sykmelding, 'KREVER_FLERE_OPPLYSNINGER')) {
+    if (harMerknad(sykmelding, 'TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER')) {
         return (
             <VeilederpanelWrapper skjemaRef={skjemaRef}>
                 <h2 className="js-merknad-banner-title">Behov for mer opplysninger</h2>

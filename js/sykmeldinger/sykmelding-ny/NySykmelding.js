@@ -37,7 +37,7 @@ class NySykmelding extends Component {
                                     && <PapirsykmeldingPanel sykmelding={sykmelding} skjemaRef={this.skjemaRef} />
                                 }
 
-                                { !sykmelding.erPapirsykmelding && !harMerknad(sykmelding, 'UGYLDIG_TILBAKEDATERING' && !harMerknad(sykmelding, 'TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER'))
+                                { !sykmelding.erPapirsykmelding && !harMerknad(sykmelding, 'UGYLDIG_TILBAKEDATERING') && !harMerknad(sykmelding, 'TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER')
                                     && (
                                         <Bjorn
                                             className="blokk"

@@ -51,12 +51,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -172,12 +168,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -310,12 +302,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -449,12 +437,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -586,12 +570,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -716,12 +696,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -836,12 +812,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -966,12 +938,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -1086,12 +1054,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -1212,12 +1176,8 @@
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -1326,18 +1286,14 @@
         {
           "fom": "2018-10-09",
           "tom": "2018-10-17",
-          "grad": 100,
+          "grad": 50,
           "behandlingsdager": null,
-          "reisetilskudd": null,
+          "reisetilskudd": true,
           "avventende": null
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -1452,12 +1408,8 @@
           "avventende": "denne er avventende"
         }
       ],
-      "aktivitetIkkeMulig433": [
-        "Annet"
-      ],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },
@@ -1567,9 +1519,7 @@
         }
       ],
       "aktivitetIkkeMulig433": [],
-      "aktivitetIkkeMulig434": [
-        "Annet"
-      ],
+      "aktivitetIkkeMulig434": ["Annet"],
       "aarsakAktivitetIkkeMulig433": null,
       "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
     },

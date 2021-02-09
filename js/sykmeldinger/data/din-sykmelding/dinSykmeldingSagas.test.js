@@ -172,9 +172,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest avbryte sykmeldingen', () => {
-            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minAndreSykmeldingId/avbryt', {
-                periode: true,
-            });
+            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minAndreSykmeldingId/avbryt');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

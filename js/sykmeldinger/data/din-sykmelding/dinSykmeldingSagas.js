@@ -6,6 +6,7 @@ import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
 import { hentApiUrl } from '../../../data/gateway-api';
+import {erNaisLabsDemo} from "../../../utils/urlUtils";
 
 const {
     ANGRE_BEKREFT_SYKMELDING_FORESPURT,
@@ -26,6 +27,31 @@ const gaTilSykmelding = (sykmeldingId) => {
 const erFrilanserEllerSelvstendig = (verdier) => {
     return verdier.arbeidssituasjon === arbeidssituasjoner.FRILANSER
         || verdier.arbeidssituasjon === arbeidssituasjoner.NAERINGSDRIVENDE;
+};
+
+const getSykmeldingerBackendUrl = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+
+    if (url.indexOf('tjenester.nav') > -1) {
+        // Prod
+        return 'https://sykmeldinger-backend-proxy.nav.no/api/v1/sykmeldinger';
+    }
+    if (url.indexOf('localhost:2027') > -1) {
+        return 'http://localhost:6998/api/v1/sykmeldinger';
+    }
+    if (url.indexOf('localhost:2028') > -1) {
+        return 'http://localhost:6998/api/v1/sykmeldinger';
+    }
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+        // Lokalt
+        return '/sykmeldinger-backend';
+    }
+    // Preprod
+    return 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger';
 };
 
 export function* bekreftSykmelding(action) {
@@ -72,9 +98,9 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
 
 export function* avbrytSykmelding(action) {
     yield put(actions.avbryterSykmelding());
-    const body = action.feilaktigeOpplysninger;
+    const url = `${getSykmeldingerBackendUrl()}`;
     try {
-        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
+        yield call(post, `${url}/${action.sykmeldingId}/avbryt`);
         yield put(actions.sykmeldingAvbrutt(action.sykmeldingId));
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {

@@ -172,7 +172,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest avbryte sykmeldingen', () => {
-            const nextCall = call(post, '/syforest/sykmeldinger/minAndreSykmeldingId/actions/avbryt', {
+            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minAndreSykmeldingId/avbryt', {
                 periode: true,
             });
             expect(generator.next().value).to.deep.equal(nextCall);

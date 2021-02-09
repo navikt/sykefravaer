@@ -6,7 +6,7 @@ import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
 import { hentApiUrl } from '../../../data/gateway-api';
-import {erNaisLabsDemo} from "../../../utils/urlUtils";
+import { erNaisLabsDemo } from '../../../utils/urlUtils';
 
 const {
     ANGRE_BEKREFT_SYKMELDING_FORESPURT,

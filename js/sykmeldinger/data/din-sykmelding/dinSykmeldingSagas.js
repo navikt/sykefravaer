@@ -66,7 +66,7 @@ export function* bekreftSykmelding(action) {
             svar: verdier.arbeidssituasjon,
         }];
         if (erFrilanserEllerSelvstendig(verdier)) {
-            if (verdier.harForsikring) {
+            if (verdier.harForsikring != null) {
                 sporsmalOgSvarListe.push({
                     tekst: 'Har du forsikring som gjelder de første 16 dagene av sykefraværet?',
                     shortName: 'FORSIKRING',
@@ -74,7 +74,7 @@ export function* bekreftSykmelding(action) {
                     svar: verdier.harForsikring ? 'JA' : 'NEI',
                 });
             }
-            if (verdier.harAnnetFravaer) {
+            if (verdier.harAnnetFravaer != null) {
                 sporsmalOgSvarListe.push({
                     tekst: 'Brukte du egenmelding eller noen annen sykmelding før datoen denne sykmeldingen gjelder fra?',
                     shortName: 'FRAVAER',
@@ -82,7 +82,7 @@ export function* bekreftSykmelding(action) {
                     svar: verdier.harAnnetFravaer ? 'JA' : 'NEI',
                 });
             }
-            if (verdier.egenmeldingsperioder) {
+            if (verdier.egenmeldingsperioder != null) {
                 sporsmalOgSvarListe.push({
                     tekst: 'Hvilke dager var du borte fra jobb før datoen sykmeldingen gjelder fra?',
                     shortName: 'PERIODE',

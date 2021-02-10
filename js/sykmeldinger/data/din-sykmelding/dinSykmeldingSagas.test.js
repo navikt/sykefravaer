@@ -32,14 +32,14 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest bekrefte sykmeldingen', () => {
-            const nextCall = call(post, '/syforest/sykmeldinger/123/actions/bekreft', {
-                arbeidssituasjon: 'arbeidstaker',
-                feilaktigeOpplysninger: {
-                    periode: true,
-                },
-                harForsikring: null,
-                harAnnetFravaer: null,
-                egenmeldingsperioder: null,
+            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
+                timestamp: new Date().toUTCString(),
+                sporsmalOgSvarListe: [{
+                    tekst: 'Jeg er sykmeldt fra',
+                    shortName: 'ARBEIDSSITUASJON',
+                    svartype: 'ARBEIDSSITUASJON',
+                    svar: 'arbeidstaker',
+                }],
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });
@@ -90,17 +90,32 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest bekrefte sykmeldingen', () => {
-            const nextCall = call(post, '/syforest/sykmeldinger/123/actions/bekreft', {
-                arbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                feilaktigeOpplysninger: null,
-                egenmeldingsperioder: [
-                    {
-                        fom: new Date('2018-01-02'),
-                        tom: new Date('2018-01-08'),
-                    },
-                ],
-                harAnnetFravaer: true,
-                harForsikring: true,
+            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
+                timestamp: new Date().toUTCString(),
+                sporsmalOgSvarListe: [{
+                    tekst: 'Jeg er sykmeldt fra',
+                    shortName: 'ARBEIDSSITUASJON',
+                    svartype: 'ARBEIDSSITUASJON',
+                    svar: arbeidssituasjoner.FRILANSER,
+                },
+                {
+                    tekst: 'Har du forsikring som gjelder de første 16 dagene av sykefraværet?',
+                    shortName: 'FORSIKRING',
+                    svartype: 'JA_NEI',
+                    svar: 'JA',
+                },
+                {
+                    tekst: 'Brukte du egenmelding eller noen annen sykmelding før datoen denne sykmeldingen gjelder fra?',
+                    shortName: 'FRAVAER',
+                    svartype: 'JA_NEI',
+                    svar: 'JA',
+                },
+                {
+                    tekst: 'Hvilke dager var du borte fra jobb før datoen sykmeldingen gjelder fra?',
+                    shortName: 'PERIODE',
+                    svartype: 'PERIODER',
+                    svar: [{ fom: new Date('2018-01-02'), tom: new Date('2018-01-08') }],
+                }],
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });

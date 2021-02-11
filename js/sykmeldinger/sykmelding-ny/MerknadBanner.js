@@ -87,9 +87,7 @@ const MerknadBanner = ({ sykmelding, skjemaRef }) => {
           hvorfor sykmeldingen er datert tilbake.
                 </p>
                 <p>
-          Du kan likevel sende inn søknaden om sykepenger. Avhengig av hvilke
-          opplysninger vi får fra behandleren din, kan det hende du ikke får
-          sykepenger for dagene før sykmeldingstidspunktet.
+          Du kan likevel sende inn søknaden om sykepenger.
                 </p>
             </VeilederpanelWrapper>
         );

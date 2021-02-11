@@ -33,7 +33,7 @@ describe('dinSykmeldingSagas', () => {
 
         it('Skal dernest bekrefte sykmeldingen', () => {
             const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
-                timestamp: new Date().toUTCString(),
+                timestamp: new Date().toISOString(),
                 sporsmalOgSvarListe: [{
                     tekst: 'Jeg er sykmeldt fra',
                     shortName: 'ARBEIDSSITUASJON',
@@ -91,7 +91,7 @@ describe('dinSykmeldingSagas', () => {
 
         it('Skal dernest bekrefte sykmeldingen', () => {
             const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
-                timestamp: new Date().toUTCString(),
+                timestamp: new Date().toISOString(),
                 sporsmalOgSvarListe: [{
                     tekst: 'Jeg er sykmeldt fra',
                     shortName: 'ARBEIDSSITUASJON',

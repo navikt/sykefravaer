@@ -7,6 +7,7 @@ import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
 import { hentApiUrl } from '../../../data/gateway-api';
 import { erNaisLabsDemo } from '../../../utils/urlUtils';
+import { convertToFomTomIsoDate } from '../../../utils/datoUtils';
 
 const {
     ANGRE_BEKREFT_SYKMELDING_FORESPURT,
@@ -87,7 +88,7 @@ export function* bekreftSykmelding(action) {
                     tekst: 'Hvilke dager var du borte fra jobb før datoen sykmeldingen gjelder fra?',
                     shortName: 'PERIODE',
                     svartype: 'PERIODER',
-                    svar: JSON.stringify(verdier.egenmeldingsperioder),
+                    svar: JSON.stringify(convertToFomTomIsoDate(verdier.egenmeldingsperioder)),
                 });
             }
         }

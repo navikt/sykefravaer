@@ -112,7 +112,7 @@ describe('dinSykmeldingSagas', () => {
                     tekst: 'Hvilke dager var du borte fra jobb før datoen sykmeldingen gjelder fra?',
                     shortName: 'PERIODE',
                     svartype: 'PERIODER',
-                    svar: '[{"fom":"2018-01-02T00:00:00.000Z","tom":"2018-01-08T00:00:00.000Z"}]',
+                    svar: '[{"fom":"2018-01-02","tom":"2018-01-08"}]',
                 }],
             });
             expect(generator.next().value).to.deep.equal(nextCall);

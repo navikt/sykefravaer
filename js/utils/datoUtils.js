@@ -3,6 +3,7 @@ import {
     tilLesbarDatoMedArstall,
     tilLesbarPeriodeMedArstall,
 } from '@navikt/digisyfo-npm';
+import { formatISO } from 'date-fns';
 
 export {
     tilLesbarDatoMedArstall,
@@ -99,4 +100,13 @@ export const lagJsDate = (dato) => {
         return new Date(year, month - 1, day, hour, minute, seconds);
     }
     return dato;
+};
+
+export const convertToFomTomIsoDate = (list) => {
+    return list.map((it) => {
+        return {
+            fom: formatISO(it.fom, { representation: 'date' }),
+            tom: formatISO(it.tom, { representation: 'date' }),
+        };
+    });
 };

@@ -33,7 +33,6 @@ describe('dinSykmeldingSagas', () => {
 
         it('Skal dernest bekrefte sykmeldingen', () => {
             const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
-                timestamp: new Date().toISOString(),
                 sporsmalOgSvarListe: [{
                     tekst: 'Jeg er sykmeldt fra',
                     shortName: 'ARBEIDSSITUASJON',
@@ -91,7 +90,6 @@ describe('dinSykmeldingSagas', () => {
 
         it('Skal dernest bekrefte sykmeldingen', () => {
             const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
-                timestamp: new Date().toISOString(),
                 sporsmalOgSvarListe: [{
                     tekst: 'Jeg er sykmeldt fra',
                     shortName: 'ARBEIDSSITUASJON',
@@ -114,7 +112,7 @@ describe('dinSykmeldingSagas', () => {
                     tekst: 'Hvilke dager var du borte fra jobb før datoen sykmeldingen gjelder fra?',
                     shortName: 'PERIODE',
                     svartype: 'PERIODER',
-                    svar: [{ fom: new Date('2018-01-02'), tom: new Date('2018-01-08') }],
+                    svar: '[{"fom":"2018-01-02T00:00:00.000Z","tom":"2018-01-08T00:00:00.000Z"}]',
                 }],
             });
             expect(generator.next().value).to.deep.equal(nextCall);

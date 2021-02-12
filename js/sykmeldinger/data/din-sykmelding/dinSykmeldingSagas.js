@@ -65,7 +65,6 @@ export function* bekreftSykmelding(action) {
             svartype: 'ARBEIDSSITUASJON',
             svar: verdier.arbeidssituasjon,
         }];
-        console.log(verdier);
         if (erFrilanserEllerSelvstendig(verdier)) {
             if (verdier.harForsikring != null) {
                 sporsmalOgSvarListe.push({
@@ -88,12 +87,11 @@ export function* bekreftSykmelding(action) {
                     tekst: 'Hvilke dager var du borte fra jobb før datoen sykmeldingen gjelder fra?',
                     shortName: 'PERIODE',
                     svartype: 'PERIODER',
-                    svar: verdier.egenmeldingsperioder,
+                    svar: JSON.stringify(verdier.egenmeldingsperioder),
                 });
             }
         }
         const body = {
-            timestamp: new Date().toISOString(),
             sporsmalOgSvarListe,
         };
         yield call(post, `${url}/${sykmeldingId}/bekreft`, body);

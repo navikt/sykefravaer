@@ -2,7 +2,6 @@
   {
     "id": "645e9b82-c022-4096-96e9-192e939199cb",
     "mottattTidspunkt": "2018-08-31T00:00:00",
-    "bekreftetDato": null,
     "behandlingsutfall": {
       "status": "INVALID",
       "ruleHits": [
@@ -15,7 +14,6 @@
       ]
     },
     "legekontorOrgnummer": "223456789",
-    "legeNavn": "Frida Perma Frost",
     "arbeidsgiver": {
       "navn": "LOMMEN BARNEHAVE",
       "stillingsprosent": 100
@@ -38,7 +36,7 @@
         },
         "behandlingsdager": null,
         "innspillTilArbeidsgiver": null,
-        "type":  "GRADERT"
+        "type": "GRADERT"
       }
     ],
     "medisinskVurdering": {
@@ -48,12 +46,20 @@
         "diagnosetekst": "Bursitt/tendinitt/synovitt IKA"
       },
       "biDiagnoser": []
+    },
+    "sykmeldingStatus": {
+      "timestamp": "2018-11-12T00:00:00",
+      "statusEvent": "APEN"
+    },
+    "behandler": {
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavm": "Frost"
     }
   },
   {
     "id": "645e9b82-c022-4096-1337-192e939199cb",
     "mottattTidspunkt": "2018-11-12T00:00:00",
-    "bekreftetDato": null,
     "behandlingsutfall": {
       "status": "INVALID",
       "ruleHits": [
@@ -66,7 +72,6 @@
       ]
     },
     "legekontorOrgnummer": "223456789",
-    "legeNavn": "Frida Perma Frost",
     "arbeidsgiver": null,
     "sykmeldingsperioder": [
       {
@@ -86,14 +91,22 @@
         },
         "behandlingsdager": null,
         "innspillTilArbeidsgiver": null,
-        "type":  "GRADERT"
+        "type": "GRADERT"
       }
-    ]
+    ],
+    "sykmeldingStatus": {
+      "timestamp": "2018-11-12T00:00:00",
+      "statusEvent": "APEN"
+    },
+    "behandler": {
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavm": "Frost"
+    }
   },
   {
     "id": "645e9b82-c022-1337-1337-192e939199cb",
     "mottattTidspunkt": "2018-08-31T00:00:00",
-    "bekreftetDato": "2018-09-01T00:00:00",
     "behandlingsutfall": {
       "status": "INVALID",
       "ruleHits": [
@@ -106,7 +119,6 @@
       ]
     },
     "legekontorOrgnummer": "223456789",
-    "legeNavn": "Frida Perma Frost",
     "arbeidsgiver": null,
     "sykmeldingsperioder": [
       {
@@ -117,12 +129,20 @@
         "innspillTilArbeidsgiver": null,
         "type": "AKTIVITET_IKKE_MULIG"
       }
-    ]
+    ],
+    "sykmeldingStatus": {
+      "timestamp": "2018-09-01T00:00:00",
+      "statusEvent": "BEKREFTET"
+    },
+    "behandler": {
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavm": "Frost"
+    }
   },
   {
     "id": "6d3ca5e5-95fc-4f7a-8f37-0c5243440938",
     "mottattTidspunkt": "2019-05-14T00:00:00",
-    "bekreftetDato": null,
     "behandlingsutfall": {
       "ruleHits": [
         {
@@ -153,7 +173,6 @@
       "status": "INVALID"
     },
     "legekontorOrgnummer": "223456789",
-    "legeNavn": "Frida Perma Frost",
     "arbeidsgiver": {
       "navn": "LOMMEN BARNEHAVE",
       "stillingsprosent": 100
@@ -222,6 +241,15 @@
           "diagnosetekst": "Bursitt/tendinitt/synovitt IKA"
         }
       ]
+    },
+    "sykmeldingStatus": {
+      "timestamp": "2018-09-01T00:00:00",
+      "statusEvent": "APEN"
+    },
+    "behandler": {
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavm": "Frost"
     }
   }
 ]

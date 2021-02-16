@@ -26,7 +26,7 @@ export const hentSykmeldingsregisterUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://syfosmregisterproxy.nav.no';
+        return 'https://sykmeldinger-backend-proxy.nav.no/api/v1/sykmeldinger';
     }
     if (url.indexOf('localhost:2027') > -1) {
         // docker compose container
@@ -41,7 +41,7 @@ export const hentSykmeldingsregisterUrl = () => {
         return '/syfosmregister';
     }
     // Preprod
-    return 'https://syfosmregisterproxy-q.nav.no';
+    return 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger';
 };
 
 export function* oppdaterSmSykmeldinger() {

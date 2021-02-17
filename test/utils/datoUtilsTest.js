@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import {
+    convertToFomTomIsoDate,
     datoMedKlokkeslett,
     erGyldigDato,
     tilLesbarDatoMedArstallOgUkedag,
@@ -73,6 +74,22 @@ describe('datoUtils', () => {
         it('Skal vise kort dato med 0 foran dersom det bare er et siffer', () => {
             const d = visKortDato(new Date(2002, 8, 9, 9, 0));
             expect(d).to.equal('09.09.2002');
+        });
+    });
+    describe('convertToFomTomIsoDate', () => {
+        it('Skal convertere til dato', () => {
+            const fomTomList = [
+                {
+                    fom: new Date(2018, 2, 2),
+                    tom: new Date(2018, 2, 6),
+                },
+                {
+                    fom: new Date(2018, 2, 23),
+                    tom: new Date(2018, 2, 27),
+                },
+            ];
+            const converted = convertToFomTomIsoDate(fomTomList);
+            expect('[{"fom":"2018-03-02","tom":"2018-03-06"},{"fom":"2018-03-23","tom":"2018-03-27"}]').to.equal(JSON.stringify(converted));
         });
     });
 });

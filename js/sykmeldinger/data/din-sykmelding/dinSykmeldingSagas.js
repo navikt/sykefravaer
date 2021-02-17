@@ -57,7 +57,7 @@ const getSykmeldingerBackendUrl = () => {
 
 export function* bekreftSykmelding(action) {
     yield put(actions.bekrefterSykmelding());
-    const url = `${getSykmeldingerBackendUrl()}`;
+    const url = getSykmeldingerBackendUrl();
     try {
         const { sykmeldingId, verdier } = action;
         const sporsmalOgSvarListe = [{

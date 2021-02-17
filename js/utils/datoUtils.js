@@ -102,8 +102,8 @@ export const lagJsDate = (dato) => {
     return dato;
 };
 
-export const convertToFomTomIsoDate = (list) => {
-    return list.map((it) => {
+export const convertToFomTomIsoDate = (egenmeldingsdagerList) => {
+    return egenmeldingsdagerList.map((it) => {
         return {
             fom: formatISO(it.fom, { representation: 'date' }),
             tom: formatISO(it.tom, { representation: 'date' }),

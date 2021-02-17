@@ -7,6 +7,7 @@ import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
 import { hentApiUrl } from '../../../data/gateway-api';
 import { erNaisLabsDemo } from '../../../utils/urlUtils';
+import { convertToFomTomIsoDate } from '../../../utils/datoUtils';
 
 const {
     ANGRE_BEKREFT_SYKMELDING_FORESPURT,
@@ -56,19 +57,45 @@ const getSykmeldingerBackendUrl = () => {
 
 export function* bekreftSykmelding(action) {
     yield put(actions.bekrefterSykmelding());
+    const url = getSykmeldingerBackendUrl();
     try {
         const { sykmeldingId, verdier } = action;
+        const sporsmalOgSvarListe = [{
+            tekst: 'Jeg er sykmeldt fra',
+            shortName: 'ARBEIDSSITUASJON',
+            svartype: 'ARBEIDSSITUASJON',
+            svar: verdier.arbeidssituasjon,
+        }];
+        if (erFrilanserEllerSelvstendig(verdier)) {
+            if (verdier.harForsikring != null) {
+                sporsmalOgSvarListe.push({
+                    tekst: 'Har du forsikring som gjelder de første 16 dagene av sykefraværet?',
+                    shortName: 'FORSIKRING',
+                    svartype: 'JA_NEI',
+                    svar: verdier.harForsikring ? 'JA' : 'NEI',
+                });
+            }
+            if (verdier.harAnnetFravaer != null) {
+                sporsmalOgSvarListe.push({
+                    tekst: 'Brukte du egenmelding eller noen annen sykmelding før datoen denne sykmeldingen gjelder fra?',
+                    shortName: 'FRAVAER',
+                    svartype: 'JA_NEI',
+                    svar: verdier.harAnnetFravaer ? 'JA' : 'NEI',
+                });
+            }
+            if (verdier.egenmeldingsperioder != null) {
+                sporsmalOgSvarListe.push({
+                    tekst: 'Hvilke dager var du borte fra jobb før datoen sykmeldingen gjelder fra?',
+                    shortName: 'PERIODE',
+                    svartype: 'PERIODER',
+                    svar: JSON.stringify(convertToFomTomIsoDate(verdier.egenmeldingsperioder)),
+                });
+            }
+        }
         const body = {
-            feilaktigeOpplysninger: verdier.feilaktigeOpplysninger,
-            arbeidssituasjon: verdier.arbeidssituasjon,
-            harForsikring: erFrilanserEllerSelvstendig(verdier)
-                ? verdier.harForsikring : null,
-            harAnnetFravaer: erFrilanserEllerSelvstendig(verdier)
-                ? verdier.harAnnetFravaer : null,
-            egenmeldingsperioder: erFrilanserEllerSelvstendig(verdier)
-                ? verdier.egenmeldingsperioder : null,
+            sporsmalOgSvarListe,
         };
-        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
+        yield call(post, `${url}/${sykmeldingId}/bekreft`, body);
         const skalOppretteSoknad = yield call(post, `${hentApiUrl()}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
             harForsikring: verdier.harForsikring,
             egenmeldingsperioder: verdier.egenmeldingsperioder,

@@ -6,6 +6,13 @@ import { SykmeldingPerioder } from './SykmeldingPerioder';
 import { BiDiagnoser, Hoveddiagnose } from './SykmeldingDiagnoser';
 import { Nokkelopplysning } from './Nokkelopplysning';
 
+const getBehandlerNavn = (behandler) => {
+    // should not happen :-)
+    if (!behandler) {
+        return '';
+    }
+    return `${behandler.fornavn}${behandler.mellomnavn ? ` ${behandler.mellomnavn}` : ''} ${behandler.etternavn}`;
+};
 const getArbeidsgivernavn = arbeidsgiver => (
     arbeidsgiver !== null ? arbeidsgiver.navn : ''
 );
@@ -42,7 +49,7 @@ export const SykmeldingOpplysninger = ({ smSykmelding }) => (
                 <Nokkelopplysning
                     tittel={getLedetekst('din-sykmelding.avsender.tittel')}
                 >
-                    <p className="js-avsender">{smSykmelding.legeNavn}</p>
+                    <p className="js-avsender">{getBehandlerNavn(smSykmelding.behandler)}</p>
                 </Nokkelopplysning>
             </div>
         </div>

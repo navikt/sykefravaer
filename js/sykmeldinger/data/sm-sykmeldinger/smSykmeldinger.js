@@ -26,7 +26,10 @@ const spesialHandler = (state, action) => {
                     return smSykmelding.id === action.smSykmelding.id
                         ? {
                             ...smSykmelding,
-                            bekreftetDato: new Date(),
+                            sykmeldingStatus: {
+                                timestamp: new Date(),
+                                statusEvent: 'BEKREFTET',
+                            },
                         }
                         : smSykmelding;
                 }),
@@ -76,9 +79,12 @@ const mapper = (smSykmelding) => {
         mottattTidspunkt: smSykmelding.mottattTidspunkt
             ? toDate(smSykmelding.mottattTidspunkt)
             : null,
-        bekreftetDato: smSykmelding.bekreftetDato
-            ? toDate(smSykmelding.bekreftetDato)
-            : null,
+        sykmeldingStatus: {
+            ...smSykmelding.sykmeldingStatus,
+            timestamp: smSykmelding.sykmeldingStatus.timestamp
+                ? toDate(smSykmelding.sykmeldingStatus.timestamp)
+                : null,
+        },
     };
 };
 

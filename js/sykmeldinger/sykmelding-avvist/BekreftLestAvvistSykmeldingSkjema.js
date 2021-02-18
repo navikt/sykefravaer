@@ -56,7 +56,7 @@ const ReduxSkjema = reduxForm({
 
 const Skjemaviser = (props) => {
     const { smSykmelding } = props;
-    return smSykmelding.bekreftetDato
+    return smSykmelding.sykmeldingStatus.statusEvent === 'BEKREFTET'
         ? null
         : <ReduxSkjema {...props} />;
 };

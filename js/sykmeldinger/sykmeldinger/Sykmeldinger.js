@@ -17,8 +17,8 @@ const Sykmeldinger = ({
     const nyeSykmeldinger = sykmeldinger.filter(sykmld => sykmld.status === sykmeldingstatuser.NY);
     const tidligereSykmeldinger = sykmeldinger.filter(sykmld => sykmld.status !== sykmeldingstatuser.NY);
     const tidligereSortering = sortering && sortering.tidligere ? sortering.tidligere : undefined;
-    const ulesteSmSykmeldinger = smSykmeldinger.filter(smSykmelding => smSykmelding.bekreftetDato === null);
-    const lesteSmSykmeldinger = smSykmeldinger.filter(smSykmelding => smSykmelding.bekreftetDato !== null);
+    const ulesteSmSykmeldinger = smSykmeldinger.filter(smSykmelding => smSykmelding.sykmeldingStatus.statusEvent === 'APEN');
+    const lesteSmSykmeldinger = smSykmeldinger.filter(smSykmelding => smSykmelding.sykmeldingStatus.statusEvent === 'BEKREFTET');
     return (
         <React.Fragment>
             <Sidetopp

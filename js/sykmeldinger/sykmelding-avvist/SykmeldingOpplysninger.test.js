@@ -11,7 +11,6 @@ describe('SykmeldingOpplysninger', () => {
         sykmelding = {
             id: '60fb7e58-3918-4a3f-8973-ab505b3407b0',
             mottattTidspunkt: new Date('2018-08-31T00:00:00'),
-            bekreftetDato: null,
             behandlingsutfall: {
                 status: 'INVALID',
                 ruleHits: [
@@ -24,7 +23,6 @@ describe('SykmeldingOpplysninger', () => {
                 ],
             },
             legekontorOrgnummer: '111222333',
-            legeNavn: 'Lege Navn',
             arbeidsgiver: {
                 navn: 'ARBEIDSGIVER AS',
                 stillingsprosent: 100,
@@ -50,6 +48,15 @@ describe('SykmeldingOpplysninger', () => {
                     type: 'GRADERT',
                 },
             ],
+            sykmeldingStatus: {
+                timestamp: new Date(),
+                statusEvent: 'APEN',
+            },
+            behandler: {
+                fornavn: 'Lege',
+                mellomnavn: undefined,
+                etternavn: 'Navn',
+            },
         };
     });
 

@@ -48,16 +48,29 @@ export const smMedisinskVurderingPt = PropTypes.shape({
     biDiagnoser: PropTypes.arrayOf(smDiagnosePt),
 });
 
+// Types minimum required fields of the status object. The rest is not of intereset
+export const smSykmeldingStatusPt = PropTypes.shape({
+    timestamp: PropTypes.instanceOf(Date).isRequired,
+    statusEvent: PropTypes.oneOf('SENDT', 'APEN', 'AVBRUTT', 'UTGATT', 'BEKREFTET').isRequired,
+});
+
+// Types minimum required fields of the status object. The rest is not of intereset
+export const smBehandlerPt = PropTypes.shape({
+    fornavn: PropTypes.string.isRequired,
+    mellomnavn: PropTypes.string,
+    etternavn: PropTypes.string.isRequired,
+});
+
 export const smSykmeldingPt = PropTypes.shape({
     id: PropTypes.string.isRequired,
     behandlingsutfall: behandlingsutfallPt.isRequired,
-    bekreftetDato: PropTypes.instanceOf(Date),
     mottattTidspunkt: PropTypes.instanceOf(Date),
-    legeNavn: PropTypes.string,
     legekontorOrgnummer: PropTypes.string,
     arbeidsgiver: smArbeidsgiverPt,
     sykmeldingsperioder: smSykmeldingPerioderPt,
     medisinskVurdering: smMedisinskVurderingPt,
+    sykmeldingStatus: smSykmeldingStatusPt.isRequired,
+    behandler: smBehandlerPt.isRequired,
 });
 
 export const smSykmeldingerPt = PropTypes.arrayOf(smSykmeldingPt);

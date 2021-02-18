@@ -57,6 +57,15 @@ describe('smSykmeldingerSelectors', () => {
                             },
                         ],
                     },
+                    sykmeldingStatus: {
+                        timestamp: new Date(),
+                        statusEvent: 'APEN',
+                    },
+                    behandler: {
+                        fornavn: 'Frida',
+                        mellomnavn: 'Perma',
+                        etternavn: 'Frost',
+                    },
                 },
                 {
                     id: '3',
@@ -72,6 +81,15 @@ describe('smSykmeldingerSelectors', () => {
                             },
                         ],
                     },
+                    sykmeldingStatus: {
+                        timestamp: new Date(),
+                        statusEvent: 'APEN',
+                    },
+                    behandler: {
+                        fornavn: 'Frida',
+                        mellomnavn: 'Perma',
+                        etternavn: 'Frost',
+                    },
                 },
             ];
 
@@ -83,7 +101,6 @@ describe('smSykmeldingerSelectors', () => {
             expect(resultat).to.deep.equal([{
                 id: '3',
                 mottattTidspunkt: null,
-                bekreftetDato: null,
                 sykmeldingsperioder: [],
                 behandlingsutfall: {
                     status: 'INVALID',
@@ -95,6 +112,15 @@ describe('smSykmeldingerSelectors', () => {
                             ruleStatus: 'INVALID',
                         },
                     ],
+                },
+                sykmeldingStatus: {
+                    timestamp: new Date(),
+                    statusEvent: 'APEN',
+                },
+                behandler: {
+                    fornavn: 'Frida',
+                    mellomnavn: 'Perma',
+                    etternavn: 'Frost',
                 },
             }]);
         });

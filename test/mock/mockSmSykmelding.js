@@ -11,6 +11,15 @@ const smSykmelding = {
             },
         ],
     },
+    sykmeldingStatus: {
+        timestamp: new Date(),
+        statusEvent: 'APEN',
+    },
+    behandler: {
+        fornavn: 'Frida',
+        mellomnavn: 'Perma',
+        etternavn: 'Frost',
+    },
 };
 
 const mockSmSykmelding = (smSykmeldingArg = {}) => {

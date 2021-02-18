@@ -5,7 +5,7 @@ import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 
 export const AvvistSykmeldingStatuspanel = ({ smSykmelding }) => (
-    smSykmelding.bekreftetDato
+    smSykmelding.sykmeldingStatus.statusEvent === 'BEKREFTET'
         ? (
             <div className="panel panel--komprimert statuspanel blokk--xl statuspanel--treKol">
                 <Statusopplysninger>
@@ -16,7 +16,7 @@ export const AvvistSykmeldingStatuspanel = ({ smSykmelding }) => (
                         <p>{tilLesbarDatoMedArstall(smSykmelding.mottattTidspunkt)}</p>
                     </StatusNokkelopplysning>
                     <StatusNokkelopplysning tittel="Bekreftet av deg">
-                        <p>{tilLesbarDatoMedArstall(smSykmelding.bekreftetDato)}</p>
+                        <p>{tilLesbarDatoMedArstall(smSykmelding.sykmeldingStatus.timestamp)}</p>
                     </StatusNokkelopplysning>
                 </Statusopplysninger>
             </div>

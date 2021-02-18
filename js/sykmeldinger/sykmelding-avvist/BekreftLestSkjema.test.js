@@ -14,15 +14,18 @@ describe('BekreftLestAvvistSykmeldingSkjema', () => {
         };
     });
 
-    it('Skal vise skjema når sykmelding ikke er sendt', () => {
+    it('Skal vise skjema når sykmelding ikke er bekreftet', () => {
         const smSykmelding = mockSmSykmelding();
         const component = mountWithStore(<BekreftLestAvvistSykmeldingSkjema smSykmelding={smSykmelding} />, state);
         expect(component.find('form')).to.have.length(1);
     });
 
-    it('Skal ikke vise skjema når sykmelding er sendt', () => {
+    it('Skal ikke vise skjema når sykmelding er bekreftet', () => {
         const smSykmelding = mockSmSykmelding({
-            bekreftetDato: new Date(),
+            sykmeldingStatus: {
+                timestamp: new Date(),
+                statusEvent: 'BEKREFTET',
+            },
         });
         const component = mountWithStore(<BekreftLestAvvistSykmeldingSkjema smSykmelding={smSykmelding} />, state);
         expect(component.find('form')).to.have.length(0);

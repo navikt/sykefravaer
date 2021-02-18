@@ -17,7 +17,7 @@ import { get, post } from '../../../data/gateway-api';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
 import { erNaisLabsDemo } from '../../../utils/urlUtils';
 
-export const hentSykmeldingsregisterUrl = () => {
+export const hentSykmeldingerBackendUrl = () => {
     const url = window
     && window.location
     && window.location.href
@@ -26,7 +26,7 @@ export const hentSykmeldingsregisterUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://syfosmregisterproxy.nav.no';
+        return 'https://sykmeldinger-backend-proxy.nav.no/api';
     }
     if (url.indexOf('localhost:2027') > -1) {
         // docker compose container
@@ -41,13 +41,13 @@ export const hentSykmeldingsregisterUrl = () => {
         return '/syfosmregister';
     }
     // Preprod
-    return 'https://syfosmregisterproxy-q.nav.no';
+    return 'https://sykmeldinger-backend-proxy.dev.nav.no/api';
 };
 
 export function* oppdaterSmSykmeldinger() {
     yield put(henterSmSykmeldinger());
     try {
-        const data = yield call(get, `${hentSykmeldingsregisterUrl()}/v1/sykmeldinger`);
+        const data = yield call(get, `${hentSykmeldingerBackendUrl()}/v1/sykmeldinger`);
         yield put(smSykmeldingerHentet(data));
     } catch (e) {
         log(e);
@@ -67,7 +67,7 @@ export function* bekreftSmSykmeldingLestSaga(action) {
     if (skalBekrefte) {
         yield put(bekrefterLestSmSykmelding());
         try {
-            yield call(post, `${hentSykmeldingsregisterUrl()}/v1/sykmeldinger/${action.smSykmelding.id}/bekreft`);
+            yield call(post, `${hentSykmeldingerBackendUrl()}/v1/sykmeldinger/${action.smSykmelding.id}/bekreft`);
             yield put(smSykmeldingBekreftetLest(action.smSykmelding));
             browserHistory.push('/sykefravaer');
             yield delay(10000);

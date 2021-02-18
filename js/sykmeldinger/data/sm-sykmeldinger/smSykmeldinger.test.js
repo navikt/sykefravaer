@@ -28,7 +28,7 @@ describe('smSykmeldinger', () => {
         const action = smSykmeldingBekreftetLest(smSykmelding);
         const nextState = smSykmeldinger(state, action);
         const nySmSykmelding = smSykmeldingSelector({ smSykmeldinger: nextState }, smSykmelding.id);
-        expect(nySmSykmelding.bekreftetDato).to.deep.equal(now);
+        expect(nySmSykmelding.sykmeldingStatus.timestamp).to.deep.equal(now);
         expect(nextState.visKvittering).to.equal(true);
         clock.restore();
     });

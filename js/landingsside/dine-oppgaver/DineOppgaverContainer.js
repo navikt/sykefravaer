@@ -326,7 +326,7 @@ export const mapStateToProps = (state) => {
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const avvisteSmSykmeldinger = avvisteSmSykmeldingerDataSelector(state)
         .filter((smSykmelding) => {
-            return smSykmelding.bekreftetDato === null;
+            return smSykmelding.sykmeldingStatus.statusEvent === 'APEN';
         });
     const visOppgaver = sykmeldinger.length > 0
     || soknader.length > 0

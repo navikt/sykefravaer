@@ -16,7 +16,7 @@ export const AvvistSykmeldingStatuspanel = ({ smSykmelding }) => (
                         <p>{tilLesbarDatoMedArstall(smSykmelding.mottattTidspunkt)}</p>
                     </StatusNokkelopplysning>
                     <StatusNokkelopplysning tittel="Bekreftet av deg">
-                        <p>{tilLesbarDatoMedArstall(smSykmelding.bekreftetDato)}</p>
+                        <p>{tilLesbarDatoMedArstall(smSykmelding.sykmeldingStatus.timestamp)}</p>
                     </StatusNokkelopplysning>
                 </Statusopplysninger>
             </div>

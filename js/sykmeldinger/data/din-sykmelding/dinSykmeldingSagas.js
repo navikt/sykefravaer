@@ -138,8 +138,9 @@ export function* avbrytSykmelding(action) {
 
 export function* gjenaapneSykmelding(action) {
     yield put(actions.gjenaapnerSykmelding());
+    const url = getSykmeldingerBackendUrl();
     try {
-        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
+        yield call(post, `${url}/${action.sykmeldingId}/gjenapne`);
         yield put(actions.sykmeldingGjenaapnet(action.sykmeldingId));
     } catch (e) {
         log(e);
@@ -149,8 +150,9 @@ export function* gjenaapneSykmelding(action) {
 
 export function* angreBekreftSykmelding(action) {
     yield put(actions.angrerBekreftSykmelding());
+    const url = getSykmeldingerBackendUrl();
     try {
-        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
+        yield call(post, `${url}/${action.sykmeldingId}/gjenapne`);
         yield put(actions.bekreftSykmeldingAngret(action.sykmeldingId));
         if (window.location.href.indexOf('sykmeldinger') === -1) {
             gaTilSykmelding(action.sykmeldingId);

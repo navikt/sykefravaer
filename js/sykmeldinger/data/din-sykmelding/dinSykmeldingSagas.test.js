@@ -207,8 +207,8 @@ describe('dinSykmeldingSagas', () => {
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
-        it('Skal dernest gjeaapne sykmeldingen', () => {
-            const nextCall = call(post, '/syforest/sykmeldinger/minAndreSykmeldingId/actions/gjenaapne');
+        it('Skal dernest gjenaapne sykmeldingen', () => {
+            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minAndreSykmeldingId/gjenapne');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

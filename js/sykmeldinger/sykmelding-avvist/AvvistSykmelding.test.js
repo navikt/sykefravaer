@@ -39,7 +39,10 @@ describe('AvvvistSykmelding', () => {
         it('Skal inneholde "Vi har gitt beskjed til Lege Legenavn" dersom bruker har ukjent diagnose', () => {
             sykmelding = {
                 ...sykmelding,
-                legeNavn: 'Lege Legenavn',
+                behandler: {
+                    fornavn: 'Lege',
+                    etternavn: 'Legenavn',
+                },
             };
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
             expect(component.text()).to.contain('Vi har gitt beskjed til Lege Legenavn');
@@ -74,7 +77,10 @@ describe('AvvvistSykmelding', () => {
         it('Skal inneholde navn på lege om dette finnes', () => {
             sykmelding = {
                 ...sykmelding,
-                legeNavn: 'Lege Legenavn',
+                behandler: {
+                    fornavn: 'Lege',
+                    etternavn: 'Legenavn',
+                },
             };
             const component = mountWithStore(<AvvistSykmeldingPanel smSykmelding={sykmelding} />);
             expect(component.text()).to.contain('Lege Legenavn');

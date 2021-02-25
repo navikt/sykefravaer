@@ -5,14 +5,8 @@ import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import { SykmeldingPerioder } from './SykmeldingPerioder';
 import { BiDiagnoser, Hoveddiagnose } from './SykmeldingDiagnoser';
 import { Nokkelopplysning } from './Nokkelopplysning';
+import { getBehandlerNavn } from '../../utils/behandlerUtils';
 
-const getBehandlerNavn = (behandler) => {
-    // should not happen :-)
-    if (!behandler) {
-        return '';
-    }
-    return `${behandler.fornavn}${behandler.mellomnavn ? ` ${behandler.mellomnavn}` : ''} ${behandler.etternavn}`;
-};
 const getArbeidsgivernavn = arbeidsgiver => (
     arbeidsgiver !== null ? arbeidsgiver.navn : ''
 );

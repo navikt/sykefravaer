@@ -11,6 +11,7 @@ import {
 } from '../../enums/avvisningsregelnavn';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import Mann from '../../components/svg/Mann';
+import { getBehandlerNavn } from '../../utils/behandlerUtils';
 
 const REGELNAVN_INGEN_RETT_TIL_A_SYKMELDE = [
     BEHANDLER_IKKE_GYLDIG_I_HPR,
@@ -56,13 +57,15 @@ export const hentHandlingsstreng = (smSykmelding) => {
         return 'Du må oppsøke en som har rett til å sykmelde. ';
     }
 
-    return `Når du har fått ny sykmelding fra ${smSykmelding.legeNavn}, får du en ny beskjed fra oss om å logge deg inn på nav.no slik at du kan sende inn sykmeldingen. 
-    Går det mange dager, bør du kontakte ${smSykmelding.legeNavn} som skal skrive den nye sykmeldingen.`;
+    // eslint-disable-next-line max-len
+    return `Når du har fått ny sykmelding fra ${getBehandlerNavn(smSykmelding.behandler)}, får du en ny beskjed fra oss om å logge deg inn på nav.no slik at du kan sende inn sykmeldingen. 
+    Går det mange dager, bør du kontakte ${getBehandlerNavn(smSykmelding.behandler)} som skal skrive den nye sykmeldingen.`;
 };
 
 const hentIntrotekst = (smSykmelding) => {
     const intro = 'Du trenger en ny sykmelding fordi';
-    const standardtekst = `${intro} det er gjort en feil i utfyllingen. Vi har gitt beskjed til ${smSykmelding.legeNavn} om hva som er feil, og at du må få en ny sykmelding.`;
+    // eslint-disable-next-line max-len
+    const standardtekst = `${intro} det er gjort en feil i utfyllingen. Vi har gitt beskjed til ${getBehandlerNavn(smSykmelding.behandler)} om hva som er feil, og at du må få en ny sykmelding.`;
     const overSyttitekst = `${intro} du er over 70 år. `;
     const ugyldigSykmeldingversjonTekst = `${intro} det er brukt en ugyldig versjon av sykmeldingen. `;
     const ingenAutorisasjonTekst = `${intro} den som skrev sykmeldingen manglet autorisasjon.`;

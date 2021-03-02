@@ -24,7 +24,8 @@ import Stegnavigasjon from './components/Stegnavigasjon';
 import DineSykmeldingOpplysninger from './components/sykmeldingOpplysninger/DineSykmeldingOpplysninger';
 import DineKoronaSykmeldingOpplysninger from './components/sykmeldingOpplysninger/DineKoronaSykmeldingOpplysninger';
 import Video from './components/Video';
-import { get, post } from '../data/gateway-api';
+import { get } from '../data/gateway-api';
+import { postWithCsrf } from './api/postWithCsrf';
 
 export { ArbeidsgiversSykmeldingOpplysninger };
 export { ArbeidsgiversNokkelopplysninger };
@@ -64,10 +65,13 @@ export { Stegnavigasjon };
 export * from './enums';
 export * from './components/sykepengesoknadOppsummering/Soknad';
 export { TimeoutBox };
-export { get, post };
+export { get };
+export { postWithCsrf as post };
 
 // eslint-disable-next-line no-unused-vars
-let performOnHttpCalls = () => { return undefined; };
+let performOnHttpCalls = () => {
+    return undefined;
+};
 export const setPerformOnHttpCalls = (_performOnHttpCalls) => {
     performOnHttpCalls = _performOnHttpCalls;
 };

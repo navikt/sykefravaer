@@ -1,6 +1,7 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { get, henterToggles, togglesHentet, hentTogglesFeilet, HENT_TOGGLES_FORESPURT } from '@navikt/digisyfo-npm';
+import { henterToggles, togglesHentet, hentTogglesFeilet, HENT_TOGGLES_FORESPURT } from '@navikt/digisyfo-npm';
 import { getSyforestRoot } from '../../utils/urlUtils';
+import { get } from '../gateway-api';
 
 export function* hentToggles() {
     yield put(henterToggles());

@@ -11,6 +11,17 @@ export const erNaisLabsDemo = () => {
         .indexOf('labs.nais.io') > -1;
 };
 
+export const erDevGcp = () => {
+    return getUrl()
+        .indexOf('https://www-gcp.dev.nav.no/sykefravaer') > -1;
+};
+
+export const erProduksjon = () => {
+    const url = getUrl();
+    return url.indexOf('tjenester.nav') > -1;
+};
+
+
 export const erFlexDockerCompose = () => {
     const url = getUrl();
     return url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1;
@@ -31,12 +42,18 @@ export const getSyforestRoot = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1993/syforest';
     }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/syforest';
+    }
     return '/syforest';
 };
 
 export const getLedeteksterRoot = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1995/syfotekster';
+    }
+    if (erDevGcp()) {
+        return 'https://syfoapi.dev.nav.no/syfotekster';
     }
     return '/syfotekster';
 };
@@ -45,12 +62,18 @@ export const getOppfolgingRestUrl = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1993/veilarboppfolging/api/oppfolging';
     }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/veilarboppfolging/api/oppfolging';
+    }
     return '/veilarboppfolging/api/oppfolging';
 };
 
 export const getVeilarbregRestUrl = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1993/veilarbregistrering/api/sykmeldtinfodata';
+    }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/veilarbregistrering/api/sykmeldtinfodata';
     }
     return '/veilarbregistrering/api/sykmeldtinfodata';
 };
@@ -60,12 +83,18 @@ export const getDialogmoteContextRoot = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1993/dialogmote';
     }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/dialogmote';
+    }
     return '/dialogmote';
 };
 
 export const getOppfolgingsplanContextRoot = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1993/oppfolgingsplan';
+    }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/oppfolgingsplan';
     }
     return '/oppfolgingsplan';
 };

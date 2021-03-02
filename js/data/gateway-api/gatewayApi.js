@@ -1,7 +1,7 @@
 import { log } from '@navikt/digisyfo-npm';
 import ponyfill from 'fetch-ponyfill';
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
-import { erNaisLabsDemo } from '../../utils/urlUtils';
+import { erDevGcp, erFlexDockerCompose, erNaisLabsDemo, erProduksjon } from '../../utils/urlUtils';
 
 const ponyfills = ponyfill();
 export const REDIRECT_ETTER_LOGIN = 'REDIRECT_ETTER_LOGIN';
@@ -32,12 +32,17 @@ export const hentLoginUrl = () => {
     if (window.location.href.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://loginservice.nav.no/login';
-    } if (window.location.href.indexOf('localhost:2027') > -1 || window.location.href.indexOf('localhost:2028') > -1) {
+    }
+    if (window.location.href.indexOf('localhost:2027') > -1 || window.location.href.indexOf('localhost:2028') > -1) {
         // Lokalt docker compose
         return 'http://localhost:5000';
-    } if (window.location.href.indexOf('localhost') > -1) {
+    }
+    if (window.location.href.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/syfoapi/local/cookie';
+    }
+    if (erDevGcp()) {
+        return 'https://loginservice.dev.nav.no/login';
     }
     // Preprod
     return 'https://loginservice-q.nav.no/login';
@@ -97,7 +102,8 @@ export const post = (url, body) => {
                 log(res, 'Redirect til login');
                 window.location.href = `${hentLoginUrl()}?redirect=${window.location.href}`;
                 return null;
-            } if (res.status > 400) {
+            }
+            if (res.status > 400) {
                 log(res);
                 throw new Error(`Forespørsel feilet. Statuskode: ${res.status}`);
             } else {
@@ -124,10 +130,12 @@ export const hentApiUrl = () => {
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
         return 'https://flex-gateway.nav.no/syfosoknad/api';
-    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+    }
+    if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
         // docker compose
         return 'http://localhost:33333/syfosoknad/api';
-    } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+    }
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
         return '/syfosoknad/api';
     }
@@ -141,15 +149,20 @@ export const hentSyfoApiUrl = (appNavn) => {
     && window.location.href
         ? window.location.href
         : '';
-    if (url.indexOf('tjenester.nav') > -1) {
+    if (erProduksjon()) {
         // Prod
         return `https://syfoapi.nav.no/${appNavn}/api`;
-    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+    }
+    if (erFlexDockerCompose()) {
         // docker compose
         return `http://localhost:1995/${appNavn}/api`;
-    } if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+    }
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
         // Lokalt
         return `/${appNavn}/api`;
+    }
+    if (erDevGcp()) {
+        return `https://syfoapi.dev.nav.no/${appNavn}/api`;
     }
     // Preprod
     return `https://syfoapi-q.nav.no/${appNavn}/api`;
@@ -161,16 +174,19 @@ export const hentReisetilskuddBackendUrl = () => {
     && window.location.href
         ? window.location.href
         : '';
-    if (url.indexOf('tjenester.nav') > -1) {
+    if (erProduksjon()) {
         // Prod
         return 'https://flex-gateway.nav.no/flex-reisetilskudd-backend/api/v1/reisetilskudd';
-    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+    }
+    if (erFlexDockerCompose()) {
         // docker compose
         return 'http://localhost:33333/flex-reisetilskudd-backend/api/v1/reisetilskudd';
-    } if (erNaisLabsDemo()) {
+    }
+    if (erNaisLabsDemo()) {
         // Nais labs
         return '/flex-reisetilskudd-backend-mock/api/v1/reisetilskudd';
-    } if (url.indexOf('localhost') > -1) {
+    }
+    if (url.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/reisetilskudd';
     }
@@ -184,16 +200,19 @@ export const hentSpinnsynBackendUrl = () => {
     && window.location.href
         ? window.location.href
         : '';
-    if (url.indexOf('tjenester.nav') > -1) {
+    if (erProduksjon()) {
         // Prod
         return 'https://flex-gateway.nav.no/spinnsyn-backend/api/v1/vedtak';
-    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+    }
+    if (erFlexDockerCompose()) {
         // docker compose
         return 'http://localhost:33333/spinnsyn-backend/api/v1/vedtak';
-    } if (erNaisLabsDemo()) {
+    }
+    if (erNaisLabsDemo()) {
         // Nais labs
         return '/spinnsyn-backend-mock/api/v1/vedtak';
-    } if (url.indexOf('localhost') > -1) {
+    }
+    if (url.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/vedtak';
     }

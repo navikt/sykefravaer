@@ -29,7 +29,7 @@ function arbeidsgiversSykmeldingerUrl() {
         return `${getSyforestRoot()}/sykmeldinger?type=arbeidsgiver`;
     }
     // Ellers syforest format fra sykmeldinger backend
-    return getSykmeldingerBackendUrl() + '/sykmeldinger';
+    return `${getSykmeldingerBackendUrl()}/sykmeldinger`;
 }
 
 export function* hentArbeidsgiversSykmeldinger() {

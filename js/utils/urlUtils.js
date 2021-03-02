@@ -51,6 +51,15 @@ export const getSyforestRoot = () => {
     return '/syforest';
 };
 
+
+export const getDittNavUrl = () => {
+    if (erDevGcp()) {
+        return 'https://www.dev.nav.no/person/dittnav/';
+    }
+    return '/dittnav';
+};
+
+
 export const getSyfoteksterRoot = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1995/syfotekster';

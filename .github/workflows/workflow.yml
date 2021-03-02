@@ -47,7 +47,6 @@ jobs:
           docker push ${IMAGE}
 
   deploy-to-dev-sbs:
-    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/dev-YYY')
     name: Deploy to dev-sbs
     needs: build-and-publish
     runs-on: ubuntu-latest

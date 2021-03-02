@@ -3,6 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { get, log } from '@navikt/digisyfo-npm';
 import * as actions from './arbeidsgivereActions';
+import { getSyforestRoot } from '../../../utils/urlUtils';
 
 const { HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT } = actions;
 
@@ -16,7 +17,7 @@ export function* hentDineArbeidsgivere(action) {
     if (skalHente) {
         yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));
         try {
-            const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
+            const data = yield call(get, `${getSyforestRoot()}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
             yield put(actions.aktuelleArbeidsgivereHentet(sykmeldingId, data));
         } catch (e) {
             log(e);

@@ -30,7 +30,7 @@ import {
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
 import {
-    erNaisLabsDemo,
+    erNaisLabsDemo, getDialogmoteContextRoot, getOppfolgingsplanContextRoot,
     getSykepengesoknaderUrl,
     getSykepengesoknadUrl,
 } from '../../utils/urlUtils';
@@ -153,7 +153,7 @@ const nyePlanerTekst = (antall) => {
 export const NyttMotebehovVarsel = () => {
     return (
         <EksternLi
-            url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}/behov`}
+            url={`${getDialogmoteContextRoot()}/behov`}
             tekst={getLedetekst('sykefravaer.dineoppgaver.nyttMotebehovVarsel')}
         />
     );
@@ -190,7 +190,7 @@ const RendreOppgaver = ({
 
     const OPPFOLGINGSPLANER_URL = erNaisLabsDemo()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
-        : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
+        : `${getOppfolgingsplanContextRoot()}/oppfolgingsplaner`;
 
     return (
         <div className="landingspanel dineOppgaver">
@@ -215,7 +215,7 @@ const RendreOppgaver = ({
                     )}
                     {mote !== null && (
                         <EksternLi
-                            url={`${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}`}
+                            url={`${getDialogmoteContextRoot()}`}
                             tekst={getLedetekst('dine-oppgaver.mote.svar')}
                         />
                     )}

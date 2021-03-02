@@ -10,13 +10,32 @@ import {
     SYKMELDING_GJENAAPNET,
     SYKMELDING_SENDT,
 } from '../din-sykmelding/dinSykmeldingActions';
+import { getSykmeldingerBackendUrl } from '../dine-sykmeldinger/dineSykmeldingerSagas';
+import { getSyforestRoot } from '../../../utils/urlUtils';
 
 const { HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT } = actions;
+
+function arbeidsgiversSykmeldingerUrl() {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+
+    if (url.indexOf('tjenester.nav') > -1 || url.indexOf('tjenester-q1.nav') > -1 || url.indexOf('about:blank') > -1) {
+        // Bruker syforest i openam miljøene fortsatt. About:blank er i npm run test
+        // Skjønner ikke helt hva det filteret gjør.
+        // Tilfører jo ikke sikkerhet når dataene går via browser uansett?
+        return `${getSyforestRoot()}/sykmeldinger?type=arbeidsgiver`;
+    }
+    // Ellers syforest format fra sykmeldinger backend
+    return getSykmeldingerBackendUrl();
+}
 
 export function* hentArbeidsgiversSykmeldinger() {
     yield put(actions.henterArbeidsgiversSykmeldinger());
     try {
-        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger?type=arbeidsgiver`);
+        const data = yield call(get, arbeidsgiversSykmeldingerUrl());
         yield put(actions.setArbeidsgiversSykmeldinger(data));
     } catch (e) {
         log(e);

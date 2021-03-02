@@ -13,12 +13,12 @@ import {
 } from '../din-sykmelding/dinSykmeldingActions';
 import { toggleSykmeldingerBackend, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
-import { erNaisLabsDemo } from '../../../utils/urlUtils';
+import { erNaisLabsDemo, getSyforestRoot } from '../../../utils/urlUtils';
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
 // Because envvars can not easily be injected in build
-const getSykmeldingerBackendUrl = () => {
+export const getSykmeldingerBackendUrl = () => {
     const url = window
     && window.location
     && window.location.href
@@ -49,7 +49,7 @@ export function* oppdaterDineSykmeldinger() {
 
     if (togglesHentet) {
         yield put(actions.henterDineSykmeldinger());
-        const URL = toggleNewUrl ? `${getSykmeldingerBackendUrl()}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
+        const URL = toggleNewUrl ? `${getSykmeldingerBackendUrl()}` : `${getSyforestRoot()}`;
         try {
             const data = yield call(get, `${URL}/sykmeldinger`);
             yield put(actions.setDineSykmeldinger(data));

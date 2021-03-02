@@ -7,11 +7,12 @@ import { SYKMELDING_AVBRUTT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../.
 import {
     henterSykeforloepMetadata, hentSykeforloepMetadataFeilet, sykeforloepMetadataHentet, HENT_SYKEFORLOEP_METADATA_FORESPURT,
 } from './sykeforloepMetadata_actions';
+import { getSyforestRoot } from '../../utils/urlUtils';
 
 export function* oppdaterSykeforloepMetadata() {
     yield put(henterSykeforloepMetadata());
     try {
-        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/sykeforloep/metadata`);
+        const data = yield call(get, `${getSyforestRoot()}/sykeforloep/metadata`);
         yield put(sykeforloepMetadataHentet(data));
     } catch (e) {
         log(e);

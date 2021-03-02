@@ -8,6 +8,7 @@ import logger from '../../logging';
 import { skalHenteBrukerinfoSelector, skalHenteOppfolgingSelector, skalHenteSykmeldtinfodata } from './brukerinfoSelectors';
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 import { HENTET_UNLEASH_TOGGLES } from '../unleash-toggles/unleashToggles_actions';
+import { getOppfolgingRestUrl, getSyforestRoot, getVeilarbregRestUrl } from '../../utils/urlUtils';
 
 const {
     HENT_BRUKERINFO_FORESPURT, HENT_OPPFOLGING_FORESPURT, HENT_SYKMELDTINFODATA_FORESPURT, SJEKK_INNLOGGING_FORESPURT,
@@ -25,7 +26,7 @@ export function* hentBrukerinfo() {
     if (skalHente) {
         yield put(actions.henterBrukerinfo());
         try {
-            const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/bruker`);
+            const data = yield call(get, `${getSyforestRoot()}/informasjon/bruker`);
             yield put(actions.brukerinfoHentet(data));
         } catch (e) {
             log(e);
@@ -51,7 +52,7 @@ export function* hentOppfolging() {
     if (skalHente) {
         yield put(actions.henterOppfolging());
         try {
-            const data = yield call(gatewayGet, process.env.REACT_APP_OPPFOLGING_REST_URL, getConsumerIdHeaders());
+            const data = yield call(gatewayGet, getOppfolgingRestUrl(), getConsumerIdHeaders());
             yield put(actions.oppfolgingHentet(data));
         } catch (e) {
             if (e.message === MANGLER_OIDC_TOKEN) {
@@ -70,7 +71,7 @@ export function* hentSykmeldtinfodata() {
     if (skalHente) {
         yield put(actions.henterSykmeldtinfodata());
         try {
-            const data = yield call(gatewayGet, process.env.REACT_APP_VEILARBREG_REST_URL, getConsumerIdHeaders());
+            const data = yield call(gatewayGet, getVeilarbregRestUrl(), getConsumerIdHeaders());
             yield put(actions.sykmeldtInfodataHentet(data));
         } catch (e) {
             if (e.message === MANGLER_OIDC_TOKEN) {

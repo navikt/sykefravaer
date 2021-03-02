@@ -1,5 +1,5 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { get, log, henterSykeforlopsPerioder, sykeforlopsPerioderHentet, hentSykeforlopsPerioderFeilet, HENT_SYKEFORLOPSPERIODER_FORESPURT } from '@navikt/digisyfo-npm';
+import { get, log, henterSykeforlopsPerioder, HENT_SYKEFORLOPSPERIODER_FORESPURT, sykeforlopsPerioderHentet, hentSykeforlopsPerioderFeilet } from '@navikt/digisyfo-npm';
 import { getSyforestRoot } from '../../utils/urlUtils';
 
 

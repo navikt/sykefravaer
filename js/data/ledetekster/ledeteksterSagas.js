@@ -1,5 +1,5 @@
 import { call, put, fork, takeEvery } from 'redux-saga/effects';
-import { get, HENT_LEDETEKSTER_FORESPURT, log, setLedetekster, henterLedetekster, ledeteksterHentet, hentLedeteksterFeilet } from '@navikt/digisyfo-npm';
+import { get, log, setLedetekster, henterLedetekster, ledeteksterHentet, HENT_LEDETEKSTER_FORESPURT, hentLedeteksterFeilet } from '@navikt/digisyfo-npm';
 import { getLedeteksterRoot } from '../../utils/urlUtils';
 
 

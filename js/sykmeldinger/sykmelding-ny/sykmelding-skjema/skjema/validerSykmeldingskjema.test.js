@@ -1,5 +1,5 @@
 import chai from 'chai';
-import { arbeidssituasjoner, feilaktigeOpplysninger } from '@navikt/digisyfo-npm';
+import { arbeidssituasjoner, feilaktigeOpplysninger } from '../../../../digisyfoNpm';
 import validerSykmeldingskjema from './validerSykmeldingskjema';
 
 const { expect } = chai;

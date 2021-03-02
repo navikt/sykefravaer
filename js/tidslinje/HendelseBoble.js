@@ -5,7 +5,7 @@ import {
     keyValue,
     scrollTo,
     tilLesbarDatoMedArstall,
-} from '@navikt/digisyfo-npm';
+} from '../digisyfoNpm';
 import TidslinjeBudskap from './TidslinjeBudskap';
 import HendelseIkon from './HendelseIkon';
 import { tidslinjehendelse as hendelsePt } from './tidslinjePropTypes';

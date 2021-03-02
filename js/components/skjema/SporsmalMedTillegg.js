@@ -1,7 +1,7 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { erSynligIViewport, scrollTo } from '@navikt/digisyfo-npm';
+import { erSynligIViewport, scrollTo } from '../../digisyfoNpm';
 import { Vis } from '../../utils';
 
 class SporsmalMedTillegg extends Component {

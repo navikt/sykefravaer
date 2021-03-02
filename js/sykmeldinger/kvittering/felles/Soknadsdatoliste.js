@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykepengesoknad as sykepengesoknadPt, getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt, getLedetekst, tilLesbarDatoMedArstall } from '../../../digisyfoNpm';
 
 export const sorterSoknaderEtterDatoTilgjengelig = (sykepengesoknader) => {
     return [...sykepengesoknader]

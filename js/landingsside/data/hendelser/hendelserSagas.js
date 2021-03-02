@@ -1,7 +1,7 @@
 import {
     all, call, fork, put, takeEvery,
 } from 'redux-saga/effects';
-import { get, log } from '@navikt/digisyfo-npm';
+import { get, log } from '../../../digisyfoNpm';
 import * as actions from './hendelserActions';
 import { AKTIVITETSKRAV_BEKREFTET } from '../../../aktivitetskrav/data/aktivitetskravActions';
 import { getSyforestRoot } from '../../../utils/urlUtils';

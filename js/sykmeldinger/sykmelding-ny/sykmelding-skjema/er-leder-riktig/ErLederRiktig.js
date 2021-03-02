@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { getLedetekst } from '../../../../digisyfoNpm';
 import Radioknapper from '../../../../components/skjema/Radioknapper';
 import { naermesteLeder as naermesteLederPt, fieldPropTypes } from '../../../../propTypes';
 

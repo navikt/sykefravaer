@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { keyValue } from '@navikt/digisyfo-npm';
+import { keyValue } from '../digisyfoNpm';
 import HendelseTittel from './HendelseTittel';
 import HendelseBoble from './HendelseBoble';
 import { tidslinjehendelse as hendelsePt } from './tidslinjePropTypes';

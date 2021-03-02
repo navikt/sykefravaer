@@ -1,4 +1,4 @@
-import { erGyldigDatoformat } from '@navikt/digisyfo-npm';
+import { erGyldigDatoformat } from '../../../digisyfoNpm';
 import { erGyldigDato } from '../../../utils/datoUtils';
 import validerPeriode from '../periodevelger/validerPeriode';
 

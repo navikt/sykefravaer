@@ -1,7 +1,7 @@
 import {
     all, call, fork, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { get, getAjax, log } from '@navikt/digisyfo-npm';
+import { get, getAjax, log } from '../../digisyfoNpm';
 import { get as gatewayGet, getHeaders } from '../gateway-api/index';
 import * as actions from './brukerinfo_actions';
 import logger from '../../logging';

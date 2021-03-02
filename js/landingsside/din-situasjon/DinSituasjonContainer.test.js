@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { arbeidssituasjoner as situasjoner, sykmeldingstatuser as statuser } from '@navikt/digisyfo-npm';
+import { arbeidssituasjoner as situasjoner, sykmeldingstatuser as statuser } from '../../digisyfoNpm';
 import DinSituasjon from './DinSituasjon';
 import {
     Container,

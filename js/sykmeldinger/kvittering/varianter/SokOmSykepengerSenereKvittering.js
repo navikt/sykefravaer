@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     getLedetekst,
     Video,
     Bjorn,
     tilLesbarDatoMedArstall,
-} from '@navikt/digisyfo-npm';
-import PropTypes from 'prop-types';
+} from '../../../digisyfoNpm';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from '../felles/Soknadsdatoliste';
 import { soknadPt } from '../../../propTypes/soknadProptype';

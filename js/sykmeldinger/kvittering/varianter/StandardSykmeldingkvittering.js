@@ -1,7 +1,7 @@
 import React from 'react';
-import { sykmeldingstatuser } from '@navikt/digisyfo-npm';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { sykmeldingstatuser } from '../../../digisyfoNpm';
 
 const StandardSykmeldingkvittering = (props) => {
     const { tittel, brodtekst, status } = props;

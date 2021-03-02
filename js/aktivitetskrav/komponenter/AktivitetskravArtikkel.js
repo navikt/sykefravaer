@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import {
     getLedetekst, getHtmlLedetekst, tilLesbarDatoMedArstall, Radiofaner, keyValue,
-} from '@navikt/digisyfo-npm';
+} from '../../digisyfoNpm';
 
 const MED_ARBEIDSGIVER = 'MED_ARBEIDSGIVER';
 const UTEN_ARBEIDSGIVER = 'UTEN_ARBEIDSGIVER';

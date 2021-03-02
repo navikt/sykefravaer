@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Alertstripe from 'nav-frontend-alertstriper';
 import {
     getLedetekst, keyValue, scrollTo, tilLesbarDatoMedArstall,
-} from '@navikt/digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
+} from '../../digisyfoNpm';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';

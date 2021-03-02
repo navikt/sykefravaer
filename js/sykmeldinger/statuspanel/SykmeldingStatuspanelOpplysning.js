@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import {
     getLedetekst,
     SykmeldingNokkelOpplysning,
     sykmeldingstatuser,
     tilLesbarPeriodeMedArstall,
     tilLesbarDatoMedArstall,
-} from '@navikt/digisyfo-npm';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
+} from '../../digisyfoNpm';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Vis } from '../../utils/index';
 import { StatusNokkelopplysning } from '../../components/Statuspanel';

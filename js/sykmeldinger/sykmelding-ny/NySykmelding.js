@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import {
     Bjorn, DineSykmeldingOpplysninger, getLedetekst, scrollTo,
-} from '@navikt/digisyfo-npm';
+} from '../../digisyfoNpm';
 import DinSykmeldingSkjemaContainer from './sykmelding-skjema/skjema/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../../components/Sidetopp';
 import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';

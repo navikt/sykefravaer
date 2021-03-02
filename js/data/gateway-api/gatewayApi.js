@@ -1,5 +1,5 @@
-import { log } from '@navikt/digisyfo-npm';
 import ponyfill from 'fetch-ponyfill';
+import { log } from '../../digisyfoNpm/utils';
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 import { erDevGcp, erFlexDockerCompose, erNaisLabsDemo, erProduksjon } from '../../utils/urlUtils';
 

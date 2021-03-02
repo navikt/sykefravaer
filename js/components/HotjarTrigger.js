@@ -1,7 +1,7 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
 import { string, node } from 'prop-types';
-import { log } from '@navikt/digisyfo-npm';
+import { log } from '../digisyfoNpm';
 import { erNaisLabsDemo } from '../utils/urlUtils';
 
 export default class HotjarTrigger extends Component {

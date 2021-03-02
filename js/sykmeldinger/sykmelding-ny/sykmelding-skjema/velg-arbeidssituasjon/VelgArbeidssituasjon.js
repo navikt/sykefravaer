@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { getLedetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from '../../../../digisyfoNpm';
 import SporsmalMedTillegg from '../../../../components/skjema/SporsmalMedTillegg';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../../../propTypes';
 import Radioknapper from '../../../../components/skjema/Radioknapper';

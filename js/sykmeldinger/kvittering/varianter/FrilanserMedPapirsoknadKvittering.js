@@ -1,7 +1,8 @@
 import React from 'react';
-import { getLedetekst, Bjorn } from '@navikt/digisyfo-npm';
 import Kvitteringsteg, { HtmlAvsnitt, StegvisKvittering } from '../felles/Kvitteringsteg';
 import { FrilanserSelvstendigKvitteringHotjarTrigger } from '../../../components/HotjarTrigger';
+import { getLedetekst } from '../../../digisyfoNpm/ledetekster';
+import { Bjorn } from '../../../digisyfoNpm';
 
 const FrilanserMedPapirsoknadKvittering = () => {
     return (

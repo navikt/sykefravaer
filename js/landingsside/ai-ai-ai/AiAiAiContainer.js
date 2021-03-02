@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { log } from '@navikt/digisyfo-npm';
+import { log } from '../../digisyfoNpm';
 import AiAiAiFeilmelding from './AiAiAiFeilmelding';
 
 const mapStateToProps = (state) => {

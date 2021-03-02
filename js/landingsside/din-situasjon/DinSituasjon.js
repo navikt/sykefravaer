@@ -1,7 +1,7 @@
 import React from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { getLedetekst } from '../../digisyfoNpm';
 import Arbeidssituasjoner from './Arbeidssituasjoner';
 
 const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => {

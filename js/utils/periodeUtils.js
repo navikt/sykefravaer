@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tilDatePeriode } from '@navikt/digisyfo-npm';
+import { fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tilDatePeriode } from '../digisyfoNpm';
 
 const ETT_DOGN = 1000 * 60 * 60 * 24;
 

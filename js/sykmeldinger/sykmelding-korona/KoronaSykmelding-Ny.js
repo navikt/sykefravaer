@@ -1,11 +1,11 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable max-len */
 import React, { Component } from 'react';
-import {
-    DineKoronaSykmeldingOpplysninger, Bjorn, scrollTo,
-} from '@navikt/digisyfo-npm';
 import { Undertittel, Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
+import {
+    DineKoronaSykmeldingOpplysninger, Bjorn, scrollTo,
+} from '../../digisyfoNpm';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import { NySykmeldingTrigger } from '../../components/HotjarTrigger';
 import BekreftEgenmeldingSkjema from './skjema/BekreftEgenmeldingSkjema';

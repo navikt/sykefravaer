@@ -1,8 +1,8 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+import { getLedetekst } from '../../../digisyfoNpm';
 import { Vis } from '../../../utils';
 import validerDatoField from '../datovelger/validerDatoField';
 import DayPickerPeriode from './DayPickerPeriode';

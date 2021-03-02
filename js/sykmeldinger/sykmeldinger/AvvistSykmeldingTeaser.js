@@ -1,10 +1,10 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     getDuration, getLedetekst, senesteTom, tidligsteFom, tilLesbarPeriodeMedArstall,
-} from '@navikt/digisyfo-npm';
-import PropTypes from 'prop-types';
+} from '../../digisyfoNpm';
 import getContextRoot from '../../utils/getContextRoot';
 import { smSykmeldingPeriodePt, smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import {

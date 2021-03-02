@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '../../../digisyfoNpm/ledetekster';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { getSykepengesoknaderUrl } from '../../../utils/urlUtils';
 

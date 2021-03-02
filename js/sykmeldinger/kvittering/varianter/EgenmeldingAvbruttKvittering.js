@@ -3,9 +3,9 @@ import React from 'react';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Panel from 'nav-frontend-paneler';
-import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import { Knapp } from 'nav-frontend-knapper';
 import history from '../../../history';
+import { Bjorn } from '../../../digisyfoNpm';
 
 const EgenmeldingAvbruttKvittering = () => {
     return (

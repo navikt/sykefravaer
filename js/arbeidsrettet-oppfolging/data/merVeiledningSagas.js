@@ -1,7 +1,7 @@
 import {
     all, call, fork, put, takeEvery,
 } from 'redux-saga/effects';
-import { log } from '@navikt/digisyfo-npm';
+import { log } from '../../digisyfoNpm';
 import {
     BEKREFT_MER_VEILEDNING_FORESPURT, bekrefterMerVeiledning, bekreftMerVeiledningFeilet, merVeiledningBekreftet,
 } from './merVeiledningActions';

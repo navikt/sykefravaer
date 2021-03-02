@@ -1,6 +1,6 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 import React from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '../../digisyfoNpm';
 import { smSykmeldingPt } from '../../propTypes/smSykmeldingProptypes';
 import { SykmeldingPerioder } from './SykmeldingPerioder';
 import { BiDiagnoser, Hoveddiagnose } from './SykmeldingDiagnoser';

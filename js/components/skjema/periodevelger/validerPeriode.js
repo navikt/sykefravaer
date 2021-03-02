@@ -2,7 +2,7 @@ import {
     fraInputdatoTilJSDato,
     tilLesbarDatoMedArstall,
     tilLesbarPeriodeMedArstall,
-} from '@navikt/digisyfo-npm';
+} from '../../../digisyfoNpm';
 
 const validerPeriode = (input, alternativer) => {
     const { fra, til } = alternativer;

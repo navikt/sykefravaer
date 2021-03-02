@@ -3,8 +3,8 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from '@navikt/digisyfo-npm';
 import { Link } from 'react-router';
+import { setLedetekster } from '../../digisyfoNpm';
 import { mapStateToProps, DineOppgaverComponent, EksternLi } from './DineOppgaverContainer';
 import {
     moteBekreftet,

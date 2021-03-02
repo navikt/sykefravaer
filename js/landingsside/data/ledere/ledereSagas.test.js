@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { get, post } from '@navikt/digisyfo-npm';
 import { call, put } from 'redux-saga/effects';
+import { get, post } from '../../../digisyfoNpm';
 import { avkreftLeder, hentLedere } from './ledereSagas';
 import * as actions from './ledereActions';
 

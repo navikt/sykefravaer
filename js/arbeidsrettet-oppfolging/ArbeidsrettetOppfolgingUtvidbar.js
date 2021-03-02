@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Utvidbar } from '@navikt/digisyfo-npm';
+import { Utvidbar } from '../digisyfoNpm';
 import ArbeidsrettetOppfolgingRad from './ArbeidsrettetOppfolgingrad';
 
 const ArbeidsrettetOppfolgingUtvidbar = ({

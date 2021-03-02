@@ -1,7 +1,7 @@
 import {
     all, call, fork, put, takeEvery,
 } from 'redux-saga/effects';
-import { get, log, post } from '@navikt/digisyfo-npm';
+import { get, log, post } from '../../../digisyfoNpm';
 import * as actions from './ledereActions';
 import { getSyforestRoot } from '../../../utils/urlUtils';
 

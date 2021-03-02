@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Knapp } from 'nav-frontend-knapper';
 import {
     Bjorn, getHtmlLedetekst, getLedetekst, log,
-} from '@navikt/digisyfo-npm';
-import { Knapp } from 'nav-frontend-knapper';
+} from '../../digisyfoNpm';
 import { Vis } from '../../utils/index';
 import Lightbox from '../../components/Lightbox';
 

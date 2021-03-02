@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import { Sidetittel, Undertittel, Normaltekst } from 'nav-frontend-typografi';
-import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
+import { getLedetekst, Bjorn } from '../digisyfoNpm';
 
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';

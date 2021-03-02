@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, tilLesbarDatoMedArstall } from '@navikt/digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall } from '../../digisyfoNpm';
 import Landingspanel from '../landingsside/Landingspanel';
 import { hendelse } from '../../propTypes/index';
 

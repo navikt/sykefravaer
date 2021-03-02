@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import Dropdown from '../../components/skjema/Dropdown';
 import * as actionCreators from '../data/dine-sykmeldinger/dineSykmeldingerActions';
+import { getLedetekst } from '../../digisyfoNpm/ledetekster';
 
 const DropdownContainer = ({ alternativer, sorterSykmeldinger, status }) => {
     return (

@@ -1,7 +1,7 @@
 import {
     call, put, fork, takeEvery, select, all,
 } from 'redux-saga/effects';
-import { get, log } from '@navikt/digisyfo-npm';
+import { get, log } from '../../digisyfoNpm';
 import { skalHenteSykeforloep } from './sykeforloepSelectors';
 import {
     henterSykeforloep, sykeforloepHentet, hentSykeforloepFeilet, HENT_SYKEFORLOEP_FORESPURT,

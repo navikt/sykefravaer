@@ -2,8 +2,8 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from '@navikt/digisyfo-npm';
 import chaiEnzyme from 'chai-enzyme';
+import { setLedetekster } from '../../../../digisyfoNpm';
 import ledetekster from '../../../../../test/mock/mockLedetekster';
 import { AvbrytSykmeldingDialog } from './AvbrytDialog';
 

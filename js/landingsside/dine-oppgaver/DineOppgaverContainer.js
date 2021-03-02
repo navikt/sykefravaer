@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import {
     getLedetekst,
     sykmeldingstatuser,
-} from '@navikt/digisyfo-npm';
+} from '../../digisyfoNpm';
 import { oppfolgingsdialogPt } from '../../oppfolgingsdialogNpm/oppfolgingProptypes';
 import beregnOppgaverOppfoelgingsdialoger from '../../utils/beregnOppgaverOppfoelgingsdialoger';
 import {

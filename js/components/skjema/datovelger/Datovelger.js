@@ -4,9 +4,9 @@ import {
     Field, change, touch, formValueSelector,
 } from 'redux-form';
 import { connect } from 'react-redux';
-import { toDatePrettyPrint } from '@navikt/digisyfo-npm';
 import cn from 'classnames';
 import MaskedInput from 'react-maskedinput';
+import { toDatePrettyPrint } from '../../../digisyfoNpm';
 import Feilmelding from '../Feilmelding';
 import DayPickerComponent from './DayPickerDato';
 import validerDatoField from './validerDatoField';

@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import {
     forlengInnloggetSesjon, hentLedetekster, setPerformOnHttpCalls, sjekkInnloggingssesjon,
-} from '@navikt/digisyfo-npm';
+} from './digisyfoNpm';
 import AppRouter from './routers/AppRouter';
 import { hentVedlikehold } from './data/vedlikehold/vedlikehold_actions';
 import history from './history';

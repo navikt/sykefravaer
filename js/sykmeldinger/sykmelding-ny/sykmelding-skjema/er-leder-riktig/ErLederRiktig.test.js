@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Field } from 'redux-form';
 import chaiEnzyme from 'chai-enzyme';
-import { setLedetekster } from '@navikt/digisyfo-npm';
+import { setLedetekster } from '../../../../digisyfoNpm';
 import ledetekster from '../../../../../test/mock/mockLedetekster';
 import ErLederRiktig, { RendreErLederRiktig } from './ErLederRiktig';
 import Radioknapper from '../../../../components/skjema/Radioknapper';

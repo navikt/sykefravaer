@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '../../digisyfoNpm';
 import BekreftLestAvvistSykmeldingSkjema from './BekreftLestAvvistSykmeldingSkjema';
 import SykmeldingContext from '../contexts/SykmeldingContext';
 import Sidetopp from '../../components/Sidetopp';

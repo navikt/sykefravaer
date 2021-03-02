@@ -1,6 +1,6 @@
 import React from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
+import { getLedetekst } from '../digisyfoNpm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Brodsmuler from './Brodsmuler';
 

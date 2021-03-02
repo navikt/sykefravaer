@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import { AlertStripeSuksess } from 'nav-frontend-alertstriper';
+import { getLedetekst } from '../../digisyfoNpm';
 import { visAvvistSykmeldingBekreftetLestKvittering } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 
 const Stripe = ({ vis }) => {

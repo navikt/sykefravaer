@@ -1,5 +1,5 @@
 import React from 'react';
-import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from '../../../digisyfoNpm/ledetekster';
 import { IllustrertInnholdGronnHake } from '../../../components/IllustrertInnhold';
 
 export default () => {

@@ -4,7 +4,7 @@ import {
     getLedetekst,
     keyValue,
     tilLesbarDatoMedArstall,
-} from '@navikt/digisyfo-npm';
+} from '../digisyfoNpm';
 import HendelseIkon from './HendelseIkon';
 
 const HendelseTittel = ({ data, ledetekster, tekstkey, type }) => {

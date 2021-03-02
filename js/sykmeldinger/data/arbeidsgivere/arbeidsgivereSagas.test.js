@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { put, call, select } from 'redux-saga/effects';
-import { get } from '@navikt/digisyfo-npm';
+import { get } from '../../../digisyfoNpm';
 import { hentDineArbeidsgivere, skalHenteArbeidsgivere } from './arbeidsgivereSagas';
 import * as actions from './arbeidsgivereActions';
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { get, getAjax } from '@navikt/digisyfo-npm';
 import { put, call, select } from 'redux-saga/effects';
+import { get, getAjax } from '../../digisyfoNpm';
 import { hentBrukerinfo, sjekkInnlogging } from './brukerinfoSagas';
 import { skalHenteBrukerinfoSelector } from './brukerinfoSelectors';
 import {

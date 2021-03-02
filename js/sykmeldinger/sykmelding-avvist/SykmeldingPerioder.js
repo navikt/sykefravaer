@@ -2,8 +2,7 @@
 
 import React from 'react';
 import cn from 'classnames';
-import { getLedetekst, getDuration, tilLesbarPeriodeMedArstall } from '@navikt/digisyfo-npm';
-import { sorterPerioderEldsteFoerst } from '@navikt/digisyfo-npm/lib/utils/sorterSykmeldingerUtils';
+import { sorterPerioderEldsteFoerst, getLedetekst, getDuration, tilLesbarPeriodeMedArstall } from '../../digisyfoNpm';
 import { smSykmeldingPeriodePt, smSykmeldingPerioderPt } from '../../propTypes/smSykmeldingProptypes';
 import {
     AKTIVITET_IKKE_MULIG, AVVENTENDE, BEHANDLINGSDAGER, GRADERT, REISETILSKUDD,
@@ -37,7 +36,7 @@ const Periodetekst = ({ periode }) => {
                 <p className="js-grad">
                     {periode.gradert.grad}
                     {' '}
-% sykmeldt
+                    % sykmeldt
                     {periode.gradert.reisetilskudd ? (` ${getLedetekst('din-sykmelding.periode.med.reisetilskudd')}`) : null}
                 </p>
             );
@@ -88,7 +87,7 @@ const SykmeldingPeriode = ({ periode }) => {
             <p className="js-periode blokk-xxs">
                 <strong>{tilLesbarPeriodeMedArstall(periode.fom, periode.tom)}</strong>
                 {' '}
-&bull;
+                &bull;
                 {antallDager}
                 {dagerBoying}
             </p>

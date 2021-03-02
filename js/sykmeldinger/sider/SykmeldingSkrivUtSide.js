@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSykmelding, getLedetekst } from '@navikt/digisyfo-npm';
+import { getSykmelding, getLedetekst } from '../../digisyfoNpm';
 import ArbeidsgiversSykmelding from '../arbeidsgivers-sykmelding/ArbeidsgiversSykmelding';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';

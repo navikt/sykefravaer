@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { Field } from 'redux-form';
-import { setLedetekster } from '@navikt/digisyfo-npm';
+import { setLedetekster } from '../../../../digisyfoNpm';
 import JaEllerNei from '../../../../components/skjema/JaEllerNei';
 import Periodevelger from '../../../../components/skjema/periodevelger/Periodevelger';
 import { Spoersmal, Egenmeldingssporsmal, Forsikringssporsmal } from './SpoersmalForFrilanserOgNaeringsdrivende';

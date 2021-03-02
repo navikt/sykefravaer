@@ -1,7 +1,7 @@
 import {
     all, call, fork, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { get, log } from '@navikt/digisyfo-npm';
+import { get, log } from '../../digisyfoNpm';
 import * as actions from './vedtak_actions';
 import logger from '../../logging';
 import { skalHenteVedtak } from './vedtakSelectors';

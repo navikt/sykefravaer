@@ -1,4 +1,4 @@
-import { setLedetekster } from '@navikt/digisyfo-npm';
+import { setLedetekster } from '../../digisyfoNpm';
 import { finnLedetekstForPeriodeinfo, lagPeriodetekst, periodeinfoNokkelBase } from './AvvistSykmeldingTeaser';
 import expect from '../../../test/expect';
 import {

@@ -48,7 +48,7 @@ export const getSyforestRoot = () => {
     return '/syforest';
 };
 
-export const getLedeteksterRoot = () => {
+export const getSyfoteksterRoot = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1995/syfotekster';
     }

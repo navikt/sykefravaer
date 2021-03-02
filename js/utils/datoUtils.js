@@ -1,9 +1,9 @@
+import { formatISO } from 'date-fns';
 import {
     erGyldigDatoformat,
     tilLesbarDatoMedArstall,
     tilLesbarPeriodeMedArstall,
-} from '@navikt/digisyfo-npm';
-import { formatISO } from 'date-fns';
+} from '../digisyfoNpm';
 
 export {
     tilLesbarDatoMedArstall,

@@ -9,7 +9,7 @@ import {
     sykepengesoknadstatuser,
     sykmeldingstatuser,
     tilLesbarDatoMedArstall,
-} from '@navikt/digisyfo-npm';
+} from '../../../digisyfoNpm';
 import Side from '../../../sider/Side';
 import Sykmeldingkvittering, { kvitteringtyper } from '../../kvittering/Sykmeldingkvittering';
 import AppSpinner from '../../../components/AppSpinner';

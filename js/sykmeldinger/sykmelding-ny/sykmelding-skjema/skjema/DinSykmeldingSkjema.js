@@ -13,7 +13,7 @@ import {
     getLedetekst,
     tilDatePeriode,
     toDatePrettyPrint,
-} from '@navikt/digisyfo-npm';
+} from '../../../../digisyfoNpm';
 import ArbeidsgiversSykmeldingContainer from '../../../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from '../er-opplysningene-riktige/ErOpplysningeneRiktige';
 import StrengtFortroligInfo from '../strengt-fortroliginfo/StrengtFortroligInfo';

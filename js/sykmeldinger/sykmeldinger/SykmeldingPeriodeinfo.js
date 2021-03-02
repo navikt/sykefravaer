@@ -3,7 +3,7 @@
 import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import { getDuration, getLedetekst, toDate } from '@navikt/digisyfo-npm';
+import { getDuration, getLedetekst, toDate } from '../../digisyfoNpm';
 import { sykmeldingperiode } from '../../propTypes';
 
 const SykmeldingPeriodeinfo = ({

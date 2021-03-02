@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import { erGyldigDatoformat, scrollTo } from '@navikt/digisyfo-npm';
+import { erGyldigDatoformat, scrollTo } from '../../../digisyfoNpm';
 import { fieldPropTypes } from '../../../propTypes';
 import { erGyldigDato } from '../../../utils/datoUtils';
 import NavBar from '../daypicker/DayPickerNavBar';

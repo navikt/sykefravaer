@@ -2,7 +2,7 @@ import {
     all, call, fork, put, takeEvery,
 } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
-import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
+import { arbeidssituasjoner, log, post } from '../../../digisyfoNpm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
 import { hentApiUrl } from '../../../data/gateway-api';

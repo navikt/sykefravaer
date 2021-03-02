@@ -1,7 +1,7 @@
 import React from 'react';
-import { SykmeldingNokkelOpplysning } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { SykmeldingNokkelOpplysning } from '../digisyfoNpm';
 
 export const StatusNokkelopplysning = ({ children, Overskrift = 'h2', tittel }) => {
     return (

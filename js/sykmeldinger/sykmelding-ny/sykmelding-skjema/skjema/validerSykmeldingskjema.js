@@ -1,4 +1,4 @@
-import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums, fraInputdatoTilJSDato } from '@navikt/digisyfo-npm';
+import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums, fraInputdatoTilJSDato } from '../../../../digisyfoNpm';
 import { harValgtArbeidsgiverMedNaermesteLeder } from '../velg-arbeidssituasjon/VelgArbeidssituasjon';
 import validerPeriode from '../../../../components/skjema/periodevelger/validerPeriode';
 

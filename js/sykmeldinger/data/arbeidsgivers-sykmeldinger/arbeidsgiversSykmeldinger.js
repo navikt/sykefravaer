@@ -1,4 +1,4 @@
-import { parseSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
+import { parseSykmelding, sykmeldingstatuser } from '../../../digisyfoNpm';
 import { HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET, HENTER_ARBEIDSGIVERS_SYKMELDINGER, SET_ARBEIDSGIVERS_SYKMELDINGER } from './arbeidsgiversSykmeldingerActions';
 import { BRUKER_ER_UTLOGGET } from '../../../data/brukerinfo/brukerinfo_actions';
 import {

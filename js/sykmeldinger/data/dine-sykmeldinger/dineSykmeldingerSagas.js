@@ -13,7 +13,7 @@ import {
 } from '../din-sykmelding/dinSykmeldingActions';
 import { toggleSykmeldingerBackend, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
-import { erNaisLabsDemo, getSyforestRoot } from '../../../utils/urlUtils';
+import { erFlexDockerCompose, erNaisLabsDemo, getSyforestRoot } from '../../../utils/urlUtils';
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
@@ -29,10 +29,7 @@ export const getSykmeldingerBackendUrl = () => {
         // Prod
         return 'https://sykmeldinger-backend-proxy.nav.no/api/v1/syforest';
     }
-    if (url.indexOf('localhost:2027') > -1) {
-        return 'http://localhost:6998/api/v1/syforest';
-    }
-    if (url.indexOf('localhost:2028') > -1) {
+    if (erFlexDockerCompose()) {
         return 'http://localhost:6998/api/v1/syforest';
     }
     if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {

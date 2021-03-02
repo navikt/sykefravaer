@@ -35,6 +35,9 @@ export const getSykepengesoknaderUrl = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:2020';
     }
+    if (erDevGcp()) {
+        return 'https://www-gcp.dev.nav.no/syk/sykepengesoknad';
+    }
     return '/sykepengesoknad';
 };
 

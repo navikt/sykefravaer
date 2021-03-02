@@ -13,8 +13,7 @@ spec:
     cpuThresholdPercentage: 90
   port: 8080
   ingresses:
-    - "https://tjenester-q1.nav.no/sykefravaer"
-    - "https://sykefravaer.nais.oera-q.local"
+    - "https://www-gcp.dev.nav.no/sykefravaer"
   liveness:
     path: /is_alive
     initialDelay: 10
@@ -38,4 +37,8 @@ spec:
       memory: 256Mi
   env:
     - name: DECORATOR_URL
-      value: https://www-q1.nav.no/dekoratoren
+      value: https://dekoratoren.dev.nav.no
+  accessPolicy:
+    outbound:
+      external:
+        - host: dekoratoren.dev.nav.no

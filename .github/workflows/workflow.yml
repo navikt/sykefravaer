@@ -48,7 +48,7 @@ jobs:
 
   deploy-to-dev-sbs:
     if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/dev-YYY')
-    name: Deploy to dev-gcp
+    name: Deploy to dev-sbs
     needs: build-and-publish
     runs-on: ubuntu-latest
     steps:
@@ -65,6 +65,25 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-sbs
           RESOURCE: naiserator-dev.yaml
+
+  deploy-to-dev-gcp:
+    name: Deploy to dev-gcp
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@v1
+        with:
+          name: VERSION.txt
+          path: .
+      - run: echo "VERSION=`cat VERSION.txt`" >> $GITHUB_ENV
+      - run: echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:$VERSION" >> $GITHUB_ENV
+      - name: deploy to dev-gcp
+        uses: nais/deploy/actions/deploy@master
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: naiserator-dev-gcp.yaml
 
   deploy-to-prod-sbs:
     if: github.ref == 'refs/heads/master'

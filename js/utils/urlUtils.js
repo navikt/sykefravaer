@@ -34,6 +34,13 @@ export const getSyforestRoot = () => {
     return '/syforest';
 };
 
+export const getLedeteksterRoot = () => {
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:1995/syfotekster';
+    }
+    return '/syfotekster';
+};
+
 export const getOppfolgingRestUrl = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1993/veilarboppfolging/api/oppfolging';

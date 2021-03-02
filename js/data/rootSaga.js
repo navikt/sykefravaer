@@ -1,10 +1,5 @@
 import { all } from 'redux-saga/effects';
-import {
-    ledeteksterSagas,
-    tidslinjerSagas,
-    togglesSagas,
-    sykeforlopsPerioderSagas,
-} from '@navikt/digisyfo-npm';
+import { tidslinjerSagas } from '@navikt/digisyfo-npm';
 import arbeidsgiversSykmeldingerSagas from '../sykmeldinger/data/arbeidsgivers-sykmeldinger/arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfo/brukerinfoSagas';
 import dineArbeidsgivereSagas from '../sykmeldinger/data/arbeidsgivere/arbeidsgivereSagas';
@@ -29,6 +24,9 @@ import merVeiledningSagas from '../arbeidsrettet-oppfolging/data/merVeiledningSa
 import smSykmeldingerSagas from '../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSagas';
 import vedtakSagas from './vedtak/vedtakSagas';
 import reisetilskuddSoknaderSagas from './reisetilskuddSoknader/reisetilskuddSoknaderSagas';
+import ledeteksterSagas from './ledetekster/ledeteksterSagas';
+import togglesSagas from './toggle/togglesSagas';
+import sykeforlopsPerioderSagas from './sykeforloep-perioder/sykeforlopsPerioderSagas';
 
 export default function* rootSaga() {
     yield all([

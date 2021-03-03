@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getLedetekst, post as syforestPost } from '@navikt/digisyfo-npm';
+import { getLedetekst, post as syforestPost } from '../digisyfoNpm';
 
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Side from './Side';

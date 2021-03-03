@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { sykmeldingstatuser } from '@navikt/digisyfo-npm';
+import { sykmeldingstatuser } from '../../digisyfoNpm';
 import getSykmelding from '../../../test/mock/mockSykmeldinger';
 import SykmeldingStatuspanel, { Nokkelopplysninger } from './SykmeldingStatuspanel';
 import {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '../digisyfoNpm';
 
 const LenkeTilDineSykmeldinger = () => {
     return (

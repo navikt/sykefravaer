@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, getSykmelding, sykmelding as sykmeldingPt } from '@navikt/digisyfo-npm';
+import { getLedetekst, getSykmelding, sykmelding as sykmeldingPt } from '../../../../digisyfoNpm';
 import DinSykmeldingSkjema from './DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../../../utils/datoUtils';
 import AppSpinner from '../../../../components/AppSpinner';

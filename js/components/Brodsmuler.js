@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import getContextRoot from '../utils/getContextRoot';
 import { brodsmule as brodsmuleProptype } from '../propTypes';
+import { getDittNavUrl } from '../utils/urlUtils';
 
 const Brodsmule = ({
     sti, tittel, sisteSmule, erKlikkbar,
@@ -90,7 +91,7 @@ class Brodsmuler extends Component {
             <nav className="brodsmuler" aria-label="Du er her: ">
                 <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/person.svg`} alt="Du" className="brodsmuler__ikon" />
                 <div className="brodsmuler__smuler">
-                    <a href="/dittnav" className="js-smule brodsmuler__smule">Ditt NAV</a>
+                    <a href={getDittNavUrl()} className="js-smule brodsmuler__smule">Ditt NAV</a>
                     {brodsmuler.length > 0 && <span className="brodsmule__skille"> / </span>}
                     {
                         this.visCollapsed() && (

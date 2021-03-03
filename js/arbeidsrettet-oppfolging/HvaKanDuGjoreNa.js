@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from '../digisyfoNpm';
 import hentArbeidsrettetOppfolgingBilde from './hentArbeidsrettetOppfolgingBilde';
 import ArbeidsrettetOppfolgingRad from './ArbeidsrettetOppfolgingrad';
 

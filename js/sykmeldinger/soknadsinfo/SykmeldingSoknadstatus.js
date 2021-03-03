@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import {
     getHtmlLedetekst, getLedetekst, sykepengesoknad as sykepengesoknadPt, tilLesbarDatoMedArstall,
-} from '@navikt/digisyfo-npm';
-import { Link } from 'react-router';
+} from '../../digisyfoNpm';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import Soknadsdatoliste from '../kvittering/felles/Soknadsdatoliste';
 import { soknadPt } from '../../propTypes';

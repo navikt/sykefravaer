@@ -1,12 +1,12 @@
 import {
     call, put, fork, takeEvery, all,
 } from 'redux-saga/effects';
-import { log } from '@navikt/digisyfo-npm';
+import { log } from '../digisyfoNpm';
 import {
     API_NAVN,
     hentSyfoApiUrl,
     get,
-} from '../data/gateway-api/gatewayApi';
+} from '../data/gateway-api';
 import {
     HENT_OPPFOLGINGSDIALOGER_FORESPURT,
     henterOppfolgingsdialoger,

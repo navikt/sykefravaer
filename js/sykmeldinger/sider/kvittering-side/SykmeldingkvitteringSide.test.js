@@ -8,7 +8,7 @@ import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import {
     setLedetekster, arbeidssituasjoner, sykmeldingstatuser, sykepengesoknadstatuser,
-} from '@navikt/digisyfo-npm';
+} from '../../../digisyfoNpm';
 import SykmeldingKvitteringContainer, { testState, mapStateToProps } from './SykmeldingkvitteringSide';
 import StandardSykmeldingKvittering from '../../kvittering/varianter/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../kvittering/varianter/FrilanserMedPapirsoknadKvittering';

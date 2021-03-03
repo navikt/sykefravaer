@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { get } from '@navikt/digisyfo-npm';
 import { put, call, select } from 'redux-saga/effects';
+import { get } from '../gateway-api';
 import { hentSykeforloep } from './sykeforloepSagas';
 import * as actions from './sykeforloep_actions';
 import getSykeforloep from '../../../test/mock/mockSykeforloep';

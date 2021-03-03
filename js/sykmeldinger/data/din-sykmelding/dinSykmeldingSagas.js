@@ -2,11 +2,11 @@ import {
     all, call, fork, put, takeEvery,
 } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
-import { arbeidssituasjoner, log, post } from '@navikt/digisyfo-npm';
+import { arbeidssituasjoner, log, post } from '../../../digisyfoNpm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
 import { hentApiUrl } from '../../../data/gateway-api';
-import { erNaisLabsDemo } from '../../../utils/urlUtils';
+import { erNaisLabsDemo, getSyforestRoot } from '../../../utils/urlUtils';
 import { convertToFomTomIsoDate } from '../../../utils/datoUtils';
 
 const {
@@ -114,7 +114,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
     yield put(actions.senderSykmelding(action.sykmeldingId));
     const { type, sykmeldingId, ...body } = action;
     try {
-        yield call(post, `${process.env.REACT_APP_SYFOREST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`, body);
+        yield call(post, `${getSyforestRoot()}/sykmeldinger/${sykmeldingId}/actions/send`, body);
         yield put(actions.sykmeldingSendt(sykmeldingId));
         gaTilKvittering(sykmeldingId);
     } catch (e) {

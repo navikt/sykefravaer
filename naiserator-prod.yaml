@@ -37,21 +37,5 @@ spec:
       cpu: 200m
       memory: 256Mi
   env:
-    - name: APPRES_CMS_URL
-      value: https://appres.nav.no
-    - name: LOGINSERVICE_URL
-      value: https://loginservice.nav.no/login
-    - name: SYFOAPI_SYFOMOTEADMINAPI_URL
-      value: https://syfoapi.nais.oera.no/syfomoteadmin/api
-    - name: SYFOAPI_SYFOTEKSTERAPI_URL
-      value: https://syfoapi.nais.oera.no/syfotekster/api/tekster
-    - name: SYFOAPI_SYFOSOKNADAPI_URL
-      value: https://syfoapi.nais.oera.no/syfosoknad/api
-    - name: SYKEFRAVAERAPI_URL
-      value: https://itjenester.oera.no/syforest
-    - name: OPPFOELGINGSDIALOGAPI_URL
-      value: https://restoppfoelgingsdialog.nais.oera.no/restoppfoelgingsdialog/api
-    - name: SYFOUNLEASHAPI_URL
-      value: https://syfounleash.nais.oera.no
     - name: DECORATOR_URL
       value: https://www.nav.no/dekoratoren

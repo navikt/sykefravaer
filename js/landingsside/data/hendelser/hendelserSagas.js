@@ -1,14 +1,15 @@
 import {
     all, call, fork, put, takeEvery,
 } from 'redux-saga/effects';
-import { get, log } from '@navikt/digisyfo-npm';
+import { get, log } from '../../../digisyfoNpm';
 import * as actions from './hendelserActions';
 import { AKTIVITETSKRAV_BEKREFTET } from '../../../aktivitetskrav/data/aktivitetskravActions';
+import { getSyforestRoot } from '../../../utils/urlUtils';
 
 export function* hentHendelser() {
     yield put(actions.henterHendelser());
     try {
-        const data = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/hendelser`);
+        const data = yield call(get, `${getSyforestRoot()}/informasjon/hendelser`);
         yield put(actions.hendelserHentet(data));
     } catch (e) {
         log(e);

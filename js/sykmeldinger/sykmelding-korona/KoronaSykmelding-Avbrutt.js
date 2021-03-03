@@ -1,6 +1,6 @@
 import React from 'react';
-import { DineKoronaSykmeldingOpplysninger, Utvidbar, getLedetekst } from '@navikt/digisyfo-npm';
 import { Sidetittel, Undertittel } from 'nav-frontend-typografi';
+import { DineKoronaSykmeldingOpplysninger, Utvidbar, getLedetekst } from '../../digisyfoNpm';
 import SykmeldingStatuspanel from '../statuspanel/SykmeldingStatuspanel';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 

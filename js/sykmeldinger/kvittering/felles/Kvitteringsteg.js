@@ -1,7 +1,7 @@
 import React from 'react';
-import { getLedetekst, keyValue } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { getLedetekst, keyValue } from '../../../digisyfoNpm';
 
 export const StegvisKvittering = ({ children }) => {
     return (

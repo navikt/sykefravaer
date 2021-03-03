@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { DineSykmeldingOpplysninger, setLedetekster } from '@navikt/digisyfo-npm';
+import { DineSykmeldingOpplysninger, setLedetekster } from '../../digisyfoNpm';
 import SendtSykmelding from './SendtSykmelding';
 import SykmeldingStatuspanel from '../statuspanel/SykmeldingStatuspanel';
 import ArbeidsgiversSykmeldingContainer from '../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';

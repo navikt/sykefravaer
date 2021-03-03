@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { get } from '@navikt/digisyfo-npm';
 import { call, put, select } from 'redux-saga/effects';
+import { get } from '../../../digisyfoNpm';
 import { oppdaterDineSykmeldinger } from './dineSykmeldingerSagas';
 import { HENTER_DINE_SYKMELDINGER, SET_DINE_SYKMELDINGER } from './dineSykmeldingerActions';
 import { toggleSykmeldingerBackend, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';

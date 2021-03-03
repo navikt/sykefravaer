@@ -1,5 +1,5 @@
-import { getLedetekst, getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import React from 'react';
+import { getLedetekst, getHtmlLedetekst } from '../digisyfoNpm';
 import ArbeidsrettetOppfolgingRad from './ArbeidsrettetOppfolgingrad';
 
 const Forsikring = () => {

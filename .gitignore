@@ -7,4 +7,3 @@ npm-debug.log*
 dist/resources
 settings.json
 **/.DS_Store
-.env

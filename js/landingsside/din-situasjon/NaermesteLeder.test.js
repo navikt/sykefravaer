@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { setLedetekster } from '@navikt/digisyfo-npm';
+import { setLedetekster } from '../../digisyfoNpm';
 import NaermesteLeder from './NaermesteLeder';
 import BekreftFeilLederContainer from './BekreftFeilLederContainer';
 import Lightbox from '../../components/Lightbox';

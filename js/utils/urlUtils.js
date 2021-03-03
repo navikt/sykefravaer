@@ -1,10 +1,30 @@
-export const erNaisLabsDemo = () => {
-    const url = window
+export const getUrl = () => {
+    return window
     && window.location
     && window.location.href
         ? window.location.href
         : '';
-    return url.indexOf('labs.nais.io') > -1;
+};
+
+export const erNaisLabsDemo = () => {
+    return getUrl()
+        .indexOf('labs.nais.io') > -1;
+};
+
+export const erDevGcp = () => {
+    return getUrl()
+        .indexOf('https://www-gcp.dev.nav.no/sykefravaer') > -1;
+};
+
+export const erProduksjon = () => {
+    const url = getUrl();
+    return url.indexOf('tjenester.nav') > -1;
+};
+
+
+export const erFlexDockerCompose = () => {
+    const url = getUrl();
+    return url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1;
 };
 
 
@@ -12,26 +32,101 @@ export const getSykepengesoknaderUrl = () => {
     if (erNaisLabsDemo()) {
         return 'https://sykepengesoknad.labs.nais.io';
     }
-    return process.env.REACT_APP_SYKEPENGESOKNAD_ROOT;
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:2020';
+    }
+    if (erDevGcp()) {
+        return 'https://www-gcp.dev.nav.no/syk/sykepengesoknad';
+    }
+    return '/sykepengesoknad';
 };
+
+export const getSyforestRoot = () => {
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:1993/syforest';
+    }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/syforest';
+    }
+    return '/syforest';
+};
+
+
+export const getDittNavUrl = () => {
+    if (erDevGcp()) {
+        return 'https://www.dev.nav.no/person/dittnav/';
+    }
+    return '/dittnav';
+};
+
+
+export const getSyfoteksterRoot = () => {
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:1995/syfotekster';
+    }
+    if (erDevGcp()) {
+        return 'https://syfoapi.dev.nav.no/syfotekster';
+    }
+    return '/syfotekster';
+};
+
+export const getOppfolgingRestUrl = () => {
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:1993/veilarboppfolging/api/oppfolging';
+    }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/veilarboppfolging/api/oppfolging';
+    }
+    return '/veilarboppfolging/api/oppfolging';
+};
+
+export const getVeilarbregRestUrl = () => {
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:1993/veilarbregistrering/api/sykmeldtinfodata';
+    }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/veilarbregistrering/api/sykmeldtinfodata';
+    }
+    return '/veilarbregistrering/api/sykmeldtinfodata';
+};
+
+
+export const getDialogmoteContextRoot = () => {
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:1993/dialogmote';
+    }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/dialogmote';
+    }
+    return '/dialogmote';
+};
+
+export const getOppfolgingsplanContextRoot = () => {
+    if (erFlexDockerCompose()) {
+        return 'http://localhost:1993/oppfolgingsplan';
+    }
+    if (erDevGcp()) {
+        return 'https://syforestmock.dev.nav.no/oppfolgingsplan';
+    }
+    return '/oppfolgingsplan';
+};
+
 
 export const getSykepengesoknadUrl = (soknadId) => {
     return `${getSykepengesoknaderUrl()}/soknader/${soknadId}`;
 };
 
 export const getReisetilskuddSoknaderUrl = () => {
-    const url = window
-    && window.location
-    && window.location.href
-        ? window.location.href
-        : '';
+    const url = getUrl();
     if (url.indexOf('tjenester.nav') > -1) {
         // prod
         return 'https://www.nav.no/syk/reisetilskudd/';
-    } if (erNaisLabsDemo()) {
+    }
+    if (erNaisLabsDemo()) {
         // Nais labs
         return 'https://reisetilskudd.labs.nais.io/syk/reisetilskudd/';
-    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+    }
+    if (erFlexDockerCompose()) {
         // docker-compose
         return 'http://localhost:4115/syk/reisetilskudd/';
     }
@@ -48,10 +143,12 @@ export const getBehandledeSoknaderUrl = () => {
     if (url.indexOf('tjenester.nav') > -1) {
         // prod
         return 'https://www.nav.no/syk/sykepenger/';
-    } if (erNaisLabsDemo()) {
+    }
+    if (erNaisLabsDemo()) {
         // Nais labs
         return 'https://sykepenger.labs.nais.io/syk/sykepenger/';
-    } if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+    }
+    if (erFlexDockerCompose()) {
         // docker-compose
         return 'http://localhost:3021/syk/sykepenger/';
     }
@@ -60,7 +157,7 @@ export const getBehandledeSoknaderUrl = () => {
 };
 
 export const hentDialogmoteUrl = (sidevisning = '') => {
-    const sluttUrl = `${process.env.REACT_APP_DIALOGMOTE_CONTEXT_ROOT}${sidevisning}`;
+    const sluttUrl = `${getDialogmoteContextRoot()}${sidevisning}`;
     return erNaisLabsDemo()
         ? `https://dialogmote.herokuapp.com${sluttUrl}`
         : sluttUrl;
@@ -69,5 +166,5 @@ export const hentDialogmoteUrl = (sidevisning = '') => {
 export const getOppfolgingsplanerUrl = () => {
     return erNaisLabsDemo()
         ? 'https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner'
-        : `${process.env.REACT_APP_OPPFOLGINGSPLAN_CONTEXT_ROOT}/oppfolgingsplaner`;
+        : `${getOppfolgingsplanContextRoot()}/oppfolgingsplaner`;
 };

@@ -1,10 +1,5 @@
 import { all } from 'redux-saga/effects';
-import {
-    ledeteksterSagas,
-    tidslinjerSagas,
-    togglesSagas,
-    sykeforlopsPerioderSagas,
-} from '@navikt/digisyfo-npm';
+import { tidslinjerSagas, ledeteksterSagas, togglesSagas, sykeforlopsPerioderSagas } from '../digisyfoNpm';
 import arbeidsgiversSykmeldingerSagas from '../sykmeldinger/data/arbeidsgivers-sykmeldinger/arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfo/brukerinfoSagas';
 import dineArbeidsgivereSagas from '../sykmeldinger/data/arbeidsgivere/arbeidsgivereSagas';

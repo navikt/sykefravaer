@@ -4,15 +4,14 @@ import {
 import * as actions from './unleashToggles_actions';
 import { post } from '../gateway-api/index';
 import * as toggles from '../../enums/unleashToggles';
+import { erDevGcp, erFlexDockerCompose } from '../../utils/urlUtils';
 
 function hentUnleashUrl() {
-    const url = window
-    && window.location
-    && window.location.href
-        ? window.location.href
-        : '';
-    if (url.indexOf('localhost:2027') > -1 || url.indexOf('localhost:2028') > -1) {
+    if (erFlexDockerCompose()) {
         return 'http://localhost:1956/syfounleash';
+    }
+    if (erDevGcp()) {
+        return 'https://syfounleash.dev.nav.no/syfounleash';
     }
     return '/syfounleash/';
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import {
     getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo,
-} from '@navikt/digisyfo-npm';
-import { Link } from 'react-router';
+} from '../../digisyfoNpm';
 import FriskmeldingContainer from '../friskmeldingsknapp/FriskmeldingContainer';
 import { Vis } from '../../utils/index';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import { scrollTo } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
+import { scrollTo } from '../../digisyfoNpm';
 import MannNoytral from '../../components/svg/MannNoytral';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 

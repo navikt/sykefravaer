@@ -1,5 +1,5 @@
-import { senesteTom, tidligsteFom } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
+import { senesteTom, tidligsteFom } from '../../digisyfoNpm';
 import Friskmelding from './Friskmelding';
 
 const dagerDifferanse = (fra, til) => {

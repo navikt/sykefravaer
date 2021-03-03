@@ -1,4 +1,4 @@
-import { toDate } from '@navikt/digisyfo-npm/lib/utils/datoUtils';
+import { toDate } from '../../../digisyfoNpm';
 import { createReducer } from '../../../data/createReducer';
 import {
     HENTER_SM_SYKMELDINGER,

@@ -1,7 +1,7 @@
+import { reducer as formReducer } from 'redux-form';
 import {
     ledetekster, sykeforlopsPerioder, tidslinjer, timeout, toggles,
-} from '@navikt/digisyfo-npm';
-import { reducer as formReducer } from 'redux-form';
+} from '../digisyfoNpm';
 import oppfolgingsdialoger from '../oppfolgingsdialogNpm/oppfolgingsdialoger';
 import arbeidsgivere from '../sykmeldinger/data/arbeidsgivere/arbeidsgivere';
 import arbeidsgiversSykmeldinger from '../sykmeldinger/data/arbeidsgivers-sykmeldinger/arbeidsgiversSykmeldinger';

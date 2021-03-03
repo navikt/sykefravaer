@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '../../digisyfoNpm';
 import { gjenaapneSykmelding } from '../data/din-sykmelding/dinSykmeldingActions';
 
 function GjenaapneSykmeldingContainer({

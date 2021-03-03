@@ -1,7 +1,7 @@
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import React from 'react';
+import { getLedetekst } from '../digisyfoNpm';
 
 const HarAlleredeOppfolgingAlertstripe = () => {
     const urlVeientilarbeid = process.env.NAIS_CLUSTER_NAME === 'dev-sbs'

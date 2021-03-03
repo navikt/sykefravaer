@@ -1,6 +1,6 @@
 import React from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import PropTypes from 'prop-types';
+import { getLedetekst } from '../../../digisyfoNpm/ledetekster';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremse } from '../felles/Soknadsdatoliste';
 import { soknadPt } from '../../../propTypes/index';

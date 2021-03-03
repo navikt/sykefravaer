@@ -1,6 +1,6 @@
 import { all, call, delay, fork, put, select, takeEvery } from 'redux-saga/effects';
-import { log } from '@navikt/digisyfo-npm';
 import { browserHistory } from 'react-router';
+import { log } from '../../../digisyfoNpm';
 import {
     BEKREFT_LEST_SM_SYKMELDING_FORESPURT,
     bekrefterLestSmSykmelding,

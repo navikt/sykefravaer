@@ -6,11 +6,11 @@ import { Radio } from 'nav-frontend-skjema';
 import Lenke from 'nav-frontend-lenker';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Sidetittel, Systemtittel, Undertittel, Element, Normaltekst } from 'nav-frontend-typografi';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import {
     tilLesbarDatoUtenAarstall,
-} from '@navikt/digisyfo-npm';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
+    Bjorn,
+} from '../../digisyfoNpm';
 import { tilLesbarDatoMedArstall } from '../../utils/datoUtils';
 
 import FormHeaderIcon from './FormComponents/FormHeaderIcon';
@@ -31,7 +31,10 @@ const datePlus16Days = (date) => {
 };
 
 const hasErrors = (errors) => {
-    return Object.values(errors).some((error) => { return error !== undefined; });
+    return Object.values(errors)
+        .some((error) => {
+            return error !== undefined;
+        });
 };
 
 const scrollToRef = (ref) => {
@@ -152,7 +155,13 @@ class KoronaSchema extends Component {
         const offsetLeft = this.formContainerRef.current.getBoundingClientRect().left;
         const width = this.formContainerRef.current.getBoundingClientRect().left + this.formContainerRef.current.getBoundingClientRect().right;
 
-        this.setState({ boxSize: { formHeight, offsetLeft, width } });
+        this.setState({
+            boxSize: {
+                formHeight,
+                offsetLeft,
+                width,
+            },
+        });
         return null;
     }
 
@@ -212,14 +221,16 @@ class KoronaSchema extends Component {
     }
 
     touchAll() {
-        this.setState({ touched: {
-            koronamistanke: true,
-            koronamistankeHjemmefra: true,
-            palagtKarantene: true,
-            palagtKaranteneHjemmefra: true,
-            husstandenSmittet: true,
-            husstandenSmittetHjemmefra: true,
-        } });
+        this.setState({
+            touched: {
+                koronamistanke: true,
+                koronamistankeHjemmefra: true,
+                palagtKarantene: true,
+                palagtKaranteneHjemmefra: true,
+                husstandenSmittet: true,
+                husstandenSmittetHjemmefra: true,
+            },
+        });
     }
 
     submit() {
@@ -236,12 +247,19 @@ class KoronaSchema extends Component {
         } = this.state;
 
         const submitPeriod = {
-            fom: new Date().toISOString().split('T')[0],
-            tom: datePlus16Days(new Date()).toISOString().split('T')[0],
+            fom: new Date().toISOString()
+                .split('T')[0],
+            tom: datePlus16Days(new Date())
+                .toISOString()
+                .split('T')[0],
         };
 
         const { opprettSykmelding } = this.props;
-        opprettSykmelding({ periode: submitPeriod, egenSykdom: !!koronamistanke, arbeidsforhold: [] });
+        opprettSykmelding({
+            periode: submitPeriod,
+            egenSykdom: !!koronamistanke,
+            arbeidsforhold: [],
+        });
     }
 
     canUseEgenmelding() {
@@ -278,15 +296,17 @@ class KoronaSchema extends Component {
             bekreftet,
             showAvbryt,
             boxSize,
-            errors } = this.state;
+            errors,
+        } = this.state;
         const { formError } = this.props;
 
-        const mappedErrors = Object.entries(errors).reduce((acc, errorEntry) => {
-            if (errorEntry[1]) {
-                return [...acc, errorEntry];
-            }
-            return acc;
-        }, []);
+        const mappedErrors = Object.entries(errors)
+            .reduce((acc, errorEntry) => {
+                if (errorEntry[1]) {
+                    return [...acc, errorEntry];
+                }
+                return acc;
+            }, []);
 
         const canUseEgenmelding = this.canUseEgenmelding();
         const showDiagnose = this.showDiagnose();
@@ -294,15 +314,30 @@ class KoronaSchema extends Component {
 
         return (
             <div>
-                <Sidetittel tag="h1" style={{ marginBottom: '1rem', textAlign: 'center' }}>Egenmelding</Sidetittel>
-                <Undertittel style={{ marginBottom: '3rem', textAlign: 'center' }}>for selvstendig næringsdrivende og frilansere</Undertittel>
+                <Sidetittel
+                    tag="h1"
+                    style={{
+                        marginBottom: '1rem',
+                        textAlign: 'center',
+                    }}>
+Egenmelding
+                </Sidetittel>
+                <Undertittel style={{
+                    marginBottom: '3rem',
+                    textAlign: 'center',
+                }}>
+for selvstendig næringsdrivende og frilansere
+                </Undertittel>
 
                 <Bjorn hvit>
                     <Normaltekst style={{ marginBottom: '2rem' }}>
-                    Hei,
-Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da kan du sende egenmelding på inntil 16 dager. Det samme gjelder hvis du er blitt pålagt å være i karantene
+                        Hei,
+                        Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da kan du sende egenmelding på inntil 16 dager. Det samme gjelder hvis du er
+                        blitt pålagt å være i karantene
                     </Normaltekst>
-                    <Knapp onClick={() => { return window.scrollTo(0, this.formContainerRef.current.offsetTop, { behaviour: 'smooth' }); }}>
+                    <Knapp onClick={() => {
+                        return window.scrollTo(0, this.formContainerRef.current.offsetTop, { behaviour: 'smooth' });
+                    }}>
                         Gå til utfylling
                     </Knapp>
                 </Bjorn>
@@ -314,15 +349,24 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                         width: boxSize.width,
                         zIndex: '-1',
                         marginLeft: boxSize.offsetLeft * -1,
-                        position: 'absolute' }} />
+                        position: 'absolute',
+                    }} />
                     <article style={{ marginTop: '4rem' }} ref={this.formContainerRef}>
-                        <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+                        <div style={{
+                            paddingTop: '2rem',
+                            paddingBottom: '2rem',
+                        }}>
                             <FormHeaderIcon />
-                            <Systemtittel style={{ textAlign: 'center',
-                                marginTop: '2rem' }}>
+                            <Systemtittel style={{
+                                textAlign: 'center',
+                                marginTop: '2rem',
+                            }}>
                                 Opprett egenmelding
                             </Systemtittel>
-                            <hr style={{ width: '10rem', marginBottom: '2rem' }} />
+                            <hr style={{
+                                width: '10rem',
+                                marginBottom: '2rem',
+                            }} />
 
                             <FormSeparator
                                 helptext="Vi oppretter en periode på 16 dager fra dagens dato.
@@ -330,19 +374,23 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 title="Dine opplysninger"
                             />
 
-                            <div style={{ display: 'flex', marginBottom: '2rem', flexWrap: 'wrap' }}>
+                            <div style={{
+                                display: 'flex',
+                                marginBottom: '2rem',
+                                flexWrap: 'wrap',
+                            }}>
                                 <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Periode</h2>
                                     <p className="js-periode blokk-xxs">
                                         <span>
                                             {tilLesbarDatoUtenAarstall(new Date())}
                                             {' '}
-                                -
+                                            -
                                             {' '}
                                             {tilLesbarDatoMedArstall(datePlus16Days(new Date()))}
                                         </span>
                                         {' '}
-                            •
+                                        •
                                         {' '}
                                         <span>16 dager</span>
 
@@ -352,7 +400,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Sykmeldingsgrad</h2>
                                     <p>
-                                    100%
+                                        100%
                                     </p>
                                 </div>
                             </div>
@@ -642,17 +690,26 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             <HjemmefraInfo show={workFromHomeQuestionVisible} />
 
                             {!canUseEgenmelding && (
-                                <div style={{ marginBottom: '2rem', marginTop: '2rem' }}>
+                                <div style={{
+                                    marginBottom: '2rem',
+                                    marginTop: '2rem',
+                                }}>
                                     <CannotUseMelding text="Du kan ikke bruke egenmelding" />
                                     <br />
 
-                                    <Lenke target="_blank" href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
+                                    <Lenke
+                                        target="_blank"
+                                        href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nyheter/sykepenger-for-selvstendig-naeringsdrivende-og-frilansere-under-koronapandemien">
                                         Les mer om hvem som kan bruke tjenesten her.
                                     </Lenke>
                                 </div>
                             )}
 
-                            <div style={{ display: 'flex', marginTop: '3rem', marginBottom: '2rem' }}>
+                            <div style={{
+                                display: 'flex',
+                                marginTop: '3rem',
+                                marginBottom: '2rem',
+                            }}>
                                 <div style={{ flex: '1 1 50%' }}>
                                     <h2 className="nokkelopplysning__tittel">Diagnose</h2>
                                     {showDiagnose && <p>COVID-19</p>}
@@ -663,8 +720,8 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                         <h2 className="nokkelopplysning__tittel">Diagnosekode</h2>
                                         <div style={{ marginBottom: '-1rem' }}>
                                             <Hjelpetekst>
-                                            Diagnosekoden henviser til de internasjonale kodeverkene som klassifiserer sykdom og symptomer.
-                                            De ulike diagnosekodene brukes for å gi en mest mulig presis diagnose.
+                                                Diagnosekoden henviser til de internasjonale kodeverkene som klassifiserer sykdom og symptomer.
+                                                De ulike diagnosekodene brukes for å gi en mest mulig presis diagnose.
                                             </Hjelpetekst>
                                         </div>
                                     </div>
@@ -674,9 +731,19 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             </div>
 
                             <Element>Din arbeidssituasjon</Element>
-                            <div style={{ display: 'flex', marginTop: '1rem', marginBottom: '3rem', marginLeft: '2rem' }}>
+                            <div style={{
+                                display: 'flex',
+                                marginTop: '1rem',
+                                marginBottom: '3rem',
+                                marginLeft: '2rem',
+                            }}>
                                 <img width={28} height={28} src={checkmarkSvg} alt="Hake" />
-                                <div style={{ lineHeight: '30px', marginLeft: '1rem' }}>Jobb som selvstendig næringsdrivende eller frilanser</div>
+                                <div style={{
+                                    lineHeight: '30px',
+                                    marginLeft: '1rem',
+                                }}>
+Jobb som selvstendig næringsdrivende eller frilanser
+                                </div>
                             </div>
 
                             <FormSeparator
@@ -684,7 +751,11 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             />
 
                             <Bekreft
-                                onChange={() => { this.setState((state) => { return { bekreftet: !state.bekreftet }; }); }}
+                                onChange={() => {
+                                    this.setState((state) => {
+                                        return { bekreftet: !state.bekreftet };
+                                    });
+                                }}
                                 canUseEgenmelding={canUseEgenmelding}
                                 value={!!bekreftet}
                             />
@@ -703,13 +774,17 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                             <div style={{ marginBottom: '2rem' }}>
                                 <Hovedknapp
                                     disabled={formError || !canUseEgenmelding || mappedErrors.length > 0 || !bekreftet}
-                                    onClick={() => { return this.submit(); }}>
-                                Opprett egenmeldingen
+                                    onClick={() => {
+                                        return this.submit();
+                                    }}>
+                                    Opprett egenmeldingen
                                 </Hovedknapp>
                             </div>
 
                             <Knapp
-                                onClick={() => { this.setState({ showAvbryt: true }); }}>
+                                onClick={() => {
+                                    this.setState({ showAvbryt: true });
+                                }}>
                                 Avbryt
                             </Knapp>
 
@@ -718,7 +793,9 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
                                 && (
                                     <AvbrytRegistrering
                                         onAvbryt={this.onAvbryt}
-                                        onAngre={() => { this.setState({ showAvbryt: false }); }}
+                                        onAngre={() => {
+                                            this.setState({ showAvbryt: false });
+                                        }}
                                     />
                                 )
                                 }
@@ -730,7 +807,7 @@ Er du smittet av koronaviruset, eller er det mistanke om at du er smittet? Da ka
 
                 <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                     <a className="tilbakelenke" href="/sykefravaer/">
-TILBAKE
+                        TILBAKE
                     </a>
                 </p>
             </div>

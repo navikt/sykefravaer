@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import AlertStripeInfo from 'nav-frontend-alertstriper';
 import {
     getHtmlLedetekst, getLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser,
-} from '@navikt/digisyfo-npm';
+} from '../../digisyfoNpm';
 import SykmeldingTeasere from './SykmeldingTeasere';
 import SykmeldingerSorteringContainer from './SykmeldingerSorteringContainer';
 import Sidetopp from '../../components/Sidetopp';

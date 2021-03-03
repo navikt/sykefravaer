@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { get } from '@navikt/digisyfo-npm';
 import { call, put } from 'redux-saga/effects';
 import sinon from 'sinon';
+import { get } from '../gateway-api';
 import { oppdaterReisetilskuddSoknader } from './reisetilskuddSoknaderSagas';
 import { HENT_REISETILSKUDDSOKNADER_FORESPURT, HENTER_REISETILSKUDDSOKNADER, REISETILSKUDDSOKNADER_HENTET } from './reisetilskuddSoknader_actions';
 

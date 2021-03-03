@@ -1,8 +1,8 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
 import React, { Component } from 'react';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getLedetekst } from '../../../digisyfoNpm';
 import Feilomrade from '../Feilomrade';
 import { fieldPropTypes, fields as fieldsPt } from '../../../propTypes';
 // eslint-disable-next-line import/no-cycle

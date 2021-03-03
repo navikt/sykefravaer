@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import {
     TIDSLINJE_TYPER,
     setLedetekster,
-} from '@navikt/digisyfo-npm';
+} from '../../js/digisyfoNpm';
 import ledetekster from '../mock/mockLedetekster';
 import {
     Container,

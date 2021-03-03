@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { get } from '@navikt/digisyfo-npm';
 import { call, put } from 'redux-saga/effects';
 import sinon from 'sinon';
+import { get } from '../gateway-api';
 import { oppdaterVedtak } from './vedtakSagas';
 import { HENT_VEDTAK_FORESPURT, HENTER_VEDTAK, VEDTAK_HENTET } from './vedtak_actions';
 

@@ -1,0 +1,130 @@
+name: Push
+on: push
+env:
+  APP: sykefravaer
+jobs:
+  build-and-publish:
+    name: Bygg, test og push Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Generer versjon og image navn
+        run: |
+          TIME=$(TZ="Europe/Oslo" date +%Y.%m.%d-%H.%M)
+          COMMIT=$(git rev-parse --short=8 HEAD)
+          VERSION=$TIME-$COMMIT
+          echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+      - run: echo $VERSION > VERSION.txt
+      - name: Last opp VERSION til neste job
+        uses: actions/upload-artifact@v1
+        with:
+          name: VERSION.txt
+          path: VERSION.txt
+      - name: Use Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install deps
+        run: |
+          npm install
+      - name: Run tests
+        run: |
+          npm run test
+      - name: Lint
+        run: |
+          npm run lint
+      - name: Build
+        run: |
+          npm run nais-build
+      - name: Build and publish Docker image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker build --tag ${IMAGE} .
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker push ${IMAGE}
+
+  deploy-to-dev-sbs:
+    name: Deploy to dev-sbs
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@v1
+        with:
+          name: VERSION.txt
+          path: .
+      - run: echo "VERSION=`cat VERSION.txt`" >> $GITHUB_ENV
+      - run: echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:$VERSION" >> $GITHUB_ENV
+      - name: deploy to dev-sbs
+        uses: nais/deploy/actions/deploy@master
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-sbs
+          RESOURCE: naiserator-dev.yaml
+
+  deploy-to-dev-gcp:
+    name: Deploy to dev-gcp
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@v1
+        with:
+          name: VERSION.txt
+          path: .
+      - run: echo "VERSION=`cat VERSION.txt`" >> $GITHUB_ENV
+      - run: echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:$VERSION" >> $GITHUB_ENV
+      - name: deploy to dev-gcp
+        uses: nais/deploy/actions/deploy@master
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: naiserator-dev-gcp.yaml
+
+  deploy-to-prod-sbs:
+    if: github.ref == 'refs/heads/master'
+    name: Deploy to prod-gcp
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@v1
+        with:
+          name: VERSION.txt
+          path: .
+      - run: echo "VERSION=`cat VERSION.txt`" >> $GITHUB_ENV
+      - run: echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:$VERSION" >> $GITHUB_ENV
+      - name: Deploy to prod-sbs
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: nais-prod.yaml
+
+
+
+  tag-image-as-latest:
+    if: github.ref == 'refs/heads/master'
+    name: Tag dockerimage as latest
+    runs-on: ubuntu-latest
+    needs: build-and-publish
+    steps:
+      - name: Last ned versjon
+        uses: actions/download-artifact@v1
+        with:
+          name: VERSION.txt
+          path: .
+      - run: echo "VERSION=`cat VERSION.txt`" >> $GITHUB_ENV
+      - run: echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:$VERSION" >> $GITHUB_ENV
+      - run: echo "LATEST=docker.pkg.github.com/${GITHUB_REPOSITORY}/sykefravaer-flex-dc:latest" >> $GITHUB_ENV
+      - name: Tag and push docker image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker pull ${IMAGE}
+          docker tag ${IMAGE} ${LATEST}
+          docker push ${LATEST}

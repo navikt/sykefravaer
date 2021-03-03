@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '../../digisyfoNpm';
 import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';

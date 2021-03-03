@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import classNames from 'classnames';
+import { getHtmlLedetekst, getLedetekst } from '../../digisyfoNpm';
 import Lightbox from '../../components/Lightbox';
 import BekreftFeilLederContainer from './BekreftFeilLederContainer';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes/index';

@@ -3,7 +3,7 @@
 import React from 'react';
 import {
     getLedetekst, senesteTom, sykmeldingstatuser, tidligsteFom, tilLesbarPeriodeMedArstall,
-} from '@navikt/digisyfo-npm';
+} from '../../digisyfoNpm';
 import getContextRoot from '../../utils/getContextRoot';
 import SykmeldingPeriodeinfo from './SykmeldingPeriodeinfo';
 import { sykmelding as sykmeldingPt } from '../../propTypes';

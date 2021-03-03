@@ -1,7 +1,7 @@
 import {
     all, call, fork, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { get, log } from '@navikt/digisyfo-npm';
+import { get, log } from '../../../digisyfoNpm';
 import * as actions from './dineSykmeldingerActions';
 import { selectSkalHenteDineSykmeldinger } from './dineSykmeldingerSelectors';
 import {
@@ -13,12 +13,12 @@ import {
 } from '../din-sykmelding/dinSykmeldingActions';
 import { toggleSykmeldingerBackend, unleashtogglesHentetSelector } from '../../../data/unleash-toggles/unleashTogglesSelectors';
 import { HENTET_UNLEASH_TOGGLES } from '../../../data/unleash-toggles/unleashToggles_actions';
-import { erNaisLabsDemo } from '../../../utils/urlUtils';
+import { erFlexDockerCompose, erNaisLabsDemo, getSyforestRoot } from '../../../utils/urlUtils';
 
 const { HENT_DINE_SYKMELDINGER_FORESPURT } = actions;
 
 // Because envvars can not easily be injected in build
-const getSykmeldingerBackendUrl = () => {
+export const getSykmeldingerBackendUrl = () => {
     const url = window
     && window.location
     && window.location.href
@@ -29,10 +29,7 @@ const getSykmeldingerBackendUrl = () => {
         // Prod
         return 'https://sykmeldinger-backend-proxy.nav.no/api/v1/syforest';
     }
-    if (url.indexOf('localhost:2027') > -1) {
-        return 'http://localhost:6998/api/v1/syforest';
-    }
-    if (url.indexOf('localhost:2028') > -1) {
+    if (erFlexDockerCompose()) {
         return 'http://localhost:6998/api/v1/syforest';
     }
     if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
@@ -49,7 +46,7 @@ export function* oppdaterDineSykmeldinger() {
 
     if (togglesHentet) {
         yield put(actions.henterDineSykmeldinger());
-        const URL = toggleNewUrl ? `${getSykmeldingerBackendUrl()}` : `${process.env.REACT_APP_SYFOREST_ROOT}`;
+        const URL = toggleNewUrl ? `${getSykmeldingerBackendUrl()}` : `${getSyforestRoot()}`;
         try {
             const data = yield call(get, `${URL}/sykmeldinger`);
             yield put(actions.setDineSykmeldinger(data));

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { post } from '@navikt/digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
+import { post } from '../../digisyfoNpm';
 import { bekreftAktivitetskrav } from './aktivitetskravSagas';
 import * as actions from './aktivitetskravActions';
 

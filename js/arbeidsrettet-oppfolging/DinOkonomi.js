@@ -1,5 +1,5 @@
-import { getHtmlLedetekst, getLedetekst } from '@navikt/digisyfo-npm';
 import React from 'react';
+import { getHtmlLedetekst, getLedetekst } from '../digisyfoNpm';
 import ArbeidsrettetOppfolgingUtvidbar from './ArbeidsrettetOppfolgingUtvidbar';
 import { pushToDataAOLayer } from './pushToAODataLayer';
 

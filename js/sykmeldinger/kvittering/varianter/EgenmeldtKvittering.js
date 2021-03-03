@@ -3,7 +3,7 @@ import React from 'react';
 import { Normaltekst, Element, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Panel from 'nav-frontend-paneler';
-import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
+import { Bjorn } from '../../../digisyfoNpm';
 
 const EgenmeldtKvittering = () => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { senesteTom, sykmeldingstatuser as statuser, arbeidssituasjoner as situasjoner } from '@navikt/digisyfo-npm';
+import { senesteTom, sykmeldingstatuser as statuser, arbeidssituasjoner as situasjoner } from '../../digisyfoNpm';
 import DinSituasjon from './DinSituasjon';
 import { selectDineSykmeldingerData } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSelectors';
 import { selectLedereData } from '../data/ledere/ledereSelectors';

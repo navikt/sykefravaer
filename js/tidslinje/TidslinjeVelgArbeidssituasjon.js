@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
     getLedetekst,
     keyValue,
     Radiofaner,
-} from '@navikt/digisyfo-npm';
-import PropTypes from 'prop-types';
+} from '../digisyfoNpm';
 import { TIDSLINJE_TYPER } from './tidslinjeUtils';
 
 const verdier = {};

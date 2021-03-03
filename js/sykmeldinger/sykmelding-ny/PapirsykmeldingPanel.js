@@ -7,11 +7,11 @@ import {
     Normaltekst,
 } from 'nav-frontend-typografi';
 import { Radio } from 'nav-frontend-skjema';
-import { scrollTo } from '@navikt/digisyfo-npm';
 import { Knapp, Fareknapp } from 'nav-frontend-knapper';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Lenke from 'nav-frontend-lenker';
+import { scrollTo } from '../../digisyfoNpm';
 import * as sykmeldingActions from '../data/din-sykmelding/dinSykmeldingActions';
 import { Vis } from '../../utils';
 import { sykmelding as sykmeldingPt } from '../../propTypes';

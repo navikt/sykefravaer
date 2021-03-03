@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as sykepengesoknadPt,
-} from '@navikt/digisyfo-npm';
+} from '../../digisyfoNpm';
 import LenkeTilDineSykmeldinger from '../../components/LenkeTilDineSykmeldinger';
 import Sidetopp from '../../components/Sidetopp';
 import StandardSykmeldingkvittering from './varianter/StandardSykmeldingkvittering';

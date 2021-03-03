@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { sykmeldingstatuser, arbeidssituasjoner } from '@navikt/digisyfo-npm';
+import { sykmeldingstatuser, arbeidssituasjoner } from '../../digisyfoNpm';
 import SykmeldingSoknadsinfo from '../soknadsinfo/SykmeldingSoknadsinfo';
 import * as soknaderActions from '../../data/soknader/soknaderActions';
 import { skalHenteSoknader as skalHenteSoknaderSelector } from '../../data/soknader/soknaderSelectors';

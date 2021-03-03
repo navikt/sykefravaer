@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autofill, formValueSelector, touch } from 'redux-form';
-import {
-    fraInputdatoTilJSDato, scrollTo, tilLesbarDatoUtenAarstall, toDatePrettyPrint,
-} from '@navikt/digisyfo-npm';
 import { connect } from 'react-redux';
 import DayPicker, { DateUtils } from 'react-day-picker';
+import {
+    fraInputdatoTilJSDato, scrollTo, tilLesbarDatoUtenAarstall, toDatePrettyPrint,
+} from '../../../digisyfoNpm';
 import {
     localeUtils, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT,
 } from '../daypicker/daypickerLocale';

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, getSykmelding, sykmeldingstatuser } from '@navikt/digisyfo-npm';
+import { getLedetekst, getSykmelding, sykmeldingstatuser } from '../../../digisyfoNpm';
 import Side from '../../../sider/Side';
 import NySykmelding from '../../sykmelding-ny/NySykmelding';
 import KoronaSykmeldingNy from '../../sykmelding-korona/KoronaSykmelding-Ny';

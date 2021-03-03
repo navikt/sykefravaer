@@ -1,13 +1,14 @@
 import {
     call, fork, put, takeEvery,
 } from 'redux-saga/effects';
-import { get, log } from '@navikt/digisyfo-npm';
+import { get, log } from '../../digisyfoNpm';
 import * as actions from './vedlikehold_actions';
+import { getSyforestRoot } from '../../utils/urlUtils';
 
 export function* hentVedlikehold() {
     yield put(actions.henterVedlikehold());
     try {
-        const vedlikehold = yield call(get, `${process.env.REACT_APP_SYFOREST_ROOT}/informasjon/vedlikehold`);
+        const vedlikehold = yield call(get, `${getSyforestRoot()}/informasjon/vedlikehold`);
         yield put(actions.vedlikeholdHentet(vedlikehold));
     } catch (e) {
         log(e);

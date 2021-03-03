@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import * as PT from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { getLedetekst } from '../digisyfoNpm';
 import history from '../history';
 import { bekreftMerVeiledning } from './data/merVeiledningActions';
 import { selectAlleHarMerVeiledningIder } from '../landingsside/data/hendelser/hendelser';

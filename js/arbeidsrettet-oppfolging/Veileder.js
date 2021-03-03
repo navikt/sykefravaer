@@ -1,7 +1,7 @@
-import { getHtmlLedetekst } from '@navikt/digisyfo-npm';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Veilederpanel from 'nav-frontend-veilederpanel';
+import { getHtmlLedetekst } from '../digisyfoNpm';
 import Mann from '../components/svg/Mann';
 import ArbeidsrettetOppfolgingRad from './ArbeidsrettetOppfolgingrad';
 

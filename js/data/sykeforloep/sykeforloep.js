@@ -1,4 +1,4 @@
-import { parseSykmelding } from '@navikt/digisyfo-npm';
+import { parseSykmelding } from '../../digisyfoNpm';
 import { BRUKER_ER_UTLOGGET } from '../brukerinfo/brukerinfo_actions';
 import { HENT_SYKEFORLOEP_FEILET, SYKEFORLOEP_HENTET, HENTER_SYKEFORLOEP } from './sykeforloep_actions';
 

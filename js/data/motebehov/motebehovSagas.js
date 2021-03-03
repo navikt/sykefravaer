@@ -8,7 +8,7 @@ import {
 } from 'redux-saga/effects';
 import {
     log,
-} from '@navikt/digisyfo-npm';
+} from '../../digisyfoNpm';
 import {
     API_NAVN,
     hentSyfoApiUrl,

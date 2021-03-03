@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from '@navikt/digisyfo-npm';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
-import { Bjorn } from '@navikt/digisyfo-npm/lib/components/Hjelpeboble';
 import Lenke from 'nav-frontend-lenker';
+import { Bjorn, getLedetekst } from '../digisyfoNpm';
 import Brodsmuler from '../components/Brodsmuler';
 import HarAlleredeOppfolgingAlertstripe from './HarAlleredeOppfolgingAlertstripe';
 import MerVeiledning from './MerVeiledning';
@@ -45,8 +44,8 @@ class ArbeidsrettetOppfolging extends Component {
                     <div style={{ marginBottom: '3rem' }}>
                         <Bjorn>
                             <Normaltekst>
-                        Det begynner å nærme seg datoen du ikke lenger kan få sykepenger.
-                        Tror du at du snart er tilbake i jobb, eller vil du trenge noe mer fra NAV? Her kan du se hvilke muligheter du har.
+                                Det begynner å nærme seg datoen du ikke lenger kan få sykepenger.
+                                Tror du at du snart er tilbake i jobb, eller vil du trenge noe mer fra NAV? Her kan du se hvilke muligheter du har.
                             </Normaltekst>
                         </Bjorn>
                     </div>
@@ -66,19 +65,19 @@ class ArbeidsrettetOppfolging extends Component {
                         >
                             <ul>
                                 <li>
-På
+                                    På
                                     {' '}
                                     {' '}
                                     <Lenke href="https://arbeidsplassen.nav.no/">Arbeidsplassen</Lenke>
                                     {' '}
-finner du alle utlyste stillinger i landet, og sjansen er god for å finne en jobb eller bli funnet av en arbeidsgiver.
+                                    finner du alle utlyste stillinger i landet, og sjansen er god for å finne en jobb eller bli funnet av en arbeidsgiver.
                                 </li>
                                 <li>
-Du kan snakke med
+                                    Du kan snakke med
                                     {' '}
                                     <Lenke href="https://www.nav.no/person/kontakt-oss/nb/">en av våre veiledere</Lenke>
                                     {' '}
-om hva som kan gjøre det lettere for deg å komme i ny jobb.
+                                    om hva som kan gjøre det lettere for deg å komme i ny jobb.
                                 </li>
                             </ul>
                         </Ekspanderbartpanel>
@@ -89,14 +88,14 @@ om hva som kan gjøre det lettere for deg å komme i ny jobb.
                                     <Undertittel style={{ marginBottom: '1rem' }}>Hvordan blir økonomien din?</Undertittel>
                                     {harArbeidsgiver && (
                                         <Normaltekst>
-Det er bare sykepenger som erstatter inntekten din med 100 prosent.
-                                    Du må derfor være forberedt på å gå ned i inntekt når sykepengene tar slutt.
+                                            Det er bare sykepenger som erstatter inntekten din med 100 prosent.
+                                            Du må derfor være forberedt på å gå ned i inntekt når sykepengene tar slutt.
                                         </Normaltekst>
                                     )}
                                     {!harArbeidsgiver && (
                                         <Normaltekst>
-Du kan ha rett til annen økonomisk støtte fra NAV hvis du ikke kan gå tilbake i jobb før sykepengene er slutt.
-                                    Dette må du i tilfelle søke om.
+                                            Du kan ha rett til annen økonomisk støtte fra NAV hvis du ikke kan gå tilbake i jobb før sykepengene er slutt.
+                                            Dette må du i tilfelle søke om.
                                         </Normaltekst>
                                     )}
                                 </div>
@@ -104,31 +103,31 @@ Du kan ha rett til annen økonomisk støtte fra NAV hvis du ikke kan gå tilbake
                         >
                             {harArbeidsgiver && (
                                 <Normaltekst>
-Du kan ha rett til annen økonomisk støtte fra NAV hvis du ikke kan gå tilbake i jobb før sykepengene er slutt.
-                            Dette må du i tilfelle søke om.
+                                    Du kan ha rett til annen økonomisk støtte fra NAV hvis du ikke kan gå tilbake i jobb før sykepengene er slutt.
+                                    Dette må du i tilfelle søke om.
                                 </Normaltekst>
                             )}
                             {harArbeidsgiver && <br />}
                             <Normaltekst>
-Vær oppmerksom på at du ikke går automatisk over på arbeidsavklaringspenger, du må selv søke om det.
+                                Vær oppmerksom på at du ikke går automatisk over på arbeidsavklaringspenger, du må selv søke om det.
                                 {' '}
                                 <Lenke href="https://www.nav.no/person/kontakt-oss/nb/">Hør gjerne med en veileder i NAV.</Lenke>
                             </Normaltekst>
                             <br />
                             <Normaltekst>
-Undersøk også hvilke rettigheter du har hos forsikringsselskapet eller pensjonskassen du er medlem i.
-                            Det er ikke NAV som administrerer slike ordninger.
+                                Undersøk også hvilke rettigheter du har hos forsikringsselskapet eller pensjonskassen du er medlem i.
+                                Det er ikke NAV som administrerer slike ordninger.
                             </Normaltekst>
                         </Ekspanderbartpanel>
                     </div>
 
                     {!underOppfolging && <MerVeiledning />}
                     {underOppfolging
-                && <HarAlleredeOppfolgingAlertstripe />}
+                    && <HarAlleredeOppfolgingAlertstripe />}
 
                     <p style={{ marginTop: '4rem' }} className="ikke-print blokk navigasjonsstripe">
                         <a className="tilbakelenke" href="/sykefravaer/">
-                    Til hovedsiden Ditt sykefravaer
+                            Til hovedsiden Ditt sykefravaer
                         </a>
                     </p>
                 </div>

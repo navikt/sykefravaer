@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from '@navikt/digisyfo-npm';
+import { getLedetekst } from '../digisyfoNpm';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import ArbeidsrettetOppfolging from './ArbeidsrettetOppfolging';

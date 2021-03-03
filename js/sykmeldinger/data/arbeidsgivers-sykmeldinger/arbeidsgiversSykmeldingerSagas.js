@@ -24,8 +24,7 @@ function arbeidsgiversSykmeldingerUrl() {
 
     if (url.indexOf('tjenester.nav') > -1 || url.indexOf('tjenester-q1.nav') > -1 || url.indexOf('about:blank') > -1) {
         // Bruker syforest i openam miljøene fortsatt. About:blank er i npm run test
-        // Skjønner ikke helt hva det filteret gjør.
-        // Tilfører jo ikke sikkerhet når dataene går via browser uansett?
+        // Endepunktet returnerer sykmeldingene slik de ser ut for arbeidsgiver
         return `${getSyforestRoot()}/sykmeldinger?type=arbeidsgiver`;
     }
     // Ellers syforest format fra sykmeldinger backend

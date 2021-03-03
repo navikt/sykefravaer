@@ -86,7 +86,7 @@ jobs:
 
   deploy-to-prod-sbs:
     if: github.ref == 'refs/heads/master'
-    name: Deploy to prod-gcp
+    name: Deploy to prod-sbs
     needs: build-and-publish
     runs-on: ubuntu-latest
     steps:
@@ -101,7 +101,7 @@ jobs:
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-gcp
+          CLUSTER: prod-sbs
           RESOURCE: naiserator-prod.yaml
 
 

@@ -107,7 +107,7 @@ jobs:
 
 
   tag-image-as-latest:
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     name: Tag dockerimage as latest
     runs-on: ubuntu-latest
     needs: build-and-publish

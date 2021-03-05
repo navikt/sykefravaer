@@ -5,5 +5,6 @@
   "syfo.syfofront.angre.bekreft.sykmelding": true,
   "syfo.ag.soknad.ny.platform": true,
   "syfo.syfofront.nytt.sykmeldingsmottak": true,
-  "syfo.syfofront.sykmeldinger.backend": true
+  "syfo.syfofront.sykmeldinger.backend": true,
+  "syfo.syfofront.sykmeldinger.arb.backend": true
 }

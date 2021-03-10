@@ -23,7 +23,6 @@ import oppfolgingsdialogerSagas from '../oppfolgingsdialogNpm/oppfolgingsdialoge
 import merVeiledningSagas from '../arbeidsrettet-oppfolging/data/merVeiledningSagas';
 import smSykmeldingerSagas from '../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSagas';
 import vedtakSagas from './vedtak/vedtakSagas';
-import reisetilskuddSoknaderSagas from './reisetilskuddSoknader/reisetilskuddSoknaderSagas';
 
 export default function* rootSaga() {
     yield all([
@@ -32,7 +31,6 @@ export default function* rootSaga() {
         dineArbeidsgivereSagas(),
         dineSykmeldingerSagas(),
         dinSykmeldingSagas(),
-        reisetilskuddSoknaderSagas(),
         vedtakSagas(),
         ledeteksterSagas(),
         tidslinjerSagas(),

@@ -18,7 +18,6 @@ import sykeforloepMetadata from './sykeforloep-metadata/sykeforloepMetadata';
 import sykmeldingMeta from '../sykmeldinger/data/sykmelding-meta/sykmeldingMeta';
 import soknader from './soknader/soknader';
 import sykepengerVarsel from './sykepengerVarsel/sykepengerVarsel';
-import reisetilskuddSoknader from './reisetilskuddSoknader/reisetilskuddSoknader';
 import vedtak from './vedtak/vedtak';
 import unleashToggles from './unleash-toggles/unleashToggles';
 import metrikker from './metrikker/metrikker';
@@ -54,7 +53,6 @@ const reducers = {
     sykmeldingMeta,
     soknader,
     sykepengerVarsel,
-    reisetilskuddSoknader,
     vedtak,
     unleashToggles,
     metrikker,

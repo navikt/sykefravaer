@@ -21,7 +21,6 @@ lastFilTilMinne(enums.SOKNADER);
 lastFilTilMinne(enums.SYFOUNLEASH);
 lastFilTilMinne(enums.SYKEFORLOEAP);
 lastFilTilMinne(enums.SYKEPENGESOKNADER);
-lastFilTilMinne(enums.REISETILSKUDDSOKNADER);
 lastFilTilMinne(enums.VEDTAK);
 lastFilTilMinne(enums.SYKMELDINGER);
 lastFilTilMinne(enums.TEKSTER);

@@ -168,32 +168,6 @@ export const hentSyfoApiUrl = (appNavn) => {
     return `https://syfoapi-q.nav.no/${appNavn}/api`;
 };
 
-export const hentReisetilskuddBackendUrl = () => {
-    const url = window
-    && window.location
-    && window.location.href
-        ? window.location.href
-        : '';
-    if (erProduksjon()) {
-        // Prod
-        return 'https://flex-gateway.nav.no/flex-reisetilskudd-backend/api/v1/reisetilskudd';
-    }
-    if (erFlexDockerCompose()) {
-        // docker compose
-        return 'http://localhost:33333/flex-reisetilskudd-backend/api/v1/reisetilskudd';
-    }
-    if (erNaisLabsDemo()) {
-        // Nais labs
-        return '/flex-reisetilskudd-backend-mock/api/v1/reisetilskudd';
-    }
-    if (url.indexOf('localhost') > -1) {
-        // Lokalt
-        return 'http://localhost:8080/reisetilskudd';
-    }
-    // Preprod
-    return 'https://flex-gateway.dev.nav.no/flex-reisetilskudd-backend/api/v1/reisetilskudd';
-};
-
 export const hentSpinnsynBackendUrl = () => {
     const url = window
     && window.location

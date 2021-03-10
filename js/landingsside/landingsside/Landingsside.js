@@ -14,7 +14,7 @@ import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Vis } from '../../utils/index';
 import { hentMoteLandingssideUrl } from '../../utils/motebehovUtils';
 import Sidebanner from '../../components/Sidebanner';
-import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl, getReisetilskuddSoknaderUrl, getBehandledeSoknaderUrl } from '../../utils/urlUtils';
+import { getOppfolgingsplanerUrl, getSykepengesoknaderUrl, getBehandledeSoknaderUrl } from '../../utils/urlUtils';
 import AvvistSykmeldingKvittering from '../avvist-sykmelding-kvittering/AvvistSykmeldingKvittering';
 import { countClickAktivitetsplan } from '../../data/metrikker/countClickAction';
 
@@ -49,7 +49,7 @@ const logAndRedirect = (e, sykeforloepMetadata) => {
 };
 
 const Landingsside = ({
-    brodsmuler, harSykepengesoknader, harReisetilskuddSoknader, harVedtak, harDialogmote, harSykmeldinger,
+    brodsmuler, harSykepengesoknader, harVedtak, harDialogmote, harSykmeldinger,
     skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
     sykeforloepMetadata,
 }) => {
@@ -96,20 +96,6 @@ const Landingsside = ({
                                     ikon="soknader"
                                     ikonAlt="Søknader"
                                     tittel="Søknader om sykepenger" />
-                            );
-                        }} />
-                    <Vis
-                        hvis={harReisetilskuddSoknader}
-                        render={() => {
-                            return (
-                                <Peker
-                                    ekstern
-                                    to={getReisetilskuddSoknaderUrl()}
-                                    ikon="transport"
-                                    ikonAlt="transport"
-                                    ikonStyling="peker__ikonTilpasset peker__ikonTilpasset--standard"
-                                    ikonHoverStyling="peker__ikonHoverTilpasset peker__ikonTilpasset--hover"
-                                    tittel="Søknader om reisetilskudd" />
                             );
                         }} />
                     <Vis
@@ -180,7 +166,6 @@ const Landingsside = ({
 
 Landingsside.propTypes = {
     harSykepengesoknader: PropTypes.bool,
-    harReisetilskuddSoknader: PropTypes.bool,
     harVedtak: PropTypes.bool,
     harDialogmote: PropTypes.bool,
     harSykmeldinger: PropTypes.bool,

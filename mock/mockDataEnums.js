@@ -9,7 +9,6 @@ const SOKNADER = 'soknader';
 const SYFOUNLEASH = 'syfounleash';
 const SYKEFORLOEAP = 'sykeforloep';
 const SYKEPENGESOKNADER = 'sykepengesoknader';
-const REISETILSKUDDSOKNADER = 'reisetilskuddSoknader';
 const VEDTAK = 'vedtak';
 const SYKMELDINGER = 'sykmeldinger';
 const TEKSTER = 'tekster';
@@ -40,7 +39,6 @@ module.exports = {
     SYFOUNLEASH,
     SYKEFORLOEAP,
     SYKEPENGESOKNADER,
-    REISETILSKUDDSOKNADER,
     VEDTAK,
     SYKMELDINGER,
     TEKSTER,

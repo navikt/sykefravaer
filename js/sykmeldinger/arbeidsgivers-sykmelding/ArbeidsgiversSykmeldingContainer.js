@@ -15,13 +15,14 @@ export class ArbeidsgiversSykmeldingWrapper extends Component {
     }
 
     render() {
-        const { sykmelding, Overskrift, henter } = this.props;
+        const { sykmelding, Overskrift, henter, erApen } = this.props;
         return (
             <div className="blokk">
                 <ArbeidsgiversSykmelding
                     sykmelding={sykmelding}
                     Overskrift={Overskrift}
-                    henter={henter} />
+                    henter={henter}
+                    erApen={erApen} />
             </div>
         );
     }
@@ -29,6 +30,7 @@ export class ArbeidsgiversSykmeldingWrapper extends Component {
 
 ArbeidsgiversSykmeldingWrapper.propTypes = {
     sykmelding: sykmeldingPt,
+    erApen: PropTypes.bool,
     Overskrift: PropTypes.string,
     henter: PropTypes.bool,
     skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,

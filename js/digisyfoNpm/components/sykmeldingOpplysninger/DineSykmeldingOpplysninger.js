@@ -32,10 +32,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'h2'
                                 <SykmeldingNokkelOpplysning
                                     className="nokkelopplysning--hoveddiagnose"
                                     tittel={getLedetekst('din-sykmelding.diagnose.tittel', ledetekster)}>
-                                    <div>
-                                        <p className="js-hoveddiagnose">{sykmelding.diagnose.hoveddiagnose.diagnose}</p>
-                                        <p className="js-diagnose-meta nokkelopplysning__meta nokkelopplysning__meta--mobil">{getLedetekst('din-sykmelding.diagnose.meta', ledetekster)}</p>
-                                    </div>
+                                    <p className="js-hoveddiagnose">{sykmelding.diagnose.hoveddiagnose.diagnose}</p>
                                 </SykmeldingNokkelOpplysning>
                                 <div
                                     className="nokkelopplysning nokkelopplysning--hoveddiagnose js-hoveddiagnose-kode-container">
@@ -53,7 +50,6 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'h2'
                                     </p>
                                 </div>
                             </div>
-                            <p className="js-diagnose-meta nokkelopplysning__meta nokkelopplysning__meta--desktop">{getLedetekst('din-sykmelding.diagnose.meta', ledetekster)}</p>
                         </div>
                     ) : null
                 }
@@ -66,8 +62,6 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'h2'
                                 <SykmeldingNokkelOpplysning
                                     tittel={getLedetekst('din-sykmelding.bidiagnose.tittel', ledetekster)}>
                                     <p className="js-bidiagnose">{bidiagnose.diagnose}</p>
-                                    <p className="js-bidiagnose-meta nokkelopplysning__meta nokkelopplysning__meta--mobil">{getLedetekst('din-sykmelding.diagnose.meta', ledetekster)}</p>
-                                    <p className="js-bidiagnose-meta nokkelopplysning__meta nokkelopplysning__meta--desktop">{getLedetekst('din-sykmelding.diagnose.meta', ledetekster)}</p>
                                 </SykmeldingNokkelOpplysning>
                                 <SykmeldingNokkelOpplysning
                                     tittel={getLedetekst('din-sykmelding.diagnosekode.tittel', ledetekster)}>

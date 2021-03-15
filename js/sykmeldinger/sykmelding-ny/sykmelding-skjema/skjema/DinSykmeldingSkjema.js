@@ -13,6 +13,7 @@ import {
     getLedetekst,
     tilDatePeriode,
     toDatePrettyPrint,
+    Utvidbar,
 } from '../../../../digisyfoNpm';
 import ArbeidsgiversSykmeldingContainer from '../../../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from '../er-opplysningene-riktige/ErOpplysningeneRiktige';
@@ -186,6 +187,16 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                     Under ser du hva arbeidsgiveren din får se hvis du sender sykmeldingen. Det er bare disse opplysningene som blir sendt. Arbeidsgiveren din får for eksempel ikke se diagnosen.
                             </Bjorn>
                             <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" erApen />
+                            <Utvidbar tittel="Om du ikke ønsker å sende sykmeldingen til arbeidsgiver">
+                                <p>
+                                    {/* eslint-disable-next-line max-len */}
+                                    Arbeidsgiveren din trenger sykmeldingen som dokumentasjon på at du er syk, enten den digitale sykmeldingen du finner her, eller papirsykmeldingen som du kan få hos legen.
+                                </p>
+                                <p>
+                                    {/* eslint-disable-next-line max-len */}
+                                    Ønsker du ikke å sende den slik du ser den her, kan du snakke med legen om å få en ny sykmelding. Da kan du ta stilling til om du vil gi den nye sykmeldingen til arbeidsgiveren din i stedet.
+                                </p>
+                            </Utvidbar>
                         </div>
                     )} />
                 <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />

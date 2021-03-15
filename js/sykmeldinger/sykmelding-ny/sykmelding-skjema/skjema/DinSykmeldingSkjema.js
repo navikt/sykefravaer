@@ -179,7 +179,15 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 />
                 <Vis
                     hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
-                    render={() => <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />} />
+                    render={() => (
+                        <div>
+                            <Bjorn className="blokk" hvit stor>
+                                {/* eslint-disable-next-line max-len */}
+                                    Under ser du hva arbeidsgiveren din får se hvis du sender sykmeldingen. Det er bare disse opplysningene som blir sendt. Arbeidsgiveren din får for eksempel ikke se diagnosen.
+                            </Bjorn>
+                            <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" erApen />
+                        </div>
+                    )} />
                 <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
                 <Vis
                     hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}

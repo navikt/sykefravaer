@@ -5,7 +5,6 @@ const mockSyfomotebehov = require('./mockSyfomotebehov');
 const mockSyforest = require('./mockSyforest');
 const mockSyfoservicestrangler = require('./mockSyfoservicestrangler');
 const mockSyfosoknad = require('./mockSyfosoknad');
-const mockSyfotekster = require('./mockSyfotekster');
 const mockSyfounleash = require('./mockSyfounleash');
 const mockVeilarboppfolging = require('./mockVeilarboppfolging');
 const mockVeilarbregistrering = require('./mockVeilarbregistrering');
@@ -33,7 +32,6 @@ function mockEndepunkter(server, erLokal) {
         mockSyforest,
         mockSyfoservicestrangler,
         mockSyfosoknad,
-        mockSyfotekster,
         mockSyfounleash,
         mockVeilarboppfolging,
         mockVeilarbregistrering,

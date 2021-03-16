@@ -28,4 +28,3 @@ spec:
     outbound:
       external:
         - host: www.nav.no
-        - host: syfoapi.nav.no

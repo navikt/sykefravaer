@@ -59,17 +59,6 @@ export const getDittNavUrl = () => {
     return '/dittnav';
 };
 
-
-export const getSyfoteksterRoot = () => {
-    if (erFlexDockerCompose()) {
-        return 'http://localhost:1995/syfotekster';
-    }
-    if (erDevGcp()) {
-        return 'https://syfoapi.dev.nav.no/syfotekster';
-    }
-    return '/syfotekster';
-};
-
 export const getOppfolgingRestUrl = () => {
     if (erFlexDockerCompose()) {
         return 'http://localhost:1993/veilarboppfolging/api/oppfolging';

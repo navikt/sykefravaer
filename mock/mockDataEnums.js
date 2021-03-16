@@ -11,7 +11,6 @@ const SYKEFORLOEAP = 'sykeforloep';
 const SYKEPENGESOKNADER = 'sykepengesoknader';
 const VEDTAK = 'vedtak';
 const SYKMELDINGER = 'sykmeldinger';
-const TEKSTER = 'tekster';
 const VARSLER = 'varsler';
 const VEDLIKEHOLD = 'vedlikehold';
 const TILGANG = 'tilgang';
@@ -41,7 +40,6 @@ module.exports = {
     SYKEPENGESOKNADER,
     VEDTAK,
     SYKMELDINGER,
-    TEKSTER,
     VARSLER,
     VEDLIKEHOLD,
     TILGANG,

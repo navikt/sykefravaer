@@ -23,7 +23,6 @@ lastFilTilMinne(enums.SYKEFORLOEAP);
 lastFilTilMinne(enums.SYKEPENGESOKNADER);
 lastFilTilMinne(enums.VEDTAK);
 lastFilTilMinne(enums.SYKMELDINGER);
-lastFilTilMinne(enums.TEKSTER);
 lastFilTilMinne(enums.VARSLER);
 lastFilTilMinne(enums.VEDLIKEHOLD);
 lastFilTilMinne(enums.TILGANG);

@@ -95,7 +95,7 @@ const Landingsside = ({
                                     to={getSykepengesoknaderUrl()}
                                     ikon="soknader"
                                     ikonAlt="Søknader"
-                                    tittel="Søknader om sykepenger" />
+                                    tittel="Søknader" />
                             );
                         }} />
                     <Vis

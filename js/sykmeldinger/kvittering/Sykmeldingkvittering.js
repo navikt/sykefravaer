@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as sykepengesoknadPt,
+    getLedetekst, sykmeldingstatuser, getHtmlLedetekst,
 } from '../../digisyfoNpm';
 import LenkeTilDineSykmeldinger from '../../components/LenkeTilDineSykmeldinger';
 import Sidetopp from '../../components/Sidetopp';
@@ -22,7 +22,6 @@ import FrilanserSoekDigitaltFeil from './varianter/FrilanserSoekDigitaltFeil';
 import SendtSykmeldingMedPapirSoknadKvittering from './varianter/SendtSykmeldingMedPapirSoknadKvittering';
 import AnnetArbeidsledigKvittering from './varianter/AnnetArbeidsledigKvittering';
 import Feilmelding from '../../components/Feilmelding';
-import { soknadPt } from '../../propTypes/index';
 import {
     SokOmSykepengerSenereArbeidsledigKortSykmelding,
     SokOmSykepengerSenereArbeidsledigLangSykmelding,
@@ -31,6 +30,7 @@ import SendtAvventendeSykmelding from './varianter/AvventendeSykmeldingKvitterin
 import EgenmeldtKvittering from './varianter/EgenmeldtKvittering';
 import EgenmeldtKvitteringSokNa from './varianter/EgenmeldtKvitteringSokNa';
 import EgenmeldingAvbruttKvittering from './varianter/EgenmeldingAvbruttKvittering';
+import { soknadPt } from '../../propTypes';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG: 'KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG',
@@ -92,7 +92,7 @@ const BekreftetKvittering = () => {
 };
 
 const SykmeldingKvittering = (props) => {
-    const { kvitteringtype, sykepengesoknader, soknader } = props;
+    const { kvitteringtype, fremtidigeSoknader } = props;
     /* eslint-disable max-len */
     const kvitteringMap = {
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG]: SokOmSykepengerNaaArbeidsledig,
@@ -138,7 +138,7 @@ const SykmeldingKvittering = (props) => {
             <Sidetopp tittel={tittel} />
             {
                 Component
-                    ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />
+                    ? <Component fremtidigeSoknader={fremtidigeSoknader} />
                     : <Feilmelding />
             }
             <LenkeTilDineSykmeldinger />
@@ -147,8 +147,7 @@ const SykmeldingKvittering = (props) => {
 };
 
 SykmeldingKvittering.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt).isRequired,
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt).isRequired,
     kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)).isRequired,
 };
 

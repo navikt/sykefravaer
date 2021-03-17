@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from '../../../digisyfoNpm/ledetekster';
+import { getLedetekst } from '../../../digisyfoNpm';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremse } from '../felles/Soknadsdatoliste';
 import { soknadPt } from '../../../propTypes/index';
 import { FrilanserSelvstendigKvitteringstegEn } from './FrilanserSoekDigitaltNaa';
 
-const FrilanserSoekDigitaltSenere = ({ soknader }) => {
+const FrilanserSoekDigitaltSenere = ({ fremtidigeSoknader }) => {
     return (
         <div className="js-kvittering js-kvittering--frilanser-sok-senere">
             <div className="panel blokk">
@@ -18,7 +18,7 @@ const FrilanserSoekDigitaltSenere = ({ soknader }) => {
                         <HtmlAvsnitt
                             nokkel="sykmelding.kvittering.sok-senere-frilanser.steg-2.tekst-3"
                             replacements={{
-                                '%DATOER%': soknadsdatoremse(soknader),
+                                '%DATOER%': soknadsdatoremse(fremtidigeSoknader),
                             }} />
                     </Kvitteringsteg>
                 </StegvisKvittering>
@@ -28,7 +28,7 @@ const FrilanserSoekDigitaltSenere = ({ soknader }) => {
 };
 
 FrilanserSoekDigitaltSenere.propTypes = {
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt),
 };
 
 export default FrilanserSoekDigitaltSenere;

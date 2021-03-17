@@ -8,13 +8,12 @@ import {
 } from '../../../digisyfoNpm';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
 import { soknadsdatoremseUtenForsteDato, sorterSoknaderEtterDatoTilgjengelig } from '../felles/Soknadsdatoliste';
-import { soknadPt } from '../../../propTypes/soknadProptype';
+import { soknadPt } from '../../../propTypes';
 import { SOKNAD_SYKEPENGER } from '../../../enums/filmer';
 
 const SokOmSykepengerSenereKvittering = ({
-    soknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer',
+    fremtidigeSoknader, sykmeldingstype = 'lang', forskutteringstype = 'arbeidsgiver-forskutterer',
 }) => {
-    const soknaderOgSykepengesoknader = [...soknader];
     return (
         <div className="js-kvittering js-kvittering--sok-senere">
             <div className="panel blokk">
@@ -33,8 +32,8 @@ const SokOmSykepengerSenereKvittering = ({
                         <HtmlAvsnitt
                             nokkel={`sykmelding.kvittering.sok-senere.steg-2.${forskutteringstype}.${sykmeldingstype}-sykmelding.undertekst`}
                             replacements={{
-                                '%DATO%': tilLesbarDatoMedArstall(sorterSoknaderEtterDatoTilgjengelig(soknaderOgSykepengesoknader)[0].tom),
-                                '%DATOER%': soknadsdatoremseUtenForsteDato(soknaderOgSykepengesoknader),
+                                '%DATO%': tilLesbarDatoMedArstall(sorterSoknaderEtterDatoTilgjengelig(fremtidigeSoknader)[0].tom),
+                                '%DATOER%': soknadsdatoremseUtenForsteDato(fremtidigeSoknader),
                             }} />
                     </Kvitteringsteg>
                 </StegvisKvittering>
@@ -53,55 +52,55 @@ const SokOmSykepengerSenereKvittering = ({
 };
 
 SokOmSykepengerSenereKvittering.propTypes = {
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt),
     sykmeldingstype: PropTypes.oneOf(['lang', 'kort']),
     forskutteringstype: PropTypes.oneOf(['arbeidsgiver-forskutterer', 'arbeidsgiver-forskutterer-ikke']),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding = ({ soknader }) => {
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding = ({ fremtidigeSoknader }) => {
     return (
         <SokOmSykepengerSenereKvittering
-            soknader={soknader} />
+            fremtidigeSoknader={fremtidigeSoknader} />
     );
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererLangSykmelding.propTypes = {
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding = ({ soknader }) => {
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding = ({ fremtidigeSoknader }) => {
     return (
         <SokOmSykepengerSenereKvittering
-            soknader={soknader}
+            fremtidigeSoknader={fremtidigeSoknader}
             sykmeldingstype="kort" />
     );
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererKortSykmelding.propTypes = {
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding = ({ soknader }) => {
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding = ({ fremtidigeSoknader }) => {
     return (
         <SokOmSykepengerSenereKvittering
-            soknader={soknader}
+            fremtidigeSoknader={fremtidigeSoknader}
             forskutteringstype="arbeidsgiver-forskutterer-ikke" />
     );
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeLangSykmelding.propTypes = {
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt),
 };
 
-export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding = ({ soknader }) => {
+export const SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding = ({ fremtidigeSoknader }) => {
     return (
         <SokOmSykepengerSenereKvittering
-            soknader={soknader}
+            fremtidigeSoknader={fremtidigeSoknader}
             sykmeldingstype="kort"
             forskutteringstype="arbeidsgiver-forskutterer-ikke" />
     );
 };
 
 SokOmSykepengerSenereKvitteringArbeidsgiverForskuttererIkkeKortSykmelding.propTypes = {
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt),
 };

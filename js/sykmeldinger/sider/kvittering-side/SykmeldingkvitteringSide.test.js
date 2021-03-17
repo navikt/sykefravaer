@@ -1257,25 +1257,44 @@ describe('SykmeldingKvitteringSide', () => {
     });
 
     describe('mapStateToProps', () => {
-        it('Skal returnere fremtidige soknader', () => {
+        it('Skal returnere relaterte soknader', () => {
             const res = mapStateToProps(state, ownProps);
-            expect(res.soknader)
+            expect(res.soknader.map((s) => {
+                return {
+                    sykmeldingId: s.sykmeldingId,
+                    status: s.status,
+                    id: s.id,
+                };
+            }))
                 .to
                 .deep
-                .equal([fremtidigSoknad1]);
+                .equal([
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'NY',
+                        sykmeldingId: '1',
+                    },
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'NY',
+                        sykmeldingId: '1',
+                    },
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'NY',
+                        sykmeldingId: '1',
+                    },
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'FREMTIDIG',
+                        sykmeldingId: '1',
+                    },
+                ]);
         });
 
         it('Skal returnere henter === true dersom sykmeldinger hentes', () => {
             state.dineSykmeldinger.henter = true;
 
-            const res = mapStateToProps(state, ownProps);
-            expect(res.henter)
-                .to
-                .equal(true);
-        });
-
-        it('Skal returnere henter === true dersom ledetekster hentes', () => {
-            state.ledetekster.henter = true;
             const res = mapStateToProps(state, ownProps);
             expect(res.henter)
                 .to

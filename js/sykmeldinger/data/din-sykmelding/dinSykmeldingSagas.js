@@ -6,7 +6,7 @@ import { arbeidssituasjoner, log, post } from '../../../digisyfoNpm';
 import * as actions from './dinSykmeldingActions';
 import { skalOppretteSoknadHentet } from '../sykmelding-meta/sykmeldingMetaActions';
 import { hentApiUrl } from '../../../data/gateway-api';
-import { erNaisLabsDemo, getSyforestRoot } from '../../../utils/urlUtils';
+import { erNaisLabsDemo } from '../../../utils/urlUtils';
 import { convertToFomTomIsoDate } from '../../../utils/datoUtils';
 
 const {
@@ -112,9 +112,10 @@ export function* bekreftSykmelding(action) {
 
 export function* sendSykmeldingTilArbeidsgiver(action) {
     yield put(actions.senderSykmelding(action.sykmeldingId));
+    const url = getSykmeldingerBackendUrl();
     const { type, sykmeldingId, ...body } = action;
     try {
-        yield call(post, `${getSyforestRoot()}/sykmeldinger/${sykmeldingId}/actions/send`, body);
+        yield call(post, `${url}/${sykmeldingId}/send`, body);
         yield put(actions.sykmeldingSendt(sykmeldingId));
         gaTilKvittering(sykmeldingId);
     } catch (e) {

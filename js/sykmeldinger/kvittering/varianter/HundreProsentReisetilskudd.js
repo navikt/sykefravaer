@@ -30,8 +30,15 @@ const HundreProsentReisetilskudd = ({
     }
 
     const stegEnTekst = () => {
-        const arbeidssituasjonen = [...fremtidigeSoknader, ...nyeSoknader][0].arbeidssituasjon;
-        if (arbeidssituasjonen === ARBEIDSTAKER) {
+        const arbeidssituasjon = () => {
+            const soknader = [...fremtidigeSoknader, ...nyeSoknader];
+            if (soknader.length > 0) {
+                return soknader[0].arbeidssituasjon;
+            }
+            return null;
+        };
+
+        if (arbeidssituasjon() === ARBEIDSTAKER) {
             return 'Du har gitt beskjed til NAV og arbeidsgiveren din om at du trenger reisetilskudd.';
         }
         return 'Du har gitt beskjed til NAV om at du trenger reisetilskudd.';

@@ -157,7 +157,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest sende sykmeldingen', () => {
-            const nextCall = call(post, '/syforest/sykmeldinger/minSykmeldingId/actions/send', {
+            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minSykmeldingId/send', {
                 feilaktigeOpplysninger: {
                     sykmeldingsgrad: true,
                 },

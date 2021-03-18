@@ -35,6 +35,7 @@ describe('SykmeldingKvitteringSide', () => {
     const ownProps = {};
     const state = {};
     let nySoknad1;
+    let nySoknad1Arbeidsledig;
     let nySoknad2;
     let nySoknad3;
     let nySoknad4;
@@ -153,6 +154,13 @@ describe('SykmeldingKvitteringSide', () => {
             sykmeldingId: '1',
             status: sykepengesoknadstatuser.NY,
         });
+
+        nySoknad1Arbeidsledig = mockNySoknadArbeidstaker({
+            sykmeldingId: '1',
+            status: sykepengesoknadstatuser.NY,
+        });
+        nySoknad1Arbeidsledig.arbeidssituasjon = 'ARBEIDSLEDIG';
+
 
         nySoknad2 = mockNySoknadArbeidstaker({
             sykmeldingId: '2',
@@ -816,7 +824,7 @@ describe('SykmeldingKvitteringSide', () => {
 
 
         it('Skal vise reisetilkudd-kvittering om frilanser sykmeldingen har reisetilskudd', () => {
-            state.soknader.data = [];
+            state.soknader.data = [nySoknad1];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
@@ -835,6 +843,37 @@ describe('SykmeldingKvitteringSide', () => {
                 .length(1);
         });
 
+        it('Skal vise reisetilkudd-kvittering om arbeidsled sykmeldingen har reisetilskudd og en ny søknad', () => {
+            state.soknader.data = [nySoknad1Arbeidsledig];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.SENDT,
+                valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSLEDIG,
+                mulighetForArbeid: {
+                    perioder: [{
+                        reisetilskudd: true,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du gjort første del');
+            expect(component.text())
+                .to
+                .contain('Du har gitt beskjed til NAV om at du trenger reisetilskudd');
+            expect(component.html())
+                .to
+                .contain('Nå skal du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                .contain('Søk om reisetilskudd');
+            expect(component.find(HundreProsentReisetilskudd))
+                .to
+                .have
+                .length(1);
+        });
 
         it('Skal vise reisetilkudd-kvittering om arbeidstaker sykmeldingen har reisetilskudd og en ny søknad', () => {
             state.soknader.data = [nySoknad1];

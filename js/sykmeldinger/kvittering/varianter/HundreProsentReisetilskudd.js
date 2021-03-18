@@ -8,6 +8,7 @@ import { soknadPt } from '../../../propTypes';
 import { Vis } from '../../../utils';
 import { soknadsdatoremseUtenForsteDatUtenStrong, sorterSoknaderEtterDatoTilgjengelig } from '../felles/Soknadsdatoliste';
 import { tilLesbarDatoMedArstall } from '../../../digisyfoNpm';
+import { ARBEIDSTAKER } from '../../../digisyfoNpm/enums/arbeidssituasjoner';
 
 const HundreProsentReisetilskudd = ({
     fremtidigeSoknader,
@@ -28,6 +29,14 @@ const HundreProsentReisetilskudd = ({
         }
     }
 
+    const stegEnTekst = () => {
+        const arbeidssituasjonen = [...fremtidigeSoknader, ...nyeSoknader][0].arbeidssituasjon;
+        if (arbeidssituasjonen === ARBEIDSTAKER) {
+            return 'Du har gitt beskjed til NAV og arbeidsgiveren din om at du trenger reisetilskudd.';
+        }
+        return 'Du har gitt beskjed til NAV om at du trenger reisetilskudd.';
+    };
+
     return (
         <div className="panel blokk js-kvittering">
             <StegvisKvittering>
@@ -36,7 +45,7 @@ const HundreProsentReisetilskudd = ({
                     ok
                     tittel="Da har du gjort første del">
                     <div className="kvitteringsteg__tekst">
-                        <p>Du har gitt beskjed til NAV og arbeidsgiveren din om at du trenger reisetilskudd.</p>
+                        <p>{stegEnTekst()}</p>
                     </div>
                 </Kvitteringsteg>
                 <Kvitteringsteg

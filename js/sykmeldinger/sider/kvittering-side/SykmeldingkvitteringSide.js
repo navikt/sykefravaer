@@ -179,6 +179,7 @@ export class KvitteringSide extends Component {
 
         const kvitteringtype = getKvitteringtype(sykmelding, soknader, arbeidsgivere, harStrengtFortroligAdresse, soknadHentingFeilet, behandletStatus);
 
+
         const innhold = (() => {
             if (erBehandlet === undefined || aktivBehandletFetching) {
                 return <AppSpinner />;

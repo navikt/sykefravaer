@@ -1,10 +1,10 @@
 import { kvitteringtyper } from '../../kvittering/Sykmeldingkvittering';
-import { ARBEIDSTAKERE, SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
 import {
     arbeidssituasjoner,
     sykepengesoknadstatuser,
     sykmeldingstatuser,
 } from '../../../digisyfoNpm';
+import { IKKE_DIGITALISERT, INNENFOR_VENTETID } from './sykmeldingBehandletResultat';
 
 
 const {
@@ -26,6 +26,7 @@ const erAvventende = (sykmelding) => {
         return periode.avventende;
     });
 };
+// const erReisetilskudd = (sykmelding) => { return sykmelding.mulighetForArbeid.perioder.some((periode) => { return periode.reisetilskudd; }); };
 
 const getArbeidssituasjon = (sykmelding) => {
     return (
@@ -47,12 +48,12 @@ const erFrilanserEllerSelvstendigNaringsdrivende = (sykmelding) => {
     );
 };
 
-const erAvventendeReisetilskuddEllerBehandlingsdager = (sykmelding) => {
+const erAvventendeEllerBehandlingsdager = (sykmelding) => {
     return sykmelding
         && sykmelding.mulighetForArbeid
         && sykmelding.mulighetForArbeid.perioder
             .some((periode) => {
-                return periode.avventende || periode.reisetilskudd || periode.behandlingsdager;
+                return periode.avventende || periode.behandlingsdager;
             });
 };
 
@@ -126,7 +127,7 @@ const finnKvitteringstypeForBehandlingsdager = (sykmelding, soknader, arbeidsgiv
 };
 
 
-export const getKvitteringtype = (sykmelding, sykmeldingensSoknader, arbeidsgivere, sykmeldingMeta, harStrengtFortroligAdresse, soknadHentingFeilet) => {
+export const getKvitteringtype = (sykmelding, sykmeldingensSoknader, arbeidsgivere, harStrengtFortroligAdresse, soknadHentingFeilet, behandletStatus) => {
     if (!sykmelding) {
         return null;
     }
@@ -167,28 +168,15 @@ export const getKvitteringtype = (sykmelding, sykmeldingensSoknader, arbeidsgive
         }
     }
 
-    const arbeidstakersoknader = sykmeldingensSoknader.filter((s) => {
-        return s.soknadstype === ARBEIDSTAKERE;
-    });
-    const denneSykmeldingensSykepengesoknader = [
-        ...arbeidstakersoknader,
-    ].filter((s) => {
-        return s.sykmeldingId === sykmelding.id;
-    });
 
-    const nyeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter((s) => {
+    const nyeSykepengesoknader = sykmeldingensSoknader.filter((s) => {
         return s.status === NY;
     });
-    const fremtidigeSykepengesoknaderForDenneSykmeldingen = denneSykmeldingensSykepengesoknader.filter((s) => {
+    const fremtidigeSykepengesoknader = sykmeldingensSoknader.filter((s) => {
         return s.status === FREMTIDIG;
     });
-    const denneSykmeldingensSoknader = sykmeldingensSoknader.filter((s) => {
-        return s.sykmeldingId === sykmelding.id && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
-    });
-    const nyeSoknaderForDenneSykmeldingen = denneSykmeldingensSoknader.filter((s) => {
-        return s.status === NY;
-    });
-    const { skalOppretteSoknad } = sykmeldingMeta[sykmelding.id] || {};
+
+
     const forskuttererArbeidsgiver = getForskuttererArbeidsgiver(sykmelding, arbeidsgivere);
 
     switch (sykmelding.status) {
@@ -201,17 +189,17 @@ export const getKvitteringtype = (sykmelding, sykmeldingensSoknader, arbeidsgive
                 if (erAvventende(sykmelding)) {
                     return kvitteringtyper.SENDT_AVVENTENDE_SYKMELDING;
                 }
-                if (denneSykmeldingensSykepengesoknader.length === 0) {
+                if (behandletStatus === IKKE_DIGITALISERT) {
                     return kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD;
                 }
-                if (nyeSykepengesoknaderForDenneSykmeldingen.length === 0
-                    && fremtidigeSykepengesoknaderForDenneSykmeldingen.length === 1) {
+                if (nyeSykepengesoknader.length === 0
+                    && fremtidigeSykepengesoknader.length === 1) {
                     return forskuttererArbeidsgiver
                         ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_KORT_SYKMELDING
                         : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_KORT_SYKMELDING;
                 }
-                if (nyeSykepengesoknaderForDenneSykmeldingen.length === 0
-                    && fremtidigeSykepengesoknaderForDenneSykmeldingen.length > 1) {
+                if (nyeSykepengesoknader.length === 0
+                    && fremtidigeSykepengesoknader.length > 1) {
                     return forskuttererArbeidsgiver
                         ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_LANG_SYKMELDING
                         : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_ARBEIDSGIVER_FORSKUTTERER_IKKE_LANG_SYKMELDING;
@@ -226,26 +214,22 @@ export const getKvitteringtype = (sykmelding, sykmeldingensSoknader, arbeidsgive
             if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER;
             }
-            if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ANNET
-                || getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSLEDIG) {
-                return kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG;
+            if (behandletStatus === IKKE_DIGITALISERT) {
+                return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR;
             }
             if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)
-                && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
+                && !erAvventendeEllerBehandlingsdager(sykmelding)) {
                 if (soknadHentingFeilet) {
                     return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER;
                 }
-                if (nyeSoknaderForDenneSykmeldingen.length > 0) {
+                if (nyeSykepengesoknader.length > 0) {
                     return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER;
                 }
-                if (denneSykmeldingensSoknader.length > 0) {
+                if (sykmeldingensSoknader.length > 0) {
                     return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER;
                 }
-                if (denneSykmeldingensSoknader.length === 0 && !skalOppretteSoknad) {
+                if (behandletStatus === INNENFOR_VENTETID) {
                     return kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
-                }
-                if (skalOppretteSoknad) {
-                    return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR;
                 }
             }
             return kvitteringtyper.BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER;

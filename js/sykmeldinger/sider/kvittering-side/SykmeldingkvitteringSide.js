@@ -20,6 +20,7 @@ import { selectDinSykmelding } from '../../data/dine-sykmeldinger/dineSykmelding
 import { hentApiUrl } from '../../../data/gateway-api';
 import { getKvitteringtype } from './getKvitteringstype';
 import { harStrengtFortroligAdresseSelector } from '../../../data/brukerinfo/brukerinfoSelectors';
+import { FERDIG_BEHANDLET_STATUSER } from './sykmeldingBehandletResultat';
 
 const {
     SENDT,
@@ -30,10 +31,10 @@ const {
 const { FREMTIDIG } = sykepengesoknadstatuser;
 
 const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
-const erReisetilskudd = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.reisetilskudd);
 
 export const testState = {
     erLokalBehandling: false,
+    behandletStatus: undefined,
 };
 
 export class KvitteringSide extends Component {
@@ -79,15 +80,17 @@ export class KvitteringSide extends Component {
         } = this.state;
         if (sykmelding && erBehandlet === undefined && !aktivBehandletFetching) {
             const ikkeBehandle = sykmelding && (sykmelding.status === AVBRUTT
-                || erAvventende(sykmelding)
-                || erReisetilskudd(sykmelding));
+                || erAvventende(sykmelding));
 
-
-            this.setState({
+            const oppdatertState = {
                 erBehandlet: ikkeBehandle || testState.erLokalBehandling
                     ? true
                     : this.sykmeldingBehandlet(sykmeldingId),
-            });
+            };
+            if (testState.erLokalBehandling) {
+                oppdatertState.behandletStatus = testState.behandletStatus;
+            }
+            this.setState(oppdatertState);
         }
     }
 
@@ -105,18 +108,19 @@ export class KvitteringSide extends Component {
                 });
             }
             fetch(
-                `${hentApiUrl()}/sykmeldinger/${sykmeldingId}/actions/behandlet`,
+                `${hentApiUrl()}/sykmeldinger/${sykmeldingId}/actions/behandlet-detaljert`,
                 { credentials: 'include' },
             )
                 .then((response) => {
                     if (response.ok) {
                         response.json()
                             .then((data) => {
-                                if (data === true) {
+                                if (FERDIG_BEHANDLET_STATUSER.includes(data.status)) {
                                     clearInterval(interval);
                                     this.setState({
                                         aktivBehandletFetching: false,
                                         erBehandlet: true,
+                                        behandletStatus: data.status,
                                     });
                                     const {
                                         doOppdaterSoknader,
@@ -141,13 +145,13 @@ export class KvitteringSide extends Component {
             soknadHentingFeilet,
             soknader,
             arbeidsgivere,
-            sykmeldingMeta,
             harStrengtFortroligAdresse,
         } = this.props;
 
         const {
             erBehandlet,
             aktivBehandletFetching,
+            behandletStatus,
         } = this.state;
 
         const brodsmuler = [{
@@ -168,7 +172,7 @@ export class KvitteringSide extends Component {
 
 
         const fremtidigeSoknader = soknader.filter(s => s.status === FREMTIDIG);
-        const kvitteringtype = getKvitteringtype(sykmelding, soknader, arbeidsgivere, sykmeldingMeta, harStrengtFortroligAdresse, soknadHentingFeilet);
+        const kvitteringtype = getKvitteringtype(sykmelding, soknader, arbeidsgivere, harStrengtFortroligAdresse, soknadHentingFeilet, behandletStatus);
         const innhold = (() => {
             if (erBehandlet === undefined || aktivBehandletFetching) {
                 return <AppSpinner />;
@@ -230,8 +234,6 @@ KvitteringSide.propTypes = {
     harStrengtFortroligAdresse: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types
     arbeidsgivere: PropTypes.any,
-    // eslint-disable-next-line react/forbid-prop-types
-    sykmeldingMeta: PropTypes.any,
     doHentDineSykmeldinger: PropTypes.func,
     doHentSoknader: PropTypes.func,
     doHentBrukerinfo: PropTypes.func,
@@ -250,7 +252,6 @@ export function mapStateToProps(state, ownProps) {
     const soknader = state.soknader.data.filter(s => s.sykmeldingId === sykmeldingId);
 
     const { arbeidsgivere } = state;
-    const { sykmeldingMeta } = state;
     const harStrengtFortroligAdresse = harStrengtFortroligAdresseSelector(state);
     return {
         henter,
@@ -260,7 +261,6 @@ export function mapStateToProps(state, ownProps) {
         sykmelding,
         soknader,
         arbeidsgivere,
-        sykmeldingMeta,
         harStrengtFortroligAdresse,
     };
 }

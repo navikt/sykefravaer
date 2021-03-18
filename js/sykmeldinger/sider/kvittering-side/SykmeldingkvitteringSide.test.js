@@ -20,16 +20,15 @@ import getSykmelding from '../../../../test/mock/mockSykmeldinger';
 import FrilanserSoekDigitaltNaa from '../../kvittering/varianter/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../kvittering/varianter/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
-import AnnetArbeidsledigKvittering from '../../kvittering/varianter/AnnetArbeidsledigKvittering';
 import arbeidsgivere from '../../data/arbeidsgivere/arbeidsgivere';
 import { aktuelleArbeidsgivereHentet } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { FREMTIDIG } from '../../../enums/soknadstatuser';
 import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
+import { IKKE_DIGITALISERT, INNENFOR_VENTETID, SOKNAD_OPPRETTET } from './sykmeldingBehandletResultat';
 
 chai.use(chaiEnzyme());
 const { expect } = chai;
 
-testState.erLokalBehandling = true;
 
 describe('SykmeldingKvitteringSide', () => {
     const ownProps = {};
@@ -50,6 +49,8 @@ describe('SykmeldingKvitteringSide', () => {
     let clock;
 
     beforeEach(() => {
+        testState.erLokalBehandling = true;
+        testState.behandletStatus = SOKNAD_OPPRETTET;
         sykmeldinger = [{
             id: '2',
             fnr: '12',
@@ -352,29 +353,6 @@ describe('SykmeldingKvitteringSide', () => {
             .length(1);
     };
 
-    const skalViseAnnetArbeidsledigKvittering = (_state, _ownProps) => {
-        const component = getComponent(_state, _ownProps);
-        expect(component.text())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.tittel']);
-        expect(component.html())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.undertekst']);
-        expect(component.text())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.tittel']);
-        expect(component.html())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.undertekst']);
-        expect(component.html())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.bjorn']);
-        expect(component.find(AnnetArbeidsledigKvittering))
-            .to
-            .have
-            .length(1);
-    };
-
     describe('SENDT sykmelding og valgt arbeidsgiver forskutterer lønn', () => {
         let sykmelding;
         let arbeidsgivereData;
@@ -410,12 +388,14 @@ describe('SykmeldingKvitteringSide', () => {
         it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
             state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
+            testState.behandletStatus = IKKE_DIGITALISERT;
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.soknader.data = [nySoknad2];
+            testState.behandletStatus = IKKE_DIGITALISERT;
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
@@ -576,18 +556,6 @@ describe('SykmeldingKvitteringSide', () => {
                     virksomhetsnummer: '123456789',
                 },
             });
-        });
-
-        it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
-            state.soknader.data = [];
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseStandardSendtKvittering(state, ownProps);
-        });
-
-        it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
-            state.dineSykmeldinger.data = [sykmelding];
-            state.soknader.data = [nySoknad2];
-            skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad som tilhører denne sykmeldingen', () => {
@@ -833,7 +801,7 @@ describe('SykmeldingKvitteringSide', () => {
                 };
             });
 
-            it('Skal vise info om at bruker ikke trenger å søke hvis skalOppretteSoknad === false', () => {
+            it('Skal vise info om at bruker ikke trenger å søke hvis innenfor ventetid', () => {
                 state.soknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
@@ -851,6 +819,7 @@ describe('SykmeldingKvitteringSide', () => {
                     erUtenforVentetid: false,
                     skalOppretteSoknad: false,
                 };
+                testState.behandletStatus = INNENFOR_VENTETID;
                 const component = getComponent(state, ownProps);
                 expect(component.text())
                     .to
@@ -868,7 +837,7 @@ describe('SykmeldingKvitteringSide', () => {
                     .length(1);
             });
 
-            it('Skal vise info om at bruker kan søke hvis skalOppretteSoknad === true', () => {
+            it('Skal vise info om at bruker kan søke hvis IKKE_DIGITALISERT', () => {
                 state.soknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
@@ -881,11 +850,10 @@ describe('SykmeldingKvitteringSide', () => {
                         }],
                     },
                 });
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: false,
-                    skalOppretteSoknad: true,
-                };
+
+                testState.behandletStatus = IKKE_DIGITALISERT;
                 state.dineSykmeldinger.data = [sykmelding];
+
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             });
         });
@@ -927,7 +895,7 @@ describe('SykmeldingKvitteringSide', () => {
             skalViseStandardBekreftetKvittering(state, ownProps);
         });
 
-        it('Skal vise info om at det ikke er nødvendig å søke dersom sykmeldingen ikke genererer søknader og skalOppretteSoknad = false', () => {
+        it('Skal vise info om at det ikke er nødvendig å søke dersom sykmeldingen behandlet status er INNENFOR_VENTETID', () => {
             state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
@@ -951,6 +919,7 @@ describe('SykmeldingKvitteringSide', () => {
                 tom: new Date('2018-01-10'),
                 soknadstype: SELVSTENDIGE_OG_FRILANSERE,
             }];
+            testState.behandletStatus = INNENFOR_VENTETID;
             const component = getComponent(state, ownProps);
             expect(component.find(FrilanserUtenSoknadKvittering))
                 .to
@@ -1136,33 +1105,6 @@ describe('SykmeldingKvitteringSide', () => {
         });
     });
 
-    describe('BEKREFTET sykmelding for annet', () => {
-        it('Skal vise annet/arbeidsledig-kvittering', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.BEKREFTET,
-                valgtArbeidssituasjon: arbeidssituasjoner.ANNET,
-                erUtenforVentetid: false,
-            });
-            state.soknader.data = [];
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseAnnetArbeidsledigKvittering(state, ownProps);
-        });
-    });
-
-    describe('BEKREFTET sykmelding for arbeidsledig', () => {
-        it('Skal vise annet/arbeidsledig-kvittering', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.BEKREFTET,
-                valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSLEDIG,
-                erUtenforVentetid: false,
-            });
-            state.soknader.data = [];
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseAnnetArbeidsledigKvittering(state, ownProps);
-        });
-    });
 
     describe('AVBRUTT sykmelding', () => {
         it('Skal vise riktig kvittering', () => {

@@ -21,11 +21,6 @@ export const erProduksjon = () => {
     return url.indexOf('tjenester.nav') > -1;
 };
 
-export const erLocalhostEllerLabs = () => {
-    const url = getUrl();
-    return url.indexOf('localhost') > -1 || erNaisLabsDemo();
-};
-
 export const erProduksjonEllerDev = () => {
     return erProduksjon() || erDevGcp();
 };

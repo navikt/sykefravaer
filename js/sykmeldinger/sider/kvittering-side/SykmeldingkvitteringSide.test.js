@@ -850,6 +850,59 @@ describe('SykmeldingKvitteringSide', () => {
             });
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du gjort første del');
+            expect(component.text())
+                .to
+                .contain('Du har gitt beskjed til NAV og arbeidsgiveren din om at du trenger reisetilskudd');
+            expect(component.html())
+                .to
+                .contain('Nå skal du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                .contain('Søk om reisetilskudd');
+            expect(component.find(HundreProsentReisetilskudd))
+                .to
+                .have
+                .length(1);
+        });
+
+        it('Skal vise reisetilkudd-kvittering om arbeidstaker sykmeldingen har reisetilskudd og en fremtidig søknad', () => {
+            state.soknader.data = [fremtidigSoknad1, fremtidigSoknad2];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.SENDT,
+                valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER,
+                mulighetForArbeid: {
+                    perioder: [{
+                        reisetilskudd: true,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du gjort første del');
+            expect(component.text())
+                .to
+                .contain('Du har gitt beskjed til NAV og arbeidsgiveren din om at du trenger reisetilskudd');
+            expect(component.html())
+                .to
+                .not
+                .contain('Nå skal du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                .not
+                .contain('Søk om reisetilskudd');
+            expect(component.html())
+                .to
+                .contain('Senere må du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                // eslint-disable-next-line max-len
+                .contain('Vi trenger kvitteringer fra reisene for å behandle søknaden din. 11. februar 2019 får du en melding fra oss om at du kan logge deg inn på Ditt NAV for å fylle ut søknaden om reisetilskudd. Du vil også få melding 11. februar 2019.');
             expect(component.find(HundreProsentReisetilskudd))
                 .to
                 .have

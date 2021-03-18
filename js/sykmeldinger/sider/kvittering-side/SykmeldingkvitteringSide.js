@@ -28,7 +28,10 @@ const {
     BEKREFTET,
     AVBRUTT,
 } = sykmeldingstatuser;
-const { FREMTIDIG } = sykepengesoknadstatuser;
+const {
+    FREMTIDIG,
+    NY,
+} = sykepengesoknadstatuser;
 
 const erAvventende = sykmelding => sykmelding.mulighetForArbeid.perioder.some(periode => periode.avventende);
 
@@ -172,7 +175,10 @@ export class KvitteringSide extends Component {
 
 
         const fremtidigeSoknader = soknader.filter(s => s.status === FREMTIDIG);
+        const nyeSoknader = soknader.filter(s => s.status === NY);
+
         const kvitteringtype = getKvitteringtype(sykmelding, soknader, arbeidsgivere, harStrengtFortroligAdresse, soknadHentingFeilet, behandletStatus);
+
         const innhold = (() => {
             if (erBehandlet === undefined || aktivBehandletFetching) {
                 return <AppSpinner />;
@@ -184,6 +190,7 @@ export class KvitteringSide extends Component {
                 return (
                     <Sykmeldingkvittering
                         fremtidigeSoknader={fremtidigeSoknader}
+                        nyeSoknader={nyeSoknader}
                         kvitteringtype={kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER}
                     />
                 );
@@ -202,6 +209,7 @@ export class KvitteringSide extends Component {
                 return (
                     <Sykmeldingkvittering
                         kvitteringtype={kvitteringtype}
+                        nyeSoknader={nyeSoknader}
                         fremtidigeSoknader={fremtidigeSoknader} />
                 );
             }

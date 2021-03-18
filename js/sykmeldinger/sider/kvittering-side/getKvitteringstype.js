@@ -4,7 +4,7 @@ import {
     sykepengesoknadstatuser,
     sykmeldingstatuser,
 } from '../../../digisyfoNpm';
-import { IKKE_DIGITALISERT, INNENFOR_VENTETID } from './sykmeldingBehandletResultat';
+import { IKKE_DIGITALISERT, INNENFOR_VENTETID, SOKNAD_OPPRETTET } from './sykmeldingBehandletResultat';
 
 
 const {
@@ -26,7 +26,7 @@ const erAvventende = (sykmelding) => {
         return periode.avventende;
     });
 };
-// const erReisetilskudd = (sykmelding) => { return sykmelding.mulighetForArbeid.perioder.some((periode) => { return periode.reisetilskudd; }); };
+const alleErReisetilskudd = (sykmelding) => { return sykmelding.mulighetForArbeid.perioder.every((periode) => { return periode.reisetilskudd; }); };
 
 const getArbeidssituasjon = (sykmelding) => {
     return (
@@ -145,6 +145,10 @@ export const getKvitteringtype = (sykmelding, sykmeldingensSoknader, arbeidsgive
             return kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING;
         }
         return kvitteringtyper.EGENMELDT_KVITTERING;
+    }
+
+    if (alleErReisetilskudd(sykmelding) && behandletStatus === SOKNAD_OPPRETTET) {
+        return kvitteringtyper.HUNDRE_PROSENT_REISETILSKUDD;
     }
 
     if (erBehandlingsdager(sykmelding) && sykmeldingensSoknader.length > 0) {

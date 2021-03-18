@@ -30,6 +30,7 @@ import EgenmeldtKvittering from './varianter/EgenmeldtKvittering';
 import EgenmeldtKvitteringSokNa from './varianter/EgenmeldtKvitteringSokNa';
 import EgenmeldingAvbruttKvittering from './varianter/EgenmeldingAvbruttKvittering';
 import { soknadPt } from '../../propTypes';
+import HundreProsentReisetilskudd from './varianter/HundreProsentReisetilskudd';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG: 'KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG',
@@ -54,6 +55,7 @@ export const kvitteringtyper = {
     EGENMELDT_KVITTERING: 'EGENMELDT_KVITTERING',
     EGENMELDT_KVITTERING_SOK_NA: 'EGENMELDT_KVITTERING_SOK_NA',
     EGENMELDING_AVBRUTT_KVITTERING: 'EGENMELDING_AVBRUTT_KVITTERING',
+    HUNDRE_PROSENT_REISETILSKUDD: 'HUNDRE_PROSENT_REISETILSKUDD',
 };
 
 const AvbruttKvittering = () => {
@@ -90,7 +92,11 @@ const BekreftetKvittering = () => {
 };
 
 const SykmeldingKvittering = (props) => {
-    const { kvitteringtype, fremtidigeSoknader } = props;
+    const {
+        kvitteringtype,
+        fremtidigeSoknader,
+        nyeSoknader,
+    } = props;
     /* eslint-disable max-len */
     const kvitteringMap = {
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG]: SokOmSykepengerNaaArbeidsledig,
@@ -115,6 +121,7 @@ const SykmeldingKvittering = (props) => {
         [kvitteringtyper.EGENMELDT_KVITTERING]: EgenmeldtKvittering,
         [kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING]: EgenmeldingAvbruttKvittering,
         [kvitteringtyper.EGENMELDT_KVITTERING_SOK_NA]: EgenmeldtKvitteringSokNa,
+        [kvitteringtyper.HUNDRE_PROSENT_REISETILSKUDD]: HundreProsentReisetilskudd,
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];
@@ -135,7 +142,7 @@ const SykmeldingKvittering = (props) => {
             <Sidetopp tittel={tittel} />
             {
                 Component
-                    ? <Component fremtidigeSoknader={fremtidigeSoknader} />
+                    ? <Component fremtidigeSoknader={fremtidigeSoknader} nyeSoknader={nyeSoknader} />
                     : <Feilmelding />
             }
             <LenkeTilDineSykmeldinger />
@@ -145,6 +152,7 @@ const SykmeldingKvittering = (props) => {
 
 SykmeldingKvittering.propTypes = {
     fremtidigeSoknader: PropTypes.arrayOf(soknadPt).isRequired,
+    nyeSoknader: PropTypes.arrayOf(soknadPt).isRequired,
     kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)).isRequired,
 };
 

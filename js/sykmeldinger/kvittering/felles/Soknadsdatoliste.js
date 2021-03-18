@@ -53,6 +53,23 @@ export const soknadsdatoremseUtenForsteDato = (sykepengesoknader) => {
     return datoer.length > 0 ? tilKommaliste(datoer) : null;
 };
 
+const tilKommalisteUtenStrong = (liste) => {
+    const datoStrenger = liste.map((s) => {
+        return `${tilLesbarDatoMedArstall(s.tom)}`;
+    });
+    return datoStrenger.length <= 2
+        ? datoStrenger.join(' og ')
+        : erstattSiste(datoStrenger.join(', '), ', ', ' og ');
+};
+
+
+export const soknadsdatoremseUtenForsteDatUtenStrong = (sykepengesoknader) => {
+    const datoer = [...sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader)];
+    datoer.shift();
+    return datoer.length > 0 ? tilKommalisteUtenStrong(datoer) : null;
+};
+
+
 export const soknadsdatoremse = (sykepengesoknader) => {
     const datoer = sorterSoknaderEtterDatoTilgjengelig(sykepengesoknader);
     return tilKommaliste(datoer);

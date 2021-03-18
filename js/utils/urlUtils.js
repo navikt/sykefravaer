@@ -21,6 +21,9 @@ export const erProduksjon = () => {
     return url.indexOf('tjenester.nav') > -1;
 };
 
+export const erProduksjonEllerDev = () => {
+    return erProduksjon() || erDevGcp();
+};
 
 export const erFlexDockerCompose = () => {
     const url = getUrl();

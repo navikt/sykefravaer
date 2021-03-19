@@ -20,21 +20,22 @@ import getSykmelding from '../../../../test/mock/mockSykmeldinger';
 import FrilanserSoekDigitaltNaa from '../../kvittering/varianter/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../kvittering/varianter/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../enums/soknadtyper';
-import AnnetArbeidsledigKvittering from '../../kvittering/varianter/AnnetArbeidsledigKvittering';
 import arbeidsgivere from '../../data/arbeidsgivere/arbeidsgivere';
 import { aktuelleArbeidsgivereHentet } from '../../data/arbeidsgivere/arbeidsgivereActions';
 import { FREMTIDIG } from '../../../enums/soknadstatuser';
 import mockNySoknadArbeidstaker from '../../../../test/mock/mockNySoknadArbeidstaker';
+import { IKKE_DIGITALISERT, INNENFOR_VENTETID, SOKNAD_OPPRETTET } from './sykmeldingBehandletResultat';
+import HundreProsentReisetilskudd from '../../kvittering/varianter/HundreProsentReisetilskudd';
 
 chai.use(chaiEnzyme());
 const { expect } = chai;
 
-testState.erLokalBehandling = true;
 
 describe('SykmeldingKvitteringSide', () => {
     const ownProps = {};
     const state = {};
     let nySoknad1;
+    let nySoknad1Arbeidsledig;
     let nySoknad2;
     let nySoknad3;
     let nySoknad4;
@@ -50,6 +51,8 @@ describe('SykmeldingKvitteringSide', () => {
     let clock;
 
     beforeEach(() => {
+        testState.erLokalBehandling = true;
+        testState.behandletStatus = SOKNAD_OPPRETTET;
         sykmeldinger = [{
             id: '2',
             fnr: '12',
@@ -152,6 +155,13 @@ describe('SykmeldingKvitteringSide', () => {
             status: sykepengesoknadstatuser.NY,
         });
 
+        nySoknad1Arbeidsledig = mockNySoknadArbeidstaker({
+            sykmeldingId: '1',
+            status: sykepengesoknadstatuser.NY,
+        });
+        nySoknad1Arbeidsledig.arbeidssituasjon = 'ARBEIDSLEDIG';
+
+
         nySoknad2 = mockNySoknadArbeidstaker({
             sykmeldingId: '2',
             status: sykepengesoknadstatuser.NY,
@@ -214,12 +224,6 @@ describe('SykmeldingKvitteringSide', () => {
             henter: false,
             hentingFeilet: false,
             hentet: true,
-        };
-        state.sykmeldingMeta = {
-            1: {
-                erUtenforVentetid: false,
-                skalOppretteSoknad: false,
-            },
         };
         state.timeout = {};
         ownProps.params = {
@@ -352,29 +356,6 @@ describe('SykmeldingKvitteringSide', () => {
             .length(1);
     };
 
-    const skalViseAnnetArbeidsledigKvittering = (_state, _ownProps) => {
-        const component = getComponent(_state, _ownProps);
-        expect(component.text())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.tittel']);
-        expect(component.html())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-1.undertekst']);
-        expect(component.text())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.tittel']);
-        expect(component.html())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.steg-2.undertekst']);
-        expect(component.html())
-            .to
-            .contain(ledetekster['bekreft-sykmelding.annet-arbeidsledig.kvittering.bjorn']);
-        expect(component.find(AnnetArbeidsledigKvittering))
-            .to
-            .have
-            .length(1);
-    };
-
     describe('SENDT sykmelding og valgt arbeidsgiver forskutterer lønn', () => {
         let sykmelding;
         let arbeidsgivereData;
@@ -399,8 +380,6 @@ describe('SykmeldingKvitteringSide', () => {
             sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.SENDT,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
                 mottakendeArbeidsgiver: {
                     virksomhetsnummer: '123456789',
                 },
@@ -410,12 +389,14 @@ describe('SykmeldingKvitteringSide', () => {
         it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
             state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
+            testState.behandletStatus = IKKE_DIGITALISERT;
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
             state.dineSykmeldinger.data = [sykmelding];
             state.soknader.data = [nySoknad2];
+            testState.behandletStatus = IKKE_DIGITALISERT;
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
@@ -537,10 +518,6 @@ describe('SykmeldingKvitteringSide', () => {
                     }],
                 },
             });
-            state.sykmeldingMeta['1'] = {
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            };
             state.dineSykmeldinger.data = [sykmelding];
             skalViseAvventendeSykmeldingKvittering(state, ownProps);
         });
@@ -570,24 +547,10 @@ describe('SykmeldingKvitteringSide', () => {
             sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.SENDT,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
                 mottakendeArbeidsgiver: {
                     virksomhetsnummer: '123456789',
                 },
             });
-        });
-
-        it('Skal vise standard sendt-kvittering hvis det ikke finnes søknader for denne sykmeldingen', () => {
-            state.soknader.data = [];
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseStandardSendtKvittering(state, ownProps);
-        });
-
-        it('Skal vise standard sendt-kvittering hvis det finnes søknader som ikke tilhører denne sykmeldingen', () => {
-            state.dineSykmeldinger.data = [sykmelding];
-            state.soknader.data = [nySoknad2];
-            skalViseStandardSendtKvittering(state, ownProps);
         });
 
         it('Skal vise riktig kvittering hvis det finnes 1 fremtidig sykepengesøknad som tilhører denne sykmeldingen', () => {
@@ -699,8 +662,6 @@ describe('SykmeldingKvitteringSide', () => {
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
             });
             state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
@@ -718,8 +679,6 @@ describe('SykmeldingKvitteringSide', () => {
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
             });
             state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
             state.soknader.data = [];
@@ -780,31 +739,10 @@ describe('SykmeldingKvitteringSide', () => {
                     }],
                 },
             });
-            state.sykmeldingMeta['1'] = {
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            };
             state.dineSykmeldinger.data = [sykmelding];
             skalViseStandardBekreftetKvittering(state, ownProps);
         });
 
-        it('Skal vise standard bekreftet-kvittering om sykmeldingen har reisetilskudd', () => {
-            state.soknader.data = [];
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.BEKREFTET,
-                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-                mulighetForArbeid: {
-                    perioder: [{
-                        reisetilskudd: true,
-                    }],
-                },
-            });
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseStandardBekreftetKvittering(state, ownProps);
-        });
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen har behandlingsdager', () => {
             state.soknader.data = [];
@@ -812,8 +750,6 @@ describe('SykmeldingKvitteringSide', () => {
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
                 mulighetForArbeid: {
                     perioder: [{
                         behandlingsdager: 4,
@@ -833,7 +769,7 @@ describe('SykmeldingKvitteringSide', () => {
                 };
             });
 
-            it('Skal vise info om at bruker ikke trenger å søke hvis skalOppretteSoknad === false', () => {
+            it('Skal vise info om at bruker ikke trenger å søke hvis innenfor ventetid', () => {
                 state.soknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
@@ -847,10 +783,7 @@ describe('SykmeldingKvitteringSide', () => {
                     },
                 });
                 state.dineSykmeldinger.data = [sykmelding];
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: false,
-                    skalOppretteSoknad: false,
-                };
+                testState.behandletStatus = INNENFOR_VENTETID;
                 const component = getComponent(state, ownProps);
                 expect(component.text())
                     .to
@@ -868,7 +801,7 @@ describe('SykmeldingKvitteringSide', () => {
                     .length(1);
             });
 
-            it('Skal vise info om at bruker kan søke hvis skalOppretteSoknad === true', () => {
+            it('Skal vise info om at bruker kan søke hvis IKKE_DIGITALISERT', () => {
                 state.soknader.data = [];
                 const sykmelding = getSykmelding({
                     id: '1',
@@ -881,24 +814,21 @@ describe('SykmeldingKvitteringSide', () => {
                         }],
                     },
                 });
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: false,
-                    skalOppretteSoknad: true,
-                };
+
+                testState.behandletStatus = IKKE_DIGITALISERT;
                 state.dineSykmeldinger.data = [sykmelding];
+
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             });
         });
 
 
-        it('Skal vise standard bekreftet-kvittering om sykmeldingen har reisetilskudd', () => {
-            state.soknader.data = [];
+        it('Skal vise reisetilkudd-kvittering om frilanser sykmeldingen har reisetilskudd', () => {
+            state.soknader.data = [nySoknad1];
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
                 mulighetForArbeid: {
                     perioder: [{
                         reisetilskudd: true,
@@ -906,7 +836,138 @@ describe('SykmeldingKvitteringSide', () => {
                 },
             });
             state.dineSykmeldinger.data = [sykmelding];
-            skalViseStandardBekreftetKvittering(state, ownProps);
+            const component = getComponent(state, ownProps);
+            expect(component.find(HundreProsentReisetilskudd))
+                .to
+                .have
+                .length(1);
+        });
+
+        it('Skal vise reisetilkudd-kvittering om arbeidsled sykmeldingen har reisetilskudd og en ny søknad', () => {
+            state.soknader.data = [nySoknad1Arbeidsledig];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.SENDT,
+                valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSLEDIG,
+                mulighetForArbeid: {
+                    perioder: [{
+                        reisetilskudd: true,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du gjort første del');
+            expect(component.text())
+                .to
+                .contain('Du har gitt beskjed til NAV om at du trenger reisetilskudd');
+            expect(component.html())
+                .to
+                .contain('Nå skal du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                .contain('Søk om reisetilskudd');
+            expect(component.find(HundreProsentReisetilskudd))
+                .to
+                .have
+                .length(1);
+        });
+
+        it('Skal vise reisetilkudd-kvittering om arbeidstaker sykmeldingen har reisetilskudd og en ny søknad', () => {
+            state.soknader.data = [nySoknad1];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.SENDT,
+                valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER,
+                mulighetForArbeid: {
+                    perioder: [{
+                        reisetilskudd: true,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du gjort første del');
+            expect(component.text())
+                .to
+                .contain('Du har gitt beskjed til NAV og arbeidsgiveren din om at du trenger reisetilskudd');
+            expect(component.html())
+                .to
+                .contain('Nå skal du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                .contain('Søk om reisetilskudd');
+            expect(component.find(HundreProsentReisetilskudd))
+                .to
+                .have
+                .length(1);
+        });
+
+        it('Skal vise reisetilkudd-kvittering om arbeidstaker sykmeldingen har reisetilskudd og en fremtidig søknad', () => {
+            state.soknader.data = [fremtidigSoknad1, fremtidigSoknad2];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.SENDT,
+                valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER,
+                mulighetForArbeid: {
+                    perioder: [{
+                        reisetilskudd: true,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            const component = getComponent(state, ownProps);
+            expect(component.text())
+                .to
+                .contain('Da har du gjort første del');
+            expect(component.text())
+                .to
+                .contain('Du har gitt beskjed til NAV og arbeidsgiveren din om at du trenger reisetilskudd');
+            expect(component.html())
+                .to
+                .not
+                .contain('Nå skal du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                .not
+                .contain('Søk om reisetilskudd');
+            expect(component.html())
+                .to
+                .contain('Senere må du svare på noen spørsmål');
+            expect(component.html())
+                .to
+                // eslint-disable-next-line max-len
+                .contain('Vi trenger kvitteringer fra reisene for å behandle søknaden din. 11. februar 2019 får du en melding fra oss om at du kan logge deg inn på Ditt NAV for å fylle ut søknaden om reisetilskudd. Du vil også få melding 11. februar 2019.');
+            expect(component.find(HundreProsentReisetilskudd))
+                .to
+                .have
+                .length(1);
+        });
+
+        it('Skal vise papir kvittering om sykmeldingen har reisetilskudd og ikke digitalisert', () => {
+            state.soknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.BEKREFTET,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                mulighetForArbeid: {
+                    perioder: [{
+                        reisetilskudd: true,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            testState.behandletStatus = IKKE_DIGITALISERT;
+
+            const component = getComponent(state, ownProps);
+            expect(component.find(FrilanserMedPapirsoknadKvittering))
+                .to
+                .have
+                .length(1);
         });
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen har behandlingsdager', () => {
@@ -915,8 +976,6 @@ describe('SykmeldingKvitteringSide', () => {
                 id: '1',
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
                 mulighetForArbeid: {
                     perioder: [{
                         behandlingsdager: 4,
@@ -927,7 +986,7 @@ describe('SykmeldingKvitteringSide', () => {
             skalViseStandardBekreftetKvittering(state, ownProps);
         });
 
-        it('Skal vise info om at det ikke er nødvendig å søke dersom sykmeldingen ikke genererer søknader og skalOppretteSoknad = false', () => {
+        it('Skal vise info om at det ikke er nødvendig å søke dersom sykmeldingen behandlet status er INNENFOR_VENTETID', () => {
             state.soknader.data = [];
             const sykmelding = getSykmelding({
                 id: '1',
@@ -941,16 +1000,13 @@ describe('SykmeldingKvitteringSide', () => {
                 },
             });
             state.dineSykmeldinger.data = [sykmelding];
-            state.sykmeldingMeta['1'] = {
-                erUtenforVentetid: true,
-                skalOppretteSoknad: false,
-            };
             state.soknader.data = [{
                 sykmeldingId: 'ikke-relevant-sykmelding-id',
                 status: 'NY',
                 tom: new Date('2018-01-10'),
                 soknadstype: SELVSTENDIGE_OG_FRILANSERE,
             }];
+            testState.behandletStatus = INNENFOR_VENTETID;
             const component = getComponent(state, ownProps);
             expect(component.find(FrilanserUtenSoknadKvittering))
                 .to
@@ -983,8 +1039,6 @@ describe('SykmeldingKvitteringSide', () => {
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: false,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date('2018-02-02'),
@@ -993,10 +1047,6 @@ describe('SykmeldingKvitteringSide', () => {
                     },
                 });
                 state.dineSykmeldinger.data = [sykmelding];
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: false,
-                };
                 skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
             });
 
@@ -1005,8 +1055,6 @@ describe('SykmeldingKvitteringSide', () => {
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: true,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date('2018-02-02'),
@@ -1016,10 +1064,6 @@ describe('SykmeldingKvitteringSide', () => {
                 });
                 state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
                 state.dineSykmeldinger.data = [sykmelding];
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: true,
-                };
                 skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
             });
 
@@ -1036,10 +1080,6 @@ describe('SykmeldingKvitteringSide', () => {
                     },
                 });
                 state.dineSykmeldinger.data = [sykmelding];
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: true,
-                };
                 skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
             });
         });
@@ -1059,8 +1099,6 @@ describe('SykmeldingKvitteringSide', () => {
                     id: '1',
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: false,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date('2018-02-02'),
@@ -1069,10 +1107,6 @@ describe('SykmeldingKvitteringSide', () => {
                     },
                 });
                 state.dineSykmeldinger.data = [sykmelding];
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: false,
-                };
                 skalViseInfoOmAtFrilanserKanSokSenere(state, ownProps);
             });
 
@@ -1089,10 +1123,6 @@ describe('SykmeldingKvitteringSide', () => {
                     },
                 });
                 state.dineSykmeldinger.data = [sykmelding];
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: true,
-                };
                 skalViseInfoOmAtFrilanserKanSokSenere(state, ownProps);
             });
         });
@@ -1115,10 +1145,6 @@ describe('SykmeldingKvitteringSide', () => {
                     },
                 });
                 state.dineSykmeldinger.data = [sykmelding];
-                state.sykmeldingMeta['1'] = {
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: true,
-                };
                 const component = getComponent(state, ownProps);
                 expect(component.text())
                     .to
@@ -1136,41 +1162,12 @@ describe('SykmeldingKvitteringSide', () => {
         });
     });
 
-    describe('BEKREFTET sykmelding for annet', () => {
-        it('Skal vise annet/arbeidsledig-kvittering', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.BEKREFTET,
-                valgtArbeidssituasjon: arbeidssituasjoner.ANNET,
-                erUtenforVentetid: false,
-            });
-            state.soknader.data = [];
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseAnnetArbeidsledigKvittering(state, ownProps);
-        });
-    });
-
-    describe('BEKREFTET sykmelding for arbeidsledig', () => {
-        it('Skal vise annet/arbeidsledig-kvittering', () => {
-            const sykmelding = getSykmelding({
-                id: '1',
-                status: sykmeldingstatuser.BEKREFTET,
-                valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSLEDIG,
-                erUtenforVentetid: false,
-            });
-            state.soknader.data = [];
-            state.dineSykmeldinger.data = [sykmelding];
-            skalViseAnnetArbeidsledigKvittering(state, ownProps);
-        });
-    });
 
     describe('AVBRUTT sykmelding', () => {
         it('Skal vise riktig kvittering', () => {
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.AVBRUTT,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
             });
             state.soknader.data = [];
             state.dineSykmeldinger.data = [sykmelding];
@@ -1193,10 +1190,6 @@ describe('SykmeldingKvitteringSide', () => {
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 erEgenmeldt: true,
             });
-            state.sykmeldingMeta['1'] = {
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            };
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -1219,10 +1212,6 @@ describe('SykmeldingKvitteringSide', () => {
                 sykmeldingId: '1',
                 status: sykepengesoknadstatuser.NY,
             });
-            state.sykmeldingMeta['1'] = {
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            };
             state.dineSykmeldinger.data = [sykmelding];
             state.soknader.data = [soknad];
             const component = getComponent(state, ownProps);
@@ -1244,10 +1233,6 @@ describe('SykmeldingKvitteringSide', () => {
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 erEgenmeldt: true,
             });
-            state.sykmeldingMeta['1'] = {
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
-            };
             state.dineSykmeldinger.data = [sykmelding];
             const component = getComponent(state, ownProps);
             expect(component.text())
@@ -1257,25 +1242,44 @@ describe('SykmeldingKvitteringSide', () => {
     });
 
     describe('mapStateToProps', () => {
-        it('Skal returnere fremtidige soknader', () => {
+        it('Skal returnere relaterte soknader', () => {
             const res = mapStateToProps(state, ownProps);
-            expect(res.soknader)
+            expect(res.soknader.map((s) => {
+                return {
+                    sykmeldingId: s.sykmeldingId,
+                    status: s.status,
+                    id: s.id,
+                };
+            }))
                 .to
                 .deep
-                .equal([fremtidigSoknad1]);
+                .equal([
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'NY',
+                        sykmeldingId: '1',
+                    },
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'NY',
+                        sykmeldingId: '1',
+                    },
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'NY',
+                        sykmeldingId: '1',
+                    },
+                    {
+                        id: '05cf3a4a-16b1-4cd7-8096-de03964f5295',
+                        status: 'FREMTIDIG',
+                        sykmeldingId: '1',
+                    },
+                ]);
         });
 
         it('Skal returnere henter === true dersom sykmeldinger hentes', () => {
             state.dineSykmeldinger.henter = true;
 
-            const res = mapStateToProps(state, ownProps);
-            expect(res.henter)
-                .to
-                .equal(true);
-        });
-
-        it('Skal returnere henter === true dersom ledetekster hentes', () => {
-            state.ledetekster.henter = true;
             const res = mapStateToProps(state, ownProps);
             expect(res.henter)
                 .to

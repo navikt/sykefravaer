@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    sykepengesoknad as sykepengesoknadPt,
     getLedetekst,
     Bjorn,
 } from '../../../digisyfoNpm';
 import Kvitteringsteg, { StegvisKvittering, HtmlAvsnitt } from '../felles/Kvitteringsteg';
-import { soknadPt } from '../../../propTypes/soknadProptype';
 
 const SokOmSykepengerSenereArbeidsledig = ({ sykmeldingstype = 'lang' }) => {
     return (
@@ -46,31 +44,25 @@ SokOmSykepengerSenereArbeidsledig.propTypes = {
     sykmeldingstype: PropTypes.oneOf(['lang', 'kort']),
 };
 
-export const SokOmSykepengerSenereArbeidsledigLangSykmelding = ({ sykepengesoknader, soknader }) => {
+export const SokOmSykepengerSenereArbeidsledigLangSykmelding = () => {
     return (
         <SokOmSykepengerSenereArbeidsledig
-            soknader={soknader}
-            sykepengesoknader={sykepengesoknader}
         />
     );
 };
 
 SokOmSykepengerSenereArbeidsledigLangSykmelding.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-    soknader: PropTypes.arrayOf(soknadPt),
+
 };
 
-export const SokOmSykepengerSenereArbeidsledigKortSykmelding = ({ sykepengesoknader, soknader }) => {
+export const SokOmSykepengerSenereArbeidsledigKortSykmelding = () => {
     return (
         <SokOmSykepengerSenereArbeidsledig
-            soknader={soknader}
-            sykepengesoknader={sykepengesoknader}
             sykmeldingstype="kort"
         />
     );
 };
 
 SokOmSykepengerSenereArbeidsledigKortSykmelding.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-    soknader: PropTypes.arrayOf(soknadPt),
+
 };

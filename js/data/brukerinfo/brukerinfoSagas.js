@@ -8,7 +8,8 @@ import logger from '../../logging';
 import { skalHenteBrukerinfoSelector, skalHenteOppfolgingSelector, skalHenteSykmeldtinfodata } from './brukerinfoSelectors';
 import { MANGLER_OIDC_TOKEN } from '../../enums/exceptionMessages';
 import { HENTET_UNLEASH_TOGGLES } from '../unleash-toggles/unleashToggles_actions';
-import { getOppfolgingRestUrl, getSyforestRoot, getVeilarbregRestUrl } from '../../utils/urlUtils';
+import { getOppfolgingRestUrl, getVeilarbregRestUrl } from '../../utils/urlUtils';
+import { getSykmeldingerBackendUrl } from '../../sykmeldinger/data/dine-sykmeldinger/dineSykmeldingerSagas';
 
 const {
     HENT_BRUKERINFO_FORESPURT, HENT_OPPFOLGING_FORESPURT, HENT_SYKMELDTINFODATA_FORESPURT, SJEKK_INNLOGGING_FORESPURT,
@@ -24,9 +25,10 @@ const getConsumerIdHeaders = () => {
 export function* hentBrukerinfo() {
     const skalHente = yield select(skalHenteBrukerinfoSelector);
     if (skalHente) {
+        const url = getSykmeldingerBackendUrl();
         yield put(actions.henterBrukerinfo());
         try {
-            const data = yield call(get, `${getSyforestRoot()}/informasjon/bruker`);
+            const data = yield call(get, `${url}/brukerinformasjon`);
             yield put(actions.brukerinfoHentet(data));
         } catch (e) {
             log(e);

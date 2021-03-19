@@ -26,6 +26,7 @@ import {
     ARBEIDSLEDIG,
     ANNET_ARBEIDSFORHOLD,
     BEHANDLINGSDAGER,
+    REISETILSKUDD,
 } from '../../enums/soknadtyper';
 import { erMotePassert, getSvarsideModus } from '../../utils/moteUtils';
 import { erMotebehovUbesvart } from '../../utils/motebehovUtils';
@@ -130,6 +131,23 @@ NySykepengesoknad.propTypes = {
     soknader: PropTypes.arrayOf(soknadPt),
 };
 
+const NyReisetilskuddsoknad = ({ reisetilskuddSoknader }) => {
+    const alleSoknader = [...reisetilskuddSoknader];
+    const url = alleSoknader.length === 1
+        ? getSykepengesoknadUrl(alleSoknader[0].id)
+        : getSykepengesoknaderUrl();
+    const tekst = alleSoknader.length === 1
+        ? getLedetekst('dine-oppgaver.reisetilskudd.en-soknad')
+        : getLedetekst('dine-oppgaver.reisetilskudd.flere-soknader', {
+            '%ANTALL%': alleSoknader.length.toString(),
+        });
+    return <EksternLi url={url} tekst={tekst} />;
+};
+
+NyReisetilskuddsoknad.propTypes = {
+    reisetilskuddSoknader: PropTypes.arrayOf(soknadPt),
+};
+
 export const NyttAktivitetskravvarsel = () => {
     return (
         <Li
@@ -174,6 +192,7 @@ const avventendeGodkjenningerTekst = (antall) => {
 
 const RendreOppgaver = ({
     soknader = [],
+    reisetilskuddSoknader = [],
     sykmeldinger = [],
     visOppgaver,
     mote,
@@ -211,6 +230,11 @@ const RendreOppgaver = ({
                     {(soknader.length > 0) && (
                         <NySykepengesoknad
                             soknader={soknader}
+                        />
+                    )}
+                    {(reisetilskuddSoknader.length > 0) && (
+                        <NyReisetilskuddsoknad
+                            reisetilskuddSoknader={reisetilskuddSoknader}
                         />
                     )}
                     {mote !== null && (
@@ -252,6 +276,7 @@ RendreOppgaver.propTypes = {
     nyePlaner: PropTypes.arrayOf(oppfolgingsdialogPt),
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     soknader: PropTypes.arrayOf(soknadPt),
+    reisetilskuddSoknader: PropTypes.arrayOf(soknadPt),
     harNyttMotebehov: PropTypes.bool,
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -307,11 +332,19 @@ export const mapStateToProps = (state) => {
         .filter((s) => {
             return (
                 s.soknadstype === SELVSTENDIGE_OG_FRILANSERE
-        || s.soknadstype === ARBEIDSTAKERE
-        || s.soknadstype === ARBEIDSLEDIG
-        || s.soknadstype === ANNET_ARBEIDSFORHOLD
-        || s.soknadstype === BEHANDLINGSDAGER
+                || s.soknadstype === ARBEIDSTAKERE
+                || s.soknadstype === ARBEIDSLEDIG
+                || s.soknadstype === ANNET_ARBEIDSFORHOLD
+                || s.soknadstype === BEHANDLINGSDAGER
             );
+        });
+
+    const reisetilskuddSoknader = state.soknader.data
+        .filter((s) => {
+            return s.status === NY;
+        })
+        .filter((s) => {
+            return s.soknadstype === REISETILSKUDD;
         });
 
     const mote = state.mote.data;
@@ -330,6 +363,7 @@ export const mapStateToProps = (state) => {
         });
     const visOppgaver = sykmeldinger.length > 0
     || soknader.length > 0
+    || reisetilskuddSoknader.length > 0
     || moteRes !== null
     || harNyttMotebehov
     || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0
@@ -344,6 +378,7 @@ export const mapStateToProps = (state) => {
       state.dineSykmeldinger.hentingFeilet
       || state.oppfolgingsdialoger.hentingFeilet,
         soknader,
+        reisetilskuddSoknader,
         visOppgaver,
         mote: moteRes,
         visSykepengerVarsel: selectSykepengerVarsel(state),

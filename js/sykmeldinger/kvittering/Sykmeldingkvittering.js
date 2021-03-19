@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as sykepengesoknadPt,
+    getLedetekst, sykmeldingstatuser, getHtmlLedetekst,
 } from '../../digisyfoNpm';
 import LenkeTilDineSykmeldinger from '../../components/LenkeTilDineSykmeldinger';
 import Sidetopp from '../../components/Sidetopp';
@@ -20,9 +20,7 @@ import FrilanserSoekDigitaltNaa from './varianter/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from './varianter/FrilanserSoekDigitaltSenere';
 import FrilanserSoekDigitaltFeil from './varianter/FrilanserSoekDigitaltFeil';
 import SendtSykmeldingMedPapirSoknadKvittering from './varianter/SendtSykmeldingMedPapirSoknadKvittering';
-import AnnetArbeidsledigKvittering from './varianter/AnnetArbeidsledigKvittering';
 import Feilmelding from '../../components/Feilmelding';
-import { soknadPt } from '../../propTypes/index';
 import {
     SokOmSykepengerSenereArbeidsledigKortSykmelding,
     SokOmSykepengerSenereArbeidsledigLangSykmelding,
@@ -31,6 +29,8 @@ import SendtAvventendeSykmelding from './varianter/AvventendeSykmeldingKvitterin
 import EgenmeldtKvittering from './varianter/EgenmeldtKvittering';
 import EgenmeldtKvitteringSokNa from './varianter/EgenmeldtKvitteringSokNa';
 import EgenmeldingAvbruttKvittering from './varianter/EgenmeldingAvbruttKvittering';
+import { soknadPt } from '../../propTypes';
+import HundreProsentReisetilskudd from './varianter/HundreProsentReisetilskudd';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG: 'KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG',
@@ -51,11 +51,11 @@ export const kvitteringtyper = {
     BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER: 'BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER',
     STRENGT_FORTROLIG_ADRESSE: 'STRENGT_FORTROLIG_ADRESSE',
     BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER: 'BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER',
-    BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG: 'BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG',
     SENDT_AVVENTENDE_SYKMELDING: 'SENDT_AVVENTENDE_SYKMELDING',
     EGENMELDT_KVITTERING: 'EGENMELDT_KVITTERING',
     EGENMELDT_KVITTERING_SOK_NA: 'EGENMELDT_KVITTERING_SOK_NA',
     EGENMELDING_AVBRUTT_KVITTERING: 'EGENMELDING_AVBRUTT_KVITTERING',
+    HUNDRE_PROSENT_REISETILSKUDD: 'HUNDRE_PROSENT_REISETILSKUDD',
 };
 
 const AvbruttKvittering = () => {
@@ -92,7 +92,11 @@ const BekreftetKvittering = () => {
 };
 
 const SykmeldingKvittering = (props) => {
-    const { kvitteringtype, sykepengesoknader, soknader } = props;
+    const {
+        kvitteringtype,
+        fremtidigeSoknader,
+        nyeSoknader,
+    } = props;
     /* eslint-disable max-len */
     const kvitteringMap = {
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_ARBEIDSLEDIG]: SokOmSykepengerNaaArbeidsledig,
@@ -113,11 +117,11 @@ const SykmeldingKvittering = (props) => {
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER]: FrilanserSoekDigitaltSenere,
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER]: FrilanserSoekDigitaltNaa,
         [kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER]: FrilanserSoekDigitaltFeil,
-        [kvitteringtyper.BEKREFTET_SYKMELDING_ANNET_ARBEIDSLEDIG]: AnnetArbeidsledigKvittering,
         [kvitteringtyper.SENDT_AVVENTENDE_SYKMELDING]: SendtAvventendeSykmelding,
         [kvitteringtyper.EGENMELDT_KVITTERING]: EgenmeldtKvittering,
         [kvitteringtyper.EGENMELDING_AVBRUTT_KVITTERING]: EgenmeldingAvbruttKvittering,
         [kvitteringtyper.EGENMELDT_KVITTERING_SOK_NA]: EgenmeldtKvitteringSokNa,
+        [kvitteringtyper.HUNDRE_PROSENT_REISETILSKUDD]: HundreProsentReisetilskudd,
     };
     /* eslint-enable max-len */
     const Component = kvitteringMap[kvitteringtype];
@@ -138,7 +142,7 @@ const SykmeldingKvittering = (props) => {
             <Sidetopp tittel={tittel} />
             {
                 Component
-                    ? <Component sykepengesoknader={sykepengesoknader} soknader={soknader} />
+                    ? <Component fremtidigeSoknader={fremtidigeSoknader} nyeSoknader={nyeSoknader} />
                     : <Feilmelding />
             }
             <LenkeTilDineSykmeldinger />
@@ -147,8 +151,8 @@ const SykmeldingKvittering = (props) => {
 };
 
 SykmeldingKvittering.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt).isRequired,
-    soknader: PropTypes.arrayOf(soknadPt),
+    fremtidigeSoknader: PropTypes.arrayOf(soknadPt).isRequired,
+    nyeSoknader: PropTypes.arrayOf(soknadPt).isRequired,
     kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)).isRequired,
 };
 

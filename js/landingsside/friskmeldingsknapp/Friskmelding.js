@@ -6,6 +6,7 @@ import {
 } from '../../digisyfoNpm';
 import { Vis } from '../../utils/index';
 import Lightbox from '../../components/Lightbox';
+import { logEvent } from '../../utils/amplitude';
 
 const track = (event, variant, datalayerData, sykefravaerVarighet) => {
     /* eslint-disable quote-props */
@@ -94,6 +95,9 @@ class Friskmelding extends Component {
     }
 
     visLightbox() {
+        logEvent('panel åpnet', {
+            component: 'friskmeldingsknapp',
+        });
         this.pushToDataLayer('FRISKMELDINGSKNAPP_KLIKKET');
         this.setState({
             visLightbox: true,

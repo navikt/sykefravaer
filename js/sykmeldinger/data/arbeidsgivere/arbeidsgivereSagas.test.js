@@ -18,7 +18,7 @@ describe('dineArbeidsgivereSagas', () => {
     });
 
     it('Skal dernest hente aktuelle arbeidsgivere', () => {
-        const nextCall = call(get, '/syforest/informasjon/arbeidsgivere?sykmeldingId=887766');
+        const nextCall = call(get, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/syforest/arbeidsforhold?sykmeldingId=887766');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

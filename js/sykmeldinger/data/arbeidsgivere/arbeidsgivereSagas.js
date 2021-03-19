@@ -3,7 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { get, log } from '../../../digisyfoNpm';
 import * as actions from './arbeidsgivereActions';
-import { getSyforestRoot } from '../../../utils/urlUtils';
+import { getSykmeldingerBackendUrl } from '../dine-sykmeldinger/dineSykmeldingerSagas';
 
 const { HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT } = actions;
 
@@ -15,9 +15,10 @@ export function* hentDineArbeidsgivere(action) {
     const { sykmeldingId } = action;
     const skalHente = yield select(skalHenteArbeidsgivere, sykmeldingId);
     if (skalHente) {
+        const url = getSykmeldingerBackendUrl();
         yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));
         try {
-            const data = yield call(get, `${getSyforestRoot()}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
+            const data = yield call(get, `${url}/arbeidsforhold?sykmeldingId=${sykmeldingId}`);
             yield put(actions.aktuelleArbeidsgivereHentet(sykmeldingId, data));
         } catch (e) {
             log(e);

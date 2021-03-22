@@ -1,4 +1,5 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
+// eslint-disable max-len
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -155,14 +156,22 @@ export class DinSykmeldingSkjemaComponent extends Component {
                             Hvordan har NAV fått sykmeldingen min?
                         </h4>
                         <p>
-                            NAV får alle sykmeldinger som blir skrevet i Norge. Den som er sykmeldt, finner den på <a href="nav.no/sykefravaer">nav.no/sykefravaer</a>, der du er logget inn nå.
+                            NAV får alle sykmeldinger som blir skrevet i Norge. Den som er sykmeldt, finner den på
+                            {' '}
+                            <a href="nav.no/sykefravaer">nav.no/sykefravaer</a>
+, der du er logget inn nå.
                         </p>
                         <p>
-                            Du kan kreve at NAV sletter sykmeldingen din. Da kan du bruke <a href="nav.no/skrivtiloss">nav.no/skrivtiloss</a> eller ringe 55 55 33 33.
+                            Du kan kreve at NAV sletter sykmeldingen din. Da kan du bruke
+                            {' '}
+                            <a href="nav.no/skrivtiloss">nav.no/skrivtiloss</a>
+                            {' '}
+eller ringe 55 55 33 33.
                         </p>
                     </div>
                     <div>
                         <h4>Må jeg bruke den digitale sykmeldingen?</h4>
+                        {/* eslint-disable-next-line max-len */}
                         <p>Du kan be om å få sykmeldingen på papir hvis du ikke ønsker å bruke denne digitale løsningen. Papirsykmeldingen inneholder de samme opplysningene som den digitale sykmeldingen.</p>
                     </div>
                 </Utvidbar>

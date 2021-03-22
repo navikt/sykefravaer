@@ -205,7 +205,7 @@ eller ringe 55 55 33 33.
                     }}
                 />
                 <Vis
-                    hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
+                    hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER && [modi.SEND, modi.SEND_MED_NAERMESTE_LEDER].includes(modus)}
                     render={() => (
                         <div>
                             <Bjorn className="blokk" hvit stor>

@@ -131,15 +131,6 @@ describe('DineSykmeldingOpplysninger', () => {
             expect(component.find('.js-hoveddiagnose-system').text()).to.contain('ICPC');
         });
 
-        it('Skal vise 2 x informasjon om at diagnose ikke sendes til arbeidsgiver', () => {
-            component = mount(<DineSykmeldingOpplysninger
-                sykmelding={getParsetSykmelding()}
-                ledetekster={ledetekster} />);
-            expect(component.find('.js-diagnose-meta')).to.have.length(2);
-            expect(component.find('.js-diagnose-meta').at(0).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
-            expect(component.find('.js-diagnose-meta').at(1).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
-        });
-
         it('Skal ikke vise hoveddiagnose dersom den ikke finnes', () => {
             component = mount(<DineSykmeldingOpplysninger
                 sykmelding={getParsetSykmelding({
@@ -182,49 +173,6 @@ describe('DineSykmeldingOpplysninger', () => {
             expect(component.find('.js-bidiagnose').text()).to.equal('Mageknipe');
             expect(component.find('.js-bidiagnose-kode').text()).to.contain('LP3');
             expect(component.find('.js-bidiagnose-system').text()).to.contain('IZPZ');
-        });
-
-        it('Skal vise 2 x informasjon om at diagnose ikke sendes til arbeidsgiver dersom det finnes en bidiagnose', () => {
-            component = mount(<DineSykmeldingOpplysninger
-                sykmelding={getParsetSykmelding({
-                    diagnose: {
-                        bidiagnoser: [{
-                            diagnose: 'Mageknipe',
-                            diagnosesystem: 'IZPZ',
-                            diagnosekode: 'LP3',
-                        }],
-                    },
-                })}
-                ledetekster={ledetekster} />);
-            expect(component.find('.js-bidiagnose-meta')).to.have.length(2);
-            expect(component.find('.js-bidiagnose-meta').at(0).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
-            expect(component.find('.js-bidiagnose-meta').at(1).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
-        });
-
-        it('Skal vise 4 x informasjon om at diagnose ikke sendes til arbeidsgiver dersom det finnes en bidiagnose', () => {
-            component = mount(<DineSykmeldingOpplysninger
-                sykmelding={getParsetSykmelding({
-                    diagnose: {
-                        bidiagnoser: [
-                            {
-                                diagnose: 'Mageknipe',
-                                diagnosesystem: 'IZPZ',
-                                diagnosekode: 'LP3',
-                            },
-                            {
-                                diagnose: 'Hodepine',
-                                diagnosesystem: 'IZPZ',
-                                diagnosekode: 'LP3',
-                            },
-                        ],
-                    },
-                })}
-                ledetekster={ledetekster} />);
-            expect(component.find('.js-bidiagnose-meta')).to.have.length(4);
-            expect(component.find('.js-bidiagnose-meta').at(0).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
-            expect(component.find('.js-bidiagnose-meta').at(1).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
-            expect(component.find('.js-bidiagnose-meta').at(2).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
-            expect(component.find('.js-bidiagnose-meta').at(3).text()).to.equal('Diagnose blir ikke sendt videre til eventuell arbeidsgiver');
         });
     });
 

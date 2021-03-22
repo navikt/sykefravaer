@@ -1,4 +1,5 @@
 /* eslint arrow-body-style: ["error", "as-needed"] */
+// eslint-disable max-len
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,6 +14,7 @@ import {
     getLedetekst,
     tilDatePeriode,
     toDatePrettyPrint,
+    Utvidbar,
 } from '../../../../digisyfoNpm';
 import ArbeidsgiversSykmeldingContainer from '../../../arbeidsgivers-sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from '../er-opplysningene-riktige/ErOpplysningeneRiktige';
@@ -148,6 +150,31 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 <FeiloppsummeringContainer skjemanavn={getSykmeldingSkjemanavn(sykmelding.id)} />
                 <h3 className="typo-innholdstittel blokk--xxs">{getLedetekst('starte-sykmelding.tittel')}</h3>
                 <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
+                <Utvidbar className="blokk" tittel="Dette lurer mange på">
+                    <div>
+                        <h4>
+                            Hvordan har NAV fått sykmeldingen min?
+                        </h4>
+                        <p>
+                            NAV får alle sykmeldinger som blir skrevet i Norge. Den som er sykmeldt, finner den på
+                            {' '}
+                            <a href="nav.no/sykefravaer">nav.no/sykefravaer</a>
+, der du er logget inn nå.
+                        </p>
+                        <p>
+                            Du kan kreve at NAV sletter sykmeldingen din. Da kan du bruke
+                            {' '}
+                            <a href="nav.no/skrivtiloss">nav.no/skrivtiloss</a>
+                            {' '}
+eller ringe 55 55 33 33.
+                        </p>
+                    </div>
+                    <div>
+                        <h4>Må jeg bruke den digitale sykmeldingen?</h4>
+                        {/* eslint-disable-next-line max-len */}
+                        <p>Du kan be om å få sykmeldingen på papir hvis du ikke ønsker å bruke denne digitale løsningen. Papirsykmeldingen inneholder de samme opplysningene som den digitale sykmeldingen.</p>
+                    </div>
+                </Utvidbar>
                 <ErOpplysningeneRiktige untouch={untouch} sykmelding={sykmelding} />
                 <Vis
                     hvis={modus !== modi.AVBRYT}
@@ -178,8 +205,26 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     }}
                 />
                 <Vis
-                    hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
-                    render={() => <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />} />
+                    hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER && [modi.SEND, modi.SEND_MED_NAERMESTE_LEDER].includes(modus)}
+                    render={() => (
+                        <div>
+                            <Bjorn className="blokk" hvit stor>
+                                {/* eslint-disable-next-line max-len */}
+                                    Under ser du hva arbeidsgiveren din får se hvis du sender sykmeldingen. Det er bare disse opplysningene som blir sendt. Arbeidsgiveren din får for eksempel ikke se diagnosen.
+                            </Bjorn>
+                            <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" erApen />
+                            <Utvidbar tittel="Om du ikke ønsker å sende sykmeldingen til arbeidsgiver">
+                                <p>
+                                    {/* eslint-disable-next-line max-len */}
+                                    Arbeidsgiveren din trenger sykmeldingen som dokumentasjon på at du er syk, enten den digitale sykmeldingen du finner her, eller papirsykmeldingen som du kan få hos legen.
+                                </p>
+                                <p>
+                                    {/* eslint-disable-next-line max-len */}
+                                    Ønsker du ikke å sende den slik du ser den her, kan du snakke med legen om å få en ny sykmelding. Da kan du ta stilling til om du vil gi den nye sykmeldingen til arbeidsgiveren din i stedet.
+                                </p>
+                            </Utvidbar>
+                        </div>
+                    )} />
                 <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
                 <Vis
                     hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}

@@ -29,7 +29,8 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
                 : null;
     };
 
-    const hjelpetekst = (<Hjelpetekst id="velg-beOmNyNaermesteLeder-hjelpetekst">{getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst')}</Hjelpetekst>);
+    // eslint-disable-next-line max-len
+    const hjelpetekst = (<Hjelpetekst id="velg-beOmNyNaermesteLeder-hjelpetekst">I forbindelse med en tidligere sykmelding har arbeidsgiveren din oppgitt at det er denne personen som følger deg opp når du er sykmeldt. Personen vil få se sykmeldingen ved å logge seg på nav.no og kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det. Hør med arbeidsgiveren din hvis du er usikker på hvorfor de har valgt denne personen.</Hjelpetekst>);
 
     return (
         <div className="hovedsporsmal__tilleggssporsmal">

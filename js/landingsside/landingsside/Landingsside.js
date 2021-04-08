@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
+import Lenke from 'nav-frontend-lenker';
 import { getLedetekst } from '../../digisyfoNpm';
 import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
@@ -21,8 +22,18 @@ import { countClickAktivitetsplan } from '../../data/metrikker/countClickAction'
 const IngenSykmeldinger = () => {
     return (
         <div className="panel ingenSykmeldinger landingspanel">
-            <IllustrertInnhold ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/veileder.svg`} ikonAlt="NAV-veileder">
-                <p className="sist">{getLedetekst('landingsside.ingen-sykmelding')}</p>
+            <IllustrertInnhold
+                ikon={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/landingsside/veileder.svg`}
+                ikonAlt="NAV-veileder"
+            >
+                <p className="sist">
+          Du har ingen digital sykmelding. Har du fått sykmeldingen på papir,
+          kan du vente noen dager, så vil du finne den her.
+                    {' '}
+                    <Lenke href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/papirsykmelding">
+            Les mer om papirsykmeldingen.
+                    </Lenke>
+                </p>
             </IllustrertInnhold>
         </div>
     );

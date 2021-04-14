@@ -1,270 +1,1263 @@
 [
-    {
-        "id": "419303be-d3d0-4d3f-a8b8-6c740a36ab3a",
-        "startLegemeldtFravaer": "2018-10-06",
-        "skalViseSkravertFelt": true,
-        "identdato": "2018-10-02",
-        "status": "SENDT",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": "TESTBEDRIFT",
-        "valgtArbeidssituasjon": null,
-        "mottakendeArbeidsgiver": {
-            "navn": "TESTBEDRIFT",
-            "virksomhetsnummer": "111222333",
-            "juridiskOrgnummer": "000111222"
-        },
-        "orgnummer": "111222333",
-        "sendtdato": "2018-10-15T14:32:26",
-        "sporsmal": null,
-        "pasient": {
-            "fnr": "12121200123",
-            "fornavn": "Helen",
-            "mellomnavn": "Perma",
-            "etternavn": "Flood"
-        },
-        "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
-        "stillingsprosent": 100,
-        "diagnose": {
-            "hoveddiagnose": null,
-            "bidiagnoser": [],
-            "fravaersgrunnLovfestet": null,
-            "fravaerBeskrivelse": null,
-            "svangerskap": null,
-            "yrkesskade": null,
-            "yrkesskadeDato": null
-        },
-        "mulighetForArbeid": {
-            "perioder": [
-                {
-                    "fom": "2018-10-02",
-                    "tom": "2018-10-20",
-                    "grad": null,
-                    "behandlingsdager": 4,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }
-            ],
-            "aktivitetIkkeMulig433": null,
-            "aktivitetIkkeMulig434": null,
-            "aarsakAktivitetIkkeMulig433": null,
-            "aarsakAktivitetIkkeMulig434": null
-        },
-        "friskmelding": {
-            "arbeidsfoerEtterPerioden": true,
-            "hensynPaaArbeidsplassen": "Må ta det pent",
-            "antarReturSammeArbeidsgiver": true,
-            "antattDatoReturSammeArbeidsgiver": "2018-10-02",
-            "antarReturAnnenArbeidsgiver": true,
-            "tilbakemeldingReturArbeid": null,
-            "utenArbeidsgiverAntarTilbakeIArbeid": false,
-            "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
-            "utenArbeidsgiverTilbakemelding": null
-        },
-        "utdypendeOpplysninger": {
-            "sykehistorie": null,
-            "paavirkningArbeidsevne": null,
-            "resultatAvBehandling": null,
-            "henvisningUtredningBehandling": null,
-            "grupper": []
-        },
-        "arbeidsevne": {
-            "tilretteleggingArbeidsplass": "Fortsett som sist.",
-            "tiltakNAV": null,
-            "tiltakAndre": null
-        },
-        "meldingTilNav": {
-            "navBoerTaTakISaken": false,
-            "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-            "dokumenterbarPasientkontakt": null,
-            "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-            "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Helen Flood",
-            "sykmelderTlf": "99998888"
-        }
+  {
+    "id": "0ba8ea3e-2be1-4d03-b127-40a5535fce25",
+    "erPapirsykmelding": true,
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-10-09",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
     },
-    {
-        "id": "7eaff4ae-ce5a-497e-afe8-a49b228a9670",
-        "startLegemeldtFravaer": "2018-10-06",
-        "skalViseSkravertFelt": true,
-        "identdato": "2018-09-27",
-        "status": "NY",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": null,
-        "valgtArbeidssituasjon": null,
-        "mottakendeArbeidsgiver": null,
-        "orgnummer": null,
-        "sendtdato": null,
-        "sporsmal": null,
-        "pasient": {
-            "fnr": "12121200123",
-            "fornavn": "Helen",
-            "mellomnavn": "Perma",
-            "etternavn": "Flood"
-        },
-        "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
-        "stillingsprosent": 100,
-        "diagnose": {
-            "hoveddiagnose": null,
-            "bidiagnoser": [],
-            "fravaersgrunnLovfestet": null,
-            "fravaerBeskrivelse": null,
-            "svangerskap": null,
-            "yrkesskade": null,
-            "yrkesskadeDato": null
-        },
-        "mulighetForArbeid": {
-            "perioder": [
-                {
-                    "fom": "2018-10-06",
-                    "tom": "2018-10-14",
-                    "grad": 40,
-                    "behandlingsdager": null,
-                    "reisetilskudd": false,
-                    "avventende": null
-                },
-                {
-                    "fom": "2018-09-27",
-                    "tom": "2018-10-05",
-                    "grad": 100,
-                    "behandlingsdager": null,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }
-            ],
-            "aktivitetIkkeMulig433": [],
-            "aktivitetIkkeMulig434": [
-                "Annet"
-            ],
-            "aarsakAktivitetIkkeMulig433": null,
-            "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
-        },
-        "friskmelding": {
-            "arbeidsfoerEtterPerioden": true,
-            "hensynPaaArbeidsplassen": "Må ta det pent",
-            "antarReturSammeArbeidsgiver": true,
-            "antattDatoReturSammeArbeidsgiver": "2018-10-06",
-            "antarReturAnnenArbeidsgiver": true,
-            "tilbakemeldingReturArbeid": null,
-            "utenArbeidsgiverAntarTilbakeIArbeid": false,
-            "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
-            "utenArbeidsgiverTilbakemelding": null
-        },
-        "utdypendeOpplysninger": {
-            "sykehistorie": null,
-            "paavirkningArbeidsevne": null,
-            "resultatAvBehandling": null,
-            "henvisningUtredningBehandling": null,
-            "grupper": []
-        },
-        "arbeidsevne": {
-            "tilretteleggingArbeidsplass": "Fortsett som sist.",
-            "tiltakNAV": null,
-            "tiltakAndre": null
-        },
-        "meldingTilNav": {
-            "navBoerTaTakISaken": false,
-            "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-            "dokumenterbarPasientkontakt": null,
-            "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-            "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Helen Flood",
-            "sykmelderTlf": "99998888"
-        }
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
     },
-    {
-        "id": "da8f5b71-e039-48d8-83e3-bb56a476d6c2",
-        "startLegemeldtFravaer": "2018-10-06",
-        "skalViseSkravertFelt": true,
-        "identdato": "2018-06-06",
-        "status": "NY",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": null,
-        "valgtArbeidssituasjon": null,
-        "mottakendeArbeidsgiver": null,
-        "orgnummer": null,
-        "sendtdato": null,
-        "sporsmal": null,
-        "pasient": {
-            "fnr": "12121200123",
-            "fornavn": "Helen",
-            "mellomnavn": "Perma",
-            "etternavn": "Flood"
-        },
-        "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
-        "stillingsprosent": 100,
-        "diagnose": {
-            "hoveddiagnose": null,
-            "bidiagnoser": [],
-            "fravaersgrunnLovfestet": null,
-            "fravaerBeskrivelse": null,
-            "svangerskap": null,
-            "yrkesskade": null,
-            "yrkesskadeDato": null
-        },
-        "mulighetForArbeid": {
-            "perioder": [
-                {
-                    "fom": "2018-06-06",
-                    "tom": "2018-06-16",
-                    "grad": 100,
-                    "behandlingsdager": null,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }
-            ],
-            "aktivitetIkkeMulig433": [],
-            "aktivitetIkkeMulig434": [
-                "Annet"
-            ],
-            "aarsakAktivitetIkkeMulig433": null,
-            "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
-        },
-        "friskmelding": {
-            "arbeidsfoerEtterPerioden": true,
-            "hensynPaaArbeidsplassen": "Må ta det pent",
-            "antarReturSammeArbeidsgiver": true,
-            "antattDatoReturSammeArbeidsgiver": "2018-06-06",
-            "antarReturAnnenArbeidsgiver": true,
-            "tilbakemeldingReturArbeid": null,
-            "utenArbeidsgiverAntarTilbakeIArbeid": false,
-            "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
-            "utenArbeidsgiverTilbakemelding": null
-        },
-        "utdypendeOpplysninger": {
-            "sykehistorie": null,
-            "paavirkningArbeidsevne": null,
-            "resultatAvBehandling": null,
-            "henvisningUtredningBehandling": null,
-            "grupper": []
-        },
-        "arbeidsevne": {
-            "tilretteleggingArbeidsplass": "Fortsett som sist.",
-            "tiltakNAV": null,
-            "tiltakAndre": null
-        },
-        "meldingTilNav": {
-            "navBoerTaTakISaken": false,
-            "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-            "dokumenterbarPasientkontakt": null,
-            "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-            "utstedelsesdato": "2018-10-06",
-            "sykmelder": "Helen Flood",
-            "sykmelderTlf": "99998888"
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-09",
+          "tom": "2018-10-17",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
         }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-09",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-09",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
     }
+  },
+  {
+    "id": "0ba8ea3e-2bd1-4d03-b127-40a5535fce25",
+    "erEgenmeldt": true,
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-10-09",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-09",
+          "tom": "2018-10-17",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-09",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-09",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "e9a99b9a-73e3-4998-82d1-063ca70866b2",
+    "startLegemeldtFravaer": "2019-03-31",
+    "skalViseSkravertFelt": true,
+    "identdato": "2019-03-22",
+    "status": "BEKREFTET",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": "FRILANSER",
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": "2019-04-09T15:53:24",
+    "sporsmal": {
+      "arbeidssituasjon": "FRILANSER",
+      "harForsikring": null,
+      "fravaersperioder": [],
+      "harAnnetFravaer": null
+    },
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2019-03-31",
+          "tom": "2019-04-08",
+          "grad": 20,
+          "behandlingsdager": null,
+          "reisetilskudd": false,
+          "avventende": null
+        },
+        {
+          "fom": "2019-03-22",
+          "tom": "2019-03-30",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2019-03-31",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2019-03-31",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2019-03-31",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "999888777"
+    }
+  },
+  {
+    "id": "e9a99b9a-73e3-4998-82d1-063ca71866b2",
+    "erEgenmeldt": true,
+    "startLegemeldtFravaer": "2019-03-31",
+    "skalViseSkravertFelt": true,
+    "identdato": "2019-03-22",
+    "status": "BEKREFTET",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": "FRILANSER",
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": "2019-04-09T15:53:24",
+    "sporsmal": {
+      "arbeidssituasjon": "FRILANSER",
+      "harForsikring": null,
+      "fravaersperioder": [],
+      "harAnnetFravaer": null
+    },
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2019-03-31",
+          "tom": "2019-04-08",
+          "grad": 20,
+          "behandlingsdager": null,
+          "reisetilskudd": false,
+          "avventende": null
+        },
+        {
+          "fom": "2019-03-22",
+          "tom": "2019-03-30",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2019-03-31",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2019-03-31",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2019-03-31",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "999888777"
+    }
+  },
+  {
+    "id": "ddaff965-f514-400e-8e61-3f7b2c753a4b",
+    "startLegemeldtFravaer": "2019-03-31",
+    "skalViseSkravertFelt": true,
+    "identdato": "2019-03-22",
+    "status": "SENDT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": "TESTBEDRIFTEN AS",
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": {
+      "navn": "TESTBEDRIFTEN AS",
+      "virksomhetsnummer": "999888777",
+      "juridiskOrgnummer": "111222333"
+    },
+    "orgnummer": "999888777",
+    "sendtdato": "2019-04-09T15:53:11",
+    "sporsmal": {
+      "arbeidssituasjon": "ARBEIDSTAKER",
+      "harForsikring": null,
+      "fravaersperioder": [],
+      "harAnnetFravaer": null
+    },
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2019-03-31",
+          "tom": "2019-04-08",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        },
+        {
+          "fom": "2019-03-22",
+          "tom": "2019-03-30",
+          "grad": 50,
+          "behandlingsdager": null,
+          "reisetilskudd": false,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2019-03-31",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2019-03-31",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2019-03-31",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "999888777"
+    }
+  },
+  {
+    "id": "460e8015-0a06-43e9-b53d-8870fe3dd18c",
+    "startLegemeldtFravaer": "2018-10-08",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-09-08",
+    "status": "SENDT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": "Hogwarts School of Witchcraft and Wizardry",
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": {
+      "navn": "Hogwarts School of Witchcraft and Wizardry",
+      "virksomhetsnummer": "110110110",
+      "juridiskOrgnummer": "110110110"
+    },
+    "orgnummer": "110110110",
+    "sendtdato": "2018-10-18T12:03:46",
+    "sporsmal": {
+      "arbeidssituasjon": "ARBEIDSTAKER",
+      "dekningsgrad": null,
+      "harForsikring": null,
+      "fravaersperioder": [],
+      "harAnnetFravaer": null
+    },
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-09-08",
+          "tom": "2018-10-05",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-09-08",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-09-08",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-08",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "e59ca01b-9722-4df6-a52f-bd14e8531015",
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-10-01",
+    "status": "AVBRUTT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": "2018-10-18T13:10:23",
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-01",
+          "tom": "2018-10-12",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-01",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-01",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "4ee59626-fe82-4f18-835e-cb72b0697574",
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-09-05",
+    "status": "SENDT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": "Hogwarts School of Witchcraft and Wizardry",
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": {
+      "navn": "Hogwarts School of Witchcraft and Wizardry",
+      "virksomhetsnummer": "110110110",
+      "juridiskOrgnummer": "110110110"
+    },
+    "orgnummer": "110110110",
+    "sendtdato": "2018-10-18T13:07:34",
+    "sporsmal": {
+      "arbeidssituasjon": "ARBEIDSTAKER",
+      "dekningsgrad": null,
+      "harForsikring": null,
+      "fravaersperioder": [],
+      "harAnnetFravaer": null
+    },
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-09-05",
+          "tom": "2019-10-03",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-09-05",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-09-05",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "cd223f13-8a79-4e25-bd28-50e88ab54be6",
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-06-24",
+    "status": "SENDT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "",
+    "stillingsprosent": 0,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-06-24",
+          "tom": "2018-08-02",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-06-24",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-06-24",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "e9abeabb-7ac8-4513-9112-aeff1ae66829",
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-08-23",
+    "status": "BEKREFTET",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": "NAERINGSDRIVENDE",
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": "2018-10-18T13:15:09",
+    "sporsmal": {
+      "arbeidssituasjon": "NAERINGSDRIVENDE",
+      "dekningsgrad": 100,
+      "harForsikring": true,
+      "fravaersperioder": [],
+      "harAnnetFravaer": false
+    },
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-08-23",
+          "tom": "2018-08-27",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-08-23",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-08-23",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "0ba8ea3e-2bd1-4d03-b127-40a5535fcf93",
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-10-09",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-09",
+          "tom": "2018-10-17",
+          "grad": 50,
+          "behandlingsdager": null,
+          "reisetilskudd": true,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-09",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-09",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "0ba8ea3e-2bd1-4d03-b127-40a5535fcf96",
+    "startLegemeldtFravaer": "2018-10-09",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-10-09",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": null,
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": null,
+    "orgnummer": null,
+    "sendtdato": null,
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-10-09",
+          "tom": "2018-10-17",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": "denne er avventende"
+        }
+      ],
+      "aktivitetIkkeMulig433": ["Annet"],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-10-09",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2018-10-09",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-10-09",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "525df5c6-53e1-4b4b-92b6-4c306b7911f7",
+    "startLegemeldtFravaer": "2018-11-06",
+    "skalViseSkravertFelt": true,
+    "identdato": "2018-11-06",
+    "status": "SENDT",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": "Hogwarts School of Witchcraft and Wizardry",
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": {
+      "navn": "Hogwarts School of Witchcraft and Wizardry",
+      "virksomhetsnummer": "110110110",
+      "juridiskOrgnummer": "110110110"
+    },
+    "orgnummer": "110110110",
+    "sendtdato": "2018-11-15T10:49:03",
+    "sporsmal": null,
+    "pasient": {
+      "fnr": "110110110110",
+      "fornavn": "Severus",
+      "mellomnavn": "",
+      "etternavn": "Snape"
+    },
+    "arbeidsgiver": "Hogwarts School of Witchcraft and Wizardry",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2018-11-11",
+          "tom": "2019-02-03",
+          "grad": 100,
+          "behandlingsdager": null,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": [],
+      "aktivitetIkkeMulig434": ["Annet"],
+      "aarsakAktivitetIkkeMulig433": null,
+      "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2018-11-11",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": null,
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2018-11-06",
+      "sykmelder": "Helen Flood",
+      "sykmelderTlf": "113"
+    }
+  },
+  {
+    "id": "8f316709-0d73-4491-8721-c40b616038f8",
+    "startLegemeldtFravaer": "2020-01-20",
+    "skalViseSkravertFelt": true,
+    "identdato": "2020-01-03",
+    "status": "NY",
+    "naermesteLederStatus": null,
+    "innsendtArbeidsgivernavn": "LØNNS- OG REGNSKAPSSENTERET",
+    "valgtArbeidssituasjon": null,
+    "mottakendeArbeidsgiver": {
+      "navn": "LØNNS- OG REGNSKAPSSENTERET",
+      "virksomhetsnummer": "974739410",
+      "juridiskOrgnummer": "964338531"
+    },
+    "orgnummer": "974739410",
+    "sendtdato": "2020-01-27T11:56:06",
+    "sporsmal": {
+      "arbeidssituasjon": "ARBEIDSTAKER",
+      "harForsikring": null,
+      "fravaersperioder": [],
+      "harAnnetFravaer": null
+    },
+    "pasient": {
+      "fnr": "16086801683",
+      "fornavn": "Frida",
+      "mellomnavn": "Perma",
+      "etternavn": "Frost"
+    },
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "stillingsprosent": 100,
+    "diagnose": {
+      "hoveddiagnose": null,
+      "bidiagnoser": [],
+      "fravaersgrunnLovfestet": null,
+      "fravaerBeskrivelse": null,
+      "svangerskap": null,
+      "yrkesskade": null,
+      "yrkesskadeDato": null
+    },
+    "mulighetForArbeid": {
+      "perioder": [
+        {
+          "fom": "2020-01-03",
+          "tom": "2020-01-26",
+          "grad": null,
+          "behandlingsdager": 4,
+          "reisetilskudd": null,
+          "avventende": null
+        }
+      ],
+      "aktivitetIkkeMulig433": null,
+      "aktivitetIkkeMulig434": null,
+      "aarsakAktivitetIkkeMulig433": null,
+      "aarsakAktivitetIkkeMulig434": null
+    },
+    "friskmelding": {
+      "arbeidsfoerEtterPerioden": true,
+      "hensynPaaArbeidsplassen": "Må ta det pent",
+      "antarReturSammeArbeidsgiver": true,
+      "antattDatoReturSammeArbeidsgiver": "2020-01-01",
+      "antarReturAnnenArbeidsgiver": true,
+      "tilbakemeldingReturArbeid": "2020-01-01",
+      "utenArbeidsgiverAntarTilbakeIArbeid": false,
+      "utenArbeidsgiverAntarTilbakeIArbeidDato": null,
+      "utenArbeidsgiverTilbakemelding": null
+    },
+    "utdypendeOpplysninger": {
+      "sykehistorie": null,
+      "paavirkningArbeidsevne": null,
+      "resultatAvBehandling": null,
+      "henvisningUtredningBehandling": null,
+      "grupper": []
+    },
+    "arbeidsevne": {
+      "tilretteleggingArbeidsplass": "Fortsett som sist.",
+      "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+      "tiltakAndre": null
+    },
+    "meldingTilNav": {
+      "navBoerTaTakISaken": false,
+      "navBoerTaTakISakenBegrunnelse": null
+    },
+    "innspillTilArbeidsgiver": null,
+    "tilbakedatering": {
+      "dokumenterbarPasientkontakt": null,
+      "tilbakedatertBegrunnelse": null
+    },
+    "bekreftelse": {
+      "utstedelsesdato": "2019-12-31",
+      "sykmelder": "Frida Perma Frost",
+      "sykmelderTlf": "94431152"
+    }
+  }
 ]

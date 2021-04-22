@@ -17,7 +17,7 @@ export const getNarmesteLederUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://narmesteleder.intern.nav.no';
+        return 'https://narmesteleder.nav.no';
     }
     if (erFlexDockerCompose()) {
         return 'http://localhost:6998/api/v1/syforest';

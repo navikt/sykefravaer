@@ -38,7 +38,7 @@ describe('ledereSagas', () => {
         });
 
         it('skal dernest poste avkreft', () => {
-            const nextCall = call(post, 'https://narmesteleder.dev.nav.no/orgnummer/avkreft');
+            const nextCall = call(post, '/syforest/naermesteledere/orgnummer/actions/avkreft');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

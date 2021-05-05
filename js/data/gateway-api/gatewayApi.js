@@ -176,11 +176,11 @@ export const hentSpinnsynBackendUrl = () => {
         : '';
     if (erProduksjon()) {
         // Prod
-        return 'https://flex-gateway.nav.no/spinnsyn-backend/api/v1/vedtak';
+        return 'https://flex-gateway.nav.no/spinnsyn-backend/api/v2/vedtak';
     }
     if (erFlexDockerCompose()) {
         // docker compose
-        return 'http://localhost:33333/spinnsyn-backend/api/v1/vedtak';
+        return 'http://localhost:33333/spinnsyn-backend/api/v2/vedtak';
     }
     if (erNaisLabsDemo()) {
         // Nais labs
@@ -191,7 +191,7 @@ export const hentSpinnsynBackendUrl = () => {
         return 'http://localhost:8080/vedtak';
     }
     // Preprod
-    return 'https://flex-gateway.dev.nav.no/spinnsyn-backend/api/v1/vedtak';
+    return 'https://flex-gateway.dev.nav.no/spinnsyn-backend/api/v2/vedtak';
 };
 
 export const API_NAVN = {

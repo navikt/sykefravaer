@@ -29,7 +29,7 @@ describe('vedtakSagas', () => {
         });
 
         it('Skal dernest hente vedtak', () => {
-            const nextCall = call(get, 'https://flex-gateway.dev.nav.no/spinnsyn-backend/api/v1/vedtak');
+            const nextCall = call(get, 'https://flex-gateway.dev.nav.no/spinnsyn-backend/api/v2/vedtak');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

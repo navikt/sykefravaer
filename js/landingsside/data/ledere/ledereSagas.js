@@ -3,7 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { get, log, post } from '../../../digisyfoNpm';
 import * as actions from './ledereActions';
-import { erFlexDockerCompose, erNaisLabsDemo, getSyforestRoot } from '../../../utils/urlUtils';
+import { erFlexDockerCompose, erNaisLabsDemo } from '../../../utils/urlUtils';
 
 const { AVKREFT_LEDER_FORESPURT, HENT_LEDERE_FORESPURT } = actions;
 
@@ -31,9 +31,10 @@ export const getNarmesteLederUrl = () => {
 };
 
 export function* hentLedere() {
+    const url = getNarmesteLederUrl();
     yield put(actions.henterLedere());
     try {
-        const data = yield call(get, `${getSyforestRoot()}/naermesteledere`);
+        const data = yield call(get, `${url}/syforest/narmesteledere`);
         yield put(actions.ledereHentet(data));
     } catch (e) {
         log(e);

@@ -16,7 +16,7 @@ describe('ledereSagas', () => {
         });
 
         it('Skal dernest hente ledere', () => {
-            const nextCall = call(get, '/syforest/naermesteledere');
+            const nextCall = call(get, 'https://narmesteleder.dev.nav.no/syforest/narmesteledere');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

@@ -9,6 +9,7 @@ const mockSyfounleash = require('./mockSyfounleash');
 const mockVeilarboppfolging = require('./mockVeilarboppfolging');
 const mockVeilarbregistrering = require('./mockVeilarbregistrering');
 const mockSmSykmeldinger = require('./mockSmSykmeldinger');
+const mockNarmesteleder = require('./mockNarmesteleder');
 const mockSpinnsynBackend = require('./mockSpinnsynBackend');
 const mockRegistrerEgenSykmelding = require('./mockEgenSykmelding');
 const mockSykmeldingerBackend = require('./mockSykmeldingerBackend');
@@ -34,6 +35,7 @@ function mockEndepunkter(server, erLokal) {
         mockSyfosoknad,
         mockSyfounleash,
         mockVeilarboppfolging,
+        mockNarmesteleder,
         mockVeilarbregistrering,
         mockSmSykmeldinger,
         mockSpinnsynBackend,

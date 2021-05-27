@@ -90,7 +90,7 @@ export const getSykmeldingerFrontendUrl = () => {
         return process.env.REACT_APP_CONTEXT_ROOT;
     }
     // Preprod
-    return 'https://www-qcp.dev.nav.no/syk';
+    return 'https://www-gcp.dev.nav.no/syk';
 };
 
 export const NySykmelding = ({ sykmeldinger, toggleNySmFrontend }) => {

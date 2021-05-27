@@ -38,6 +38,7 @@ import {
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { smSykmeldingerPt } from '../../propTypes/smSykmeldingProptypes';
 import { selectSykepengerVarsel } from '../../data/sykepengerVarsel/sykepengerVarselSelectors';
+import { toggleSykmeldingerFrontend } from '../../data/unleash-toggles/unleashTogglesSelectors';
 
 const Li = ({ tekst, url, img, imgAlt }) => {
     return (
@@ -57,20 +58,45 @@ Li.propTypes = {
     imgAlt: PropTypes.string,
 };
 
-export const EksternLi = ({ tekst, url }) => {
+export const EksternLi = ({ tekst, url, img, imgAlt }) => {
     return (
         <li>
-            <a href={url}>{tekst}</a>
+            {img && <img src={img} alt={imgAlt} className="inngangsliste__ikon" />}
+            <span>
+                <a href={url}>{tekst}</a>
+            </span>
         </li>
     );
 };
 
 EksternLi.propTypes = Li.propTypes;
 
-export const NySykmelding = ({ sykmeldinger }) => {
+export const getSykmeldingerFrontendUrl = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+
+    if (url.indexOf('tjenester.nav') > -1) {
+        // Prod
+        return 'https://www.nav.no/syk';
+    }
+    // if (erFlexDockerCompose()) {
+    //     return 'http://localhost:6998/api/v1/syforest';
+    // }
+    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+        // Lokalt
+        return process.env.REACT_APP_CONTEXT_ROOT;
+    }
+    // Preprod
+    return 'https://www-gcp.dev.nav.no/syk';
+};
+
+export const NySykmelding = ({ sykmeldinger, toggleNySmFrontend }) => {
     const url = sykmeldinger.length === 1
-        ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}`
-        : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
+        ? `${toggleNySmFrontend ? getSykmeldingerFrontendUrl() : process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${sykmeldinger[0].id}`
+        : `${toggleNySmFrontend ? getSykmeldingerFrontendUrl() : process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
 
     const tekst = sykmeldinger.length === 1
         ? `Du har 1 ny ${
@@ -84,22 +110,36 @@ export const NySykmelding = ({ sykmeldinger }) => {
                 : 'sykmeldinger'
         }`;
 
+    if (toggleNySmFrontend) {
+        return <EksternLi url={url} tekst={tekst} />;
+    }
     return <Li url={url} tekst={tekst} />;
 };
 
 NySykmelding.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
+    toggleNySmFrontend: PropTypes.bool,
 };
 
-export const AvvistSmSykmelding = ({ smSykmeldinger }) => {
+export const AvvistSmSykmelding = ({ smSykmeldinger, toggleNySmFrontend }) => {
     const url = smSykmeldinger.length === 1
-        ? `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${smSykmeldinger[0].id}`
-        : `${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
+        ? `${toggleNySmFrontend ? getSykmeldingerFrontendUrl() : process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger/${smSykmeldinger[0].id}`
+        : `${toggleNySmFrontend ? getSykmeldingerFrontendUrl() : process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`;
     const tekst = smSykmeldinger.length === 1
         ? getLedetekst('dine-oppgaver.sm-sykmeldinger.en-avvist-sykmelding')
         : getLedetekst('dine-oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
             '%ANTALL%': smSykmeldinger.length.toString(),
         });
+    if (toggleNySmFrontend) {
+        return (
+            <EksternLi
+                url={url}
+                tekst={tekst}
+                img="/sykefravaer/img/svg/report-problem-triangle-red.svg"
+                imgAlt="Utropstegn"
+            />
+        );
+    }
     return (
         <Li
             url={url}
@@ -112,6 +152,7 @@ export const AvvistSmSykmelding = ({ smSykmeldinger }) => {
 
 AvvistSmSykmelding.propTypes = {
     smSykmeldinger: smSykmeldingerPt,
+    toggleNySmFrontend: PropTypes.bool,
 };
 
 export const NySykepengesoknad = ({ soknader }) => {
@@ -202,6 +243,7 @@ const RendreOppgaver = ({
     nyePlaner,
     visAktivitetskrav,
     avvisteSmSykmeldinger = [],
+    toggleSmFrontend,
 }) => {
     if (!visOppgaver) {
         return null;
@@ -222,10 +264,10 @@ const RendreOppgaver = ({
                 </h2>
                 <ul className="inngangsliste">
                     {sykmeldinger.length > 0 && (
-                        <NySykmelding sykmeldinger={sykmeldinger} />
+                        <NySykmelding sykmeldinger={sykmeldinger} toggleNySmFrontend={toggleSmFrontend} />
                     )}
                     {avvisteSmSykmeldinger.length > 0 && (
-                        <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} />
+                        <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} toggleNySmFrontend={toggleSmFrontend} />
                     )}
                     {(soknader.length > 0) && (
                         <NySykepengesoknad
@@ -283,6 +325,7 @@ RendreOppgaver.propTypes = {
     visSykepengerVarsel: PropTypes.bool,
     visAktivitetskrav: PropTypes.bool,
     avvisteSmSykmeldinger: smSykmeldingerPt,
+    toggleSmFrontend: PropTypes.bool,
 };
 
 export class DineOppgaverComponent extends Component {
@@ -318,6 +361,7 @@ DineOppgaverComponent.propTypes = {
     visOppgaver: PropTypes.bool,
     doHentDineSykmeldinger: PropTypes.func,
     doHentHendelser: PropTypes.func,
+    toggleSmFrontend: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
@@ -390,6 +434,7 @@ export const mapStateToProps = (state) => {
         hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav,
         avvisteSmSykmeldinger,
+        toggleSmFrontend: toggleSykmeldingerFrontend(state),
     };
 };
 

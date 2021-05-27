@@ -10,4 +10,4 @@ export const NY_ARBEIDSTAKERSOKNAD = 'syfo.ag.soknad.ny.platform';
 export const NYTT_SYKMELDINGSMOTTAK = 'syfo.syfofront.nytt.sykmeldingsmottak';
 export const NGINX_PROXY = 'syfo.syfofront.nginx';
 export const SYKMELDINGER_BACKEND = 'syfo.syfofront.sykmeldinger.backend';
-export const SYKMELDINGER_FRONTEND = 'syfo.syfofrong.sykmeldinger.frontend';
+export const SYKMELDINGER_FRONTEND = 'syfo.syfofront.sykmeldinger.frontend';

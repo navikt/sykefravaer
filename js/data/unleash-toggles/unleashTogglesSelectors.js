@@ -47,7 +47,7 @@ export const toggleSykmeldingerBackend = (state) => {
         && state.unleashToggles.data[SYKMELDINGER_BACKEND] === true;
 };
 
-export const toggleSykmeldingerBackend = (state) => {
+export const toggleSykmeldingerFrontend = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[SYKMELDINGER_FRONTEND] === true;
 };

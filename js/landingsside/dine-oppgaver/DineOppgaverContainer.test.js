@@ -328,7 +328,7 @@ describe('DineOppgaverComponent', () => {
                 expect(component.find('a').at(1).text()).to.equal('Du har 2 nye søknader');
             });
 
-            it.skip('Skal vise en lenke til din sykmelding hvis det er én søknad', () => {
+            it('Skal vise en lenke til din sykmelding hvis det er én søknad', () => {
                 component = mount(<DineOppgaverComponent
                     sykmeldingerHentet
                     oppfolgingsdialogerHentet
@@ -342,7 +342,7 @@ describe('DineOppgaverComponent', () => {
                 expect(component.find(Link).at(0).text()).to.equal('Du har 1 ny sykmelding');
             });
 
-            it.skip('Skal vise en lenke til dine sykmeldinger hvis det er flere sykmeldinger', () => {
+            it('Skal vise en lenke til dine sykmeldinger hvis det er flere sykmeldinger', () => {
                 component = mount(<DineOppgaverComponent
                     sykmeldingerHentet
                     oppfolgingsdialogerHentet

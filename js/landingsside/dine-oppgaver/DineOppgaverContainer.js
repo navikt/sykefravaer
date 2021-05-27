@@ -264,7 +264,7 @@ const RendreOppgaver = ({
                 </h2>
                 <ul className="inngangsliste">
                     {sykmeldinger.length > 0 && (
-                        <NySykmelding sykmeldinger={sykmeldinger} toggleNySmFrontend={toggleSykmeldingerFrontend} />
+                        <NySykmelding sykmeldinger={sykmeldinger} toggleNySmFrontend={toggleSmFrontend} />
                     )}
                     {avvisteSmSykmeldinger.length > 0 && (
                         <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} toggleNySmFrontend={toggleSmFrontend} />
@@ -361,6 +361,7 @@ DineOppgaverComponent.propTypes = {
     visOppgaver: PropTypes.bool,
     doHentDineSykmeldinger: PropTypes.func,
     doHentHendelser: PropTypes.func,
+    toggleSmFrontend: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {

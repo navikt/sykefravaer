@@ -26,6 +26,7 @@ import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { hentSykeforloepMetadata } from '../../data/sykeforloep-metadata/sykeforloepMetadata_actions';
+import { toggleSykmeldingerFrontend } from '../../data/unleash-toggles/unleashTogglesSelectors';
 
 export class Container extends Component {
     componentWillMount() {
@@ -93,6 +94,7 @@ export class Container extends Component {
             skalViseOppfolgingsdialog,
             skalViseAktivitetsplan,
             sykeforloepMetadata,
+            toggleSmFrontend,
         } = this.props;
         const Sidetype = hentingFeilet ? Side : SideStrippet;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
@@ -117,6 +119,7 @@ export class Container extends Component {
                                 skalViseOppfolgingsdialog={skalViseOppfolgingsdialog}
                                 skalViseAktivitetsplan={skalViseAktivitetsplan}
                                 sykeforloepMetadata={sykeforloepMetadata}
+                                toggleSmFrontend={toggleSmFrontend}
                             />
                         );
                     })()
@@ -154,6 +157,7 @@ Container.propTypes = {
     doHentSykmeldtinfodata: PropTypes.func,
     doHentSmSykmeldinger: PropTypes.func,
     sykeforloepMetadata: sykeforloepMetadataPt,
+    toggleSmFrontend: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
@@ -202,6 +206,7 @@ export function mapStateToProps(state) {
             sti: '/',
         }],
         sykeforloepMetadata: state.sykeforloepMetadata,
+        toggleSmFrontend: toggleSykmeldingerFrontend(state),
     };
 }
 

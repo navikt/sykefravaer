@@ -6,7 +6,7 @@ import { getLedetekst } from '../../digisyfoNpm';
 import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';
-import DineOppgaverContainer from '../dine-oppgaver/DineOppgaverContainer';
+import DineOppgaverContainer, { getSykmeldingerFrontendUrl } from '../dine-oppgaver/DineOppgaverContainer';
 import DinSituasjonContainer from '../din-situasjon/DinSituasjonContainer';
 import ServerfeilContainer from '../ai-ai-ai/AiAiAiContainer';
 import DetteHarSkjeddContainer from '../dette-har-skjedd/DetteHarSkjeddContainer';
@@ -59,10 +59,31 @@ const logAndRedirect = (e, sykeforloepMetadata) => {
         .then((_) => { window.location.href = href; });
 };
 
+function getSykmeldingerPeker(toggle) {
+    if (toggle) {
+        return (
+            <Peker
+                ekstern
+                to={`${getSykmeldingerFrontendUrl()}/sykmeldinger`}
+                ikon="sykmeldinger"
+                ikonAlt="Sykmelding"
+                tittel="Sykmeldinger" />
+        );
+    }
+
+    return (
+        <Peker
+            to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`}
+            ikon="sykmeldinger"
+            ikonAlt="Sykmelding"
+            tittel="Sykmeldinger" />
+    );
+}
+
 const Landingsside = ({
     brodsmuler, harSykepengesoknader, harVedtak, harDialogmote, harSykmeldinger,
     skalViseMotebehov, skalViseOppfolgingsdialog, skalViseAktivitetsplan,
-    sykeforloepMetadata,
+    sykeforloepMetadata, toggleSmFrontend,
 }) => {
     return (
         <React.Fragment>
@@ -90,11 +111,7 @@ const Landingsside = ({
                         hvis={harSykmeldinger}
                         render={() => {
                             return (
-                                <Peker
-                                    to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`}
-                                    ikon="sykmeldinger"
-                                    ikonAlt="Sykmelding"
-                                    tittel="Sykmeldinger" />
+                                getSykmeldingerPeker(toggleSmFrontend)
                             );
                         }} />
                     <Vis
@@ -185,6 +202,7 @@ Landingsside.propTypes = {
     skalViseMotebehov: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     sykeforloepMetadata: sykeforloepMetadataPt,
+    toggleSmFrontend: PropTypes.bool,
 };
 
 export default Landingsside;

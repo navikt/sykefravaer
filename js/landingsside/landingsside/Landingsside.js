@@ -6,7 +6,7 @@ import { getLedetekst } from '../../digisyfoNpm';
 import { visInfotekst } from '../../utils/landingssideInfotekstUtils';
 import Peker from './Peker';
 import { brodsmule as brodsmulePt, sykeforloepMetadataPt } from '../../propTypes/index';
-import DineOppgaverContainer, {getSykmeldingerFrontendUrl} from '../dine-oppgaver/DineOppgaverContainer';
+import DineOppgaverContainer, { getSykmeldingerFrontendUrl } from '../dine-oppgaver/DineOppgaverContainer';
 import DinSituasjonContainer from '../din-situasjon/DinSituasjonContainer';
 import ServerfeilContainer from '../ai-ai-ai/AiAiAiContainer';
 import DetteHarSkjeddContainer from '../dette-har-skjedd/DetteHarSkjeddContainer';
@@ -61,23 +61,23 @@ const logAndRedirect = (e, sykeforloepMetadata) => {
 
 function getSykmeldingerPeker(toggle) {
     if (toggle) {
-        return(
+        return (
             <Peker
                 ekstern
                 to={`${getSykmeldingerFrontendUrl()}/sykmeldinger`}
                 ikon="sykmeldinger"
                 ikonAlt="Sykmelding"
                 tittel="Sykmeldinger" />
-        )
+        );
     }
 
-    return(
+    return (
         <Peker
             to={`${process.env.REACT_APP_CONTEXT_ROOT}/sykmeldinger`}
             ikon="sykmeldinger"
             ikonAlt="Sykmelding"
             tittel="Sykmeldinger" />
-    )
+    );
 }
 
 const Landingsside = ({

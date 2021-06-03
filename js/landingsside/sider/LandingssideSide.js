@@ -26,7 +26,7 @@ import { REDIRECT_ETTER_LOGIN } from '../../data/gateway-api/gatewayApi';
 import { hentSmSykmeldinger } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerActions';
 import { avvisteSmSykmeldingerDataSelector } from '../../sykmeldinger/data/sm-sykmeldinger/smSykmeldingerSelectors';
 import { hentSykeforloepMetadata } from '../../data/sykeforloep-metadata/sykeforloepMetadata_actions';
-import {toggleSykmeldingerFrontend} from '../../data/unleash-toggles/unleashTogglesSelectors';
+import { toggleSykmeldingerFrontend } from '../../data/unleash-toggles/unleashTogglesSelectors';
 
 export class Container extends Component {
     componentWillMount() {

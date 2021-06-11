@@ -32,16 +32,22 @@ export const erFlexDockerCompose = () => {
 
 
 export const getSykepengesoknaderUrl = () => {
+    const url = window
+    && window.location
+    && window.location.href
+        ? window.location.href
+        : '';
+    if (url.indexOf('tjenester.nav') > -1) {
+        // prod
+        return 'https://www.nav.no/syk/sykepengesoknad';
+    }
     if (erNaisLabsDemo()) {
         return 'https://sykepengesoknad.labs.nais.io';
     }
     if (erFlexDockerCompose()) {
         return 'http://localhost:2020';
     }
-    if (erDevGcp()) {
-        return 'https://www-gcp.dev.nav.no/syk/sykepengesoknad';
-    }
-    return '/sykepengesoknad';
+    return 'https://www-gcp.dev.nav.no/syk/sykepengesoknad';
 };
 
 export const getSyforestRoot = () => {

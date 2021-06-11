@@ -310,7 +310,7 @@ describe('DineOppgaverComponent', () => {
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
-                expect(component.find('a').at(1).prop('href')).to.equal('/sykepengesoknad/soknader/1');
+                expect(component.find('a').at(1).prop('href')).to.equal('https://www-gcp.dev.nav.no/syk/sykepengesoknad/soknader/1');
                 expect(component.find('a').at(1).text()).to.equal('Du har 1 ny søknad');
             });
 
@@ -324,7 +324,7 @@ describe('DineOppgaverComponent', () => {
                     sykmeldinger={[{}, {}]}
                     avventendeGodkjenninger={[]}
                     nyePlaner={[]} />);
-                expect(component.find('a').at(1).prop('href')).to.equal('/sykepengesoknad');
+                expect(component.find('a').at(1).prop('href')).to.equal('https://www-gcp.dev.nav.no/syk/sykepengesoknad');
                 expect(component.find('a').at(1).text()).to.equal('Du har 2 nye søknader');
             });
 

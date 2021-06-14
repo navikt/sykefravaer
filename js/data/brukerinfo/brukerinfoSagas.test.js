@@ -23,7 +23,7 @@ describe('brukerinfoSagas', () => {
         });
 
         it('Skal dernest hente brukerinfo', () => {
-            const nextCall = call(get, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/syforest/brukerinformasjon');
+            const nextCall = call(get, 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/syforest/brukerinformasjon');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

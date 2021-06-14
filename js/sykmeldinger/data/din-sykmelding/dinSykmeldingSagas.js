@@ -39,7 +39,7 @@ const getSykmeldingerBackendUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://sykmeldinger-backend-proxy.nav.no/api/v1/sykmeldinger';
+        return 'https://sykmelding-gateway.nav.no/sykmeldinger-backend/api/v1/sykmeldinger';
     }
     if (url.indexOf('localhost:2027') > -1) {
         return 'http://localhost:6998/api/v1/sykmeldinger';
@@ -52,7 +52,7 @@ const getSykmeldingerBackendUrl = () => {
         return '/sykmeldinger-backend';
     }
     // Preprod
-    return 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger';
+    return 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/sykmeldinger';
 };
 
 export function* bekreftSykmelding(action) {

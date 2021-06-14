@@ -32,7 +32,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest bekrefte sykmeldingen', () => {
-            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
+            const nextCall = call(post, 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/sykmeldinger/123/bekreft', {
                 sporsmalOgSvarListe: [{
                     tekst: 'Jeg er sykmeldt fra',
                     shortName: 'ARBEIDSSITUASJON',
@@ -89,7 +89,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest bekrefte sykmeldingen', () => {
-            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/123/bekreft', {
+            const nextCall = call(post, 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/sykmeldinger/123/bekreft', {
                 sporsmalOgSvarListe: [{
                     tekst: 'Jeg er sykmeldt fra',
                     shortName: 'ARBEIDSSITUASJON',
@@ -157,7 +157,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest sende sykmeldingen', () => {
-            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minSykmeldingId/send', {
+            const nextCall = call(post, 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/sykmeldinger/minSykmeldingId/send', {
                 feilaktigeOpplysninger: {
                     sykmeldingsgrad: true,
                 },
@@ -185,7 +185,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest avbryte sykmeldingen', () => {
-            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minAndreSykmeldingId/avbryt');
+            const nextCall = call(post, 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/sykmeldinger/minAndreSykmeldingId/avbryt');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -208,7 +208,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest gjenaapne sykmeldingen', () => {
-            const nextCall = call(post, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/sykmeldinger/minAndreSykmeldingId/gjenapne');
+            const nextCall = call(post, 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/sykmeldinger/minAndreSykmeldingId/gjenapne');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

@@ -27,7 +27,7 @@ export const getSykmeldingerBackendUrl = () => {
 
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://sykmeldinger-backend-proxy.nav.no/api/v1/syforest';
+        return 'https://sykmelding-gateway.nav.no/sykmeldinger-backend/api/v1/syforest';
     }
     if (erFlexDockerCompose()) {
         return 'http://localhost:6998/api/v1/syforest';
@@ -37,7 +37,7 @@ export const getSykmeldingerBackendUrl = () => {
         return '/sykmeldinger-backend';
     }
     // Preprod
-    return 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/syforest';
+    return 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/syforest';
 };
 
 export function* oppdaterDineSykmeldinger() {

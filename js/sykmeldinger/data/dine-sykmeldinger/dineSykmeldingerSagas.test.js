@@ -22,7 +22,7 @@ describe('dineSykmeldingerSagas', () => {
         });
 
         it('Skal dernest hente dine sykmeldinger', () => {
-            const nextCall = call(get, 'https://sykmeldinger-backend-proxy.dev.nav.no/api/v1/syforest/sykmeldinger');
+            const nextCall = call(get, 'https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend/api/v1/syforest/sykmeldinger');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

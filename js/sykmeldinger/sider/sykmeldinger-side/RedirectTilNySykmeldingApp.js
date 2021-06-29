@@ -14,7 +14,10 @@ class RedirectTilNySykmeldingApp extends React.Component {
         }
 
         return (
-            <div>Sender deg til ny sykmeldinger nettside...</div>
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                <h1>Denne siden er ikke lengre i bruk</h1>
+                <p>Vi videresender deg til den oppdaterte siden</p>
+            </div>
         );
     }
 }

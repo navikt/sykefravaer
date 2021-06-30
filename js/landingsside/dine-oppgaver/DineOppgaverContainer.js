@@ -82,10 +82,12 @@ export const getSykmeldingerFrontendUrl = () => {
         // Prod
         return 'https://www.nav.no/syk';
     }
-    // if (erFlexDockerCompose()) {
-    //     return 'http://localhost:6998/api/v1/syforest';
-    // }
-    if (url.indexOf('localhost') > -1 || erNaisLabsDemo()) {
+
+    if (erNaisLabsDemo()) {
+        return 'https://sykmeldinger.labs.nais.io/syk';
+    }
+
+    if (url.indexOf('localhost') > -1) {
         // Lokalt
         return process.env.REACT_APP_CONTEXT_ROOT;
     }
@@ -267,7 +269,9 @@ const RendreOppgaver = ({
                         <NySykmelding sykmeldinger={sykmeldinger} toggleNySmFrontend={toggleSmFrontend} />
                     )}
                     {avvisteSmSykmeldinger.length > 0 && (
-                        <AvvistSmSykmelding smSykmeldinger={avvisteSmSykmeldinger} toggleNySmFrontend={toggleSmFrontend} />
+                        <AvvistSmSykmelding
+                            smSykmeldinger={avvisteSmSykmeldinger}
+                            toggleNySmFrontend={toggleSmFrontend} />
                     )}
                     {(soknader.length > 0) && (
                         <NySykepengesoknad
@@ -406,28 +410,28 @@ export const mapStateToProps = (state) => {
             return smSykmelding.sykmeldingStatus.statusEvent === 'APEN';
         });
     const visOppgaver = sykmeldinger.length > 0
-    || soknader.length > 0
-    || reisetilskuddSoknader.length > 0
-    || moteRes !== null
-    || harNyttMotebehov
-    || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0
-    || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0
-    || visAktivitetskrav
-    || avvisteSmSykmeldinger.length > 0;
+        || soknader.length > 0
+        || reisetilskuddSoknader.length > 0
+        || moteRes !== null
+        || harNyttMotebehov
+        || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0
+        || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0
+        || visAktivitetskrav
+        || avvisteSmSykmeldinger.length > 0;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
         sykmeldingerHentingFeilet:
-      state.dineSykmeldinger.hentingFeilet
-      || state.oppfolgingsdialoger.hentingFeilet,
+            state.dineSykmeldinger.hentingFeilet
+            || state.oppfolgingsdialoger.hentingFeilet,
         soknader,
         reisetilskuddSoknader,
         visOppgaver,
         mote: moteRes,
         visSykepengerVarsel: selectSykepengerVarsel(state),
         avventendeGodkjenninger:
-      _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
+        _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
         nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
         harNyttMotebehov,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,

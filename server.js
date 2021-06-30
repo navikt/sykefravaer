@@ -30,6 +30,15 @@ const server = express();
 const env = process.argv[2];
 const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
+// Logg alle innkommende lenker til gammel sykmeldinger del av appen
+server.use((req, res, next) => {
+    if (req.path.includes('/sykefravaer/sykmeldinger')) {
+        console.warn(`Innkommende lenke fra referer: ${req.headers.referer || 'Ikke satt'}`);
+    }
+
+    next();
+});
+
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());

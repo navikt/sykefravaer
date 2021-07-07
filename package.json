@@ -23,7 +23,7 @@
     "start-opplaering": "node ./server.js opplaering",
     "start-local": "node ./server.js local",
     "scripts:watch": "webpack-dev-server --inline --port 9090",
-    "dev": "npm-run-all clean images filmtekster filmer scripts:watch",
+    "dev": "npm-run-all images filmtekster filmer scripts:watch",
     "deploy": "node deploy.js"
   },
   "author": "DigiSyfo <digisyfo@nav.no>",

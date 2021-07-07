@@ -109,9 +109,9 @@ class ArbeidsrettetOppfolging extends Component {
                             )}
                             {harArbeidsgiver && <br />}
                             <Normaltekst>
-                                Vær oppmerksom på at du ikke går automatisk over på arbeidsavklaringspenger, du må selv søke om det.
+                                Vær oppmerksom på at du ikke går automatisk over på arbeidsavklaringspenger, du må selv søke om det. Les mer på
                                 {' '}
-                                <Lenke href="https://www.nav.no/person/kontakt-oss/nb/">Hør gjerne med en veileder i NAV.</Lenke>
+                                <Lenke href="https://www.nav.no/etter-sykepenger">nav.no/etter-sykepenger</Lenke>
                             </Normaltekst>
                             <br />
                             <Normaltekst>
